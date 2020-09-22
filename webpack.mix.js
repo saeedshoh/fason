@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,8 +11,12 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+// .postCss('resources/css/app.css', 'public/css', [
+
+// ]);
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .js('resources/js/dashboard/app.js', 'public/js/dashboard')
+    .sass('resources/sass/app.scss', 'public/css/dashboard')
+    .sass('resources/sass/dashboard/theme.scss', 'public/css/dashboard')
+    .purgeCss()
