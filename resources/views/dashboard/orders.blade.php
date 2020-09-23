@@ -2158,560 +2158,239 @@
     <!-- MAIN CONTENT
     ================================================== -->
     <div class="main-content">
+
       
 
-      <!-- HEADER -->
-      <div class="header bg-dark pb-5">
-        <div class="container-fluid">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-12">
 
-          <!-- Body -->
-          <div class="header-body">
-            <div class="row align-items-end">
-              <div class="col">
+            <!-- Header -->
+            <div class="header">
+              <div class="header-body">
+                <div class="row align-items-center">
+                  <div class="col">
 
-                <!-- Pretitle -->
-                <h6 class="header-pretitle text-secondary">
-                  Annual
-                </h6>
+                    <!-- Pretitle -->
+                    <h6 class="header-pretitle">
+                      Overview
+                    </h6>
 
-                <!-- Title -->
-                <h1 class="header-title text-white">
-                  Audience
-                </h1>
+                    <!-- Title -->
+                    <h1 class="header-title">
+                      Orders
+                    </h1>
 
+                  </div>
+                  <div class="col-auto">
+
+                    <!-- Button -->
+                    <a href="#" class="btn btn-primary lift">
+                      New order
+                    </a>
+
+                  </div>
+                </div> <!-- / .row -->
+                <div class="row align-items-center">
+                  <div class="col">
+
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                      <li class="nav-item">
+                        <a href="#!" class="nav-link active">
+                          All <span class="badge badge-pill badge-soft-secondary">823</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#!" class="nav-link">
+                          Pending <span class="badge badge-pill badge-soft-secondary">24</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#!" class="nav-link">
+                          Processing <span class="badge badge-pill badge-soft-secondary">3</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#!" class="nav-link">
+                          Refunded <span class="badge badge-pill badge-soft-secondary">71</span>
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
               </div>
-              <div class="col-auto">
-
-                <!-- Nav -->
-                <ul class="nav nav-tabs header-tabs">
-                  <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                    <a href="#" class="nav-link text-center active" data-toggle="tab">
-                      <h6 class="header-pretitle text-secondary">
-                        Customers
-                      </h6>
-                      <h3 class="text-white mb-0">
-                        73.2k
-                      </h3>
-                    </a>
-                  </li>
-                  <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="1">
-                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                      <h6 class="header-pretitle text-secondary">
-                        Sessions
-                      </h6>
-                      <h3 class="text-white mb-0">
-                        92.1k
-                      </h3>
-                    </a>
-                  </li>
-                  <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="2">
-                    <a href="#" class="nav-link text-center" data-toggle="tab">
-                      <h6 class="header-pretitle text-secondary">
-                        Conversion
-                      </h6>
-                      <h3 class="text-white mb-0">
-                        50.2%
-                      </h3>
-                    </a>
-                  </li>
-                </ul>
-
-              </div>
-            </div><!-- / .row -->
-          </div> <!-- / .header-body -->
-
-          <!-- Footer -->
-          <div class="header-footer">
-
-            <!-- Chart -->
-            <div class="chart">
-              <canvas id="audienceChart" class="chart-canvas"></canvas>
             </div>
 
-          </div>
-
-        </div>
-      </div> <!-- / .header -->
-
-      <!-- CARDS -->
-      <div class="container-fluid mt-n6">
-        <div class="row">
-          <div class="col-12 col-xl-8">
-
-            <!-- Orders -->
-            <div class="card">
+            <!-- Card -->
+            <div class="card" data-list='{"valueNames": ["orders-order", "orders-product", "orders-date", "orders-total", "orders-status", "orders-method"]}'>
               <div class="card-header">
 
-                <!-- Title -->
-                <h4 class="card-header-title">
-                  Orders
-                </h4>
+                <!-- Search -->
+                <form>
+                  <div class="input-group input-group-flush">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fe fe-search"></i>
+                      </span>
+                    </div>
+                    <input class="form-control list-search" type="search" placeholder="Search">
+                  </div>
+                </form>
 
-                <!-- Caption -->
-                <span class="text-muted mr-3">
-                  Show affiliate:
-                </span>
-
-                <!-- Switch -->
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="cardToggle" data-toggle="chart" data-target="#ordersChart" data-trigger="change" data-action="add" data-dataset="1" />
-                  <label class="custom-control-label" for="cardToggle"></label>
+                <!-- Dropdown -->
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Bulk action
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
+                    <a class="dropdown-item" href="#!">Action</a>
+                    <a class="dropdown-item" href="#!">Another action</a>
+                    <a class="dropdown-item" href="#!">Something else here</a>
+                  </div>
                 </div>
 
               </div>
-              <div class="card-body">
-
-                <!-- Chart -->
-                <div class="chart">
-                  <canvas id="ordersChart" class="chart-canvas"></canvas>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-xl-4">
-
-            <!-- Traffic -->
-            <div class="card">
-              <div class="card-header">
-
-                <!-- Title -->
-                <h4 class="card-header-title">
-                  Traffic Channels
-                </h4>
-
-                <!-- Tabs -->
-                <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-                  <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                    <a href="#" class="nav-link active" data-toggle="tab">
-                      All
-                    </a>
-                  </li>
-                  <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="1">
-                    <a href="#" class="nav-link" data-toggle="tab">
-                      Direct
-                    </a>
-                  </li>
-                </ul>
-
-              </div>
-              <div class="card-body">
-
-                <!-- Chart -->
-                <div class="chart chart-appended">
-                  <canvas id="trafficChart" class="chart-canvas" data-toggle="legend" data-target="#trafficChartLegend"></canvas>
-                </div>
-
-                <!-- Legend -->
-                <div id="trafficChartLegend" class="chart-legend"></div>
-
-              </div>
-            </div>
-
-          </div>
-        </div> <!-- / .row -->
-        <div class="row">
-          <div class="col-12 col-lg-6 col-xl">
-
-            <!-- Card -->
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Weekly Sales
-                    </h6>
-
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
-                      $24,500
-                    </span>
-
-                    <!-- Badge -->
-                    <span class="badge badge-soft-success mt-n1">
-                      +3.5%
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <!-- Icon -->
-                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
-
-            <!-- Card -->
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Orders Placed
-                    </h6>
-
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
-                      763.5
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <!-- Icon -->
-                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
-
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
-
-            <!-- Card -->
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Conversion Rate
-                    </h6>
-
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto">
-
-                        <!-- Heading -->
-                        <span class="h2 mr-2 mb-0">
-                          84.5%
-                        </span>
-
-                      </div>
-                      <div class="col">
-
-                        <!-- Progress -->
-                        <div class="progress progress-sm">
-                          <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                      </div>
-                    </div> <!-- / .row -->
-                  </div>
-                  <div class="col-auto">
-
-                    <!-- Icon -->
-                    <span class="h2 fe fe-clipboard text-muted mb-0"></span>
-
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
-
-            <!-- Card -->
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col">
-
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Avg. Value
-                    </h6>
-
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
-                      $85.50
-                    </span>
-
-                  </div>
-                  <div class="col-auto">
-
-                    <!-- Chart -->
-                    <div class="chart chart-sparkline">
-                      <canvas class="chart-canvas" id="sparklineChart"></canvas>
-                    </div>
-
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-            </div>
-
-          </div>
-        </div> <!-- / .row -->
-        <div class="row">
-          <div class="col-12 col-xl-4">
-
-            <!-- Activity -->
-            <div class="card-adjust-xl">
-              <div class="card">
-                <div class="card-header">
-
-                  <!-- Title -->
-                  <h4 class="card-header-title">
-                    Recent Activity
-                  </h4>
-
-                  <!-- Button -->
-                  <a class="small" href="#!">View all</a>
-
-                </div>
-                <div class="card-body">
-
-                  <!-- List group -->
-                  <div class="list-group list-group-flush list-group-activity my-n3">
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Dianna Smiley</strong> shared your post with Ab Hadley, Adolfo
-                            Hess, and 3 others.
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Ab Hadley</strong> reacted to your post with a 😍
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Adolfo Hess</strong> commented
-                            <blockquote class="mb-0">
-                              “I don’t think this really makes sense to do without approval from
-                              Johnathan since he’s the one...”
-                            </blockquote>
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Daniela Dewitt</strong> subscribed to you.
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-5.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Miyah Myles</strong> shared your post with Ryu Duke, Glen Rouse,
-                            and 3 others.
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                    <div class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto">
-
-                          <!-- Avatar -->
-                          <div class="avatar avatar-sm">
-                            <img src="./assets/img/avatars/profiles/avatar-6.jpg" alt="..." class="avatar-img rounded-circle" />
-                          </div>
-
-                        </div>
-                        <div class="col ml-n2">
-
-                          <!-- Content -->
-                          <div class="small">
-                            <strong>Ryu Duke</strong> reacted to your post with a 😍
-                          </div>
-
-                          <!-- Time -->
-                          <small class="text-muted">
-                            2m ago
-                          </small>
-
-                        </div>
-                      </div> <!-- / .row -->
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-12 col-xl-8">
-
-            <!-- Products -->
-            <div class="card">
-              <div class="card-header">
-
-                <!-- Title -->
-                <h4 class="card-header-title">
-                  Best Selling Products
-                </h4>
-
-                <!-- Button -->
-                <a href="#!" class="btn btn-sm btn-white">
-                  Export
-                </a>
-
-              </div>
-              <div class="table-responsive mb-0" data-list='{"valueNames": ["products-product", "products-stock", "products-price", "products-sales"]}' id="productsList">
-                <table class="table table-sm table-nowrap table-hover card-table">
+              <div class="table-responsive">
+                <table class="table table-sm table-nowrap card-table">
                   <thead>
                     <tr>
                       <th>
-                        <a href="#" class="text-muted list-sort" data-sort="products-product">
+
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox-all custom-control-input" name="ordersSelect" id="ordersSelectAll">
+                          <label class="custom-control-label" for="ordersSelectAll">&nbsp;</label>
+                        </div>
+
+                      </th>
+                      <th>
+                        <a href="#" class="text-muted list-sort" data-sort="orders-order">
+                          Order
+                        </a>
+                      </th>
+                      <th>
+                        <a href="#" class="text-muted list-sort" data-sort="orders-product">
                           Product
                         </a>
                       </th>
                       <th>
-                        <a href="#" class="text-muted list-sort" data-sort="products-stock">
-                          Stock
+                        <a href="#" class="text-muted list-sort" data-sort="orders-date">
+                          Date
                         </a>
                       </th>
                       <th>
-                        <a href="#" class="text-muted list-sort" data-sort="products-price">
-                          Price
+                        <a href="#" class="text-muted list-sort" data-sort="orders-total">
+                          Total
+                        </a>
+                      </th>
+                      <th>
+                        <a href="#" class="text-muted list-sort" data-sort="orders-status">
+                          Status
                         </a>
                       </th>
                       <th colspan="2">
-                        <a href="#" class="text-muted list-sort" data-sort="products-sales">
-                          Monthly Sales
+                        <a href="#" class="text-muted list-sort" data-sort="orders-method">
+                          Payment method
                         </a>
                       </th>
                     </tr>
                   </thead>
                   <tbody class="list">
                     <tr>
-                      <td class="products-product">
-                        <div class="d-flex align-items-center">
+                      <td>
 
-                          <!-- Image -->
-                          <div class="avatar">
-                            <img class="avatar-img rounded mr-3" src="assets/img/avatars/products/product-1.jpg" alt="..." />
-                          </div>
-
-                          <div class="ml-3">
-
-                            <!-- Heading -->
-                            <h4 class="font-weight-normal mb-1">Sketchpad</h4>
-
-                            <!-- Text -->
-                            <small class="text-muted">3" x 5" Size</small>
-
-                          </div>
-
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
                         </div>
+
                       </td>
-                      <td class="products-stock">
+                      <td class="orders-order">
+                        #6520
+                      </td>
+                      <td class="orders-product">
+                        5' x 3' Wall Poster
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-30">07/30/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $55.25
+                      </td>
+                      <td class="orders-status">
 
                         <!-- Badge -->
-                        <span class="badge badge-soft-success">Available</span>
+                        <div class="badge badge-soft-success">
+                          Shipped
+                        </div>
 
                       </td>
-                      <td class="products-price">
+                      <td class="orders-method">
+                        Mastercard
+                      </td>
+                      <td class="text-right">
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#!" class="dropdown-item">
+                              Action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Another action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Something else here
+                            </a>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
+                        </div>
+
+                      </td>
+                      <td class="orders-order">
+                        #6521
+                      </td>
+                      <td class="orders-product">
+                        XL Logo Tee
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-30">07/30/18</time>
+
+                      </td>
+                      <td class="orders-total">
                         $14.99
                       </td>
-                      <td class="products-sales">
-                        $3,145.23
+                      <td class="orders-status">
+
+                        <!-- Badge -->
+                        <div class="badge badge-soft-success">
+                          Shipped
+                        </div>
+
+                      </td>
+                      <td class="orders-method">
+                        Paypal
                       </td>
                       <td class="text-right">
 
@@ -2736,37 +2415,40 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="products-product">
-                        <div class="d-flex align-items-center">
+                      <td>
 
-                          <!-- Image -->
-                          <div class="avatar">
-                            <img class="avatar-img rounded mr-3" src="assets/img/avatars/products/product-2.jpg" alt="..." />
-                          </div>
-
-                          <div class="ml-3">
-
-                            <!-- Heading -->
-                            <h4 class="font-weight-normal mb-1">Turtleshell Shades</h4>
-
-                            <!-- Text -->
-                            <small class="text-muted">UV + Blue Light</small>
-
-                          </div>
-
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
                         </div>
+
                       </td>
-                      <td class="products-stock">
+                      <td class="orders-order">
+                        #6522
+                      </td>
+                      <td class="orders-product">
+                        Flexfit Hat
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-28">07/28/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $25.50
+                      </td>
+                      <td class="orders-sratus">
 
                         <!-- Badge -->
-                        <span class="badge badge-soft-warning">Unavailable</span>
+                        <div class="badge badge-soft-warning">
+                          Processing
+                        </div>
 
                       </td>
-                      <td class="products-price">
-                        $39.99
-                      </td>
-                      <td class="products-sales">
-                        $2,611.82
+                      <td class="orders-method">
+                        Visa
                       </td>
                       <td class="text-right">
 
@@ -2791,37 +2473,40 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="products-product">
-                        <div class="d-flex align-items-center">
+                      <td>
 
-                          <!-- Image -->
-                          <div class="avatar">
-                            <img class="avatar-img rounded mr-3" src="assets/img/avatars/products/product-3.jpg" alt="..." />
-                          </div>
-
-                          <div class="ml-3">
-
-                            <!-- Heading -->
-                            <h4 class="font-weight-normal mb-1">Nike "Go Bag"</h4>
-
-                            <!-- Text -->
-                            <small class="text-muted">Leather + Gortex</small>
-
-                          </div>
-
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
                         </div>
+
                       </td>
-                      <td class="products-stock">
+                      <td class="orders-order">
+                        #6523
+                      </td>
+                      <td class="orders-product">
+                        Reversible Hoodie
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-27">07/27/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $64.99
+                      </td>
+                      <td class="orders-status">
 
                         <!-- Badge -->
-                        <span class="badge badge-soft-success">Available</span>
+                        <div class="badge badge-soft-danger">
+                          Cancelled
+                        </div>
 
                       </td>
-                      <td class="products-price">
-                        $149.99
-                      </td>
-                      <td class="products-sales">
-                        $2,372.19
+                      <td class="orders-method">
+                        Amex
                       </td>
                       <td class="text-right">
 
@@ -2846,37 +2531,214 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="products-product">
-                        <div class="d-flex align-items-center">
+                      <td>
 
-                          <!-- Image -->
-                          <div class="avatar">
-                            <img class="avatar-img rounded mr-3" src="assets/img/avatars/products/product-4.jpg" alt="..." />
-                          </div>
-
-                          <div class="ml-3">
-
-                            <!-- Heading -->
-                            <h4 class="font-weight-normal mb-1">Swell Bottle</h4>
-
-                            <!-- Text -->
-                            <small class="text-muted">Bone Clay White</small>
-
-                          </div>
-
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
                         </div>
+
                       </td>
-                      <td class="products-stock">
+                      <td class="orders-order">
+                        #6524
+                      </td>
+                      <td class="orders-product">
+                        Geometric Print Shorts
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-25">07/25/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $31.99
+                      </td>
+                      <td class="orders-status">
 
                         <!-- Badge -->
-                        <span class="badge badge-soft-success">Available</span>
+                        <div class="badge badge-soft-success">
+                          Shipped
+                        </div>
 
                       </td>
-                      <td class="products-price">
-                        $24.99
+                      <td class="orders-method">
+                        Paypal
                       </td>
-                      <td class="products-sales">
-                        $1,145.23
+                      <td class="text-right">
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#!" class="dropdown-item">
+                              Action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Another action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Something else here
+                            </a>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
+                        </div>
+
+                      </td>
+                      <td class="orders-order">
+                        #6525
+                      </td>
+                      <td class="orders-product">
+                        Super Mug
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-22">07/22/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $9.99
+                      </td>
+                      <td class="orders-status">
+
+                        <!-- Badge -->
+                        <div class="badge badge-soft-success">
+                          Shipped
+                        </div>
+
+                      </td>
+                      <td class="orders-method">
+                        Mastercard
+                      </td>
+                      <td class="text-right">
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#!" class="dropdown-item">
+                              Action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Another action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Something else here
+                            </a>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
+                        </div>
+
+                      </td>
+                      <td class="orders-order">
+                        #6526
+                      </td>
+                      <td class="orders-product">
+                        MD Pocket Tee
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-22">07/22/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $19.99
+                      </td>
+                      <td class="orders-status">
+
+                        <!-- Badge -->
+                        <div class="badge badge-soft-warning">
+                          Processing
+                        </div>
+
+                      </td>
+                      <td class="orders-method">
+                        Amex
+                      </td>
+                      <td class="text-right">
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#!" class="dropdown-item">
+                              Action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Another action
+                            </a>
+                            <a href="#!" class="dropdown-item">
+                              Something else here
+                            </a>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+
+                        <!-- Checkbox -->
+                        <div class="custom-control custom-checkbox table-checkbox">
+                          <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
+                          <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
+                        </div>
+
+                      </td>
+                      <td class="orders-order">
+                        #6527
+                      </td>
+                      <td class="orders-product">
+                        Custom Coffee Blend
+                      </td>
+                      <td class="orders-date">
+
+                        <!-- Time -->
+                        <time datetime="2018-07-21">07/21/18</time>
+
+                      </td>
+                      <td class="orders-total">
+                        $11.99
+                      </td>
+                      <td class="orders-sratus">
+
+                        <!-- Badge -->
+                        <div class="badge badge-soft-success">
+                          Shipped
+                        </div>
+
+                      </td>
+                      <td class="orders-method">
+                        Visa
                       </td>
                       <td class="text-right">
 
@@ -2909,7 +2771,8 @@
         </div> <!-- / .row -->
       </div>
 
-    </div><!-- / .main-content -->
+    </div>
+    <!-- / .main-content -->
 
     <!-- JAVASCRIPT
     ================================================== -->

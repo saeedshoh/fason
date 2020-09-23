@@ -16,3 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard.home');
 });
+
+
+Route::get('/orders', function () {
+    return view('dashboard.orders');
+});
+
+Route::get('/contacts', function () {
+    return view('dashboard.contacts');
+});
+
+Route::get('/store', function () {
+    return view('dashboard.store');
+});
+
+Route::get('/employee', function () {
+    return view('dashboard.employee');
+});
