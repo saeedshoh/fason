@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\EmployeeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,24 +18,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('dashboard.home');
+Route::group(['middleware' => 'auth', 
+              'prefix' => 'dashboard',], function () {           
+                Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
+    Route::resources([
+        '/orders' => OrderController::class,
+        '/users' => UserController::class,
+        '/store' => StoreController::class, 
+        '/employee' => EmployeeController::class
+    ]);
 });
 
-
-Route::get('/orders', function () {
-    return view('dashboard.orders');
-});
-
-Route::get('/contacts', function () {
-    return view('dashboard.contacts');
-});
-
-Route::get('/store', function () {
-    return view('dashboard.store');
-});
-
-Route::get('/employee', function () {
-    return view('dashboard.employee');
-});
+Route::view('/', 'home');
