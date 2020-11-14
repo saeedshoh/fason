@@ -1,0 +1,724 @@
+body {
+    background: #F2F2F2;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.custom-bttn {
+    font-family: 'Montserrat', sans-serif;
+    color: #FFF !important;
+    background: #FF0055;
+    font-size: 14px;
+    border: none;
+    height: 35px;
+}
+
+.custom-bttn:hover,
+.custom-bttn:active,
+.custom-bttn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.text-pinky {
+    color: #FF0055;
+}
+
+.text-pinky:hover {
+    color: #FF0055 !important;
+}
+
+.custom-bttn:hover {
+    background: #FF0055;
+}
+
+.shop-subject li,
+.shop-subject {
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    color: #5E585A;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-style: normal;
+}
+
+.product-pic {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.brand-logo {
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100px;
+}
+
+.catalog__ategory {
+    height: 100%;
+}
+
+.footer_links>ul li,
+a {
+    list-style: none;
+    line-height: 35px;
+    color: #544837;
+    text-decoration: none;
+}
+
+.copyright_text_footer {
+    color: #5E6366;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.product-name {
+    color: #000000;
+    font-size: 14px;
+}
+
+.about-product {
+    color: #4A4A4A;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.product-price {
+    color: #737373;
+    font-size: 22px;
+    font-weight: 500;
+    transition: 0.8s;
+    transform: scale(1);
+}
+
+.title {
+    font-size: 35px;
+    color: #9B9B9B;
+    font-weight: bold;
+}
+
+.line-test__category::before {
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    background: #FF0055;
+    margin-top: -7px;
+    margin-left: -0%;
+}
+
+.fix_modal-line::before {
+    width: 91%!important;
+}
+
+.line-test::before {
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    background: #FF0055;
+    position: absolute;
+    top: -2%;
+    left: 0;
+}
+
+.input_caption,
+.input_placeholder_style {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #888688;
+}
+
+.input_placeholder_style {
+    font-weight: bold !important;
+}
+
+.color_select {
+    width: 34px;
+    height: 34px;
+    background: #E6E6E6;
+    float: left;
+}
+
+.lil-color_select {
+    width: 28px;
+    height: 28px;
+}
+
+.color_select {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.liked-icon {
+    display: none;
+    right: 5%;
+}
+
+.product-place:hover .liked-icon {
+    display: block;
+}
+
+.liked-icon:hover {
+    color: #FF0055;
+}
+
+.sneaker-pic__manin {
+    width: 585px;
+    height: 375px;
+}
+
+.snk-capture {
+    background-repeat: no-repeat !important;
+    width: 90px;
+    height: 90px;
+}
+
+.snk-info__type,
+.snk-info__market,
+.color-and-size__size-number>label {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #888688;
+}
+
+.second-column__modal {
+    display: inline-block;
+}
+
+.snk-size-caption {
+    font-weight: 100px !important;
+}
+
+.snk-info__market_modal {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #878786;
+}
+
+.snk-info__name,
+.snk-info__name_modal {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 37px;
+    color: #464646;
+}
+
+.snk-info__name_modal {
+    font-size: 18px !important;
+    line-height: 22px;
+}
+
+.snk-info__market {
+    font-weight: 500 !important;
+}
+
+.snk-amount__numb {
+    display: inline-block;
+}
+
+.snk-amount__numb,
+.snk-price__modal,
+.summ-price__modal {
+    width: 28px;
+    height: 28px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #878786;
+}
+
+.summ-price__modal {
+    color: #000 !important;
+    font-weight: 700 !important;
+}
+
+.shop-table__captions {
+    font-family: 'Montserrat';
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.delivery-adress__modal {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #878786;
+}
+
+.plus-minus {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 41px;
+    color: #BBBBBB;
+}
+
+.amount {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: #484848;
+}
+
+.price-and-amount__buy-bttn {
+    width: 120px;
+    height: 40px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.info-product_footer {
+    border-top: 2px solid #FF0055;
+}
+
+.info-prod_footer__bttn button {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.about-prod__caption {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.about-prod__info {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: #888688;
+}
+
+.purchase-box {
+    border-bottom: 46px solid #848484;
+}
+
+.market__head-banner {
+    height: 235px;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.change-bttn {
+    font-size: 10px;
+}
+
+.change-bttn:hover {
+    background: none;
+    color: #000;
+}
+
+.banner__name-market {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    color: #2E2D31;
+}
+
+.bttn-alignment {
+    height: 60px;
+}
+
+.city-checkbox {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.seller-bttns {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.status-success {
+    border-bottom: 10px solid #03D087 !important;
+    color: #03D087 !important;
+}
+
+.status-cancled {
+    border-bottom: 10px solid #FF0055 !important;
+    color: #FF0055 !important;
+}
+
+.status-preparing {
+    border-bottom: 10px solid #FF511A !important;
+    color: #FF511A !important;
+}
+
+.copywright {
+    height: 120px;
+}
+
+.copywright-txt {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14.0834px;
+    color: #1C1C1B;
+}
+
+.market-info__caption {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 43px;
+    color: #2E2D31;
+}
+
+.market-info__value {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #2E2D31;
+}
+
+
+/* Status */
+
+.line-test__order-cancled::before {
+    background: #FF0055;
+    content: "";
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: -2%;
+}
+
+.line-test__order-success::before {
+    background: #03D087;
+    content: "";
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: -2%;
+}
+
+.line-test__order-preparing::before {
+    background: #FF511A;
+    ;
+    content: "";
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: -2%;
+}
+
+.order-agree__txt {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    color: #6E7A90;
+    font-size: 10px;
+}
+
+.tnx-txt {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: #F20051;
+}
+
+.categories__modal {
+    height: 164px;
+}
+
+.categories__modal-markets {
+    height: 380px;
+}
+
+.sort-checkbox__category {
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #1C1C1B;
+}
+
+.captions-of__modal {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.categories__modal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #D62929;
+}
+
+.categories__modal::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.sms-code__txt {
+    text-transform: lowercase;
+    font-family: 'Lato';
+    font-size: 16px;
+    color: #878786;
+}
+
+.sms-timer__txt {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 30px;
+    color: #888688;
+}
+
+.eror-sms__code {
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #888688;
+    line-height: 18px;
+}
+
+.eror-sms__code a {
+    color: #007bff !important;
+    line-height: 18px;
+}
+
+
+/*Shuhrat*/
+
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    z-index: 500;
+    height: 3rem;
+}
+
+.mobile-nav theme {
+    height: 2rem;
+}
+
+.mobile-nav .border-right,
+.mobile-nav .border-left {
+    border-color: #fff !important;
+    border-width: 3px !important;
+}
+
+.add-good theme {
+    height: 3rem;
+    position: absolute;
+    top: -2rem;
+}
+
+.under-menu-category i {
+    font-size: 15px;
+}
+
+.main-search {
+    width: 80% !important;
+    height: 35px;
+    font-size: 14px;
+    border: 1.17647px solid #FF0055;
+}
+
+.categories__modal-markets::-webkit-scrollbar,
+.categories__modal::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 15px;
+}
+
+.categories__modal-markets::-webkit-scrollbar-track,
+.categories__modal::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.categories__modal-markets::-webkit-scrollbar-thumb,
+.categories__modal::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
+}
+
+.categories__modal-markets::-webkit-scrollbar,
+.categories__modal::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 15px;
+}
+
+.categories__modal-markets::-webkit-scrollbar-track,
+.categories__modal::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.categories__modal-markets::-webkit-scrollbar-thumb,
+.categories__modal::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
+}
+
+.price-place {
+    height: 3.5rem;
+}
+
+.product-place .buy-bttn {
+    top: 0;
+    width: 100%;
+    top: -0.2rem;
+}
+
+.product-place .buy-bttn {
+    opacity: 0 !important;
+    transition: 0.5s !important;
+}
+
+.product-place:hover .buy-bttn {
+    opacity: 1 !important;
+    top: 1.8rem;
+}
+
+.product-place:hover .product-price {
+    padding-bottom: 1rem;
+    transform: scale(0.8);
+}
+
+.sample-carousel .item {
+    height: 8rem;
+}
+
+.owl-theme .owl-dots .owl-dot.active span {
+    background: #FF0055 !important;
+}
+
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.markets theme {
+    height: 9rem;
+    width: 11rem !important;
+}
+
+.market-name::after {
+    content: '';
+    width: 15px !important;
+    height: 15px !important;
+    background-image: url(/theme/goto.svg);
+    background-size: cover;
+    position: absolute;
+    top: 29%;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.markets .item:hover .market-name::after {
+    opacity: 1;
+}
+
+.category-dropdown::after {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 0.8rem;
+    margin: 0 !important;
+    border-top: 10px solid #FF0055;
+}
+
+.change-avatar-icon {
+    bottom: 0.05rem;
+    right: 0.25rem;
+}
+
+.customer-tab .nav-link {
+    color: #6C757D;
+}
+
+.customer-tab .active {
+    color: #FF0055 !important;
+}
+
+.customer-tab .active:before {
+    content: '';
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #C4C4C4;
+}
+
+@media only screen and (max-width: 991px) {
+    .line-test__category::before {
+        height: 0;
+    }
+    .main-search {
+        width: 100% !important;
+    }
+    .filter-btn,
+    .search-btn {
+        background: none !important;
+        position: absolute;
+    }
+    .search-btn {
+        left: 0;
+    }
+    .filter-btn {
+        right: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .input_placeholder_style {
+        width: 100% !important;
+    }
+    .profile {
+        background: #fff;
+    }
+    .market-info__caption {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .change-bttn {
+        display: flex;
+    }
+    .price-place .custom-bttn {
+        font-size: 10px;
+    }
+}

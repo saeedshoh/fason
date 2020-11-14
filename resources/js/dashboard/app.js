@@ -10,4 +10,4 @@ require('./components/select2');
 require('./components/wizard');
 require('./components/list');
 require('./components/quill.js');
-require('../main.js');
+require('./main.js');

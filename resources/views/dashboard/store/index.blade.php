@@ -37,8 +37,8 @@
                 </div> <!-- / .nav -->
 
                 <!-- Buttons -->
-                <a href="#!" class="btn btn-primary ml-2">
-                  Add company
+                <a href="{{ route('store.create') }}" class="btn btn-primary ml-2">
+                  Добавить магазин
                 </a>
 
               </div>

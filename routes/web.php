@@ -20,13 +20,15 @@ use App\Http\Controllers\EmployeeController;
 */
 Route::group(['middleware' => 'auth', 
               'prefix' => 'dashboard',], function () {           
-                Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
-    Route::resources([
-        '/orders' => OrderController::class,
-        '/users' => UserController::class,
-        '/store' => StoreController::class, 
-        '/employee' => EmployeeController::class
-    ]);
+            Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
+            Route::resources([
+                'orders' => OrderController::class,
+                'users' => UserController::class,
+                'store' => StoreController::class, 
+                'employee' => EmployeeController::class,
+        ]);
 });
-
-Route::view('/', 'home');
+Route::view('/product/create', 'products.create')->name('product.create');
+Route::view('/store/create', 'store.create')->name('store.open');
+Route::view('/', 'index')->name('home');
+Route::view('/apply', 'apply');

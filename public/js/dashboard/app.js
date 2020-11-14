@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -95834,7 +95834,7 @@ __webpack_require__(/*! ./components/list */ "./resources/js/dashboard/component
 
 __webpack_require__(/*! ./components/quill.js */ "./resources/js/dashboard/components/quill.js");
 
-__webpack_require__(/*! ../main.js */ "./resources/js/main.js");
+__webpack_require__(/*! ./main.js */ "./resources/js/dashboard/main.js");
 
 /***/ }),
 
@@ -96773,10 +96773,10 @@ Chart.elements.Rectangle.prototype.draw = function () {
 
 /***/ }),
 
-/***/ "./resources/js/main.js":
-/*!******************************!*\
-  !*** ./resources/js/main.js ***!
-  \******************************/
+/***/ "./resources/js/dashboard/main.js":
+/*!****************************************!*\
+  !*** ./resources/js/dashboard/main.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -97195,7 +97195,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
 
 /***/ }),
 
-/***/ 1:
+/***/ 3:
 /*!*********************************************!*\
   !*** multi ./resources/js/dashboard/app.js ***!
   \*********************************************/
