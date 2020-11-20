@@ -97202,7 +97202,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! C:\Users\User\Desktop\fason\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
 
 
 /***/ })

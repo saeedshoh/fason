@@ -14,7 +14,7 @@
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Добавить Товар</h5>
           </div>
           <div class="my-3">
-             <img src="/storage/theme/icons/add_prod-img.svg" class="mw-100 w-100" alt="">
+            <img src="/storage/theme/icons/add_prod-img.svg" class="mw-100 w-100" alt="">
           </div>
           <div class="row add-product-secondary">
             <div class="col-3 text-center">

@@ -17,8 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('icon');
-            $table->tinyInteger('is_active');
-            $table->foreignId('parent_id');
+            $table->tinyInteger('is_active')->default(1);
+            $table->foreignId('parent_id')->default(0);
             $table->timestamps();
         });
     }
