@@ -24,12 +24,11 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:255',
+            'name' => 'required|min:5',
         ];
     }
 
-    public function messages() 
-    {
+    public function messages() {
         return ['required' => ':attribute'];
     }
 
@@ -37,7 +36,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'Введите название категории',
-            'icon' => 'Выберите иконку категории'
+            'icon' => 'Выберите изображение'
         ];
     }
 }

@@ -47,17 +47,34 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request, Category $category)
-    {
+    public function store( Category $category, CategoryRequest $request)
+    {   
+
         $request->validate([
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+			'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+		]);
+
+		$icon = $request->file('icon')->store('/img/' . now()->year . '/' . sprintf("%02d", now()->month));
         
-        $icon = $request->file('image')->store('/img/' . now()->year . '/' . sprintf("%02d", now()->month));
-        
-        Category::create($request->validated() + ['icon' => $icon]);
-        return redirect()->route('categories.index')->with('success', 'Категория успешно добавлена!');
+		Category::create($request->validated() + ['icon' => $icon]);
+        return redirect(route('categories.index'))->with('success', 'Категория успешно добавлена!');
     }
+
+    // public function store(Request $request, Category $category)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|min:3',
+    //         'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    //     ]);
+
+    //     $category = Category::create($request->all());
+
+    //     if(!is_null($category)) {
+    //             return response()->json(["status" => "success", "message" => "Категория успешно добавлена!", "data" => $category]);
+    //     } else {
+    //         return response()->json(["status" => "failed", "message" => "Введите коректные данные, категория не добавлена!"]);
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -97,8 +114,21 @@ class CategoryController extends Controller
         $icon = $request->file('image')->store('/img/' . now()->year . '/' . sprintf("%02d", now()->month));
         
         $category->update($request->validated() + ['image' => $icon]);
-        return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
+        // return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
+        return dd($category);
     }
+
+    // public function update(Request $request)
+    // {
+    //     $category_id = $request->id;
+    //     $category = Category::where("id", $category_id)->update($request->all());
+
+    //     if($category == 1) {
+    //         return response()->json(["status" => "success", "message" => "Категория успешно обновлена!"]);
+    //     } else {
+    //         return response()->json(["status" => "failed", "message" => "Введите коректные данные!"]);
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -111,4 +141,14 @@ class CategoryController extends Controller
         $category->delete();
         return redirect(route('categories.index'))->with('success', 'Категория успешно удалена!');
     }
+
+    // public function destroy($category_id) {
+    //     $category = Category::where("id", $category_id)->delete();
+    //     if($category == 1) {
+    //         return response()->json(["status" => "success", "message" => "Success! post deleted"]);
+    //     } else {
+    //         return response()->json(["status" => "failed", "message" => "Alert! post not deleted"]);
+    //     }
+    // }
+
 }

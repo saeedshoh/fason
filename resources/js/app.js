@@ -28,24 +28,24 @@ $("#createBtn").click(function(event) {
         return false;
     }
 
-    let form_data   =       $("#postForm").serialize();
+    let form_data   =       $("#categoryForm").serialize();
 
-    // if post id exist
+    // if category id exist
     if($("#id_hidden").val() !="") {
-        updatePost(form_data);
+        updateCategory(form_data);
     }
 
-    // else create post
+    // else create category
     else {
-        createPost(form_data);
+        createCategory(form_data);
     }
 });
 
 
-// create new post
-function createPost(form_data) {
+// create new Category
+function createCategory(form_data) {
     $.ajax({
-        url: 'post',
+        url: 'categories',
         method: 'post',
         data: form_data,
         dataType: 'json',
@@ -61,19 +61,17 @@ function createPost(form_data) {
 
             if(res.status == "success") {
                 $(".result").html("<div class='alert alert-success alert-dismissible'><button type='button' class='close' data-dismiss='alert'>×</button>" + res.message+ "</div>");
-            }
-
-            else if(res.status == "failed") {
+            } else if(res.status == "failed") {
                 $(".result").html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert'>×</button>" + res.message+ "</div>");
             }
         }
     });
 }
 
-// update post
-function updatePost(form_data) {
+// update category
+function updateCategory(form_data) {
     $.ajax({
-        url: 'post',
+        url: 'categories',
         method: 'put',
         data: form_data,
         dataType: 'json',
@@ -89,21 +87,19 @@ function updatePost(form_data) {
 
             if(res.status == "success") {
                 $(".result").html("<div class='alert alert-success alert-dismissible'><button type='button' class='close' data-dismiss='alert'>×</button>" + res.message+ "</div>");
-            }
-
-            else if(res.status == "failed") {
+            } else if(res.status == "failed") {
                 $(".result").html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert'>×</button>" + res.message+ "</div>");
             }
         }
     });
 }
 
-// ---------- [ Delete post ] ----------------
-function deletePost(post_id) {
-    let status = confirm("Do you want to delete this post?");
+// ---------- [ Delete Category ] ----------------
+function deleteCategory(category_id) {
+    let status = confirm("Do you want to delete this Category?");
     if(status == true) {
         $.ajax({
-            url: "post/"+post_id,
+            url: "categories/"+category_id,
             method: 'delete',
             dataType: 'json',
 
@@ -119,7 +115,7 @@ function deletePost(post_id) {
     }
 }
 
-$('#addPostModal').on('shown.bs.modal', function (e) {
+$('#addCategoryModal').on('shown.bs.modal', function (e) {
 let id           =   $(e.relatedTarget).data('id');
 let title        =   $(e.relatedTarget).data('title');
 let description  =   $(e.relatedTarget).data('description');
@@ -129,7 +125,7 @@ if(action !== undefined) {
     if(action === "view") {
 
         // set modal title
-        $(".modal-title").html("Post Detail");
+        $(".modal-title").html("Category Detail");
 
         // pass data to input fields
         $("#title").attr("readonly", "true");
@@ -148,7 +144,7 @@ if(action !== undefined) {
         $("#description").removeAttr("readonly");
 
         // set modal title
-        $(".modal-title").html("Update Post");
+        $(".modal-title").html("Update Category");
 
         $("#createBtn").text("Update");
 
@@ -163,7 +159,7 @@ if(action !== undefined) {
 }
 
 else {
-    $(".modal-title").html("Create Post");
+    $(".modal-title").html("Create Category");
 
     // pass data to input fields
     $("#title").removeAttr("readonly");

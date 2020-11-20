@@ -12,6 +12,10 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+$('input[type="file"]').on("change", function() {
+    $(this).siblings(".custom-file-label").addClass("selected").html($(this).val().split("\\").pop());
+});
+
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

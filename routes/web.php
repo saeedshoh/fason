@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EmployeeController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,5 @@ Route::view('/product/create', 'products.create')->name('product.create');
 Route::view('/store/create', 'store.create')->name('store.open');
 Route::view('/', 'index')->name('home');
 Route::view('/apply', 'apply');
+
+// Route::resource('categories', Category::class);

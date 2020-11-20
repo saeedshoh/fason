@@ -27,11 +27,12 @@
                         <div class="card-body">
                             <fieldset>
                                 @csrf
+                                {{-- {{ csrf_field() }} --}}
                                 @method('POST')
                             <!-- Form -->
                             <div class="form-group">
-                                <label class="title text-bold" for="title">Название <span class="text-danger">*</span></label>
-                                <input id="title" name="title" type="text" value="{{old('name')}}" class="form-control" placeholder="Введите название категории" required>
+                                <label class="title text-bold" for="name">Название <span class="text-danger">*</span></label>
+                                <input id="name" name="name" type="text" value="{{old('name')}}" class="form-control" placeholder="Введите название категории" required>
                             </div>
                             <label for="category_id"> Родительская категории <p class="header-subtitle"> * По умолчанию станет родительской </p></label>
                             <select class="form-control mb-4 " name="category_id"id="category_id">
@@ -40,7 +41,7 @@
                                 @endforeach
                             </select>
                             <label for="is_active">Активность категории <p class="header-subtitle"> * По умолчанию активен </p> </label> 
-                            <select class="form-control mb-4" name="is_active"id="is_active">
+                            <select class="form-control mb-4" name="is_active" id="is_active">
                                     <option value="1">Активен</option>
                                     <option value="0">Неактивен</option>
                                     {{-- <option value="{{ $category->is_active=0 }}">Неактивен</option> --}}
