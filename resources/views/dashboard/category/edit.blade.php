@@ -30,8 +30,8 @@
                                 @method('POST')
                             <!-- Form -->
                             <div class="form-group">
-                                <label class="title text-bold" for="title">Название <span class="text-danger">*</span></label>
-                                <input id="title" name="title" type="text" value="{{$category->name}}" class="form-control" placeholder="Введите название категории" required>
+                                <label class="title text-bold" for="name">Название <span class="text-danger">*</span></label>
+                                <input id="name" name="name" type="text" value="{{$category->name}}" class="form-control" placeholder="Введите название категории" required>
                             </div>
                             <label for="category_id"> Родительская категории <p class="header-subtitle"> * По умолчанию станет родительской </p></label>
                             <select class="form-control mb-4 " name="category_id"id="category_id">
