@@ -16,10 +16,12 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->text('description');
             $table->foreignId('category_id')->constrained();
             $table->integer('quantity');
             $table->integer('price');
+            $table->string('color')->nullable();
             $table->foreignId('attribute_id')->constrained();
             $table->foreignId('store_id')->constrained();
             $table->foreignId('product_status_id')->constrained();

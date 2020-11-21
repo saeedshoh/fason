@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
                         'store' => StoreController::class, 
                         'employee' => EmployeeController::class,
                         'categories' => CategoryController::class,
+                        'products' => ProductsController::class,
                 ]);
 });
 

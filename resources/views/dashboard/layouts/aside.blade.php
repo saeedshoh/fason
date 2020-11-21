@@ -404,6 +404,26 @@
               </li>
 
               <li class="nav-item">
+                <a class="nav-link" href="#sidebarProducts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
+                  <i class="fe fe-grid"></i> Товары
+                </a>
+                <div class="collapse " id="sidebarProducts">
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item ">
+                      <a href="{{ route('products.create') }}" class="nav-link">
+                        <i class="fe fe-file-plus"></i> Добавить товарь
+                      </a>
+                    </li>
+                    <li class="nav-item ">
+                      <a href="{{ route('products.index') }}" class="nav-link">
+                        <i class="fe fe-list"></i> Все товары
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
                 <a class="nav-link{{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
                   <i class="fe fe-shopping-bag"></i> Заказы
                 </a>

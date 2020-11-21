@@ -33,8 +33,8 @@
                                 <label class="title text-bold" for="name">Название <span class="text-danger">*</span></label>
                                 <input id="name" name="name" type="text" value="{{$category->name}}" class="form-control" placeholder="Введите название категории" required>
                             </div>
-                            <label for="category_id"> Родительская категории <p class="header-subtitle"> * По умолчанию станет родительской </p></label>
-                            <select class="form-control mb-4 " name="category_id"id="category_id">
+                            <label for="parent_id"> Родительская категории <p class="header-subtitle"> * По умолчанию станет родительской </p></label>
+                            <select class="form-control mb-4 " name="parent_id"id="parent_id">
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
