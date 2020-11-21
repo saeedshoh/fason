@@ -30,7 +30,7 @@
                         Все товары
                     </h4></div>
                     <div class="col-auto">
-                        <a href="{{ route('categories.create')}}" class="btn btn-success pull-right">
+                        <a href="{{ route('products.create')}}" class="btn btn-success pull-right">
                         <i class="fe fe-plus-square-o mr-15 "> Создать</i>
                         </a>
                     </div>
@@ -51,16 +51,16 @@
                 <td colspan="1" ><p maxlength="10" >{{$item->name}}</p></td>
                 <td><img width="100" src="{{ '/storage/'.$item->icon }}"></td>
                 <td class="text-right" >
-                    <form class="formi" action="{{ route('categories.destroy', $item) }}" method="POST">
+                    <form class="formi" action="{{ route('products.destroy', $item) }}" method="POST">
                         @csrf 
-                        <button type="submit" href="{{ route('categories.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right">
+                        <button type="submit" href="{{ route('products.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right">
                             <i class="fe fe-trash"> </i></button>                            
                         @method('DELETE')
                     </form>
-                    <a href="{{ route('categories.edit', $item) }}" class="btn btn-primary m-1 pull-right">
+                    <a href="{{ route('products.edit', $item) }}" class="btn btn-primary m-1 pull-right">
                         <i class="fe fe-edit"> </i>
                     </a>
-                    <a href="{{ route('categories.show', $item) }}" class="btn btn-warning m-1 fa-pull-right">
+                    <a href="{{ route('products.show', $item) }}" class="btn btn-warning m-1 fa-pull-right">
                         <i class="fe fe-eye" aria-hidden="true"></i>
                     </a>
                 </td>
