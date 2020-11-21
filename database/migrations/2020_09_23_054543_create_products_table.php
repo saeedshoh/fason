@@ -16,17 +16,20 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->text('description');
-            $table->foreignId('category_id')->constrained();
+            $table->string('image');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('price');
             $table->string('color')->nullable();
-            $table->foreignId('attribute_id')->constrained();
-            $table->foreignId('store_id')->constrained();
-            $table->foreignId('product_status_id')->constrained();
-            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('attribute_id')->constrained()->default(1)->onDelete('cascade');
+            $table->foreignId('store_id')->constrained()->default(1)->onDelete('cascade');
+            $table->foreignId('product_status_id')->constrained()->default(1)->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->default(1)->onDelete('cascade');
             $table->string('varchar');
             $table->json('gallery');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

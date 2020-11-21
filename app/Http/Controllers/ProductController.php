@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductStatus;
 use Illuminate\Http\Request;
+use Illuminate\Http\ProductRequest;
+
 
 class ProductController extends Controller
 {
+    public function __construct()
+	{
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        
+        $categories = Category::all();
+        $brands = Product::with('getBrand')->get();
+        $brands = Product::with('getProductStatus')->get();
+        $attribute = Product::with('getAttributes')->get();
+        $brands = Product::where('brand_id', )->where()->orderBy('id', 'DESC')->limit()->get();
+        $products = Product::where('parent_id', '1')->where()->orderBy('id', 'DESC')->limit()->get();
+        $products = Product::with('getCategory', 'getAttributes', 'getStore', 'getProductStatus', 'getBrand')->get();
+        return view('dashboard.products.index', compact('products', 'categories', 'brands', ));
     }
 
     /**
