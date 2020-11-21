@@ -20,6 +20,7 @@ use App\Models\Category;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {           
         Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
                 Route::resources([
