@@ -25,7 +25,7 @@ class Category extends Model
         return $this->hasMany(Category::class,'parent_id', 'id')->with('subcategories');
     }
 
-    public function getSlagOptions() : SlugOptions
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
         ->generateSlugsFrom('name')

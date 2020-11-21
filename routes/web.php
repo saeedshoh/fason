@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
 use App\Models\Category;
 
 /*
@@ -29,7 +30,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
                         'store' => StoreController::class, 
                         'employee' => EmployeeController::class,
                         'categories' => CategoryController::class,
-                        'products' => ProductsController::class,
+                        'products' => ProductController::class,
                 ]);
 });
 

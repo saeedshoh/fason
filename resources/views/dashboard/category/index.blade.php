@@ -49,7 +49,7 @@
             <tr>
                 <td>{{$item->id}}</td>
                 <td colspan="1" ><p maxlength="10" >{{$item->name}}</p></td>
-                <td><img width="100" src="{{ '/storage/'.$item->icon }}"></td>
+                <td><img width="100" src="/storage/{{ $item->icon }}"></td>
                 <td class="text-right" >
                     <form class="formi" action="{{ route('categories.destroy', $item) }}" method="POST">
                         @csrf 
