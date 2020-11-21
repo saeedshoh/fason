@@ -23,15 +23,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
-        $categories = Category::all();
-        $brands = Product::with('getBrand')->get();
-        $brands = Product::with('getProductStatus')->get();
-        $attribute = Product::with('getAttributes')->get();
-        $brands = Product::where('brand_id', )->where()->orderBy('id', 'DESC')->limit()->get();
-        $products = Product::where('parent_id', '1')->where()->orderBy('id', 'DESC')->limit()->get();
-        $products = Product::with('getCategory', 'getAttributes', 'getStore', 'getProductStatus', 'getBrand')->get();
-        return view('dashboard.products.index', compact('products', 'categories', 'brands', ));
+        $products = Product::with('getCategory')->latest()->paginate(10);
+        return view('dashboard.products.index', compact('products'));
     }
 
     /**

@@ -10,7 +10,7 @@
                 <!-- Title -->
                 <div class="text-right container" >
                     <h3 class="header-pretitle text-left">
-                        Категории
+                        Товары
                     </h3>
                 </div>
                 <!-- Subtitle -->
@@ -27,7 +27,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col"><h4 class="card-header-title">
-                        Все категории
+                        Все товары
                     </h4></div>
                     <div class="col-auto">
                         <a href="{{ route('categories.create')}}" class="btn btn-success pull-right">
@@ -45,7 +45,7 @@
                 <th class="text-right"> Действие </th>
             </thead>
         <tbody class="table-hover">
-            @forelse ( $categories as $item)
+            @forelse ( $products as $item)
             <tr>
                 <td>{{$item->id}}</td>
                 <td colspan="1" ><p maxlength="10" >{{$item->name}}</p></td>
@@ -80,7 +80,7 @@
     </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item">{{$categories->links()}}</li>
+                <li class="page-item">{{$products->links()}}</li>
             </ul>
         </nav>
     </div>
