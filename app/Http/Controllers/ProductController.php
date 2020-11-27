@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductStatus;
 use Illuminate\Http\Request;
-use Illuminate\Http\ProductRequest;
 
 
 class ProductController extends Controller
 {
-    public function __construct()
-	{
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('getCategory')->latest()->paginate(10);
+        $products = Product::latest()->paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 

@@ -1,10 +1,10 @@
 body {
   background: #F2F2F2;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .custom-bttn {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #FFF !important;
   background: #FF0055;
   font-size: 14px;
@@ -35,7 +35,7 @@ body {
 .shop-subject {
   cursor: pointer;
   font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #5E585A;
   font-weight: 600;
   text-transform: uppercase;
@@ -67,7 +67,7 @@ a {
 
 .copyright_text_footer {
   color: #5E6366;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -106,7 +106,7 @@ a {
   position: absolute;
   background: #FF0055;
   margin-top: -7px;
-  margin-left: -0%;
+  margin-left: 0%;
 }
 
 .fix_modal-line::before {
@@ -126,7 +126,7 @@ a {
 
 .input_caption,
 .input_placeholder_style {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
@@ -182,7 +182,7 @@ a {
 .snk-info__type,
 .snk-info__market,
 .color-and-size__size-number > label {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
@@ -208,7 +208,7 @@ a {
 
 .snk-info__name,
 .snk-info__name_modal {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
@@ -247,7 +247,7 @@ a {
 }
 
 .shop-table__captions {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-family: Montserrat;
   font-style: normal;
   font-weight: 600;
@@ -256,7 +256,7 @@ a {
 }
 
 .delivery-adress__modal {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -264,7 +264,7 @@ a {
 }
 
 .plus-minus {
-  font-family: 'Arial';
+  font-family: "Arial";
   font-style: normal;
   font-weight: normal;
   font-size: 36px;
@@ -273,7 +273,7 @@ a {
 }
 
 .amount {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 25px;
@@ -284,7 +284,7 @@ a {
 .price-and-amount__buy-bttn {
   width: 120px;
   height: 40px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -295,14 +295,14 @@ a {
 }
 
 .info-prod_footer__bttn button {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 13px;
 }
 
 .about-prod__caption {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -310,7 +310,7 @@ a {
 }
 
 .about-prod__info {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-size: 13px;
   line-height: 18px;
@@ -349,14 +349,14 @@ a {
 }
 
 .city-checkbox {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
 }
 
 .seller-bttns {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -440,7 +440,7 @@ a {
 }
 
 .order-agree__txt {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   color: #6E7A90;
@@ -448,7 +448,7 @@ a {
 }
 
 .tnx-txt {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
@@ -464,7 +464,7 @@ a {
 }
 
 .sort-checkbox__category {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -492,20 +492,20 @@ a {
 
 .sms-code__txt {
   text-transform: lowercase;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-size: 16px;
   color: #878786;
 }
 
 .sms-timer__txt {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-weight: 500;
   font-size: 30px;
   color: #888688;
 }
 
 .eror-sms__code {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 13px;
   color: #888688;
   line-height: 18px;
@@ -632,7 +632,7 @@ button:focus {
 }
 
 .market-name::after {
-  content: '';
+  content: "";
   width: 15px !important;
   height: 15px !important;
   background-image: url(/theme/goto.svg);
@@ -648,7 +648,7 @@ button:focus {
 }
 
 .category-dropdown::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -0.5rem;
   top: 0.8rem;
@@ -670,7 +670,7 @@ button:focus {
 }
 
 .customer-tab .active:before {
-  content: '';
+  content: "";
   height: 5px;
   width: 100%;
   position: absolute;

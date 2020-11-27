@@ -3563,7 +3563,7 @@ __webpack_require__(/*! owl.carousel */ "./node_modules/owl.carousel/dist/owl.ca
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\User\Desktop\fason\resources\js\owl-carousel.js */"./resources/js/owl-carousel.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\owl-carousel.js */"./resources/js/owl-carousel.js");
 
 
 /***/ })

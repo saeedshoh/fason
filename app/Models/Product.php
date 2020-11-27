@@ -15,13 +15,13 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 
+        'name',
         'slug',
-        'image', 
-        'description', 
-        'category_id', 
-        'quantity', 
-        'price', 
+        'image',
+        'description',
+        'category_id',
+        'quantity',
+        'price',
         'color',
         'attribute_id',
         'store_id',
@@ -35,41 +35,35 @@ class Product extends Model
         'gallery' => 'array',
     ];
 
-    public function getCategory() 
+    public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo('App\Models\Category');
     }
 
-    public function getRalation() 
+    public function attriute()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo('App\Models\Attribute');
     }
 
-    public function getAttributes()
+    public function store()
     {
-        return $this->belongsTo(Attribute::class, 'attribute_id', 'id');
+        return $this->belongsTo('App\Models\Store');
     }
 
-    public function getStore() 
+    public function product_status()
     {
-        return $this->belongsTo(store::class, 'store_id', 'id');
+        return $this->belongsTo('App\Models\ProductStatus');
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function brand()
+    {
+        return $this->belongsTo('App\Models\Brand');
+    }
+
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
-
-    public function getProductStatus() 
-    {
-        return $this->belongsTo(ProductStatus::class, 'product_status_id', 'id');
-    }
-
-    public function getBrand() 
-    {
-        return $this->belongsTo(Brand::class, 'brand_id', 'id');
-    }
-
 }

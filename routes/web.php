@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
-use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +21,16 @@ use App\Models\Category;
 |
 */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {           
-        Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
-                Route::resources([
-                        'orders' => OrderController::class,
-                        'users' => UserController::class,
-                        'store' => StoreController::class, 
-                        'employee' => EmployeeController::class,
-                        'categories' => CategoryController::class,
-                        'products' => ProductController::class,
-                ]);
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
+    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
+    Route::resources([
+        'orders' => OrderController::class,
+        'users' => UserController::class,
+        'store' => StoreController::class,
+        'employee' => EmployeeController::class,
+        'categories' => CategoryController::class,
+        'products' => ProductController::class,
+    ]);
 });
 
 Route::view('/product/create', 'products.create')->name('product.create');

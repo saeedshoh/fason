@@ -16,17 +16,15 @@ class Category extends Model
 
     protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id' ];
 
-    public function parent() 
-    {
+    public function parent()   {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
 
-    public function subcategories(){
+    public function subcategories()   {
         return $this->hasMany(Category::class,'parent_id', 'id')->with('subcategories');
     }
 
-    public function getSlugOptions() : SlugOptions
-    {
+    public function getSlugOptions() : SlugOptions   {
         return SlugOptions::create()
         ->generateSlugsFrom('name')
         ->saveSlugsTo('slug');
