@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,13 +15,26 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->stores = Store::get();
+        $this->categories = Category::get();
+        $this->products = Product::get();
+    }
     public function dashboard() {
         return view('dashboard.home');
     }
 
     public function index()
     {
-        
+        $is_store = null;
+        if (Auth::check()) {
+            $is_store = $this->stores->where('user_id', Auth::id())->first();
+        }
+        $stores = $this->stores;
+        $categories = $this->categories;
+        $products = $this->products ;
+        return view('home', compact('stores', 'is_store', 'categories', 'products'));
     }
 
     /**

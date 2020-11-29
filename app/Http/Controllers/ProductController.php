@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 
@@ -13,6 +15,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->categories = Category::get();
+        $this->stores = Store::get();
+    }
+
+    public function ft_create()
+    {
+    }
+    public function single()
+    {
+        return view('products.single');
+    }
+
     public function index()
     {
         $products = Product::latest()->paginate(10);
@@ -26,7 +42,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('dashboard.products.create');
+        $stores = $this->stores;
+        $categories = $this->categories;
+        return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
     /**

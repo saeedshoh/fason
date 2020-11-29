@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribute;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AttributeController extends Controller
@@ -14,7 +15,8 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        //
+        $attributes = Attribute::paginate(10);
+        return view('dashboard.attributes.index', compact('attributes'));
     }
 
     /**
@@ -24,7 +26,8 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::get();
+        return view('dashboard.attributes.create', compact('categories'));
     }
 
     /**
@@ -35,7 +38,8 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Attribute::create($request->all());
+        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно добавлен!');
     }
 
     /**
@@ -46,7 +50,7 @@ class AttributeController extends Controller
      */
     public function show(Attribute $attribute)
     {
-        //
+        return view('dashboard.attributes.show', compact('attribute'));
     }
 
     /**
@@ -56,8 +60,10 @@ class AttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Attribute $attribute)
+
     {
-        //
+        $categories = Category::get();
+        return view('dashboard.attributes.edit', compact('attribute', 'categories'));
     }
 
     /**
@@ -69,7 +75,8 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
-        //
+        $attribute->update($request->all());
+        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно изменена!');
     }
 
     /**
@@ -80,6 +87,7 @@ class AttributeController extends Controller
      */
     public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно удалена!');
     }
 }
