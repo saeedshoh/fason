@@ -33,6 +33,7 @@ class Product extends Model
 
     protected $casts = [
         'gallery' => 'array',
+        'attribute_id' => 'array',
     ];
 
     public function category()
