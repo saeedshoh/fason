@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductStatus;
 use Illuminate\Database\Seeder;
 
 class ProductStatusSeeder extends Seeder
@@ -13,6 +14,8 @@ class ProductStatusSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ProductStatus::create([
+            'name' => 'Активный',
+        ]);
     }
 }
