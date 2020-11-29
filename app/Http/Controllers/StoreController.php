@@ -14,7 +14,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('dashboard.store.index');
+        return view('store.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('dashboard.store.create');
+        return view('store.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class StoreController extends Controller
      */
     public function show(store $store)
     {
-        //
+        return view('store.show', compact('store'));
     }
 
     /**
@@ -57,7 +57,7 @@ class StoreController extends Controller
      */
     public function edit(store $store)
     {
-        //
+        return view('store.edit', compact('store'));
     }
 
     /**
@@ -80,6 +80,7 @@ class StoreController extends Controller
      */
     public function destroy(store $store)
     {
-        //
+        $store->delete();
+        return redirect(route('store.index'))->with('success', 'Магазин успешно удалена!');
     }
 }
