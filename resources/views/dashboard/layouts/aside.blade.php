@@ -422,7 +422,11 @@
                   </ul>
                 </div>
               </li>
-
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('attributes.index') }}">
+                  <i class="fe fe-git-branch"></i> Аттрибуты
+                </a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link{{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
                   <i class="fe fe-shopping-bag"></i> Заказы
@@ -482,11 +486,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="#sidebarComponents">
                   <i class="fe fe-book-open"></i> Components
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="./docs/changelog.html">
-                  <i class="fe fe-git-branch"></i> Changelog <span class="badge badge-primary ml-auto">v1.6.1</span>
                 </a>
               </li>
             </ul>

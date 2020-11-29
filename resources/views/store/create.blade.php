@@ -38,7 +38,7 @@
               <button type="button" class="font-weight-bold change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3"> 
                 <img src="/storage/theme/icons/change.svg" alt=""> Изменить
               </button>
-              <span class="banner__name-market">Olim H</span>
+              <span class="banner__name-market">Название Магазина</span>
             </div>
             <div class="mt-3">
               <button type="button" class="font-weight-bold change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3 px-3">
