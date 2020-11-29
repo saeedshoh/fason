@@ -22,11 +22,9 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('price');
-            $table->string('color')->nullable();
-            $table->foreignId('attribute_id')->nullable()->constrained()->default(1)->onDelete('cascade');
-            $table->foreignId('store_id')->nullable()->constrained()->default(1)->onDelete('cascade');
-            $table->foreignId('product_status_id')->nullable()->constrained()->default(1)->onDelete('cascade');
-            $table->foreignId('brand_id')->nullable()->constrained()->default(1)->onDelete('cascade');
+            $table->json('attribute_id')->constrained()->default(1)->onDelete('cascade');
+            $table->foreignId('store_id')->constrained()->default(1)->onDelete('cascade');
+            $table->foreignId('product_status_id')->constrained()->default(1)->onDelete('cascade');
             $table->json('gallery');
             $table->softDeletes();
             $table->timestamps();
