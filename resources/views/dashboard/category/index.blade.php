@@ -95,57 +95,89 @@
                     <tr>
                       <th style="width: 50px;">
 
-                        <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="list-checkbox-all custom-control-input" id="listCheckboxAll">
-                          <label class="custom-control-label" for="listCheckboxAll"></label>
-                        </div>
+                        №
 
                       </th>
                       <th>
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                       </th>
+                      <th>
+                        Родитель
+                      </th>
                       <th class="text-right">
-                       
+                      
                       </th>
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    @forelse ( $categories as $item)
+                    
+                    @forelse ( $categories as $key => $category)
                     <tr>
-                      <td >
+                      <td>
 
-                        <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="list-checkbox custom-control-input" id="listCheckboxOne">
-                          <label class="custom-control-label" for="listCheckboxOne"></label>
-                        </div>
+                        {{ ++$key }}
 
                       </td>
+                  
                       <td>
 
                         <!-- Avatar -->
                         <div class="avatar avatar-xs align-middle mr-2">
-                          <img class="avatar-img rounded-circle" src="/storage/{{ $item->icon }}">
-                        </div> <a class="item-name text-reset" href="profile-posts.html">{{ $item->name }}</a>
+                          <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
+                        </div> <a class="item-name text-reset" href="profile-posts.html">{{ $category->name }}</a>
 
                       </td>
+                      <td>
 
+                      </td>
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('categories.destroy', $item) }}" method="POST">
+                        <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                             @csrf 
-                            <button type="submit" href="{{ route('categories.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('categories.edit', $item) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
-                        <a href="{{ route('categories.show', $item) }}" class="btn btn-warning m-1 fa-pull-right">
+                        <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
                             <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
+                    @isset($category->children)
+                      @foreach($category->children as $category)
+                      <tr>
+                        <td>
+                          {{ ++$key }}
+                        </td>
+                        <td>
+                          <!-- Avatar -->
+                          <div class="avatar avatar-xs align-middle ml-5 mr-2">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
+                          </div> <a class="item-name text-reset" href="profile-posts.html">&emsp;{{ $category->name }}</a>
+                        </td>
+                        <td>
+                          {{ $category->parent->name }}
+                        </td>
+                        <td class="text-right">
+                          <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
+                              @csrf 
+                              <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
+                                  <i class="fe fe-trash"> </i></button>
+                              @method('DELETE')
+                          </form>
+                          <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
+                              <i class="fe fe-edit"> </i>
+                          </a>
+                          <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
+                              <i class="fe fe-eye" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        
+                        </tr>
+                      @endforeach
+                    @endisset
                     @empty
                     <tr>
                         <td colspan="7">

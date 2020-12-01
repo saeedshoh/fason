@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
         'categories' => CategoryController::class,
         'products' => ProductController::class,
         'attributes' => AttributeController::class,
+        'stores' => StoreController::class,
     ]);
 });
 Route::get('/send-sms', [SMSController::class, 'send']);
@@ -40,4 +41,3 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/apply', 'apply');
 Route::get('/product/{name}', [ProductController::class, 'single'])->name('product.single');
 Route::get('/product/create', [ProductController::class, 'ft_create'])->name('product.ft_create');
-Route::resource('store', StoreController::class);

@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->string('icon');
             $table->tinyInteger('is_active')->default(1);
-            $table->foreignId('parent_id')->default(0);
+            $table->foreignId('parent_id');
             $table->softDeletes();
             $table->timestamps();
         });

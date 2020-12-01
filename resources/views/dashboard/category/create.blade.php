@@ -34,13 +34,13 @@
                     </div>
                 </div>
             </div>
-        @if($errors->any())
-            <ul class="list-group ">
+            @if($errors->any())
+            <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
-                    <li class=" list-group-item list-group-item-danger">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+                        <span>{{ $error }}</span>
+                    @endforeach
+            </div>
+            @endif
             <div class="row">
             
                 <div class="col-lg-6">
@@ -48,25 +48,33 @@
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('categories.store') }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
+                        <form action="{{ route('categories.store') }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
 
                             @csrf
                             @method('POST')
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Название</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') }}" required="">
-                                    <div class="valid-feedback">
-                                    Looks good!
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') }}" required="">
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="parent_id">Родительская категории</label>
-                                    <select class="custom-select" data-toggle="select" name="parent_id">
+                                    <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
+                                        <option value="0" selected>Родительская</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('parent_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                     <small class="text-muted">
                                         * По умолчанию станет родительской
                                     </small>
@@ -85,10 +93,15 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Активность категории</label>
-                                    <select class="custom-select" name="is_active" id="is_active" form="create_category">
+                                    <select class="custom-select @error('is_active') is-invalid @enderror" name="is_active" id="is_active" form="create_category">
                                         <option value="1">Активен</option>
                                         <option value="0">Неактивен</option>
                                     </select>
+                                    @error('is_active')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                     <small class="text-muted">
                                         * По умолчанию активен
                                     </small>
@@ -97,8 +110,13 @@
                                     <label for="icon">Иконка</label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" for="icon">Выберите файл</label>
-                                        <input value="{{old('icon')}}" type="file" name="icon" form="create_category" id="icon" class="custom-file-input @error('icon')is-invalid @enderror" lang="ru" required>
+                                        <input value="{{old('icon')}}" type="file" name="icon" form="create_category" id="icon" class="custom-file-input @error('icon') is-invalid @enderror" lang="ru" required>
                                     </div>
+                                    @error('icon')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                     <small class="text-muted">Внимание размер: 64px * 64px</small>
                                 </div>
                             </div>

@@ -60,20 +60,9 @@
                                     Looks good!
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 mb-3">
-                                    <label for="category_id">Категории</label>
-                                    <select class="custom-select" data-toggle="select" name="category_id">
-                                        @foreach($categories as $category)
-                                    <option value="{{ $category->id }} {{ old('category_id') == $category->id ? 'selected' : ''}}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small class="text-muted">
-                                        * По умолчанию станет родительской
-                                    </small>
-                                </div>
                             </div>
                             <!-- Button -->
-                            <button class="btn btn-primary mt-4" type="submit">Добавить</button>
+                            <button class="btn btn-primary mt-2" type="submit">Добавить</button>
 
                         </form>
                         </div>

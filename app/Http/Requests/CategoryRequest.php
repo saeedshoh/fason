@@ -25,6 +25,8 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'parent_id' => '',
+            'is_active' => '',
         ];
     }
 
@@ -36,6 +38,8 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'Введите название категории',
+            'parent_id' => 'Выберите категорию',
+            'is_active' => 'Выберите категорию',
             'icon' => 'Выберите изображение'
         ];
     }

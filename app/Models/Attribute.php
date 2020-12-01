@@ -14,7 +14,7 @@ class Attribute extends Model
     use HasSlug;
     use SoftDeletes;
 
-    protected $fillable = [ 'name', 'is_active', 'category_id' ];
+    protected $fillable = [ 'name', 'is_active'];
 
     public function getSlugOptions(): SlugOptions
     {

@@ -35,13 +35,13 @@
                     </div>
                 </div>
             </div>
-        @if($errors->any())
-            <ul class="list-group ">
+            @if($errors->any())
+            <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
-                    <li class=" list-group-item list-group-item-danger">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+                        <span>{{ $error }}</span>
+                    @endforeach
+            </div>
+            @endif
             <div class="row">
             
                 <div class="col-lg-6">
@@ -49,33 +49,42 @@
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('categories.update', $category) }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
+                        <form action="{{ route('categories.update', $category) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
 
                             @csrf
                             @method('put')
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Название</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $category->name }}" required="">
-                                    <div class="valid-feedback">
-                                    Looks good!
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $category->name }}" required="">
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label for="parent_id">Родительская категории</label>
-                                    <select class="custom-select" data-toggle="select" name="parent_id">
+                                    <label for="parent_id">Категории</label>
+                                    <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
+                                        <option value="0" selected>Сделать родительской</option>
                                         @foreach($categories as $item)
-                                            <option value="{{ $item->id }}" {{ old('parent_id') ?? $category->parent_id == $item->id ? 'selected' : ''}}>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}" class="font-weight-bold" {{ $category->id == $item->id ? 'disabled' : ''}}>
+                                            {{ $item->name }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('parent_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                     <small class="text-muted">
                                         * По умолчанию станет родительской
                                     </small>
                                 </div>
                             </div>
                             <!-- Button -->
-                            <button class="btn btn-primary mt-4" type="submit">Добавить</button>
-
+                            <button class="btn btn-primary mt-4" type="submit">Изменить</button>
                         </form>
                         </div>
                     </div>
@@ -86,10 +95,15 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Активность категории</label>
-                                    <select class="custom-select" name="is_active" id="is_active" form="create_category">
+                                    <select class="custom-select  @error('is_active') is-invalid @enderror" name="is_active" id="is_active" form="create_category">
                                         <option value="1" {{ old('is_active') ?? $category->is_active == '1' ? 'selected' : ''}}>Активен</option>
                                         <option value="0" {{ old('is_active') ?? $category->is_active == '0' ? 'selected' : ''}}>Неактивен</option>
                                     </select>
+                                    @error('is_active')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                     <small class="text-muted">
                                         * По умолчанию активен
                                     </small>
@@ -100,6 +114,12 @@
                                         <label class="custom-file-label" for="icon">Выберите файл</label>
                                         <input value="{{ old('icon') ?? $category->icon}} " type="file" name="icon" form="create_category" id="icon" class="custom-file-input @error('icon')is-invalid @enderror" lang="ru" required>
                                     </div>
+                                    @error('icon')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                
                                     <small class="text-muted">Внимание размер: 64px * 64px</small>
                                 </div>
                             </div>

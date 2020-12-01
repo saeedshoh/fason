@@ -3,8 +3,6 @@
     "/css/dashboard/theme.css": "/css/dashboard/theme.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
     "/css/main.css": "/css/main.css",
-    "/css/owl-carousel.css": "/css/owl-carousel.css",
     "/js/dashboard/app.js": "/js/dashboard/app.js",
-    "/js/main.js": "/js/main.js",
-    "/js/owl-carousel.js": "/js/owl-carousel.js"
+    "/js/main.js": "/js/main.js"
 }

@@ -9,7 +9,7 @@
       <div class="row mt-3">
         <div class="col-lg-3 order-1 order-lg-0" >
           <div class="market__head-banner w-100 text-center d-none d-md-block" style="background: #FFFFFF url(/storage/theme/itpark.png);">
-            <button type="button" class="mt-3 change-bttn btn btn-outline-dark rounded-pill px-3"><img src="/storage/theme/icons/camera.svg" class="mw-100" alt=""> Изменить</button>
+            <label for="image" class="mt-3 change-bttn btn btn-outline-dark rounded-pill px-3"><img src="/storage/theme/icons/camera.svg" class="mw-100" alt=""> Изменить</label>
           </div>
           <div class=" d-block d-md-none">
             <h2>Магазин</h2>
@@ -17,7 +17,10 @@
               <div class="col-3 text-center">
                 <div class="d-inline-block position-relative">
                   <img src="/storage/theme/icons/Avatar.svg" alt="">
-                  <button class="btn p-0 position-absolute change-avatar-icon"><img src="/storage/theme/icons/camera.svg" class="" alt=""></button> 
+                  <label for="image" class="btn p-0 position-absolute change-avatar-icon">
+                    <img src="/storage/theme/icons/camera.svg" class="" alt="">
+                    <input type="file" class="d-none" id="image" name="image" form="market_store">
+                  </label> 
                 </div>
               </div>
               <div class="col-9 d-flex justify-content-between order-0 order-lg-1">
@@ -34,50 +37,43 @@
         </div>
         <div class="col-lg-9 mt-3 mt-lg-0">
           <div class="market__head-banner w-100 d-flex align-items-start justify-content-between" style="background: url(/storage/theme/yellowbanner.png); background-size: cover;">
-            <div class="d-none d-md-flex align-items-center mt-2">
-              <button type="button" class="font-weight-bold change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3"> 
-                <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-              </button>
-              <span class="banner__name-market">Название Магазина</span>
-            </div>
             <div class="mt-3">
-              <button type="button" class="font-weight-bold change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3 px-3">
+              <label for="cover" class="font-weight-bold change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3 px-3">
                 <img src="/storage/theme/icons/camera.svg" alt="">  Изменить
-              </button>
+                <input type="file" class="d-none" id="cover"  name="cover" form="market_store">
+              </label>
             </div>
           </div>
         </div>
       </div>
       <!--Edit logo and banner end-->
       <!--store info start-->
+      <form method="POST" action="{{ route('store.store') }}" enctype="multipart/form-data" id="market_store">
+      @csrf
       <div class="row mt-5">
         <div class="col-12 col-md-6">
-          <form action="">
             <div class="form-group d-flex flex-column flex-lg-row justify-content-between align-items-baseline">
-              <label class="font-weight-bold h5 text-secondary" for="aboutStore">О магазине: </label>
-              <input class="form-control w-75 input_placeholder_style" type="text" name="aboutStore" id="aboutStore">
+              <label class="font-weight-bold h5 text-secondary" for="name">О магазине: </label>
+              <input class="form-control w-75 input_placeholder_style" type="text" name="name" id="name">
             </div>
             <div class="form-group d-flex flex-column flex-lg-row justify-content-between align-items-baseline">
-              <label class="font-weight-bold h5 text-secondary" for="adress">Адрес: </label>
-              <input class="form-control w-75 input_placeholder_style" type="text" name="adress" id="adress">
+              <label class="font-weight-bold h5 text-secondary" for="description">Описание: </label>
+              <input class="form-control w-75 input_placeholder_style" type="text" name="description" id="description">
             </div>
-          </form>
         </div>
         <div class="col-12 col-md-6">
-          <form action="">
             <div class="form-group d-flex justify-content-between">
-              <label class="font-weight-bold h5 text-secondary" for="checkboxes">Город:</label>
+              <label class="font-weight-bold h5 text-secondary">Город:</label>
               <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="Dushanbe">
+                <input type="checkbox" name="city_id" class="form-check-input" value="1">
                 <label for="Dushanbe">Душанбе</label>
               </div>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="Hujand">
-                <label for="Hujand">Худжанд</label>
-              </div>
             </div>
-          </form>
+            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+            <button type="submit" class="btn-secondary rounded custom-bttn">Отправить</button>
         </div>
+        
+      </form>
       </div>
       <!--store info end-->
     </div>

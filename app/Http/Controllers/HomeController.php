@@ -32,7 +32,7 @@ class HomeController extends Controller
             $is_store = $this->stores->where('user_id', Auth::id())->first();
         }
         $stores = $this->stores;
-        $categories = $this->categories;
+        $categories = $this->where('parent_id', 0)->categories;
         $products = $this->products ;
         return view('home', compact('stores', 'is_store', 'categories', 'products'));
     }

@@ -13,12 +13,10 @@ require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/main.js', 'public/js')
-    .js('resources/js/owl-carousel.js', 'public/js')
     .js('resources/js/dashboard/app.js', 'public/js/dashboard')
     .sass('resources/sass/dashboard/theme.scss', 'public/css/dashboard')
     .sass('resources/sass/app.scss', 'public/css/dashboard')
     .sass('resources/sass/main.scss', 'public/css')
-    .sass('resources/sass/owl-carousel.scss', 'public/css')
     .purgeCss()
     // .postCss('resources/css/app.css', 'public/css', [
     //     require('postcss-import'),

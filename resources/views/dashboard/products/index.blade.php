@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Магазины')
+@section('title', 'Все товары')
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -15,30 +15,20 @@
 
                 <!-- Pretitle -->
                 <h6 class="header-pretitle">
-                  список магазинов
+                  список товаров
                 </h6>
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                  Все Магазины
+                   Все товары
                 </h1>
 
               </div>
               <div class="col-auto">
 
-                <!-- Navigation (button group) -->
-                <div class="nav btn-group d-inline-flex" role="tablist">
-                  <button class="btn btn-white active" id="companiesListTab" data-toggle="tab" data-target="#companiesListPane" role="tab" aria-controls="companiesListPane" aria-selected="true">
-                    <span class="fe fe-list"></span>
-                  </button>
-                  <button class="btn btn-white" id="companiesCardsTab" data-toggle="tab" data-target="#companiesCardsPane" role="tab" aria-controls="companiesCardsPane" aria-selected="false">
-                    <span class="fe fe-grid"></span>
-                  </button>
-                </div> <!-- / .nav -->
-
                 <!-- Buttons -->
-                <a href="{{ route('stores.create') }}" class="btn btn-primary ml-2">
-                  Добавить магазин
+                <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
+                  Добавить
                 </a>
 
               </div>
@@ -50,17 +40,17 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap active">
-                      Все магазины <span class="badge badge-pill badge-soft-secondary">627</span>
+                      Все категории <span class="badge badge-pill badge-soft-secondary">823</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap">
-                      Активные <span class="badge badge-pill badge-soft-secondary"></span>
+                      Активные <span class="badge badge-pill badge-soft-secondary">231</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary"></span>
+                      Неактивные <span class="badge badge-pill badge-soft-secondary">22</span>
                     </a>
                   </li>
                 </ul>
@@ -69,13 +59,17 @@
             </div>
           </div>
         </div>
-
+        @if (session()->get('success'))
+        <div class="alert alert-success">
+            {{session()->get('success')}}
+        </div>
+        @endif
         <!-- Tab content -->
         <div class="tab-content">
-          <div class="tab-pane fade show active" id="companiesListPane" role="tabpanel" aria-labelledby="companiesListTab">
+          <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-industry", "item-location", "item-owner", "item-created"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="companiesList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -88,7 +82,7 @@
                             <i class="fe fe-search"></i>
                           </span>
                         </div>
-                        <input class="list-search form-control" type="search" placeholder="Search">
+                        <input class="list-search form-control" type="search" placeholder="Найти">
                       </div>
                     </form>
 
@@ -99,8 +93,9 @@
                 <table class="table table-sm table-hover table-nowrap card-table">
                   <thead>
                     <tr>
-                      <th>
+                      <th style="width: 50px;">
 
+                        <!-- Checkbox -->
                         №
 
                       </th>
@@ -108,18 +103,26 @@
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                       </th>
                       <th>
-                        <a class="list-sort text-muted" data-sort="item-location" href="#">Адрес</a>
+                        <a href="#" class="text-muted list-sort" data-sort="orders-total">Цена</a>
                       </th>
                       <th>
-                        <a class="list-sort text-muted" data-sort="item-owner" href="#">Создатель</a>
+                        <a class="list-sort text-muted" data-sort="item-title" href="#">Категория</a>
+                      </th>
+                      <th>
+                        <a href="#" class="text-muted list-sort" data-sort="orders-date">
+                          Дата
+                        </a>
+                      </th>
+                      <th>
+                        <a class="list-sort text-muted" data-sort="item-score" href="#">Кол/Во</a>
                       </th>
                       <th colspan="2">
-                        <a class="list-sort text-muted" data-sort="item-created" href="#">Дата создания</a>
+                        <a class="list-sort text-muted desc" data-sort="item-company" href="#">Магазин</a>
                       </th>
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    @forelse ($stores as $key => $store)
+                    @forelse ( $products as $key => $product)
                     <tr>
                       <td>
 
@@ -127,56 +130,51 @@
 
                       </td>
                       <td>
-
-                        <!-- Avatar -->
-                        <div class="avatar avatar-xs align-middle mr-2">
-                          <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
-                        </div> <a class="item-name text-reset" href="team-overview.html">{{ $store->name }}</a>
-
+                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->name }}</span>
+                      </td>
+                      <td class="orders-total">
+                        {{ $product->price }}
                       </td>
                       <td>
-
-                        <!-- Text -->
-                        <span class="item-location">{{ $store->city->name }}</span>
-
+                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->category->name }}</span>
                       </td>
-                      <td class="item-phone">
+                      <td class="orders-date">
 
-                        <a class="item-owner text-reset" href="profile-posts.html">{{ $store->user->name }}</a>
-
+                        <!-- Time -->
+                        <time datetime="2018-07-30">{{ $product->created_at->format('d/m/Y') }}</time>
+    
                       </td>
                       <td>
 
                         <!-- Badge -->
-                        <time class="item-created" datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>
+                        <span class="item-score badge badge-soft-danger">1/10</span>
 
                       </td>
+                      <td>
+                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->store->name }}</span>
+                      </td>
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
+                        <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
                             @csrf 
-                            <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('products.destroy', $product->id) }}"  class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('stores.edit', $store) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
-                        <a href="{{ route('stores.show', $store) }}" class="btn btn-warning m-1 fa-pull-right">
+                        <a href="{{ route('products.show', $product) }}" class="btn btn-warning m-1 fa-pull-right">
                             <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-
                     @empty
-                        <tr>
-                          <td>
-                            Извините ничего не найдно
-                          </td>
-                        </tr>
+                    <tr>
+                        <td colspan="7">
+                            <span>Данные отсутствуют </span>
+                        </td>
+                    </tr>
                     @endforelse
-
-
-                    
                   </tbody>
                 </table>
               </div>
@@ -184,13 +182,11 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
                         <li class="page-item">
-                           {{ $stores ->links() }}
+                           {{ $products->links() }}
                         </li>
                     </ul>
                 </nav>
               </div>
-
-
             </div>
 
           </div>

@@ -96,10 +96,7 @@
                       <th style="width: 50px;">
 
                         <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="list-checkbox-all custom-control-input" id="listCheckboxAll">
-                          <label class="custom-control-label" for="listCheckboxAll"></label>
-                        </div>
+                        №
 
                       </th>
                       <th>
@@ -111,15 +108,12 @@
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    @forelse ($attributes as $item)
+                    @forelse ($attributes as $key => $item)
                     <tr>
-                      <td >
+                      <td>
 
                         <!-- Checkbox -->
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="list-checkbox custom-control-input" id="listCheckboxOne">
-                          <label class="custom-control-label" for="listCheckboxOne"></label>
-                        </div>
+                        {{ ++$key }}
 
                       </td>
                       <td>

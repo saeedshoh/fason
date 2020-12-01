@@ -15,10 +15,10 @@ class SMSController extends Controller
             'server' => 'http://api.osonsms.com/sendsms_v1.php' // 'Адрес сервера'
         );
         $dlm = ";";
-        $phone_number = "988258720"; //номер телефона
+        $phone_number = "501500535"; //номер телефона
         $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
         $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-        $message = "Привет, это тестовое сообщение!";
+        $message = "fason.tj, Акаи Олим смс кор кадестай !";
         $params = array(
             "from" => $config['sender'],
             "phone_number" => $phone_number,

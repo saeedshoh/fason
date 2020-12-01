@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(10);
+        $categories = Category::where('parent_id', '0')->paginate(10);
 
         return view('dashboard.category.index', compact('categories'));
     }
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::with('subcategories')->get();
+        $categories = Category::where('parent_id', 0)->get();
         return view('dashboard.category.create', compact('categories'));
     }
 
@@ -38,13 +38,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
-    {   
-
+    {
         $request->validate([
 			'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 		]);
 
-		$icon = $request->file('icon')->store('/img/' . now()->year . '/' . sprintf("%02d", now()->month));
+		$icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
         
 		Category::create($request->validated() + ['icon' => $icon]);
         return redirect(route('categories.index'))->with('success', 'Категория успешно добавлена!');
@@ -69,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {  
-        $categories = Category::with('subcategories')->get();
+        $categories = Category::where('parent_id', 0)->get();
         return view('dashboard.category.edit', compact('categories', 'category'));
     }
 
@@ -82,15 +81,20 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'icon' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048'
-        ]);
         if ($request->icon != $category->image) {
-            if(Storage::exists($category->icon))
-            Storage::delete($category->icon);
-            $icon = $request->file('icon')->store('/img/' . now()->year . '/' . sprintf("%02d", now()->month));
+            $request->validate([
+                'icon' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048'
+            ]);
+            if ($request->icon != $category->image) {
+                if(Storage::exists($category->icon))
+                Storage::delete($category->icon);
+                $icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            }
+            $category->update([
+                'icon' => $icon,
+            ]);
         }
-        $category->update($request->validated() + ['icon' => $icon]);
+        $category->update($request->validated());
         return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
     }
 

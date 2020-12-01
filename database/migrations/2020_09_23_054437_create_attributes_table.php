@@ -18,7 +18,6 @@ class CreateAttributesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('is_active')->default(1);
-            $table->foreignId('category_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -384,61 +384,33 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="#sidebarBasicss" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBasicss">
+                <a class="nav-link {{ request()->is('dashboard/categories') ? ' active' : '' }}" href="{{ route('categories.index') }}">
                   <i class="fe fe-layers"></i> Категории
                 </a>
-                <div class="collapse " id="sidebarBasicss">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item ">
-                      <a href="{{ route('categories.create') }}" class="nav-link">
-                        <i class="fe fe-file-plus"></i> Добавить категорию
-                      </a>
-                    </li>
-                    <li class="nav-item ">
-                      <a href="{{ route('categories.index') }}" class="nav-link">
-                        <i class="fe fe-list"></i> Все категории
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="#sidebarProducts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
+                <a class="nav-link {{ request()->is('dashboard/products') ? ' active' : '' }}" href="{{ route('products.index') }}">
                   <i class="fe fe-grid"></i> Товары
                 </a>
-                <div class="collapse " id="sidebarProducts">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item ">
-                      <a href="{{ route('products.create') }}" class="nav-link">
-                        <i class="fe fe-file-plus"></i> Добавить товарь
-                      </a>
-                    </li>
-                    <li class="nav-item ">
-                      <a href="{{ route('products.index') }}" class="nav-link">
-                        <i class="fe fe-list"></i> Все товары
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('attributes.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/attributes') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
                   <i class="fe fe-git-branch"></i> Аттрибуты
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link{{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
                   <i class="fe fe-shopping-bag"></i> Заказы
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/users*') ? ' active' : '' }}" href="{{ route('users.index') }}">
-                  <i class="fe fe-users"></i> Клиенты
+                  <i class="fe fe-users"></i> Пользователи
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/store*') ? ' active' : '' }}" href="{{ route('store.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/stores*') ? ' active' : '' }}" href="{{ route('stores.index') }}">
                   <i class="fe fe-shopping-cart"></i> Магазин
                 </a>
               </li>

@@ -33,18 +33,18 @@
             </div>
 
             <!-- Form -->
-            <form class="mb-4">
+          <form class="mb-4">
 
               <!-- Team name -->
               <div class="form-group">
 
                 <!-- Label -->
-                <label>
+                <label for="name">
                   Название магазина
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="name" name="name">
 
               </div>
 

@@ -14,7 +14,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('store.index');
+        $stores = Store::latest()->paginate(20);
+        return view('dashboard.store.index', compact('stores'));
     }
 
     /**
@@ -35,7 +36,17 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+		]);
+
+		$image = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
+
+        Store::create($request->validate() + ['avatar' => $image, 'cover' => $cover]);
+
+        return redirect(route('store.store'))->with('success', 'Магазин успешно добавлена!');
     }
 
     /**
