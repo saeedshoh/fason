@@ -18,18 +18,18 @@
           
 
           @if ($is_store == null)
-            <a href="{{ route('store.create') }}">
-              <button type="button" class="custom-bttn mr-2 rounded px-3"> 
+            <a href="{{ route('ft-store.create') }}">
+              <button type="button" class="mr-2 rounded px-3"> 
                   <i class="fas fa-door-open"></i>Открыть магазин</button>
             </a>
           @else
-            <a href="{{ route('store.edit', $is_store->id) }}">
-              <button type="button" class="custom-bttn mr-2 rounded px-3"> 
+            <a href="{{ route('ft-store.edit', $is_store->id) }}">
+              <button type="button" class="mr-2 rounded px-3"> 
                   <i class="fas fa-door-open"></i>Перейти в магазин</button>
             </a>
           @endif
-            <button type="button" class="custom-bttn mr-2 rounded px-3"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-            <button type="button" class="custom-bttn mr-2 rounded px-3" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
+            <button type="button" class="mr-2 rounded px-3"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
+            <button type="button" class="mr-2 rounded px-3" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
         
 
         </div>
@@ -42,7 +42,7 @@
           <form method="POST" action="{{ route('logout') }}">
             @csrf
           
-            <button type="submit" class="custom-bttn rounded px-3">
+            <button type="submit" class="rounded px-3">
               <i class="fas fa-sign-out-alt"></i> Выход
             </button>
           </form>
@@ -51,7 +51,7 @@
         @endauth
        @guest
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
-          <button type="button" class="custom-bttn mr-2 rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
+          <button type="button" class="mr-2 rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход
           </button>
         </div>
@@ -120,7 +120,7 @@
               <div class="price-place position-relative">
                 <h5 class="product-price mt-4 position-relative">ЦЕНА: {{ $product->price }}</h5>
                 <p class="buy-bttn text-center mb-0 position-absolute">
-                  <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 custom-bttn text-decoration-none "> Купить </a>
+                  <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
                 </p>
               </div>
             </div>
@@ -151,7 +151,7 @@
                 <div class="price-place position-relative">
                   <h5 class="product-price mt-4 position-relative">ЦЕНА: {{ $product->price }}</h5>
                   <p class="buy-bttn text-center mb-0 position-absolute">
-                    <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 custom-bttn text-decoration-none "> Купить </a>
+                    <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
                   </p>
                 </div>
               </div>
@@ -185,10 +185,5 @@
      </div>
     </div>
   </section>
-
-
- 
-     
-    
 
 @endsection

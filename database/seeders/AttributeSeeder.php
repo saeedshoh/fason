@@ -16,8 +16,7 @@ class AttributeSeeder extends Seeder
     {
         ModelsAttribute::create([
             'name' => 'Цвет',
-            'is_active' => '1',
-            'category_id' => '1',
+            'is_active' => '1'
         ]);
     }
 }

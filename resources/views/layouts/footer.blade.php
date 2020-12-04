@@ -10,58 +10,30 @@
                     <span aria-hidden="true"><img src="storage/theme/icons/close icon.svg" alt=""> </span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="modal-required__head-txt  d-flex justify-content-center mb-3">
-                    <img class="text-center" src="./storage/theme/logo.png" alt="">
-                </div>
-                <div class="regist-on-site px-4 d-flex justify-content-center">   
-                    <form class="w-100">                   
-                    <div class="input-group">
-                        <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+992</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">+991</a>
-                            <a class="dropdown-item" href="#">+772</a>
-                            <a class="dropdown-item" href="#">+11</a>
-                        </div>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                        <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                        </div>
+            <div class="modal-body text-center">
+                <img src="./storage/theme/logo_fason.svg" alt="" class="mb-5" width="160">
+                <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}">
+                  <div class="input-group text-left">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text btn-link">+992</div>
                     </div>
-                    
-                    <div class="form-group row mt-4">
-                        <div class="col-sm-12 ">
-                        <p class="text-center sms-code__txt mb-2">Я получил СМС</p>
-                        <input type="email" class="form-control" id="colFormLabel" placeholder="КОД">
-                        </div>
+                    <input type="number" name="phone" class="form-control" id="phone" placeholder="Введите номер телефона">
+                  </div>
+                  <button  type="button" class="btn btn-danger btn-lg my-4" id="send-code">Получить код</button>
+                  <div class="enter-code my-3" style="display: none">
+                    <div class="form-group text-left">
+                      <label for="code" class="font-weight-bold">Я получил СМС</label>
+                      <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
                     </div>
-                    </form>
-                </div>
-                <div class="modal-required__head-txt d-flex justify-content-center mt-4">
-                    <h3 class="sms-timer__txt">0:59</h3>
-                </div>
+                      <h2 id="count-down" class="my-3">0:59</h2>
+                      <p class="text-muted">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code">Отправить код повторно</button></p>
+                      <button type="submit" class="btn btn-danger">Войти</button>
+                  </div>
+                </form>
+                <p class="privacy-policy text-primary">
+                  Ознакомиться с пользовательским соглашением и полотикой конфиденциальности
+                </p>
 
-                <div class="mt-4">
-                    <p class="text-center mb-0 eror-sms__code">Если вы не получили СМС с кодом</p>
-                    <p class="text-center mb-0 eror-sms__code" ><a href="">Отправить код повторно </a></p>
-                </div>
-
-                <div class="privacy-policy__terms-of-use mt-3">
-                    <p class="text-center mb-0 eror-sms__code"><a href=""> Ознакомиться с пользовательским соглашением и полотикой конфиденциальности  </a></p>
-                </div>
-
-                <div class="d-flex justify-content-center mt-5">
-                    <button  type="button" class="text-center price-and-amount__buy-bttn custom-bttn btn-secondary rounded px-4">Вход</button>
-                </div>
 
             </div>
             <div class="modal-footer border-0"></div>

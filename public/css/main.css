@@ -3,32 +3,12 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.custom-bttn {
-  font-family: "Montserrat", sans-serif;
-  color: #FFF !important;
-  background: #FF0055;
-  font-size: 14px;
-  border: none;
-  height: 35px;
-}
-
-.custom-bttn:hover,
-.custom-bttn:active,
-.custom-bttn:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 .text-pinky {
   color: #FF0055;
 }
 
 .text-pinky:hover {
   color: #FF0055 !important;
-}
-
-.custom-bttn:hover {
-  background: #FF0055;
 }
 
 .shop-subject li,
@@ -281,15 +261,6 @@ a {
   color: #484848;
 }
 
-.price-and-amount__buy-bttn {
-  width: 120px;
-  height: 40px;
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-}
-
 .info-product_footer {
   border-top: 2px solid #FF0055;
 }
@@ -488,32 +459,6 @@ a {
 .categories__modal::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #F5F5F5;
-}
-
-.sms-code__txt {
-  text-transform: lowercase;
-  font-family: "Lato";
-  font-size: 16px;
-  color: #878786;
-}
-
-.sms-timer__txt {
-  font-family: "Montserrat";
-  font-weight: 500;
-  font-size: 30px;
-  color: #888688;
-}
-
-.eror-sms__code {
-  font-family: "Roboto";
-  font-size: 13px;
-  color: #888688;
-  line-height: 18px;
-}
-
-.eror-sms__code a {
-  color: #007bff !important;
-  line-height: 18px;
 }
 
 /*Shuhrat*/
