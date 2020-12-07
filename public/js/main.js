@@ -102,10 +102,33 @@ $('.sizes .product-size').on('click', function () {
   $('.product-size').removeClass('text-danger');
   $(this).addClass('text-danger');
 });
+$('#btn-login').on('click', function () {
+  var phone = $('#phone').val();
+  var code = $('#code').val();
+  $.ajax({
+    url: '/sms-confirmed',
+    type: 'post',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: {
+      phone: phone,
+      code: code
+    },
+    success: function success(data) {
+      if (data == 2) {
+        location.reload(true);
+      }
+    },
+    error: function error(xhr, status, _error) {
+      console.log(status);
+    }
+  });
+});
 $('#send-code, .send-code').on('click', function () {
   var phone = $('#phone').val();
   $.ajax({
-    url: '/sms-confirmed',
+    url: '/sms-send',
     type: 'post',
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -119,7 +142,7 @@ $('#send-code, .send-code').on('click', function () {
       $('.enter-code').show();
       return countDown();
     },
-    error: function error(xhr, status, _error) {
+    error: function error(xhr, status, _error2) {
       console.log(status);
     }
   });

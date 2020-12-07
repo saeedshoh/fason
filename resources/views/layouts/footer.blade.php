@@ -27,7 +27,7 @@
                     </div>
                       <h2 id="count-down" class="my-3">0:59</h2>
                       <p class="text-muted">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code">Отправить код повторно</button></p>
-                      <button type="submit" class="btn btn-danger">Войти</button>
+                      <button type="button" class="btn btn-danger" id="btn-login">Войти</button>
                   </div>
                 </form>
                 <p class="privacy-policy text-primary">

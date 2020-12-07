@@ -2,13 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SmsConfirmed;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SmsConfirmedController extends Controller
 {
+    public function __construct()
+    {
+        $this->sms_confirmed = SmsConfirmed::get();
+    }
+    public function confirmed(Request $request)
+    {
+        if ($request->ajax()) {
+            $user = User::where('phone', $request->phone)->first();
+
+            $sms_confirmed = $this->sms_confirmed->where('code', $request->code)->first();
+            if ($request->code == $sms_confirmed->code && $sms_confirmed->is_active == 0) {
+                $confirm = SmsConfirmed::where('code', $request->code)->update(['is_active' => 1]);
+            }
+            if ($sms_confirmed->is_active == 1) {
+                Auth::login($user);
+                return 2;
+            }
+        }
+    }
     public function send(Request $request)
     {
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $config = array(
                 'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
                 'hash' => '9c1891437739e62b0cd45d7c8e232739',  // Ваш хэш, который выдается администратором OsonSMS
@@ -19,8 +41,15 @@ class SmsConfirmedController extends Controller
             $phone_number = "$request->phone"; //номер телефона
             $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
             $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-            $code = mt_rand(00000, 99999);
-            $message = "Ваш код: ".$code;
+            $code = mt_rand(10000, 99999);
+            $message = "Ваш код: " . $code;
+            $user = User::updateOrCreate(
+                ['phone' => $phone_number]
+            );
+            $sms_confirmed = SmsConfirmed::create([
+                'code' => $code,
+                'user_id' => $user->id,
+            ]);
             $params = array(
                 "from" => $config['sender'],
                 "phone_number" => $phone_number,

@@ -36,7 +36,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
         'stores' => StoreController::class,
     ]);
 });
-Route::get('/send-sms', [SMSController::class, 'send']);
 Route::view('/product/create', 'products.create')->name('product.create');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/apply', 'apply');
@@ -44,4 +43,7 @@ Route::get('/product/{name}', [ProductController::class, 'single'])->name('produ
 Route::get('/product/create', [ProductController::class, 'ft_create'])->name('product.ft_create');
 Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
 Route::get('/store/{id}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
-Route::post('sms-confirmed', [SmsConfirmedController::class, 'send'])->name('sms-confirmed');
+Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
+
+Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
+Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');

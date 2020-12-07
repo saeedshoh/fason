@@ -36,6 +36,8 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
+        
         $request->validate([
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg'

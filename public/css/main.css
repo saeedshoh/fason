@@ -712,3 +712,68 @@ input[type=number] {
   }
 }
 
+/* Sasha*/
+
+.btn-edit {
+  border: 1px solid;
+  padding: 0.25rem 1.15rem !important;
+  font-size: 13px;
+}
+
+.edit-store-logo {
+  top: 0.5rem;
+}
+
+.edit-name {
+  top: 0.5rem;
+  left: 1.5rem;
+}
+
+.change-banner {
+  top: 0.5rem;
+  right: 1.5rem;
+}
+
+.store-inf-label {
+  font-size: 18px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background: none !important;
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.order-cancled::before {
+  background: #FF0055;
+  content: "";
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  left: 0;
+  top: -2%;
+}
+
+.order-success::before {
+  background: #03D087;
+  content: "";
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  left: 0;
+  top: -2%;
+}
+
+.order-preparing::before {
+  background: #FF511A;
+  content: "";
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  left: 0;
+  top: -2%;
+}
+

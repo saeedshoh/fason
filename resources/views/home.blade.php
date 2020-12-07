@@ -19,17 +19,17 @@
 
           @if ($is_store == null)
             <a href="{{ route('ft-store.create') }}">
-              <button type="button" class="mr-2 rounded px-3"> 
+              <button type="button" class="mr-2 rounded btn-danger px-3 border-0"> 
                   <i class="fas fa-door-open"></i>Открыть магазин</button>
             </a>
           @else
             <a href="{{ route('ft-store.edit', $is_store->id) }}">
-              <button type="button" class="mr-2 rounded px-3"> 
+              <button type="button" class="mr-2 btn-danger rounded px-3 border-0"> 
                   <i class="fas fa-door-open"></i>Перейти в магазин</button>
             </a>
           @endif
-            <button type="button" class="mr-2 rounded px-3"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-            <button type="button" class="mr-2 rounded px-3" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
+            <button type="button" class="mr-2 rounded btn-danger px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
+            <button type="button" class="mr-2 rounded btn-danger px-3 border-0" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
         
 
         </div>
@@ -42,7 +42,7 @@
           <form method="POST" action="{{ route('logout') }}">
             @csrf
           
-            <button type="submit" class="rounded px-3">
+            <button type="submit" class="rounded btn-danger px-3 border-0">
               <i class="fas fa-sign-out-alt"></i> Выход
             </button>
           </form>
@@ -51,7 +51,7 @@
         @endauth
        @guest
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
-          <button type="button" class="mr-2 rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
+          <button type="button" class="mr-2 rounded btn-danger px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход
           </button>
         </div>

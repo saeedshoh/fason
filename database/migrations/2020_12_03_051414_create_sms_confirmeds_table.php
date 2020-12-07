@@ -15,6 +15,9 @@ class CreateSmsConfirmedsTable extends Migration
     {
         Schema::create('sms_confirmeds', function (Blueprint $table) {
             $table->id();
+            $table->integer('code');
+            $table->foreignId('user_id');
+            $table->tinyInteger('is_active')->default(0);
             $table->timestamps();
         });
     }
