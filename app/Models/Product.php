@@ -22,12 +22,8 @@ class Product extends Model
         'category_id',
         'quantity',
         'price',
-        'color',
-        'attribute_id',
         'store_id',
         'product_status_id',
-        'brand_id',
-        'varchar',
         'gallery',
     ];
 

@@ -15,41 +15,46 @@
           </div>
         </div>
         <div class="col-md-8 col-lg-6 d-none d-md-flex">
-          
 
           @if ($is_store == null)
-            <a href="{{ route('ft-store.create') }}">
-              <button type="button" class="mr-2 rounded btn-danger px-3 border-0"> 
-                  <i class="fas fa-door-open"></i>Открыть магазин</button>
-            </a>
+            @auth
+              <a href="{{ route('ft-store.create') }}" class="mr-2 rounded btn-danger text-decoration-none px-3">
+                <i class="fas fa-door-open"></i>Открыть магазин
+              </a>
+            @endauth
+            @guest
+                
+            <button type="button" class="mr-2 rounded btn-danger px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
+              <i class="fas fa-door-open"></i>Открыть магазин
+            </button>
+            @endguest
           @else
-            <a href="{{ route('ft-store.edit', $is_store->id) }}">
-              <button type="button" class="mr-2 btn-danger rounded px-3 border-0"> 
-                  <i class="fas fa-door-open"></i>Перейти в магазин</button>
+            <a href="{{ route('ft-store.show', $is_store->id) }}"  class="mr-2 btn-danger rounded px-3 text-decoration-none">
+              <i class="fas fa-door-open"></i>Перейти в магазин
             </a>
           @endif
-            <button type="button" class="mr-2 rounded btn-danger px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-            <button type="button" class="mr-2 rounded btn-danger px-3 border-0" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
+            <button type="button" class="mr-2 rounded btn-secondary px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
+            <button type="button" class="mr-2 rounded btn-secondary px-3 border-0" ><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</button>
         
 
         </div>
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
-          <a class="profile-img"> 
+          <a class="text-decoration-none text-secondary"> 
             <img class="rounded-circle" src="storage/theme/profile.png" alt="">
-            <span class="shop-subject  text-small mr-2"></span>
+            <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
           
-            <button type="submit" class="rounded btn-danger px-3 border-0">
+            <button type="submit" class="rounded btn btn-danger px-3 border-0">
               <i class="fas fa-sign-out-alt"></i> Выход
             </button>
           </form>
           
         </div>
         @endauth
-       @guest
+       @guest 
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
           <button type="button" class="mr-2 rounded btn-danger px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход

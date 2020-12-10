@@ -42,7 +42,7 @@ Route::view('/apply', 'apply');
 Route::get('/product/{name}', [ProductController::class, 'single'])->name('product.single');
 Route::get('/product/create', [ProductController::class, 'ft_create'])->name('product.ft_create');
 Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
-Route::get('/store/{id}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+Route::get('/store/{stores}', [StoreController::class, 'show'])->name('ft-store.show');
 Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');

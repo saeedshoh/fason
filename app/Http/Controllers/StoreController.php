@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\store;
+use App\Http\Requests\StoreRequest;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -34,19 +36,17 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        dd($request);
-        
         $request->validate([
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
-		]);
-
-		$image = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        ]);
+        
+		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
         $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
 
-        Store::create($request->validate() + ['avatar' => $image, 'cover' => $cover]);
+        Store::create($request->validated() + ['avatar' => $avatar, 'cover' => $cover, 'user_id' => Auth::id() ]);
 
         return redirect(route('store.store'))->with('success', 'Магазин успешно добавлена!');
     }
@@ -57,9 +57,9 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(store $store)
+    public function show(Store $stores)
     {
-        return view('store.show', compact('store'));
+        return view('store.show', compact('stores'));
     }
 
     /**
@@ -68,7 +68,7 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(store $store)
+    public function edit(Store $store)
     {
         return view('store.edit', compact('store'));
     }
@@ -80,7 +80,7 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, store $store)
+    public function update(Request $request, Store $store)
     {
         //
     }
@@ -91,7 +91,7 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(store $store)
+    public function destroy(Store $store)
     {
         $store->delete();
         return redirect(route('store.index'))->with('success', 'Магазин успешно удалена!');

@@ -9,7 +9,8 @@ $('.sizes .product-size').on('click', function () {
     $(this).addClass('text-danger');
 })
 
-$('#btn-login').on('click', function () {
+// sms-congirm
+$('#btn-login, #code').on('click change', function () {
     const phone = $('#phone').val();
     const code = $('#code').val()
     $.ajax({
@@ -35,7 +36,7 @@ $('#btn-login').on('click', function () {
 
     });
 });
-
+// sms-code
 $('#send-code, .send-code').on('click', function () {
     const phone = $('#phone').val();
 
@@ -63,6 +64,7 @@ $('#send-code, .send-code').on('click', function () {
     });
 });
 
+// countable time
 var seconds = 1000 * 60; //1000 = 1 second in JS
 var timer;
 
@@ -78,3 +80,50 @@ function countDown() {
 }
 
 document.getElementById("count-down").innerHTML = "0:" + seconds / 1000;
+
+// preview image 
+
+$(function () {
+    $("#gallery").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#preview-product-secondary");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<div class="col-3 text-center"><img /></div>');
+                        img.find('img').addClass("mw-100");
+                        img.find('img').attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+});
+// single preview
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#main-poster').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#image").change(function(){
+    readURL(this);
+});

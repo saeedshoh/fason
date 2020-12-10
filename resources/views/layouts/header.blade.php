@@ -11,11 +11,11 @@
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
               <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
                 <input  class="form-control rounded main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
-                <button class="custom-bttn nav-link btn mx-2 rounded search-btn" type="submit">
+                <button class="btn-danger border-0 px-2 nav-link btn mx-2 rounded search-btn" type="submit">
                   <i class="fas fa-search d-none d-lg-inline-block"></i><i class="fas fa-search d-inline-block text-pinky d-lg-none"></i> <span class="d-none d-lg-inline-block">Поиск</span></button>
               </form>
                 <!-- Button trigger modal -->
-              <button class="custom-bttn nav-link btn rounded d-flex align-items-center filter-btn" data-toggle="modal" data-target="#filter_for_subject" type="submit">
+              <button class="btn-danger border-0 nav-link btn rounded d-flex align-items-center filter-btn" data-toggle="modal" data-target="#filter_for_subject" type="submit">
                 <i class="fas fa-filter d-none d-lg-inline-block"></i> <i class="fas fa-filter d-block d-lg-none text-pinky"></i> <span class="d-none d-lg-inline-block"> Фильтр</span>
               </button>
             </div>
@@ -233,11 +233,35 @@
               </div>
             </div>
           </div>
-          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
-            <button type="button" class="custom-bttn  mr-0 mr-lg-2 rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
-            <i class="fas fa-sign-in-alt"></i>  Вход
-            </button>
+          
+          @guest
+            <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
+              <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
+              <i class="fas fa-sign-in-alt"></i>  Вход
+              </button>
+            </div>
+          @endguest
+          @auth
+          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown">
+            <a class="text-decoration-none text-secondary" type="text" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+              <img class="rounded-circle" src="storage/theme/profile.png" alt="">
+              <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
+              <a class="dropdown-item" href="#">Профиль</a>
+              <div class="dropdown-divider"></div>
+              <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
+                @csrf
+                
+                <button type="submit" class="btn btn-outline-dark border-0 px-0">
+                  <i class="fas fa-sign-out-alt"></i> Выход
+                </button>
+              </form>
+            </div>
+            
+            
           </div>
+          @endauth
         </div>
       </div>
     </div>

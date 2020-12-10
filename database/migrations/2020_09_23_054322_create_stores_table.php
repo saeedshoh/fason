@@ -18,11 +18,12 @@ class CreateStoresTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->text('description');
+            $table->string('address');
             $table->string('avatar');
             $table->string('cover');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('city_id')->constrained();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

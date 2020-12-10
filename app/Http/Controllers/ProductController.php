@@ -23,6 +23,8 @@ class ProductController extends Controller
 
     public function ft_create()
     {
+        $cat_parent = $this->categories->where('parent_id', 0);
+        return view('products.create', compact('cat_parent'));
     }
     public function single()
     {
