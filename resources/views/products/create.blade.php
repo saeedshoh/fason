@@ -27,20 +27,28 @@
               </label>
             </div>
             <div class="col-3 text-center">
-              <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
+              <label for="gallery">
+                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
+              </label>
             </div>
             <div class="col-3 text-center">
-              <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
+              <label for="gallery">
+                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
+              </label>
             </div>
             <div class="col-3 text-center">
-              <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100" alt="">
+              <label for="gallery">
+                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100" alt="">
+              </label>
             </div>
           </div>
         </div>
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
-          <form>
+          <form action="{{ route('products.store') }}" method="POST">
+            @csrf
+            @method('POST')
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                 <select class="strartline_stick input_placeholder_style form-control w-75 position-relative" id="cat_parent" name="categories">
@@ -50,8 +58,7 @@
                   @empty
                       Извините ничего не найдено
                   @endforelse
-                  
-                </select>                
+                </select>
             </div>
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под- категории:</label>
@@ -270,9 +277,9 @@
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: </label>
                 <input type="number" class="input_placeholder_style form-control w-75 position-relative" id="price" name="price">  
               </div>
-              <input type="hidden" name="store_id">
+              <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
               <div class="col-12 col-md-5 d-flex justify-content-end align-items-md-end">
-                <button type="button" class="font-weight-bold btn-danger border-0 mr-2 mb-2 rounded px-2 w-lg-75 w-100"> Добавить </button>
+                <button type="submit" class="font-weight-bold btn-danger border-0 mr-2 mb-2 rounded px-2 w-lg-75 w-100"> Добавить </button>
               </div>
             </div>
           </form>

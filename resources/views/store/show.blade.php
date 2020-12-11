@@ -79,7 +79,7 @@
             <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/sorders.svg" alt="">История продаж</a>
           </div>
           <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-            <a class="btn btn-danger w-100" href="{{ route('product.ft_create') }}"><img class="mr-1" src="/storage/theme/icons/sadd.svg" alt="">Добавить товар</a>
+            <a class="btn btn-danger w-100" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/sadd.svg" alt="">Добавить товар</a>
           </div>
           <div class="col-md-6 col-lg-3 my-3 my-lg-0">
             <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/ssaved.svg" alt="">Сохраненные</a>

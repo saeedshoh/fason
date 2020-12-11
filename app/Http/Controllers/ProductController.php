@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
 {
     /**
@@ -21,15 +22,12 @@ class ProductController extends Controller
         $this->stores = Store::get();
     }
 
-    public function ft_create()
+    public function add_product()
     {
         $cat_parent = $this->categories->where('parent_id', 0);
         return view('products.create', compact('cat_parent'));
     }
-    public function single()
-    {
-        return view('products.single');
-    }
+
 
     public function index()
     {
@@ -55,9 +53,38 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+			'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP'
+        ]);
+        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+        $save = Image::make($request->file('image'))->resize(480, 480, function ($constraint) {
+            $constraint->upsize();
+        });
+        $save_single = Image::make($request->file('image'))->fit(800, 800, function ($constraint) {
+            $constraint->upsize();
+        });
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $save->insert($watermark, 'bottom-right', 25, 25);
+        $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+        $image = $nowYear . '480x480.jpg';
+        $image_single = $nowYear . '800x800.jpg';
+        if (!file_exists(public_path('/storage/' . $image))) {
+            Storage::makeDirectory($yearFolder);
+            $save->save(public_path('/storage/' . $image));
+            $save_single->save(public_path('/storage/' . $image_single));
+        } else {
+            $save->save(public_path('/storage/' . $image));
+            $save_single->save(public_path('/storage/' . $image_single));
+        }
+
+        Product::create($request->validated() + ['image' => $image]);
+        return redirect()->route('home');
     }
 
     /**

@@ -9,9 +9,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SmsConfirmedController;
-use App\Http\Controllers\SMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +36,19 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
         'stores' => StoreController::class,
     ]);
 });
-Route::view('/product/create', 'products.create')->name('product.create');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::view('/apply', 'apply');
+
+Route::get('/category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
+
+Route::get('/product/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
 Route::get('/product/{name}', [ProductController::class, 'single'])->name('product.single');
-Route::get('/product/create', [ProductController::class, 'ft_create'])->name('product.ft_create');
+
 Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
 Route::get('/store/{stores}', [StoreController::class, 'show'])->name('ft-store.show');
 Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
+
+Route::get('/image', [ImageInv::class, 'index']);

@@ -11,7 +11,7 @@
       <div class="row mt-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
-            <img src="/storage/theme/itpark.png" class="w-100 h-100" alt="">
+            <img src="/storage/theme/itpark.png" class="w-100 rounded" id="avatar-poster" height="216">
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt=""> 
                 Изменить
@@ -21,11 +21,11 @@
           </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/theme/yellowbanner.png" class="w-100 h-100" alt="">
+          <img src="/storage/theme/yellowbanner.png" class="w-100 rounded store-image" id="cover-poster" height="216">
          
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
-              <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top" alt="">Изменить
+              <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top">Изменить
               <input type="file" class="d-none" id="cover" name="cover">
             </label>
           </div>
@@ -105,16 +105,16 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100" href="#"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
+          <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100" href="#"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
+          <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
           <a class="btn btn-danger w-100" href="#"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">  Добавить товар</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100" href="#"><img class="mr-1" src="/storage/theme/icons/saved.svg" alt="">  Сохраненные</a>
+          <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/saved.svg" alt="">  Сохраненные</a>
         </div>
       </div>
     </div>
@@ -168,191 +168,7 @@
             </div>
           </div>
 
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
 
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <button type="button"
-                    class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                    <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                  </button>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <p class="buy-bttn text-center mb-0 position-absolute">
-                    <button type="button"
-                      class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                      <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                    </button>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="position-relative bg-white border product-place text-center py-3 px-2">
-              <img class="my-md-5 my-3 img-fluid" src="/storage/theme/Products/tablet.png" alt="">
-              <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-              <p class="about-product mb-2">
-                Lorem Ipsum is simply dummy text.
-              </p>
-              <div class="price-place position-relative">
-                <h3 class="product-price mt-4 position-relative">ЦЕНА: $116</h3>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <button type="button"
-                    class="change-hover__bttn change-bttn btn btn-outline-dark rounded-pill  ml-4 mr-3  px-3">
-                    <img src="/storage/theme/icons/change.svg" alt=""> Изменить
-                  </button>
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <!--All product-end-->

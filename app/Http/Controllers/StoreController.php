@@ -6,7 +6,6 @@ use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class StoreController extends Controller
 {
     /**
@@ -48,7 +47,7 @@ class StoreController extends Controller
 
         Store::create($request->validated() + ['avatar' => $avatar, 'cover' => $cover, 'user_id' => Auth::id() ]);
 
-        return redirect(route('store.store'))->with('success', 'Магазин успешно добавлена!');
+        return redirect()->route('ft-store.show')->with('success', 'Магазин успешно добавлена!');
     }
 
     /**

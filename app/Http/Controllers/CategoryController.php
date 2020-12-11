@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -13,6 +14,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function category($slug) {
+        $categories =  Category::where('slug', $slug)->get();
+        
+        return view('category', compact('categories'));
+    }
     public function index()
     {
         $categories = Category::where('parent_id', '0')->paginate(10);
@@ -44,9 +50,8 @@ class CategoryController extends Controller
 		]);
 
 		$icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
-        
 		Category::create($request->validated() + ['icon' => $icon]);
-        return redirect(route('categories.index'))->with('success', 'Категория успешно добавлена!');
+        return redirect()->route('categories.index')->with('success', 'Категория успешно добавлена!');
     }
 
     /**

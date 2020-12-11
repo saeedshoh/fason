@@ -22,7 +22,6 @@ class ProductSeeder extends Seeder
             'category_id' => '1',
             'quantity' => '12',
             'price' => '16543',
-            'attribute_id' => '1',
             'product_status_id' => '1',
             'store_id' => '1',
             'gallery' => 'Iphone XS MAX 256',
