@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
+use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,11 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function guest($slug) {
+        $store = Store::where('slug', $slug)->first();
+        $products = Product::where('store_id', $store->id)->get();
+        return view('store.guest', compact('store', 'products'));
+    }
     public function index()
     {
         $stores = Store::latest()->paginate(20);

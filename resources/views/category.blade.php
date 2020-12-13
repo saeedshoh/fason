@@ -25,25 +25,24 @@
 
         <div class="col-12 col-md-8">
           <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 my-2">
-              @forelse ($products as $product)
-                <div class="col d-flex align-items-center justify-content-center mb-3 mb-lg-0 px-1 px-md-2">
-                  <div class="line-test position-relative bg-white border-lg-0 border product-place text-center h-100 w-100 py-3 px-2">
-                    <img class="liked-icon position-absolute" src="storage/theme/icons/favourite.svg" alt="">
-                    <img class="product-pic my-md-5 my-3" src="storage/theme/Products/tablet.png" alt="">
-                    <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
-                    <p class="about-product mb-2" >
-                      {{ Str::limit($product->description, 110) }}
-                    </p>
-                    <div class="price-place position-relative">
-                      <h5 class="product-price mt-4 position-relative">ЦЕНА: {{ $product->price }}</h5>
-                      <p class="buy-bttn text-center mb-0 position-absolute">
-                        <a href="{{ route('ft-products.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
-                      </p>
-                    </div>
+            @forelse ($products as $product)
+            <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+              <div class="card rounded shadow">
+                <img class="position-absolute favorite" src="storage/theme/icons/favourite.svg" alt="">
+                <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
+                <div class="container">
+                  <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
+                  <span class="text-muted">Одежда</span>
+                  <div class="price-place d-flex justify-content-between align-items-center mb-3">
+                    <span class="font-weight-bold">TJS {{ $product->price }}</span>
+                    <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
                   </div>
-                @empty
-                  <p>Извените ничего не найдено</p>
-                @endforelse
+                </div>
+              </div>
+            </div>
+          @empty
+              Извените ничего не найдено
+          @endforelse
 
               </div>
           </div>

@@ -22,9 +22,13 @@ body {
   font-style: normal;
 }
 
-.product-pic {
-  background-repeat: no-repeat;
-  background-position: center center;
+.rounded-25 {
+  border-radius: 25px;
+}
+
+.favorite {
+  right: 20px;
+  top: 20px;
 }
 
 .brand-logo {
@@ -133,19 +137,6 @@ a {
 .color_select {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-}
-
-.liked-icon {
-  display: none;
-  right: 5%;
-}
-
-.product-place:hover .liked-icon {
-  display: block;
-}
-
-.liked-icon:hover {
-  color: #FF0055;
 }
 
 .sneaker-pic__manin {
@@ -533,31 +524,6 @@ a {
   border-radius: 15px;
 }
 
-.price-place {
-  height: 3.5rem;
-}
-
-.product-place .buy-bttn {
-  top: 0;
-  width: 100%;
-  top: -0.2rem;
-}
-
-.product-place .buy-bttn {
-  opacity: 0 !important;
-  transition: 0.5s !important;
-}
-
-.product-place:hover .buy-bttn {
-  opacity: 1 !important;
-  top: 1.8rem;
-}
-
-.product-place:hover .product-price {
-  padding-bottom: 1rem;
-  transform: scale(0.8);
-}
-
 .sample-carousel .item {
   height: 8rem;
 }
@@ -780,5 +746,192 @@ input[type=number] {
 .store-image {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+/* product-single*/
+
+.custom-radius {
+  border-radius: 11px;
+}
+
+.buy-modal {
+  max-width: 700px !important;
+}
+
+.buy-modal .title {
+  font-size: 14px;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.modal-item::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  width: 94%;
+  left: 2.5%;
+  height: 1px;
+  background: #BBBBBB;
+}
+
+#prodCarousel .carousel-indicators li {
+  background-color: #7C7C7C;
+  width: 8px;
+  height: 8px;
+  border: none !important;
+  border-radius: 50%;
+}
+
+#prodCarousel .carousel-indicators .active {
+  background-color: #FF0055;
+  width: 13px;
+  height: 13px;
+}
+
+@media only screen and (max-width: 620px) {
+  .prod-controls {
+    background: #FF0055;
+    color: #fff;
+  }
+
+  .prod-controls .btn-danger {
+    background: #fff;
+    color: #FF0055;
+  }
+
+  .info-product_footer {
+    border: none;
+  }
+}
+
+/* Theming */
+
+.t-neutral .spinner__button {
+  background: #222;
+  color: #fff;
+}
+
+.t-neutral .spinner__button:hover,
+.t-neutral .spinner__button:focus,
+.t-neutral .spinner__button:active {
+  background: #444;
+}
+
+.t-neutral .spinner__input {
+  background: #eee;
+}
+
+/* Aggressive reset to remove the initial spinner */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type=number]:hover::-webkit-inner-spin-button,
+input[type=number]:hover::-webkit-outer-spin-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* The component (also includes vertical) */
+
+.spinner {
+  display: flex;
+}
+
+.spinner:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.spinner__label {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.spinner__button {
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 1.1em 1em 1.15em;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.4s ease;
+}
+
+.spinner__button--left {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.spinner__button--right {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.spinner__button--top {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.spinner__button--bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.spinner--vertical .spinner__button {
+  padding: 2em 1em;
+  width: 100%;
+}
+
+.spinner__input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-radius: none;
+  box-sizing: border-box;
+  display: block;
+  font-size: 1em;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.spinner--horizontal .spinner__input {
+  padding: 1em 1em 1.05em 1em;
+}
+
+@media all and (min-width: 40em) {
+  .spinner--horizontal .spinner__input {
+    padding: 1.1em 1em 1.05em 1em;
+  }
+}
+
+.spinner--vertical .spinner__input {
+  padding: 1.5em 1em 1.5em 1em;
+  width: 100%;
+}
+
+.spinner--horizontal .spinner__button {
+  width: 25%;
+}
+
+.spinner--horizontal .spinner__input {
+  width: 50%;
 }
 

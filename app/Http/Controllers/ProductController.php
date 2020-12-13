@@ -44,10 +44,11 @@ class ProductController extends Controller
         return view('dashboard.products.index', compact('products'));
     }
 
-    public function single(Product $product, $slug)
+    public function single($slug)
     {
-        $product->where('slug', $slug)->first();
-        return view('products.single', compact('product'));
+        $product = Product::where('slug', $slug)->first();
+        $similars = Product::where('store_id', $product->store_id)->get();
+        return view('products.single', compact('product', 'similars'));
     }
 
     /**
@@ -134,7 +135,6 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        
         if ($request->image != $product->image && $request->image != null) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',

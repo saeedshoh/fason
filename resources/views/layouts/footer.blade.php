@@ -40,7 +40,64 @@
         </div>
     </div>
 </div>
-
+<!--Modal-3-->
+<div class="modal fade text-left" id="adressChange" tabindex="-1" aria-labelledby="adressChange"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered buy-modal">
+  <div class="modal-content">
+    <div class="modal-header border-0">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <img src="img/close-modal.svg" alt=""></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container text-center">
+        <img src="img/logo fason.svg" alt="">
+        <form class="my-3 mx-0 mx-sm-3 mx-lg-5">
+          <div class="form-group mt-4">
+            <input type="text" class="form-control" placeholder="Имя..">
+          </div>
+          <div class="form-group mt-4">
+            <input type="text" class="form-control" placeholder="Адрес дома...">
+          </div>
+          <div class="text-center">
+            <h5 class="text-secondary">Город:</h5>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="dushanbe">
+                <label class="form-check-label text-dark" for="dushanbe">
+                  Душанбе
+                </label>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="hujand">
+                <label class="form-check-label text-dark" for="hujand">
+                  Худжанд
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <small class="d-block d-md-none mb-3">
+              <a class="text-primary privacy-policy" href="#" >
+                Ознакомиться с пользовательским соглашением и полотикой конфиденциальности 
+              </a>
+            </small>
+            <button class="btn btn-danger">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer border-0">
+      
+    </div>
+  </div>
+</div>
+</div>
 {{-- Раздел Футера --}}
 <footer class="mt-5">
     <div class="container border-top border-bottom py-4">

@@ -50,6 +50,7 @@ Route::post('/products', [ProductController::class, 'ft_store'])->name('ft-produ
 
 Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
 Route::get('/store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
+Route::get('/store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
 Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
