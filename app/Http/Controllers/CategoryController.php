@@ -15,9 +15,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function category($slug) {
+        $cat_id =  Category::where('slug', $slug)->first()->id;
         $categories =  Category::where('slug', $slug)->get();
-        
-        return view('category', compact('categories'));
+        $products = Product::where('category_id', $cat_id)->get();
+        return view('category', compact('categories', 'products'));
     }
     public function index()
     {

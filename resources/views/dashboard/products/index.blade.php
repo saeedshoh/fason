@@ -123,7 +123,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     @forelse ( $products as $key => $product)
-                    <tr>
+                    <tr class="@if($product->product_status_id == 1)badge-soft-success @elseif($product->product_status_id == 3) badge-soft-warning @endif">
                       <td>
 
                         {{ ++$key }}
@@ -154,17 +154,9 @@
                         <span class="item-name text-reset" href="profile-posts.html">{{ $product->store->name }}</span>
                       </td>
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
-                            @csrf 
-                            <button type="submit" href="{{ route('products.destroy', $product->id) }}"  class="btn btn-danger m-1 pull-right">
-                                <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                        </form>
+                       
                         <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
-                        </a>
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-warning m-1 fa-pull-right">
-                            <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>

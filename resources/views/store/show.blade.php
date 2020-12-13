@@ -58,6 +58,13 @@
               <div class="ccol-12 col-md-6">
                 <h3 class="font-weight-bold">Адрес:</h3>
               </div>
+              <div class="col-12 col-md-6">
+                <div class="text-left text-md-right">
+                  <h5 class="font-weight-bold h5">
+                    {{ $stores->address ?? ''}}
+                  </h5>
+                </div>
+              </div>
               <div class="offset-0 offset-md-6 col-12 col-md-6">
                 <div class="text-center text-md-right">
                   <a class="btn btn-danger" href="#">Изменить</a>

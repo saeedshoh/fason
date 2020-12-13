@@ -49,7 +49,9 @@
           <img src="storage/theme/logo.png" alt="">
         </div>
 
-        <div class="col-12 col-lg-3"> <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p> </div>
+        <div class="col-12 col-lg-3"> 
+          <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p> 
+        </div>
         <div class="footer_links col-lg-3"> 
           <ul class="p-0 p-lg">
             <li> <a href="">Помощь</a></li>
@@ -68,8 +70,7 @@
         <div class="footer_links col-12 col-lg-3"> 
           <ul class="p-0 p-lg">
             <li> <a href="">О нас</a></li>
-            <li> <a href="">Тел: 992 9333</a></li>
-            <li> <a href="">Тел: 223 23 09</a></li>
+            <li> <a href="">Тел: (992) 880 18 0128 </a></li>
           </ul>
         </div>          
       </div>

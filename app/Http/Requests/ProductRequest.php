@@ -28,7 +28,9 @@ class ProductRequest extends FormRequest
             'description' => 'required',
             'quantity' => 'required',
             'price' => 'required',
-            'color' => 'required',
+            'store_id' => 'required',
+            'category_id' => 'required',
+            'product_status_id' => 'required',
         ];
     }
 
@@ -44,7 +46,7 @@ class ProductRequest extends FormRequest
             'description' => 'Введите описание продукта',
             'quantity' => 'Введите количество продукта',
             'price' => 'Введите ценну продукта',
-            'color' => 'Выберите цвет',
+            'category_id' => 'Выберите категорию',
         ];
     }
 }

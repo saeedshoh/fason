@@ -29,7 +29,7 @@
             </button>
             @endguest
           @else
-            <a href="{{ route('ft-store.show', $is_store->id) }}"  class="mr-2 btn-danger rounded px-3 text-decoration-none">
+            <a href="{{ route('ft-store.show', $is_store->slug) }}"  class="mr-2 btn-danger rounded px-3 text-decoration-none">
               <i class="fas fa-door-open"></i>Перейти в магазин
             </a>
           @endif
@@ -70,7 +70,8 @@
           <ul class="shop-subject list-group list-group-flush h-100">
             @forelse ($categories as $category)
             <li class="list-group-item">
-              <img src="storage/{{ $category->icon }}" height="20" width="20" alt=""> {{ $category->name }}
+              <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt=""> {{ $category->name }}</a>
+              
             </li>
             @empty
               Извение ничего не найдено
@@ -115,25 +116,20 @@
 
         @forelse ($products as $product)
           <div class="col d-flex align-items-center justify-content-center mb-3 mb-lg-0 px-1 px-md-2">
-            <div class="line-test position-relative bg-white border-lg-0 border product-place text-center h-100 w-100 py-3 px-2">
-              <img class="liked-icon position-absolute" src="storage/theme/icons/favourite.svg" alt="">
-              <img class="product-pic my-md-5 my-3" src="storage/theme/Products/tablet.png" alt="">
+            <div class="line-test text-center card product-place">
+              <img class="liked-icon position-absolute " src="storage/theme/icons/favourite.svg" alt="">
+              <img class="product-pic img-fluid mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
               <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
-              <p class="about-product mb-2" >
-                {{ Str::limit($product->description, 110) }}
-              </p>
-              <div class="price-place position-relative">
-                <h5 class="product-price mt-4 position-relative">ЦЕНА: {{ $product->price }}</h5>
-                <p class="buy-bttn text-center mb-0 position-absolute">
-                  <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
-                </p>
+
+              <div class="price-place">
+                <span class="">TJS {{ $product->price }}</span>
+                <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
               </div>
             </div>
           </div>
         @empty
             Извените ничего не найдено
         @endforelse
-
 
       </div>
 
@@ -156,7 +152,7 @@
                 <div class="price-place position-relative">
                   <h5 class="product-price mt-4 position-relative">ЦЕНА: {{ $product->price }}</h5>
                   <p class="buy-bttn text-center mb-0 position-absolute">
-                    <a href="{{ route('product.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
+                    <a href="{{ route('ft-products.single', $product->slug) }}" class="rounded-pill px-5 py-2 text-decoration-none "> Купить </a>
                   </p>
                 </div>
               </div>
@@ -173,11 +169,12 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-none d-lg-block mt-4">
-        <div class="col py-4 pl-5 justify-content-around" style="background: url(storage/theme/under_banner.png); width: 100%; height: 135px; font-family: Montserrat;
+        <img src="storage/theme/banner.png" class="img-fluid">
+        {{-- <div class="col py-4 pl-5 justify-content-around" style="background: url(storage/theme/under_banner.png); width: 100%; height: 135px; font-family: Montserrat;
           font-style: normal;
           font-weight: 800;
           font-size: 30px; color: #FFFFFF;"> <div class="text-center" style="background:#F83A3C; width: 35%;">Lorem Ipsum is <br> simply dummy text.</div> 
-        </div>
+        </div> --}}
       </div>
       <!--Banner end-->
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>

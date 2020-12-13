@@ -535,31 +535,6 @@ a {
     border-radius: 15px;
 }
 
-.price-place {
-    height: 3.5rem;
-}
-
-.product-place .buy-bttn {
-    top: 0;
-    width: 100%;
-    top: -0.2rem;
-}
-
-.product-place .buy-bttn {
-    opacity: 0 !important;
-    transition: 0.5s !important;
-}
-
-.product-place:hover .buy-bttn {
-    opacity: 1 !important;
-    top: 1.8rem;
-}
-
-.product-place:hover .product-price {
-    padding-bottom: 1rem;
-    transform: scale(0.8);
-}
-
 .sample-carousel .item {
     height: 8rem;
 }

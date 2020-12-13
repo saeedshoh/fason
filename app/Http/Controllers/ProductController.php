@@ -22,6 +22,15 @@ class ProductController extends Controller
         $this->stores = Store::get();
     }
 
+    public function decline(Product $product) {
+        $product->update(['product_status_id' => 3]);
+        return redirect()->route('products.index');
+    }
+    public function publish(Product $product) {
+        $product->update(['product_status_id' => 2]);
+        return redirect()->route('products.index');
+    }
+    
     public function add_product()
     {
         $cat_parent = $this->categories->where('parent_id', 0);
@@ -33,6 +42,12 @@ class ProductController extends Controller
     {
         $products = Product::latest()->paginate(10);
         return view('dashboard.products.index', compact('products'));
+    }
+
+    public function single(Product $product, $slug)
+    {
+        $product->where('slug', $slug)->first();
+        return view('products.single', compact('product'));
     }
 
     /**
@@ -53,7 +68,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function ft_store(ProductRequest $request)
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
@@ -106,7 +121,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = $this->categories;
+        return view('dashboard.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -116,9 +132,44 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        
+        if ($request->image != $product->image && $request->image != null) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+                'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP'
+            ]);
+            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+            $save = Image::make($request->file('image'))->resize(480, 480, function ($constraint) {
+                $constraint->upsize();
+            });
+            $save_single = Image::make($request->file('image'))->fit(800, 800, function ($constraint) {
+                $constraint->upsize();
+            });
+            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $save->insert($watermark, 'bottom-right', 25, 25);
+            $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+            $image = $nowYear . '480x480.jpg';
+            $image_single = $nowYear . '800x800.jpg';
+            if (!file_exists(public_path('/storage/' . $image))) {
+                Storage::makeDirectory($yearFolder);
+                $save->save(public_path('/storage/' . $image));
+                $save_single->save(public_path('/storage/' . $image_single));
+            } else {
+                $save->save(public_path('/storage/' . $image));
+                $save_single->save(public_path('/storage/' . $image_single));
+            }
+            $product->update([
+                'image' => $image,
+            ]);
+        }
+
+        $product->update($request->validated());
+        return redirect()->route('products.index');
     }
 
     /**
@@ -129,6 +180,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }

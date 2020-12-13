@@ -33,7 +33,7 @@ class HomeController extends Controller
         }
         $stores = $this->stores;
         $categories = $this->categories->where('parent_id', 0);
-        $products = $this->products ;
+        $products = $this->products->where('product_status_id', 2) ;
         return view('home', compact('stores', 'is_store', 'categories', 'products'));
     }
 

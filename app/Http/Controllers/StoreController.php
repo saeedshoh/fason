@@ -47,7 +47,7 @@ class StoreController extends Controller
 
         Store::create($request->validated() + ['avatar' => $avatar, 'cover' => $cover, 'user_id' => Auth::id() ]);
 
-        return redirect()->route('ft-store.show')->with('success', 'Магазин успешно добавлена!');
+        return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
     /**
@@ -56,8 +56,9 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $stores)
+    public function show($slug)
     {
+        $stores = Store::where('slug', $slug)->first();
         return view('store.show', compact('stores'));
     }
 

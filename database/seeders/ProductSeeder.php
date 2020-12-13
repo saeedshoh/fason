@@ -24,7 +24,6 @@ class ProductSeeder extends Seeder
             'price' => '16543',
             'product_status_id' => '1',
             'store_id' => '1',
-            'gallery' => 'Iphone XS MAX 256',
         ]);
     }
 }
