@@ -227,7 +227,7 @@
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow">
               <img class="position-absolute favorite" src="storage/theme/icons/favourite.svg" alt="">
-              <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
+              <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="" >
               <div class="container">
                 <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
                 <span class="text-muted">{{ $product->category->name }}</span>

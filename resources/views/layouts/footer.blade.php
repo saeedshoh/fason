@@ -75,9 +75,6 @@ aria-hidden="true">
             <div class="form-group col-6">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="hujand">
-                <label class="form-check-label text-dark" for="hujand">
-                  Худжанд
-                </label>
               </div>
             </div>
           </div>
@@ -112,8 +109,7 @@ aria-hidden="true">
         <div class="footer_links col-lg-3"> 
           <ul class="p-0 p-lg">
             <li> <a href="">Помощь</a></li>
-            <li> <a href="">Оферта</a></li>
-            <li> <a href="">Предложени</a></li>
+            <li> <a href="">Политика и конфиденциальности</a></li>
           </ul>
         </div>
 
@@ -123,13 +119,7 @@ aria-hidden="true">
             <li> <a href="">Возврат</a></li>
             <li> <a href="">Как стать продавцом</a></li>
           </ul>
-        </div>         
-        <div class="footer_links col-12 col-lg-3"> 
-          <ul class="p-0 p-lg">
-            <li> <a href="">О нас</a></li>
-            <li> <a href="">Тел: (992) 880 18 0128 </a></li>
-          </ul>
-        </div>          
+        </div>
       </div>
 
       <div class="col-lg-2 col-8 col-md-5 mt-2 pl-0 d-flex justify-content-between">

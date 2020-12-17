@@ -26,7 +26,6 @@
             <div class="col-9 d-flex justify-content-between order-0 order-lg-1 mt-3">
               <div>
                 <h3 class="font-weight-bold">Название: {{ $store->user->name }}</h3>
-                <span class="text-secondary">Адрес: {{ $store->address }}</span>
               </div>
             </div>
           </div>
