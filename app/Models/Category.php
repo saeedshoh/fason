@@ -22,7 +22,9 @@ class Category extends Model
     public function children() {
         return $this->hasMany(Category::class,'parent_id', 'id')->with('children');
     }
-
+    public function products() {
+        return $this->hasMany('App\Models\Product');
+    }
     public function getSlugOptions() : SlugOptions   {
         return SlugOptions::create()
         ->generateSlugsFrom('name')

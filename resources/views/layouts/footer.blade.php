@@ -19,7 +19,7 @@
                     </div>
                     <input type="number" name="phone" class="form-control" id="phone" placeholder="Введите номер телефона">
                   </div>
-                  <button  type="button" class="btn btn-danger btn-lg my-4" id="send-code">Получить код</button>
+                  <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
                     <div class="form-group text-left">
                       <label for="code" class="font-weight-bold">Я получил СМС</label>
@@ -27,7 +27,7 @@
                     </div>
                       <h2 id="count-down" class="my-3">0:59</h2>
                       <p class="text-muted">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code">Отправить код повторно</button></p>
-                      <button type="button" class="btn btn-danger" id="btn-login">Войти</button>
+                      <button type="button" class="btn btn-danger rounded-11" id="btn-login">Войти</button>
                   </div>
                 </form>
                 <p class="privacy-policy text-primary">
@@ -84,7 +84,7 @@ aria-hidden="true">
                 Ознакомиться с пользовательским соглашением и полотикой конфиденциальности 
               </a>
             </small>
-            <button class="btn btn-danger">Сохранить</button>
+            <button class="btn btn-danger rounded-11">Сохранить</button>
           </div>
         </form>
       </div>
@@ -100,7 +100,7 @@ aria-hidden="true">
     <div class="container border-top border-bottom py-4">
       <div class="row">
         <div class="col-12 mb-4">
-          <img src="storage/theme/logo.png" alt="">
+          <img src="/storage/theme/logo_fason.svg" alt="" width="120">
         </div>
 
         <div class="col-12 col-lg-3"> 

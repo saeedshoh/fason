@@ -101,6 +101,34 @@ $('.select-color').on('click', function () {
 $('.sizes .product-size').on('click', function () {
   $('.product-size').removeClass('text-danger');
   $(this).addClass('text-danger');
+}); // favorite add
+
+$('.favorite').on('click', function () {
+  if ($(this).hasClass('active')) {
+    var status = 0;
+  } else {
+    var status = 1;
+  }
+
+  $(this).toggleClass('active');
+  var product_id = $(this).attr('data-id');
+  $.ajax({
+    url: '/favorite/' + product_id,
+    type: 'PUT',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: {
+      product_id: product_id,
+      status: status
+    },
+    success: function success(data) {
+      console.log(data);
+    },
+    error: function error(xhr, status, _error) {
+      console.log(status);
+    }
+  });
 }); // sms-congirm
 
 $('#btn-login, #code').on('click change', function () {
@@ -121,7 +149,7 @@ $('#btn-login, #code').on('click change', function () {
         location.reload(true);
       }
     },
-    error: function error(xhr, status, _error) {
+    error: function error(xhr, status, _error2) {
       console.log(status);
     }
   });
@@ -144,7 +172,7 @@ $('#send-code, .send-code').on('click', function () {
       $('.enter-code').show();
       return countDown();
     },
-    error: function error(xhr, status, _error2) {
+    error: function error(xhr, status, _error3) {
       console.log(status);
     }
   });
@@ -352,18 +380,12 @@ var product_price = $('#price').text();
 $('.spinner__button').on('click', function () {
   var count = $('#spinner-input').val();
   var res = parseInt(product_price * count);
-  console.log(count);
-  console.log(product_price);
-  console.log(res);
   $('.total-price, .price').text(res);
   $('.quantity-product').text(count);
 });
 $('#spinner-input').on('change', function () {
   var count = $(this).val();
   var res = parseInt(product_price * count);
-  console.log(count);
-  console.log(product_price);
-  console.log(res);
   $('.total-price, .price').text(res);
   $('.quantity-product').text(count);
 });

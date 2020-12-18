@@ -73,8 +73,8 @@
           <div class="prod-controls-mobile">
 
           </div>
-          <div class="mt-5">
-            <h3 class="h3">Описание товара:</h3>
+          <div class="my-5">
+            <h4>Описание товара:</h4>
             <p class="text-secondary text-semi-bold">{{ $product->description }}</p>
           </div>
         </div>
@@ -94,10 +94,10 @@
               <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-danger text-decoration-none">{{ $product->store->name }}</a>
             </p>
           </div>
-          <div class="row align-items-center my-3 prod-controls">
-            <div class="col-3">
+          <div class="row align-items-center mt-3 prod-controls">
+            <div class="col-4">
               <div class="text-center text-md-left">
-                <h3 class="mb-0">TJS <span class="text-danger price" id='price'>{{ $product->price }}</span></h3>
+                <h5 class="mb-0"><span class="text-danger price" id='price'>{{ $product->price }}</span> Сомони</h5>
               </div>
             </div>
             <div class="col-4 my-md-0 my-3 text-center">
@@ -111,7 +111,7 @@
                  </form>
               </div>
             </div>
-            <div class="col-5">
+            <div class="col-4">
               <div class="text-center text-md-right">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                               <div class="title mb-3">Цена:</div>
-                              <span class="text-secondary text-semi-bold price-start">TJS {{ $product->price }}</span>
+                              <span class="text-secondary text-semi-bold price-start">{{ $product->price }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
@@ -153,7 +153,7 @@
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
                                 <div class="title mb-3">Сумма:</div>
-                                <div class="text-semi-bold total-price">TJS {{ $product->price }}</div>
+                                <div class="text-semi-bold total-price">{{ $product->price }} сомони</div>
                               </div>
                             </div>
                           </div>
@@ -206,10 +206,14 @@
           <div class="mt-3 mt-sm-5 d-flex justify-content-end info-product_footer">
             <div class="mt-3 mt-sm-4 text-center">
               <a ></a>
-              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="custom-radius btn btn-danger mr-md-2 my-1"><img class="mr-1"
+              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1"><img class="mr-1"
                   src="/storage/theme/icons/store.svg" alt=""> В магазин продавца</a>
-              <button type="button" class="custom-radius btn btn-secondary  ml-md-2 my-1"><img class="mr-1"
-                  src="/storage/theme/icons/saved.svg" alt="">Сохранить</button>
+              <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-id="{{ $product->id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1">
+                  <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
+                </svg>
+                <span>Сохранить</span>
+              </button>
             </div>
           </div>
         </div>
@@ -217,22 +221,25 @@
       </div>
     </div>
   </section>
+  <section class="divide"></section>
   <section class="">
     <div class="all-product container mt-5">
       <div class="text-center">
-        <h2 class="shop-subject title mt-5 mb-4">Другие товары продавца:</h2>
+        <h2 class="my-5 text-muted">Другие товары продавца:</h2>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
         @forelse ($similars as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow">
-              <img class="position-absolute favorite" src="storage/theme/icons/favourite.svg" alt="">
+              <svg class="position-absolute favorite" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="none">
+                <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                </svg>
               <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="" >
               <div class="container">
                 <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
                 <span class="text-muted">{{ $product->category->name }}</span>
                 <div class="price-place d-flex justify-content-between align-items-center mb-3">
-                  <span class="font-weight-bold">TJS {{ $product->price }}</span>
+                  <span class="font-weight-bold">{{ $product->price }} сомони</span>
                   <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
                 </div>
               </div>

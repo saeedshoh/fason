@@ -1,7 +1,7 @@
 $(document).on('ready', function () {
 
 
-    
+
 });
 
 $('.select-color').on('click', function () {
@@ -12,6 +12,40 @@ $('.sizes .product-size').on('click', function () {
     $('.product-size').removeClass('text-danger');
     $(this).addClass('text-danger');
 })
+
+
+// favorite add
+$('.favorite').on('click', function () {
+   
+    if ($(this).hasClass('active')) {
+        var status = 0;
+    } else {
+        var status = 1;
+    }
+    
+    $(this).toggleClass('active');
+
+    const product_id = $(this).attr('data-id');
+    $.ajax({
+
+        url: '/favorite/' + product_id,
+        type: 'PUT',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            product_id,
+            status,
+        },
+        success: (data) => {
+            console.log(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+        }
+
+    });
+});
 
 // sms-congirm
 $('#btn-login, #code').on('click change', function () {
@@ -257,24 +291,18 @@ var NumberSpinner = function (elemId, subtractClassName, addClassName) {
 NumberSpinner('spinner-input', 'js-spinner-horizontal-subtract', 'js-spinner-horizontal-add');
 
 var product_price = $('#price').text();
-$('.spinner__button').on('click', function() {
+$('.spinner__button').on('click', function () {
 
     let count = $('#spinner-input').val();
     let res = parseInt(product_price * count);
-    console.log(count);
-    console.log(product_price);
-    console.log(res);
     $('.total-price, .price').text(res);
     $('.quantity-product').text(count);
 
 });
-$('#spinner-input').on('change', function() {
+$('#spinner-input').on('change', function () {
 
     let count = $(this).val();
     let res = parseInt(product_price * count);
-    console.log(count);
-    console.log(product_price);
-    console.log(res);
     $('.total-price, .price').text(res);
     $('.quantity-product').text(count);
 

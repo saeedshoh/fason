@@ -8,7 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SmsConfirmedController;
@@ -32,7 +32,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
-        'employee' => EmployeeController::class,
         'categories' => CategoryController::class,
         'products' => ProductController::class,
         'attributes' => AttributeController::class,
@@ -42,18 +41,23 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
+Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
 
-Route::get('/products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
-Route::get('/products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
-Route::post('/products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+Route::resources([
+    'favorite' => FavoriteController::class,
+]);
 
-Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
-Route::get('/store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
-Route::get('/store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
-Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
+
+Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
+Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
+Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+
+Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
+Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
+Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
+Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
 
-Route::get('/image', [ImageInv::class, 'index']);
+Route::get('image', [ImageInv::class, 'index']);

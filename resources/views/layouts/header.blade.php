@@ -5,17 +5,17 @@
       <div class="container">
         <div class="row py-3 px-3 px-lg-0">
           <div class="col-6 col-md-6 col-lg-2 px-0 order-1 order-lg-0">
-            <a class="logo" href="{{ route('home') }}"><img src="/storage/theme/logo.png" alt=""></a>
+            <a class="logo" href="{{ route('home') }}"><img src="/storage/theme/logo_fason.svg" alt="fason" width="120"></a>
           </div>
           <div class="col-md-12 col-lg-10 px-0 align-self-center order-2 order-lg-1">
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
               <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
-                <input  class="form-control rounded main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
-                <button class="btn-danger border-0 px-2 nav-link btn mx-2 rounded search-btn" type="submit">
+                <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
+                <button class="btn-danger rounded-11  border-0 px-2 nav-link btn mx-2 search-btn" type="submit">
                   <i class="fas fa-search d-none d-lg-inline-block"></i><i class="fas fa-search d-inline-block text-pinky d-lg-none"></i> <span class="d-none d-lg-inline-block">Поиск</span></button>
               </form>
                 <!-- Button trigger modal -->
-              <button class="btn-danger border-0 nav-link btn rounded d-flex align-items-center filter-btn" data-toggle="modal" data-target="#filter_for_subject" type="submit">
+              <button class="btn-danger rounded-11  border-0 nav-link btn d-flex align-items-center filter-btn" data-toggle="modal" data-target="#filter_for_subject" type="submit">
                 <i class="fas fa-filter d-none d-lg-inline-block"></i> <i class="fas fa-filter d-block d-lg-none text-pinky"></i> <span class="d-none d-lg-inline-block"> Фильтр</span>
               </button>
             </div>
@@ -236,14 +236,14 @@
           
           @guest
             <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
-              <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded  float-right px-3"  data-toggle="modal" data-target="#enter_site" >
+              <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded-11 float-right px-3"  data-toggle="modal" data-target="#enter_site" >
               <i class="fas fa-sign-in-alt"></i>  Вход
               </button>
             </div>
           @endguest
           @auth
           <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown">
-            <a class="text-decoration-none text-secondary" type="text" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+            <a class="text-decoration-none text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
               <img class="rounded-circle" src="storage/theme/profile.png" alt="">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
@@ -265,22 +265,62 @@
         </div>
       </div>
     </div>
-    <div class="mobile-nav row-cols-5 d-flex d-md-none w-100 bg-light align-items-center">
-      <div class="col d-flex flex-column justify-content-center border-right">
-        <img src="/storage/theme/icons/home.svg" alt="">
+    <div class="mobile-nav row m-0 d-flex d-md-none w-100 bg-light align-items-center">
+      <div class="col border-right text-center">
+        <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2">
+          <img src="/storage/theme/icons/home.svg" alt="">
+          <span class="mobile-nav--title">Главная</span>
+        </a>
       </div>
-      <div class="col d-flex justify-content-center border-right align-items-center">
-        <img src="/storage/theme/icons/favourite-mob.svg" alt="">
+      <div class="col border-right text-center">
+        <a href="" class="text-decoration-none  d-flex flex-column pt-2">
+          <img src="/storage/theme/icons/favourite-mob.svg" alt="">
+          <span class="mobile-nav--title">Сохраненные</span>
+        </a>
       </div>
-      <div class="col d-flex justify-content-center border-right add-good">
-        <img src="/storage/theme/icons/plus.svg" alt="">
+      @if ($is_store != null)
+        @auth
+
+        <div class="col border-right add-good  text-center">
+          <a href="" class="text-decoration-none  d-flex flex-column pt-2">
+            <img src="/storage/theme/icons/plus.svg" alt="">
+            <span class="mobile-nav--title">Добавить</span>
+          </a>
+        </div>
+        @endauth
+      @endif
+      <div class="col text-center">
+        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+          <img src="/storage/theme/icons/orderes-mob.svg" alt="">
+          <span class="mobile-nav--title">Заказы</span>
+        </a>
       </div>
-      <div class="col d-flex justify-content-center align-items-center">
-        <img src="/storage/theme/icons/orderes-mob.svg" alt="">
+    @if ($is_store == null)
+      @auth
+      <div class="col border-left text-center">
+        <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
+          <i class="fas fa-door-open"></i>Магазин
+        </a>
       </div>
-      <div class="col d-flex justify-content-center border-left align-items-center">
-        <img src="/storage/theme/icons/store-mob.svg" alt="">
+      @endauth
+      @guest
+      <div class="col border-left text-center">
+        <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
+          <img src="/storage/theme/icons/store-mob.svg" alt="">
+          <span class="mobile-nav--title">
+            Магазин</span>
+          </a>
       </div>
+      @endguest
+      @else
+      <div class="col border-left text-center">
+        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+          <img src="/storage/theme/icons/store-mob.svg" alt="">
+          <span class="mobile-nav--title">Магазин</span>
+        </a>
+      </div>
+      @endif
+
     </div>
   </header>
 @endsection
