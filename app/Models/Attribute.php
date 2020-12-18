@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
+use App\Models\AttributeValue;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Attribute extends Model
 {
@@ -22,5 +23,13 @@ class Attribute extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    /**
+     * Get the attribute values for the attribute.
+     */
+    public function attribute_values()
+    {
+        return $this->hasMany(AttributeValue::class);
     }
 }

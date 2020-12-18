@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Store;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Models\AttributeValue;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+
 class ProductController extends Controller
 {
     /**
@@ -20,6 +23,7 @@ class ProductController extends Controller
     {
         $this->categories = Category::get();
         $this->stores = Store::get();
+        $this->count = 1;
     }
 
     public function decline(Product $product) {
@@ -60,6 +64,7 @@ class ProductController extends Controller
     {
         $stores = $this->stores;
         $categories = $this->categories;
+
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
@@ -182,5 +187,19 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index');
+    }
+
+    public function getAttributes()
+    {
+        $attributes = Attribute::get();
+        return [
+            'attributes' => view('products.attribute', compact('attributes'))->render()
+        ];
+    }
+
+    public function getAttValues(Request $request)
+    {
+        $att_values = AttributeValue::find($request->id);
+        return $att_values;
     }
 }

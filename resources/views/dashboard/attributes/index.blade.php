@@ -113,12 +113,14 @@
                       <td>
 
                         <!-- Checkbox -->
-                        {{ ++$key }}
+                        {{-- {{ ++$key }} --}}
+                        {{$attributes->perPage()*($attributes->currentPage()-1)+$loop->iteration}}
 
                       </td>
                       <td>
                         <a class="item-name text-reset" href="profile-posts.html">{{ $item->name }}</a>
                       </td>
+                      
 
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
@@ -134,6 +136,26 @@
                             <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
+                      @foreach ($item->attribute_values as $att)
+                      <tr>
+                        <td><i class="fe fe-corner-down-right mr-3"></i>{{ $loop->iteration }}</td>
+                        <td>{{ $att->name }} (+{{ $att->value }} TJS)</td>
+                        <td class="text-right">
+                          <form class="d-inline" action="{{ route('attribute-values.destroy', $att) }}" method="POST">
+                              @csrf 
+                              <button type="submit" href="{{ route('attribute-values.destroy', $att->id) }}"  class="btn btn-danger m-1 pull-right">
+                                  <i class="fe fe-trash"> </i></button>
+                              @method('DELETE')
+                          </form>
+                          <a href="{{ route('attribute-values.edit', $att) }}" class="btn btn-primary m-1 pull-right">
+                              <i class="fe fe-edit"> </i>
+                          </a>
+                          {{-- <a href="{{ route('attribute-values.show', $item) }}" class="btn btn-warning m-1 fa-pull-right">
+                              <i class="fe fe-eye" aria-hidden="true"></i>
+                          </a> --}}
+                        </td>
+                      </tr>
+                      @endforeach
                     </tr>
                     @empty
                     <tr>

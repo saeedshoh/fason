@@ -1,17 +1,17 @@
 <?php
 
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageInv;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\SmsConfirmedController;
+use App\Http\Controllers\AttributeValueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +30,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::resources([
-        'orders' => OrderController::class,
-        'users' => UserController::class,
-        'employee' => EmployeeController::class,
-        'categories' => CategoryController::class,
-        'products' => ProductController::class,
-        'attributes' => AttributeController::class,
-        'stores' => StoreController::class,
+        'orders'            => OrderController::class,
+        'users'             => UserController::class,
+        'employee'          => EmployeeController::class,
+        'categories'        => CategoryController::class,
+        'products'          => ProductController::class,
+        'attributes'        => AttributeController::class,
+        'stores'            => StoreController::class,
+        'attribute-values'  => AttributeValueController::class,
     ]);
 });
 
@@ -57,3 +58,5 @@ Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
 
 Route::get('/image', [ImageInv::class, 'index']);
+
+Route::get('products/getAttributes', [ProductController::class, 'getAttributes'])->name('getAttributes');

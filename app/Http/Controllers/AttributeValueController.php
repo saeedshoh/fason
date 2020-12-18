@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AttributeValue;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Models\AttributeValue;
 
 class AttributeValueController extends Controller
 {
@@ -35,7 +36,8 @@ class AttributeValueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        AttributeValue::create($request->all());
+        return redirect(route('attributes.index'))->with('success', 'Значения аттрибута успешно добавлена!');
     }
 
     /**
@@ -57,7 +59,8 @@ class AttributeValueController extends Controller
      */
     public function edit(AttributeValue $attributeValue)
     {
-        //
+        $attributes = Attribute::get();
+        return view('dashboard.attributes.edit', compact('attributeValue', 'attributes'));
     }
 
     /**
@@ -69,7 +72,8 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, AttributeValue $attributeValue)
     {
-        //
+        $attributeValue->update($request->all());
+        return redirect(route('attributes.index'))->with('success', 'Значение аттрибута успешно изменена!');
     }
 
     /**

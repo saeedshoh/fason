@@ -14,10 +14,8 @@ class ProductStatusSeeder extends Seeder
      */
     public function run()
     {
-        ProductStatus::create([
-            ['name' => 'Не активный'],
-            ['name' => 'Активный'],
-            ['name' => 'Отклонен'],
-        ]);
+        ProductStatus::create(['name' => 'Активный']);
+        ProductStatus::create(['name' => 'Не активный']);
+        ProductStatus::create(['name' => 'Не Отклонен']);
     }
 }

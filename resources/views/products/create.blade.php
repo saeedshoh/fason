@@ -291,11 +291,10 @@
                       </div>
                     </div>
                   </div> --}}
-                 
                   <!--Price and quantity start-->
                   
-                </div>
               </div>
+            </div>
               
               <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
@@ -322,6 +321,11 @@
               </div>
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
               <input type="hidden" name="product_status_id" value="1">
+              <div class="append-div">
+              </div>
+              <div class=" form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                <a class="w-75 btn btn-primary add-attribute" id="add_attribute" href="javascript:void(0);" >Добавить атрибут</a>
+              </div>
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Добавить </button>
               </div>
