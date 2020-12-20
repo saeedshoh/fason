@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\BannersController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,9 @@ use App\Http\Controllers\SmsConfirmedController;
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
-
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
+    Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
@@ -36,7 +37,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
         'products' => ProductController::class,
         'attributes' => AttributeController::class,
         'stores' => StoreController::class,
+        'banners' => BannersController::class,
     ]);
+
+
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

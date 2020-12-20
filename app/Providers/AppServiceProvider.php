@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Banners;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        $header_banner = Banners::where('type', 2)->where('position', 1)->latest()->first();
         $is_store = null;
-
         if (Auth::check()) {
             $is_store = $this->stores->where('user_id', Auth::id())->first();
         }
-        view()->share('is_store', $is_store);
+        view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
     }
 }

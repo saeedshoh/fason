@@ -18,23 +18,34 @@
 
           @if ($is_store == null)
             @auth
-              <a href="{{ route('ft-store.create') }}" class="mr-2 btn-danger rounded-11  text-decoration-none px-3">
+              <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
                 <i class="fas fa-door-open"></i>Открыть магазин
               </a>
             @endauth
             @guest
-            <button type="button" class="mr-2 btn-danger rounded-11  px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
+            <button type="button" class="mr-2 btn btn-danger rounded-11  px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
               <i class="fas fa-door-open"></i>Открыть магазин
             </button>
             @endguest
           @else
-            <a href="{{ route('ft-store.show', $is_store->slug) }}"  class="mr-2 btn-danger rounded-11 px-3 text-decoration-none">
+            <a href="{{ route('ft-store.show', $is_store->slug) }}"  class="mr-2 btn btn-danger rounded-11 px-3 btn">
               <i class="fas fa-door-open"></i>Перейти в магазин
             </a>
           @endif
-            <button type="button" class="mr-2 btn-secondary rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-            <a href="{{ route('favorite.index') }}" class="btn-danger rounded-11  text-decoration-none px-3"><img src="storage/theme/icons/saved.svg" alt=""> Сохраненные</a>
+           
+            @auth
+              <a href="" class="mr-2 btn btn-danger rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
+              <a href="{{ route('favorite.index') }}" class="btn btn-danger rounded-11 px-3">
+                <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
+              </a>        
+            @endauth
 
+            @guest
+            <button type="button" class="mr-2 btn btn-danger rounded-11 px-3 border-0" data-toggle="modal" data-target="#enter_site" ><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
+            <button type="button" class="btn btn-danger rounded-11 border-0 px-3">
+              <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
+            </button>        
+            @endguest
 
         </div>
         @auth
@@ -80,26 +91,26 @@
         <div class="categories-site_products col-12 col-lg-8 order-0 order-lg-1 px-lg-0">
           <div id="main-slider" class="carousel slide h-100" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li data-target="#slider" data-slide-to="0" class="active"></li>
-              <li data-target="#slider" data-slide-to="1"></li>
-              <li data-target="#slider" data-slide-to="2"></li>
+              @forelse ($sliders as $key => $slider )
+                <li data-target="#main-slider" data-slide-to="{{ $key }}" class="{{ $slider->position == 1 ? 'active' : '' }}"></li>
+              @empty
+
+              @endforelse
             </ol>
             <div class="carousel-inner h-100">
-              <div class="carousel-item active h-100">
-                <img src="storage/theme/bannerpic_1.png" class="d-block w-100 mw-100 h-100" alt="...">
-              </div>
-              <div class="carousel-item h-100">
-                <img src="storage/theme/bannerpic_2.png" class="d-block w-100 mw-100 h-100" alt="...">
-              </div>
-              <div class="carousel-item h-100">
-                <img src="storage/theme/bannerpic_1.png" class="d-block w-100 mw-100 h-100" alt="...">
-              </div>
+              @forelse ($sliders as $slider)
+                <div class="carousel-item {{ $slider->position == 1 ? 'active' : ''}} h-100">
+                  <img src="{{ Storage::url($slider->image) }}" class="d-block w-100 mw-100 h-100" alt="...">
+                </div>
+              @empty
+
+              @endforelse
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#main-slider" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#main-slider" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
@@ -170,8 +181,7 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-none d-lg-block mt-4">
-        <img src="storage/theme/banner.png" class="img-fluid rounded-11">
-       
+        <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
       </div>
       <!--Banner end-->
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>

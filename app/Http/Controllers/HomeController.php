@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
@@ -20,6 +21,7 @@ class HomeController extends Controller
         $this->stores = Store::get();
         $this->categories = Category::get();
         $this->products = Product::get();
+        $this->banners = Banners::latest()->get();
     }
     public function dashboard() {
         return view('dashboard.home');
@@ -33,8 +35,10 @@ class HomeController extends Controller
         }
         $stores = $this->stores;
         $categories = $this->categories->where('parent_id', 0);
-        $products = $this->products->where('product_status_id', 2) ;
-        return view('home', compact('stores', 'is_store', 'categories', 'products'));
+        $products = $this->products->where('product_status_id', 2);
+        $sliders = $this->banners->where('type', 1);
+        $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
+        return view('home', compact('stores', 'is_store', 'categories', 'products', 'sliders', 'middle_banner'));
     }
 
     /**
