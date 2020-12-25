@@ -135,7 +135,7 @@
                               <div class="row">
                                 <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt=""></div>
                                 <div class="col-8 col-lg-6">
-                                 <h6 class="h6 font-weight-bold">{{ $product->name }}</h6>
+                                 <h6 class="h6 font-weight-bold checkout-id" data-id="{{ $product->id }}">{{ $product->name }}</h6>
                                   <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span> 
                                 </div>
                               </div>
@@ -153,20 +153,20 @@
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
                                 <div class="title mb-3">Сумма:</div>
-                                <div class="text-semi-bold total-price">{{ $product->price }} сомони</div>
+                                <div class="text-semi-bold"><span class="total-price">{{ $product->price }}</span> сомони</div>
                               </div>
                             </div>
                           </div>
                           <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
-                            <span class="font-weight-bold">Борбад 124/1</span>
+                            <span class="font-weight-bold checkout-address">Борбад 124/1</span>
                           </div>
                         </div>
                       </div>
                       <div class="modal-footer border-0 info-product_footer">
                         <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
                           <div class="btn btn-outline-danger custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
-                          <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
+                          <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
                             Оформить
                           </button>
                         </div>

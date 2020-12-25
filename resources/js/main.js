@@ -1,3 +1,7 @@
+const {
+    type
+} = require("jquery");
+
 $(document).on('ready', function () {
 
 
@@ -12,17 +16,64 @@ $('.sizes .product-size').on('click', function () {
     $('.product-size').removeClass('text-danger');
     $(this).addClass('text-danger');
 })
-
-
+// search  
+$('.main-search').on('keyup keypress keydown change', function(){
+    let value = $(this).val();
+    if(value.length >= 3) {
+        $.ajax({
+            url: '/livesearch',
+            type: 'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                value
+            },
+            success: (data) => {
+                $('.search-result').show();
+                $('.search-result').html(data);
+            },
+            error: function (xhr, status, error) {
+            }
+        })
+    }
+    else {
+        $('.search-result').hide();
+    }
+});
+// orders add 
+$('.checkout-product').on('click', function () {
+    let total_price = $(this).closest('#buyProduct').find('.total-price').text();
+    let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
+    $.ajax({
+        url: '/orders/store',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            total_price,
+            address,
+            product_id,
+        },
+        success: (data) => {
+            console.log(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+        }
+    })
+});
 // favorite add
 $('.favorite').on('click', function () {
-   
+
     if ($(this).hasClass('active')) {
         var status = 0;
     } else {
         var status = 1;
     }
-    
+
     $(this).toggleClass('active');
 
     const product_id = $(this).attr('data-id');

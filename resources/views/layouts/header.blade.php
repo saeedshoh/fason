@@ -1,7 +1,7 @@
 @section('header')
 <header class="d-block" style="font-family: 'Montserrat', sans-serif;">
     <div class="container-fluid bg-white px-0">
-      <div class="d-none d-md-block" style="background:url({{ Storage::url($header_banner->image) }}); height:80px; background-position:center;"></div>
+      <div class="d-none d-md-block" style="background:url({{ Storage::url($header_banner->image ?? '') }}); height:80px; background-position:center;"></div>
       <div class="container">
         <div class="row py-3 px-3 px-lg-0">
           <div class="col-6 col-md-6 col-lg-2 px-0 order-1 order-lg-0">
@@ -10,7 +10,12 @@
           <div class="col-md-12 col-lg-10 px-0 align-self-center order-2 order-lg-1">
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
               <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
-                <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
+                <div class="position-relative w-75">
+                  <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
+                  <div class="search-result shadow-lg rounded ">
+                    
+                  </div>
+                </div>
                 <button class="btn-danger rounded-11  border-0 px-2 nav-link btn mx-2 search-btn" type="submit">
                   <i class="fas fa-search d-none d-lg-inline-block"></i><i class="fas fa-search d-inline-block text-pinky d-lg-none"></i> <span class="d-none d-lg-inline-block">Поиск</span></button>
               </form>

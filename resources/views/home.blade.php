@@ -15,17 +15,17 @@
           </div>
         </div>
         <div class="col-md-8 col-lg-6 d-none d-md-flex">
-
           @if ($is_store == null)
+          
             @auth
               <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
                 <i class="fas fa-door-open"></i>Открыть магазин
               </a>
             @endauth
             @guest
-            <button type="button" class="mr-2 btn btn-danger rounded-11  px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
-              <i class="fas fa-door-open"></i>Открыть магазин
-            </button>
+              <button type="button" class="mr-2 btn btn-danger rounded-11  px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
+                <i class="fas fa-door-open"></i>Открыть магазин
+              </button>
             @endguest
           @else
             <a href="{{ route('ft-store.show', $is_store->slug) }}"  class="mr-2 btn btn-danger rounded-11 px-3 btn">
@@ -34,7 +34,7 @@
           @endif
            
             @auth
-              <a href="" class="mr-2 btn btn-danger rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
+              <a href="{{ route('ft-order.orders') }}" class="mr-2 btn btn-danger rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
               <a href="{{ route('favorite.index') }}" class="btn btn-danger rounded-11 px-3">
                 <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
               </a>        
@@ -42,7 +42,7 @@
 
             @guest
             <button type="button" class="mr-2 btn btn-danger rounded-11 px-3 border-0" data-toggle="modal" data-target="#enter_site" ><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-            <button type="button" class="btn btn-danger rounded-11 border-0 px-3">
+            <button type="button" class="btn btn-danger rounded-11 border-0 px-3"  data-toggle="modal" data-target="#enter_site">
               <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
             </button>        
             @endguest

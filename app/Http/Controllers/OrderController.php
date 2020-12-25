@@ -3,10 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Store;
+use App\Models\User;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->stores = Store::get();
+    }
+
+    public function orders()
+    {
+        $is_store = null;
+        if (Auth::check()) {
+            $is_store = $this->stores->where('user_id', Auth::id())->first();
+        }
+        $sales = Order::get();
+        $orders = Order::where('user_id', Auth::id())->latest()->get();
+        
+        return view('orders', compact('orders', 'is_store', 'sales'));
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +37,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('dashboard.order.index');
+        $orders = Order::latest()->get();
+        return view('dashboard.order.index', compact('orders'));
     }
 
     /**
@@ -35,7 +59,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $request->total_price, 'address' => $request->address, 'order_status_id' => '1']);
+        }
     }
 
     /**

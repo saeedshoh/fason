@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OrderStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ProductStatusSeeder::class,
             StoreSeeder::class,
             ProductSeeder::class,
+            BannerSeeder::class,
+            OrderStatusSeeder::class,
         ]);
     }
 }

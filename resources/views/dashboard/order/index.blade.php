@@ -135,6 +135,8 @@
                 </tr>
               </thead>
               <tbody class="list">
+                @forelse ($orders as $key => $order)
+                
                 <tr>
                   <td>
 
@@ -146,30 +148,30 @@
 
                   </td>
                   <td class="orders-order">
-                    #6520
+                    #{{ ++$key}}
                   </td>
                   <td class="orders-product">
-                    5' x 3' Wall Poster
+                    {{ $order->product->name}}
                   </td>
                   <td class="orders-date">
 
                     <!-- Time -->
-                    <time datetime="2018-07-30">07/30/18</time>
+                    <time datetime="{{ $order->created_at->format('d/m/Y') }}">{{ $order->created_at->format('d-m-Y') }}</time>
 
                   </td>
                   <td class="orders-total">
-                    $55.25
+                    {{ $order->total}} Сомони
                   </td>
                   <td class="orders-status">
 
                     <!-- Badge -->
-                    <div class="badge badge-soft-success">
-                      Shipped
+                    <div class="badge badge-soft-warning">
+                      {{ $order->order_status->name }}
                     </div>
 
                   </td>
                   <td class="orders-method">
-                    Mastercard
+                    {{ $order->product->store->name}}
                   </td>
                   <td class="text-right">
 
@@ -193,6 +195,10 @@
 
                   </td>
                 </tr>
+                @empty
+                    
+                @endforelse
+                
               </tbody>
             </table>
           </div>

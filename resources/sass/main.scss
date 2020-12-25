@@ -510,7 +510,7 @@ a {
 }
 
 .main-search {
-    width: 80% !important;
+    width: 100% !important;
     height: 35px;
     font-size: 14px;
     border: 1.17647px solid #FF0055;
@@ -1008,7 +1008,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     left: -3%;
     height: 100%;
     width: 5px;
-    background: #FF511A;
+    background: #ffc107;
 }
 
 /* order-story end*/
@@ -1019,3 +1019,12 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 /*favourite end*/
+
+// search
+.search-result {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    background-color: #F2F2F2;
+    z-index: 9;
+}
