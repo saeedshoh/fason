@@ -71,8 +71,8 @@ class ProductController extends Controller
     public function ft_store(ProductRequest $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-			'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+			'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP,webp'
         ]);
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();

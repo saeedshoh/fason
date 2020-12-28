@@ -44,8 +44,8 @@ class StoreController extends Controller
     public function store(StoreRequest $request)
     {
         $request->validate([
-			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
+			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
         ]);
         
 		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
