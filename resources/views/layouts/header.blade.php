@@ -10,7 +10,7 @@
           <div class="col-md-12 col-lg-10 px-0 align-self-center order-2 order-lg-1">
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
               <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
-                <div class="position-relative w-75">
+                <div class="position-relative w-75 mobile-header">
                   <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
                   <div class="search-result shadow-lg rounded ">
                     
@@ -29,191 +29,49 @@
               <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                   <div class="modal-header border-0">
-                    <h6 class="modal-title ml-4">Фильтер</h6>
+                    <h6 class="modal-title ml-4 font-weight-bold">Фильтр</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true"><img src="/storage/theme/icons/close icon.svg" alt=""></span>
                     </button>
                   </div>
                   <div class="modal-body mx-4">
                     <div class="row">
-                      <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
+                      {{-- <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
                         <div class="d-flex justify-content-between align-items-center mt-4">
                           <h5 class="captions-of__modal ">Категории</h5><img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
                         </div>
                         <div class="categories__modal overflow-auto"> 
                           <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Телефоны
+                            @forelse ($categories as $category)
+                            <input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cats-{{$category->id}}">
+                            <label class="sort-checkbox__category form-check-label" for="cats-{{$category->id}}">
+                              {{ $category->name }}
                             </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Электроника                           
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Автотовары 
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
+                            @empty
+                              Извените ничего не найдено
+                          @endforelse
+                            
                           </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                          <h5 class="captions-of__modal ">Бренды</h5><img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
-                        </div>                           
-                        <div class="categories__modal  overflow-auto">
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Adidas
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              H&M                           
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Apple 
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                        </div>
-                      </div>
+
+                      </div> --}}
+                      
                       <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
                         <div class="d-flex justify-content-between align-items-center mt-4">
-                          <h5 class="captions-of__modal ">Магазин</h5> <img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
+                          <h5 class="captions-of__modal ">Сортировать</h5>
                         </div>
-                        <div class="categories__modal-markets overflow-auto"> 
-                          <div class="form-check ">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Корвон
-                            </label>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1" checked>Сначала новые</label>
                           </div>
                           <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Olim.H                           
-                            </label>
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">Сначала дешевые</label>
                           </div>
                           <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Aburish 
-                            </label>
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">Сначала дорогие</label>
                           </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Lactie
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Компьютеры
-                            </label>
-                          </div>
-                        <div class="d-flex justify-content-between align-items-center mt-4"><h5 class="captions-of__modal ">Бренды</h5></div>                           
-                          <div class="form-check ">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Adidas
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              H&M                           
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
-                              Apple 
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
-                              Noname
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
-                        <div class="mt-4"><h5 class="captions-of__modal ">Любой атребут</h5></div>
                         <div class="mt-5"><h5 class="captions-of__modal ">Город</h5></div>
                         <div class="form-check form-check-inline mt-3">
                           <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -224,8 +82,17 @@
                           <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
                         </div>
                         <br>
-                        <div class="mt-5"><h5 class="captions-of__modal ">Цена</h5></div>                           
-                        <input type="range" class="custom-range" id="customRange1">
+                       <h5 class="captions-of__modal mt-5">Цена</h5>                        
+                       <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="from-price">от</label>
+                          <input type="number" placeholder="0" class="form-control" id="from-price">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="untill-price">до</label>
+                          <input type="number" placeholder="99999" class="form-control" id="untill-price">
+                        </div>
+                      </div>
                       </div>
                     </div>
                   </div>

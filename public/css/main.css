@@ -15,6 +15,11 @@ body {
   display: grid;
 }
 
+.categories-site_products .shop-subject {
+  height: 440px;
+  overflow-y: scroll;
+}
+
 .shop-subject li,
 .shop-subject {
   cursor: pointer;
@@ -52,7 +57,8 @@ body {
 
 .divide {
   width: 100%;
-  height: 46px;
+  margin: 3em 0;
+  height: 5em;
   background: #848484;
 }
 
@@ -681,8 +687,9 @@ input[type=number] {
   }
 }
 
-@media only screen and (max-width: 767px) {
-  .input_placeholder_style {
+@media only screen and (max-width: 768px) {
+  .input_placeholder_style,
+  .mobile-header {
     width: 100% !important;
   }
 
@@ -833,6 +840,97 @@ input[type=number] {
   background-color: #FF0055;
   width: 13px;
   height: 13px;
+}
+
+.privacy-policy {
+  color: #1498C1;
+}
+
+.btn-custom-fs {
+  background-color: transparent;
+  color: #888888;
+}
+
+.btn-custom-fs:hover {
+  color: inherit;
+}
+
+.btn-custom-fs::after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 75%;
+  background-color: #FF0055;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  border-radius: 25%;
+}
+
+.btn-group-fs input {
+  border-left: 0;
+}
+
+@media only screen and (max-width: 576px) {
+  .mb-custom-login {
+    padding: 0 !important;
+  }
+
+  .mb-custom-login .mb-pre--close {
+    color: #545454;
+  }
+
+  .mb-custom-login .mb-pre--text {
+    font-size: 12px;
+  }
+
+  .mb-custom-login .modal-dialog {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mb-custom-login .modal-content {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .mobile-header {
+    width: 100% !important;
+  }
+
+  .t-neutral .spinner__button {
+    padding: 0 5px !important;
+    color: #fff !important;
+  }
+
+  .spinner {
+    border-color: #fff !important;
+  }
+
+  #spinner-input,
+  #price {
+    color: #fff !important;
+  }
+
+  .mb-other-product {
+    font-weight: 600;
+    font-size: 18px;
+    color: #9b9b9b;
+    margin: 1em 0 2em 0em !important;
+  }
+
+  .mb-currency,
+  .divide {
+    display: none;
+  }
+
+  .all-product {
+    margin: 0 !important;
+  }
 }
 
 @media only screen and (max-width: 620px) {

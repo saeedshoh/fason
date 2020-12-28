@@ -51,7 +51,7 @@
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
           <a class="text-decoration-none text-secondary"> 
-            <img class="rounded-circle" src="storage/theme/profile.png" alt="">
+            <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
           <form method="POST" action="{{ route('logout') }}">

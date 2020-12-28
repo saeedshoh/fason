@@ -4,6 +4,7 @@ const {
 
 $(document).on('ready', function () {
 
+    $('.sms--false').hide();
 
 
 });
@@ -17,9 +18,9 @@ $('.sizes .product-size').on('click', function () {
     $(this).addClass('text-danger');
 })
 // search  
-$('.main-search').on('keyup keypress keydown change', function(){
+$('.main-search').on('keyup keypress keydown change', function () {
     let value = $(this).val();
-    if(value.length >= 3) {
+    if (value.length >= 3) {
         $.ajax({
             url: '/livesearch',
             type: 'get',
@@ -33,11 +34,9 @@ $('.main-search').on('keyup keypress keydown change', function(){
                 $('.search-result').show();
                 $('.search-result').html(data);
             },
-            error: function (xhr, status, error) {
-            }
+            error: function (xhr, status, error) {}
         })
-    }
-    else {
+    } else {
         $('.search-result').hide();
     }
 });
@@ -45,6 +44,7 @@ $('.main-search').on('keyup keypress keydown change', function(){
 $('.checkout-product').on('click', function () {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
     let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
     $.ajax({
         url: '/orders/store',
@@ -55,6 +55,7 @@ $('.checkout-product').on('click', function () {
         data: {
             total_price,
             address,
+            quantity,
             product_id,
         },
         success: (data) => {
@@ -143,34 +144,43 @@ $('#send-code, .send-code').on('click', function () {
             console.log(data);
             $('#send-code').hide();
             $('.enter-code').show();
-            return countDown();
-
+            $('.sms--true').show();
+            $('.sms--false').hide();
+        
+            var fiveMinutes = 6 * 10,
+                display = document.querySelector('#count-down');
+            return startTimer(fiveMinutes, display);
         },
         error: function (xhr, status, error) {
+
             console.log(status);
         }
 
     });
 });
 
-// countable time
-var seconds = 1000 * 60; //1000 = 1 second in JS
-var timer;
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var time = setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-function countDown() {
-    if (seconds == 60000)
-        timer = setInterval(countDown, 1000)
-    seconds -= 1000;
-    document.getElementById("count-down").innerHTML = '0:' + seconds / 1000;
-    if (seconds <= 0) {
-        clearInterval(timer);
-        alert("Время закончилось");
-    }
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+            $('.sms--true').hide();
+            $('.sms--false').show();
+            clearInterval(time);
+
+        }
+    }, 1000);
 }
 
-document.getElementById("count-down").innerHTML = "0:" + seconds / 1000;
-
-// preview image 
+// preview image
 
 $(function () {
     $("#gallery").change(function () {

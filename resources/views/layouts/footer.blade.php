@@ -2,36 +2,48 @@
 
 {{-- Место Модалок --}}
 
-<div class="modal fade" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-                    <span aria-hidden="true"><img src="storage/theme/icons/close icon.svg" alt=""> </span>
+                <button type="button" class="close d-md-none d-lg-block h3" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
                 </button>
+                <span data-dismiss="modal" aria-label="Close" class="mb-pre--close font-weight-bold d-md-block d-lg-none">
+                  <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.414 6.707H3.828L9.121 1.414L7.707 0L0 7.707L7.707 15.414L9.121 14L3.828 8.707H18.414V6.707Z" fill="#545454"/>
+                  </svg>
+                  Назад
+                </span>
             </div>
             <div class="modal-body text-center">
-                <img src="./storage/theme/logo_fason.svg" alt="" class="mb-5" width="160">
+                <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
+                <p class="text-muted mb-pre--text">
+                   Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
+                </p>
                 <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}">
-                  <div class="input-group text-left">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text btn-link">+992</div>
+                  <div class="input-group text-left  btn-group-fs">
+                    <div class="input-group-prepend position-relative">
+                      <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
                     </div>
-                    <input type="number" name="phone" class="form-control" id="phone" placeholder="Введите номер телефона">
+                    <input type="number" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона">
                   </div>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
-                    <div class="form-group text-left">
-                      <label for="code" class="font-weight-bold">Я получил СМС</label>
+                    <div class="form-group text-center">
                       <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
                     </div>
-                      <h2 id="count-down" class="my-3">0:59</h2>
-                      <p class="text-muted">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code">Отправить код повторно</button></p>
-                      <button type="button" class="btn btn-danger rounded-11" id="btn-login">Войти</button>
+                      <h2 id="count-down" class="my-3">01:00</h2>
+                      <div class="pre--info">
+                        <p class="text-muted mb-pre--text sms--true">Вам будет выслан смс с кодом активации для подтверждения вашего номера телефона</p>
+                        <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
+  
+                      </div>
+                      <button type="button" class="btn btn-danger rounded-11 px-5" id="btn-login">Вход</button>
                   </div>
                 </form>
-                <p class="privacy-policy text-primary">
-                  Ознакомиться с пользовательским соглашением и полотикой конфиденциальности
+                <p class="privacy-policy mb-pre--text">
+                  Ознакомитесь с пользовательским соглашением
                 </p>
 
 

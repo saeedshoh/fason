@@ -3,7 +3,7 @@
 @extends('layouts.footer')
 @section('content')
   <section>
-    <div class="container mt-3">
+    <div class="container mt-5">
       <div class="row">
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-6">
@@ -13,9 +13,10 @@
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
           </div>
-          <div class="d-block d-lg-none">
-            <h4 class="h4 text-secondary">Категория: Кроссовки</h4>
-            <h3 class="h3">Adidas  Air Max</h3>
+          <div class="d-block d-lg-none my-3">
+            <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-secondary font-weight-bold text-decoration-none">{{ $product->category->name }}</a>
+           
+            <h3 class="h3 font-weight-bold">{{ $product->name }}</h3>
           </div>
           <!--desktop slider-->
           <div class="product-img-holder d-none d-lg-block">
@@ -38,49 +39,41 @@
             </div>
           </div>
           <!--desktop slider end-->
-          <!--mobile slider-->
-          <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
-            <ol class="carousel-indicators d-flex align-items-center">
-              <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#prodCarousel" data-slide-to="1"></li>
-              <li data-target="#prodCarousel" data-slide-to="2"></li>
-              <li data-target="#prodCarousel" data-slide-to="3"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="img/boot-1.png" class="d-block w-100" alt="...">
+        </div>
+        <div>
+            <!--mobile slider-->
+            <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
+              <ol class="carousel-indicators d-flex align-items-center">
+                <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
+   
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
+                </div>
+  
               </div>
-              <div class="carousel-item">
-                <img src="img/boot-2.png" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/boot-3.png" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="img/boot-4.png" class="d-block w-100" alt="...">
-              </div>
+              <a class="carousel-control-prev d-none" href="#prodCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next d-none" href="#prodCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
-            <a class="carousel-control-prev d-none" href="#prodCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next d-none" href="#prodCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-          <!--mobile slider-end-->
-          <div class="prod-controls-mobile">
-
-          </div>
-          <div class="my-5">
-            <h4>Описание товара:</h4>
+            <!--mobile slider-end-->
+        </div>
+        <div class="col-12 col-lg-6 order-lg-2">
+          <div class="my-3">
+            <h4 class="font-weight-bold">Описание товара:</h4>
             <p class="text-secondary text-semi-bold">{{ $product->description }}</p>
           </div>
+
         </div>
         <!--slider-proiduct-and-description-end-->
         <!--product-information-and-attribute-->
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 order-lg-1">
           <h3 class="h3 title mt-3 mt-lg-2 d-none d-lg-block">Информация о товаре</h3>
           <div class="mt-3 mt-lg-5">
 
@@ -89,7 +82,7 @@
               <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-danger text-decoration-none">{{ $product->category->name }}</a>
               <h3 class="mt-2 mb-4 font-weight-bold">{{ $product->name }}</h3>
             </div>
-            <p class="font-weight-bold">
+            <p class="font-weight-bold d-none d-lg-block">
               <span class="text-dark">Магазин:</span>
               <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-danger text-decoration-none">{{ $product->store->name }}</a>
             </p>
@@ -97,7 +90,7 @@
           <div class="row align-items-center mt-3 prod-controls">
             <div class="col-4">
               <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price" id='price'>{{ $product->price }}</span> Сомони</h5>
+                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
             <div class="col-4 my-md-0 my-3 text-center">
@@ -124,7 +117,7 @@
                     <div class="modal-content">
                       <div class="modal-header border-0">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <img src="/storage/theme/icons/iclose-modal.svg" alt=""></span>
+                          <img src="/storage/theme/icons/close-modal.svg" alt="">
                         </button>
                       </div>
                       <div class="modal-body">
@@ -204,10 +197,9 @@
             </div>
           </div>
           <div class="mt-3 mt-sm-5 d-flex justify-content-end info-product_footer">
-            <div class="mt-3 mt-sm-4 text-center">
-              <a ></a>
+            <div class="my-3 text-center d-flex justify-content-between w-100">
               <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1"><img class="mr-1"
-                  src="/storage/theme/icons/store.svg" alt=""> В магазин продавца</a>
+                  src="/storage/theme/icons/store.svg" alt=""> В магазин</a>
               <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-id="{{ $product->id }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1">
                   <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
@@ -223,28 +215,27 @@
   </section>
   <section class="divide"></section>
   <section class="">
-    <div class="all-product container mt-5">
+    <div class="all-product container mt-5 mt-md-0">
       <div class="text-center">
-        <h2 class="my-5 text-muted">Другие товары продавца:</h2>
+        <h2 class="my-5 text-muted mb-other-product">Другие товары продавца</h2>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
         @forelse ($similars as $product)
-          <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-            <div class="card rounded shadow">
-              <svg class="position-absolute favorite" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="none">
-                <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-                </svg>
-              <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="" >
-              <div class="container">
-                <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
-                <span class="text-muted">{{ $product->category->name }}</span>
-                <div class="price-place d-flex justify-content-between align-items-center mb-3">
-                  <span class="font-weight-bold">{{ $product->price }} сомони</span>
-                  <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
-                </div>
+        <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+          <div class="card rounded shadow border-0">
+            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+              <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+            </svg>
+            <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+            <div class="container">
+              <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+              <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
           </div>
+        </div>
         @empty
             Извените ничего не найдено
         @endforelse

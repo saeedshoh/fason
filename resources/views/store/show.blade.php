@@ -86,29 +86,38 @@
             <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/sorders.svg" alt="">История продаж</a>
           </div>
           <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-            <a class="btn btn-danger w-100" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/sadd.svg" alt="">Добавить товар</a>
+            <a class="btn btn-danger w-100" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
           </div>
           <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-            <a class="btn btn-secondary w-100" href="#"><img class="mr-1" src="/storage/theme/icons/ssaved.svg" alt="">Сохраненные</a>
-          </div>
+            <a href="{{ route('favorite.index') }}" class="btn btn-danger rounded-11 px-3 w-100">
+              <img src="/storage/theme/icons/saved.svg" alt=""> Сохраненные
+            </a>
         </div>
       </div>
     </div>
     <!--customer-navs end-->
     <div class="all-product container mt-5">
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
-        <div class="col d-flex mb-3 mb-lg-0 px-1 px-md-3">
-          <div class="order-cancled position-relative bg-white border text-center py-3 px-2">
-            <img class="img-fluid my-md-5 my-3" src="css/img/Products/tablet.png" alt="">
-            <h4 class="product-name shop-subject">Samsung g12312 45D </h4>
-            <p class="about-product mb-2">
-              Lorem Ipsum is simply dummy text.
-            </p>
-            <div class="price-place position-relative">
-              <h5 class="text-secondary mt-4 position-relative">ЦЕНА: $116</h5>
+        @forelse ($products as $product)
+        <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+          <div class="card rounded shadow border-0">
+            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+              <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+            </svg>
+            <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+            <div class="container">
+              <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+              <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+              </div>
             </div>
           </div>
         </div>
+        @empty
+            Извените ничего не найдено
+        @endforelse
+
       </div>
       <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>
       <div class="products-status position-relative row justify-content-center text-center">
