@@ -1,6 +1,4 @@
-const {
-    type
-} = require("jquery");
+window._ = window.jQuery = require('owl.carousel');
 
 $(document).on('ready', function () {
 
@@ -59,7 +57,7 @@ $('.checkout-product').on('click', function () {
             product_id,
         },
         success: (data) => {
-            console.log(data);
+            $('#order_id').html(data);
         },
         error: function (xhr, status, error) {
             console.log(status);

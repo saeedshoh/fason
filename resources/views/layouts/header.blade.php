@@ -114,9 +114,9 @@
             </div>
           @endguest
           @auth
-          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown">
-            <a class="text-decoration-none text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
-              <img class="rounded-circle" src="storage/theme/profile.png" alt="">
+          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown text-right">
+            <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+              <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
