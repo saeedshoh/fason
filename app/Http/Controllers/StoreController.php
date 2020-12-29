@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
+use App\Models\City;
 use App\Models\Product;
 use App\Models\Store;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class StoreController extends Controller
 {
@@ -32,7 +32,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('store.create');
+        $cities = City::get();
+        return view('store.create', compact('cities'));
     }
 
     /**
@@ -47,7 +48,7 @@ class StoreController extends Controller
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
         ]);
-        
+
 		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
         $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
 
@@ -78,7 +79,8 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        return view('store.edit', compact('store'));
+        $cities = City::get();
+        return view('store.edit', compact('store', 'cities'));
     }
 
     /**
@@ -88,9 +90,29 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
-        //
+        $data = $request->validated();
+        if(isset($request->avatar)){
+            $request->validate([
+                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $data['avatar'] = $avatar;
+        }
+        if(isset($request->cover)){
+            $request->validate([
+                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $data['cover'] = $cover;
+        }
+        $data['user_id'] = Auth::id();
+        if(Store::where('id', $store->id)->update($data)) {
+            $store = Store::where('id', $store->id)->first();
+        }
+
+        return redirect()->route('ft-store.show', $store->slug)->with('success', 'Магазин успешно обновлена!');
     }
 
     /**

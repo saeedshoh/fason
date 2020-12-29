@@ -185,7 +185,7 @@
                         <div class="text-secondary">Ваш заказ приянт, в ближайшее время Вам позвонят наши операторы!</div>
                         <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
                         <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-                        <div class="text-secondary">Номер вашего закза 3320</div>
+                        <div class="text-secondary order-number"></div>
                       </div>
                     </div>
                     <div class="modal-footer border-0">

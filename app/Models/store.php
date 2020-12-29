@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
 {
-    use HasFactory;
-    use HasSlug;
-    use SoftDeletes;
+    use HasFactory, HasSlug, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -37,7 +35,6 @@ class Store extends Model
     }
     public function getSlugOptions(): SlugOptions
     {
-
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');

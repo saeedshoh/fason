@@ -11035,6 +11035,7 @@ $('.checkout-product').on('click', function () {
       product_id: product_id
     },
     success: function success(data) {
+      $('.order-number').text("Номер вашего заказа: " + data.order.id);
       console.log(data);
     },
     error: function error(xhr, status, _error2) {
