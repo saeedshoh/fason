@@ -10990,7 +10990,7 @@ $('.select-color').on('click', function () {
 $('.sizes .product-size').on('click', function () {
   $('.product-size').removeClass('text-danger');
   $(this).addClass('text-danger');
-}); // search  
+}); // search
 
 $('.main-search').on('keyup keypress keydown change', function () {
   var value = $(this).val();
@@ -11014,11 +11014,12 @@ $('.main-search').on('keyup keypress keydown change', function () {
   } else {
     $('.search-result').hide();
   }
-}); // orders add 
+}); // orders add
 
 $('.checkout-product').on('click', function () {
-  var total_price = $(this).closest('#buyProduct').find('.total-price').text();
-  var address = $(this).closest('#buyProduct').find('.checkout-address').text();
+  var total_price = $(this).closest('#buyProduct').find('.total-price').text(); // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+
+  var address = $('#checkout_address').val();
   var quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
   var product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
   $.ajax({
@@ -11335,6 +11336,10 @@ $('#spinner-input').on('change', function () {
   var res = parseInt(product_price * count);
   $('.total-price, .price').text(res);
   $('.quantity-product').text(count);
+});
+$('body').on('click', '.change-address', function () {
+  $('#checkout_address').prop("disabled", false);
+  $('#checkout_address').focus();
 });
 
 /***/ }),

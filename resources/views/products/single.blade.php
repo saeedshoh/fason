@@ -8,14 +8,14 @@
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-6">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
-            <a href="#" class="text-pinky font-weight-bold text-decoration-none"> 
+            <a href="#" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
           </div>
           <div class="d-block d-lg-none my-3">
             <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-secondary font-weight-bold text-decoration-none">{{ $product->category->name }}</a>
-           
+
             <h3 class="h3 font-weight-bold">{{ $product->name }}</h3>
           </div>
           <!--desktop slider-->
@@ -45,13 +45,13 @@
             <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
               <ol class="carousel-indicators d-flex align-items-center">
                 <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
-   
+
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
                 </div>
-  
+
               </div>
               <a class="carousel-control-prev d-none" href="#prodCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -129,7 +129,7 @@
                                 <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt=""></div>
                                 <div class="col-8 col-lg-6">
                                  <h6 class="h6 font-weight-bold checkout-id" data-id="{{ $product->id }}">{{ $product->name }}</h6>
-                                  <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span> 
+                                  <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
                                 </div>
                               </div>
                             </div>
@@ -152,13 +152,15 @@
                           </div>
                           <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
-                            <span class="font-weight-bold checkout-address">Борбад 124/1</span>
+                            {{-- <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::check() ? Auth::user()->address : '' }}" disabled="true"> --}}
+                            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ isset($store->address) }}" disabled="true">
+                            {{-- <span class="font-weight-bold checkout-address">{{ isset($store->address) }}</span> --}}
                           </div>
                         </div>
                       </div>
                       <div class="modal-footer border-0 info-product_footer">
                         <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
-                          <div class="btn btn-outline-danger custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
+                          <div class="btn btn-outline-danger change-address custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
                           <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
                             Оформить
                           </button>
@@ -187,7 +189,7 @@
                       </div>
                     </div>
                     <div class="modal-footer border-0">
-                      
+
                     </div>
                   </div>
                 </div>
