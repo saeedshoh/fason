@@ -17,7 +17,7 @@ $('.sizes .product-size').on('click', function () {
     $('.product-size').removeClass('text-danger');
     $(this).addClass('text-danger');
 })
-// search  
+// search
 $('.main-search').on('keyup keypress keydown change', function () {
     let value = $(this).val();
     if (value.length >= 3) {
@@ -40,10 +40,11 @@ $('.main-search').on('keyup keypress keydown change', function () {
         $('.search-result').hide();
     }
 });
-// orders add 
+// orders add
 $('.checkout-product').on('click', function () {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
-    let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
     $.ajax({
@@ -146,7 +147,7 @@ $('#send-code, .send-code').on('click', function () {
             $('.enter-code').show();
             $('.sms--true').show();
             $('.sms--false').hide();
-        
+
             var fiveMinutes = 6 * 10,
                 display = document.querySelector('#count-down');
             return startTimer(fiveMinutes, display);
@@ -367,4 +368,9 @@ $('#spinner-input').on('change', function () {
     $('.total-price, .price').text(res);
     $('.quantity-product').text(count);
 
+});
+
+$('body').on('click', '.change-address', function(){
+    $('#checkout_address').prop( "disabled", false );
+    $('#checkout_address').focus();
 });
