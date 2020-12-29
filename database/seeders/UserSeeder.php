@@ -32,6 +32,8 @@ class UserSeeder extends Seeder
             'name' => 'Fason',
             'phone' => '880180128',
             'email' => 'info@fason.tj',
+            'address' => 'Рудаки 21/7',
+            'city_id' => '1',
             'password' => Hash::make('fason2020')
         ]);
 
