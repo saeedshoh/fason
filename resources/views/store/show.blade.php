@@ -10,7 +10,7 @@
         <div class="col-12 col-lg-3">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="{{ Storage::url($stores->avatar) }}" class="img-fluid rounded" alt="">
+            <img src="/storage/{{ $stores->avatar }}" class="img-fluid rounded" alt="">
               <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button>
             </div>
           </div>
@@ -19,8 +19,7 @@
         <!--store-info start-->
         <div class="col-12 col-lg-9">
           <div class="d-none d-lg-block">
-            <p>Copywright will prowide is wonderful serenity has taken possession of my entire as soul, like these sweet
-              mornings of spring which I enjoy with my whole heart. I am alone standards.</p>
+            <p>{{ $stores->description ?? '' }}</p>
             <a href="#" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
           </div>
           <div class="my-5 my-lg-3">
@@ -67,7 +66,7 @@
               </div>
               <div class="offset-0 offset-md-6 col-12 col-md-6">
                 <div class="text-center text-md-right">
-                  <a class="btn btn-danger rounded-11" href="#">Изменить</a>
+                  <a class="btn btn-danger rounded-11" href="{{ route('ft-store.edit', $stores->id) }}">Изменить</a>
                 </div>
               </div>
             </div>
@@ -123,8 +122,8 @@
       <!--all-product-->
       <div class="tab-pane fade show active" id="all-product" role="tabpanel" aria-labelledby="all-product-tab">
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
- 
-  
+
+
         </div>
       </div>
       <!--All product-end-->

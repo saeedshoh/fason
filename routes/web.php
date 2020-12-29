@@ -58,6 +58,8 @@ Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.c
 Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
+Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
 
 
 Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');

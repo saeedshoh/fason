@@ -25,7 +25,7 @@ class OrderController extends Controller
         }
         $sales = Order::get();
         $orders = Order::where('user_id', Auth::id())->latest()->get();
-        
+
         return view('orders', compact('orders', 'is_store', 'sales'));
 
     }
@@ -105,6 +105,9 @@ class OrderController extends Controller
                     #echo "error occured ".$result['msg'];
                 }
             }
+            return response()->json([
+                "order"=> $order
+            ]);
         }
 
     }
@@ -154,7 +157,7 @@ class OrderController extends Controller
         //
     }
 
-    
+
     public function call_api($url, $method, $params)
     {
         $curl = curl_init();
