@@ -61,7 +61,6 @@ class OrderController extends Controller
     {
         if ($request->ajax()) {
             $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $request->total_price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
-            return $order->id;
             if($order) {
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
