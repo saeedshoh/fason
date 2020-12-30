@@ -9,9 +9,9 @@
           </div>
           <div class="col-md-12 col-lg-10 px-0 align-self-center order-2 order-lg-1">
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
-              <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
+              <form action="{{ route('search') }}" class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
                 <div class="position-relative w-75 mobile-header">
-                  <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
+                  <input  class="form-control main-search pl-5 pl-lg-3" name="q" type="search" placeholder="поиск товаров ..." aria-label="Search">
                   <div class="search-result shadow-lg rounded ">
 
                   </div>
@@ -60,25 +60,26 @@
                         <div class="d-flex justify-content-between align-items-center mt-4">
                           <h5 class="captions-of__modal ">Сортировать</h5>
                         </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1" checked>Сначала новые</label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Сначала дешевые</label>
-                          </div>
-                          <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Сначала дорогие</label>
-                          </div>
+                        <div class="form-check mt-3">
+                            <input data-sort="new" checked class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Сначала новые</label>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input data-sort="cheap" class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Сначала дешевые</label>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input data-sort="expensive" class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
+                            <label class="form-check-label" for="inlineRadio3">Сначала дорогие</label>
+                        </div>
+
                         <div class="mt-5"><h5 class="captions-of__modal ">Город</h5></div>
                         <div class="form-check form-check-inline mt-3">
-                          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                          <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
                           <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
                         </div>
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                          <input data-city="2" class="form-check-input city" name="city" type="radio" id="inlineCheckbox2" value="option2">
                           <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
                         </div>
                         <br>
@@ -86,18 +87,18 @@
                        <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="from-price">от</label>
-                          <input type="number" placeholder="0" class="form-control" id="from-price">
+                          <input id="priceFrom" type="number" placeholder="0" class="form-control" id="from-price">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="untill-price">до</label>
-                          <input type="number" placeholder="99999" class="form-control" id="untill-price">
+                          <input id="priceTo" type="number" placeholder="99999" class="form-control" id="untill-price">
                         </div>
                       </div>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer border-1 d-flex justify-content-end mt-1">
-                    <button type="button" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 ">
+                    <button type="button" id="filter" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 ">
                       <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
                   </div>
@@ -130,6 +131,7 @@
                 </button>
               </form>
             </div>
+
           </div>
           @endauth
         </div>

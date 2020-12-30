@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,34 @@ class HomeController extends Controller
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
         return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner'));
+    }
+
+    public function filter(Request $request){
+        $productss = Product::whereNotNull('id');
+        if($request->sort == 'new'){
+            $productss->orderByDesc('id');
+        }
+        elseif($request->sort == 'cheap'){
+            $productss->orderBy('price');
+        }
+        elseif($request->sort == 'expensive'){
+            $productss->orderByDesc('price');
+        }
+        if($request->priceFrom){
+            $productss->where('price', '>=', $request->priceFrom);
+        }
+        if($request->priceTo){
+            $productss->where('price', '<=', $request->priceTo);
+        }
+        $store = Store::where('city_id', $request->city)->get('id');
+        $productss->whereIn('store_id', $store);
+        $products = $productss->get();
+        return view('filter', compact('products'));
+    }
+
+    public function search(Request $request){
+        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->get();
+        return view('search', compact('products'));
     }
 
     /**
