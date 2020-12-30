@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -62,6 +63,11 @@ class HomeController extends Controller
         $productss->whereIn('store_id', $store);
         $products = $productss->get();
         return view('filter', compact('products'));
+    }
+
+    public function search(Request $request){
+        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->get();
+        return view('search', compact('products'));
     }
 
     /**

@@ -280,6 +280,7 @@ $(function () {
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
             $($(this)[0].files).each(function () {
                 var file = $(this);
+                console.log(file)
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
                     reader.onload = function (e) {

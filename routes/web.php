@@ -51,6 +51,7 @@ Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::resources([
     'favorite' => FavoriteController::class,
