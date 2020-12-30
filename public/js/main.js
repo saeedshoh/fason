@@ -3767,6 +3767,7 @@ function avatar(input) {
 
     reader.onload = function (e) {
       $('#avatar-poster').attr('src', e.target.result);
+      $('#avatar-poster-mobile').attr('src', e.target.result);
     };
 
     reader.readAsDataURL(input.files[0]);
