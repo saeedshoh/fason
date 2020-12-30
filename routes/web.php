@@ -40,8 +40,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
         'stores' => StoreController::class,
         'banners' => BannersController::class,
     ]);
-
-
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -65,15 +63,22 @@ Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.c
 Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
+Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
 
 
 Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
-Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
+Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');  
 
 Route::get('livesearch', [SearchController::class, 'search'])->name('ft-search.search');
-
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
 
 Route::get('image', [ImageInv::class, 'index']);
+
+Route::view('/delivery', 'useful_links.delivery')->name('useful_links.delivery');
+Route::view('/help', 'useful_links.help')->name('useful_links.help');
+Route::view('/return', 'useful_links.return')->name('useful_links.return');
+Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
+Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');

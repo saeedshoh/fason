@@ -16,14 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // UserSeeder::class;
-        // Category::factory(10)->create();
-        // AttributeSeeder::class;
-        // CitySeeder::class;
-        // ProductStatusSeeder::class;
-        // StoreSeeder::class;
-        Product::factory(40)->create();
-        // BannerSeeder::class;
-        // OrderStatusSeeder::class;
+        $this->call([
+            CitySeeder::class,
+            CategorySeeder::class,
+            AttributeSeeder::class,
+            ProductStatusSeeder::class,
+            BannerSeeder::class,
+            OrderStatusSeeder::class,
+            UserSeeder::class,
+            StoreSeeder::class,
+            ProductSeeder::class,
+        ]);
     }
 }

@@ -115,9 +115,9 @@
             </div>
           @endguest
           @auth
-          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown">
-            <a class="text-decoration-none text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink">
-              <img class="rounded-circle" src="storage/theme/profile.png" alt="">
+          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown text-right">
+            <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+              <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
@@ -132,7 +132,6 @@
               </form>
             </div>
 
-
           </div>
           @endauth
         </div>
@@ -146,14 +145,13 @@
         </a>
       </div>
       <div class="col border-right text-center">
-        <a href="" class="text-decoration-none  d-flex flex-column pt-2">
+        <a href="{{ route('favorite.index') }}" class="text-decoration-none  d-flex flex-column pt-2">
           <img src="/storage/theme/icons/favourite-mob.svg" alt="">
           <span class="mobile-nav--title">Сохраненные</span>
         </a>
       </div>
       @if ($is_store != null)
         @auth
-
         <div class="col border-right add-good  text-center">
           <a href="" class="text-decoration-none  d-flex flex-column pt-2">
             <img src="/storage/theme/icons/plus.svg" alt="">
@@ -163,31 +161,32 @@
         @endauth
       @endif
       <div class="col text-center">
-        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+        <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/orderes-mob.svg" alt="">
           <span class="mobile-nav--title">Заказы</span>
         </a>
       </div>
-    @if ($is_store == null)
-      @auth
-      <div class="col border-left text-center">
-        <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
-          <i class="fas fa-door-open"></i>Магазин
-        </a>
-      </div>
-      @endauth
-      @guest
-      <div class="col border-left text-center">
-        <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
-          <img src="/storage/theme/icons/store-mob.svg" alt="">
-          <span class="mobile-nav--title">
-            Магазин</span>
+      @if ($is_store == null)
+        @auth
+        <div class="col border-left text-center">
+          <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
+            <i class="fas fa-door-open"></i>
+            <span class="mobile-nav--title">Магазин</span>
           </a>
-      </div>
-      @endguest
+        </div>
+        @endauth
+        @guest
+        <div class="col border-left text-center">
+          <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
+            <img src="/storage/theme/icons/store-mob.svg" alt="">
+            <span class="mobile-nav--title">
+              Магазин</span>
+            </a>
+        </div>
+        @endguest
       @else
       <div class="col border-left text-center">
-        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+        <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/store-mob.svg" alt="">
           <span class="mobile-nav--title">Магазин</span>
         </a>

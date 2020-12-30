@@ -3,7 +3,7 @@
 @extends('layouts.footer')
 @section('content')
   <section>
-    <div class="container mt-5">
+    <div class="container mt-lg-5">
       <div class="row">
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-6">
@@ -158,13 +158,15 @@
                           </div>
                           <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
-                            <span class="font-weight-bold checkout-address">Борбад 124/1</span>
+                            {{-- <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::check() ? Auth::user()->address : '' }}" disabled="true"> --}}
+                            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ isset($store->address) }}" disabled="true">
+                            {{-- <span class="font-weight-bold checkout-address">{{ isset($store->address) }}</span> --}}
                           </div>
                         </div>
                       </div>
                       <div class="modal-footer border-0 info-product_footer">
                         <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
-                          <div class="btn btn-outline-danger custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
+                          <div class="btn btn-outline-danger change-address custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
                           <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
                             Оформить
                           </button>
@@ -189,7 +191,7 @@
                         <div class="text-secondary">Ваш заказ приянт, в ближайшее время Вам позвонят наши операторы!</div>
                         <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
                         <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-                        <div class="text-secondary">Номер вашего закза 3320</div>
+                        <div class="text-secondary">Номер вашего закза <span class="order-number"></span></div>
                       </div>
                     </div>
                     <div class="modal-footer border-0">

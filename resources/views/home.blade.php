@@ -73,6 +73,7 @@
     </div>
 <!--Category list and carousel-->
     <div class="slider_and_sides mt-lg-4">
+
       <div id="categoriesRow" class="row">
         <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
           <h6 class="text-muted  text-center mt-2 d-lg-none d-xl-none">

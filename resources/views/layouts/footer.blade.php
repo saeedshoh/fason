@@ -37,13 +37,15 @@
                       <div class="pre--info">
                         <p class="text-muted mb-pre--text sms--true">Вам будет выслан смс с кодом активации для подтверждения вашего номера телефона</p>
                         <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
-  
+
                       </div>
                       <button type="button" class="btn btn-danger rounded-11 px-5" id="btn-login">Вход</button>
                   </div>
                 </form>
                 <p class="privacy-policy mb-pre--text">
-                  Ознакомитесь с пользовательским соглашением
+                  <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
+                    Ознакомитесь с пользовательским соглашением
+                  </a>
                 </p>
 
 
@@ -92,9 +94,9 @@ aria-hidden="true">
           </div>
           <div class="text-center">
             <small class="d-block d-md-none mb-3">
-              <a class="text-primary privacy-policy" href="#" >
+            <a class="privacy-policy" href="{{ route('useful_links.privacy_policy') }}">
                 Ознакомиться с пользовательским соглашением и полотикой конфиденциальности 
-              </a>
+            </a>
             </small>
             <button class="btn btn-danger rounded-11">Сохранить</button>
           </div>
@@ -102,43 +104,40 @@ aria-hidden="true">
       </div>
     </div>
     <div class="modal-footer border-0">
-      
+
     </div>
   </div>
 </div>
 </div>
 {{-- Раздел Футера --}}
-<footer class="mt-5">
+<footer class="mt-5 mb-5 mb-sm-0">
     <div class="container border-top border-bottom py-4">
       <div class="row">
         <div class="col-12 mb-4">
           <img src="/storage/theme/logo_fason.svg" alt="" width="120">
         </div>
 
-        <div class="col-12 col-lg-3"> 
-          <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p> 
+        <div class="col-12 col-lg-4">
+          <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p>
         </div>
-        <div class="footer_links col-lg-3"> 
-          <ul class="p-0 p-lg">
-            <li> <a href="">Помощь</a></li>
-            <li> <a href="">Политика и конфиденциальности</a></li>
+        <div class="footer_links col-lg-4"> 
+          <ul class="p-0 p-lg m-0">
+            <li> <a href="{{ route('useful_links.help') }}">Помощь</a></li>
+            <li> <a href="{{ route('useful_links.privacy_policy') }}">Политика и конфиденциальности</a></li>
           </ul>
         </div>
 
-        <div class="footer_links col-12 col-lg-3"> 
-          <ul class="p-0 p-lg">
-            <li> <a href="">Доcтавка</a></li>
-            <li> <a href="">Возврат</a></li>
-            <li> <a href="">Как стать продавцом</a></li>
+        <div class="footer_links col-12 col-lg-4"> 
+          <ul class="p-0 p-lg m-0">
+            <li> <a href="{{ route('useful_links.delivery') }}">Доcтавка</a></li>
+            <li> <a href="{{ route('useful_links.return') }}">Возврат</a></li>
+            <li> <a href="{{ route('useful_links.saller') }}">Как стать продавцом</a></li>
           </ul>
         </div>
       </div>
 
       <div class="col-lg-2 col-8 col-md-5 mt-2 pl-0 d-flex justify-content-between">
-        <a href="#"><img src="storage/theme/icons/Facebook.svg" alt=""></a>
-        <a href="#"><img src="storage/theme/icons/Twitter.svg" alt=""></a>
-        <a href="#"><img src="storage/theme/icons/Google.svg" alt=""></a>
-        <a href="#"><img src="storage/theme/icons/Instagram.svg" alt=""></a>
+        <a href="https://www.instagram.com/fasontj/"><img src="storage/theme/icons/Instagram.svg" alt=""></a>
       </div>
     </div>
 
