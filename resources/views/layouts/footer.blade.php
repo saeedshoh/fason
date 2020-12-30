@@ -6,7 +6,7 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <button type="button" class="close d-md-none d-lg-block h3" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close d-none d-lg-block h3" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <span data-dismiss="modal" aria-label="Close" class="mb-pre--close font-weight-bold d-md-block d-lg-none">
@@ -26,7 +26,7 @@
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
                     </div>
-                    <input type="number" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона">
+                    <input type="number" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address">
                   </div>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
@@ -39,7 +39,7 @@
                         <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
   
                       </div>
-                      <button type="button" class="btn btn-danger rounded-11 px-5" id="btn-login">Вход</button>
+                      <button type="button" class="btn btn-danger rounded-11 px-5 btn-lg" id="btn-login">Вход</button>
                   </div>
                 </form>
                 <p class="privacy-policy mb-pre--text">
@@ -55,57 +55,56 @@
     </div>
 </div>
 <!--Modal-3-->
-<div class="modal fade text-left" id="adressChange" tabindex="-1" aria-labelledby="adressChange"
+<div class="modal fade mb-custom-login" id="adressChange" tabindex="-1" aria-labelledby="adressChange"
 aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered buy-modal">
+<div class="modal-dialog modal-dialog-centered modal-md">
   <div class="modal-content">
     <div class="modal-header border-0">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <img src="img/close-modal.svg" alt=""></span>
-      </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body text-center">
+      <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
+      <p class="text-muted mb-pre--text">
+         Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
+      </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form class="my-3 mx-0 mx-sm-3 mx-lg-5">
-          <div class="form-group mt-4">
-            <input type="text" class="form-control" placeholder="Имя..">
+        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="profile_photo_path">
+            <label class="custom-file-label text-left" for="customFileLang">Выберите фотку</label>
           </div>
-          <div class="form-group mt-4">
-            <input type="text" class="form-control" placeholder="Адрес дома...">
+          <div class="input-group text-left  btn-group-fs my-4">
+            <div class="input-group-prepend position-relative">
+              <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+            </div>
+            <input type="text" class="form-control" placeholder="Имя.." name="name">          
           </div>
-          <div class="text-center">
-            <h5 class="text-secondary">Город:</h5>
+          <div class="input-group text-left  btn-group-fs  mb-4">
+            <div class="input-group-prepend position-relative">
+              <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+            </div>
+            <input type="text" class="form-control" placeholder="Адрес дома..." name="address">
           </div>
+          <h5 class="text-secondary">Город:</h5>
           <div class="form-row">
             <div class="form-group col-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="dushanbe">
+                <input class="form-check-input" type="checkbox" id="dushanbe" value="1" name="city_id">
                 <label class="form-check-label text-dark" for="dushanbe">
                   Душанбе
                 </label>
               </div>
             </div>
-            <div class="form-group col-6">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="hujand">
-              </div>
-            </div>
           </div>
-          <div class="text-center">
-            <small class="d-block d-md-none mb-3">
-              <a class="privacy-policy" href="{{ route('useful_links.privacy_policy') }}">
-
-                Ознакомиться с пользовательским соглашением и полотикой конфиденциальности 
-              </a>
-            </small>
-            <button class="btn btn-danger rounded-11">Сохранить</button>
-          </div>
+          <p class="privacy-policy mb-pre--text">
+            <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
+              Ознакомитесь с пользовательским соглашением
+            </a>
+          </p>
+          <button type="submit" class="btn btn-danger rounded-11 btn-lg">Сохранить</button>
         </form>
       </div>
-    </div>
-    <div class="modal-footer border-0">
-      
     </div>
   </div>
 </div>

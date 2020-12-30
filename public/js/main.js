@@ -3659,8 +3659,13 @@ $('#btn-login, #code').on('click change', function () {
       code: code
     },
     success: function success(data) {
-      if (data == 2) {
-        location.reload(true);
+      if ($('#adressChange')) {
+        $('#enter_site').modal('hide');
+        $('#adressChange').modal('show');
+      } else {
+        if (data == 2) {
+          location.reload(true);
+        }
       }
     },
     error: function error(xhr, status, _error4) {
@@ -3686,6 +3691,11 @@ $('#send-code, .send-code').on('click', function () {
       $('.enter-code').show();
       $('.sms--true').show();
       $('.sms--false').hide();
+
+      if (data == 1) {
+        $('#adressChange').remove();
+      }
+
       var fiveMinutes = 6 * 10,
           display = document.querySelector('#count-down');
       return startTimer(fiveMinutes, display);

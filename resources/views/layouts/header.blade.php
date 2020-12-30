@@ -108,8 +108,8 @@
           
           @guest
             <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
-              <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded-11 float-right px-3"  data-toggle="modal" data-target="#enter_site" >
-              <i class="fas fa-sign-in-alt"></i>  Вход
+              <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded-11 float-right px-3" data-toggle="modal" data-target="#enter_site">
+                <i class="fas fa-sign-in-alt"></i>  Вход
               </button>
             </div>
           @endguest

@@ -107,9 +107,16 @@
             <div class="col-4">
               <div class="text-center text-md-right">
                 <!-- Button trigger modal -->
+                @guest
+                  <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
+                    Купить
+                  </button>
+                @endguest
+                @auth
                 <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
                   Купить
                 </button>
+                @endauth
                 <!-- Modal 1-->
                 <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
                   aria-hidden="true">
@@ -126,7 +133,7 @@
                             <div class="col-12 col-lg-5">
                               <div class="title mb-3">Товар:</div>
                               <div class="row">
-                                <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt=""></div>
+                                <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
                                 <div class="col-8 col-lg-6">
                                  <h6 class="h6 font-weight-bold checkout-id" data-id="{{ $product->id }}">{{ $product->name }}</h6>
                                   <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
@@ -200,14 +207,25 @@
           </div>
           <div class="mt-3 mt-sm-5 d-flex justify-content-end info-product_footer">
             <div class="my-3 text-center d-flex justify-content-between w-100">
-              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1"><img class="mr-1"
-                  src="/storage/theme/icons/store.svg" alt=""> В магазин</a>
-              <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-id="{{ $product->id }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1">
+              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
+                <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин
+              </a>
+              @guest
+              <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-toggle="modal" data-target="#enter_site">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1" >
                   <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
                 </svg>
                 <span>Сохранить</span>
               </button>
+              @endguest
+              @auth
+              <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-id="{{ $product->id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1" >
+                  <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
+                </svg>
+                <span>Сохранить</span>
+              </button>
+              @endauth
             </div>
           </div>
         </div>
@@ -225,7 +243,10 @@
         @forelse ($similars as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0">
-            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" 
+              @guest
+                data-toggle="modal" data-target="#enter_site"
+              @endguest>
               <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
             </svg>
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
