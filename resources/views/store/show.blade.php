@@ -7,10 +7,10 @@
     <div class="container">
       <div class="row">
         <!--store logo start-->
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 px-0">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="{{ Storage::url($stores->avatar) }}" class="img-fluid rounded" alt="">
+            <img src="/storage/{{ $stores->avatar }}" class="img-fluid" alt="">
               <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button>
             </div>
           </div>
@@ -19,55 +19,46 @@
         <!--store-info start-->
         <div class="col-12 col-lg-9">
           <div class="d-none d-lg-block">
-            <p>Copywright will prowide is wonderful serenity has taken possession of my entire as soul, like these sweet
-              mornings of spring which I enjoy with my whole heart. I am alone standards.</p>
+            <p>{{ $stores->description ?? '' }}</p>
             <a href="#" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
           </div>
           <div class="my-5 my-lg-3">
             <div class="row">
-              <div class="col-12 col-md-6">
+              <div class="col-4">
                 <h3 class="font-weight-bold">Телефон:</h3>
               </div>
-              <div class="col-12 col-md-6">
-                <div class="text-left text-md-right">
-                  <h5 class="font-weight-bold h5">
-                    {{ $stores->user->phone ?? '' }}
-                  </h5>
-                </div>
+              <div class="col-8 align-self-center">
+                <h5 class="font-weight-bold text-left text-md-right mb-1">
+                  {{ $stores->user->phone ?? '' }}
+                </h5>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-4">
                 <h3 class="font-weight-bold">Город:</h3>
               </div>
-              <div class="col-12 col-md-6">
-                <div class="text-left text-md-right">
-                  <h5 class="font-weight-bold h5">
-                    {{ $stores->city->name ?? ''}}
-                  </h5>
-                </div>
+              <div class="col-8 align-self-center">
+                <h5 class="font-weight-bold text-left text-md-right mb-1">
+                  {{ $stores->city->name ?? ''}}
+                </h5>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-4">
                 <h3 class="font-weight-bold">Имя:</h3>
               </div>
-              <div class="col-12 col-md-6">
-                <div class="text-left text-md-right">
-                  <h5 class="font-weight-bold h5">
-                    {{ $stores->user->name ?? ''}}
-                  </h5>
-                </div>
+              <div class="col-8 align-self-center">
+                <h5 class="font-weight-bold text-left text-md-right mb-1">
+                  {{ $stores->name ?? ''}}
+                </h5>
               </div>
-              <div class="ccol-12 col-md-6">
+              <div class="col-4">
                 <h3 class="font-weight-bold">Адрес:</h3>
               </div>
-              <div class="col-12 col-md-6">
-                <div class="text-left text-md-right">
-                  <h5 class="font-weight-bold h5">
-                    {{ $stores->address ?? ''}}
-                  </h5>
-                </div>
+              <div class="col-8 align-self-center">
+                <h5 class="font-weight-bold text-left text-md-right mb-1">
+                  {{ $stores->address ?? ''}}
+                </h5>
               </div>
-              <div class="offset-0 offset-md-6 col-12 col-md-6">
+              <div class="offset-0 offset-md-6 col-12 col-md-6 mt-md-0 mt-3">
                 <div class="text-center text-md-right">
-                  <a class="btn btn-danger rounded-11" href="#">Изменить</a>
+                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $stores->id) }}">Изменить</a>
                 </div>
               </div>
             </div>
@@ -285,7 +276,7 @@
     </div>
     <!--Tab content end-->
     <div class="text-center">
-        <a class="btn btn-danger px-5 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
+        <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
     </div>
   </div>
       <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>

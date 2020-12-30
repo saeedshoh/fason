@@ -1,6 +1,4 @@
-const {
-    type
-} = require("jquery");
+window._ = window.jQuery = require('owl.carousel');
 
 $(document).on('ready', function () {
 
@@ -133,7 +131,8 @@ $('.main-search').on('keyup keypress keydown change', function () {
 // orders add
 $('.checkout-product').on('click', function () {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
-    let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
     $.ajax({
@@ -149,6 +148,7 @@ $('.checkout-product').on('click', function () {
             product_id,
         },
         success: (data) => {
+            $('.order-number').text("Номер вашего заказа: " + data.order.id);
             console.log(data);
         },
         error: function (xhr, status, error) {
@@ -320,6 +320,7 @@ function avatar(input) {
 
         reader.onload = function (e) {
             $('#avatar-poster').attr('src', e.target.result);
+            $('#avatar-poster-mobile').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -460,4 +461,8 @@ $('#spinner-input').on('change', function () {
 
 });
 
+$('body').on('click', '.change-address', function(){
+    $('#checkout_address').prop( "disabled", false );
+    $('#checkout_address').focus();
+});
 

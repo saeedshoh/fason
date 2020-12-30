@@ -15,13 +15,13 @@
         </div>
     @endif
 
-    <form action="{{ route('ft-store.store') }}" enctype="multipart/form-data" method="POST">
-      @method('POST')
+    <form action="{{ route('ft-store.update', $store->id) }}" enctype="multipart/form-data" method="POST">
       @csrf
+      @method('PATCH')
       <div class="row mt-sm-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
-            <img src="/storage/theme/itpark.png" class="w-100 rounded" id="avatar-poster" height="216">
+            <img src="/storage/{{ $store->avatar }}" class="w-100 rounded" id="avatar-poster" height="216">
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/theme/yellowbanner.png" class="w-100 rounded store-image" id="cover-poster" height="216">
+          <img src="/storage/{{ $store->cover }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
 
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
@@ -43,18 +43,18 @@
         <div class="col-12 d-block d-md-none mt-5">
           <h2>Магазин</h2>
           <div class="row">
-            <div class="col-3 text-center">
+            <div class="col-4 text-center justify-items-center align-self-center">
               <div class="d-inline-block position-relative">
-                <img src="/storage/theme/icons/Avatar.svg" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
+                <img src="/storage/{{ $store->avatar }}" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
                 <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
                   <img src="/storage/theme/icons/camera.svg">
                 </label>
               </div>
             </div>
-            <div class="col-9 d-flex justify-content-between order-0 order-lg-1">
+            <div class="col-8 d-flex justify-content-between order-0 order-lg-1">
               <div>
-                <h3 class="font-weight-bold"></h3>
-                <span class="text-secondary"></span>
+                <h3 class="font-weight-bold">{{ $store->name }}</h3>
+                {{-- <span class="text-secondary">Зарафшон</span> --}}
               </div>
               {{-- <div>
                 <button type="button" class="btn"><img src="/storage/theme/icons/change.svg" alt=""></button>
@@ -70,19 +70,19 @@
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}">
+              <input class="form-control" type="text" name="name" id="name" value="{{ old('name') ? old('name') : $store->name }}">
             </div>
           </div>
           <div class="form-group row">
             <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдресс:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') }}">
+              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') ? old('address') : $store->address }}">
             </div>
           </div>
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') }}">
+              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') ? old('description') : $store->description }}">
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
               <div class="form-group row form-check">
                 <div class="col-sm-6">
                     @foreach ($cities as $city)
-                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}">
+                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}" @if($store->city->id == $city->id) checked @endif>
                         <label class="form-check-label" for="exampleRadios1">
                             {{ $city->name }}
                         </label>
@@ -104,7 +104,7 @@
           </div>
           <div class="form-group row">
             <div class="col">
-                <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger">Отправить</button>
+              <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger">Отправить</button>
             </div>
           </div>
         </div>
