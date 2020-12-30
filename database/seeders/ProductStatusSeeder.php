@@ -16,7 +16,7 @@ class ProductStatusSeeder extends Seeder
     public function run()
     {
         DB::table('product_statuses')->insert([
-            ['name' => 'Не активный'],
+            ['name' => 'На проверке'],
             ['name' => 'Активный'],
             ['name' => 'Отклонен']
         ]);

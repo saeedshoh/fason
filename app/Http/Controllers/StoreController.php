@@ -47,7 +47,7 @@ class StoreController extends Controller
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
         ]);
-        
+
 		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
         $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
 
@@ -66,8 +66,12 @@ class StoreController extends Controller
     {
         $stores = Store::where('slug', $slug)->first();
         $products = Product::where('store_id', $stores->id)->get();
-
-        return view('store.show', compact('stores', 'products'));
+        $acceptedProducts = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
+        $onCheckProducts = Product::where('store_id', $stores->id)->where('product_status_id', 1)->get();
+        $hiddenProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $canceledProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
+        return view('store.show', compact('stores', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'deletedProducts'));
     }
 
     /**

@@ -100,57 +100,186 @@
   <div class="container">
     <ul class="nav nav-tabs customer-tab border-0">
       <li class="nav-item position-relative">
-        <a class="nav-link active border-0 font-weight-bold" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все 16</a>
+        <a class="nav-link active border-0 font-weight-bold" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все {{ count($products) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликованные 0</a>
+        <a class="nav-link border-0 font-weight-bold" id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликованные {{ count($acceptedProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке 0</a>
+        <a class="nav-link border-0 font-weight-bold" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="hidden-tab" data-toggle="tab" href="#hidden" aria-selected="false">Скрыты 0</a>
+        <a class="nav-link border-0 font-weight-bold" id="hidden-tab" data-toggle="tab" href="#hidden" aria-selected="false">Скрыты {{ count($hiddenProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклоненные 0</a>
+        <a class="nav-link border-0 font-weight-bold" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклоненные {{ count($canceledProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">На удаление 0 </a>
+        <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>
       </li>
     </ul>
     <!--Tab-content>-->
     <div class="tab-content" id="myTabContent">
       <!--all-product-->
       <div class="tab-pane fade show active" id="all-product" role="tabpanel" aria-labelledby="all-product-tab">
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
- 
-  
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($products as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
         </div>
       </div>
       <!--All product-end-->
       <!--Published-tab-->
       <div class="tab-pane fade" id="published" role="tabpanel" aria-labelledby="published-tab">
-        2
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($acceptedProducts as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
       </div>
       <!--Published-tab end-->
       <!--On Checking-->
       <div class="tab-pane fade" id="onChecking" role="tabpanel" aria-labelledby="onChecking-tab">
-        3
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($onCheckProducts as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
       </div>
       <!--On Checking end-->
       <!--Hidden-->
       <div class="tab-pane fade" id="hidden" role="tabpanel" aria-labelledby="hidden-tab">
-        4
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($hiddenProducts as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
       </div>
       <!--Hidden end-->
       <!--Declined-->
       <div class="tab-pane fade" id="declined" role="tabpanel" aria-labelledby="declined-tab">
-        5
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($canceledProducts as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
       </div>
       <!--Declined end-->
       <!--On Delete-->
       <div class="tab-pane fade" id="onDelete" role="tabpanel" aria-labelledby="onDelete-tab">
-        6
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($deletedProducts as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0">
+                  <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
+                  </svg>
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
       </div>
       <!--On Delete end-->
     </div>
@@ -159,29 +288,6 @@
         <a class="btn btn-danger px-5 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
     </div>
   </div>
-    <div class="all-product container mt-5">
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
-        @forelse ($products as $product)
-        <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-          <div class="card rounded shadow border-0">
-            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
-              <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-            </svg>
-            <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-            <div class="container">
-              <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
-              <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price }} сомони</span>
-                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        @empty
-            Извените ничего не найдено
-        @endforelse
-
-      </div>
       <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>
       <div class="products-status position-relative row justify-content-center text-center">
         <div class="info-status__products status-success col-12 col-lg-2 mx-1"> Заказ выполнен</div>
