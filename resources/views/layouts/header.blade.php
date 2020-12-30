@@ -13,7 +13,7 @@
                 <div class="position-relative w-75 mobile-header">
                   <input  class="form-control main-search pl-5 pl-lg-3" type="search" placeholder="поиск товаров ..." aria-label="Search">
                   <div class="search-result shadow-lg rounded ">
-                    
+
                   </div>
                 </div>
                 <button class="btn-danger rounded-11  border-0 px-2 nav-link btn mx-2 search-btn" type="submit">
@@ -40,7 +40,7 @@
                         <div class="d-flex justify-content-between align-items-center mt-4">
                           <h5 class="captions-of__modal ">Категории</h5><img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
                         </div>
-                        <div class="categories__modal overflow-auto"> 
+                        <div class="categories__modal overflow-auto">
                           <div class="form-check mt-3">
                             @forelse ($categories as $category)
                             <input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cats-{{$category->id}}">
@@ -50,12 +50,12 @@
                             @empty
                               Извените ничего не найдено
                           @endforelse
-                            
+
                           </div>
                         </div>
 
                       </div> --}}
-                      
+
                       <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
                         <div class="d-flex justify-content-between align-items-center mt-4">
                           <h5 class="captions-of__modal ">Сортировать</h5>
@@ -82,7 +82,7 @@
                           <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
                         </div>
                         <br>
-                       <h5 class="captions-of__modal mt-5">Цена</h5>                        
+                       <h5 class="captions-of__modal mt-5">Цена</h5>
                        <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="from-price">от</label>
@@ -105,7 +105,7 @@
               </div>
             </div>
           </div>
-          
+
           @guest
             <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
               <button type="button" class="mr-0 mr-lg-2 btn btn-danger rounded-11 float-right px-3"  data-toggle="modal" data-target="#enter_site" >
@@ -115,7 +115,7 @@
           @endguest
           @auth
           <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown">
-            <a class="text-decoration-none text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+            <a class="text-decoration-none text-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink">
               <img class="rounded-circle" src="storage/theme/profile.png" alt="">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
@@ -124,14 +124,12 @@
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                 @csrf
-                
+
                 <button type="submit" class="btn btn-outline-dark border-0 px-0">
                   <i class="fas fa-sign-out-alt"></i> Выход
                 </button>
               </form>
             </div>
-            
-            
           </div>
           @endauth
         </div>
@@ -145,14 +143,13 @@
         </a>
       </div>
       <div class="col border-right text-center">
-        <a href="" class="text-decoration-none  d-flex flex-column pt-2">
+        <a href="{{ route('favorite.index') }}" class="text-decoration-none  d-flex flex-column pt-2">
           <img src="/storage/theme/icons/favourite-mob.svg" alt="">
           <span class="mobile-nav--title">Сохраненные</span>
         </a>
       </div>
       @if ($is_store != null)
         @auth
-
         <div class="col border-right add-good  text-center">
           <a href="" class="text-decoration-none  d-flex flex-column pt-2">
             <img src="/storage/theme/icons/plus.svg" alt="">
@@ -162,31 +159,32 @@
         @endauth
       @endif
       <div class="col text-center">
-        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+        <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/orderes-mob.svg" alt="">
           <span class="mobile-nav--title">Заказы</span>
         </a>
       </div>
-    @if ($is_store == null)
-      @auth
-      <div class="col border-left text-center">
-        <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
-          <i class="fas fa-door-open"></i>Магазин
-        </a>
-      </div>
-      @endauth
-      @guest
-      <div class="col border-left text-center">
-        <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
-          <img src="/storage/theme/icons/store-mob.svg" alt="">
-          <span class="mobile-nav--title">
-            Магазин</span>
+      @if ($is_store == null)
+        @auth
+        <div class="col border-left text-center">
+          <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
+            <i class="fas fa-door-open"></i>
+            <span class="mobile-nav--title">Магазин</span>
           </a>
-      </div>
-      @endguest
+        </div>
+        @endauth
+        @guest
+        <div class="col border-left text-center">
+          <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
+            <img src="/storage/theme/icons/store-mob.svg" alt="">
+            <span class="mobile-nav--title">
+              Магазин</span>
+            </a>
+        </div>
+        @endguest
       @else
       <div class="col border-left text-center">
-        <a href="" class="text-decoration-none d-flex flex-column pt-2">
+        <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/store-mob.svg" alt="">
           <span class="mobile-nav--title">Магазин</span>
         </a>
