@@ -73,19 +73,23 @@
     </div>
 <!--Category list and carousel-->
     <div class="slider_and_sides mt-lg-4">
-      <div class="row">
-        <div class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
+
+      <div id="categoriesRow" class="row">
+        <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
           <h6 class="text-muted  text-center mt-2 d-lg-none d-xl-none">
             Категории </h6>
           <ul class="shop-subject list-group list-group-flush h-100">
             @forelse ($categories as $category)
-            <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
-              <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none text-secondary">
-                <img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
-                <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>
+            <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
+              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+              {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
+              <div class="spinner-grow text-center text-danger float-right" role="status">
+                {{--  <span class="sr-only">Loading...</span>  --}}
+              </div>
+              {{--  <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>  --}}
             </li>
             @empty
-              Извение ничего не найдено
+              Извините ничего не найдено
             @endforelse
           </ul>
         </div>
@@ -200,5 +204,4 @@
      </div>
     </div>
   </section>
-
 @endsection
