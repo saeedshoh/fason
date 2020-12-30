@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
+Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
+Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
+Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
+Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 
 Route::resources([
     'favorite' => FavoriteController::class,

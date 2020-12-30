@@ -7,7 +7,7 @@
   <section class="container mt-lg-4">
     <div class="under-menu-category">
       <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 d-none d-md-flex"> 
+        <div class="col-12 col-md-4 col-lg-3 d-none d-md-flex">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle font-weight-bold category-dropdown position-relative" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Категории
@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-8 col-lg-6 d-none d-md-flex">
           @if ($is_store == null)
-          
+
             @auth
               <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
                 <i class="fas fa-door-open"></i>Открыть магазин
@@ -32,25 +32,25 @@
               <i class="fas fa-door-open"></i>Перейти в магазин
             </a>
           @endif
-           
+
             @auth
               <a href="{{ route('ft-order.orders') }}" class="mr-2 btn btn-danger rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
               <a href="{{ route('favorite.index') }}" class="btn btn-danger rounded-11 px-3">
                 <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
-              </a>        
+              </a>
             @endauth
 
             @guest
             <button type="button" class="mr-2 btn btn-danger rounded-11 px-3 border-0" data-toggle="modal" data-target="#enter_site" ><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
             <button type="button" class="btn btn-danger rounded-11 border-0 px-3"  data-toggle="modal" data-target="#enter_site">
               <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
-            </button>        
+            </button>
             @endguest
 
         </div>
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
-          <a class="text-decoration-none text-secondary"> 
+          <a class="text-decoration-none text-secondary">
             <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
@@ -62,7 +62,7 @@
           </form>
         </div>
         @endauth
-       @guest 
+       @guest
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
           <button type="button" class="mr-2 btn-danger rounded-11  px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход
@@ -72,19 +72,23 @@
       </div>
     </div>
 <!--Category list and carousel-->
-    <div class="slider_and_sides mt-lg-4"> 
-      <div class="row">
-        <div class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
-          <h6 class="text-muted  text-center mt-2 d-lg-none d-xl-none"> 
+    <div class="slider_and_sides mt-lg-4">
+      <div id="categoriesRow" class="row">
+        <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
+          <h6 class="text-muted  text-center mt-2 d-lg-none d-xl-none">
             Категории </h6>
           <ul class="shop-subject list-group list-group-flush h-100">
             @forelse ($categories as $category)
-            <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
-              <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
-              <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>
+            <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
+              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+              {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
+              <div class="spinner-grow text-center text-danger float-right" role="status">
+                {{--  <span class="sr-only">Loading...</span>  --}}
+              </div>
+              {{--  <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>  --}}
             </li>
             @empty
-              Извение ничего не найдено
+              Извините ничего не найдено
             @endforelse
           </ul>
         </div>
@@ -191,13 +195,12 @@
           <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded" width="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
-        </div> 
+        </div>
         @empty
-          <p>Извените ничего не найдено</p> 
+          <p>Извените ничего не найдено</p>
         @endforelse
 
      </div>
     </div>
   </section>
-
 @endsection

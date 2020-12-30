@@ -41,6 +41,29 @@ class HomeController extends Controller
         return view('home', compact('stores', 'is_store', 'categories', 'products', 'sliders', 'middle_banner'));
     }
 
+    public function filter(Request $request){
+        $productss = Product::whereNotNull('id');
+        if($request->sort == 'new'){
+            $productss->orderByDesc('id');
+        }
+        elseif($request->sort == 'cheap'){
+            $productss->orderBy('price');
+        }
+        elseif($request->sort == 'expensive'){
+            $productss->orderByDesc('price');
+        }
+        if($request->priceFrom){
+            $productss->where('price', '>=', $request->priceFrom);
+        }
+        if($request->priceTo){
+            $productss->where('price', '<=', $request->priceTo);
+        }
+        $store = Store::where('city_id', $request->city)->get('id');
+        $productss->whereIn('store_id', $store);
+        $products = $productss->get();
+        return view('filter', compact('products'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
