@@ -18,7 +18,7 @@
     <form action="{{ route('ft-store.store') }}" enctype="multipart/form-data" method="POST">
       @method('POST')
       @csrf
-      <div class="row mt-3">
+      <div class="row mt-sm-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
             <img src="/storage/theme/itpark.png" class="w-100 rounded" id="avatar-poster" height="216">
@@ -40,25 +40,25 @@
             </label>
           </div>
         </div>
-        <div class="col-12 d-block d-md-none">
+        <div class="col-12 d-block d-md-none mt-5">
           <h2>Магазин</h2>
           <div class="row">
             <div class="col-3 text-center">
               <div class="d-inline-block position-relative">
-                <img src="/storage/theme/icons/Avatar.svg">
-                <label for="avatar" class="btn p-0 position-absolute change-avatar-icon">
-                  <img src="/storage/theme/icons/camera.svg">  Изменить
+                <img src="/storage/theme/icons/Avatar.svg" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
+                <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
+                  <img src="/storage/theme/icons/camera.svg">
                 </label>
               </div>
             </div>
             <div class="col-9 d-flex justify-content-between order-0 order-lg-1">
               <div>
-                <h3 class="font-weight-bold">Olim H</h3>
-                <span class="text-secondary">Зарафшон</span>
+                <h3 class="font-weight-bold"></h3>
+                <span class="text-secondary"></span>
               </div>
-              <div>
+              {{-- <div>
                 <button type="button" class="btn"><img src="/storage/theme/icons/change.svg" alt=""></button>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
       <!--Edit logo and banner end-->
       <!--store info start-->
       <div class="row mt-5">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
             <div class="col-sm-8">
@@ -86,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-3">
           <div class="form-group row">
             <label class="col-sm-4 col-form-label text-muted font-weight-bold">Город:</label>
             <div class="col-sm-8">
@@ -103,7 +103,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <button type="submit" class="btn rounded px-3 btn-danger">Отправить</button>
+            <div class="col">
+                <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger">Отправить</button>
+            </div>
           </div>
         </div>
       </div>

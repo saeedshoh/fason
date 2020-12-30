@@ -40,5 +40,17 @@ class AppServiceProvider extends ServiceProvider
                 view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
             }
         }
+
+        view()->composer(
+            'layouts.header',
+            function ($view) {
+                $is_store = null;
+                if (Auth::check()) {
+                    $is_store = Store::where('user_id', Auth::id())->first();
+                }
+
+                $view->with(['is_store' => $is_store]);
+            }
+        );
     }
 }

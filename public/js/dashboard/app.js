@@ -42990,7 +42990,7 @@ $('body').tooltip({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! /Users/behruz/Documents/GitHub/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
 
 
 /***/ })

@@ -4,8 +4,98 @@ $(document).on('ready', function () {
 
     $('.sms--false').hide();
 
-
 });
+
+$(document).ready(function(){
+    $('.category').each(function(){
+        let category = $(this).data('id')
+        let _this = $(this)
+        $.ajax({
+            url: '/countProducts',
+            data: {category: category},
+            method: "GET",
+            dataType : 'json',
+            success: function( data ) {
+                _this.parent().find('.spinner-grow').remove()
+                _this.parent().append(`
+                    <span class="badge badge-danger badge-pill">${data}</span>
+                `)
+            }
+        })
+    })
+    var url = $(location).attr("href")
+    if(url.indexOf('filter?') !== -1) {
+        const sort = url.split('sort=')[1].split('&')[0]
+        const city = url.split('city=')[1].split('&')[0]
+        if(url.indexOf('priceFrom')){
+            const priceFrom = url.split('priceFrom=')[1].split('&')[0]
+            $('#priceFrom').val(priceFrom)
+        }
+        if(url.indexOf('priceTo')){
+            const priceTo = url.split('priceTo=')[1].split('&')[0]
+            $('#priceTo').val(priceTo)
+        }
+        $(`.sort[data-sort=${sort}]`).attr('checked', true)
+        $(`.city[data-city=${city}]`).attr('checked', true)
+    }
+})
+
+$('body').on('click', '#filter', function(){
+    let sort = $("input[name='sort']:checked").data('sort')
+    let city = $("input[name='city']:checked").data('city')
+    let priceFrom = $('#priceFrom').val()
+    let priceTo = $('#priceTo').val()
+    if(priceFrom.length > 0 && priceTo.length == 0){
+        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+    }
+    else if(priceTo.length > 0 && priceFrom.length == 0){
+        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+    }
+    else if(priceFrom.length > 0 && priceTo.length > 0){
+        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+    }
+    else{
+        window.location.href = 'filter?sort=' + sort + '&city=' + city
+    }
+})
+
+$('body').on('click', '.category', function(){
+    let category = $(this).data('id')
+    $.ajax({
+        url: '/subcategories',
+        data: {category: category},
+        method: "GET",
+        dataType : 'html',
+        success: function( data ) {
+            $('#categories').hide()
+            $('#categoriesRow').prepend(data)
+        }
+    })
+})
+
+$('body').on('click', '#prevCategory', function(){
+    $('#subcategories').hide()
+    $('#categories').show()
+})
+
+$('body').on('click', '.subcategory', function(){
+    let category = $(this).data('id')
+    $('#catProducts').empty().append(`
+        <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    `)
+    $.ajax({
+        url: '/categoryProducts',
+        data: {category: category},
+        method: "GET",
+        dataType : 'html',
+        success: function( data ) {
+            $('#catProducts').empty().append(data)
+        }
+    })
+
+})
 
 $('.select-color').on('click', function () {
     $('.product-colors label').removeClass('color-active');
@@ -198,6 +288,7 @@ $(function () {
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
             $($(this)[0].files).each(function () {
                 var file = $(this);
+                console.log(file)
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
@@ -237,6 +328,7 @@ function avatar(input) {
 
         reader.onload = function (e) {
             $('#avatar-poster').attr('src', e.target.result);
+            $('#avatar-poster-mobile').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -381,3 +473,4 @@ $('body').on('click', '.change-address', function () {
     $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
 });
+

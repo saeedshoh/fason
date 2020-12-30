@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -14,12 +16,51 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->banners = Banners::latest()->get();
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function category($slug) {
         $cat_id =  Category::where('slug', $slug)->first()->id;
-        $categories =  Category::where('slug', $slug)->get();
+        $categories = Category::where('parent_id', $cat_id)->get();
         $products = Product::where('category_id', $cat_id)->get();
-        return view('category', compact('categories', 'products'));
+        $sliders = $this->banners->where('type', 1);
+        return view('category', compact('categories', 'products', 'sliders'));
     }
+
+    public function subcategories(Request $request){
+        $name = Category::find($request->category)->name;
+        $categories = Category::where('parent_id', $request->category)->get();
+        return view('categoryChild', compact('categories', 'name'))->render();
+    }
+
+    public function categoryProducts(Request $request){
+        $products = Product::where('category_id', $request->category)->get();
+        return view('categoryProducts', compact('products'))->render();
+    }
+
+    public function countProducts(Request $request){
+        $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
+                ->value('id'))
+                ->pluck('id')
+                ->push($parentId)
+                ->all();
+        $has = Category::with('grandchildren')->find($request->category);
+        if(isset($has->grandchildren[0])){
+            foreach($has->grandchildren[0]->childrens as $child)
+            {
+                array_push($categoryIds, $child->id);
+            }
+        }
+        $count = Product::whereIn('category_id', $categoryIds)->get('id');
+        return response()->json(count($count));
+    }
+
     public function index()
     {
         $categories = Category::where('parent_id', '0')->paginate(10);
@@ -73,7 +114,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {  
+    {
         $categories = Category::where('parent_id', 0)->get();
         return view('dashboard.category.edit', compact('categories', 'category'));
     }

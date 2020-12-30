@@ -106,17 +106,22 @@
             </div>
             <div class="col-4">
               <div class="text-center text-md-right">
-                <!-- Button trigger modal -->
+
+                @if(Auth::check())
+                  @if ($product->store_id == Auth::user()->store->id)
+                    <a href="#" class="btn btn-danger custom-radius">Изменить</a>
+                  @else
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
+                        Купить
+                    </button>
+                  @endif
+                @endif
                 @guest
-                  <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
-                    Купить
-                  </button>
-                @endguest
-                @auth
-                <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
+                <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
                   Купить
                 </button>
-                @endauth
+                @endguest
                 <!-- Modal 1-->
                 <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
                   aria-hidden="true">
