@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +37,9 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            Favorite::updateOrCreate(['product_id' => $request->product_id], ['user_id' => Auth::id(), 'product_id' => $request->product_id, 'status' => $request->status]);
+        }
     }
 
     /**

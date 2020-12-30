@@ -1118,25 +1118,6 @@ input[type=number]:hover::-webkit-outer-spin-button {
 
 /*favourite end*/
 
-/*search-result*/
-
-.search-result::before {
-  content: "";
-  position: absolute;
-  bottom: -0.5rem;
-  height: 2px;
-  background: #FF0055;
-  width: 100%;
-}
-
-.search-result h3 {
-  font-size: 25px;
-  color: #9B9B9B;
-  font-weight: bold;
-}
-
-/*search-result end*/
-
 .search-result {
   position: absolute;
   width: 100%;

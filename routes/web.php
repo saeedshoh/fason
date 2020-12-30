@@ -66,6 +66,7 @@ Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.st
 Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
 Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
 
+Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
 
 Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
 Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');  
