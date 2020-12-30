@@ -43,7 +43,9 @@
                   </div>
                 </form>
                 <p class="privacy-policy mb-pre--text">
-                  Ознакомитесь с пользовательским соглашением
+                  <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
+                    Ознакомитесь с пользовательским соглашением
+                  </a>
                 </p>
 
 
@@ -92,9 +94,9 @@ aria-hidden="true">
           </div>
           <div class="text-center">
             <small class="d-block d-md-none mb-3">
-              <a class="text-primary privacy-policy" href="#" >
-                Ознакомиться с пользовательским соглашением и полотикой конфиденциальности
-              </a>
+            <a class="privacy-policy" href="{{ route('useful_links.privacy_policy') }}">
+                Ознакомиться с пользовательским соглашением и полотикой конфиденциальности 
+            </a>
             </small>
             <button class="btn btn-danger rounded-11">Сохранить</button>
           </div>
@@ -118,27 +120,24 @@ aria-hidden="true">
         <div class="col-12 col-lg-4">
           <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p>
         </div>
-        <div class="footer_links col-lg-4">
+        <div class="footer_links col-lg-4"> 
           <ul class="p-0 p-lg m-0">
-            <li> <a href="">Помощь</a></li>
-            <li> <a href="">Политика и конфиденциальности</a></li>
+            <li> <a href="{{ route('useful_links.help') }}">Помощь</a></li>
+            <li> <a href="{{ route('useful_links.privacy_policy') }}">Политика и конфиденциальности</a></li>
           </ul>
         </div>
 
-        <div class="footer_links col-12 col-lg-4">
+        <div class="footer_links col-12 col-lg-4"> 
           <ul class="p-0 p-lg m-0">
-            <li> <a href="">Доcтавка</a></li>
-            <li> <a href="">Возврат</a></li>
-            <li> <a href="">Как стать продавцом</a></li>
+            <li> <a href="{{ route('useful_links.delivery') }}">Доcтавка</a></li>
+            <li> <a href="{{ route('useful_links.return') }}">Возврат</a></li>
+            <li> <a href="{{ route('useful_links.saller') }}">Как стать продавцом</a></li>
           </ul>
         </div>
       </div>
 
       <div class="col-lg-2 col-8 col-md-5 mt-2 pl-0 d-flex justify-content-between">
-        <a href="#"><img src="/storage/theme/icons/Facebook.svg" alt=""></a>
-        <a href="#"><img src="/storage/theme/icons/Twitter.svg" alt=""></a>
-        <a href="#"><img src="/storage/theme/icons/Google.svg" alt=""></a>
-        <a href="#"><img src="/storage/theme/icons/Instagram.svg" alt=""></a>
+        <a href="https://www.instagram.com/fasontj/"><img src="storage/theme/icons/Instagram.svg" alt=""></a>
       </div>
     </div>
 

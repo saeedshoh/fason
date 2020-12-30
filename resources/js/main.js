@@ -1,6 +1,4 @@
-const {
-    type
-} = require("jquery");
+window._ = window.jQuery = require('owl.carousel');
 
 $(document).on('ready', function () {
 

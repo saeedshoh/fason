@@ -9,7 +9,7 @@
       <div class="row mt-sm-3">
          <div class="col-md-3 px-0 px-md-2 position-relative">
            <div class="text-center d-none d-md-block">
-            <img src="{{ Storage::url($store->avatar) }}" height="215">
+            <img src="{{ Storage::url($store->avatar) }}" height="215" class="rounded">
            </div>
          </div>
          <div class="col-md-9 px-0 px-md-2 position-relative">

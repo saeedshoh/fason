@@ -82,6 +82,7 @@ class OrderController extends Controller
                     "txn_id" => $txn_id,
                     "login" => $config['login'],
                 );
+                
                 $result = $this->call_api($config['server'], "GET", $params);
                 if ((isset($result['error']) && $result['error'] == 0)) {
                     $response = json_decode($result['msg']);
