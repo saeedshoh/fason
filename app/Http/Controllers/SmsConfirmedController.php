@@ -43,12 +43,18 @@ class SmsConfirmedController extends Controller
             $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
             $code = mt_rand(10000, 99999);
             $message = "Ваш код: " . $code;
-            $user = User::updateOrCreate(
-                ['phone' => $phone_number]
-            );
+            $exist_phone  =  User::where('phone', $phone_number)->first();
+            if ($exist_phone) {
+                echo 1;
+            } else {
+                $user = User::create(
+                    ['phone' => $phone_number]
+                );
+                $exist_phone = $user;
+            }
             $sms_confirmed = SmsConfirmed::create([
                 'code' => $code,
-                'user_id' => $user->id,
+                'user_id' => $exist_phone->id,
             ]);
             $params = array(
                 "from" => $config['sender'],

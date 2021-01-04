@@ -188,7 +188,6 @@ $('.favorite').on('click', function () {
 
     });
 });
-
 // sms-congirm
 $('#btn-login, #code').on('click change', function () {
     const phone = $('#phone').val();
@@ -205,8 +204,14 @@ $('#btn-login, #code').on('click change', function () {
             code,
         },
         success: (data) => {
-            if (data == 2) {
-                location.reload(true);
+            if ($('#adressChange')) {
+                $('#enter_site').modal('hide')
+                $('#adressChange').modal('show')
+
+            } else {
+                if (data == 2) {
+                    location.reload(true);
+                }
             }
 
         },
@@ -236,7 +241,9 @@ $('#send-code, .send-code').on('click', function () {
             $('.enter-code').show();
             $('.sms--true').show();
             $('.sms--false').hide();
-
+            if (data == 1) {
+                $('#adressChange').remove();
+            }
             var fiveMinutes = 6 * 10,
                 display = document.querySelector('#count-down');
             return startTimer(fiveMinutes, display);
@@ -250,7 +257,8 @@ $('#send-code, .send-code').on('click', function () {
 });
 
 function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
+    var timer = duration,
+        minutes, seconds;
     var time = setInterval(() => {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -461,8 +469,8 @@ $('#spinner-input').on('change', function () {
 
 });
 
-$('body').on('click', '.change-address', function(){
-    $('#checkout_address').prop( "disabled", false );
+$('body').on('click', '.change-address', function () {
+    $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
 });
 

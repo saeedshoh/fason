@@ -30,6 +30,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'address',
+        'city_id',
         'sms_verified_at',
     ];
 

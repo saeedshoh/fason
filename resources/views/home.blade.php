@@ -51,7 +51,7 @@
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
           <a class="text-decoration-none text-secondary">
-            <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
+            <img class="rounded-circle" src="/storage{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
           <form method="POST" action="{{ route('logout') }}">
@@ -132,7 +132,7 @@
         @forelse ($products as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0">
-            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15"  @guest data-toggle="modal" data-target="#enter_site" @endguest>
               <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
             </svg>
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
@@ -161,7 +161,7 @@
           @forelse ($products as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow border-0">
-              <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
+              <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" @guest data-toggle="modal" data-target="#enter_site" @endguest>
                 <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
               </svg>
               <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
