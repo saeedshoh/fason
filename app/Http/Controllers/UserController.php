@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -23,8 +24,13 @@ class UserController extends Controller
                 'profile_photo_path' =>  $request->profile_photo_path
             ]
         );
-        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
-
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month, 0777, true);
+        }
+        if($request->file('profile_photo_path')) {
+            $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        }
 
         return redirect()->route('home');
     }
