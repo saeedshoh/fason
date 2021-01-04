@@ -65,11 +65,12 @@ Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-st
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
 Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
 Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+Route::get('store/salesHistory/{id}', [StoreController::class, 'salesHistory'])->name('salesHistory');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
 
 Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
-Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');  
+Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
 
 Route::get('livesearch', [SearchController::class, 'search'])->name('ft-search.search');
 

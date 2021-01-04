@@ -75,7 +75,7 @@
           <a class="btn btn-danger w-100 rounded-11" href="#"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100 rounded-11" href="#"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
+          <a class="btn btn-danger w-100 rounded-11" href="{{ route('salesHistory', $stores->user_id) }}"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
           <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
@@ -132,7 +132,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  Извините ничего не найдено
               @endforelse
             </div>
         </div>
