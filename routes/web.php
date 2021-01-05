@@ -47,6 +47,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
 Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
+Route::get('/getSubcategories', [CategoryController::class, 'getSubcategories'])->name('getSubcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
@@ -58,6 +59,7 @@ Route::resources([
 Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
 Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
 Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+Route::get('editProduct/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
 
 Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
 Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');

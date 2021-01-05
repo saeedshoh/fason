@@ -97,6 +97,70 @@ $('body').on('click', '.subcategory', function(){
 
 })
 
+$('body').on('change', '#cat_parent', function(){
+    const id = $('#cat_parent option:selected').val()
+    $.ajax({
+        url: '/getSubcategories',
+        data: {category: id},
+        method: "GET",
+        dataType : 'json',
+        success: function( data ) {
+            $('#cat_child').empty().append(`
+                <option>Выберите подкатегорию</option>
+            `)
+            $('#child_div').remove()
+            data.forEach(element => {
+                $('#cat_child').append(`
+                    <option value="${element['id']}">${element['name']}</option>
+                `)
+            })
+        }
+    })
+})
+
+$('body').on('change', '#cat_child', function(){
+    const id = $('#cat_child option:selected').val()
+    $.ajax({
+        url: '/getSubcategories',
+        data: {category: id},
+        method: "GET",
+        dataType : 'json',
+        success: function( data ) {
+            if(data.hasOwnProperty('0')){
+                $('#cat_child').attr('name', 'subcategory')
+                $('#child_div').remove()
+                $('#subCategories').append(`
+                    <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                        <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                        <div class="w-75 input_placeholder_style">
+                        <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
+                            <option disabled>Выберите категорию</option>
+                        </select>
+                        </div>
+                    </div>
+                `)
+                data.forEach(element => {
+                    $('#grandchildren').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `)
+                })
+            }
+            else{
+                $('#cat_child').attr('name', 'category_id')
+                $('#child_div').remove()
+            }
+            // $('#cat_child').empty().append(`
+            //     <option>Выберите подкатегорию</option>
+            // `)
+            // data.forEach(element => {
+            //     $('#cat_child').append(`
+            //         <option value="${element['id']}">${element['name']}</option>
+            //     `)
+            // })
+        }
+    })
+})
+
 $('.select-color').on('click', function () {
     $('.product-colors label').removeClass('color-active');
     $(this).addClass('color-active');
