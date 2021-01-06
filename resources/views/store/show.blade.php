@@ -3,55 +3,65 @@
 @extends('layouts.footer')
 @section('content')
  <!--Header-end-->
-  <section class="content profile mt-0 mt-md-5">
+  <section class="content profile mt-0 mt-md-3">
     <div class="container">
       <div class="row">
         <!--store logo start-->
-        <div class="col-12 col-lg-3 px-0">
+        <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="/storage/{{ $stores->avatar }}" class="img-fluid" alt="">
-              <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button>
+            <img src="/storage/{{ $stores->avatar }}" class="w-100 rounded store-image" alt=""  height="216">
+              {{-- <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button> --}}
             </div>
           </div>
         </div>
+        <div class="col-12 col-lg-9 px-0 px-md-2">
+            <div class="text-center">
+              <div class="position-relative d-inline-block">
+              <img src="/storage/{{ $stores->cover ?? '/theme/yellowbanner.png'}}" class="w-100 rounded store-image" alt=""  height="216">
+              <div class="mobile-avatar position-absolute w-lg-100">
+                <img src="/storage/{{ $stores->avatar ?? '/theme/icons/Avatar.svg'}}" class="store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
+              </div>
+              </div>
+            </div>
+          </div>
         <!--store logo end-->
         <!--store-info start-->
-        <div class="col-12 col-lg-9">
+        <div class="col-12 mt-lg-4">
           <div class="d-none d-lg-block">
             <p>{{ $stores->description ?? '' }}</p>
             <a href="#" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
           </div>
           <div class="my-5 my-lg-3">
             <div class="row">
-              <div class="col-4">
+              <div class="col-5">
                 <h3 class="font-weight-bold">Телефон:</h3>
               </div>
-              <div class="col-8 align-self-center">
+              <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
                   {{ $stores->user->phone ?? '' }}
                 </h5>
               </div>
-              <div class="col-4">
+              <div class="col-5">
                 <h3 class="font-weight-bold">Город:</h3>
               </div>
-              <div class="col-8 align-self-center">
+              <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
                   {{ $stores->city->name ?? ''}}
                 </h5>
               </div>
-              <div class="col-4">
+              <div class="col-5">
                 <h3 class="font-weight-bold">Имя:</h3>
               </div>
-              <div class="col-8 align-self-center">
+              <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
                   {{ $stores->name ?? ''}}
                 </h5>
               </div>
-              <div class="col-4">
+              <div class="col-5">
                 <h3 class="font-weight-bold">Адрес:</h3>
               </div>
-              <div class="col-8 align-self-center">
+              <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
                   {{ $stores->address ?? ''}}
                 </h5>

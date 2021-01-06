@@ -10,7 +10,7 @@
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
-          <a href="#" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
+          <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Изменить Товар</h5>
           </div>
           <div class="my-3">

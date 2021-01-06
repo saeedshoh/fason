@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class FavoriteController extends Controller
 {
@@ -15,8 +16,9 @@ class FavoriteController extends Controller
      */
     public function index()
     {
+        $back = url()->previous();
         $favorites = Favorite::where('user_id', Auth::id())->where('status', 1)->get();
-        return view('favorite', compact('favorites'));
+        return view('favorite', compact('favorites', 'back'));
     }
 
     /**

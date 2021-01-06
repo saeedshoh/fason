@@ -38,7 +38,9 @@ class HomeController extends Controller
         return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner'));
     }
 
-    public function filter(Request $request){
+    public function filter(Request $request)
+    {
+        $back = url()->previous();
         $productss = Product::whereNotNull('id');
         if($request->sort == 'new'){
             $productss->orderByDesc('id');
@@ -58,12 +60,14 @@ class HomeController extends Controller
         $store = Store::where('city_id', $request->city)->get('id');
         $productss->whereIn('store_id', $store);
         $products = $productss->get();
-        return view('filter', compact('products'));
+        return view('filter', compact('products', 'back'));
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
+        $back = url()->previous();
         $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->get();
-        return view('search', compact('products'));
+        return view('search', compact('products', 'back'));
     }
 
     /**

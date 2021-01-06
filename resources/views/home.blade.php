@@ -51,7 +51,7 @@
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
           <a class="text-decoration-none text-secondary">
-            <img class="rounded-circle" src="/storage{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
+            <img class="rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
           <form method="POST" action="{{ route('logout') }}">
@@ -81,7 +81,7 @@
           <ul class="shop-subject list-group list-group-flush h-100">
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
-              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="mr-1"> {{ $category->name }}</a>
               {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
               <div class="spinner-grow text-center text-danger float-right" role="status">
                 {{--  <span class="sr-only">Loading...</span>  --}}
