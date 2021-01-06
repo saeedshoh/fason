@@ -14,17 +14,16 @@ class UserController extends Controller
      */
     public function contacts(Request $request)
     {
+        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         User::updateOrCreate(
             ['phone' => $request->phone],
             [
                 'name' =>  $request->name,
                 'address' =>  $request->address,
                 'city_id' =>  $request->city_id,
-                'profile_photo_path' =>  $request->profile_photo_path
+                'profile_photo_path' =>  $image
             ]
         );
-        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
-
 
         return redirect()->route('home');
     }

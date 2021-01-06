@@ -26,7 +26,10 @@ body {
     color: #5E585A;
     font-weight: 600;
 }
-
+.mobile-avatar {
+    top: 4rem;
+    left: 2rem;
+}
 .rounded-25 {
     border-radius: 25px;
 }
@@ -604,8 +607,8 @@ button:focus {
 }
 
 .change-avatar-icon {
-    bottom: 1.6rem;
-    right: 1.6rem;
+    bottom: 2rem;
+    right: 2rem;
 }
 
 .customer-tab .nav-link {

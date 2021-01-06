@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         view()->composer(
-            ['layouts.header','home'],
+            ['layouts.header','home', 'products.*', 'favorite'],
             function ($view) {
                 $is_store = null;
                 if (Auth::check()) {

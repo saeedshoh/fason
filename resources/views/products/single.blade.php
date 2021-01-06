@@ -8,7 +8,7 @@
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-6">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
-            <a href="#" class="text-pinky font-weight-bold text-decoration-none">
+            <a href="{{ route('home') }}" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
@@ -248,7 +248,7 @@
         @forelse ($similars as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0">
-            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" 
+            <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15"
               @guest
                 data-toggle="modal" data-target="#enter_site"
               @endguest>
