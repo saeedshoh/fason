@@ -2,6 +2,8 @@
 @extends('layouts.header')
 @extends('layouts.footer')
 @section('content')
+
+{{--  {{ dd(json_decode($product->gallery)) }}  --}}
   <section>
     <div class="container mt-lg-5">
       <div class="row">
@@ -24,7 +26,12 @@
               <img src="{{ Storage::url($product->image )}}" class="rounded" alt="" height="373px">
             </div>
             <div class="row add-product-secondary my-3">
-              <div class="col-3 text-center">
+                @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
+                    <div class="col-3 text-center">
+                        <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item" alt="{{ $product->name }}">
+                    </div>
+                @endfor
+              {{--  <div class="col-3 text-center">
                 <img src="img/boot-1.png" data-image-src="img/boot-1.png" class="mw-100 pic-item" alt="">
               </div>
               <div class="col-3 text-center">
@@ -35,7 +42,7 @@
               </div>
               <div class="col-3 text-center">
                 <img src="img/boot-4.png" data-image-src="img/boot-4.png" class="mw-100 pic-item" alt="">
-              </div>
+              </div>  --}}
             </div>
           </div>
           <!--desktop slider end-->
@@ -108,8 +115,8 @@
               <div class="text-center text-md-right">
 
                 @if(Auth::check())
-                  @if ($product->store_id == Auth::user()->store->id)
-                    <a href="#" class="btn btn-danger custom-radius">Изменить</a>
+                  @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
+                    <a href="{{ route('editProduct', $product->id) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">

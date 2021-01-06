@@ -157,4 +157,22 @@ class CategoryController extends Controller
         return redirect(route('categories.index'))->with('success', 'Категория успешно удалена!');
     }
 
+    public function getSubCategories(Request $request)
+    {
+        $subcategories = Category::where('parent_id', $request->category)->where('is_active', 1)->get();
+        // $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
+        //         ->value('id'))
+        //         ->pluck('id')
+        //         ->push($parentId)
+        //         ->all();
+        // $has = Category::with('grandchildren')->find($request->category);
+        // if(isset($has->grandchildren[0])){
+        //     foreach($has->grandchildren[0]->childrens as $child)
+        //     {
+        //         array_push($categoryIds, $child->id);
+        //     }
+        // }
+        return $subcategories;
+    }
+
 }

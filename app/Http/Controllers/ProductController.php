@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
@@ -47,6 +48,7 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $similars = Product::where('store_id', $product->store_id)->get();
+        // return Auth::user()->store->id;
         return view('products.single', compact('product', 'similars'));
     }
 
@@ -62,6 +64,13 @@ class ProductController extends Controller
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
+    public function editProduct($id)
+    {
+        $cat_parent = $this->categories->where('parent_id', 0);
+        $product = Product::where('id', $id)->get();
+        return view('products.edit', compact('product'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -70,6 +79,7 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
+        // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
@@ -99,11 +109,11 @@ class ProductController extends Controller
 
         $gallery = $request->file('gallery');
         $galleries = [];
-        foreach($gallery as $image){
+        foreach($gallery as $images){
             $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
 
-            $save_single = Image::make($image)->fit(800, 800, function ($constraint) {
+            $save_single = Image::make($images)->fit(800, 800, function ($constraint) {
                 $constraint->upsize();
             });
             $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
@@ -113,6 +123,7 @@ class ProductController extends Controller
             $save_single->save(public_path('/storage/' . $image_single));
             array_push($galleries, $image_single);
         }
+
         Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
         return redirect()->route('home');
     }

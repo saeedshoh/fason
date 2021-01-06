@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\City;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class StoreController extends Controller
 {
@@ -67,8 +70,34 @@ class StoreController extends Controller
     {
         $stores = Store::where('slug', $slug)->first();
         $products = Product::where('store_id', $stores->id)->get();
+        $acceptedProducts = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
+        $onCheckProducts = Product::where('store_id', $stores->id)->where('product_status_id', 1)->get();
+        $hiddenProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $canceledProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
+        return view('store.show', compact('stores', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'deletedProducts'));
+    }
 
-        return view('store.show', compact('stores', 'products'));
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Store  $store
+     * @param  \App\Models\Order  $orders;
+     * @param  Carbon\Carbon;
+     * @return \Illuminate\Http\Response
+     */
+    public function salesHistory($id)
+    {
+        $orders = Order::where('user_id', $id)->get();
+        $months = [];
+
+        foreach ($orders as $item) {
+            $date = new Carbon($item['updated_at']);
+            $date->locale('ru_RU');
+            $months[$date->monthName][] = $item;
+        }
+        $stores = Store::where('id', $id)->first();
+        return view('store.salesHistory', compact('orders', 'months', 'stores'));
     }
 
     /**
