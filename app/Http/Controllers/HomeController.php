@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banners;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -35,11 +36,22 @@ class HomeController extends Controller
         $products = $this->products->where('product_status_id', 2);
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
-        return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner'));
+
+        $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
+            ->groupBy('product_id');
+
+        $topProducts = Product::where('product_status_id', 2)
+            ->select(DB::raw('products.*, countProd.countProd'))
+            ->leftJoinSub($countProd, 'countProd', function ($join) {
+                $join->on('products.id', '=', 'countProd.product_id');
+            })->orderByDesc('countProd')->limit(20)->get();
+        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->limit(20)->get();
+
+        return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner', 'topProducts', 'newProducts'));
     }
 
     public function filter(Request $request){
-        $productss = Product::whereNotNull('id');
+        $productss = Product::whereNotNull('id')->where('product_status_id', 2);
         if($request->sort == 'new'){
             $productss->orderByDesc('id');
         }
@@ -62,7 +74,7 @@ class HomeController extends Controller
     }
 
     public function search(Request $request){
-        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->get();
+        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->where('product_status_id', 2)->get();
         return view('search', compact('products'));
     }
 

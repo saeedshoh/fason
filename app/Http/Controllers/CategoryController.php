@@ -28,7 +28,19 @@ class CategoryController extends Controller
     public function category($slug) {
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $categories = Category::where('parent_id', $cat_id)->get();
-        $products = Product::where('category_id', $cat_id)->get();
+        $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
+                ->value('id'))
+                ->pluck('id')
+                ->push($parentId)
+                ->all();
+        $has = Category::with('grandchildren')->find($cat_id);
+        if(isset($has->grandchildren[0])){
+            foreach($has->grandchildren[0]->childrens as $child)
+            {
+                array_push($categoryIds, $child->id);
+            }
+        }
+        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get();
         $sliders = $this->banners->where('type', 1);
         return view('category', compact('categories', 'products', 'sliders'));
     }
@@ -40,7 +52,7 @@ class CategoryController extends Controller
     }
 
     public function categoryProducts(Request $request){
-        $products = Product::where('category_id', $request->category)->get();
+        $products = Product::where('category_id', $request->category)->where('product_status_id', 2)->get();
         return view('categoryProducts', compact('products'))->render();
     }
 
@@ -57,7 +69,7 @@ class CategoryController extends Controller
                 array_push($categoryIds, $child->id);
             }
         }
-        $count = Product::whereIn('category_id', $categoryIds)->get('id');
+        $count = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get('id');
         return response()->json(count($count));
     }
 
@@ -160,19 +172,25 @@ class CategoryController extends Controller
     public function getSubCategories(Request $request)
     {
         $subcategories = Category::where('parent_id', $request->category)->where('is_active', 1)->get();
-        // $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
-        //         ->value('id'))
-        //         ->pluck('id')
-        //         ->push($parentId)
-        //         ->all();
-        // $has = Category::with('grandchildren')->find($request->category);
-        // if(isset($has->grandchildren[0])){
-        //     foreach($has->grandchildren[0]->childrens as $child)
-        //     {
-        //         array_push($categoryIds, $child->id);
-        //     }
-        // }
         return $subcategories;
+    }
+
+    public function getParentCategories(Request $request)
+    {
+        $id = Category::where('id', $request->category)->first();
+        // return $id;
+        // $hasParent = Category::where('id', $request->category)->first();
+        if($id->parent_id != 0){
+            $parent = Category::where('id', $id->parent_id)->first();
+            if($parent->parent_id){
+                $grandParent = Category::where('id', $parent->parent_id)->first();
+                return $grandParent;
+            }
+            return 'parent';
+        }
+        else{
+            return 'ndora';
+        }
     }
 
 }

@@ -20,7 +20,7 @@
               @forelse ($categories as $category)
               <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
                 <a data-id="{{ $category->id }}" href="#" class="text-decoration-none subcategory text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
-                <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>
+                <div class="spinner-grow text-center text-danger float-right" role="status"></div>
               </li>
               @empty
                 <li class="list-group-item"> Извините ничего не найдено</li>

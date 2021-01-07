@@ -11,7 +11,7 @@
             <div class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
               <form action="{{ route('search') }}" class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
                 <div class="position-relative w-75 mobile-header">
-                  <input  class="form-control main-search pl-5 pl-lg-3" name="q" type="search" placeholder="поиск товаров ..." aria-label="Search">
+                  <input  class="form-control main-search pl-5 pl-lg-3" name="q" required type="search" placeholder="поиск товаров ..." aria-label="Search">
                   <div class="search-result shadow-lg rounded ">
 
                   </div>
@@ -116,7 +116,7 @@
           @endguest
           @auth
           <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown text-right">
-            <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink"> 
+            <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink">
               <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>

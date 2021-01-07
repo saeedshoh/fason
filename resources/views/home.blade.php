@@ -18,9 +18,15 @@
           @if ($is_store == null)
 
             @auth
-              <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
-                <i class="fas fa-door-open"></i>Открыть магазин
-              </a>
+                @if (Auth::user()->store)
+                    <a href="{{ route('ft-store.show', Auth::user()->store->slug) }}" class="mr-2 btn btn-danger rounded-11 px-3">
+                        <i class="fas fa-door-open"></i>Перейти в магазин
+                    </a>
+                @else
+                    <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
+                        <i class="fas fa-door-open"></i>Открыть магазин
+                    </a>
+                @endif
             @endauth
             @guest
               <button type="button" class="mr-2 btn btn-danger rounded-11  px-3 border-0"  data-toggle="modal" data-target="#enter_site" >
@@ -78,14 +84,14 @@
         <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
           <h6 class="text-muted  text-center mt-2 d-lg-none d-xl-none">
             Категории </h6>
-          <ul class="shop-subject list-group list-group-flush h-100">
+          <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
               <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
               {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
-              <div class="spinner-grow text-center text-danger float-right" role="status">
-                {{--  <span class="sr-only">Loading...</span>  --}}
-              </div>
+              {{--  <div class="spinner-grow text-center text-danger float-right" role="status">
+                {{--  <span class="sr-only">Loading...</span>
+              </div>  --}}
               {{--  <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>  --}}
             </li>
             @empty
@@ -129,7 +135,7 @@
 
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
-        @forelse ($products as $product)
+        @forelse ($newProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0">
             <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15"  @guest data-toggle="modal" data-target="#enter_site" @endguest>
@@ -158,7 +164,7 @@
 
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
-          @forelse ($products as $product)
+          @forelse ($topProducts as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow border-0">
               <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" @guest data-toggle="modal" data-target="#enter_site" @endguest>
@@ -185,7 +191,7 @@
       <div class="partners_and_another">
 
       <!--BANNER  -->
-      <div class="row under_banner d-none d-lg-block mt-4">
+      <div class="row under_banner d-lg-block mt-4">
         <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
       </div>
       <!--Banner end-->

@@ -64,11 +64,22 @@ class ProductController extends Controller
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
-    public function editProduct($id)
+    public function editProduct($slug)
     {
+        $allCategories = Category::get();
+        $id = Product::where('slug', $slug)->first();
+        $category = Category::where('id', $id->category_id)->first();
+        $parent = null;
+        $grandParent = null;
+        if($category->parent_id != 0){
+            $parent = Category::where('id', $category->parent_id)->first();
+            if($parent->parent_id){
+                $grandParent = Category::where('id', $parent->parent_id)->first();
+            }
+        }
         $cat_parent = $this->categories->where('parent_id', 0);
-        $product = Product::where('id', $id)->get();
-        return view('products.edit', compact('product'));
+        $product = Product::where('id', $id->id)->first();
+        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories'));
     }
 
     /**

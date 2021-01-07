@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap';
+
 body {
     background: #F2F2F2;
     font-family: 'Montserrat', sans-serif;
@@ -1122,4 +1124,26 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     top: 50px;
     background-color: #F2F2F2;
     z-index: 9;
+}
+
+.profile-pic {
+	position: relative;
+	display: inline-block;
+}
+
+.profile-pic:hover .deleteImage {
+	display: block;
+}
+
+.deleteImage {
+	padding-top: 7px;
+	padding-right: 7px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
+
+.deleteImage a {
+	color: #000;
 }

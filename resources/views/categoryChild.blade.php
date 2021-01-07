@@ -7,8 +7,9 @@
     <ul class="shop-subject list-group list-group-flush h-100">
       @foreach ($categories as $category)
         <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
-            <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
-            <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>
+            <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none childCategory text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+            {{--  <span data-id="{{ $category->id }}" class="badge badge-danger badge-pill childCategory">{{ $category->products->count() }}</span>  --}}
+            <div class="spinner-grow text-center text-danger float-right" role="status"></div>
         </li>
       @endforeach
     </ul>
