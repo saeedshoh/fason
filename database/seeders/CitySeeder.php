@@ -15,7 +15,10 @@ class CitySeeder extends Seeder
     public function run()
     {
         City::create([
-            'name' => 'Душанбе',
+            'name' => 'Душанбе'
+        ]);
+        City::create([
+            'name' => 'Худжанд'
         ]);
     }
 }

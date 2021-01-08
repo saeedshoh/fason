@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ProductStatus;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProductStatusSeeder extends Seeder
 {
@@ -14,8 +15,10 @@ class ProductStatusSeeder extends Seeder
      */
     public function run()
     {
-        ProductStatus::create(['name' => 'Активный']);
-        ProductStatus::create(['name' => 'Не активный']);
-        ProductStatus::create(['name' => 'Не Отклонен']);
+        DB::table('product_statuses')->insert([
+            ['name' => 'На проверке'],
+            ['name' => 'Активный'],
+            ['name' => 'Отклонен']
+        ]);
     }
 }

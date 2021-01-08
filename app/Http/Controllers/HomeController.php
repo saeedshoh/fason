@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banners;
 use App\Models\Category;
+use App\Models\Favorite;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -20,6 +24,7 @@ class HomeController extends Controller
         $this->stores = Store::get();
         $this->categories = Category::get();
         $this->products = Product::get();
+        $this->banners = Banners::latest()->get();
     }
     public function dashboard() {
         return view('dashboard.home');
@@ -27,14 +32,55 @@ class HomeController extends Controller
 
     public function index()
     {
-        $is_store = null;
-        if (Auth::check()) {
-            $is_store = $this->stores->where('user_id', Auth::id())->first();
-        }
         $stores = $this->stores;
         $categories = $this->categories->where('parent_id', 0);
-        $products = $this->products->where('product_status_id', 2) ;
-        return view('home', compact('stores', 'is_store', 'categories', 'products'));
+        $products = $this->products->where('product_status_id', 2);
+        $sliders = $this->banners->where('type', 1);
+        $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
+
+        $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
+            ->groupBy('product_id');
+
+        $topProducts = Product::where('product_status_id', 2)
+            ->select(DB::raw('products.*, countProd.countProd'))
+            ->leftJoinSub($countProd, 'countProd', function ($join) {
+                $join->on('products.id', '=', 'countProd.product_id');
+            })->orderByDesc('countProd')->limit(20)->get();
+        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->limit(20)->get();
+
+        return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner', 'topProducts', 'newProducts'));
+    }
+
+    public function filter(Request $request)
+    {
+        $back = url()->previous();
+        $productss = Product::whereNotNull('id')->where('product_status_id', 2);
+        if($request->sort == 'new'){
+            $productss->orderByDesc('id');
+        }
+        elseif($request->sort == 'cheap'){
+            $productss->orderBy('price');
+        }
+        elseif($request->sort == 'expensive'){
+            $productss->orderByDesc('price');
+        }
+        if($request->priceFrom){
+            $productss->where('price', '>=', $request->priceFrom);
+        }
+        if($request->priceTo){
+            $productss->where('price', '<=', $request->priceTo);
+        }
+        $store = Store::where('city_id', $request->city)->get('id');
+        $productss->whereIn('store_id', $store);
+        $products = $productss->get();
+        return view('filter', compact('products', 'back'));
+    }
+
+    public function search(Request $request)
+    {
+        $back = url()->previous();
+        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->where('product_status_id', 2)->get();
+        return view('search', compact('products', 'back'));
     }
 
     /**
@@ -101,5 +147,27 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addToFavorites(Request $request){
+        $user_id = Auth::user()->id;
+        $exist = Favorite::where('product_id', $request->product_id)
+            ->where('user_id', $user_id)
+            ->first();
+        if($exist){
+            $exist->update([
+                'user_id' => $user_id,
+                'product_id' => $request->product_id,
+                'status'    => $exist->status == 1 ? 0 : 1
+            ]);
+        }
+        else{
+            Favorite::updateOrCreate([
+                'user_id' => $user_id,
+                'product_id' => $request->product_id,
+                'status'    => $request->status
+            ]);
+        }
+        return response()->json(['status' => 'Добавлено']);
     }
 }

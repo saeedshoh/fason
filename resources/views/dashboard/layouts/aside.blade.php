@@ -414,11 +414,6 @@
                   <i class="fe fe-shopping-cart"></i> Магазин
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/employee*') ? ' active' : '' }}" href="{{ route('employee.index') }}">
-                  <i class="fe fe-briefcase"></i> Сотрудники
-                </a>
-              </li>
               <li class="nav-item d-md-none">
                 <a class="nav-link" href="#sidebarModalActivity" data-toggle="modal">
                   <span class="fe fe-bell"></span> Notifications
@@ -438,18 +433,18 @@
             <ul class="navbar-nav mb-md-4">
               <li class="nav-item">
                 <a class="nav-link" href="#sidebarBasics" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBasics">
-                  <i class="fe fe-clipboard"></i> Basics
+                  <i class="fe fe-clipboard"></i> Баннера
                 </a>
                 <div class="collapse " id="sidebarBasics">
                   <ul class="nav nav-sm flex-column">
                     <li class="nav-item ">
-                      <a href="./docs/getting-started.html" class="nav-link">
-                        Getting Started
+                      <a href="{{ route('banners.sliders') }}" class="nav-link">
+                        Слайдер
                       </a>
                     </li>
                     <li class="nav-item ">
-                      <a href="./docs/design-file.html" class="nav-link">
-                        Design File
+                      <a href="{{ route('banners.index') }}" class="nav-link">
+                        Баннера
                       </a>
                     </li>
                   </ul>

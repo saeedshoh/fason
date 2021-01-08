@@ -1,8 +1,178 @@
+window._ = window.jQuery = require('owl.carousel');
+
 $(document).on('ready', function () {
 
+    $('.sms--false').hide();
 
-    
 });
+
+$(document).ready(function(){
+
+    // const xl = $('#hello').val()
+    // console.log(JSON.parse(xl))
+
+    $('.subcategory').each(function(){
+        let category = $(this).data('id')
+        let _this = $(this)
+        $.ajax({
+            url: '/countProducts',
+            data: {category: category},
+            method: "GET",
+            dataType : 'json',
+            success: function( data ) {
+                _this.parent().find('.spinner-grow').remove()
+                _this.parent().append(`
+                    <span class="badge badge-danger badge-pill">${data}</span>
+                `)
+            }
+        })
+    })
+
+    var url = $(location).attr("href")
+    if(url.indexOf('filter?') !== -1) {
+        const sort = url.split('sort=')[1].split('&')[0]
+        const city = url.split('city=')[1].split('&')[0]
+        if(url.indexOf('priceFrom')){
+            const priceFrom = url.split('priceFrom=')[1].split('&')[0]
+            $('#priceFrom').val(priceFrom)
+        }
+        if(url.indexOf('priceTo')){
+            const priceTo = url.split('priceTo=')[1].split('&')[0]
+            $('#priceTo').val(priceTo)
+        }
+        $(`.sort[data-sort=${sort}]`).attr('checked', true)
+        $(`.city[data-city=${city}]`).attr('checked', true)
+    }
+})
+
+$('body').on('click', '#filter', function(){
+    let sort = $("input[name='sort']:checked").data('sort')
+    let city = $("input[name='city']:checked").data('city')
+    let priceFrom = $('#priceFrom').val()
+    let priceTo = $('#priceTo').val()
+    if(priceFrom.length > 0 && priceTo.length == 0){
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+    }
+    else if(priceTo.length > 0 && priceFrom.length == 0){
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+    }
+    else if(priceFrom.length > 0 && priceTo.length > 0){
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+    }
+    else{
+        window.location.href = '/filter?sort=' + sort + '&city=' + city
+    }
+})
+
+$('body').on('click', '.category', function(){
+    let category = $(this).data('id')
+    $.ajax({
+        url: '/subcategories',
+        data: {category: category},
+        method: "GET",
+        dataType : 'html',
+        success: function( data ) {
+            $('#categories').hide()
+            $('#categoriesRow').prepend(data)
+            $('.childCategory').each(function(){
+                let category = $(this).data('id')
+                let _this = $(this)
+                $.ajax({
+                    url: '/countProducts',
+                    data: {category: category},
+                    method: "GET",
+                    dataType : 'json',
+                    success: function( data ) {
+                        _this.parent().find('.spinner-grow').remove()
+                        _this.parent().append(`
+                            <span class="badge badge-danger badge-pill">${data}</span>
+                        `)
+                    }
+                })
+            })
+        }
+    })
+})
+
+$('body').on('click', '#prevCategory', function(){
+    $('#subcategories').hide()
+    $('#categories').show()
+})
+
+$('body').on('click', '.subcategory', function(){
+    let category = $(this).data('id')
+    $('#catProducts').empty().append(`
+        <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    `)
+    $.ajax({
+        url: '/categoryProducts',
+        data: {category: category},
+        method: "GET",
+        dataType : 'html',
+        success: function( data ) {
+            $('#catProducts').empty().append(data)
+        }
+    })
+
+})
+
+$('body').on('change', '#cat_parent', function(){
+    const id = $('#cat_parent option:selected').val()
+    $.ajax({
+        url: '/getSubcategories',
+        data: {category: id},
+        method: "GET",
+        dataType : 'json',
+        success: function( data ) {
+            $('#cat_child').empty().append(`
+                <option>Выберите подкатегорию</option>
+            `)
+            $('#child_div').remove()
+            data.forEach(element => {
+                $('#cat_child').append(`
+                    <option value="${element['id']}">${element['name']}</option>
+                `)
+            })
+        }
+    })
+})
+
+$('body').on('change', '#cat_child', function(){
+    const id = $('#cat_child option:selected').val()
+    $.ajax({
+        url: '/getSubcategories',
+        data: {category: id},
+        method: "GET",
+        dataType : 'json',
+        success: function( data ) {
+            if(data.hasOwnProperty('0')){
+                $('#cat_child').attr('name', 'subcategory')
+                $('#child_div').remove()
+                $('#subCategories').append(`
+                    <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                        <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                        <div class="w-75 input_placeholder_style">
+                        <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
+                            <option disabled>Выберите категорию</option>
+                        </select>
+                        </div>
+                    </div>
+                `)
+                data.forEach(element => {
+                    $('#grandchildren').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `)
+                })
+            }
+            else{
+                $('#cat_child').attr('name', 'category_id')
+                $('#child_div').remove()
+            }
+        }
+    })
+})
 
 $('.select-color').on('click', function () {
     $('.product-colors label').removeClass('color-active');
@@ -12,6 +182,103 @@ $('.sizes .product-size').on('click', function () {
     $('.product-size').removeClass('text-danger');
     $(this).addClass('text-danger');
 })
+// search
+$('.main-search').on('keyup keypress keydown change', function () {
+    let value = $(this).val();
+    if (value.length >= 3) {
+        $.ajax({
+            url: '/livesearch',
+            type: 'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                value
+            },
+            success: (data) => {
+                $('.search-result').show();
+                $('.search-result').html(data);
+            },
+            error: function (xhr, status, error) {}
+        })
+    } else {
+        $('.search-result').hide();
+    }
+});
+// orders add
+$('.checkout-product').on('click', function () {
+    let total_price = $(this).closest('#buyProduct').find('.total-price').text();
+    // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
+    let address = $('#checkout_address').val();
+    let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
+    let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
+    $.ajax({
+        url: '/orders/store',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            total_price,
+            address,
+            quantity,
+            product_id,
+        },
+        success: (data) => {
+            $('.order-number').text("Номер вашего заказа: " + data.order.id);
+            console.log(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+        }
+    })
+});
+// favorite add
+$('.favorite').on('click', function () {
+
+    if ($(this).hasClass('active')) {
+        var status = 0;
+    } else {
+        var status = 1;
+    }
+
+    const this_ = $(this)
+
+    const product_id = $(this).attr('data-id');
+    $.ajax({
+        url: '/add_to_favorite',
+        data: { product_id: product_id,
+                status: status,
+        },
+        method: "GET",
+        dataType : 'json',
+        success: (data) => {
+            this_.toggleClass('active');
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+        }
+    })
+    // $.ajax({
+
+    //     url: '/add_to_favorite/' + product_id,
+    //     type: 'GET',
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: {
+    //         product_id,
+    //         status,
+    //     },
+    //     success: (data) => {
+    //         console.log(data);
+    //     },
+    //     error: function (xhr, status, error) {
+    //         console.log(status);
+    //     }
+
+    // });
+});
 
 // sms-congirm
 $('#btn-login, #code').on('click change', function () {
@@ -29,8 +296,14 @@ $('#btn-login, #code').on('click change', function () {
             code,
         },
         success: (data) => {
-            if (data == 2) {
-                location.reload(true);
+            if ($('#adressChange')) {
+                $('#enter_site').modal('hide')
+                $('#adressChange').modal('show')
+
+            } else {
+                if (data == 2) {
+                    location.reload(true);
+                }
             }
 
         },
@@ -58,63 +331,84 @@ $('#send-code, .send-code').on('click', function () {
             console.log(data);
             $('#send-code').hide();
             $('.enter-code').show();
-            return countDown();
-
+            $('.sms--true').show();
+            $('.sms--false').hide();
+            if (data == 1) {
+                $('#adressChange').remove();
+            }
+            var fiveMinutes = 6 * 10,
+                display = document.querySelector('#count-down');
+            return startTimer(fiveMinutes, display);
         },
         error: function (xhr, status, error) {
+
             console.log(status);
         }
 
     });
 });
 
-// countable time
-var seconds = 1000 * 60; //1000 = 1 second in JS
-var timer;
+function startTimer(duration, display) {
+    var timer = duration,
+        minutes, seconds;
+    var time = setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-function countDown() {
-    if (seconds == 60000)
-        timer = setInterval(countDown, 1000)
-    seconds -= 1000;
-    document.getElementById("count-down").innerHTML = '0:' + seconds / 1000;
-    if (seconds <= 0) {
-        clearInterval(timer);
-        alert("Время закончилось");
-    }
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+            $('.sms--true').hide();
+            $('.sms--false').show();
+            clearInterval(time);
+
+        }
+    }, 1000);
 }
 
-document.getElementById("count-down").innerHTML = "0:" + seconds / 1000;
+// preview image
 
-// preview image 
+// $(function () {
+//     $("#gallery").change(function () {
+//         if (typeof (FileReader) != "undefined") {
+//             var dvPreview = $("#preview-product-secondary");
+//             dvPreview.html("");
+//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+//             $($(this)[0].files).each(function () {
+//                 var file = $(this);
+//                 console.log(file)
+//                 if (regex.test(file[0].name.toLowerCase())) {
+//                     var reader = new FileReader();
+//                     reader.onload = function (e) {
+//                         var img = $('<div class="col-3 text-center"><img /></div>');
+//                         img.find('img').addClass("mw-100");
+//                         img.find('img').attr("src", e.target.result);
+//                         dvPreview.append(img);
+//                     }
+//                     reader.readAsDataURL(file[0]);
+//                 } else {
+//                     alert(file[0].name + " is not a valid image file.");
+//                     dvPreview.html("");
+//                     return false;
+//                 }
+//             });
+//         } else {
+//             alert("This browser does not support HTML5 FileReader.");
+//         }
+//     });
+// });
 
-$(function () {
-    $("#gallery").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#preview-product-secondary");
-            dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
-                var file = $(this);
-                if (regex.test(file[0].name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $('<div class="col-3 text-center"><img /></div>');
-                        img.find('img').addClass("mw-100");
-                        img.find('img').attr("src", e.target.result);
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
-});
+$('body').on('click', '.deleteImage', function(){
+    let images = $('#hello').val()
+    images = JSON.parse(images)
+    console.log(images)
+    $(this).parent().find('img').remove()
+})
+
 // single preview
 function readURL(input) {
     if (input.files && input.files[0]) {
@@ -134,6 +428,7 @@ function avatar(input) {
 
         reader.onload = function (e) {
             $('#avatar-poster').attr('src', e.target.result);
+            $('#avatar-poster-mobile').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -257,25 +552,25 @@ var NumberSpinner = function (elemId, subtractClassName, addClassName) {
 NumberSpinner('spinner-input', 'js-spinner-horizontal-subtract', 'js-spinner-horizontal-add');
 
 var product_price = $('#price').text();
-$('.spinner__button').on('click', function() {
+$('.spinner__button').on('click', function () {
 
     let count = $('#spinner-input').val();
     let res = parseInt(product_price * count);
-    console.log(count);
-    console.log(product_price);
-    console.log(res);
     $('.total-price, .price').text(res);
     $('.quantity-product').text(count);
 
 });
-$('#spinner-input').on('change', function() {
+$('#spinner-input').on('change', function () {
 
     let count = $(this).val();
     let res = parseInt(product_price * count);
-    console.log(count);
-    console.log(product_price);
-    console.log(res);
     $('.total-price, .price').text(res);
     $('.quantity-product').text(count);
 
 });
+
+$('body').on('click', '.change-address', function () {
+    $('#checkout_address').prop("disabled", false);
+    $('#checkout_address').focus();
+});
+

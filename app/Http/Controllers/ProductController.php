@@ -34,7 +34,7 @@ class ProductController extends Controller
         $product->update(['product_status_id' => 2]);
         return redirect()->route('products.index');
     }
-    
+
     public function add_product()
     {
         $cat_parent = $this->categories->where('parent_id', 0);
@@ -52,6 +52,7 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $similars = Product::where('store_id', $product->store_id)->get();
+        // return Auth::user()->store->id;
         return view('products.single', compact('product', 'similars'));
     }
 
@@ -68,6 +69,24 @@ class ProductController extends Controller
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
+    public function editProduct($slug)
+    {
+        $allCategories = Category::get();
+        $id = Product::where('slug', $slug)->first();
+        $category = Category::where('id', $id->category_id)->first();
+        $parent = null;
+        $grandParent = null;
+        if($category->parent_id != 0){
+            $parent = Category::where('id', $category->parent_id)->first();
+            if($parent->parent_id){
+                $grandParent = Category::where('id', $parent->parent_id)->first();
+            }
+        }
+        $cat_parent = $this->categories->where('parent_id', 0);
+        $product = Product::where('id', $id->id)->first();
+        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -76,9 +95,9 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
+        // return $request;
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-			'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
@@ -104,7 +123,24 @@ class ProductController extends Controller
             $save_single->save(public_path('/storage/' . $image_single));
         }
 
-        Product::create($request->validated() + ['image' => $image]);
+        $gallery = $request->file('gallery');
+        $galleries = [];
+        foreach($gallery as $images){
+            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+            $save_single = Image::make($images)->fit(800, 800, function ($constraint) {
+                $constraint->upsize();
+            });
+            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+            $image_single = $nowYear . '800x800.jpg';
+            $save_single->save(public_path('/storage/' . $image_single));
+            array_push($galleries, $image_single);
+        }
+
+        Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
         return redirect()->route('home');
     }
 
@@ -143,7 +179,6 @@ class ProductController extends Controller
         if ($request->image != $product->image && $request->image != null) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-                'gallery' => 'image|mimes:jpeg,png,jpg,gif,svg,WebP'
             ]);
             $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
@@ -170,6 +205,34 @@ class ProductController extends Controller
             }
             $product->update([
                 'image' => $image,
+            ]);
+        }
+
+        if(!empty($gallery = $request->file('gallery'))){
+            $gallery = $request->file('gallery');
+            $galleries = [];
+            foreach($gallery as $image){
+                $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+                $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+                $save_single = Image::make($image)->fit(800, 800, function ($constraint) {
+                    $constraint->upsize();
+                });
+                $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+                $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+                $image_single = $nowYear . '800x800.jpg';
+                if (!file_exists(public_path('/storage/' . $image))) {
+                    Storage::makeDirectory($yearFolder);
+                    $save_single->save(public_path('/storage/' . $image_single));
+                    array_push($galleries, $image_single);
+                } else {
+                    $save_single->save(public_path('/storage/' . $image_single));
+                    array_push($galleries, $image_single);
+                }
+            }
+            $product->update([
+                'gallery' => $galleries,
             ]);
         }
 

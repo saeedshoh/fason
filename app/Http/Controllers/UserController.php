@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -12,6 +13,29 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function contacts(Request $request)
+    {
+        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        User::updateOrCreate(
+            ['phone' => $request->phone],
+            [
+                'name' =>  $request->name,
+                'address' =>  $request->address,
+                'city_id' =>  $request->city_id,
+                'profile_photo_path' =>  $image
+            ]
+        );
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month, 0777, true);
+        }
+        if($request->file('profile_photo_path')) {
+            $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        }
+
+        return redirect()->route('home');
+    }
+
     public function index()
     {
         $users = User::latest()->paginate(20);

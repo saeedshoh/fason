@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\OrderStatus;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +17,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UserSeeder::class,
+            CitySeeder::class,
             CategorySeeder::class,
             AttributeSeeder::class,
-            CitySeeder::class,
             ProductStatusSeeder::class,
+            BannerSeeder::class,
+            OrderStatusSeeder::class,
+            UserSeeder::class,
             StoreSeeder::class,
             ProductSeeder::class,
         ]);

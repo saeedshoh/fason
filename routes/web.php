@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\ImageInv;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\BannersController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
 use App\Http\Controllers\AttributeValueController;
 
@@ -26,37 +28,66 @@ use App\Http\Controllers\AttributeValueController;
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
-
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
+    Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
+    Route::post('products/store', [ProductController::class, 'ft_store'])->name('products.store');
+    Route::resource('products', ProductController::class)->except('store');
     Route::resources([
-        'orders'            => OrderController::class,
-        'users'             => UserController::class,
-        'employee'          => EmployeeController::class,
-        'categories'        => CategoryController::class,
-        'products'          => ProductController::class,
-        'attributes'        => AttributeController::class,
-        'stores'            => StoreController::class,
-        'attribute-values'  => AttributeValueController::class,
+        'orders' => OrderController::class,
+        'users' => UserController::class,
+        'categories' => CategoryController::class,
+        // 'products' => ProductController::class,
+        'attributes' => AttributeController::class,
+        'stores' => StoreController::class,
+        'banners' => BannersController::class,
     ]);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
+Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft-category.category');
+Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
+Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
+Route::get('/getSubcategories', [CategoryController::class, 'getSubcategories'])->name('getSubcategories');
+Route::get('/getParentcategories', [CategoryController::class, 'getParentcategories'])->name('getParentcategories');
+Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
+Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-Route::get('/products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
-Route::get('/products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
-Route::post('/products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+Route::resources([
+    'favorite' => FavoriteController::class,
+]);
 
-Route::get('/store/create', [StoreController::class, 'create'])->name('ft-store.create');
-Route::get('/store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
-Route::get('/store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
-Route::post('/store/store', [StoreController::class, 'store'])->name('ft-store.store');
+Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
+Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
+Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+// Route::get('editProduct/{id}/{category_id}', [ProductController::class, 'editProduct'])->name('editProduct');
+Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
+
+Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
+Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
+Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
+Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
+Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
+
+Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
+
+Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
+Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
+
+Route::get('livesearch', [SearchController::class, 'search'])->name('ft-search.search');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
 
-Route::get('/image', [ImageInv::class, 'index']);
+Route::get('image', [ImageInv::class, 'index']);
 
-Route::get('products/getAttributes', [ProductController::class, 'getAttributes'])->name('getAttributes');
+Route::view('/delivery', 'useful_links.delivery')->name('useful_links.delivery');
+Route::view('/help', 'useful_links.help')->name('useful_links.help');
+Route::view('/return', 'useful_links.return')->name('useful_links.return');
+Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
+Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
+Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');

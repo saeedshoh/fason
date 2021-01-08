@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- owlcarousel -->
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;1,800&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/445a82fc53.js" crossorigin="anonymous"></script>
+  <title>Fason.tj</title>
+  <!-- Style css -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body style="font-family: 'Montserrat', sans-serif;">
+  <!--Header-start-->
+  <header class="d-block" style="font-family: 'Montserrat', sans-serif;">
+    <div class="container-fluid bg-white px-0">
+      <div class="d-none d-md-block"
+        style="background:url(css/img/head-banner.png); height:80px; background-position:center;"></div>
+      <div class="container">
+        <div class="row py-3 px-3 px-lg-0">
+          <div class="col-6 col-md-6 col-lg-2 px-0 order-1 order-lg-0">
+            <a class="logo" href="#"><img src="css/img/logo.png" alt=""></a>
+          </div>
+          <div class="col-md-12 col-lg-10 px-0 align-self-center order-2 order-lg-1">
+            <div
+              class="search-nav d-flex align-self-center align-items-center justify-content-between position-relative">
+              <form class="form-inline my-2 my-lg-0 d-flex justify-content-center justify-content-lg-end w-100">
+                <input class="form-control rounded main-search pl-5 pl-lg-3" type="search"
+                  placeholder="поиск товаров ..." aria-label="Search">
+                <button class="custom-bttn nav-link btn mx-2 rounded search-btn" type="submit">
+                  <i class="fas fa-search d-none d-lg-inline-block"></i><i
+                    class="fas fa-search d-inline-block text-pinky d-lg-none"></i> <span
+                    class="d-none d-lg-inline-block">Поиск</span></button>
+              </form>
+              <!-- Button trigger modal -->
+              <button class="custom-bttn nav-link btn rounded d-flex align-items-center filter-btn" data-toggle="modal"
+                data-target="#filter_for_subject" type="submit">
+                <i class="fas fa-filter d-none d-lg-inline-block"></i> <i
+                  class="fas fa-filter d-block d-lg-none text-pinky"></i> <span class="d-none d-lg-inline-block">
+                  Фильтр</span>
+              </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="filter_for_subject" data-backdrop="static" data-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header border-0">
+                    <h6 class="modal-title ml-4">Фильтер</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true"><img src="img/close icon.svg" alt=""></span>
+                    </button>
+                  </div>
+                  <div class="modal-body mx-4">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <h5 class="captions-of__modal ">Категории</h5><img src="img/delete.svg" alt="delete_ctg">
+                        </div>
+                        <div class="categories__modal overflow-auto">
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Телефоны
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Электроника
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Автотовары
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <h5 class="captions-of__modal ">Бренды</h5><img src="img/delete.svg" alt="delete_ctg">
+                        </div>
+                        <div class="categories__modal  overflow-auto">
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Adidas
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              H&M
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Apple
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <h5 class="captions-of__modal ">Магазин</h5> <img src="img/delete.svg" alt="delete_ctg">
+                        </div>
+                        <div class="categories__modal-markets overflow-auto">
+                          <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Корвон
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Olim.H
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Aburish
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Lactie
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Компьютеры
+                            </label>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center mt-4">
+                            <h5 class="captions-of__modal ">Бренды</h5>
+                          </div>
+                          <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Adidas
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              H&M
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck1">
+                              Apple
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                          <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                            <label class="sort-checkbox__category form-check-label" for="defaultCheck2">
+                              Noname
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
+                        <div class="mt-4">
+                          <h5 class="captions-of__modal ">Любой атребут</h5>
+                        </div>
+                        <div class="mt-5">
+                          <h5 class="captions-of__modal ">Город</h5>
+                        </div>
+                        <div class="form-check form-check-inline mt-3">
+                          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                          <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                          <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
+                        </div>
+                        <br>
+                        <div class="mt-5">
+                          <h5 class="captions-of__modal ">Цена</h5>
+                        </div>
+                        <input type="range" class="custom-range" id="customRange1">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer border-1 d-flex justify-content-end mt-1">
+                    <button type="button" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 ">
+                      <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0">
+            <button type="button" class="custom-bttn  mr-0 mr-lg-2 rounded  float-right px-3" data-toggle="modal"
+              data-target="#enter_site">
+              <i class="fas fa-sign-in-alt"></i> Вход
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav row-cols-5 d-flex d-md-none w-100 bg-light align-items-center">
+      <div class="col d-flex flex-column justify-content-center border-right">
+        <img src="img/home.svg" alt="">
+      </div>
+      <div class="col d-flex justify-content-center border-right align-items-center">
+        <img src="img/favourite-mob.svg" alt="">
+      </div>
+      <div class="col d-flex justify-content-center border-right add-good">
+        <img src="img/plus.svg" alt="">
+      </div>
+      <div class="col d-flex justify-content-center align-items-center">
+        <img src="img/orderes-mob.svg" alt="">
+      </div>
+      <div class="col d-flex justify-content-center border-left align-items-center">
+        <img src="img/store-mob.svg" alt="">
+      </div>
+    </div>
+  </header>
+  <!--Header-end-->
+  <section>
+    <div class="container mt-3">
+      <div class="position-relative search-result">
+        <h3 class="h3 my-3">Результаты поика по запросу:</h3>
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <footer class="mt-5">
+    <div class="container border-top border-bottom py-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <img src="css/img/logo.png" alt="">
+        </div>
+
+        <div class="col-12 col-lg-3">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s</p>
+        </div>
+        <div class="footer_links col-lg-3">
+          <ul class="p-0 p-lg">
+            <li> <a href="">Правила размещения информации</a></li>
+            <li> <a href="">Оферта</a></li>
+            <li> <a href="">Предложени</a></li>
+          </ul>
+        </div>
+
+        <div class="footer_links col-12 col-lg-3">
+          <ul class="p-0 p-lg">
+            <li> <a href="">Доcтавка</a></li>
+            <li> <a href="">Возврат</a></li>
+            <li> <a href="">Как стать продавцом</a></li>
+          </ul>
+        </div>
+        <div class="footer_links col-12 col-lg-3">
+          <ul class="p-0 p-lg">
+            <li> <a href="">О нас</a></li>
+            <li> <a href="">Тел: 992 9333</a></li>
+            <li> <a href="">Тел: 223 23 09</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-8 col-md-5 mt-2 pl-0 d-flex justify-content-between">
+        <a href="#"><img src="img/Facebook.svg" alt=""></a>
+        <a href="#"><img src="img/Twitter.svg" alt=""></a>
+        <a href="#"><img src="img/Google.svg" alt=""></a>
+        <a href="#"><img src="img/Instagram.svg" alt=""></a>
+      </div>
+    </div>
+
+    <div class="container mt-3 text-center">
+      <div class="row">
+        <div class="col-12">
+          <p class="copyright_text_footer">© Fason.tj. Все права защищены Любое копирование и воспроизведение текста, в
+            том числе частичное и в любых формах, без письменного разрешения правообладателя запрещено.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- modal -->
+  <div class="modal fade" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="img/close icon.svg" alt=""> </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-required__head-txt  d-flex justify-content-center mb-3">
+            <img class="text-center" src="./css/img/logo.png" alt="">
+          </div>
+          <div class="regist-on-site px-4 d-flex justify-content-center">
+            <form class="w-100">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">+992</button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">+991</a>
+                    <a class="dropdown-item" href="#">+772</a>
+                    <a class="dropdown-item" href="#">+11</a>
+                  </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row mt-4">
+                <div class="col-sm-12 ">
+                  <p class="text-center sms-code__txt mb-2">Я получил СМС</p>
+                  <input type="email" class="form-control" id="colFormLabel" placeholder="КОД">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-required__head-txt d-flex justify-content-center mt-4">
+            <h3 class="sms-timer__txt">0:59</h3>
+          </div>
+
+          <div class="mt-4">
+            <p class="text-center mb-0 eror-sms__code">Если вы не получили СМС с кодом</p>
+            <p class="text-center mb-0 eror-sms__code"><a href="">Отправить код повторно </a></p>
+          </div>
+
+          <div class="privacy-policy__terms-of-use mt-3">
+            <p class="text-center mb-0 eror-sms__code"><a href=""> Ознакомиться с пользовательским соглашением и
+                полотикой конфиденциальности </a></p>
+          </div>
+
+          <div class="d-flex justify-content-center mt-5">
+            <button type="button"
+              class="text-center price-and-amount__buy-bttn custom-bttn btn-secondary rounded px-4">Вход</button>
+          </div>
+
+        </div>
+        <div class="modal-footer border-0"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+  </script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/main.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+</body>
+
+</html>

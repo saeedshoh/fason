@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@tailwindcss/ui": "^0.5.0",
-        "axios": "^0.19",
+        "axios": "^0.21.1",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.7",
         "laravel-mix-purgecss": "^5.0.0",
@@ -35,6 +35,7 @@
         "jquery": "^3.5.1",
         "jquery-mask-plugin": "^1.14.16",
         "list.js": "^1.5.0",
+        "owl.carousel": "^2.3.4",
         "popper.js": "^1.16.1",
         "quill": "^1.3.7",
         "save": "^2.4.0",

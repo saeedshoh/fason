@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
+use App\Models\City;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class StoreController extends Controller
@@ -16,7 +19,7 @@ class StoreController extends Controller
      */
     public function guest($slug) {
         $store = Store::where('slug', $slug)->first();
-        $products = Product::where('store_id', $store->id)->get();
+        $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         return view('store.guest', compact('store', 'products'));
     }
     public function index()
@@ -32,7 +35,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('store.create');
+        $cities = City::get();
+        return view('store.create', compact('cities'));
     }
 
     /**
@@ -44,10 +48,10 @@ class StoreController extends Controller
     public function store(StoreRequest $request)
     {
         $request->validate([
-			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
+			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
         ]);
-        
+
 		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
         $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
 
@@ -65,7 +69,36 @@ class StoreController extends Controller
     public function show($slug)
     {
         $stores = Store::where('slug', $slug)->first();
-        return view('store.show', compact('stores'));
+        $products = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
+        $acceptedProducts = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
+        $onCheckProducts = Product::where('store_id', $stores->id)->where('product_status_id', 1)->get();
+        $hiddenProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $canceledProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
+        return view('store.show', compact('stores', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'deletedProducts'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Store  $store
+     * @param  \App\Models\Order  $orders;
+     * @param  Carbon\Carbon;
+     * @return \Illuminate\Http\Response
+     */
+    public function salesHistory($slug)
+    {
+        $id = Store::where('slug', $slug)->first()->id;
+        $orders = Order::where('user_id', $id)->get();
+        $months = [];
+
+        foreach ($orders as $item) {
+            $date = new Carbon($item['updated_at']);
+            $date->locale('ru_RU');
+            $months[$date->monthName][] = $item;
+        }
+        $stores = Store::where('id', $id)->first();
+        return view('store.salesHistory', compact('orders', 'months', 'stores'));
     }
 
     /**
@@ -76,7 +109,8 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        return view('store.edit', compact('store'));
+        $cities = City::get();
+        return view('store.edit', compact('store', 'cities'));
     }
 
     /**
@@ -86,9 +120,29 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
-        //
+        $data = $request->validated();
+        if(isset($request->avatar)){
+            $request->validate([
+                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $data['avatar'] = $avatar;
+        }
+        if(isset($request->cover)){
+            $request->validate([
+                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $data['cover'] = $cover;
+        }
+        $data['user_id'] = Auth::id();
+        if(Store::where('id', $store->id)->update($data)) {
+            $store = Store::where('id', $store->id)->first();
+        }
+
+        return redirect()->route('ft-store.show', $store->slug)->with('success', 'Магазин успешно обновлена!');
     }
 
     /**

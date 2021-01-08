@@ -1,15 +1,18 @@
 @extends('layouts.app')
 @extends('layouts.header')
+@section('title')
+    {{ $store->name }}
+@endsection
 @extends('layouts.footer')
 @section('content')
   <!--Header-end-->
   <section class="content">
     <div class="container">
       <!--Edit logo and banner start-->
-      <div class="row mt-3">
+      <div class="row mt-sm-3">
          <div class="col-md-3 px-0 px-md-2 position-relative">
            <div class="text-center d-none d-md-block">
-            <img src="{{ Storage::url($store->avatar) }}" height="215">
+            <img src="{{ Storage::url($store->avatar) }}" height="215" class="rounded">
            </div>
          </div>
          <div class="col-md-9 px-0 px-md-2 position-relative">
@@ -58,7 +61,7 @@
         @forelse ($products as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow">
-              <img class="position-absolute favorite" src="storage/theme/icons/favourite.svg" alt="">
+              <img class="position-absolute favorite @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" src="storage/theme/icons/favourite.svg" alt="">
               <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
               <div class="container">
                 <h4 class="product-name shop-subject" >{{ $product->name }}</h4>

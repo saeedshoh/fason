@@ -30,6 +30,9 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'address',
+        'city_id',
+        'profile_photo_path',
         'sms_verified_at',
     ];
 
@@ -65,5 +68,9 @@ class User extends Authenticatable
 
     public function store() {
         return $this->hasOne('App\Models\Store', 'user_id');
+    }
+
+    public function favorite() {
+        return $this->hasMany('App\Models\Favorite', 'user_id');
     }
 }
