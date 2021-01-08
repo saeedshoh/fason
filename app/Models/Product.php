@@ -56,6 +56,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Brand');
     }
 
+    public function favorite()
+    {
+        return $this->hasMany('App\Models\Favorite', 'product_id');
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
