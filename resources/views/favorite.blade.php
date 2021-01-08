@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('name')
+@section('title')
+    Сохраненные товары
+@endsection
 @extends('layouts.header')
 @extends('layouts.footer')
 

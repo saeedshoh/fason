@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('name')
+@section('title')
+    {{ $categories->first()->name }}
+@endsection
 @extends('layouts.header')
 @extends('layouts.footer')
 

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @extends('layouts.header')
+@section('title')
+    Изменение магазина
+@endsection
 @extends('layouts.footer')
 @section('content')
 <section class="content">

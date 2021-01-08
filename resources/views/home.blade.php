@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @extends('layouts.header')
+@section('title')
+Торговая площадка
+@endsection
 @extends('layouts.footer')
 @section('content')
 
