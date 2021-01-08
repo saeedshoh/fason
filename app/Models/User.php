@@ -68,4 +68,8 @@ class User extends Authenticatable
     public function store() {
         return $this->hasOne('App\Models\Store', 'user_id');
     }
+
+    public function favorite() {
+        return $this->hasMany('App\Models\Favorite', 'user_id');
+    }
 }

@@ -6,27 +6,6 @@ $(document).on('ready', function () {
 
 });
 
-$('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    responsiveClass:true,
-    responsive:{
-        0:{
-            items:1,
-            nav:true
-        },
-        600:{
-            items:3,
-            nav:false
-        },
-        1000:{
-            items:5,
-            nav:true,
-            loop:false
-        }
-    }
-})
-
 $(document).ready(function(){
 
     // const xl = $('#hello').val()
@@ -263,29 +242,44 @@ $('.favorite').on('click', function () {
         var status = 1;
     }
 
-    $(this).toggleClass('active');
+    const this_ = $(this)
 
     const product_id = $(this).attr('data-id');
     $.ajax({
-
-        url: '/favorite/' + product_id,
-        type: 'PUT',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        url: '/add_to_favorite',
+        data: { product_id: product_id,
+                status: status,
         },
-        data: {
-            product_id,
-            status,
-        },
+        method: "GET",
+        dataType : 'json',
         success: (data) => {
-            console.log(data);
+            this_.toggleClass('active');
         },
         error: function (xhr, status, error) {
             console.log(status);
         }
+    })
+    // $.ajax({
 
-    });
+    //     url: '/add_to_favorite/' + product_id,
+    //     type: 'GET',
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: {
+    //         product_id,
+    //         status,
+    //     },
+    //     success: (data) => {
+    //         console.log(data);
+    //     },
+    //     error: function (xhr, status, error) {
+    //         console.log(status);
+    //     }
+
+    // });
 });
+
 // sms-congirm
 $('#btn-login, #code').on('click change', function () {
     const phone = $('#phone').val();

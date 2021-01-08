@@ -88,3 +88,4 @@ Route::view('/help', 'useful_links.help')->name('useful_links.help');
 Route::view('/return', 'useful_links.return')->name('useful_links.return');
 Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
+Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');

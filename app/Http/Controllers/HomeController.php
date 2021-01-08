@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banners;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
@@ -142,5 +143,27 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addToFavorites(Request $request){
+        $user_id = Auth::user()->id;
+        $exist = Favorite::where('product_id', $request->product_id)
+            ->where('user_id', $user_id)
+            ->first();
+        if($exist){
+            $exist->update([
+                'user_id' => $user_id,
+                'product_id' => $request->product_id,
+                'status'    => $exist->status == 1 ? 0 : 1
+            ]);
+        }
+        else{
+            Favorite::updateOrCreate([
+                'user_id' => $user_id,
+                'product_id' => $request->product_id,
+                'status'    => $request->status
+            ]);
+        }
+        return response()->json(['status' => 'Добавлено']);
     }
 }
