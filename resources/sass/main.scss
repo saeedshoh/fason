@@ -1,4 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~slick-carousel/slick/slick';
+@import '~slick-carousel/slick/slick-theme';
 
 body {
     background: #F2F2F2;
@@ -1149,4 +1151,9 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .deleteImage a {
 	color: #000;
+}
+@media screen and (min-device-width: 320px) and (orientation: landscape) {
+    #categories {
+        height: 440px;
+    }
 }

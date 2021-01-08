@@ -44,7 +44,14 @@
                   <span class="text-muted">Одежда</span>
                   <div class="price-place d-flex justify-content-between align-items-center mb-3">
                     <span class="font-weight-bold">TJS {{ $product->price }}</span>
-                    <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
+                    @if(Auth::check())
+                        @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
+                            {{--  <a href="{{ route('editProduct', ['id' => $product->id, 'category_id' => $product->category_id]) }}" class="btn btn-danger custom-radius">Изменить</a>  --}}
+                            <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
+                        @else
+                            <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
+                        @endif
+                    @endif
                   </div>
                 </div>
               </div>

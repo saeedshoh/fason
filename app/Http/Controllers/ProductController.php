@@ -145,6 +145,62 @@ class ProductController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ProductRequest $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+        ]);
+        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+        $save = Image::make($request->file('image'))->resize(480, 480, function ($constraint) {
+            $constraint->upsize();
+        });
+        $save_single = Image::make($request->file('image'))->fit(800, 800, function ($constraint) {
+            $constraint->upsize();
+        });
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $save->insert($watermark, 'bottom-right', 25, 25);
+        $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+        $image = $nowYear . '480x480.jpg';
+        $image_single = $nowYear . '800x800.jpg';
+        if (!file_exists(public_path('/storage/' . $image))) {
+            Storage::makeDirectory($yearFolder);
+            $save->save(public_path('/storage/' . $image));
+            $save_single->save(public_path('/storage/' . $image_single));
+        } else {
+            $save->save(public_path('/storage/' . $image));
+            $save_single->save(public_path('/storage/' . $image_single));
+        }
+
+        $gallery = $request->file('gallery');
+        $galleries = [];
+        foreach($gallery as $images){
+            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+            $save_single = Image::make($images)->fit(800, 800, function ($constraint) {
+                $constraint->upsize();
+            });
+            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+            $image_single = $nowYear . '800x800.jpg';
+            $save_single->save(public_path('/storage/' . $image_single));
+            array_push($galleries, $image_single);
+        }
+
+        Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+        return redirect()->route('dashboard.products');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
@@ -163,8 +219,18 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $allCategories = Category::get();
+        $category = Category::where('id', $product->category_id)->first();
+        $parent = null;
+        $grandParent = null;
+        if($category->parent_id != 0){
+            $parent = Category::where('id', $category->parent_id)->first();
+            if($parent->parent_id){
+                $grandParent = Category::where('id', $parent->parent_id)->first();
+            }
+        }
         $categories = $this->categories;
-        return view('dashboard.products.edit', compact('product', 'categories'));
+        return view('dashboard.products.edit', compact('product', 'allCategories', 'parent', 'grandParent', 'category'));
     }
 
     /**
