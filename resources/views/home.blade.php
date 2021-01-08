@@ -136,7 +136,7 @@
     <div class="all-product px-0">
     <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
 
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 endless-pagination" data-next-page="{{ $newProducts->nextPageUrl() }}">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
         @forelse ($newProducts as $product)
         {{--  {{ dd($product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id) }}  --}}

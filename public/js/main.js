@@ -3557,27 +3557,7 @@ $(document).on('ready', function () {
   $('.sms--false').hide();
 });
 $(document).ready(function () {
-  $(window).scroll(fetchPosts);
-
-  function fetchPosts() {
-    var page = $('.endless-pagination').data('next-page');
-
-    if (page !== null) {
-      clearTimeout($.data(this, "scrollCheck"));
-      $.data(this, "scrollCheck", setTimeout(function () {
-        var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 1000;
-
-        if (scroll_position_for_posts_load >= $(document).height()) {
-          $.get(page, function (data) {
-            $('.endless-pagination').append(data.posts);
-            $('.endless-pagination').data('next-page', data.next_page);
-          });
-        }
-      }, 350));
-    }
-  }
-
-  $('.subcategory').each(function () {
+  $('.category').each(function () {
     var category = $(this).data('id');
 
     var _this = $(this);
@@ -3623,13 +3603,13 @@ $('body').on('click', '#filter', function () {
   var priceTo = $('#priceTo').val();
 
   if (priceFrom.length > 0 && priceTo.length == 0) {
-    window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom;
+    window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom;
   } else if (priceTo.length > 0 && priceFrom.length == 0) {
-    window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo;
+    window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo;
   } else if (priceFrom.length > 0 && priceTo.length > 0) {
-    window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo;
+    window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo;
   } else {
-    window.location.href = '/filter?sort=' + sort + '&city=' + city;
+    window.location.href = 'filter?sort=' + sort + '&city=' + city;
   }
 });
 $('body').on('click', '.category', function () {
@@ -3644,25 +3624,6 @@ $('body').on('click', '.category', function () {
     success: function success(data) {
       $('#categories').hide();
       $('#categoriesRow').prepend(data);
-      $('.childCategory').each(function () {
-        var category = $(this).data('id');
-
-        var _this = $(this);
-
-        $.ajax({
-          url: '/countProducts',
-          data: {
-            category: category
-          },
-          method: "GET",
-          dataType: 'json',
-          success: function success(data) {
-            _this.parent().find('.spinner-grow').remove();
-
-            _this.parent().append("\n                            <span class=\"badge badge-danger badge-pill\">".concat(data, "</span>\n                        "));
-          }
-        });
-      });
     }
   });
 });
@@ -3682,48 +3643,6 @@ $('body').on('click', '.subcategory', function () {
     dataType: 'html',
     success: function success(data) {
       $('#catProducts').empty().append(data);
-    }
-  });
-});
-$('body').on('change', '#cat_parent', function () {
-  var id = $('#cat_parent option:selected').val();
-  $.ajax({
-    url: '/getSubcategories',
-    data: {
-      category: id
-    },
-    method: "GET",
-    dataType: 'json',
-    success: function success(data) {
-      $('#cat_child').empty().append("\n                <option>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n            ");
-      $('#child_div').remove();
-      data.forEach(function (element) {
-        $('#cat_child').append("\n                    <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                "));
-      });
-    }
-  });
-});
-$('body').on('change', '#cat_child', function () {
-  var id = $('#cat_child option:selected').val();
-  $.ajax({
-    url: '/getSubcategories',
-    data: {
-      category: id
-    },
-    method: "GET",
-    dataType: 'json',
-    success: function success(data) {
-      if (data.hasOwnProperty('0')) {
-        $('#cat_child').attr('name', 'subcategory');
-        $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                        <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\">\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                        </select>\n                        </div>\n                    </div>\n                ");
-        data.forEach(function (element) {
-          $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
-        });
-      } else {
-        $('#cat_child').attr('name', 'category_id');
-        $('#child_div').remove();
-      }
     }
   });
 });
@@ -3795,39 +3714,25 @@ $('.favorite').on('click', function () {
     var status = 1;
   }
 
-  var this_ = $(this);
+  $(this).toggleClass('active');
   var product_id = $(this).attr('data-id');
   $.ajax({
-    url: '/add_to_favorite',
+    url: '/favorite/' + product_id,
+    type: 'PUT',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
     data: {
       product_id: product_id,
       status: status
     },
-    method: "GET",
-    dataType: 'json',
     success: function success(data) {
-      this_.toggleClass('active');
+      console.log(data);
     },
     error: function error(xhr, status, _error3) {
       console.log(status);
     }
-  }); // $.ajax({
-  //     url: '/add_to_favorite/' + product_id,
-  //     type: 'GET',
-  //     headers: {
-  //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //     },
-  //     data: {
-  //         product_id,
-  //         status,
-  //     },
-  //     success: (data) => {
-  //         console.log(data);
-  //     },
-  //     error: function (xhr, status, error) {
-  //         console.log(status);
-  //     }
-  // });
+  });
 }); // sms-congirm
 
 $('#btn-login, #code').on('click change', function () {
@@ -3910,42 +3815,39 @@ function startTimer(duration, display) {
     }
   }, 1000);
 } // preview image
-// $(function () {
-//     $("#gallery").change(function () {
-//         if (typeof (FileReader) != "undefined") {
-//             var dvPreview = $("#preview-product-secondary");
-//             dvPreview.html("");
-//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-//             $($(this)[0].files).each(function () {
-//                 var file = $(this);
-//                 console.log(file)
-//                 if (regex.test(file[0].name.toLowerCase())) {
-//                     var reader = new FileReader();
-//                     reader.onload = function (e) {
-//                         var img = $('<div class="col-3 text-center"><img /></div>');
-//                         img.find('img').addClass("mw-100");
-//                         img.find('img').attr("src", e.target.result);
-//                         dvPreview.append(img);
-//                     }
-//                     reader.readAsDataURL(file[0]);
-//                 } else {
-//                     alert(file[0].name + " is not a valid image file.");
-//                     dvPreview.html("");
-//                     return false;
-//                 }
-//             });
-//         } else {
-//             alert("This browser does not support HTML5 FileReader.");
-//         }
-//     });
-// });
 
 
-$('body').on('click', '.deleteImage', function () {
-  var images = $('#hello').val();
-  images = JSON.parse(images);
-  console.log(images);
-  $(this).parent().find('img').remove();
+$(function () {
+  $("#gallery").change(function () {
+    if (typeof FileReader != "undefined") {
+      var dvPreview = $("#preview-product-secondary");
+      dvPreview.html("");
+      var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+      $($(this)[0].files).each(function () {
+        var file = $(this);
+        console.log(file);
+
+        if (regex.test(file[0].name.toLowerCase())) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var img = $('<div class="col-3 text-center"><img /></div>');
+            img.find('img').addClass("mw-100");
+            img.find('img').attr("src", e.target.result);
+            dvPreview.append(img);
+          };
+
+          reader.readAsDataURL(file[0]);
+        } else {
+          alert(file[0].name + " is not a valid image file.");
+          dvPreview.html("");
+          return false;
+        }
+      });
+    } else {
+      alert("This browser does not support HTML5 FileReader.");
+    }
+  });
 }); // single preview
 
 function readURL(input) {
@@ -4125,7 +4027,7 @@ $('body').on('click', '.change-address', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /Users/behruz/Documents/GitHub/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })
