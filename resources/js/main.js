@@ -51,16 +51,16 @@ $('body').on('click', '#filter', function(){
     let priceFrom = $('#priceFrom').val()
     let priceTo = $('#priceTo').val()
     if(priceFrom.length > 0 && priceTo.length == 0){
-        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
     }
     else if(priceTo.length > 0 && priceFrom.length == 0){
-        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
     }
     else if(priceFrom.length > 0 && priceTo.length > 0){
-        window.location.href = 'filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
     }
     else{
-        window.location.href = 'filter?sort=' + sort + '&city=' + city
+        window.location.href = '/filter?sort=' + sort + '&city=' + city
     }
 })
 
