@@ -27,6 +27,7 @@ class CategoryController extends Controller
      */
     public function category($slug) {
         $cat_id =  Category::where('slug', $slug)->first()->id;
+        $name = Category::where('slug', $slug)->first()->name;
         $categories = Category::where('parent_id', $cat_id)->get();
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
                 ->value('id'))
@@ -42,7 +43,7 @@ class CategoryController extends Controller
         }
         $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get();
         $sliders = $this->banners->where('type', 1);
-        return view('category', compact('categories', 'products', 'sliders'));
+        return view('category', compact('categories', 'products', 'sliders', 'name'));
     }
 
     public function subcategories(Request $request){
