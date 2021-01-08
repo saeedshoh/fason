@@ -1,7 +1,4 @@
-window._ = window.jQuery = require('owl.carousel');
-
-$(document).on('ready', function () {
-
+$(document).ready(function () {
     $('.sms--false').hide();
 
 });
@@ -31,16 +28,54 @@ $(document).ready(function(){
 
         }
     }
+    $('.markets').slick({
+        dots: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [{
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+        ]
+    });
+    // const xl = $('#hello').val()
+    // console.log(JSON.parse(xl))
 
-    $('.subcategory').each(function(){
+    $('.subcategory').each(function () {
         let category = $(this).data('id')
         let _this = $(this)
         $.ajax({
             url: '/countProducts',
-            data: {category: category},
+            data: {
+                category: category
+            },
             method: "GET",
-            dataType : 'json',
-            success: function( data ) {
+            dataType: 'json',
+            success: function (data) {
                 _this.parent().find('.spinner-grow').remove()
                 _this.parent().append(`
                     <span class="badge badge-danger badge-pill">${data}</span>
@@ -50,14 +85,14 @@ $(document).ready(function(){
     })
 
     var url = $(location).attr("href")
-    if(url.indexOf('filter?') !== -1) {
+    if (url.indexOf('filter?') !== -1) {
         const sort = url.split('sort=')[1].split('&')[0]
         const city = url.split('city=')[1].split('&')[0]
-        if(url.indexOf('priceFrom')){
+        if (url.indexOf('priceFrom')) {
             const priceFrom = url.split('priceFrom=')[1].split('&')[0]
             $('#priceFrom').val(priceFrom)
         }
-        if(url.indexOf('priceTo')){
+        if (url.indexOf('priceTo')) {
             const priceTo = url.split('priceTo=')[1].split('&')[0]
             $('#priceTo').val(priceTo)
         }
@@ -66,44 +101,45 @@ $(document).ready(function(){
     }
 })
 
-$('body').on('click', '#filter', function(){
+$('body').on('click', '#filter', function () {
     let sort = $("input[name='sort']:checked").data('sort')
     let city = $("input[name='city']:checked").data('city')
     let priceFrom = $('#priceFrom').val()
     let priceTo = $('#priceTo').val()
-    if(priceFrom.length > 0 && priceTo.length == 0){
+    if (priceFrom.length > 0 && priceTo.length == 0) {
         window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
-    }
-    else if(priceTo.length > 0 && priceFrom.length == 0){
+    } else if (priceTo.length > 0 && priceFrom.length == 0) {
         window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
-    }
-    else if(priceFrom.length > 0 && priceTo.length > 0){
+    } else if (priceFrom.length > 0 && priceTo.length > 0) {
         window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
-    }
-    else{
+    } else {
         window.location.href = '/filter?sort=' + sort + '&city=' + city
     }
 })
 
-$('body').on('click', '.category', function(){
+$('body').on('click', '.category', function () {
     let category = $(this).data('id')
     $.ajax({
         url: '/subcategories',
-        data: {category: category},
+        data: {
+            category: category
+        },
         method: "GET",
-        dataType : 'html',
-        success: function( data ) {
+        dataType: 'html',
+        success: function (data) {
             $('#categories').hide()
             $('#categoriesRow').prepend(data)
-            $('.childCategory').each(function(){
+            $('.childCategory').each(function () {
                 let category = $(this).data('id')
                 let _this = $(this)
                 $.ajax({
                     url: '/countProducts',
-                    data: {category: category},
+                    data: {
+                        category: category
+                    },
                     method: "GET",
-                    dataType : 'json',
-                    success: function( data ) {
+                    dataType: 'json',
+                    success: function (data) {
                         _this.parent().find('.spinner-grow').remove()
                         _this.parent().append(`
                             <span class="badge badge-danger badge-pill">${data}</span>
@@ -115,12 +151,12 @@ $('body').on('click', '.category', function(){
     })
 })
 
-$('body').on('click', '#prevCategory', function(){
+$('body').on('click', '#prevCategory', function () {
     $('#subcategories').hide()
     $('#categories').show()
 })
 
-$('body').on('click', '.subcategory', function(){
+$('body').on('click', '.subcategory', function () {
     let category = $(this).data('id')
     $('#catProducts').empty().append(`
         <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
@@ -129,24 +165,28 @@ $('body').on('click', '.subcategory', function(){
     `)
     $.ajax({
         url: '/categoryProducts',
-        data: {category: category},
+        data: {
+            category: category
+        },
         method: "GET",
-        dataType : 'html',
-        success: function( data ) {
+        dataType: 'html',
+        success: function (data) {
             $('#catProducts').empty().append(data)
         }
     })
 
 })
 
-$('body').on('change', '#cat_parent', function(){
+$('body').on('change', '#cat_parent', function () {
     const id = $('#cat_parent option:selected').val()
     $.ajax({
         url: '/getSubcategories',
-        data: {category: id},
+        data: {
+            category: id
+        },
         method: "GET",
-        dataType : 'json',
-        success: function( data ) {
+        dataType: 'json',
+        success: function (data) {
             $('#cat_child').empty().append(`
                 <option>Выберите подкатегорию</option>
             `)
@@ -160,15 +200,17 @@ $('body').on('change', '#cat_parent', function(){
     })
 })
 
-$('body').on('change', '#cat_child', function(){
+$('body').on('change', '#cat_child', function () {
     const id = $('#cat_child option:selected').val()
     $.ajax({
         url: '/getSubcategories',
-        data: {category: id},
+        data: {
+            category: id
+        },
         method: "GET",
-        dataType : 'json',
-        success: function( data ) {
-            if(data.hasOwnProperty('0')){
+        dataType: 'json',
+        success: function (data) {
+            if (data.hasOwnProperty('0')) {
                 $('#cat_child').attr('name', 'subcategory')
                 $('#child_div').remove()
                 $('#subCategories').append(`
@@ -186,8 +228,7 @@ $('body').on('change', '#cat_child', function(){
                         <option value="${element['id']}">${element['name']}</option>
                     `)
                 })
-            }
-            else{
+            } else {
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
             }
@@ -268,11 +309,12 @@ $('.favorite').on('click', function () {
     const product_id = $(this).attr('data-id');
     $.ajax({
         url: '/add_to_favorite',
-        data: { product_id: product_id,
-                status: status,
+        data: {
+            product_id: product_id,
+            status: status,
         },
         method: "GET",
-        dataType : 'json',
+        dataType: 'json',
         success: (data) => {
             this_.toggleClass('active');
         },
@@ -393,37 +435,37 @@ function startTimer(duration, display) {
 
 // preview image
 
-// $(function () {
-//     $("#gallery").change(function () {
-//         if (typeof (FileReader) != "undefined") {
-//             var dvPreview = $("#preview-product-secondary");
-//             dvPreview.html("");
-//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-//             $($(this)[0].files).each(function () {
-//                 var file = $(this);
-//                 console.log(file)
-//                 if (regex.test(file[0].name.toLowerCase())) {
-//                     var reader = new FileReader();
-//                     reader.onload = function (e) {
-//                         var img = $('<div class="col-3 text-center"><img /></div>');
-//                         img.find('img').addClass("mw-100");
-//                         img.find('img').attr("src", e.target.result);
-//                         dvPreview.append(img);
-//                     }
-//                     reader.readAsDataURL(file[0]);
-//                 } else {
-//                     alert(file[0].name + " is not a valid image file.");
-//                     dvPreview.html("");
-//                     return false;
-//                 }
-//             });
-//         } else {
-//             alert("This browser does not support HTML5 FileReader.");
-//         }
-//     });
-// });
+$(function () {
+    $("#gallery").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#preview-product-secondary");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                console.log(file)
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<div class="col-3 text-center"><img /></div>');
+                        img.find('img').addClass("mw-100");
+                        img.find('img').attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+});
 
-$('body').on('click', '.deleteImage', function(){
+$('body').on('click', '.deleteImage', function () {
     let images = $('#hello').val()
     images = JSON.parse(images)
     console.log(images)
@@ -594,4 +636,3 @@ $('body').on('click', '.change-address', function () {
     $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
 });
-

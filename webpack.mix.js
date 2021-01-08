@@ -14,6 +14,7 @@ require('laravel-mix-purgecss');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/main.js', 'public/js')
     .js('resources/js/dashboard/app.js', 'public/js/dashboard')
+    .js('resources/js/dashboard/main.js', 'public/js/dashboard/app.js')
     .sass('resources/sass/dashboard/theme.scss', 'public/css/dashboard')
     .sass('resources/sass/app.scss', 'public/css/dashboard')
     .sass('resources/sass/main.scss', 'public/css')
