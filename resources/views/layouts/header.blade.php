@@ -117,7 +117,7 @@
           @auth
           <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown text-right">
             <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink">
-              <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path ?? 'storage/theme/no-photo.svg' }}" alt="">
+              <img class="rounded-circle mr-1" src="/storage/{{ Auth::user()->profile_photo_path ?? '/storage/theme/no-photo.svg' }}" alt="" width="32" height="32">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">

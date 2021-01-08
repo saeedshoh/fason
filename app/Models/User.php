@@ -32,6 +32,7 @@ class User extends Authenticatable
         'phone',
         'address',
         'city_id',
+        'profile_photo_path',
         'sms_verified_at',
     ];
 

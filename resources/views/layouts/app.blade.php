@@ -13,6 +13,10 @@
 
     {{--  <link rel="stylesheet" href="{{ asset('css/dashboard/app.css') }}">  --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="/storage/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/storage/favicon-16x16.png">
+    <link rel="manifest" href="/storage/site.webmanifest">
   </head>
   <body>
     @yield('header')

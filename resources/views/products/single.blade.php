@@ -10,7 +10,7 @@
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-6">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
-            <a href="#" class="text-pinky font-weight-bold text-decoration-none">
+            <a href="{{ route('home') }}" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
