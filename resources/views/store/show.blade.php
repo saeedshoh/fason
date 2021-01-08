@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @section('title')
-    {{ $store->name }}
+    {{ $stores->name }}
 @endsection
 @extends('layouts.footer')
 @section('content')
