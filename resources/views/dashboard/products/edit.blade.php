@@ -6,31 +6,31 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-  
+
             <!-- Header -->
             <div class="header">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
-        
+
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
                             изменение товара
                         </h6>
-        
+
                         <!-- Title -->
                         <h1 class="header-title text-truncate">
                             Изменение
                         </h1>
-        
+
                         </div>
                         <div class="col-auto">
-        
+
                         <!-- Buttons -->
                         <a href="{{ route('products.index')}}" class="btn btn-primary ml-2">
                             Все товары
                         </a>
-        
+
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
             </div>
             @endif
             <div class="row">
-            
+
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
@@ -56,13 +56,14 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="category_id">Категории</label>
-                                    <select class="custom-select @error('category_id') is-invalid @enderror" name="category_id">
-                                        <option value="0" selected>Сделать родительской</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" class="font-weight-bold" {{ $product->category_id == $category->id ? 'selected' : ''}}>
-                                            {{ $category->name }}
-                                            </option>
-                                        @endforeach
+                                    <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
+                                        <option value="0" selected>Выберите категорию</option>
+                                        @if ($grandParent)
+                                            @forelse ($allCategories->where('parent_id', 0) as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $grandParent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @empty
+                                                Извините ничего не найдено
+                                            @endforelse
                                     </select>
                                     @error('category_id')
                                     <div class="invalid-feedback">
@@ -70,6 +71,110 @@
                                     </div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="form-row" id="subCategories">
+                                <div class="form-group col-12 col-md-12 mb-3">
+                                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <div class="input_placeholder_style">
+                                    <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
+                                        <option disabled>Выберите категорию</option>
+                                        @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
+                                            <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                        @empty
+                                            Извините ничего не найдено
+                                        @endforelse
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                    </div>
+                                </div>
+                                <div id="child_div" class="form-group col-12 col-md-12 mb-3">
+                                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <div class="input_placeholder_style">
+                                    <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                        <option disabled>Выберите категорию</option>
+                                        @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
+                                            <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                        @empty
+                                            Извините ничего не найдено
+                                        @endforelse
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            @elseif($parent)
+                                @forelse ($allCategories->where('parent_id', 0) as $cat)
+                                    <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                @empty
+                                    Извините ничего не найдено
+                                @endforelse
+                            </select>
+                            @error('category_id')
+                            <div class="invalid-feedback">
+                            {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-row" id="subCategories">
+                        <div class="form-group col-12 col-md-12 mb-3">
+                            <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                            <div class="input_placeholder_style">
+                            <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                <option disabled>Выберите категорию</option>
+                                @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
+                                    <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                @empty
+                                    Извините ничего не найдено
+                                @endforelse
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">
+                                {{ $message }}
+                                </div>
+                            @enderror
+                            </div>
+                        </div>
+                    </div>
+                            @else
+                                @forelse ($cat_parent as $cat)
+                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                @empty
+                                    Извините ничего не найдено
+                                @endforelse
+                            </select>
+                            @error('category_id')
+                            <div class="invalid-feedback">
+                            {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-row" id="subCategories">
+                        <div class="form-group ">
+                            <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                            <div class="input_placeholder_style">
+                            <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                <option disabled>Выберите категорию</option>
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">
+                                {{ $message }}
+                                </div>
+                            @enderror
+                            </div>
+                        </div>
+                    </div>
+                        @endif
+                            <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Название</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $product->name }}" required="">
@@ -79,7 +184,7 @@
                                     </div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="quantity">Кол/во товаров</label>
                                     <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Введите кол/во товаров" name="quantity" value="{{ old('quantity') ?? $product->quantity }}" required="">
@@ -98,7 +203,7 @@
                                     </div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="description">Описание</label>
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" cols="30" rows="5"> {{ old('description') ?? $product->description }}</textarea>
@@ -146,21 +251,21 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        
+
                                         {{-- @forelse ($product->gallery as $gallery)
                                             <div class="avatar avatar-lg avatar-4by3">
                                                 <img src="{{ Store::url($gallery) }}" alt="..." class="avatar-img rounded">
                                             </div>
                                         @empty
-                                            
+
                                         @endforelse --}}
-                                        
+
                                         <div class="col-12">
                                             <label for="gallery">Галерея</label>
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="gallery">Выберите файл</label>
                                                 <label class="custom-file-label" for="gallery">Выберите файл для галереи</label>
-                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" multiple name="gallery" form="create_category" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
+                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" multiple name="gallery[]" form="create_category" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
                                                 <small class="text-muted">Размер > 480px * 480px</small>
                                                 @error('gallery')
                                                 <div class="invalid-feedback">
@@ -180,17 +285,17 @@
                         <div class="card-body">
                             <div class="row justify-content-between">
                                 <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
-                                    @csrf 
+                                    @csrf
                                         <button class="btn btn-danger" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
                                     @method('DELETE')
                                 </form>
                                 <form class="d-inline" action="{{ route('products.decline', $product) }}" method="POST">
-                                    @csrf 
+                                    @csrf
                                     <button class="btn btn-warning text-white" type="submit"><i class="fe fe-x-circle"> </i> Отклонить</button>
                                     @method('POST')
                                 </form>
                                 <form class="d-inline" action="{{ route('products.publish', $product) }}" method="POST">
-                                    @csrf 
+                                    @csrf
                                     <button class="btn btn-success" type="submit"><i class="fe fe-copy"> </i> Опубликовать</button>
                                     @method('POST')
                                 </form>
