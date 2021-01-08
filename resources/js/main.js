@@ -6,8 +6,33 @@ $(document).on('ready', function () {
 
 });
 
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            nav:true
+        },
+        600:{
+            items:3,
+            nav:false
+        },
+        1000:{
+            items:5,
+            nav:true,
+            loop:false
+        }
+    }
+})
+
 $(document).ready(function(){
-    $('.category').each(function(){
+
+    // const xl = $('#hello').val()
+    // console.log(JSON.parse(xl))
+
+    $('.subcategory').each(function(){
         let category = $(this).data('id')
         let _this = $(this)
         $.ajax({
@@ -23,6 +48,7 @@ $(document).ready(function(){
             }
         })
     })
+
     var url = $(location).attr("href")
     if(url.indexOf('filter?') !== -1) {
         const sort = url.split('sort=')[1].split('&')[0]
@@ -69,6 +95,22 @@ $('body').on('click', '.category', function(){
         success: function( data ) {
             $('#categories').hide()
             $('#categoriesRow').prepend(data)
+            $('.childCategory').each(function(){
+                let category = $(this).data('id')
+                let _this = $(this)
+                $.ajax({
+                    url: '/countProducts',
+                    data: {category: category},
+                    method: "GET",
+                    dataType : 'json',
+                    success: function( data ) {
+                        _this.parent().find('.spinner-grow').remove()
+                        _this.parent().append(`
+                            <span class="badge badge-danger badge-pill">${data}</span>
+                        `)
+                    }
+                })
+            })
         }
     })
 })
@@ -149,14 +191,6 @@ $('body').on('change', '#cat_child', function(){
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
             }
-            // $('#cat_child').empty().append(`
-            //     <option>Выберите подкатегорию</option>
-            // `)
-            // data.forEach(element => {
-            //     $('#cat_child').append(`
-            //         <option value="${element['id']}">${element['name']}</option>
-            //     `)
-            // })
         }
     })
 })
@@ -344,35 +378,43 @@ function startTimer(duration, display) {
 
 // preview image
 
-$(function () {
-    $("#gallery").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#preview-product-secondary");
-            dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
-                var file = $(this);
-                console.log(file)
-                if (regex.test(file[0].name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $('<div class="col-3 text-center"><img /></div>');
-                        img.find('img').addClass("mw-100");
-                        img.find('img').attr("src", e.target.result);
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
-});
+// $(function () {
+//     $("#gallery").change(function () {
+//         if (typeof (FileReader) != "undefined") {
+//             var dvPreview = $("#preview-product-secondary");
+//             dvPreview.html("");
+//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+//             $($(this)[0].files).each(function () {
+//                 var file = $(this);
+//                 console.log(file)
+//                 if (regex.test(file[0].name.toLowerCase())) {
+//                     var reader = new FileReader();
+//                     reader.onload = function (e) {
+//                         var img = $('<div class="col-3 text-center"><img /></div>');
+//                         img.find('img').addClass("mw-100");
+//                         img.find('img').attr("src", e.target.result);
+//                         dvPreview.append(img);
+//                     }
+//                     reader.readAsDataURL(file[0]);
+//                 } else {
+//                     alert(file[0].name + " is not a valid image file.");
+//                     dvPreview.html("");
+//                     return false;
+//                 }
+//             });
+//         } else {
+//             alert("This browser does not support HTML5 FileReader.");
+//         }
+//     });
+// });
+
+$('body').on('click', '.deleteImage', function(){
+    let images = $('#hello').val()
+    images = JSON.parse(images)
+    console.log(images)
+    $(this).parent().find('img').remove()
+})
+
 // single preview
 function readURL(input) {
     if (input.files && input.files[0]) {

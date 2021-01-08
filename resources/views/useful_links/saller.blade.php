@@ -8,7 +8,7 @@
       <div class="bg-white p-3">
         <div class="container">
           <div class="text-center position-relative post-line">
-            <h3 class="text-danger h3 font-weight-bold mb-4">Помощь</h3>
+            <h3 class="text-danger h3 font-weight-bold mb-4">Правила размещения информации</h3>
           </div>
           <div class="content mt-3">
             <p class="text-justify">
@@ -22,7 +22,7 @@
           </p>
           </div>
         </div>
-        
+
       </div>
     </div>
   </section>

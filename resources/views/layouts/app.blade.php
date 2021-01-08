@@ -11,7 +11,7 @@
 
     <title>Fason.tj</title>
 
-    <link rel="stylesheet" href="{{ asset('css/dashboard/app.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('css/dashboard/app.css') }}">  --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/storage/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">

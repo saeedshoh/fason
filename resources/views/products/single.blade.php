@@ -116,7 +116,8 @@
 
                 @if(Auth::check())
                   @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
-                    <a href="{{ route('editProduct', $product->id) }}" class="btn btn-danger custom-radius">Изменить</a>
+                    {{--  <a href="{{ route('editProduct', ['id' => $product->id, 'category_id' => $product->category_id]) }}" class="btn btn-danger custom-radius">Изменить</a>  --}}
+                    <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">

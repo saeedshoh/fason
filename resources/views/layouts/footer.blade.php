@@ -78,7 +78,7 @@ aria-hidden="true">
             <div class="input-group-prepend position-relative">
               <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
             </div>
-            <input type="text" class="form-control" placeholder="Имя.." name="name">          
+            <input type="text" class="form-control" placeholder="Имя.." name="name">
           </div>
           <div class="input-group text-left  btn-group-fs  mb-4">
             <div class="input-group-prepend position-relative">
@@ -120,14 +120,14 @@ aria-hidden="true">
         <div class="col-12 col-lg-4">
           <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p>
         </div>
-        <div class="footer_links col-lg-4"> 
+        <div class="footer_links col-lg-4">
           <ul class="p-0 p-lg m-0">
-            <li> <a href="{{ route('useful_links.help') }}">Помощь</a></li>
+            <li> <a href="{{ route('useful_links.help') }}">Правила размещения информации</a></li>
             <li> <a href="{{ route('useful_links.privacy_policy') }}">Политика и конфиденциальности</a></li>
           </ul>
         </div>
 
-        <div class="footer_links col-12 col-lg-4"> 
+        <div class="footer_links col-12 col-lg-4">
           <ul class="p-0 p-lg m-0">
             <li> <a href="{{ route('useful_links.delivery') }}">Доcтавка</a></li>
             <li> <a href="{{ route('useful_links.return') }}">Возврат</a></li>

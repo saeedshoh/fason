@@ -50,6 +50,7 @@ Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft
 Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/getSubcategories', [CategoryController::class, 'getSubcategories'])->name('getSubcategories');
+Route::get('/getParentcategories', [CategoryController::class, 'getParentcategories'])->name('getParentcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
@@ -61,7 +62,8 @@ Route::resources([
 Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
 Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
 Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
-Route::get('editProduct/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
+// Route::get('editProduct/{id}/{category_id}', [ProductController::class, 'editProduct'])->name('editProduct');
+Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
 
 Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
 Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
@@ -69,7 +71,7 @@ Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-st
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
 Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
 Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
-Route::get('store/salesHistory/{id}', [StoreController::class, 'salesHistory'])->name('salesHistory');
+Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
 

@@ -19,7 +19,7 @@ class StoreController extends Controller
      */
     public function guest($slug) {
         $store = Store::where('slug', $slug)->first();
-        $products = Product::where('store_id', $store->id)->get();
+        $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         return view('store.guest', compact('store', 'products'));
     }
     public function index()
@@ -69,7 +69,7 @@ class StoreController extends Controller
     public function show($slug)
     {
         $stores = Store::where('slug', $slug)->first();
-        $products = Product::where('store_id', $stores->id)->get();
+        $products = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
         $acceptedProducts = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
         $onCheckProducts = Product::where('store_id', $stores->id)->where('product_status_id', 1)->get();
         $hiddenProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
@@ -86,8 +86,9 @@ class StoreController extends Controller
      * @param  Carbon\Carbon;
      * @return \Illuminate\Http\Response
      */
-    public function salesHistory($id)
+    public function salesHistory($slug)
     {
+        $id = Store::where('slug', $slug)->first()->id;
         $orders = Order::where('user_id', $id)->get();
         $months = [];
 

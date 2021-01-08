@@ -30,7 +30,7 @@
         <div class="col-12 mt-lg-4">
           <div class="d-none d-lg-block">
             <p>{{ $stores->description ?? '' }}</p>
-            <a href="#" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
+            <a href="{{ route('useful_links.privacy_policy') }}" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
           </div>
           <div class="my-5 my-lg-3">
             <div class="row">
@@ -68,7 +68,7 @@
               </div>
               <div class="offset-0 offset-md-6 col-12 col-md-6 mt-md-0 mt-3">
                 <div class="text-center text-md-right">
-                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $stores->id) }}">Изменить</a>
+                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $stores->slug) }}">Изменить</a>
                 </div>
               </div>
             </div>
@@ -82,10 +82,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100 rounded-11" href="#"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
+          <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft-store.edit', $stores->id) }}"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100 rounded-11" href="{{ route('salesHistory', $stores->user_id) }}"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
+          <a class="btn btn-danger w-100 rounded-11" href="{{ route('salesHistory', $stores->slug) }}"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
           <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
