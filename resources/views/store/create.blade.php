@@ -39,10 +39,16 @@
               <input type="file" class="d-none" id="cover" name="cover">
             </label>
           </div>
+          <div class="mobile-avatar position-absolute d-lg-none">
+            <img src="/storage/theme/icons/Avatar.svg" class="store-image rounded-circle" width="90" height="90" id="avatar-poster-mobile">
+            <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
+              <img src="/storage/theme/icons/camera.svg">
+            </label>
+          </div>
         </div>
         <div class="col-12 d-block d-md-none mt-5">
           <h2>Магазин</h2>
-          <div class="row">
+          {{-- <div class="row">
             <div class="col-3 text-center">
               <div class="d-inline-block position-relative">
                 <img src="/storage/theme/icons/Avatar.svg" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
@@ -56,16 +62,16 @@
                 <h3 class="font-weight-bold"></h3>
                 <span class="text-secondary"></span>
               </div>
-              {{-- <div>
+              <div>
                 <button type="button" class="btn"><img src="/storage/theme/icons/change.svg" alt=""></button>
-              </div> --}}
+              </div>
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
       <!--Edit logo and banner end-->
       <!--store info start-->
-      <div class="row mt-5">
+      <div class="row mt-3">
         <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
@@ -94,7 +100,7 @@
                 <div class="col-sm-6">
                     @foreach ($cities as $city)
                         <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}">
-                        <label class="form-check-label" for="exampleRadios1">
+                        <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
                         </label>
                     @endforeach

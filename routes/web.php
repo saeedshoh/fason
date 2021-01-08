@@ -31,11 +31,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
+    Route::post('products/store', [ProductController::class, 'ft_store'])->name('products.store');
+    Route::resource('products', ProductController::class)->except('store');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
         'categories' => CategoryController::class,
-        'products' => ProductController::class,
+        // 'products' => ProductController::class,
         'attributes' => AttributeController::class,
         'stores' => StoreController::class,
         'banners' => BannersController::class,
