@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @extends('layouts.header')
+@section('title')
+    Мои заказы
+@endsection
 @extends('layouts.footer')
 
 @section('content')
@@ -24,7 +27,7 @@
                 <!--success order-->
 
                 @forelse ($orders as $order)
-               
+
                     <div class="@if ($order->order_status_id == 1) in-road-card @elseif($order->order_status_id == 2) declined-card @else success-card @endif">
                         <div class="text-right d-block d-lg-none">
                             <h6 class="@if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->order_status->name }}</h6>
@@ -41,7 +44,7 @@
                                             <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total }} Сомони</span>
                                         </h6>
                                     </div>
-                                    
+
                                 </div>
                                 </div>
                             </div>
@@ -84,7 +87,7 @@
                                             <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $sale->total }} Сомони</span>
                                         </h6>
                                     </div>
-                                    
+
                                 </div>
                                 </div>
                             </div>
