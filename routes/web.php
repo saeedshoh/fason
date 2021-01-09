@@ -70,7 +70,8 @@ Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.sho
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
 Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
-Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+Route::get('store/{slug}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
 Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');

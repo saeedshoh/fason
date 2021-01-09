@@ -107,8 +107,9 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit ($slug)
     {
+        $store = Store::where('slug', $slug)->first();
         $cities = City::get();
         return view('store.edit', compact('store', 'cities'));
     }
@@ -154,6 +155,22 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $store->delete();
-        return redirect(route('store.index'))->with('success', 'Магазин успешно удалена!');
+        return redirect(route('stores.index'))->with('success', 'Магазин успешно удалена!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\store  $store
+     * @return \Illuminate\Http\Response
+     */
+    public function toggle(Store $store)
+    {
+        if($store->is_active) {
+            $store->update(['is_active' => 0]);
+        } else {
+            $store->update(['is_active' => 1]);
+        }
+        return redirect(route('stores.index'))->with('success', 'Магазин успешно изменен!');
     }
 }
