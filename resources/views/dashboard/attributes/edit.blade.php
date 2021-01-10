@@ -46,7 +46,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-
+                        @if(isset($attribute))
                         <!-- Form -->
                         <form action="{{ route('attributes.update', $attribute) }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidates>
                             @csrf
@@ -66,6 +66,48 @@
                             <button class="btn btn-primary mt-2" type="submit">Измененить</button>
 
                         </form>
+                        @else
+                        <!-- Form -->
+                        <form action="{{ route('attribute-values.update', $attributeValue) }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidates>
+                            @csrf
+                            @method('PUT')
+                                <div class="form-row">
+                                    <div class="col-12 col-md-12 mb-3">
+                                        <label for="attribute_id">Атрибут</label>
+                                        <select class="form-control pl-2 @error('attribute_id') is-invalid @enderror" name="attribute_id" id="attribute_id">
+                                            <option disabled selected value>Выберите атрибут</option>
+                                            @foreach ($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}" @if($attributeValue->attribute_id==$attribute->id)selected @endif>{{ $attribute->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-12 mb-3">
+                                        <label for="att_name">Название значения атрибута</label>
+                                        <input type="text" class="form-control" id="att_name" placeholder="Введите название значения атрибута" name="name" value="{{ old('name') ? old('name') : $attributeValue->name }}" required="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-12 mb-3">
+                                        <label for="att_value">Добавленная стоимость значения атрибута</label>
+                                        <input type="text" class="form-control" id="att_value" placeholder="Введите доб. стоимость значения атрибута" name="value" value="{{ old('value') ? old('value') : $attributeValue->value }}" required="">
+                                    </div>
+                                </div>
+                                {{-- <div class="col-12 col-md-12 mb-3">
+                                    <label for="name">Название</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $attribute->name }}" required="">
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div> --}}
+                            <!-- Button -->
+                            <button class="btn btn-primary mt-2" type="submit">Измененить</button>
+
+                        </form>
+                        @endif
                         </div>
                     </div>
                 </div>
