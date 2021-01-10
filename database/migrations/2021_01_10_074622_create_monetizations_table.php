@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateMonetizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('monetizations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->string('address');
-            $table->integer('quantity');
-            $table->float('total');
+            $table->float('min');
+            $table->float('max');
             $table->float('margin');
-            $table->foreignId('order_status_id')->constrained()->default(1);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('monetizations');
     }
 }

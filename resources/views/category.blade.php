@@ -28,11 +28,11 @@
               @empty
                 <li class="list-group-item"> Извините ничего не найдено</li>
               @endforelse
-             
+
             </div>
           </div>
           </ul>
-           
+
 
         <div id="catProducts" class="col-12 col-md-8">
           <div class="col-12 ">
@@ -63,10 +63,10 @@
               </div>
             </div>
             <div class="form-row">
-              
+
             </div>
           </div>
-          <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 my-2">
+          <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 my-2 endless-pagination" data-next-page="{{ $products->nextPageUrl() }}">
 
             @forelse ($products as $product)
             <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -75,9 +75,8 @@
                 <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
                 <div class="container">
                   <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
-                  <span class="text-muted">Одежда</span>
                   <div class="price-place d-flex justify-content-between align-items-center mb-3">
-                    <span class="font-weight-bold">TJS {{ $product->price }}</span>
+                    <span class="font-weight-bold">TJS {{ $product->price_after_margin }}</span>
                     @if(Auth::check())
                         @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                             {{--  <a href="{{ route('editProduct', ['id' => $product->id, 'category_id' => $product->category_id]) }}" class="btn btn-danger custom-radius">Изменить</a>  --}}

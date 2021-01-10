@@ -67,4 +67,14 @@ class Product extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function getPriceAfterMarginAttribute()
+    {
+        $monetizations = Monetization::get();
+        foreach($monetizations as $monetization) {
+            if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+                return $this->price + $this->price*($monetization->margin/100);
+            }
+        }
+    }
 }
