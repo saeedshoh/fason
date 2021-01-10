@@ -7,9 +7,9 @@
     <ul class="shop-subject list-group list-group-flush h-100">
       @foreach ($categories as $category)
         <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
-            <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}
-              <div>
-                Всего товаров: <span class="childCategory"></span>
+            <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none text-secondary childCategory"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}
+              <div class="cat_spinner">
+                Всего товаров: 
               </div>
             </a>
             {{--  <span data-id="{{ $category->id }}" class="badge badge-danger badge-pill childCategory">{{ $category->products->count() }}</span>  --}}
