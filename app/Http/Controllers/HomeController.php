@@ -30,25 +30,37 @@ class HomeController extends Controller
         return view('dashboard.home');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $stores = $this->stores;
         $categories = $this->categories->where('parent_id', 0);
-        $products = $this->products->where('product_status_id', 2);
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
             ->groupBy('product_id');
 
-        $topProducts = Product::where('product_status_id', 2)
-            ->select(DB::raw('products.*, countProd.countProd'))
-            ->leftJoinSub($countProd, 'countProd', function ($join) {
-                $join->on('products.id', '=', 'countProd.product_id');
-            })->orderByDesc('countProd')->limit(20)->get();
-        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->limit(20)->get();
+        if($request->ajax()) {
+            $topProducts = Product::where('product_status_id', 2)
+                ->select(DB::raw('products.*, countProd.countProd'))
+                ->leftJoinSub($countProd, 'countProd', function ($join) {
+                    $join->on('products.id', '=', 'countProd.product_id');
+                })->orderByDesc('countProd')->paginate(20);
+            $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(1);
+            return [
+                'posts' => view('ajax.home', compact('newProducts'))->render(),
+                'next_page' => $newProducts->nextPageUrl()
+            ];
+        } else {
+            $topProducts = Product::where('product_status_id', 2)
+                ->select(DB::raw('products.*, countProd.countProd'))
+                ->leftJoinSub($countProd, 'countProd', function ($join) {
+                    $join->on('products.id', '=', 'countProd.product_id');
+                })->orderByDesc('countProd')->paginate(20);
+            $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(1);
 
-        return view('home', compact('stores', 'categories', 'products', 'sliders', 'middle_banner', 'topProducts', 'newProducts'));
+            return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts'));
+        }
     }
 
     public function filter(Request $request)

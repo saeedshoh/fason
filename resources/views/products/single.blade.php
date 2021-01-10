@@ -92,10 +92,6 @@
               <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-danger text-decoration-none">{{ $product->category->name }}</a>
               <h3 class="mt-2 mb-4 font-weight-bold">{{ $product->name }}</h3>
             </div>
-            <p class="font-weight-bold d-none d-lg-block">
-              <span class="text-dark">Магазин:</span>
-              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-danger text-decoration-none">{{ $product->store->name }}</a>
-            </p>
           </div>
           <div class="row align-items-center mt-3 prod-controls">
             <div class="col-4">

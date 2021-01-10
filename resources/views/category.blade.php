@@ -28,15 +28,49 @@
               @empty
                 <li class="list-group-item"> Извините ничего не найдено</li>
               @endforelse
-            </ul>
+             
+            </div>
           </div>
-        </div>
+          </ul>
+           
 
         <div id="catProducts" class="col-12 col-md-8">
+          <div class="col-12 ">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="captions-of__modal ">Сортировать</h5>
+            </div>
+            <div class="form-row">
+              <div class="form-check mt-3">
+                  <input data-sort="new" checked class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">Сначала новые</label>
+              </div>
+              <div class="form-check mt-3">
+                  <input data-sort="cheap" class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">Сначала дешевые</label>
+              </div>
+              <div class="form-check mt-3">
+                  <input data-sort="expensive" class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
+                  <label class="form-check-label" for="inlineRadio3">Сначала дорогие</label>
+              </div>
+              <h5 class="captions-of__modal mt-5">Цена</h5>
+              <div class="form-group col-md-6">
+                <label for="from-price">от</label>
+                <input id="priceFrom" type="number" placeholder="0" class="form-control" id="from-price">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="untill-price">до</label>
+                <input id="priceTo" type="number" placeholder="99999" class="form-control" id="untill-price">
+              </div>
+            </div>
+            <div class="form-row">
+              
+            </div>
+          </div>
           <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 my-2">
+
             @forelse ($products as $product)
             <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-              <div class="card rounded shadow">
+              <div class="card rounded shadow h-100 w-100">
                 <img class="position-absolute favorite @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" src="storage/theme/icons/favourite.svg" alt="">
                 <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
                 <div class="container">
