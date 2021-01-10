@@ -292,12 +292,5 @@
         <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
     </div>
   </div>
-      <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>
-      <div class="products-status position-relative row justify-content-center text-center">
-        <div class="info-status__products status-success col-12 col-lg-2 mx-1"> Заказ выполнен</div>
-        <div class="info-status__products status-cancled col-12 col-lg-2 mx-1"> Заказ отменен </div>
-        <div class="info-status__products status-preparing col-12 col-lg-2  mx-1"> В пути</div>
-      </div>
-    </div>
   </section>
 @endsection

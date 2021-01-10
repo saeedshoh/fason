@@ -191,14 +191,16 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-lg-block mt-4">
-        <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        <a href="{{ $middle_banner->url }}">
+          <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        </a>
       </div>
       <!--Banner end-->
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center">
-          <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
+            <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
         </div>
