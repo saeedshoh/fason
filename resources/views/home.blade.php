@@ -136,18 +136,18 @@
     <div class="all-product px-0">
     <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
 
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 endless-pagination" data-next-page="{{ $newProducts->nextPageUrl() }}">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
         @forelse ($newProducts as $product)
-        {{--  {{ dd($product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id) }}  --}}
-        {{--  {{ dd($product->favorite->first()->product_id) }}  --}}
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0 h-100 w-100">
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                <span class="font-weight-bold">
+                  {{ $product->price_after_margin }} сомони
+                </span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
@@ -173,7 +173,9 @@
               <div class="container">
                 <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
                 <div class="price-place d-flex justify-content-between align-items-center mb-3  text-danger">
-                  <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                  <span class="font-weight-bold">
+                    {{ $product->price_after_margin }} сомони
+                  </span>
                   <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                 </div>
               </div>
@@ -191,14 +193,16 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-lg-block mt-4">
-        <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        <a href="{{ $middle_banner->url }}">
+          <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        </a>
       </div>
       <!--Banner end-->
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center">
-          <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
+            <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
         </div>

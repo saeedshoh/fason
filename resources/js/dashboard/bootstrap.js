@@ -7,7 +7,7 @@ try {
     // window.Dropzone = require('dropzone');
     window.List = require('list.js');
     // window.Quill = require('quill');
-    // window.chart = require('chart.js');
+    window.chart = require('chart.js');
     require('bootstrap');
     require('jquery-mask-plugin');
     require('select2/dist/js/select2.full')($);

@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Banners extends Model
+class Monetization extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'image', 'url', 'type', 'position'];
+    protected $fillable = [
+        'min',
+        'max',
+        'margin',
+        'is_active',
+    ];
 }

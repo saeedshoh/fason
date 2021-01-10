@@ -14,6 +14,7 @@ class Order extends Model
         'user_id',
         'address',
         'total',
+        'margin',
         'quantity',
         'order_status_id',
     ];

@@ -26,7 +26,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function category($slug)
+    public function category(Request $request, $slug)
     {
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first()->name;
@@ -42,8 +42,14 @@ class CategoryController extends Controller
                 array_push($categoryIds, $child->id);
             }
         }
-        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get();
+        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->paginate(9);
         $sliders = $this->banners->where('type', 1);
+        if($request->ajax()) {
+            return [
+                'posts' => view('ajax.category', compact('products'))->render(),
+                'next_page' => $products->nextPageUrl()
+            ];
+        }
         return view('category', compact('categories', 'products', 'sliders', 'name'));
     }
 
