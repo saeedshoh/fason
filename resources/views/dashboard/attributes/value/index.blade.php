@@ -15,19 +15,19 @@
 
                 <!-- Pretitle -->
                 <h6 class="header-pretitle">
-                  список атрибутов
+                  список значение атрибута
                 </h6>
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все аттрибуты
+                   {{ $parent->name }}
                 </h1>
 
               </div>
               <div class="col-auto">
 
                 <!-- Buttons -->
-                <a href="{{ route('attributes.create')}}" class="btn btn-primary ml-2">
+                <a href="{{ route('attr_val.create', ['id' => $parent->id] )}}" class="btn btn-primary ml-2">
                   Добавить
                 </a>
 
@@ -40,7 +40,7 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap active">
-                      Все аттрибуты <span class="badge badge-pill badge-soft-secondary"> {{ $attributes->count() }}</span>
+                      Все значения <span class="badge badge-pill badge-soft-secondary">{{ $attributes->count() }}</span>
                     </a>
                   </li>
                 </ul>
@@ -92,6 +92,9 @@
                       <th>
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                       </th>
+                      <th>
+                        <a class="list-sort text-muted" data-sort="item-name" href="#">Значение</a>
+                      </th>
                       <th class="text-right">
                        
                       </th>
@@ -107,17 +110,30 @@
 
                       </td>
                       <td>
-                        <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
+                        <a class="item-name text-reset" href="profile-posts.html">{{ $item->name }}</a>
+                      </td>
+                      <td>
+                        <a class="item-name text-reset" href="profile-posts.html">
+
+                            @if ($parent->name == 'Цвет')
+                                
+                            <span class="badge text-white" style="background-color: {{ $item->value }}">
+                                    Цвет
+                            </span>
+                            @else 
+                            {{ $item->value }}
+                            @endif
+                        </a>
                       </td>
 
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
+                        <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
                             @csrf 
-                            <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
                       </td>

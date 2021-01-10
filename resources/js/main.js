@@ -1,16 +1,44 @@
 $(document).ready(function () {
     $('.sms--false').hide();
+
+});
+
+$(document).ready(function(){
+
+    $(window).scroll(fetchPosts);
+
+    function fetchPosts() {
+
+        var page = $('.endless-pagination').data('next-page');
+
+        if(page !== null) {
+
+            clearTimeout( $.data( this, "scrollCheck" ) );
+
+            $.data( this, "scrollCheck", setTimeout(function() {
+                var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 1000;
+
+                if(scroll_position_for_posts_load >= $(document).height()) {
+                    $.get(page, function(data){
+                        $('.endless-pagination').append(data.posts);
+                        $('.endless-pagination').data('next-page', data.next_page);
+                    });
+                }
+            }, 350))
+
+        }
+    }
     $('.markets').slick({
         dots: true,
         infinite: false,
         speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 6,
+        slidesToScroll: 6,
         responsive: [{
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                     infinite: true,
                     dots: true
                 }
@@ -18,15 +46,15 @@ $(document).ready(function () {
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             }
             // You can unslick at a given breakpoint now by adding:

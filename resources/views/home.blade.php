@@ -17,7 +17,7 @@
             </button>
           </div>
         </div>
-        <div class="col-md-8 col-lg-6 d-none d-md-flex">
+        <div class="col-md-8 col-lg-6 d-none d-md-flex px-0 justify-content-between">
           @if ($is_store == null)
 
             @auth
@@ -90,7 +90,7 @@
           <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
-              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="mr-1"> {{ $category->name }}</a>
+              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-1"> {{ $category->name }}</a>
               {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
               {{--  <div class="spinner-grow text-center text-danger float-right" role="status">
                 {{--  <span class="sr-only">Loading...</span>
@@ -111,7 +111,7 @@
 
               @endforelse
             </ol>
-            <div class="carousel-inner h-100">
+            <div class="carousel-inner h-100 rounded-11">
               @forelse ($sliders as $slider)
                 <div class="carousel-item {{ $slider->position == 1 ? 'active' : ''}} h-100">
                   <img src="{{ Storage::url($slider->image) }}" class="d-block w-100 mw-100 h-100" alt="...">
@@ -136,17 +136,13 @@
     <div class="all-product px-0">
     <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
 
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 endless-pagination" data-next-page="{{ $newProducts->nextPageUrl() }}">
 
         @forelse ($newProducts as $product)
         {{--  {{ dd($product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id) }}  --}}
         {{--  {{ dd($product->favorite->first()->product_id) }}  --}}
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0 h-100 w-100">
-            <svg class="position-absolute favorite
-            @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15"  @guest data-toggle="modal" data-target="#enter_site" @endguest>
-              <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-            </svg>
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
@@ -173,9 +169,6 @@
           @forelse ($topProducts as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
             <div class="card rounded shadow border-0 h-100 w-100">
-              <svg class="position-absolute favorite" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" @guest data-toggle="modal" data-target="#enter_site" @endguest>
-                <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-              </svg>
               <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
               <div class="container">
                 <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
@@ -205,7 +198,7 @@
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center">
-          <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded" width="80">
+          <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
         </div>

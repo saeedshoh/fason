@@ -23,6 +23,11 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function attributes()
+    {
+        return $this->belongsToMany('App\Models\Attribute', 'category_attributes');
+    }
+
     public function grandchildren() {
         return $this->childrens()->with('childrens');
     }

@@ -26,7 +26,7 @@
                         <div class="col-auto">
 
                         <!-- Buttons -->
-                        <a href="{{ route('categories.index')}}" class="btn btn-primary ml-2">
+                        <a href="{{ route('products.index')}}" class="btn btn-primary ml-2">
                             Все товары
                         </a>
 

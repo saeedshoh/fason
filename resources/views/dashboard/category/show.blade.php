@@ -48,6 +48,14 @@
                         <p class="text-body text-focus mb-1 name">
                             <span class="font-weight-bold">Название:</span> {{ $category->name }}
                         </p>
+                        <p class="text-body text-focus mb-1 name">
+                            <span class="font-weight-bold">Аттрибуты:</span>
+                            @forelse ($category->attributes as $attribute)
+                                <span>{{ $attribute->name }},</span>
+                            @empty
+                                <span>Пусто</span>
+                            @endforelse
+                        </p>
                         <!-- Time -->
                         <p class="small text-muted mt-3 mb-0">
                             <span class="fe fe-clock"></span>  <span class="font-weight-bold">Дата создание:</span>  <time datetime="{{ $category->created_at }}">{{ $category->created_at }}</time>

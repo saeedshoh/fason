@@ -5,7 +5,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     // window.Dropzone = require('dropzone');
-    // window.List = require('list.js');
+    window.List = require('list.js');
     // window.Quill = require('quill');
     // window.chart = require('chart.js');
     require('bootstrap');
