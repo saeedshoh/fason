@@ -15,16 +15,8 @@ class UserController extends Controller
      */
     public function contacts(Request $request)
     {
-        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
-        User::updateOrCreate(
-            ['phone' => $request->phone],
-            [
-                'name' =>  $request->name,
-                'address' =>  $request->address,
-                'city_id' =>  $request->city_id,
-                'profile_photo_path' =>  $image
-            ]
-        );
+        $image = null;
+
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month, 0777, true);
@@ -32,6 +24,16 @@ class UserController extends Controller
         if($request->file('profile_photo_path')) {
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         }
+
+        User::updateOrCreate(
+            ['phone' => $request->phone],
+            [
+                'name' =>  $request->name,
+                'address' =>  $request->address,
+                'city_id' =>  $request->city_id,
+                'profile_photo_path' =>  $image ? $image : null
+            ]
+        );
 
         return redirect()->route('home');
     }

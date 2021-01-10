@@ -145,7 +145,7 @@
                         </div>
                     </div>
                             @else
-                                @forelse ($cat_parent as $cat)
+                                @forelse ($allCategories->where('parent_id', 0) as $cat)
                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                 @empty
                                     Извините ничего не найдено
@@ -162,7 +162,7 @@
                         <div class="form-group ">
                             <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                             <div class="input_placeholder_style">
-                            <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                            <select class="form-control @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
                                 <option disabled>Выберите категорию</option>
                             </select>
                             @error('category_id')
