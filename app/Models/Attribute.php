@@ -6,16 +6,18 @@ use Spatie\Sluggable\HasSlug;
 use App\Models\AttributeValue;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Attribute extends Model
 {
-    use HasFactory;
     use HasSlug;
-    use SoftDeletes;
 
     protected $fillable = [ 'name', 'is_active'];
+
+
+    public function child()
+    {
+        return $this->hasMany(AttributeValue::class);
+    }
 
     public function getSlugOptions(): SlugOptions
     {

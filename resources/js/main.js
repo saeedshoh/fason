@@ -1,16 +1,44 @@
 $(document).ready(function () {
     $('.sms--false').hide();
+
+});
+
+$(document).ready(function(){
+
+    $(window).scroll(fetchPosts);
+
+    function fetchPosts() {
+
+        var page = $('.endless-pagination').data('next-page');
+        console.log(page);
+        if(page !== null && page !== '') {
+
+            clearTimeout( $.data( this, "scrollCheck" ) );
+
+            $.data( this, "scrollCheck", setTimeout(function() {
+                var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
+
+                if(scroll_position_for_posts_load >= $(document).height()) {
+                    $.get(page, function(data){
+                        $('.endless-pagination').append(data.posts);
+                        $('.endless-pagination').data('next-page', data.next_page);
+                    });
+                }
+            }, 350))
+
+        }
+    }
     $('.markets').slick({
         dots: true,
         infinite: false,
         speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 6,
+        slidesToScroll: 6,
         responsive: [{
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                     infinite: true,
                     dots: true
                 }
@@ -18,15 +46,15 @@ $(document).ready(function () {
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             }
             // You can unslick at a given breakpoint now by adding:
@@ -242,7 +270,6 @@ $('.main-search').on('keyup keypress keydown change', function () {
 // orders add
 $('.checkout-product').on('click', function () {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
-    // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
     let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -10,10 +11,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageInv;
+use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
-use App\Http\Controllers\AttributeValueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,21 +27,27 @@ use App\Http\Controllers\AttributeValueController;
 |
 */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
+Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::post('products/store', [ProductController::class, 'ft_store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
+    Route::get('attribute/{id}/value', [AttributeValueController::class, 'index'])->name('attr_val.index');
+    Route::get('attribute/{id}/value/create',[ AttributeValueController::class, 'create'])->name('attr_val.create');
+    Route::post('attribute/{id}/value/store',[ AttributeValueController::class, 'store'])->name('attr_val.store');
+    Route::get('attribute/{id}/value/{val_id}/edit', [AttributeValueController::class, 'edit'])->name('attr_val.edit');
+    Route::put('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'update'])->name('attr_val.update');
+    Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
         'categories' => CategoryController::class,
-        // 'products' => ProductController::class,
         'attributes' => AttributeController::class,
         'stores' => StoreController::class,
         'banners' => BannersController::class,
+        'monetizations' => MonetizationController::class,
     ]);
 });
 
@@ -62,7 +69,6 @@ Route::resources([
 Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
 Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
 Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
-// Route::get('editProduct/{id}/{category_id}', [ProductController::class, 'editProduct'])->name('editProduct');
 Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
 
 Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
@@ -70,7 +76,8 @@ Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.sho
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
 Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
 Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
-Route::get('store/{store}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+Route::get('store/{slug}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
 Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');

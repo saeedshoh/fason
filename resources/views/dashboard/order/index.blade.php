@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -20,40 +20,8 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все заказы
+                  Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
                 </h1>
-
-              </div>
-              <div class="col-auto">
-
-                <!-- Button -->
-                <a href="#" class="btn btn-primary lift">
-                  Добавить заказ
-                </a>
-
-              </div>
-            </div> <!-- / .row -->
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Nav -->
-                <ul class="nav nav-tabs nav-overflow header-tabs">
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link active">
-                      Все заказы <span class="badge badge-pill badge-soft-secondary">823</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link">
-                      Активные <span class="badge badge-pill badge-soft-secondary"></span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary"></span>
-                    </a>
-                  </li>
-                </ul>
 
               </div>
             </div>
@@ -61,7 +29,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["orders-order", "orders-product", "orders-date", "orders-total", "orders-status", "orders-method"]}'>
+        <div class="card" data-list='{"valueNames": ["orders-order", "orders-client", "orders-client-info", "orders-product", "orders-date", "orders-total", "orders-margin", "orders-status", "orders-store", "orders-store-info"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -72,21 +40,9 @@
                     <i class="fe fe-search"></i>
                   </span>
                 </div>
-                <input class="form-control list-search" type="search" placeholder="Search">
+                <input class="form-control list-search" type="search" placeholder="Поиск">
               </div>
             </form>
-
-            <!-- Dropdown -->
-            <div class="dropdown">
-              <button class="btn btn-sm btn-white dropdown-toggle" type="button" id="bulkActionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Bulk action
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bulkActionDropdown">
-                <a class="dropdown-item" href="#!">Action</a>
-                <a class="dropdown-item" href="#!">Another action</a>
-                <a class="dropdown-item" href="#!">Something else here</a>
-              </div>
-            </div>
 
           </div>
           <div class="table-responsive">
@@ -94,111 +50,102 @@
               <thead>
                 <tr>
                   <th>
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox table-checkbox">
-                      <input type="checkbox" class="list-checkbox-all custom-control-input" name="ordersSelect" id="ordersSelectAll">
-                      <label class="custom-control-label" for="ordersSelectAll">&nbsp;</label>
-                    </div>
-
-                  </th>
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-order">
-                      Заказ
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-order">
+                        №
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-product">
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client">
+                      Клиент
+                    </a>
+                  </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client-info">
+                      Контакты клиента
+                    </a>
+                  </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-product">
                       Товар
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-date">
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store">
+                      Магазин
+                    </a>
+                  </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store-info">
+                      Контакты магазина
+                    </a>
+                  </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-date">
                       Дата заказа
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-total">
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-total">
                       Цена
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-status">
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-margin">
+                      Маржа
+                    </a>
+                  </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-status">
                       Статус
                     </a>
                   </th>
-                  <th colspan="2">
-                    <a href="#" class="text-muted list-sort" data-sort="orders-method">
-                      Способ
-                    </a>
-                  </th>
+
                 </tr>
               </thead>
               <tbody class="list">
                 @forelse ($orders as $key => $order)
-                
-                <tr>
-                  <td>
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox table-checkbox">
-                      <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
-                      <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
-                    </div>
-
-                  </td>
+                <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @else()success @endif">
                   <td class="orders-order">
                     #{{ ++$key}}
+                  </td>
+                  <td class="orders-client">
+                    {{ $order->user->name}}
+                  </td>
+                  <td class="orders-client-info">
+                    {{ 'Тел: '.$order->user->phone.', Адрес:'.$order->user->address}}
                   </td>
                   <td class="orders-product">
                     {{ $order->product->name}}
                   </td>
+                  <td class="orders-store">
+                    {{ $order->product->store->name}}
+                  </td>
+                  <td class="orders-store-info">
+                    {{ 'Тел: '.$order->product->store->user->phone.', Адрес: '.$order->product->store->address}}
+                  </td>
                   <td class="orders-date">
-
                     <!-- Time -->
                     <time datetime="{{ $order->created_at->format('d/m/Y') }}">{{ $order->created_at->format('d-m-Y') }}</time>
-
                   </td>
                   <td class="orders-total">
                     {{ $order->total}} Сомони
                   </td>
+                  <td class="orders-margin">
+                    {{ $order->margin}} Сомони
+                  </td>
                   <td class="orders-status">
-
                     <!-- Badge -->
-                    <div class="badge badge-soft-warning">
+                    <div class="badge badge-primary">
                       {{ $order->order_status->name }}
                     </div>
-
-                  </td>
-                  <td class="orders-method">
-                    {{ $order->product->store->name}}
-                  </td>
-                  <td class="text-right">
-
-                    <!-- Dropdown -->
-                    <div class="dropdown">
-                      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fe fe-more-vertical"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item">
-                          Action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
-                        </a>
-                      </div>
-                    </div>
-
                   </td>
                 </tr>
                 @empty
-                    
+                    <tr>
+                        <td class="text-muted h4" colspan="12">Список заказов пуст</td>
+                    </tr>
                 @endforelse
-                
+
               </tbody>
             </table>
           </div>
@@ -213,6 +160,6 @@
         </div>
 
       </div>
-    </div> <!-- / .row -->
+    </div>
   </div>
 @endsection

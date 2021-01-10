@@ -10,17 +10,5 @@ class AttributeValue extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 
-        'name', 
-        'value',
-        'attribute_id',
-    ];
-
-    /**
-     * Get the attribute of the attribute value.
-     */
-    public function attribute()
-    {
-		return $this->belongsTo(Attribute::class);
-    }
+    protected $fillable = [ 'name', 'value', 'attribute_id'];
 }

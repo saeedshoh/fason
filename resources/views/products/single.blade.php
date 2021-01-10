@@ -34,18 +34,6 @@
                         <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item" alt="{{ $product->name }}">
                     </div>
                 @endfor
-              {{--  <div class="col-3 text-center">
-                <img src="img/boot-1.png" data-image-src="img/boot-1.png" class="mw-100 pic-item" alt="">
-              </div>
-              <div class="col-3 text-center">
-                <img src="img/boot-2.png" data-image-src="img/boot-2.png" class="mw-100 pic-item" alt="">
-              </div>
-              <div class="col-3 text-center">
-                <img src="img/boot-3.png" data-image-src="img/boot-3.png" class="mw-100 pic-item" alt="">
-              </div>
-              <div class="col-3 text-center">
-                <img src="img/boot-4.png" data-image-src="img/boot-4.png" class="mw-100 pic-item" alt="">
-              </div>  --}}
             </div>
           </div>
           <!--desktop slider end-->
@@ -92,15 +80,11 @@
               <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-danger text-decoration-none">{{ $product->category->name }}</a>
               <h3 class="mt-2 mb-4 font-weight-bold">{{ $product->name }}</h3>
             </div>
-            <p class="font-weight-bold d-none d-lg-block">
-              <span class="text-dark">Магазин:</span>
-              <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-danger text-decoration-none">{{ $product->store->name }}</a>
-            </p>
           </div>
           <div class="row align-items-center mt-3 prod-controls">
             <div class="col-4">
               <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price }}</span> <span class="mb-currency">Сомони</span></h5>
+                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
             <div class="col-4 my-md-0 my-3 text-center">
@@ -119,7 +103,6 @@
 
                 @if(Auth::check())
                   @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
-                    {{--  <a href="{{ route('editProduct', ['id' => $product->id, 'category_id' => $product->category_id]) }}" class="btn btn-danger custom-radius">Изменить</a>  --}}
                     <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
@@ -158,7 +141,7 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                               <div class="title mb-3">Цена:</div>
-                              <span class="text-secondary text-semi-bold price-start">{{ $product->price }} </span>Сомони
+                              <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
@@ -169,15 +152,13 @@
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
                                 <div class="title mb-3">Сумма:</div>
-                                <div class="text-semi-bold"><span class="total-price">{{ $product->price }}</span> сомони</div>
+                                <div class="text-semi-bold"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
                               </div>
                             </div>
                           </div>
                           <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
-                            {{-- <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::check() ? Auth::user()->address : '' }}" disabled="true"> --}}
-                            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ isset($store->address) }}" disabled="true">
-                            {{-- <span class="font-weight-bold checkout-address">{{ isset($store->address) }}</span> --}}
+                            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
                           </div>
                         </div>
                       </div>
@@ -208,7 +189,7 @@
                         <div class="text-secondary">Ваш заказ приянт, в ближайшее время Вам позвонят наши операторы!</div>
                         <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
                         <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-                        <div class="text-secondary">Номер вашего закза <span class="order-number"></span></div>
+                        <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div>
                       </div>
                     </div>
                     <div class="modal-footer border-0">
@@ -260,17 +241,11 @@
         @forelse ($similars as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0">
-            <svg class="position-absolute favorite @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15"
-              @guest
-                data-toggle="modal" data-target="#enter_site"
-              @endguest>
-              <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-            </svg>
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price }} сомони</span>
+                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>

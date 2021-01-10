@@ -51,8 +51,7 @@ class ProductController extends Controller
     public function single($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        $similars = Product::where('store_id', $product->store_id)->get();
-        // return Auth::user()->store->id;
+        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->get();
         return view('products.single', compact('product', 'similars'));
     }
 

@@ -95,6 +95,28 @@
 
 $(document).ready(function () {
   $('.sms--false').hide();
+});
+$(document).ready(function () {
+  $(window).scroll(fetchPosts);
+
+  function fetchPosts() {
+    var page = $('.endless-pagination').data('next-page');
+
+    if (page !== null) {
+      clearTimeout($.data(this, "scrollCheck"));
+      $.data(this, "scrollCheck", setTimeout(function () {
+        var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 1000;
+
+        if (scroll_position_for_posts_load >= $(document).height()) {
+          $.get(page, function (data) {
+            $('.endless-pagination').append(data.posts);
+            $('.endless-pagination').data('next-page', data.next_page);
+          });
+        }
+      }, 350));
+    }
+  }
+
   $('.markets').slick({
     dots: true,
     infinite: false,

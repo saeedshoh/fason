@@ -24,6 +24,7 @@ class BannersRequest extends FormRequest
     public function rules()
     {
         return [
+            'url' => '',
             'type' => 'required',
             'position' => 'required',
         ];

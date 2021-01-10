@@ -19,7 +19,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('address');
             $table->integer('quantity');
-            $table->integer('total');
+            $table->float('total');
+            $table->float('margin');
             $table->foreignId('order_status_id')->constrained()->default(1);
             $table->timestamps();
         });

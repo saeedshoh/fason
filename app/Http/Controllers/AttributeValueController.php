@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribute;
-use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use Illuminate\Http\Request;
 
 class AttributeValueController extends Controller
 {
@@ -13,9 +13,11 @@ class AttributeValueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $parent = Attribute::find($id);
+        $attributes = AttributeValue::where('attribute_id', $id)->paginate(10);
+        return view('dashboard.attributes.value.index', compact('attributes', 'parent'));
     }
 
     /**
@@ -23,9 +25,10 @@ class AttributeValueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $parent = Attribute::find($id);
+        return view('dashboard.attributes.value.create', compact('parent'));
     }
 
     /**
@@ -37,7 +40,7 @@ class AttributeValueController extends Controller
     public function store(Request $request)
     {
         AttributeValue::create($request->all());
-        return redirect(route('attributes.index'))->with('success', 'Значения аттрибута успешно добавлена!');
+        return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with('success', 'Значение для аттрибута успешно добавлена!');
     }
 
     /**
@@ -57,10 +60,11 @@ class AttributeValueController extends Controller
      * @param  \App\Models\AttributeValue  $attributeValue
      * @return \Illuminate\Http\Response
      */
-    public function edit(AttributeValue $attributeValue)
+    public function edit(AttributeValue $attributeValue, $id, $val_id)
     {
-        $attributes = Attribute::get();
-        return view('dashboard.attributes.edit', compact('attributeValue', 'attributes'));
+        $parent = Attribute::find($id);
+        $attribute = $attributeValue->find($val_id);
+        return view('dashboard.attributes.value.edit', compact('parent', 'attribute', 'attributeValue'));
     }
 
     /**
@@ -70,10 +74,11 @@ class AttributeValueController extends Controller
      * @param  \App\Models\AttributeValue  $attributeValue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AttributeValue $attributeValue)
+    public function update(Request $request, AttributeValue $attributeValue, $id, $val_id)
     {
-        $attributeValue->update($request->all());
-        return redirect(route('attributes.index'))->with('success', 'Значение аттрибута успешно изменена!');
+        $attributeValue->find($val_id)->update($request->all());
+        return redirect(route('attr_val.index', ['id' => $id]))->with('success', 'Значение для аттрибута успешно добавлена!');
+
     }
 
     /**
@@ -82,8 +87,9 @@ class AttributeValueController extends Controller
      * @param  \App\Models\AttributeValue  $attributeValue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AttributeValue $attributeValue)
+    public function destroy(AttributeValue $attributeValue, $id, $val_id)
     {
-        //
+        $attributeValue->find($val_id)->delete();
+        return redirect()->back()->with('success', 'Аттрибут успешно удалена!');
     }
 }

@@ -40,17 +40,7 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap active">
-                      Все аттрибуты <span class="badge badge-pill badge-soft-secondary">823</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Активные <span class="badge badge-pill badge-soft-secondary">231</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary">22</span>
+                      Все аттрибуты <span class="badge badge-pill badge-soft-secondary"> {{ $attributes->count() }}</span>
                     </a>
                   </li>
                 </ul>
@@ -118,7 +108,7 @@
 
                       </td>
                       <td>
-                        <a class="item-name text-reset" href="profile-posts.html">{{ $item->name }}</a>
+                        <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
                       </td>
                       
 
@@ -131,9 +121,6 @@
                         </form>
                         <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
-                        </a>
-                        <a href="{{ route('attributes.show', $item) }}" class="btn btn-warning m-1 fa-pull-right">
-                            <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                       @foreach ($item->attribute_values as $att)
