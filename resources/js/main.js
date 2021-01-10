@@ -8,9 +8,8 @@ $(document).ready(function(){
     $(window).scroll(fetchPosts);
 
     function fetchPosts() {
-
+        var url = $(location).attr("href")
         var page = $('.endless-pagination').data('next-page');
-        console.log(page);
         if(page !== null && page !== '') {
 
             clearTimeout( $.data( this, "scrollCheck" ) );
@@ -19,10 +18,19 @@ $(document).ready(function(){
                 var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
                 if(scroll_position_for_posts_load >= $(document).height()) {
-                    $.get(page, function(data){
-                        $('.endless-pagination').append(data.posts);
-                        $('.endless-pagination').data('next-page', data.next_page);
-                    });
+                    if (url.indexOf('sort=') !== -1) {
+                        const sort = url.split('?')[1]
+                        $.get(page + '&' + sort, function(data){
+                            $('.endless-pagination').append(data.posts);
+                            $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
+                        });
+                    }
+                    else{
+                        $.get(page, function(data){
+                            $('.endless-pagination').append(data.posts);
+                            $('.endless-pagination').data('next-page', data.next_page);
+                        });
+                    }
                 }
             }, 350))
 
@@ -85,7 +93,7 @@ $(document).ready(function(){
     })
 
     var url = $(location).attr("href")
-    if (url.indexOf('filter?') !== -1) {
+    if (url.indexOf('sort=') !== -1) {
         const sort = url.split('sort=')[1].split('&')[0]
         const city = url.split('city=')[1].split('&')[0]
         if (url.indexOf('priceFrom')) {
@@ -102,18 +110,20 @@ $(document).ready(function(){
 })
 
 $('body').on('click', '#filter', function () {
+    const cat_id = $(this).data('cat-id')
+    const cat_slug = $(this).data('cat-slug')
     let sort = $("input[name='sort']:checked").data('sort')
     let city = $("input[name='city']:checked").data('city')
     let priceFrom = $('#priceFrom').val()
     let priceTo = $('#priceTo').val()
     if (priceFrom.length > 0 && priceTo.length == 0) {
-        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
     } else if (priceTo.length > 0 && priceFrom.length == 0) {
-        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
     } else if (priceFrom.length > 0 && priceTo.length > 0) {
-        window.location.href = '/filter?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
     } else {
-        window.location.href = '/filter?sort=' + sort + '&city=' + city
+        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
     }
 })
 
@@ -141,7 +151,7 @@ $('body').on('click', '.category', function () {
                     dataType: 'json',
                     success: function (data) {
                         _this.parent().find('.spinner-grow').remove()
-                        _this.parent().append(`${data}`)
+                        _this.parent().find('.cat_spinner').append(`${data}`)
                     }
                 })
             })
@@ -155,23 +165,24 @@ $('body').on('click', '#prevCategory', function () {
 })
 
 $('body').on('click', '.subcategory', function () {
-    let category = $(this).data('id')
-    $('#catProducts').empty().append(`
-        <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    `)
-    $.ajax({
-        url: '/categoryProducts',
-        data: {
-            category: category
-        },
-        method: "GET",
-        dataType: 'html',
-        success: function (data) {
-            $('#catProducts').empty().append(data)
-        }
-    })
+    let category = $(this).data('slug')
+    window.location.href = '/category/' + category
+    // $('#catProducts').empty().append(`
+    //     <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
+    //         <span class="sr-only">Loading...</span>
+    //     </div>
+    // `)
+    // $.ajax({
+    //     url: '/categoryProducts',
+    //     data: {
+    //         category: category
+    //     },
+    //     method: "GET",
+    //     dataType: 'html',
+    //     success: function (data) {
+    //         $('#catProducts').empty().append(data)
+    //     }
+    // })
 
 })
 

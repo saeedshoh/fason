@@ -146,7 +146,7 @@
                                 @forelse ($allCategories->where('parent_id', 0) as $cat)
 
                                 <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                                
+
                                 @empty
                                     Извините ничего не найдено
                                 @endforelse

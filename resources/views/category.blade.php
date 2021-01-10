@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('name')
 @section('title')
-    {{ $name }}
+    {{ $name->name }}
 @endsection
 @extends('layouts.header')
 @extends('layouts.footer')
@@ -22,13 +22,20 @@
             <ul class="shop-subject list-group list-group-flush h-100">
               @forelse ($categories as $category)
               <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
-                <a data-id="{{ $category->id }}" href="#" class="text-decoration-none subcategory text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+                <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="#" class="text-decoration-none subcategory text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
                 <div class="spinner-grow text-center text-danger float-right" role="status"></div>
               </li>
               @empty
-                <li class="list-group-item"> Извините ничего не найдено</li>
+                @if ($parent_cat)
+                    @foreach ($parent_cat as $category)
+                        <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
+                            <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="#" class="text-decoration-none subcategory text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>
+                            <div class="spinner-grow text-center text-danger float-right" role="status"></div>
+                        </li>
+                    @endforeach
+                @endif
               @endforelse
-                
+
 
 
 
@@ -59,23 +66,23 @@
                     <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
                   </div>
                   <br>
-                  <h5 class="captions-of__modal mt-5">Цена</h5>  
+                  <h5 class="captions-of__modal mt-5">Цена</h5>
                   <div class="form-row">
                     <div class="form-group col-6">
                       <label for="from-price">от</label>
-                      <input type="number" placeholder="0" class="form-control" id="from-price">
+                      <input type="number" placeholder="0" class="form-control" id="priceFrom">
                     </div>
                     <div class="form-group col-6">
                       <label for="untill-price">до</label>
-                      <input type="number" placeholder="99999" class="form-control" id="untill-price">
+                      <input type="number" placeholder="99999" class="form-control" id="priceTo">
                     </div>
                   </div>
-                  
-                  <button type="button" id="filter" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 mb-5 w-100">
+
+                  <button type="button" data-cat-slug="{{ $name->slug }}" data-cat-id="{{ $cat_id }}" id="filter" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 mb-5 w-100">
                       <i class="fas fa-search" aria-hidden="true"></i> Фильтр
                   </button>
                 </div>
-                
+
 
 
               </div>

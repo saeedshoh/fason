@@ -7,6 +7,7 @@ use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,7 +30,7 @@ class CategoryController extends Controller
     public function category(Request $request, $slug)
     {
         $cat_id =  Category::where('slug', $slug)->first()->id;
-        $name = Category::where('slug', $slug)->first()->name;
+        $name = Category::where('slug', $slug)->first();
         $categories = Category::where('parent_id', $cat_id)->get();
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
             ->value('id'))
@@ -42,15 +43,41 @@ class CategoryController extends Controller
                 array_push($categoryIds, $child->id);
             }
         }
-        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->paginate(9);
+        $parent_cat = Category::where('parent_id', $name->parent_id)->get();
+
+        $productss = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2);
         $sliders = $this->banners->where('type', 1);
+
+        if($request->sort == 'new'){
+            $productss->orderByDesc('id');
+        }
+        elseif($request->sort == 'cheap'){
+            $productss->orderBy('price');
+        }
+        elseif($request->sort == 'expensive'){
+            $productss->orderByDesc('price');
+        }
+        if($request->priceFrom){
+            $productss->where('price', '>=', $request->priceFrom);
+        }
+        if($request->priceTo){
+            $productss->where('price', '<=', $request->priceTo);
+        }
+        if($request->city){
+            $store = Store::where('city_id', $request->city)->get();
+            $productss->whereIn('store_id', $store->pluck('id'));
+        }
+        // return $productss;
+        $products = $productss->paginate(9);
+
         if($request->ajax()) {
+
             return [
                 'posts' => view('ajax.category', compact('products'))->render(),
                 'next_page' => $products->nextPageUrl()
             ];
         }
-        return view('category', compact('categories', 'products', 'sliders', 'name'));
+        return view('category', compact('categories', 'products', 'sliders', 'name', 'cat_id', 'parent_cat'));
     }
 
     public function subcategories(Request $request)
