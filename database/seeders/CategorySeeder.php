@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
         Category::create([
             'name' => 'Другое',
             'slug' => 'drugoe',
-            'icon' => 'img/2020/11/rMtrTPdv9thzYXoZ69SJISUATJTO4f67EWc0iJti.svg',
+            'icon' => '2020/12/5fd47be2396d0480x480.jpg',
             'is_active' => '1',
             'parent_id' => '0',
         ]);

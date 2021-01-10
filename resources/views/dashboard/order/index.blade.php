@@ -29,7 +29,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["orders-order", "orders-client", "orders-client-info", "orders-product", "orders-date", "orders-total", "orders-status", "orders-store", "orders-store-info"]}'>
+        <div class="card" data-list='{"valueNames": ["orders-order", "orders-client", "orders-client-info", "orders-product", "orders-date", "orders-total", "orders-margin", "orders-status", "orders-store", "orders-store-info"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -90,6 +90,11 @@
                     </a>
                   </th>
                   <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-margin">
+                      Маржа
+                    </a>
+                  </th>
+                  <th>
                     <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-status">
                       Статус
                     </a>
@@ -125,6 +130,9 @@
                   <td class="orders-total">
                     {{ $order->total}} Сомони
                   </td>
+                  <td class="orders-margin">
+                    {{ $order->margin}} Сомони
+                  </td>
                   <td class="orders-status">
                     <!-- Badge -->
                     <div class="badge badge-primary">
@@ -133,7 +141,9 @@
                   </td>
                 </tr>
                 @empty
-                    <tr>Список заказов пуст</tr>
+                    <tr>
+                        <td class="text-muted h4" colspan="12">Список заказов пуст</td>
+                    </tr>
                 @endforelse
 
               </tbody>

@@ -10,13 +10,13 @@ $(document).ready(function(){
     function fetchPosts() {
 
         var page = $('.endless-pagination').data('next-page');
-
-        if(page !== null) {
+        console.log(page);
+        if(page !== null && page !== '') {
 
             clearTimeout( $.data( this, "scrollCheck" ) );
 
             $.data( this, "scrollCheck", setTimeout(function() {
-                var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 1000;
+                var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
                 if(scroll_position_for_posts_load >= $(document).height()) {
                     $.get(page, function(data){
@@ -270,7 +270,6 @@ $('.main-search').on('keyup keypress keydown change', function () {
 // orders add
 $('.checkout-product').on('click', function () {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
-    // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
     let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');

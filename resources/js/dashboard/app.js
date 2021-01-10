@@ -1,8 +1,8 @@
 require('./bootstrap');
 // require('./components/navbar');
 // require('./components/dropdowns');
-// require('./components/charts');
-// require('./components/Chart.extension');
+require('./components/charts');
+require('./components/Chart.extension');
 // require('./components/highlight');
 // require('./components/tooltip');
 // require('./components/dropzone');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\Monetization;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
@@ -25,6 +26,7 @@ class HomeController extends Controller
         $this->categories = Category::get();
         $this->products = Product::get();
         $this->banners = Banners::latest()->get();
+        $this->monetizations = Monetization::get();
     }
     public function dashboard() {
         return view('dashboard.home');
@@ -36,31 +38,19 @@ class HomeController extends Controller
         $categories = $this->categories->where('parent_id', 0);
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
+        $monetizations = $this->monetizations;
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
             ->groupBy('product_id');
 
-        if($request->ajax()) {
-            $topProducts = Product::where('product_status_id', 2)
-                ->select(DB::raw('products.*, countProd.countProd'))
-                ->leftJoinSub($countProd, 'countProd', function ($join) {
-                    $join->on('products.id', '=', 'countProd.product_id');
-                })->orderByDesc('countProd')->paginate(20);
-            $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(1);
-            return [
-                'posts' => view('ajax.home', compact('newProducts'))->render(),
-                'next_page' => $newProducts->nextPageUrl()
-            ];
-        } else {
-            $topProducts = Product::where('product_status_id', 2)
-                ->select(DB::raw('products.*, countProd.countProd'))
-                ->leftJoinSub($countProd, 'countProd', function ($join) {
-                    $join->on('products.id', '=', 'countProd.product_id');
-                })->orderByDesc('countProd')->paginate(20);
-            $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(1);
+        $topProducts = Product::where('product_status_id', 2)
+            ->select(DB::raw('products.*, countProd.countProd'))
+            ->leftJoinSub($countProd, 'countProd', function ($join) {
+                $join->on('products.id', '=', 'countProd.product_id');
+            })->orderByDesc('countProd')->paginate(15);
+        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(15);
 
-            return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts'));
-        }
+        return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts', 'monetizations'));
     }
 
     public function filter(Request $request)
