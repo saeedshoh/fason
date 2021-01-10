@@ -27,7 +27,7 @@ use App\Http\Controllers\SmsConfirmedController;
 |
 */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
+Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
