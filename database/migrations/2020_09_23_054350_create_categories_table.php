@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->foreignId('parent_id');
             $table->softDeletes();

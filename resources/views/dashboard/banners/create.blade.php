@@ -102,6 +102,17 @@
                                         @enderror
                                       </div>
                                 </div>
+                                <div class="col-12 col-md-12 mb-3">
+                                    <label for="url">Ссылка на баннер</label>
+                                    <input value="{{old('icon')}}" type="text" name="url" id="url" class="form-control @error('url') is-invalid @enderror"  required>
+
+                                    @error('url')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                
                             </div>
                             <!-- Button -->
                             <button class="btn btn-primary mt-4" type="submit">Добавить</button>

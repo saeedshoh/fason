@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -26,13 +27,19 @@ use App\Http\Controllers\SmsConfirmedController;
 |
 */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard',], function () {
+Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::post('products/store', [ProductController::class, 'ft_store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
+    Route::get('attribute/{id}/value', [AttributeValueController::class, 'index'])->name('attr_val.index');
+    Route::get('attribute/{id}/value/create',[ AttributeValueController::class, 'create'])->name('attr_val.create');
+    Route::post('attribute/{id}/value/store',[ AttributeValueController::class, 'store'])->name('attr_val.store');
+    Route::get('attribute/{id}/value/{val_id}/edit', [AttributeValueController::class, 'edit'])->name('attr_val.edit');
+    Route::put('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'update'])->name('attr_val.update');
+    Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

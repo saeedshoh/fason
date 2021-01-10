@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,13 +32,13 @@ class CategoryController extends Controller
         $name = Category::where('slug', $slug)->first()->name;
         $categories = Category::where('parent_id', $cat_id)->get();
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
-                ->value('id'))
-                ->pluck('id')
-                ->push($parentId)
-                ->all();
+            ->value('id'))
+            ->pluck('id')
+            ->push($parentId)
+            ->all();
         $has = Category::with('grandchildren')->find($cat_id);
-        if(isset($has->grandchildren[0])){
-            foreach($has->grandchildren[0]->childrens as $child){
+        if (isset($has->grandchildren[0])) {
+            foreach ($has->grandchildren[0]->childrens as $child) {
                 array_push($categoryIds, $child->id);
             }
         }
@@ -68,14 +69,13 @@ class CategoryController extends Controller
     public function countProducts(Request $request)
     {
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
-                ->value('id'))
-                ->pluck('id')
-                ->push($parentId)
-                ->all();
+            ->value('id'))
+            ->pluck('id')
+            ->push($parentId)
+            ->all();
         $has = Category::with('grandchildren')->find($request->category);
-        if(isset($has->grandchildren[0])){
-            foreach($has->grandchildren[0]->childrens as $child)
-            {
+        if (isset($has->grandchildren[0])) {
+            foreach ($has->grandchildren[0]->childrens as $child) {
                 array_push($categoryIds, $child->id);
             }
         }
@@ -97,8 +97,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_id', 0)->get();
-        return view('dashboard.category.create', compact('categories'));
+        $categories = Category::get();
+        $attributes = Attribute::get();
+        return view('dashboard.category.create', compact('categories', 'attributes'));
     }
 
     /**
@@ -107,14 +108,20 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
-        $request->validate([
-			'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-		]);
+        if ($request->icon) {
 
-		$icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
-		Category::create($request->validated() + ['icon' => $icon]);
+            $request->validate([
+                'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+            $icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $category = Category::create($request->all() + ['icon' => $icon]);
+        } else {
+            $category = Category::create($request->all());
+        }
+        $category->attributes()->attach($request->attribute);
+
         return redirect()->route('categories.index')->with('success', 'Категория успешно добавлена!');
     }
 
@@ -137,8 +144,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $attributes = Attribute::get();
         $categories = Category::where('parent_id', 0)->get();
-        return view('dashboard.category.edit', compact('categories', 'category'));
+        return view('dashboard.category.edit', compact('categories', 'category', 'attributes'));
     }
 
     /**
@@ -155,14 +163,16 @@ class CategoryController extends Controller
                 'icon' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048'
             ]);
             if ($request->icon != $category->image) {
-                if(Storage::exists($category->icon))
-                Storage::delete($category->icon);
+                if (Storage::exists($category->icon))
+                    Storage::delete($category->icon);
                 $icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
             }
             $category->update([
                 'icon' => $icon,
             ]);
         }
+        $category->attributes()->detach();
+        $category->attributes()->attach($request->attribute);
         $category->update($request->validated());
         return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
     }
@@ -190,17 +200,15 @@ class CategoryController extends Controller
         $id = Category::where('id', $request->category)->first();
         // return $id;
         // $hasParent = Category::where('id', $request->category)->first();
-        if($id->parent_id != 0){
+        if ($id->parent_id != 0) {
             $parent = Category::where('id', $id->parent_id)->first();
-            if($parent->parent_id){
+            if ($parent->parent_id) {
                 $grandParent = Category::where('id', $parent->parent_id)->first();
                 return $grandParent;
             }
             return 'parent';
-        }
-        else{
+        } else {
             return 'ndora';
         }
     }
-
 }

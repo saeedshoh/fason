@@ -17,7 +17,7 @@
             </button>
           </div>
         </div>
-        <div class="col-md-8 col-lg-6 d-none d-md-flex">
+        <div class="col-md-8 col-lg-6 d-none d-md-flex px-0 justify-content-between">
           @if ($is_store == null)
 
             @auth
@@ -111,7 +111,7 @@
 
               @endforelse
             </ol>
-            <div class="carousel-inner h-100 rounded">
+            <div class="carousel-inner h-100 rounded-11">
               @forelse ($sliders as $slider)
                 <div class="carousel-item {{ $slider->position == 1 ? 'active' : ''}} h-100">
                   <img src="{{ Storage::url($slider->image) }}" class="d-block w-100 mw-100 h-100" alt="...">
@@ -193,14 +193,16 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-lg-block mt-4">
-        <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        <a href="{{ $middle_banner->url }}">
+          <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
+        </a>
       </div>
       <!--Banner end-->
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center">
-          <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded" width="80">
+            <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
         </div>

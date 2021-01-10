@@ -53,7 +53,7 @@
                             @csrf
                             @method('POST')
                             <div class="form-row">
-                                <div class="col-12 col-md-12 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <label for="name">Название</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') }}" required="">
                                     @error('name')
@@ -62,7 +62,7 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="col-12 col-md-12 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Родительская категории</label>
                                     <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
                                         <option value="0" selected>Родительская</option>
@@ -77,6 +77,23 @@
                                     @enderror
                                     <small class="text-muted">
                                         * По умолчанию станет родительской
+                                    </small>
+                                </div>
+                                <div class="col-12 col-md-12 mb-3">
+                                    <label for="attribute">Аттрибут для категори</label>
+                                    <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
+                                        <option value="0" selected>Выберите аттрибут</option>
+                                        @foreach($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('attribute')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    <small class="text-muted">
+                                        * Зажмите ctrl или cmd затем выберите
                                     </small>
                                 </div>
                             </div>
@@ -119,6 +136,7 @@
                                     @enderror
                                     <small class="text-muted">Внимание размер: 64px * 64px</small>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
