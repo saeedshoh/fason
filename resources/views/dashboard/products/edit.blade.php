@@ -144,7 +144,9 @@
                     </div>
                             @else
                                 @forelse ($allCategories->where('parent_id', 0) as $cat)
+
                                 <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                
                                 @empty
                                     Извините ничего не найдено
                                 @endforelse
@@ -159,7 +161,9 @@
                     <div class="form-row" id="subCategories">
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+
                             <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+
                                 <option disabled>Выберите категорию</option>
                             </select>
                             @error('category_id')
