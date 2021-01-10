@@ -28,44 +28,62 @@
               @empty
                 <li class="list-group-item"> Извините ничего не найдено</li>
               @endforelse
+                
 
+
+
+                <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
+                  <div class="d-flex justify-content-between align-items-center mt-4">
+                    <h5 class="captions-of__modal ">Сортировать</h5>
+                  </div>
+                  <div class="form-check mt-3">
+                      <input data-sort="new" checked class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
+                      <label class="form-check-label" for="inlineRadio1">Сначала новые</label>
+                  </div>
+                  <div class="form-check mt-3">
+                      <input data-sort="cheap" class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
+                      <label class="form-check-label" for="inlineRadio2">Сначала дешевые</label>
+                  </div>
+                  <div class="form-check mt-3">
+                      <input data-sort="expensive" class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
+                      <label class="form-check-label" for="inlineRadio3">Сначала дорогие</label>
+                  </div>
+
+                  <div class="mt-5"><h5 class="captions-of__modal ">Город</h5></div>
+                  <div class="form-check form-check-inline mt-3">
+                    <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input data-city="2" class="form-check-input city" name="city" type="radio" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
+                  </div>
+                  <br>
+                  <h5 class="captions-of__modal mt-5">Цена</h5>  
+                  <div class="form-row">
+                    <div class="form-group col-6">
+                      <label for="from-price">от</label>
+                      <input type="number" placeholder="0" class="form-control" id="from-price">
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="untill-price">до</label>
+                      <input type="number" placeholder="99999" class="form-control" id="untill-price">
+                    </div>
+                  </div>
+                  
+                  <button type="button" id="filter" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 mb-5 w-100">
+                      <i class="fas fa-search" aria-hidden="true"></i> Фильтр
+                  </button>
+                </div>
+                
+
+
+              </div>
             </div>
-          </div>
           </ul>
 
 
         <div id="catProducts" class="col-12 col-md-8">
-          <div class="col-12 ">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5 class="captions-of__modal ">Сортировать</h5>
-            </div>
-            <div class="form-row">
-              <div class="form-check mt-3">
-                  <input data-sort="new" checked class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
-                  <label class="form-check-label" for="inlineRadio1">Сначала новые</label>
-              </div>
-              <div class="form-check mt-3">
-                  <input data-sort="cheap" class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
-                  <label class="form-check-label" for="inlineRadio2">Сначала дешевые</label>
-              </div>
-              <div class="form-check mt-3">
-                  <input data-sort="expensive" class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
-                  <label class="form-check-label" for="inlineRadio3">Сначала дорогие</label>
-              </div>
-              <h5 class="captions-of__modal mt-5">Цена</h5>
-              <div class="form-group col-md-6">
-                <label for="from-price">от</label>
-                <input id="priceFrom" type="number" placeholder="0" class="form-control" id="from-price">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="untill-price">до</label>
-                <input id="priceTo" type="number" placeholder="99999" class="form-control" id="untill-price">
-              </div>
-            </div>
-            <div class="form-row">
-
-            </div>
-          </div>
           <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 my-2 endless-pagination" data-next-page="{{ $products->nextPageUrl() }}">
 
             @forelse ($products as $product)

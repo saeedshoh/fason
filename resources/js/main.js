@@ -141,9 +141,7 @@ $('body').on('click', '.category', function () {
                     dataType: 'json',
                     success: function (data) {
                         _this.parent().find('.spinner-grow').remove()
-                        _this.parent().append(`
-                            <span class="badge badge-danger badge-pill">${data}</span>
-                        `)
+                        _this.parent().append(`${data}`)
                     }
                 })
             })

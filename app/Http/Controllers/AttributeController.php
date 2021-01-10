@@ -15,7 +15,8 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::paginate(10);
+        $attributes = Attribute::with('attribute_values')->paginate(10);
+        // dd($attributes);
         return view('dashboard.attributes.index', compact('attributes'));
     }
 
@@ -27,7 +28,8 @@ class AttributeController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view('dashboard.attributes.create', compact('categories'));
+        $attributes = Attribute::get();
+        return view('dashboard.attributes.create', compact('categories', 'attributes'));
     }
 
     /**

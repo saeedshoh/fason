@@ -101,11 +101,12 @@ $(document).ready(function () {
 
   function fetchPosts() {
     var page = $('.endless-pagination').data('next-page');
+    console.log(page);
 
-    if (page !== null) {
+    if (page !== null && page !== '') {
       clearTimeout($.data(this, "scrollCheck"));
       $.data(this, "scrollCheck", setTimeout(function () {
-        var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 1000;
+        var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
         if (scroll_position_for_posts_load >= $(document).height()) {
           $.get(page, function (data) {
@@ -121,27 +122,27 @@ $(document).ready(function () {
     dots: true,
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     responsive: [{
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 4,
+        slidesToScroll: 4,
         infinite: true,
         dots: true
       }
     }, {
       breakpoint: 600,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
+        slidesToShow: 3,
+        slidesToScroll: 3
       }
     }, {
       breakpoint: 480,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToShow: 2,
+        slidesToScroll: 2
       }
     } // You can unslick at a given breakpoint now by adding:
     // settings: "unslick"
@@ -232,7 +233,7 @@ $('body').on('click', '.category', function () {
           success: function success(data) {
             _this.parent().find('.spinner-grow').remove();
 
-            _this.parent().append("\n                            <span class=\"badge badge-danger badge-pill\">".concat(data, "</span>\n                        "));
+            _this.parent().append("".concat(data));
           }
         });
       });
@@ -334,8 +335,7 @@ $('.main-search').on('keyup keypress keydown change', function () {
 }); // orders add
 
 $('.checkout-product').on('click', function () {
-  var total_price = $(this).closest('#buyProduct').find('.total-price').text(); // let address = $(this).closest('#buyProduct').find('.checkout-address').text();
-
+  var total_price = $(this).closest('#buyProduct').find('.total-price').text();
   var address = $('#checkout_address').val();
   var quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
   var product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
