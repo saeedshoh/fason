@@ -14,12 +14,12 @@
         
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
-                            Добавление аттрибутов 
+                            Добавление значении для атрибута
                         </h6>
         
                         <!-- Title -->
                         <h1 class="header-title text-truncate">
-                            Добавление
+                            {{ $parent->name }}
                         </h1>
         
                         </div>
@@ -48,21 +48,33 @@
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('attributes.store') }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate>
+                        <form action="{{ route('attr_val.update', ['id' => $parent->id, 'val_id' => $attribute->id]) }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="form-row">
-                                <div class="col-12 col-md-12 mb-3">
-                                    <label for="name">Название</label>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="name">Введите название</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Введите название" name="name" value="{{ old('name') ?? $attribute->name }}" required="">
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="value">Введите значение</label>
+                                    @if( $parent->name == 'Цвет')
+                                        <input type="color" class="form-control" id="value" placeholder="Введите значение" name="value" value="{{ old('value') ?? $attribute->value}}" required="">
+                                    @else
+                                        <input type="text" class="form-control" id="value" placeholder="Введите значение" name="value" value="{{ old('value') ?? $attribute->value }}" required="">
+                                    @endif
 
-                                    <input type="text" class="form-control" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') }}" required="">
                                     <div class="valid-feedback">
                                     Looks good!
                                     </div>
+                                    <input type="hidden" name="attribute_id" value="{{ $parent->id }}">
                                 </div>
                             </div>
                             <!-- Button -->
-                            <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+                            <button class="btn btn-primary mt-2" type="submit">Изменить</button>
 
                         </form>
                         </div>
