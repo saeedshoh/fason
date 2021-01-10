@@ -6,7 +6,7 @@
             <img src="{{ Storage::url($product->image) }}" class="mr-3 rounded" width="64">
             <div class="media-body">
                 <h5 class="mt-0">{{ $product->name }}</h5>
-                <span class="text-danger">{{ $product->price }} Сомони</span>
+                <span class="text-danger">{{ $product->price_after_margin }} Сомони</span>
             </div>
             <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
         </div>
@@ -14,5 +14,5 @@
     @empty
     <li class="list-group-item">Извините ничего не найдено.</li>
     @endforelse
-</ul>   
+</ul>
 @endempty

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
-use App\Models\User;
-use GrahamCampbell\ResultType\Success;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GrahamCampbell\ResultType\Success;
 
 class OrderController extends Controller
 {
@@ -60,7 +61,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $request->total_price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
+            $product = Product::find($request->product_id);
+            $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
             if($order) {
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
@@ -82,7 +84,7 @@ class OrderController extends Controller
                     "txn_id" => $txn_id,
                     "login" => $config['login'],
                 );
-                
+
                 $result = $this->call_api($config['server'], "GET", $params);
                 if ((isset($result['error']) && $result['error'] == 0)) {
                     $response = json_decode($result['msg']);

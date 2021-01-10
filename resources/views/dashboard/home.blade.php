@@ -489,11 +489,6 @@
               Best Selling Products
             </h4>
 
-            <!-- Button -->
-            <a href="#!" class="btn btn-sm btn-white">
-              Export
-            </a>
-
           </div>
           <div class="table-responsive mb-0" data-list='{"valueNames": ["products-product", "products-stock", "products-price", "products-sales"]}' id="productsList">
             <table class="table table-sm table-nowrap table-hover card-table">

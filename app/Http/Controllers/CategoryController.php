@@ -25,7 +25,8 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function category($slug) {
+    public function category(Request $request, $slug)
+    {
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first()->name;
         $categories = Category::where('parent_id', $cat_id)->get();
@@ -36,28 +37,36 @@ class CategoryController extends Controller
                 ->all();
         $has = Category::with('grandchildren')->find($cat_id);
         if(isset($has->grandchildren[0])){
-            foreach($has->grandchildren[0]->childrens as $child)
-            {
+            foreach($has->grandchildren[0]->childrens as $child){
                 array_push($categoryIds, $child->id);
             }
         }
-        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get();
+        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->paginate(9);
         $sliders = $this->banners->where('type', 1);
+        if($request->ajax()) {
+            return [
+                'posts' => view('ajax.category', compact('products'))->render(),
+                'next_page' => $products->nextPageUrl()
+            ];
+        }
         return view('category', compact('categories', 'products', 'sliders', 'name'));
     }
 
-    public function subcategories(Request $request){
+    public function subcategories(Request $request)
+    {
         $name = Category::find($request->category)->name;
         $categories = Category::where('parent_id', $request->category)->get();
         return view('categoryChild', compact('categories', 'name'))->render();
     }
 
-    public function categoryProducts(Request $request){
+    public function categoryProducts(Request $request)
+    {
         $products = Product::where('category_id', $request->category)->where('product_status_id', 2)->get();
         return view('categoryProducts', compact('products'))->render();
     }
 
-    public function countProducts(Request $request){
+    public function countProducts(Request $request)
+    {
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
                 ->value('id'))
                 ->pluck('id')

@@ -6,8 +6,6 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
@@ -48,8 +46,7 @@ class ProductController extends Controller
     public function single($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        $similars = Product::where('store_id', $product->store_id)->get();
-        // return Auth::user()->store->id;
+        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->get();
         return view('products.single', compact('product', 'similars'));
     }
 
