@@ -297,7 +297,7 @@ class ProductController extends Controller
                 }
             }
             $product->update([
-                'gallery' => $galleries,
+                'gallery' => json_encode($galleries),
             ]);
         }
 

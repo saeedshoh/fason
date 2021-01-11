@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
@@ -22,10 +23,10 @@ class UserController extends Controller
             File::makeDirectory($month, 0777, true);
         }
         if($request->file('profile_photo_path')) {
-            $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            $image = $request->file('profile_photo_path')->store('public/'.now()->year . '/' . sprintf("%02d", now()->month));
         }
 
-        User::updateOrCreate(
+        $user = User::updateOrCreate(
             ['phone' => $request->phone],
             [
                 'name' =>  $request->name,
@@ -34,6 +35,8 @@ class UserController extends Controller
                 'profile_photo_path' =>  $image ? $image : null
             ]
         );
+
+        Auth::loginUsingId($user->id);
 
         return redirect()->route('home');
     }
