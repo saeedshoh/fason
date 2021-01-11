@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRequest;
-use App\Models\City;
-use App\Models\Log;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\Store;
 use Carbon\Carbon;
+use App\Models\Log;
+use App\Models\City;
+use App\Models\Order;
+use App\Models\Store;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Scopes\FreshProductScope;
+use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Auth;
+
 class StoreController extends Controller
 {
     /**
@@ -74,10 +76,10 @@ class StoreController extends Controller
         $products = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
         $acceptedProducts = Product::where('store_id', $stores->id)->where('product_status_id', 2)->get();
         $onCheckProducts = Product::where('store_id', $stores->id)->where('product_status_id', 1)->get();
-        $hiddenProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
+        $hiddenProducts = Product::where('store_id', $stores->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->get();
         $canceledProducts = Product::where('store_id', $stores->id)->where('product_status_id', 3)->get();
-        $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
-        return view('store.show', compact('stores', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'deletedProducts'));
+        // $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
+        return view('store.show', compact('stores', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts'));
     }
 
     /**
