@@ -443,7 +443,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/roles*') ? ' active' : '' }}" href="{{ route('roles.index') }}">
-                  <i class="fe fe-dollar-sign"></i> Роли
+                  <i class="fe fe-lock"></i> Роли
                 </a>
               </li>
             </ul>

@@ -24,7 +24,7 @@
                 </h1>
 
               </div>
-              
+
             </div> <!-- / .row -->
             <div class="row align-items-center">
               <div class="col">
@@ -48,7 +48,7 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-description", "item-permissions"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -69,62 +69,46 @@
                 </div> <!-- / .row -->
               </div>
               <div class="table-responsive">
-                <table class="table table-sm table-hover table-nowrap card-table">
+                <table class="table table-sm table-hover card-table">
                   <thead>
                     <tr>
                       <th>
-                        №
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-order">№</a>
                       </th>
                       <th>
-                        <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Роль</a>
                       </th>
                       <th>
-                        <a class="list-sort text-muted" data-sort="item-email" href="#">E-mail</a>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-description">Описание</a>
                       </th>
                       <th>
-                        <a class="list-sort text-muted" data-sort="item-phone" href="#">Телефон</a>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-permissions">Разрешения</a>
                       </th>
-                      <th colspan="2">
-                        <a class="list-sort text-muted" data-sort="item-company" href="#">Магазин</a>
-                      </th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    
+
                     @forelse($roles as $key => $role)
 
                     <tr>
-                      <td>
-
+                      <td class="item-order">
                         {{ ++$key }}
-
                       </td>
-                      <td>
-
-                        <!-- Avatar -->
-                        <div class="avatar avatar-xs align-middle mr-2">
-                          <img class="avatar-img rounded-circle" src="/assets/img/avatars/profiles/avatar-1.jpg" alt="...">
-                        </div> <a class="item-name text-reset" href="profile-posts.html">{{ $role->name }}</a>
-
+                      <td class="item-name">
+                        {{ $role->display_name }}
                       </td>
-                      <td>
-
-                        <!-- Email -->
-                        <a class="item-email text-reset" href="mailto:{{ $role->email }}">{{ $role->email }}</a>
-
+                      <td class="item-description">
+                        {{ $role->description }}
                       </td>
-                      <td>
-
-                        <!-- Phone -->
-                        <a class="item-phone text-reset" href="tel:{{ $role->phone }}">{{ $role->phone }}</a>
-
-                      </td>
-
-                      <td>
-
-                        <!-- Link -->
-                        <a class="item-company text-reset" href="team-overview.html">{{ $role->store->name ?? '' }}</a>
-
+                      <td class="item-permissions">
+                        @foreach($role->permissions as $permission)
+                            @if($loop->last)
+                                {{ $permission->display_name }}
+                            @else
+                                {{ $permission->display_name.', ' }}
+                            @endif
+                        @endforeach
                       </td>
                       <td class="text-right">
                         <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary m-1 pull-right">
