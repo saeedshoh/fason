@@ -49,7 +49,6 @@ class HomeController extends Controller
                 $join->on('products.id', '=', 'countProd.product_id');
             })->orderByDesc('countProd')->paginate(15);
         $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(15);
-
         return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts', 'monetizations'));
     }
 

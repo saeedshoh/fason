@@ -98,7 +98,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     @forelse ($products as $key => $product)
-                    <tr class="table-@if($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @else()danger @endif">
+                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @else()danger @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>
@@ -125,7 +125,11 @@
                       <td class="item-status">
                         <!-- Badge -->
                         <div class="badge badge-primary">
-                            {{ $product->product_status->name }}
+                            @if($product->updated_at < now()->subWeek())
+                                Скрыто
+                            @else
+                                {{ $product->product_status->name }}
+                            @endif
                         </div>
                       </td>
                       <td class="text-right">
