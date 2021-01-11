@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribute;
 use App\Models\AttributeValue;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttributeValueController extends Controller
 {
@@ -40,6 +42,12 @@ class AttributeValueController extends Controller
     public function store(Request $request)
     {
         AttributeValue::create($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => ' Значение атрибутов',
+            'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
+        ]);
         return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with('success', 'Значение для аттрибута успешно добавлена!');
     }
 
@@ -77,6 +85,12 @@ class AttributeValueController extends Controller
     public function update(Request $request, AttributeValue $attributeValue, $id, $val_id)
     {
         $attributeValue->find($val_id)->update($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => ' Значение атрибутов',
+            'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
+        ]);
         return redirect(route('attr_val.index', ['id' => $id]))->with('success', 'Значение для аттрибута успешно добавлена!');
 
     }
@@ -89,6 +103,12 @@ class AttributeValueController extends Controller
      */
     public function destroy(AttributeValue $attributeValue, $id, $val_id)
     {
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => ' Значение атрибутов',
+            'description' => 'Название: ' . $attributeValue->name . ', Значение: ' . $attributeValue->value
+        ]);
         $attributeValue->find($val_id)->delete();
         return redirect()->back()->with('success', 'Аттрибут успешно удалена!');
     }

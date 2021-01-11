@@ -33,30 +33,6 @@
 
               </div>
             </div> <!-- / .row -->
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Nav -->
-                <ul class="nav nav-tabs nav-overflow header-tabs">
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap active">
-                      Все категории <span class="badge badge-pill badge-soft-secondary">823</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Активные <span class="badge badge-pill badge-soft-secondary">231</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary">22</span>
-                    </a>
-                  </li>
-                </ul>
-
-              </div>
-            </div>
           </div>
         </div>
         @if (session()->get('success'))
@@ -105,12 +81,12 @@
                         Родитель
                       </th>
                       <th class="text-right">
-                      
+
                       </th>
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    
+
                     @forelse ( $categories as $key => $category)
                     <tr>
                       <td>
@@ -118,7 +94,7 @@
                         {{ ++$key }}
 
                       </td>
-                  
+
                       <td>
 
                         <!-- Avatar -->
@@ -132,7 +108,7 @@
                       </td>
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
-                            @csrf 
+                            @csrf
                             <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
@@ -162,7 +138,7 @@
                         </td>
                         <td class="text-right">
                           <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
-                              @csrf 
+                              @csrf
                               <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
                                   <i class="fe fe-trash"> </i></button>
                               @method('DELETE')
@@ -174,7 +150,7 @@
                               <i class="fe fe-eye" aria-hidden="true"></i>
                           </a>
                         </td>
-                        
+
                         </tr>
                       @endforeach
                     @endisset

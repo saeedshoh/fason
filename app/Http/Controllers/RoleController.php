@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -35,6 +37,12 @@ class RoleController extends Controller
         $role->update($request->all());
         $role->detachPermissions($request->permission);
         $role->syncPermissions($request->permission);
+        // Log::create([
+        //     'user_id' => Auth::user()->id,
+        //     'action' => 2,
+        //     'table'  => 'Роли',
+        //     'description' => 'Название: ' . $request->name . ',   Отображаемое название: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+        // ]);
         return redirect()->route('roles.index');
     }
 }

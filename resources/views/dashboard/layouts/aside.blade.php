@@ -441,6 +441,11 @@
                   <i class="fe fe-dollar-sign"></i> Роли
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link {{ request()->is('dashboard/logs*') ? ' active' : '' }}" href="{{ route('logs') }}">
+                  <i class="fe fe-clock"></i> Логи
+                </a>
+              </li>
             </ul>
 
             <!-- Push content down -->

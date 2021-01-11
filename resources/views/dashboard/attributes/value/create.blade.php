@@ -5,31 +5,31 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-  
+
             <!-- Header -->
             <div class="header">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
-        
+
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
                             Добавление значении для атрибута
                         </h6>
-        
+
                         <!-- Title -->
                         <h1 class="header-title text-truncate">
                             {{ $parent->name }}
                         </h1>
-        
+
                         </div>
                         <div class="col-auto">
-        
+
                         <!-- Buttons -->
                         <a href="{{ route('attributes.index')}}" class="btn btn-primary ml-2">
                             Все аттрибуты
                         </a>
-        
+
                         </div>
                     </div>
                 </div>
