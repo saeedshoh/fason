@@ -12,7 +12,6 @@ class Product extends Model
 {
     use HasSlug;
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'name',

@@ -34,7 +34,8 @@ class UserSeeder extends Seeder
             'email' => 'info@fason.tj',
             'address' => 'Рудаки 21/7',
             'city_id' => '1',
-            'password' => Hash::make('fason2020')
+            'password' => Hash::make('fason2020'),
+            'status' => 1
         ]);
 
         $user_first->attachRole($admin);
