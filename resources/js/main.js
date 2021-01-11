@@ -127,37 +127,37 @@ $('body').on('click', '#filter', function () {
     }
 })
 
-$('body').on('click', '.category', function () {
-    let category = $(this).data('id')
-    $.ajax({
-        url: '/subcategories',
-        data: {
-            category: category
-        },
-        method: "GET",
-        dataType: 'html',
-        success: function (data) {
-            $('#categories').hide()
-            $('#categoriesRow').prepend(data)
-            $('.childCategory').each(function () {
-                let category = $(this).data('id')
-                let _this = $(this)
-                $.ajax({
-                    url: '/countProducts',
-                    data: {
-                        category: category
-                    },
-                    method: "GET",
-                    dataType: 'json',
-                    success: function (data) {
-                        _this.parent().find('.spinner-grow').remove()
-                        _this.parent().find('.cat_spinner').append(`${data}`)
-                    }
-                })
-            })
-        }
-    })
-})
+// $('body').on('click', '.category', function () {
+//     let category = $(this).data('id')
+//     $.ajax({
+//         url: '/subcategories',
+//         data: {
+//             category: category
+//         },
+//         method: "GET",
+//         dataType: 'html',
+//         success: function (data) {
+//             $('#categories').hide()
+//             $('#categoriesRow').prepend(data)
+//             $('.childCategory').each(function () {
+//                 let category = $(this).data('id')
+//                 let _this = $(this)
+//                 $.ajax({
+//                     url: '/countProducts',
+//                     data: {
+//                         category: category
+//                     },
+//                     method: "GET",
+//                     dataType: 'json',
+//                     success: function (data) {
+//                         _this.parent().find('.spinner-grow').remove()
+//                         _this.parent().find('.cat_spinner').append(`${data}`)
+//                     }
+//                 })
+//             })
+//         }
+//     })
+// })
 
 $('body').on('click', '#prevCategory', function () {
     $('#subcategories').hide()

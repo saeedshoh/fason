@@ -90,7 +90,7 @@
           <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
-              <a data-id="{{ $category->id }}" href="#" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-1"> {{ $category->name }}</a>
+              <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-1"> {{ $category->name }}</a>
               {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
               {{--  <div class="spinner-grow text-center text-danger float-right" role="status">
                 {{--  <span class="sr-only">Loading...</span>
