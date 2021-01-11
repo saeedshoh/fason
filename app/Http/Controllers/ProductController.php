@@ -9,6 +9,8 @@ use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Http\Requests\ProductRequest;
+use App\Models\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -28,10 +30,22 @@ class ProductController extends Controller
 
     public function decline(Product $product) {
         $product->update(['product_status_id' => 3]);
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 2,
+            'table'     => 'Продукты',
+            'description' => 'Название: ' . $product->name . ', Статус: Отклонен'
+        ]);
         return redirect()->route('products.index');
     }
     public function publish(Product $product) {
         $product->update(['product_status_id' => 2]);
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 2,
+            'table'     => 'Продукты',
+            'description' => 'Название: ' . $product->name . ', Статус: Активный'
+        ]);
         return redirect()->route('products.index');
     }
 
@@ -94,7 +108,6 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
-        // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
@@ -151,6 +164,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
@@ -196,6 +210,14 @@ class ProductController extends Controller
         }
 
         Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+        $category = Category::where('id', $request->category_id)->first()->name;
+        $store = Store::where('id', $request->store_id)->first()->name;
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 1,
+            'table'     => 'Продукты',
+            'description' => 'Название: ' . $request->name . ', Категория: ' . $category . ', Цена: ' . $request->price . ', Количество: ' . $request->quantity . ', Описание: ' . $request->description . ', Магазин: ' . $store
+        ]);
         return redirect()->route('dashboard.products');
     }
 
@@ -302,6 +324,14 @@ class ProductController extends Controller
         }
 
         $product->update($request->validated());
+        $category = Category::where('id', $request->category_id)->first()->name;
+        $store = Store::where('id', $request->store_id)->first()->name;
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 2,
+            'table'     => 'Продукты',
+            'description' => 'Название: ' . $request->name . ', Категория: ' . $category . ', Цена: ' . $request->price . ', Количество: ' . $request->quantity . ', Описание: ' . $request->description . ', Магазин: ' . $store
+        ]);
         return redirect()->route('products.index');
     }
 
@@ -313,6 +343,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $category = Category::where('id', $product->category_id)->first()->name;
+        $store = Store::where('id', $product->store_id)->first()->name;
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 3,
+            'table'     => 'Продукты',
+            'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store
+        ]);
         $product->delete();
         return redirect()->route('products.index');
     }

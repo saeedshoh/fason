@@ -441,6 +441,11 @@
                   <i class="fe fe-dollar-sign"></i> Монетизации
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link {{ request()->is('dashboard/roles*') ? ' active' : '' }}" href="{{ route('roles.index') }}">
+                  <i class="fe fe-dollar-sign"></i> Роли
+                </a>
+              </li>
             </ul>
 
             <!-- Push content down -->

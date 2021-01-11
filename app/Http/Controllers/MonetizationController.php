@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Monetization;
 use App\Http\Requests\MonetizationRequest;
+use App\Models\Log;
+use Illuminate\Support\Facades\Auth;
 
 class MonetizationController extends Controller
 {
@@ -37,6 +39,12 @@ class MonetizationController extends Controller
     public function store(MonetizationRequest $request)
     {
         Monetization::create($request->validated());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => 'Монетизация',
+            'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
+        ]);
         return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно добавлена!');
     }
 
@@ -72,6 +80,12 @@ class MonetizationController extends Controller
     public function update(MonetizationRequest $request, Monetization $monetization)
     {
         $monetization->update($request->validated());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => 'Монетизация',
+            'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
+        ]);
         return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно изменена!');
     }
 
@@ -83,6 +97,12 @@ class MonetizationController extends Controller
      */
     public function destroy(Monetization $monetization)
     {
+        Log::create([
+            'user_id'   => Auth::user()->id,
+            'action'    => 3,
+            'table'     => 'Монетизация',
+            'description' => 'Сумма от: ' . $monetization->min . ', Сумма до: ' . $monetization->max . ', Процентная ставка: ' . $monetization->margin
+        ]);
         $monetization->delete();
         return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно удалена!');
     }

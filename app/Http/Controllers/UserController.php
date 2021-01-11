@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -60,7 +63,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::get();
+        return view('dashboard.users.create', compact('roles'));
     }
 
     /**
@@ -71,7 +75,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'email' =>  $request->email,
+            'phone' =>  $request->phone,
+            'status' =>  1,
+            'profile_photo_path' => $request->profile_photo_path,
+            'password' => Hash::make($request->password,),
+        ]);
+        $user->attachRole($request->role);
+        return redirect()->route('users.index');
     }
 
     /**
