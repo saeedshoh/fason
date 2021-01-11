@@ -26,7 +26,7 @@
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
                     </div>
-                    <input type="number" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address">
+                    <input data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
@@ -70,10 +70,11 @@ aria-hidden="true">
         <img src="img/logo fason.svg" alt="">
         <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data">
           @csrf
-          <label for="profile_photo_path" class="cursor-pointer d-block">
+          <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="100" height="116" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M248 8C111 8 0 119 0 256C0 393 111 504 248 504C385 504 496 393 496 256C496 119 385 8 248 8ZM248 104C296.6 104 336 143.4 336 192C336 240.6 296.6 280 248 280C199.4 280 160 240.6 160 192C160 143.4 199.4 104 248 104ZM248 448C189.3 448 136.7 421.4 101.5 379.8C120.3 344.4 157.1 320 200 320C202.4 320 204.8 320.4 207.1 321.1C220.1 325.3 233.7 328 248 328C262.3 328 276 325.3 288.9 321.1C291.2 320.4 293.6 320 296 320C338.9 320 375.7 344.4 394.5 379.8C359.3 421.4 306.7 448 248 448Z" fill="#E5E5E5"/>
             </svg>
+            <img src="" alt="" width="100" height="100" style="display: none" class="rounded-circle">
           </label>
           <div class="custom-file d-none">
             <input type="file" class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
