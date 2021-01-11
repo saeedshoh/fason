@@ -6,6 +6,7 @@ use Spatie\Sluggable\HasSlug;
 use App\Models\AttributeValue;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attribute extends Model
 {

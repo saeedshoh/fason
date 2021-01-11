@@ -58,7 +58,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::latest()->withoutGlobalScopes()->paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 

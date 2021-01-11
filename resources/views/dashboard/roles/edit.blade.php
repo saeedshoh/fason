@@ -50,40 +50,26 @@
                 </div>
                 <div class="header mt-md-2 mb-1">
                     <div class="header-body">
-  
+
                       <!-- Title -->
                       <h2 class="header-title">
                         Права для ролей
                       </h2>
-  
+
                     </div>
                   </div>
                 <div class="checklist row px-3" tabindex="0">
-{{--                         
-                        @foreach ($role->permissions as $permission)
+
+                    @foreach ($permissions as $permission)
                         <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
-                            <input class="custom-control-input" checked id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                            <input class="custom-control-input" @foreach ($role->permissions as $perm) @if($permission->id == $perm->id)checked @endif @endforeach id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
                             <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
                             <span class="custom-control-caption">
                                 {{ $permission->display_name }}
                             </span>
                         </div>
-                        @endforeach
+                    @endforeach
 
-                        
-                        <hr class="col-12"> --}}
-                        @forelse ($permissions as $permission)
-                            <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
-                                <input class="custom-control-input" id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
-                                <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
-                                <span class="custom-control-caption">
-                                    {{ $permission->display_name }}
-                                </span>
-                            </div>
-                        @empty
-
-                        @endforelse
-                    
                   </div>
                 <!-- Button -->
                 <button type="submit" class="btn btn-primary mt-5 float-right">Изменить</button>

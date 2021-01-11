@@ -118,9 +118,9 @@
       <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклоненные {{ count($canceledProducts) }}</a>
       </li>
-      <li class="nav-item position-relative">
+      {{-- <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>
-      </li>
+      </li> --}}
     </ul>
     <!--Tab-content>-->
     <div class="tab-content" id="myTabContent">
@@ -260,7 +260,7 @@
       </div>
       <!--Declined end-->
       <!--On Delete-->
-      <div class="tab-pane fade" id="onDelete" role="tabpanel" aria-labelledby="onDelete-tab">
+      {{-- <div class="tab-pane fade" id="onDelete" role="tabpanel" aria-labelledby="onDelete-tab">
         <div class="all-product container mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($deletedProducts as $product)
@@ -284,7 +284,7 @@
               @endforelse
             </div>
         </div>
-      </div>
+      </div> --}}
       <!--On Delete end-->
     </div>
     <!--Tab content end-->

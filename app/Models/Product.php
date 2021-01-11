@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
+use App\Scopes\FreshProductScope;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
     use HasSlug;
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -76,5 +76,15 @@ class Product extends Model
                 return $this->price + $this->price*($monetization->margin/100);
             }
         }
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new FreshProductScope);
     }
 }

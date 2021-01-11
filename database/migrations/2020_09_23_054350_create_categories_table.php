@@ -20,7 +20,6 @@ class CreateCategoriesTable extends Migration
             $table->string('icon')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->foreignId('parent_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
