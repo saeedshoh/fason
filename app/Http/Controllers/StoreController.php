@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\City;
+use App\Models\Log;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
@@ -47,6 +48,7 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        return $request;
         $request->validate([
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
