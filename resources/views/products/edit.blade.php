@@ -65,7 +65,7 @@
           <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product">
             @csrf
             @method('PATCH')
-            <input class="form-control" id="hello" type="text" value="{{ $product->gallery }}">
+            <input class="form-control" id="hello" type="hidden" value="{{ $product->gallery }}">
             <input type="file" id="gallery" class="d-none" name="gallery[]" multiple form="add_product">
 
             <input type="file" id="image" class="d-none" name="image">

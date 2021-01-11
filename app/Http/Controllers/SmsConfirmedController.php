@@ -11,14 +11,14 @@ class SmsConfirmedController extends Controller
 {
     public function __construct()
     {
-        $this->sms_confirmed = SmsConfirmed::get();
+        // $this->sms_confirmed = SmsConfirmed::get();
     }
     public function confirmed(Request $request)
     {
         if ($request->ajax()) {
             $user = User::where('phone', $request->phone)->first();
 
-            $sms_confirmed = $this->sms_confirmed->where('code', $request->code)->first();
+            $sms_confirmed = SmsConfirmed::where('code', $request->code)->orderBy('id', 'desc')->first();
             if ($request->code == $sms_confirmed->code && $sms_confirmed->is_active == 0) {
                 $confirm = SmsConfirmed::where('code', $request->code)->update(['is_active' => 1]);
             }

@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
-    Route::post('products/store', [ProductController::class, 'ft_store'])->name('products.store');
+    Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
     Route::get('attribute/{id}/value', [AttributeValueController::class, 'index'])->name('attr_val.index');
     Route::get('attribute/{id}/value/create',[ AttributeValueController::class, 'create'])->name('attr_val.create');
