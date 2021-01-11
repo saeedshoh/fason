@@ -7,8 +7,10 @@ use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Log;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -137,6 +139,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
+        $attributes = '';
+        $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
+        for($i = 0; $i < count($request->attribute); $i++){
+            $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
+        }
         if ($request->icon) {
 
             $request->validate([
@@ -148,6 +156,12 @@ class CategoryController extends Controller
             $category = Category::create($request->all());
         }
         $category->attributes()->attach($request->attribute);
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => 'Категории',
+            'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+        ]);
 
         return redirect()->route('categories.index')->with('success', 'Категория успешно добавлена!');
     }
@@ -185,6 +199,12 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+        $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
+        $attributes = '';
+        $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
+        for($i = 0; $i < count($request->attribute); $i++){
+            $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
+        }
         if ($request->icon != $category->image) {
             $request->validate([
                 'icon' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048'
@@ -201,6 +221,13 @@ class CategoryController extends Controller
         $category->attributes()->detach();
         $category->attributes()->attach($request->attribute);
         $category->update($request->validated());
+
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => 'Категории',
+            'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+        ]);
         return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
     }
 
@@ -212,6 +239,18 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $isActive = $category->is_active == 1 ? 'Активен' : 'Неактивен';
+        $attributes = '';
+        $parent_cat = $category->parent_id != 0  ? Category::where('id', $category->parent_id)->first()->name : 'Родительская';
+        for($i = 0; $i < count($category->attribute); $i++){
+            $attributes =  $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';
+        }
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => 'Категории',
+            'description' => 'Название: ' . $category->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+        ]);
         $category->delete();
         return redirect(route('categories.index'))->with('success', 'Категория успешно удалена!');
     }

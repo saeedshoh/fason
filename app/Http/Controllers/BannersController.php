@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BannersRequest;
 use App\Models\Banners;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BannersController extends Controller
@@ -48,8 +50,15 @@ class BannersController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
         ]);
 
-        $image = $request->file('image')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        $image = $request->file('image')->store('public/'.now()->year . '/' . sprintf("%02d", now()->month));
         Banners::create($request->validated() + ['image' => $image]);
+        $type = $request->type == 1 ? 'Слайдер' : 'Баннер';
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => 'Атрибуты',
+            'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $image
+        ]);
         if($request->type == 1) {
             return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно добавлен!');
 
@@ -90,6 +99,7 @@ class BannersController extends Controller
      */
     public function update(BannersRequest $request, Banners $banner)
     {
+        $myImage = 'Не установлен';
         if ($request->image != null && $request->image != $banner->image) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
@@ -102,11 +112,19 @@ class BannersController extends Controller
             $banner->update([
                 'image' => $image,
             ]);
+            $myImage = $image;
         }
+        $type = $request->type == 1 ? 'Слайдер' : 'Баннер';
+
         $banner->update($request->validated());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => 'Атрибуты',
+            'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $myImage
+        ]);
         if($request->type == 1) {
             return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно обновлен!');
-
         }
         else {
             return redirect()->route('banners.index')->with('success', 'Баннер успешно обновлен!');
@@ -121,6 +139,13 @@ class BannersController extends Controller
      */
     public function destroy(Banners $banner)
     {
+        $type = $banner->type == 1 ? 'Слайдер' : 'Баннер';
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => 'Атрибуты',
+            'description' => 'Позиция: ' . $banner->position . ' Ссылка: ' . $banner->url . ' Тип: ' . $type . ' Изображение: ' . $banner->image
+        ]);
         $banner->delete();
         return redirect(route('banners.index'))->with('success', 'Успешно удалена!');
     }
