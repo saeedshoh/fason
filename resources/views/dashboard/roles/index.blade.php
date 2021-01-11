@@ -15,23 +15,16 @@
 
                 <!-- Pretitle -->
                 <h6 class="header-pretitle">
-                  список пользователей
+                  список ролей
                 </h6>
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                  Все Пользователи
+                  Все роли
                 </h1>
 
               </div>
-              <div class="col-auto">
-
-                <!-- Buttons -->
-                <a href="{{ route('users.create') }}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
-
-              </div>
+              
             </div> <!-- / .row -->
             <div class="row align-items-center">
               <div class="col">
@@ -40,17 +33,7 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="#!" class="nav-link text-nowrap active">
-                      Все пользователи <span class="badge badge-pill badge-soft-secondary">823</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Активные <span class="badge badge-pill badge-soft-secondary"></span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary"></span>
+                      Все роли <span class="badge badge-pill badge-soft-secondary">823</span>
                     </a>
                   </li>
                 </ul>
@@ -108,7 +91,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     
-                    @forelse($users as $key => $user)
+                    @forelse($roles as $key => $role)
 
                     <tr>
                       <td>
@@ -121,40 +104,31 @@
                         <!-- Avatar -->
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="/assets/img/avatars/profiles/avatar-1.jpg" alt="...">
-                        </div> <a class="item-name text-reset" href="profile-posts.html">{{ $user->name }}</a>
+                        </div> <a class="item-name text-reset" href="profile-posts.html">{{ $role->name }}</a>
 
                       </td>
                       <td>
 
                         <!-- Email -->
-                        <a class="item-email text-reset" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                        <a class="item-email text-reset" href="mailto:{{ $role->email }}">{{ $role->email }}</a>
 
                       </td>
                       <td>
 
                         <!-- Phone -->
-                        <a class="item-phone text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
+                        <a class="item-phone text-reset" href="tel:{{ $role->phone }}">{{ $role->phone }}</a>
 
                       </td>
 
                       <td>
 
                         <!-- Link -->
-                        <a class="item-company text-reset" href="team-overview.html">{{ $user->store->name ?? '' }}</a>
+                        <a class="item-company text-reset" href="team-overview.html">{{ $role->store->name ?? '' }}</a>
 
                       </td>
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                            @csrf 
-                            <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right">
-                                <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                        </form>
-                        <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
-                        </a>
-                        <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1 fa-pull-right">
-                            <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
@@ -172,7 +146,6 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
                         <li class="page-item">
-                           {{ $users->links() }}
                         </li>
                     </ul>
                 </nav>
