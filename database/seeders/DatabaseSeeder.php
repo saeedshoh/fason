@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\OrderStatus;
+use App\Models\Permission;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             StoreSeeder::class,
             ProductSeeder::class,
             MonetizationSeeder::class,
+            PermissionSeeder::class,
         ]);
     }
 }

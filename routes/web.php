@@ -13,8 +13,10 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
+use Laratrust\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,10 @@ use App\Http\Controllers\SmsConfirmedController;
 
 Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{id}/update', [RoleController::class, 'update'])->name('roles.update');
+
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
