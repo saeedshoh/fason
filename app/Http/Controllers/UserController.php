@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,6 +85,14 @@ class UserController extends Controller
             'password' => Hash::make($request->password,),
         ]);
         $user->attachRole($request->role);
+
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => ' Пользователи',
+            'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . $request->phone
+        ]);
+
         return redirect()->route('users.index');
     }
 

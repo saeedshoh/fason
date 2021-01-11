@@ -277,4 +277,9 @@ class CategoryController extends Controller
             return 'ndora';
         }
     }
+
+    public function logsIndex(){
+        $logs = Log::get();
+        return view('dashboard.logs.index', compact('logs'));
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Attribute;
 use App\Models\Category;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttributeController extends Controller
 {
@@ -41,6 +43,12 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         Attribute::create($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => ' Атрибуты',
+            'description' => 'Название: ' . $request->name
+        ]);
         return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно добавлен!');
     }
 
@@ -78,6 +86,12 @@ class AttributeController extends Controller
     public function update(Request $request, Attribute $attribute)
     {
         $attribute->update($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => ' Атрибуты',
+            'description' => 'Название: ' . $request->name
+        ]);
         return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно изменена!');
     }
 
@@ -89,6 +103,12 @@ class AttributeController extends Controller
      */
     public function destroy(Attribute $attribute)
     {
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => ' Атрибуты',
+            'description' => 'Название: ' . $attribute->name
+        ]);
         $attribute->delete();
         return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно удалена!');
     }

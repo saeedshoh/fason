@@ -96,7 +96,7 @@
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Значение</a>
                       </th>
                       <th class="text-right">
-                       
+
                       </th>
                     </tr>
                   </thead>
@@ -116,11 +116,11 @@
                         <a class="item-name text-reset" href="profile-posts.html">
 
                             @if ($parent->name == 'Цвет')
-                                
+
                             <span class="badge text-white" style="background-color: {{ $item->value }}">
                                     Цвет
                             </span>
-                            @else 
+                            @else
                             {{ $item->value }}
                             @endif
                         </a>
@@ -128,7 +128,7 @@
 
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
-                            @csrf 
+                            @csrf
                             <button type="submit" class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')

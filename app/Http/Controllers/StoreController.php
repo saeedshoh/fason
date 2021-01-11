@@ -50,7 +50,6 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return $request;
         $request->validate([
 			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
@@ -60,7 +59,6 @@ class StoreController extends Controller
         $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
 
         Store::create($request->validated() + ['avatar' => $avatar, 'cover' => $cover, 'user_id' => Auth::id() ]);
-
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -146,6 +144,13 @@ class StoreController extends Controller
         if(Store::where('id', $store->id)->update($data)) {
             $store = Store::where('id', $store->id)->first();
         }
+        $city = City::where('id', $request->city_id)->first()->name;
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => ' Магазины',
+            'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
+        ]);
 
         return redirect()->route('ft-store.show', $store->slug)->with('success', 'Магазин успешно обновлена!');
     }
@@ -158,6 +163,13 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
+        $city = City::where('id', $store->city_id)->first('name');
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => ' Магазины',
+            'description' => 'Название магазина: ' . $store->name . ',    Адрес: ' . $store->address . ', Описание: ' . $store->description . ', Город: ' . $city
+        ]);
         $store->delete();
         return redirect(route('stores.index'))->with('success', 'Магазин успешно удалена!');
     }
