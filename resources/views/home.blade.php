@@ -201,10 +201,11 @@
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
-        <div class="item d-flex flex-column align-items-center">
+        <div class="item d-flex flex-column align-items-center position-relative">
             <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80" height="80">
           <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
           <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
+          <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>
         </div>
         @empty
           <p>Извените ничего не найдено</p>

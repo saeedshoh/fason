@@ -1,10 +1,8 @@
-$(document).ready(function () {
-    $('.sms--false').hide();
+require('./jquery.inputmask.bundle.js');
 
-});
 
 $(document).ready(function(){
-
+    $('.sms--false').hide();
     $(window).scroll(fetchPosts);
 
     function fetchPosts() {
@@ -61,6 +59,20 @@ $(document).ready(function(){
             // settings: "unslick"
             // instead of a settings object
         ]
+    });
+
+    $("#phone").inputmask({
+        mask: '999 99 9999',
+        placeholder: ' ',
+        showMaskOnHover: false,
+        showMaskOnFocus: false,
+        onBeforePaste: function (pastedValue, opts) {
+        var processedValue = pastedValue;
+        
+        //do something with it
+        
+        return processedValue;
+        }
     });
     // const xl = $('#hello').val()
     // console.log(JSON.parse(xl))
@@ -375,10 +387,9 @@ $('#btn-login, #code').on('click change', function () {
 });
 // sms-code
 $('#send-code, .send-code').on('click', function () {
+    $(this).attr('disabled', true);
     const phone = $('#phone').val();
-
     $.ajax({
-
         url: '/sms-send',
         type: 'post',
         headers: {
@@ -506,6 +517,22 @@ function cover(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+function user_avatar(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.user_avatar svg').hide();
+            $('.user_avatar img').show().attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#profile_photo_path").change(function () {
+    user_avatar(this);
+});
 
 $("#image").change(function () {
     readURL(this);
