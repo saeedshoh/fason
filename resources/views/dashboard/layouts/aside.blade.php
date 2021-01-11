@@ -409,7 +409,12 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/stores*') ? ' active' : '' }}" href="{{ route('stores.index') }}">
-                  <i class="fe fe-shopping-cart"></i> Магазин
+                  <i class="fe fe-shopping-cart"></i> Магазины
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ request()->is('dashboard/clients*') ? ' active' : '' }}" href="{{ route('clients.index') }}">
+                  <i class="fe fe-briefcase"></i> Клиенты
                 </a>
               </li>
               <li class="nav-item">
@@ -455,7 +460,7 @@
                 <!-- Toggle -->
                 <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="avatar avatar-sm avatar-online">
-                    <img src="/assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
+                    <img src="/storage/apple-touch-icon.png" class="avatar-img rounded-circle" alt="...">
                   </div>
                 </a>
 

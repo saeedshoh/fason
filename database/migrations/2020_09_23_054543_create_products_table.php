@@ -19,13 +19,12 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('image');
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('price');
-            $table->foreignId('store_id')->constrained();
-            $table->foreignId('product_status_id')->constrained()->default(1);
+            $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_status_id')->constrained()->default(1)->onDelete('cascade');
             $table->json('gallery')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

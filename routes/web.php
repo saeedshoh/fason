@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('attribute/{id}/value/{val_id}/edit', [AttributeValueController::class, 'edit'])->name('attr_val.edit');
     Route::put('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'update'])->name('attr_val.update');
     Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
+    Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

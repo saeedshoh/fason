@@ -65,7 +65,7 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -106,7 +106,7 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function edit ($slug)
@@ -120,7 +120,7 @@ class StoreController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function update(StoreRequest $request, Store $store)
@@ -151,7 +151,7 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function destroy(Store $store)
@@ -163,7 +163,7 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function toggle(Store $store)
