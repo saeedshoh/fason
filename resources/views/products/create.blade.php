@@ -50,14 +50,14 @@
           <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product">
             @csrf
             @method('POST')
-            <input type="file" id="gallery" class="d-none" name="gallery[]" multiple form="add_product">
+            <input type="file" id="gallery" class="d-none" name="gallery[]" multiple form="add_product" required>
 
-            <input type="file" id="image" class="d-none" name="image">
+            <input type="file" id="image" class="d-none" name="image" required>
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
               <div class="w-75 input_placeholder_style">
-                <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="cat_parent">
-                  <option >Выберите категорию</option>
+                <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="cat_parent" required>
+                  <option value>Выберите категорию</option>
                   @forelse ($cat_parent as $category)
                   <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                   @empty
@@ -75,8 +75,8 @@
                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                     <div class="w-75 input_placeholder_style">
-                      <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
-                        <option disabled>Выберите категорию</option>
+                      <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id" required>
+                        <option value>Выберите категорию</option>
                       </select>
                       @error('category_id')
                         <div class="invalid-feedback">
@@ -89,7 +89,7 @@
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
               <div class="w-75 input_placeholder_style">
-                <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                 @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -100,7 +100,7 @@
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="description" class="input_caption mr-2 text-left text-md-right">Описание товара: </label>
               <div class="w-75 input_placeholder_style">
-                <textarea class="input_placeholder_style form-control position-relative  @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description') }}</textarea>
+                <textarea class="input_placeholder_style form-control position-relative  @error('description') is-invalid @enderror" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
                 @error('description')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -108,19 +108,10 @@
                 @enderror
               </div>
             </div>
-            <div class="container-fluid">
-              <div class="row">
-
-
-                  <!--Price and quantity start-->
-
-                </div>
-              </div>
-
               <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
                 <div class="w-75 input_placeholder_style">
-                  <input type="number" class="input_placeholder_style form-control position-relative @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}">
+                  <input type="number" class="input_placeholder_style form-control position-relative @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
                   @error('quantity')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -140,13 +131,9 @@
                 </div>
 
               </div>
-              <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
+              <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}" required>
               <input type="hidden" name="product_status_id" value="1">
-              <div class="append-div">
-              </div>
-              <div class=" form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <a class="w-75 btn btn-primary add-attribute" id="add_attribute" href="javascript:void(0);" >Добавить атрибут</a>
-              </div>
+              <div class="append-div w-75 ml-auto py-2"></div>
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Добавить </button>
               </div>
