@@ -106,6 +106,7 @@
               </thead>
               <tbody class="list">
                 @forelse ($monetizations as $key => $monetization)
+                @if($monetization->stores->isEmpty())
                 <tr>
                   <td class="monetizations-order">
                     #{{ ++$key}}
@@ -140,6 +141,7 @@
                     </a>
                   </td>
                 </tr>
+                @endif
                 @empty
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>

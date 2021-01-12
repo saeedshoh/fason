@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Store;
 use Spatie\Sluggable\HasSlug;
 use App\Scopes\FreshProductScope;
 use Spatie\Sluggable\SlugOptions;
@@ -70,10 +71,19 @@ class Product extends Model
 
     public function getPriceAfterMarginAttribute()
     {
-        $monetizations = Monetization::get();
-        foreach($monetizations as $monetization) {
-            if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-                return $this->price + $this->price*($monetization->margin/100);
+        $store = Store::find($this->store_id);
+        if($store->is_monetized){
+            foreach($store->monetizations as $monetization) {
+                if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+                    return $this->price + $this->price*($monetization->margin/100);
+                }
+            }
+        } else {
+            $monetizations = Monetization::get();
+            foreach($monetizations as $monetization) {
+                if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+                    return $this->price + $this->price*($monetization->margin/100);
+                }
             }
         }
     }

@@ -52,7 +52,8 @@
                             @csrf
                             @method('POST')
                             <div class="form-col">
-                                <div class="row">
+                                @if(Str::contains($previous, 'personalisations'))
+                                <div class="row mb-5">
                                     <div class="col">
                                         <label for="store_id">Магазин</label>
                                         <select class="custom-select @error('store_id') is-invalid @enderror" name="store_id">
@@ -71,7 +72,8 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="row mt-5">
+                                @endif
+                                <div class="row mb-5">
                                     <div class="col">
                                         <label for="min">Сумма от</label>
                                         <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите сумму от" name="min" value="{{ old('min') }}" required="">
@@ -101,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col mt-5">
+                                    <div class="col">
                                         <!-- Button -->
                                         <button class="btn btn-primary mt-2" type="submit">Добавить</button>
                                     </div>

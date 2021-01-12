@@ -41,8 +41,9 @@ class MonetizationController extends Controller
      */
     public function create()
     {
+        $previous = url()->previous();
         $stores = Store::get();
-        return view('dashboard.monetizations.create', compact('stores'));
+        return view('dashboard.monetizations.create', compact('stores', 'previous'));
     }
 
     /**
