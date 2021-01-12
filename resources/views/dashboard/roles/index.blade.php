@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -20,26 +20,13 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                  Все роли
+                  Все роли <span class="badge badge-pill badge-soft-secondary"> {{ $roles->count() }}</span>
                 </h1>
 
               </div>
 
             </div> <!-- / .row -->
-            <div class="row align-items-center">
-              <div class="col">
 
-                <!-- Nav -->
-                <ul class="nav nav-tabs nav-overflow header-tabs">
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap active">
-                      Все роли <span class="badge badge-pill badge-soft-secondary">823</span>
-                    </a>
-                  </li>
-                </ul>
-
-              </div>
-            </div>
           </div>
         </div>
 
