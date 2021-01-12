@@ -76,9 +76,9 @@ $(document).ready(function(){
         showMaskOnFocus: false,
         onBeforePaste: function (pastedValue, opts) {
         var processedValue = pastedValue;
-        
+
         //do something with it
-        
+
         return processedValue;
         }
     });
@@ -198,8 +198,8 @@ $('body').on('click', '.subcategory', function () {
 
 })
 
-$('body').on('change', '#cat_parent', function () {
-    const id = $('#cat_parent option:selected').val()
+$(document).on('change', '#cat_parent', function () {
+    const id = $('#cat_parent option:selected').val();
     $.ajax({
         url: '/getSubcategories',
         data: {
@@ -218,8 +218,57 @@ $('body').on('change', '#cat_parent', function () {
                 `)
             })
         }
-    })
-})
+    });
+
+    $.ajax({
+        url: '/getAttributes',
+        data: {
+            category_id: id
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function (data) {
+            $('.append-div').empty();
+            data.forEach(element => {
+                $('.append-div').append(`
+                    <div class="form-check form-check">
+                        <input class="form-check-input js-attribute" name="attribute[]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                    </div>
+                `);
+            })
+        }
+    });
+});
+
+$(document).on('change', '.js-attribute', function() {
+    const _this = $(this);
+    $.ajax({
+        url: '/getAttributesValue',
+        data: {
+            attribute_id: _this.val()
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function (data) {
+            if(!_this.is(":checked")) {
+                _this.closest('div').find('select').remove();
+            } else {
+                _this.closest('div').append(`
+                    <select class="input_placeholder_style form-control" name="attribute['value'][]">
+                        <option disabled>Выберите значение</option>
+                    </select>
+                `);
+
+                data.forEach(element => {
+                    _this.closest('div').find('select').append(`
+                        <option value="${element['id']}">${element['value']}</option>
+                    `);
+                })
+            }
+        }
+    });
+});
 
 $('body').on('change', '#cat_child', function () {
     const id = $('#cat_child option:selected').val()
