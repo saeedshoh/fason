@@ -100,11 +100,11 @@
                                 Создание
                             </div>
                         @elseif($log->action == 2)
-                            <div class="badge badge-primary">
+                            <div class="badge badge-warning">
                                 Изменение
                             </div>
                         @elseif($log->action == 3)
-                            <div class="badge badge-primary">
+                            <div class="badge badge-danger">
                                 Удаление
                             </div>
                         @endif
