@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все баннера
+                   Все баннера <span class="badge badge-pill badge-soft-secondary"> {{ $banners->count() }}</span>
                 </h1>
 
               </div>
@@ -33,30 +33,6 @@
 
               </div>
             </div> <!-- / .row -->
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Nav -->
-                <ul class="nav nav-tabs nav-overflow header-tabs">
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap active">
-                      Все баннера <span class="badge badge-pill badge-soft-secondary">{{ $banners->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Активные <span class="badge badge-pill badge-soft-secondary">231</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#!" class="nav-link text-nowrap">
-                      Неактивные <span class="badge badge-pill badge-soft-secondary">22</span>
-                    </a>
-                  </li>
-                </ul>
-
-              </div>
-            </div>
           </div>
         </div>
         @if (session()->get('success'))
@@ -105,20 +81,20 @@
                         Позиция
                       </th>
                       <th class="text-right">
-                      
+
                       </th>
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    
-                    @forelse ( $banners as $key => $banner)
+
+                    @forelse ($banners as $key => $banner)
                     <tr>
                       <td>
 
                         {{ ++$key }}
 
                       </td>
-                  
+
                       <td>
 
                         <!-- Avatar -->
@@ -132,7 +108,7 @@
                       </td>
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('banners.destroy', $banner) }}" method="POST">
-                            @csrf 
+                            @csrf
                             <button type="submit" href="{{ route('banners.destroy', $banner->id) }}"  class="btn btn-danger m-1 pull-right">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
@@ -145,7 +121,7 @@
                         </a>
                       </td>
                     </tr>
-                    
+
                     @empty
                     <tr>
                         <td colspan="7">
@@ -160,7 +136,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-lg">
                         <li class="page-item">
-                           
+
                         </li>
                     </ul>
                 </nav>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogsTable extends Migration
+class CreateMonetizationStoreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->integer('action');
-            $table->string('table');
-            $table->text('description');
-            $table->timestamps();
+        Schema::create('monetization_store', function (Blueprint $table) {
+            $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('monetization_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -30,6 +26,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('monetization_store');
     }
 }

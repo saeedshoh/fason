@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Monetization;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Store extends Model
 {
@@ -21,6 +21,7 @@ class Store extends Model
         'user_id',
         'city_id',
         'is_active',
+        'is_monetized',
     ];
     public function city()
     {
@@ -38,5 +39,13 @@ class Store extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    /**
+     * The monetizations that belong to the store.
+     */
+    public function monetizations()
+    {
+        return $this->belongsToMany(Monetization::class);
     }
 }

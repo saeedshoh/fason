@@ -43,45 +43,70 @@
             @endif
             <div class="row">
 
-                <div class="col-lg-12">
+                <div class="col-lg-6 mx-auto">
                     <div class="card">
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('monetizations.store') }}" method="POST" class="mb-4" novalidate>
+                        <form action="{{ route('monetizations.store') }}" method="POST" class="mb-5" novalidate>
                             @csrf
                             @method('POST')
-                            <div class="form-row">
-                                <div class="col mb-3 mr-3">
-                                    <label for="min">Сумма от</label>
-                                    <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите название категори" name="min" value="{{ old('min') }}" required="">
-                                    @error('min')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                            <div class="form-col">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="store_id">Магазин</label>
+                                        <select class="custom-select @error('store_id') is-invalid @enderror" name="store_id">
+                                            <option disabled selected>Выберите магазин</option>
+                                            @foreach($stores as $store)
+                                                <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('store_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                        <small class="text-muted">
+                                            * Выберите, чтобы добавить в магазин персонализированную монетизацию
+                                        </small>
                                     </div>
-                                    @enderror
                                 </div>
-                                <div class="col mb-3 mr-3">
-                                    <label for="max">Сумма до</label>
-                                    <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите название категори" name="max" value="{{ old('max') }}" required="">
-                                    @error('max')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                <div class="row mt-5">
+                                    <div class="col">
+                                        <label for="min">Сумма от</label>
+                                        <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите сумму от" name="min" value="{{ old('min') }}" required="">
+                                        @error('min')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
-                                    @enderror
+                                    <div class="col">
+                                        <label for="max">Сумма до</label>
+                                        <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите сумму до" name="max" value="{{ old('max') }}" required="">
+                                        @error('max')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <label for="margin">Процентная ставка</label>
+                                        <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите процентную ставку" name="margin" value="{{ old('margin') }}" required="">
+                                        @error('margin')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="col mb-3">
-                                    <label for="margin">Процентная ставка</label>
-                                    <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите название категори" name="margin" value="{{ old('margin') }}" required="">
-                                    @error('margin')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                <div class="row">
+                                    <div class="col mt-5">
+                                        <!-- Button -->
+                                        <button class="btn btn-primary mt-2" type="submit">Добавить</button>
                                     </div>
-                                    @enderror
                                 </div>
                             </div>
-                            <!-- Button -->
-                            <button class="btn btn-primary mt-4" type="submit">Добавить</button>
                         </form>
                         </div>
                     </div>

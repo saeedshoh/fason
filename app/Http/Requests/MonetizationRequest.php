@@ -24,6 +24,7 @@ class MonetizationRequest extends FormRequest
     public function rules()
     {
         return [
+            'store_id'  => 'sometimes|required|min:1',
             'min'       => 'required|min:0',
             'max'       => 'required|min:1',
             'margin'    => 'required',

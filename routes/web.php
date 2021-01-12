@@ -16,7 +16,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
-use Laratrust\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +47,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
     Route::get('/logs', [CategoryController::class, 'logsIndex'])->name('logs');
     Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
+    Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

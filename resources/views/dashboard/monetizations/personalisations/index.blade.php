@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Монетизации')
+@section('title', 'Персонализированные')
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -37,12 +37,12 @@
                   <!-- Nav -->
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
-                      <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap active">
+                      <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap">
                         Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
+                      <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap active">
                         Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
                       </a>
                     </li>
@@ -75,7 +75,20 @@
               <thead>
                 <tr>
 
-                  <th>
+                <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
+                </th>
+                <th>
+                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
+                </th>
+                <th>
+                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">Телефон</a>
+                </th>
+                <th>
+                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
+                </th>
+
+                  {{-- <th>
                     <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-order">
                       №
                     </a>
@@ -99,15 +112,30 @@
                     <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-status">
                       Статус
                     </a>
-                  </th>
+                  </th> --}}
                   <th></th>
 
                 </tr>
               </thead>
               <tbody class="list">
-                @forelse ($monetizations as $key => $monetization)
+                @forelse ($personalisations as $key => $personalisation)
                 <tr>
-                  <td class="monetizations-order">
+                    <td class="item-order">
+                        {{ ++$key }}
+                    </td>
+                    <td class="item-name">
+                        <div class="avatar avatar-xs align-middle mr-2">
+                            <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
+                        </div>
+                        <a class="text-reset" href="team-overview.html">{{ $personalisation->name }}</a>
+                    </td>
+                    <td class="item-phone">
+                        <a class="text-reset" href="profile-posts.html">{{ $personalisation->user->phone }}</a>
+                    </td>
+                    <td class="item-location">
+                        {{ $personalisation->city->name }}
+                    </td>
+                  {{-- <td class="monetizations-order">
                     #{{ ++$key}}
                   </td>
                   <td class="monetizations-min">
@@ -124,18 +152,9 @@
                     <div class="badge badge-primary">
                       {{ $monetization->is_active ? 'Активен' : 'Неактивен' }}
                     </div>
-                  </td>
+                  </td> --}}
                   <td class="text-right">
-                    <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
-                        @csrf
-                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right">
-                            <i class="fe fe-trash"> </i></button>
-                        @method('DELETE')
-                    </form>
-                    <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
-                        <i class="fe fe-edit"> </i>
-                    </a>
-                    <a href="{{ route('monetizations.show', $monetization) }}" class="btn btn-warning m-1 fa-pull-right">
+                    <a href="{{ route('monetizations.show', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
                         <i class="fe fe-eye" aria-hidden="true"></i>
                     </a>
                   </td>
