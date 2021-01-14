@@ -35,10 +35,6 @@
                     @endforeach
                 @endif
               @endforelse
-
-
-
-
                 <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
                   <div class="d-flex justify-content-between align-items-center mt-4">
                     <h5 class="captions-of__modal ">Сортировать</h5>

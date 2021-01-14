@@ -9,6 +9,7 @@ use App\Models\Monetization;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,12 @@ class HomeController extends Controller
         $this->monetizations = Monetization::get();
     }
     public function dashboard() {
-        return view('dashboard.home');
+        $now = Carbon::now();
+        $salesSum = Order::sum('total');
+        $ordersCount = Order::where('order_status_id', 3)->count('id');
+        $productsCount = Product::count('id');
+        $newProductsCount = Product::whereBetween('updated_at', [$now->startOfWeek()->format('Y-m-d H:i'), $now->endOfWeek()->format('Y-m-d H:i')])->count('id');
+        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount'));
     }
 
     public function index(Request $request)

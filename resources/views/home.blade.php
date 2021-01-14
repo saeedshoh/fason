@@ -59,7 +59,7 @@
         </div>
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
-          <a class="text-decoration-none text-secondary">
+          <a href="{{ route('profile') }}" class="text-decoration-none text-secondary">
             <img class="rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>

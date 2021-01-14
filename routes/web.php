@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
         'banners' => BannersController::class,
         'monetizations' => MonetizationController::class,
     ]);
+    Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -108,3 +110,5 @@ Route::view('/return', 'useful_links.return')->name('useful_links.return');
 Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
 Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
+Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
+Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
