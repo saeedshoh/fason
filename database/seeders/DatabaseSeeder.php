@@ -17,18 +17,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Category::factory(20)->create();
         $this->call([
             CitySeeder::class,
-            CategorySeeder::class,
+            // CategorySeeder::class,
             AttributeSeeder::class,
             ProductStatusSeeder::class,
             BannerSeeder::class,
             OrderStatusSeeder::class,
             UserSeeder::class,
             StoreSeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class,
             MonetizationSeeder::class,
             PermissionSeeder::class,
         ]);
+        Product::factory(50)->create();
     }
 }

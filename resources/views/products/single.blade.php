@@ -26,11 +26,11 @@
           <!--desktop slider-->
           <div class="product-img-holder d-none d-lg-block">
             <div class="text-center">
-              <img src="{{ Storage::url($product->image )}}" class="rounded" alt="" height="373px">
+              <img src="{{ Storage::url($product->image )}}" class="rounded pic-main" alt="" height="373px">
             </div>
             <div class="row add-product-secondary my-3">
                 @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
-                    <div class="col-3 text-center">
+                    <div class="col-3 text-center mb-2">
                         <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item" alt="{{ $product->name }}">
                     </div>
                 @endfor
