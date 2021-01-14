@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\Models\City;
 use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
@@ -102,9 +104,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+
     }
 
     /**
@@ -143,5 +145,49 @@ class UserController extends Controller
             return redirect(route('clients.index'))->with('success', 'Клиент успешно удален!');
         }
         return redirect(route('users.index'))->with('success', 'Сотрудник успешно удален!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function ft_show()
+    {
+        if (Auth::user()){
+            $cities = City::get();
+            $user = User::find(Auth::user()->id);
+            return view('profile.index', compact('user', 'cities'));
+        }
+        return redirect()->route('home');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function ft_update(UserRequest $request)
+    {
+        if (Auth::user()){
+            $user = User::find(Auth::user()->id);
+            $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+            if(!File::isDirectory($month)){
+                File::makeDirectory($month, 0777, true);
+            }
+            if($request->file('profile_photo_path')) {
+                $request->validate([
+                    'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+                ]);
+                $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            }
+            $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+            return redirect()->route('profile');
+        }
+
+        return redirect()->route('profile');
     }
 }
