@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-nav row m-0 d-flex d-md-none w-100 bg-light align-items-center">
+    <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
       <div class="col border-right text-center">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/home.svg" alt="">
@@ -112,10 +112,10 @@
       </div>
       @if ($is_store != null)
         @auth
-        <div class="col border-right add-good  text-center">
-          <a href="" class="text-decoration-none  d-flex flex-column pt-2">
-            <img src="/storage/theme/icons/plus.svg" alt="">
-            <span class="mobile-nav--title">Добавить</span>
+        <div class="col border-right add-good text-center position-relative">
+          <a href="" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
+            <img class="add-icon " src="/storage/theme/icons/plus.svg" alt="">
+            <span class="mobile-nav--title mt-3">Добавить</span>
           </a>
         </div>
         @endauth
