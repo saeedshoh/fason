@@ -28,7 +28,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->paragraph($nbSentences = 4, $variableNbSentences = true),
             'image' => '/2020/12/5fd47be2396d0480x480.jpg',
-            'gallery' => "[\"2021\\/01\\/5ffaf7a00c1e2800x800.jpg\",\"2021\\/01\\/5ffaf7a04cc81800x800.jpg\",\"2021\\/01\\/5ffaf7a07abb5800x800.jpg\",\"2021\\/01\\/5ffaf7a09e906800x800.jpg\",\"2021\\/01\\/5ffaf7a0d6865800x800.jpg\"]",
+            'gallery' => "[\"2020\\/12\\/5fd306ef0b426800x800.jpg\",\"2020\\/12\\/5fd306ef0b426800x800.jpg\",\"2020\\/12\\/5fd306ef0b426800x800.jpg\",\"2020\\/12\\/5fd306ef0b426800x800.jpg\",\"2020\\/12\\/5fd306ef0b426800x800.jpg\"]",
             'category_id' => Category::all()->random()->id,
             'quantity' =>  $this->faker->numberBetween($min = 1, $max = 100),
             'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 1000),
