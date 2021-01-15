@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('phone')->unique();
             $table->string('address')->nullable();
-            $table->foreignId('city_id')->nullable()->constrained();
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('sms_verified_at')->default(0);

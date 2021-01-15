@@ -9,7 +9,6 @@ use App\Models\Order;
 use App\Models\Store;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Scopes\FreshProductScope;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -188,5 +187,23 @@ class StoreController extends Controller
             $store->update(['is_active' => 1]);
         }
         return redirect(route('stores.index'))->with('success', 'Магазин успешно изменен!');
+    }
+
+    /**
+     * Check if the specified resource exists in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $name
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function exist(Request $request, $name)
+    {
+        if($request->ajax()){
+            if (Store::where('name', $name)->exists()) {
+                return response(['exist' => true], 200);
+            }
+            return response(['exist' => false], 200);
+        }
+        abort(404);
     }
 }
