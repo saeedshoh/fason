@@ -3812,7 +3812,6 @@ $(document).on('change', '.js-attribute', function () {
         _this.closest('div').find('select').remove();
       } else {
         _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
-
         data.forEach(function (element) {
           _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
         });

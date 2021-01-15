@@ -93,8 +93,8 @@ aria-hidden="true">
             <input type="text" class="form-control" placeholder="Адрес дома..." name="address">
           </div>
           <h5 class="text-secondary">Город:</h5>
-          <div class="form-row">
-            <div class="form-group col-6">
+          <div class="form-row justify-content-around">
+            <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="dushanbe" value="1" name="city_id">
                 <label class="form-check-label text-dark" for="dushanbe">
