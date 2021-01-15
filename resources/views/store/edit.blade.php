@@ -73,7 +73,10 @@
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="name" id="name" value="{{ old('name') ? old('name') : $store->name }}">
+              <input class="form-control" type="text" name="name" id="nameEditStore" value="{{ old('name') ? old('name') : $store->name }}">
+              <div class="store-exist d-none mt-1 text-danger">
+                <small>Магазин с таким названием уже зарегистрирован</small>
+              </div>
             </div>
           </div>
           <div class="form-group row">
@@ -107,7 +110,7 @@
           </div>
           <div class="form-group row">
             <div class="col">
-              <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger">Отправить</button>
+              <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeEditSubmit">Отправить</button>
             </div>
           </div>
         </div>

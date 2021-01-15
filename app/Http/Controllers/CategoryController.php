@@ -283,7 +283,8 @@ class CategoryController extends Controller
     }
 
     public function logsIndex(){
-        $logs = Log::get();
-        return view('dashboard.logs.index', compact('logs'));
+        $count = Log::count();
+        $logs = Log::orderBy('id', 'desc')->paginate(50);
+        return view('dashboard.logs.index', compact('logs', 'count'));
     }
 }
