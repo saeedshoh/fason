@@ -65,8 +65,8 @@ Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft
 Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/getSubcategories', [CategoryController::class, 'getSubcategories'])->name('getSubcategories');
-Route::get('/getAttributes', [CategoryController::class, 'getAttributes'])->middleware('auth')->name('getAttributes');
-Route::get('/getAttributesValue', [CategoryController::class, 'getAttributesValue'])->middleware('auth')->name('getAttributesValue');
+Route::get('/getAttributes', [AttributeController::class, 'attributes'])->middleware('auth')->name('getAttributes');
+Route::get('/getAttributesValue', [AttributeController::class, 'attributesValue'])->middleware('auth')->name('getAttributesValue');
 Route::get('/getParentcategories', [CategoryController::class, 'getParentcategories'])->name('getParentcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');

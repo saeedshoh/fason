@@ -11,6 +11,7 @@ use App\Models\AttributeValue;
 use App\Http\Requests\ProductRequest;
 use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -108,6 +109,7 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
+        return $request->all();
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
@@ -152,7 +154,15 @@ class ProductController extends Controller
             array_push($galleries, $image_single);
         }
 
-        Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+        $product = Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+
+
+
+        DB::table('product_attribute')->insert([
+            'product_id' => $product->id,
+            'attribute_id' => 123,
+            'attribuse_value_id' => 1
+        ]);
         return redirect()->route('home');
     }
 
