@@ -1,5 +1,6 @@
 @section('footer')
 
+
 {{-- Место Модалок --}}
 
 <div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -127,16 +128,16 @@ aria-hidden="true">
         </div>
         <div class="footer_links col-lg-4">
           <ul class="p-0 p-lg m-0">
-            <li> <a href="{{ route('useful_links.help') }}">Правила размещения информации</a></li>
-            <li> <a href="{{ route('useful_links.privacy_policy') }}">Политика и конфиденциальности</a></li>
+            <li> <a class="text-pinky" href="{{ route('useful_links.help') }}">Правила размещения информации</a></li>
+            <li> <a class="text-pinky" href="{{ route('useful_links.privacy_policy') }}">Политика и конфиденциальности</a></li>
           </ul>
         </div>
 
         <div class="footer_links col-12 col-lg-4">
           <ul class="p-0 p-lg m-0">
-            <li> <a href="{{ route('useful_links.delivery') }}">Доcтавка</a></li>
-            <li> <a href="{{ route('useful_links.return') }}">Возврат</a></li>
-            <li> <a href="{{ route('useful_links.saller') }}">Как стать продавцом</a></li>
+            <li> <a class="text-pinky" href="{{ route('useful_links.delivery') }}">Доcтавка</a></li>
+            <li> <a class="text-pinky" href="{{ route('useful_links.return') }}">Возврат</a></li>
+            <li> <a class="text-pinky" href="{{ route('useful_links.saller') }}">Как стать продавцом</a></li>
           </ul>
         </div>
       </div>

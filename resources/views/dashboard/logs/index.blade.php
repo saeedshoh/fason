@@ -20,15 +20,9 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все логи <span class="badge badge-pill badge-soft-secondary">{{ $logs->count() }}</span>
+                  Все логи <span class="badge badge-pill badge-soft-secondary">{{ $count }}</span>
                 </h1>
 
-              </div>
-              <div class="col-auto">
-                <!-- Buttons -->
-                <a href="{{ route('monetizations.create') }}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
               </div>
             </div>
           </div>
@@ -126,16 +120,11 @@
               </tbody>
             </table>
           </div>
+
           <div class="card-footer d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                    </li>
-                </ul>
-            </nav>
+            {{ $logs->links() }}
           </div>
         </div>
-
       </div>
     </div>
   </div>

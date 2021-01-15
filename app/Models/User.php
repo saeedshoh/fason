@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function favorite() {
         return $this->hasMany('App\Models\Favorite', 'user_id');
     }
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
 }

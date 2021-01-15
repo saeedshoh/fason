@@ -30,23 +30,22 @@
           </div>
           <!--desktop slider-->
           <div class="product-img-holder d-none d-lg-block">
-            <img src="{{ Storage::url($product->image )}}" class="rounded" alt="" height="373px">
+            <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main" alt="" height="373px">
             <div class="add-product-secondary my-3 d-flex">
                 @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
-                    <div class="mr-3">
+                    <div class="mr-3 mb-2">
                         <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow shadow" width="65" height="65" alt="{{ $product->name }}">
                     </div>
                 @endfor
             </div>
           </div>
           <!--desktop slider end-->
-        </div>
+          </div>
         <div>
-            <!--mobile slider-->
+          <!--mobile slider-->
           <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
             <ol class="carousel-indicators d-flex align-items-center">
               <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
-
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">

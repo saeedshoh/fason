@@ -398,6 +398,11 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link {{ request()->is('dashboard/cities') ? ' active' : '' }}" href="{{ route('cities.index') }}" href="{{ route('cities.index') }}">
+                  <i class="fe fe-map-pin"></i> Города
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
                   <i class="fe fe-shopping-bag"></i> Заказы
                 </a>

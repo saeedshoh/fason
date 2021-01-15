@@ -8,16 +8,16 @@
 
 {{--  {{ dd(Auth::user()->favorite) }}  --}}
   <section class="container mt-lg-4">
-    <div class="under-menu-category">
+    <div class="under-menu-category d-lg-block d-none">
       <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 d-none d-md-flex">
+        <div class="col-12 col-md-4 col-lg-3 d-flex">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle font-weight-bold category-dropdown position-relative" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Категории
             </button>
           </div>
         </div>
-        <div class="col-md-8 col-lg-6 d-none d-md-flex px-0 justify-content-between">
+        <div class="col-md-8 col-lg-6 d-none d-flex px-0 justify-content-between">
           @if ($is_store == null)
 
             @auth
@@ -59,7 +59,7 @@
         </div>
         @auth
         <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
-          <a class="text-decoration-none text-secondary">
+          <a href="{{ route('profile') }}" class="text-decoration-none text-secondary">
             <img class="rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
@@ -192,7 +192,7 @@
       <div class="partners_and_another">
 
       <!--BANNER  -->
-      <div class="row under_banner d-lg-block mt-4">
+      <div class="row under_banner d-none d-md-block mt-4">
         <a href="{{ $middle_banner->url }}">
           <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
         </a>
