@@ -4,6 +4,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
         'stores' => StoreController::class,
         'banners' => BannersController::class,
         'monetizations' => MonetizationController::class,
+        'cities' => CityController::class,
     ]);
 });
 
@@ -108,3 +110,4 @@ Route::view('/return', 'useful_links.return')->name('useful_links.return');
 Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
 Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
+Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');

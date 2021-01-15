@@ -2,6 +2,42 @@ require('./jquery.inputmask.bundle.js');
 
 
 $(document).ready(function(){
+    $('body').on('keyup', '#nameStoreCreate', function () {
+        $('#storeSubmit').attr('disabled', true);
+        var store = $(this).val();
+        if(store.length >= 3){
+            setTimeout(() => {
+                $.get('/store/exist/'+store, function(data){
+                    if(data.exist){
+                        $('.store-exist').removeClass('d-none');
+                        $('#storeSubmit').attr('disabled', true);
+                    } else {
+                        $('.store-exist').addClass('d-none');
+                        $('#storeSubmit').attr('disabled', false);
+                    }
+                });
+            }, 2000);
+        }
+    });
+
+    $('body').on('keyup', '#nameEditStore', function () {
+        $('#storeEditSubmit').attr('disabled', true);
+        var store = $(this).val();
+        if(store != this.defaultValue) {
+            setTimeout(() => {
+                $.get('/store/exist/'+store, function(data){
+                    if(data.exist){
+                        $('.store-exist').removeClass('d-none');
+                        $('#storeEditSubmit').attr('disabled', true);
+                    } else {
+                        $('.store-exist').addClass('d-none');
+                        $('#storeEditSubmit').attr('disabled', false);
+                    }
+                });
+            }, 2000);
+        }
+    });
+
     $('.sms--false').hide();
     $(window).scroll(fetchPosts);
 
@@ -720,3 +756,5 @@ $('body').on('click', '.change-address', function () {
     $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
 });
+
+
