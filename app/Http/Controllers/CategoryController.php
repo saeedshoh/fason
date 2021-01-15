@@ -11,7 +11,6 @@ use App\Models\Log;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -265,29 +264,6 @@ class CategoryController extends Controller
         $subcategories = Category::where('parent_id', $request->category)->where('is_active', 1)->get();
         return $subcategories;
     }
-
-    public function getAttributes(Request $request)
-    {
-        $request->validate(['category_id' => 'required|numeric|digits_between:1,20']);
-
-        if ($request->ajax())
-            return DB::table('category_attributes')->select('category_attributes.*', 'attributes.name AS at_name', 'attributes.slug AS at_slug', 'attributes.id AS at_id')
-                    ->where('category_id', $request->category_id)
-                    ->leftJoin('attributes', 'attributes.id', '=', 'category_attributes.attribute_id')->get();
-
-        abort(404);
-    }
-
-    public function getAttributesValue(Request $request)
-    {
-        $request->validate(['attribute_id' => 'required|numeric|digits_between:1,20']);
-
-        if ($request->ajax())
-            return DB::table('attribute_values')->where('attribute_id', $request->attribute_id)->get();
-
-        abort(404);
-    }
-
 
     public function getParentCategories(Request $request)
     {
