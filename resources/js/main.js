@@ -1,6 +1,5 @@
 require('./jquery.inputmask.bundle.js');
 
-
 $(document).ready(function(){
     $('body').on('keyup', '#nameStoreCreate', function () {
         $('#storeSubmit').attr('disabled', true);
@@ -268,7 +267,7 @@ $(document).on('change', '#cat_parent', function () {
             data.forEach(element => {
                 $('.append-div').append(`
                     <div class="form-check form-check">
-                        <input class="form-check-input js-attribute" name="attribute[]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
                     </div>
                 `);
@@ -291,14 +290,14 @@ $(document).on('change', '.js-attribute', function() {
                 _this.closest('div').find('select').remove();
             } else {
                 _this.closest('div').append(`
-                    <select class="input_placeholder_style form-control" name="attribute['value'][]">
+                    <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]">
                         <option disabled>Выберите значение</option>
                     </select>
                 `);
 
                 data.forEach(element => {
                     _this.closest('div').find('select').append(`
-                        <option value="${element['id']}">${element['value']}</option>
+                        <option value="${element['id']}">${element['name']}</option>
                     `);
                 })
             }
@@ -757,4 +756,8 @@ $('body').on('click', '.change-address', function () {
     $('#checkout_address').focus();
 });
 
+$('.add-product-secondary .pic-item').on('click', function(){
+    let imgSrc = $(this).attr('data-image-src');
+    $('.pic-main').attr('src',imgSrc);
+});
 

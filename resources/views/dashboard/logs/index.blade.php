@@ -125,7 +125,6 @@
             {{ $logs->links() }}
           </div>
         </div>
-
       </div>
     </div>
   </div>
