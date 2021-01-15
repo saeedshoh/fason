@@ -16,6 +16,7 @@ class ImageInv extends Controller
         $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('90');
         $img->insert($watermark, 'bottom-right', 25, 25);
         $canva->insert($img, 'center', 25, 25);
+        
         return $canva->response('jpg');
     }
 }

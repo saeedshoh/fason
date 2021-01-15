@@ -11,7 +11,7 @@
     <div class="container mt-lg-5">
       <div class="row">
         <!--slider-proiduct-and-description-->
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-5">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
             <a href="{{ route('home') }}" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
@@ -22,16 +22,19 @@
             <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-secondary font-weight-bold text-decoration-none">{{ $product->category->name }}</a>
 
             <h3 class="h3 font-weight-bold">{{ $product->name }}</h3>
+
+           <nav>
+             Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted font-weight-bold text-decoration-none"> {{ $product->store->name }}     </a>
+           </nav>
+           </p>
           </div>
           <!--desktop slider-->
           <div class="product-img-holder d-none d-lg-block">
-            <div class="text-center">
-              <img src="{{ Storage::url($product->image )}}" class="rounded" alt="" height="373px">
-            </div>
-            <div class="row add-product-secondary my-3">
+            <img src="{{ Storage::url($product->image )}}" class="rounded" alt="" height="373px">
+            <div class="add-product-secondary my-3 d-flex">
                 @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
-                    <div class="col-3 text-center">
-                        <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item" alt="{{ $product->name }}">
+                    <div class="mr-3">
+                        <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow shadow" width="65" height="65" alt="{{ $product->name }}">
                     </div>
                 @endfor
             </div>
@@ -40,26 +43,26 @@
         </div>
         <div>
             <!--mobile slider-->
-            <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
-              <ol class="carousel-indicators d-flex align-items-center">
-                <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
+          <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
+            <ol class="carousel-indicators d-flex align-items-center">
+              <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
 
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
-                </div>
-
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
               </div>
-              <a class="carousel-control-prev d-none" href="#prodCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next d-none" href="#prodCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+
             </div>
+            <a class="carousel-control-prev d-none" href="#prodCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next d-none" href="#prodCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
             <!--mobile slider-end-->
         </div>
         <div class="col-12 col-lg-6 order-lg-2">
@@ -71,34 +74,36 @@
         </div>
         <!--slider-proiduct-and-description-end-->
         <!--product-information-and-attribute-->
-        <div class="col-12 col-lg-6 order-lg-1">
+        <div class="col-12 col-lg-7 order-lg-1">
           <h3 class="h3 title mt-3 mt-lg-2 d-none d-lg-block">Информация о товаре</h3>
           <div class="mt-3 mt-lg-5">
 
-            <div class="d-none d-lg-block mt-3 font-weight-bold">
-              <span class="text-dark">Категория:</span>
-              <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-danger text-decoration-none">{{ $product->category->name }}</a>
-              <h3 class="mt-2 mb-4 font-weight-bold">{{ $product->name }}</h3>
+            <div class="d-none d-lg-block mt-3">
+              <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-muted  font-weight-bold text-decoration-none">{{ $product->category->name }}</a>
+              <h3 class="mt-2 mb-3 font-weight-bold">{{ $product->name }}</h3>
+              <nav class="text-muted">
+                Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
+              </nav>
             </div>
           </div>
           <div class="row align-items-center mt-3 prod-controls">
-            <div class="col-4">
+            <div class="col col">
               <div class="text-center text-md-left">
                 <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
-            <div class="col-4 my-md-0 my-3 text-center">
+            <div class="col my-md-0 my-3 text-center">
               <div class="position-relative d-flex align-items-center number">
                 <form id="number-spinner-horizontal" class="t-neutral">
                   <fieldset class="spinner spinner--horizontal l-contain--medium">
                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
-                     <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                     <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
                    </fieldset>
                  </form>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col">
               <div class="text-center text-md-right">
 
                 @if(Auth::check())
@@ -163,7 +168,7 @@
                         </div>
                       </div>
                       <div class="modal-footer border-0 info-product_footer">
-                        <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between w-100  flex-wrap">
                           <div class="btn btn-outline-danger change-address custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
                           <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
                             Оформить
@@ -203,9 +208,9 @@
             </div>
           </div>
           <div class="mt-3 mt-sm-5 d-flex justify-content-end info-product_footer">
-            <div class="my-3 text-center d-flex justify-content-between w-100">
+            <div class="my-3 text-center d-flex justify-content-end w-100">
               <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
-                <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин
+                <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин продавца
               </a>
               @guest
               <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite" data-toggle="modal" data-target="#enter_site">
@@ -232,7 +237,7 @@
     </div>
   </section>
   <section class="divide"></section>
-  <section class="">
+  <section class="other-product">
     <div class="all-product container mt-5 mt-md-0">
       <div class="text-center">
         <h2 class="my-5 text-muted mb-other-product">Другие товары продавца</h2>
@@ -240,7 +245,7 @@
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
         @forelse ($similars as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-          <div class="card rounded shadow border-0">
+          <div class="card rounded shadow border-0  h-100 w-100">
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>

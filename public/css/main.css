@@ -11296,8 +11296,8 @@ a {
 }
 
 .title {
-  font-size: 35px;
-  color: #9B9B9B;
+  font-size: 40px;
+  color: #D2D2D2;
   font-weight: bold;
 }
 
@@ -11324,20 +11324,6 @@ a {
   position: absolute;
   top: -2%;
   left: 0;
-}
-
-.input_caption,
-.input_placeholder_style {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 18px;
-  color: #888688;
-}
-
-.input_placeholder_style {
-  font-weight: bold !important;
 }
 
 .color_select {
