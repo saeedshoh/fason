@@ -27,6 +27,16 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
+    <script>
+      $(function(){
+          $('.pic-main').okzoom({
+              width: 150,
+              height: 150,
+              border: "1px solid black",
+              shadow: "0 0 5px #000",
+              scaleWidth: 600
+          });
+      });
+  </script>
   </body>
 </html>

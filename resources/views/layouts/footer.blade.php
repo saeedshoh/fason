@@ -1,5 +1,6 @@
 @section('footer')
 
+
 {{-- Место Модалок --}}
 
 <div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
