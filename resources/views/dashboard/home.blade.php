@@ -11,14 +11,14 @@
         <div class="row align-items-end">
           <div class="col">
 
-            <!-- Pretitle -->
+            {{-- <!-- Pretitle -->
             <h6 class="header-pretitle text-secondary">
               Annual
-            </h6>
+            </h6> --}}
 
             <!-- Title -->
             <h1 class="header-title text-white">
-              Audience
+              Заказы
             </h1>
 
           </div>
@@ -28,34 +28,34 @@
             <ul class="nav nav-tabs header-tabs">
               <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="0">
                 <a href="#" class="nav-link text-center active" data-toggle="tab">
-                  <h6 class="header-pretitle text-secondary">
+                  {{-- <h6 class="header-pretitle text-secondary">
                     Customers
-                  </h6>
+                  </h6> --}}
                   <h3 class="text-white mb-0">
-                    73.2k
+                    Месяц
                   </h3>
                 </a>
               </li>
-              <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="1">
+              {{-- <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="1">
                 <a href="#" class="nav-link text-center" data-toggle="tab">
-                  <h6 class="header-pretitle text-secondary">
+                  {{-- <h6 class="header-pretitle text-secondary">
                     Sessions
-                  </h6>
-                  <h3 class="text-white mb-0">
-                    92.1k
+                  </h6> --}}
+                  {{-- <h3 class="text-white mb-0">
+                    Неделя
                   </h3>
                 </a>
-              </li>
-              <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="2">
-                <a href="#" class="nav-link text-center" data-toggle="tab">
-                  <h6 class="header-pretitle text-secondary">
+              </li> --}}
+              {{-- <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="2">
+                <a href="#" class="nav-link text-center" data-toggle="tab"> --}}
+                  {{-- <h6 class="header-pretitle text-secondary">
                     Conversion
-                  </h6>
-                  <h3 class="text-white mb-0">
-                    50.2%
+                  </h6> --}}
+                  {{-- <h3 class="text-white mb-0">
+                    Месяц
                   </h3>
                 </a>
-              </li>
+              </li> --}}
             </ul>
 
           </div>
@@ -86,12 +86,12 @@
 
             <!-- Title -->
             <h4 class="card-header-title">
-              Orders
+              Прибыль
             </h4>
 
             <!-- Caption -->
             <span class="text-muted mr-3">
-              Show affiliate:
+              С учетом комиссии:
             </span>
 
             <!-- Switch -->
@@ -163,17 +163,12 @@
 
                 <!-- Title -->
                 <h6 class="text-uppercase text-muted mb-2">
-                  Weekly Sales
+                  Купленно товаров на сумму
                 </h6>
 
                 <!-- Heading -->
                 <span class="h2 mb-0">
-                  $24,500
-                </span>
-
-                <!-- Badge -->
-                <span class="badge badge-soft-success mt-n1">
-                  +3.5%
+                  {{ $salesSum }} TJS
                 </span>
 
               </div>
@@ -198,19 +193,19 @@
 
                 <!-- Title -->
                 <h6 class="text-uppercase text-muted mb-2">
-                  Orders Placed
+                  Принято заказов
                 </h6>
 
                 <!-- Heading -->
                 <span class="h2 mb-0">
-                  763.5
+                  {{ $ordersCount }}
                 </span>
 
               </div>
               <div class="col-auto">
 
                 <!-- Icon -->
-                <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+                <span class="h2 fe fe-shopping-bag text-muted mb-0"></span>
 
               </div>
             </div> <!-- / .row -->
@@ -228,7 +223,7 @@
 
                 <!-- Title -->
                 <h6 class="text-uppercase text-muted mb-2">
-                  Conversion Rate
+                  Общее количество товаров
                 </h6>
 
                 <div class="row align-items-center no-gutters">
@@ -236,16 +231,8 @@
 
                     <!-- Heading -->
                     <span class="h2 mr-2 mb-0">
-                      84.5%
+                      {{ $productsCount }}
                     </span>
-
-                  </div>
-                  <div class="col">
-
-                    <!-- Progress -->
-                    <div class="progress progress-sm">
-                      <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
 
                   </div>
                 </div> <!-- / .row -->
@@ -267,27 +254,25 @@
         <div class="card">
           <div class="card-body">
             <div class="row align-items-center">
-              <div class="col">
+                <div class="col">
 
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Avg. Value
-                </h6>
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                      Количество новых товаров
+                    </h6>
 
-                <!-- Heading -->
-                <span class="h2 mb-0">
-                  $85.50
-                </span>
+                    <div class="row align-items-center no-gutters">
+                      <div class="col-auto">
 
-              </div>
-              <div class="col-auto">
+                        <!-- Heading -->
+                        <span class="h2 mr-2 mb-0">
+                          {{ $newProductsCount }}
+                        </span>
 
-                <!-- Chart -->
-                <div class="chart chart-sparkline">
-                  <canvas class="chart-canvas" id="sparklineChart"></canvas>
-                </div>
-
-              </div>
+                      </div>
+                    </div> <!-- / .row -->
+                  </div>
+            </div>
             </div> <!-- / .row -->
           </div>
         </div>

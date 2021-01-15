@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все категории
+                   Все категории  <span class="badge badge-pill badge-soft-secondary"> {{ $categories->count() }}</span>
                 </h1>
 
               </div>

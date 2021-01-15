@@ -4251,6 +4251,10 @@ $('body').on('click', '.change-address', function () {
   $('#checkout_address').prop("disabled", false);
   $('#checkout_address').focus();
 });
+$('.add-product-secondary .pic-item').on('click', function () {
+  var imgSrc = $(this).attr('data-image-src');
+  $('.pic-main').attr('src', imgSrc);
+});
 
 /***/ }),
 
@@ -4261,7 +4265,7 @@ $('body').on('click', '.change-address', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

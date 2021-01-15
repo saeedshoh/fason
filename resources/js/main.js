@@ -1,6 +1,5 @@
 require('./jquery.inputmask.bundle.js');
 
-
 $(document).ready(function(){
     $('.sms--false').hide();
     $(window).scroll(fetchPosts);
@@ -719,4 +718,8 @@ $('#spinner-input').on('change', function () {
 $('body').on('click', '.change-address', function () {
     $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
+});
+$('.add-product-secondary .pic-item').on('click', function(){
+    let imgSrc = $(this).attr('data-image-src');
+    $('.pic-main').attr('src',imgSrc);
 });

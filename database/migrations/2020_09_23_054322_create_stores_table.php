@@ -24,6 +24,7 @@ class CreateStoresTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('is_active')->default(0);
+            $table->boolean('is_monetized')->default(false);
             $table->timestamps();
         });
     }

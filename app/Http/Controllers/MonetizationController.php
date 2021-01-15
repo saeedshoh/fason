@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Monetization;
-use App\Http\Requests\MonetizationRequest;
 use App\Models\Log;
+use App\Models\Store;
+use App\Models\Monetization;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\MonetizationRequest;
 
 class MonetizationController extends Controller
 {
@@ -17,7 +18,20 @@ class MonetizationController extends Controller
     public function index()
     {
         $monetizations = Monetization::get();
-        return view('dashboard.monetizations.index', compact('monetizations'));
+        $personalisations = Store::where('is_monetized', true)->get();
+        return view('dashboard.monetizations.index', compact('monetizations', 'personalisations'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function personalisationsIndex()
+    {
+        $monetizations = Monetization::get();
+        $personalisations = Store::where('is_monetized', true)->get();
+        return view('dashboard.monetizations.personalisations.index', compact('monetizations', 'personalisations'));
     }
 
     /**
@@ -27,7 +41,9 @@ class MonetizationController extends Controller
      */
     public function create()
     {
-        return view('dashboard.monetizations.create');
+        $previous = url()->previous();
+        $stores = Store::get();
+        return view('dashboard.monetizations.create', compact('stores', 'previous'));
     }
 
     /**
@@ -38,7 +54,12 @@ class MonetizationController extends Controller
      */
     public function store(MonetizationRequest $request)
     {
-        Monetization::create($request->validated());
+        $monetization = Monetization::create($request->validated());
+        if($request->store_id) {
+            $store = Store::find($request->store_id);
+            $store->update(['is_monetized' => true]);
+            $store->monetizations()->attach($monetization->id);
+        }
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 1,
@@ -56,7 +77,12 @@ class MonetizationController extends Controller
      */
     public function show(Monetization $monetization)
     {
-        //
+        $monetizations = Monetization::get();
+        $personalisations = Store::where('is_monetized', true)->get();
+        $store = Store::find($monetization->id);
+        $personalized = $store->monetizations;
+        // dd($personalized);
+        return view('dashboard.monetizations.show', compact('monetizations', 'personalisations', 'store', 'personalized'));
     }
 
     /**

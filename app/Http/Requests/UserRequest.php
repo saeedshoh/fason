@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MonetizationRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,18 @@ class MonetizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'store_id'  => 'sometimes|required|min:1',
-            'min'       => 'required|min:0',
-            'max'       => 'required|min:1',
-            'margin'    => 'required',
+            'name' => 'required',
+            'address' => 'required',
+            'city_id' => 'required',
         ];
     }
 
     public function attributes()
     {
         return [
-            'min'       => 'Введите сумма от',
-            'max'       => 'Выберите сумма до',
-            'margin'    => 'Введите процентную ставку',
+            'name' => 'Имя',
+            'address' => 'Адрес',
+            'city_id' => 'Выберите город',
         ];
     }
 }
