@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AttributeController extends Controller
 {
@@ -111,5 +112,29 @@ class AttributeController extends Controller
         ]);
         $attribute->delete();
         return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно удалена!');
+    }
+
+    public function attributes(Request $request)
+    {
+        if ($request->ajax()) {
+            $request->validate(['category_id' => 'required|numeric|digits_between:1,20']);
+            return DB::table('category_attributes')->select('category_attributes.*', 'attributes.name AS at_name', 'attributes.slug AS at_slug', 'attributes.id AS at_id')
+                    ->where('category_id', $request->category_id)
+                    ->leftJoin('attributes', 'attributes.id', '=', 'category_attributes.attribute_id')->get();
+        }
+
+        abort(404);
+    }
+
+    public function attributesValue(Request $request)
+    {
+        if ($request->ajax()) {
+            $request->validate(['attribute_id' => 'required|numeric|digits_between:1,20']);
+            return DB::table('attribute_values')->select('attribute_values.*', 'attributes.slug')
+                     ->where('attribute_id', $request->attribute_id)
+                     ->leftJoin('attributes', 'attributes.id', '=', 'attribute_values.attribute_id')->get();
+        }
+
+        abort(404);
     }
 }

@@ -3792,7 +3792,7 @@ $(document).on('change', '#cat_parent', function () {
     success: function success(data) {
       $('.append-div').empty();
       data.forEach(function (element) {
-        $('.append-div').append("\n                    <div class=\"form-check form-check\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[]\" type=\"checkbox\" id=\"".concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+        $('.append-div').append("\n                    <div class=\"form-check form-check\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
       });
     }
   });
@@ -3811,10 +3811,10 @@ $(document).on('change', '.js-attribute', function () {
       if (!_this.is(":checked")) {
         _this.closest('div').find('select').remove();
       } else {
-        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute['value'][]\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                ");
+        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
 
         data.forEach(function (element) {
-          _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['value'], "</option>\n                    "));
+          _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
         });
       }
     }
