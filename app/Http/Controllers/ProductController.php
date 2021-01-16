@@ -193,7 +193,7 @@ class ProductController extends Controller
             'attribute_id' => 123,
             'attribuse_value_id' => 1
         ]);
-
+      
         return redirect()->route('home');
     }
 

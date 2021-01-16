@@ -82948,8 +82948,11 @@ Chart.elements.Rectangle.prototype.draw = function () {
 "use strict";
 
 
-!function () {
+$.get("/dashboard/ordersStatistic", function (statistic) {
   var e = document.getElementById("audienceChart");
+  var labels = statistic['labels'];
+  var datas = statistic['datas'];
+  console.log(statistic);
   "undefined" != typeof Chart && e && new Chart(e, {
     type: "line",
     options: {
@@ -82961,12 +82964,12 @@ Chart.elements.Rectangle.prototype.draw = function () {
           gridLines: {
             color: "#283E59",
             zeroLineColor: "#283E59"
-          },
-          ticks: {
-            callback: function callback(e) {
-              return e + "k";
-            }
-          }
+          } // ticks: {
+          //     callback: function(e) {
+          //         return e + "k";
+          //     },
+          // },
+
         }, {
           id: "yAxisTwo",
           type: "linear",
@@ -82984,53 +82987,92 @@ Chart.elements.Rectangle.prototype.draw = function () {
       }
     },
     data: {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: labels,
       datasets: [{
-        label: "Customers",
-        data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40],
+        label: 'Months',
+        data: datas,
         yAxisID: "yAxisOne"
-      }, {
-        label: "Sessions",
-        data: [50, 75, 35, 25, 55, 87, 67, 53, 25, 80, 87, 45],
-        yAxisID: "yAxisOne",
-        hidden: !0
-      }, {
-        label: "Conversion",
-        data: [40, 57, 25, 50, 57, 32, 46, 28, 59, 34, 52, 48],
-        yAxisID: "yAxisTwo",
-        hidden: !0
-      }]
+      } // { label: 'months', data: datas, yAxisID: "yAxisOne", hidden: !0 },
+      // { label: 'months', data: datas, yAxisID: "yAxisTwo", hidden: !0 },
+      ]
     }
   });
-}(), function () {
-  var e = document.getElementById("conversionsChart");
-  "undefined" != typeof Chart && e && new Chart(e, {
-    type: "bar",
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            callback: function callback(e) {
-              return e + "%";
+
+  (function () {
+    var e = document.getElementById("conversionsChart");
+    "undefined" != typeof Chart && e && new Chart(e, {
+      type: "bar",
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              callback: function callback(e) {
+                return e + "%";
+              }
             }
-          }
+          }]
+        }
+      },
+      data: {
+        labels: ["Oct 1", "Oct 2", "Oct 3", "Oct 4", "Oct 5", "Oct 6", "Oct 7", "Oct 8", "Oct 9", "Oct 10", "Oct 11", "Oct 12"],
+        datasets: [{
+          label: "2020",
+          data: [25, 20, 30, 22, 17, 10, 18, 26, 28, 26, 20, 32]
+        }, {
+          label: "2019",
+          data: [15, 10, 20, 12, 7, 0, 8, 16, 18, 16, 10, 22],
+          backgroundColor: "#d2ddec",
+          hidden: !0
         }]
       }
-    },
-    data: {
-      labels: ["Oct 1", "Oct 2", "Oct 3", "Oct 4", "Oct 5", "Oct 6", "Oct 7", "Oct 8", "Oct 9", "Oct 10", "Oct 11", "Oct 12"],
-      datasets: [{
-        label: "2020",
-        data: [25, 20, 30, 22, 17, 10, 18, 26, 28, 26, 20, 32]
-      }, {
-        label: "2019",
-        data: [15, 10, 20, 12, 7, 0, 8, 16, 18, 16, 10, 22],
-        backgroundColor: "#d2ddec",
-        hidden: !0
-      }]
-    }
-  });
-}(), function () {
+    });
+  })();
+}); // !(function() {
+//     var e = document.getElementById("audienceChart");
+//     var labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+//     "undefined" != typeof Chart &&
+//         e &&
+//         new Chart(e, {
+//             type: "line",
+//             options: {
+//                 scales: {
+//                     yAxes: [{
+//                             id: "yAxisOne",
+//                             type: "linear",
+//                             display: "auto",
+//                             gridLines: { color: "#283E59", zeroLineColor: "#283E59" },
+//                             ticks: {
+//                                 callback: function(e) {
+//                                     return e + "k";
+//                                 },
+//                             },
+//                         },
+//                         {
+//                             id: "yAxisTwo",
+//                             type: "linear",
+//                             display: "auto",
+//                             gridLines: { color: "#283E59", zeroLineColor: "#283E59" },
+//                             ticks: {
+//                                 callback: function(e) {
+//                                     return e + "%";
+//                                 },
+//                             },
+//                         },
+//                     ],
+//                 },
+//             },
+//             data: {
+//                 labels: labels,
+//                 datasets: [
+//                     { label: "Customers", data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40], yAxisID: "yAxisOne" },
+//                     { label: "Sessions", data: [50, 75, 35, 25, 55, 87, 67, 53, 25, 80, 87, 45], yAxisID: "yAxisOne", hidden: !0 },
+//                     { label: "Conversion", data: [40, 57, 25, 50, 57, 32, 46, 28, 59, 34, 52, 48], yAxisID: "yAxisTwo", hidden: !0 },
+//                 ],
+//             },
+//         });
+// })(),
+
+(function () {
   var e = document.getElementById("trafficChart");
   "undefined" != typeof Chart && e && new Chart(e, {
     type: "doughnut",
@@ -83055,7 +83097,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
       }]
     }
   });
-}(), function () {
+})(), function () {
   var e = document.getElementById("trafficChartAlt");
   "undefined" != typeof Chart && e && new Chart(e, {
     type: "doughnut",
@@ -83409,8 +83451,8 @@ $('body').on('change', '#cat_child', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\main.js */"./resources/js/dashboard/main.js");
+__webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
 
 
 /***/ })

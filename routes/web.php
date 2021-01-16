@@ -5,6 +5,7 @@ use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
-use Laratrust\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
     Route::get('/logs', [CategoryController::class, 'logsIndex'])->name('logs');
     Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
+    Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
         'stores' => StoreController::class,
         'banners' => BannersController::class,
         'monetizations' => MonetizationController::class,
+        'cities' => CityController::class,
     ]);
     Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
 });
@@ -67,8 +69,8 @@ Route::get('category/{slug}', [CategoryController::class, 'category'])->name('ft
 Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts'])->name('categoryProducts');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/getSubcategories', [CategoryController::class, 'getSubcategories'])->name('getSubcategories');
-Route::get('/getAttributes', [CategoryController::class, 'getAttributes'])->middleware('auth')->name('getAttributes');
-Route::get('/getAttributesValue', [CategoryController::class, 'getAttributesValue'])->middleware('auth')->name('getAttributesValue');
+Route::get('/getAttributes', [AttributeController::class, 'attributes'])->middleware('auth')->name('getAttributes');
+Route::get('/getAttributesValue', [AttributeController::class, 'attributesValue'])->middleware('auth')->name('getAttributesValue');
 Route::get('/getParentcategories', [CategoryController::class, 'getParentcategories'])->name('getParentcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
@@ -110,5 +112,6 @@ Route::view('/return', 'useful_links.return')->name('useful_links.return');
 Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
 Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
+Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');
 Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
 Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');

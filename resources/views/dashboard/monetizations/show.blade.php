@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Монетизации')
+@section('title', 'Персонализированная-'.$store->name)
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -24,12 +24,6 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
-                <!-- Buttons -->
-                <a href="{{ route('monetizations.create') }}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
-              </div>
             </div>
             <div class="row align-items-center">
                 <div class="col">
@@ -37,7 +31,7 @@
                   <!-- Nav -->
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
-                      <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap active">
+                      <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap">
                         Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
                       </a>
                     </li>
@@ -105,8 +99,7 @@
                 </tr>
               </thead>
               <tbody class="list">
-                @forelse ($monetizations as $key => $monetization)
-                @if($monetization->stores->isEmpty())
+                @forelse ($personalized as $key => $monetization)
                 <tr>
                   <td class="monetizations-order">
                     #{{ ++$key}}
@@ -127,21 +120,17 @@
                     </div>
                   </td>
                   <td class="text-right">
+                    <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
+                      <i class="fe fe-edit"> </i>
+                    </a>
                     <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
                         @csrf
                         <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right">
                             <i class="fe fe-trash"> </i></button>
                         @method('DELETE')
                     </form>
-                    <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
-                        <i class="fe fe-edit"> </i>
-                    </a>
-                    <a href="{{ route('monetizations.show', $monetization) }}" class="btn btn-warning m-1 fa-pull-right">
-                        <i class="fe fe-eye" aria-hidden="true"></i>
-                    </a>
                   </td>
                 </tr>
-                @endif
                 @empty
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>

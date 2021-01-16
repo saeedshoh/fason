@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
 {
@@ -14,7 +16,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $cities = City::paginate(50);
+        return view('dashboard.cities.index', compact('cities'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.cities.create');
     }
 
     /**
@@ -35,7 +38,14 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        City::create($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 1,
+            'table'  => ' Города',
+            'description' => 'Название: ' . $request->name
+        ]);
+        return redirect(route('cities.index'))->with('success', 'Город успешно добавлен!');
     }
 
     /**
@@ -57,7 +67,7 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-        //
+        return view('dashboard.cities.edit', compact('city'));
     }
 
     /**
@@ -69,7 +79,14 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        //
+        $city->update($request->all());
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => ' Города',
+            'description' => 'Название: ' . $request->name
+        ]);
+        return redirect(route('cities.index'))->with('success', 'Город успешно изменена!');
     }
 
     /**
@@ -80,6 +97,13 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        $city->delete();
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => ' Города',
+            'description' => 'Название: ' . $city->name
+        ]);
+        return redirect(route('cities.index'))->with('success', 'Город успешно удален!');
     }
 }
