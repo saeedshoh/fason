@@ -17,7 +17,7 @@ class SmsConfirmedController extends Controller
     public function confirmed(Request $request)
     {
         if ($request->ajax()) {
-            $user = User::where('phone', $request->phone)->first();
+            $user = User::where('phone', str_replace(' ', '', $request->phone))->first();
 
             $sms_confirmed = SmsConfirmed::where('code', $request->code)->orderBy('id', 'desc')->first();
             if ($request->code == $sms_confirmed->code && $sms_confirmed->is_active == 0) {
@@ -40,6 +40,7 @@ class SmsConfirmedController extends Controller
             );
             $dlm = ";";
             $phone_number = Str::of($request->phone)->replaceMatches('/[^A-Za-z0-9]++/', ''); //номер телефона
+
             $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
             $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
             $code = mt_rand(10000, 99999);

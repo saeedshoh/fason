@@ -33,7 +33,7 @@ class UserController extends Controller
         }
 
         $user = User::updateOrCreate(
-            ['phone' => $request->phone],
+            ['phone' => str_replace(' ', '', $request->phone)],
             [
                 'name' =>  $request->name,
                 'address' =>  $request->address,
@@ -43,7 +43,6 @@ class UserController extends Controller
         );
 
         Auth::loginUsingId($user->id);
-
         return redirect()->route('home');
     }
 
@@ -81,7 +80,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' =>  $request->email,
-            'phone' =>  $request->phone,
+            'phone' =>  str_replace(' ', '', $request->phone),
             'status' =>  1,
             'profile_photo_path' => $request->profile_photo_path,
             'password' => Hash::make($request->password,),
@@ -92,7 +91,7 @@ class UserController extends Controller
             'user_id' => Auth::user()->id,
             'action' => 1,
             'table'  => ' Пользователи',
-            'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . $request->phone
+            'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
 
         return redirect()->route('users.index');
