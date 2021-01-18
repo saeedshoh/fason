@@ -110,54 +110,83 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
-        return $request->all();
+        // return $request->all();
+        // $request->validate([
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+        // ]);
+        // $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        // $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+        // $save = Image::make($request->file('image'))->resize(480, 480, function ($constraint) {
+        //     $constraint->upsize();
+        // });
+        // $save_single = Image::make($request->file('image'))->fit(800, 800, function ($constraint) {
+        //     $constraint->upsize();
+        // });
+        // $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        // $save->insert($watermark, 'bottom-right', 25, 25);
+        // $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+        // $image = $nowYear . '480x480.jpg';
+        // $image_single = $nowYear . '800x800.jpg';
+        // if (!file_exists(public_path('/storage/' . $image))) {
+        //     Storage::makeDirectory($yearFolder);
+        //     $save->save(public_path('/storage/' . $image));
+        //     $save_single->save(public_path('/storage/' . $image_single));
+        // } else {
+        //     $save->save(public_path('/storage/' . $image));
+        //     $save_single->save(public_path('/storage/' . $image_single));
+        // }
+
+        // $gallery = $request->file('gallery');
+        // $galleries = [];
+        // foreach($gallery as $images){
+        //     $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        //     $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+
+        //     $save_single = Image::make($images)->fit(800, 800, function ($constraint) {
+        //         $constraint->upsize();
+        //     });
+        //     $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        //     $save_single->insert($watermark, 'bottom-right', 25, 25);
+
+        //     $image_single = $nowYear . '800x800.jpg';
+        //     $save_single->save(public_path('/storage/' . $image_single));
+        //     array_push($galleries, $image_single);
+        // }
+
+        // $product = Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
-        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
 
-        $save = Image::make($request->file('image'))->resize(480, 480, function ($constraint) {
-            $constraint->upsize();
-        });
-        $save_single = Image::make($request->file('image'))->fit(800, 800, function ($constraint) {
-            $constraint->upsize();
-        });
+        $img = Image::make($request->file('image')->getRealPath());
         $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-        $save->insert($watermark, 'bottom-right', 25, 25);
-        $save_single->insert($watermark, 'bottom-right', 25, 25);
+        $img->insert($watermark, 'bottom-right', 50, 50);
 
-        $image = $nowYear . '480x480.jpg';
-        $image_single = $nowYear . '800x800.jpg';
-        if (!file_exists(public_path('/storage/' . $image))) {
-            Storage::makeDirectory($yearFolder);
-            $save->save(public_path('/storage/' . $image));
-            $save_single->save(public_path('/storage/' . $image_single));
-        } else {
-            $save->save(public_path('/storage/' . $image));
-            $save_single->save(public_path('/storage/' . $image_single));
+        //Create folder if doesn't exist
+        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($yearFolder)){
+            File::makeDirectory($yearFolder, 0777, true);
         }
+
+        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+        $this->cropImage($img, 480, 50, $nowYear);
+        $this->cropImage($img, 800, 83, $nowYear);
 
         $gallery = $request->file('gallery');
         $galleries = [];
         foreach($gallery as $images){
-            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-
-            $save_single = Image::make($images)->fit(800, 800, function ($constraint) {
-                $constraint->upsize();
-            });
-            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-            $save_single->insert($watermark, 'bottom-right', 25, 25);
-
-            $image_single = $nowYear . '800x800.jpg';
-            $save_single->save(public_path('/storage/' . $image_single));
+            $singleImage = Image::make($images->getRealPath());
+            $singleImage->insert($watermark, 'bottom-right', 50, 50);
+            $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+            $this->cropImage($singleImage, 800, 83, $nowYear1);
+            $image_single = $nowYear1 . '800x800.jpg';
             array_push($galleries, $image_single);
         }
 
-        $product = Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
-
-
+        $product = Product::create($request->validated() + ['image' => $nowYear . '480x480.jpg', 'gallery' => json_encode($galleries, true)]);
 
         DB::table('product_attribute')->insert([
             'product_id' => $product->id,
@@ -181,6 +210,8 @@ class ProductController extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $img->insert($watermark, 'bottom-right', 50, 50);
 
         //Create folder if doesn't exist
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
@@ -196,6 +227,7 @@ class ProductController extends Controller
         $galleries = [];
         foreach($gallery as $images){
             $singleImage = Image::make($images->getRealPath());
+            $singleImage->insert($watermark, 'bottom-right', 50, 50);
             $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
             $this->cropImage($singleImage, 800, 83, $nowYear1);
             $image_single = $nowYear1 . '800x800.jpg';
@@ -271,6 +303,8 @@ class ProductController extends Controller
             }
 
             $img = Image::make($request->file('image')->getRealPath());
+            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $img->insert($watermark, 'bottom-right', 50, 50);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
             $this->cropImage($img, 480, 50, $nowYear);
             $this->cropImage($img, 800, 83, $nowYear);
@@ -292,6 +326,7 @@ class ProductController extends Controller
 
                 $singleImage = Image::make($images->getRealPath());
                 $img = Image::make($request->file('image')->getRealPath());
+                $img->insert($watermark, 'bottom-right', 50, 50);
                 $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
                 $this->cropImage($singleImage, 800, 83, $nowYear1);
 
@@ -382,8 +417,8 @@ class ProductController extends Controller
         $image = $nowYear . $dimension . 'x' . $dimension . '.jpg';
 
         $img->resizeCanvas($dimension, $dimension, 'center', false, '#ffffff');
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-        $img->insert($watermark, 'bottom-right', 25, 25);
+        // $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        // $img->insert($watermark, 'bottom-right', 25, 25);
         $img->save(public_path('/storage/' . $image));
     }
 }
