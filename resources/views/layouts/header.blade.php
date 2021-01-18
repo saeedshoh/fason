@@ -98,13 +98,13 @@
       </div>
     </div>
     <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
-      <div class="col border-right text-center">
+      <div class="col text-center">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/home.svg" alt="">
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>
-      <div class="col border-right text-center">
+      <div class="col text-center">
         <a href="{{ route('favorite.index') }}" class="text-decoration-none  d-flex flex-column pt-2">
           <img src="/storage/theme/icons/favourite-mob.svg" alt="">
           <span class="mobile-nav--title">Сохраненные</span>
@@ -128,7 +128,7 @@
       </div>
       @if ($is_store == null)
         @auth
-        <div class="col border-left text-center">
+        <div class="col text-center">
           <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
             <i class="fas fa-door-open"></i>
             <span class="mobile-nav--title">Магазин</span>
@@ -136,7 +136,7 @@
         </div>
         @endauth
         @guest
-        <div class="col border-left text-center">
+        <div class="col text-center">
           <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
             <img src="/storage/theme/icons/store-mob.svg" alt="">
             <span class="mobile-nav--title">
@@ -145,9 +145,9 @@
         </div>
         @endguest
       @else
-      <div class="col border-left text-center">
+      <div class="col text-center">
         <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2">
-          <img src="/storage/theme/icons/store-mob.svg" alt="">
+          <img src="/storage/theme/icons/opened-exit-door.svg" alt="">
           <span class="mobile-nav--title">Магазин</span>
         </a>
       </div>

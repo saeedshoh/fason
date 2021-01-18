@@ -116,9 +116,9 @@ a {
     transform: scale(1);
 }
 
-.title {
-    font-size: 35px;
-    color: #9B9B9B;
+.title{
+    font-size: 40px;
+    color: #D2D2D2;
     font-weight: bold;
 }
 
@@ -1158,4 +1158,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     position: absolute;
     top: -1rem;
     height: 2.5rem;
+}
+.pic-item-active{
+    border: 1px solid #FE0054 !important;
 }
