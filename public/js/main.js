@@ -3730,7 +3730,7 @@ $(document).ready(function () {
   }
 
   $('.att-show').on('click', function () {
-    $(this).addClass('active');
+    $(this).toggleClass('active');
   });
 });
 $('body').on('click', '#filter', function () {
