@@ -23,9 +23,6 @@
 
             <h3 class="h3 font-weight-bold">{{ $product->name }}</h3>
 
-           <nav>
-             Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted font-weight-bold text-decoration-none"> {{ $product->store->name }}     </a>
-           </nav>
            </p>
           </div>
           <!--desktop slider-->
@@ -64,7 +61,25 @@
           </div>
             <!--mobile slider-end-->
         </div>
+        <div class="col-12 d-block d-lg-none">
+          <div class="my-3 ">
+            <span>Цвет:</span>
+            <div class="d-flex mt-3 gap-3 att-show-row">
+              @foreach ($attributes as $attribute)
+                <nav class="att-show text-capitalize px-3">
+                  {{ $attribute->attribute_value->name }}
+                </nav>
+              @endforeach
+            </div>
+          </div>
+          
+          <nav>
+            Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted font-weight-bold text-decoration-none"> {{ $product->store->name }}     </a>
+          </nav>
+          
+        </div>
         <div class="col-12 col-lg-6 order-lg-2">
+          
           <div class="my-3">
             <h4 class="font-weight-bold">Описание товара:</h4>
             <p class="text-secondary text-semi-bold">{{ $product->description }}</p>
@@ -83,6 +98,17 @@
               <nav class="text-muted">
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
+              <div class="my-3 ">
+                <span>Цвет:</span>
+                <div class="d-flex mt-3 gap-3 att-show-row">
+                  @foreach ($attributes as $attribute)
+                    <nav class="att-show text-capitalize px-3">
+                      {{ $attribute->attribute_value->name }}
+                    </nav>
+                  @endforeach
+                </div>
+              </div>
+              
             </div>
           </div>
           <div class="row align-items-center mt-3 prod-controls">
