@@ -935,4 +935,3 @@ $('.add-product-secondary .pic-item').on('click', function(){
     let imgSrc = $(this).attr('data-image-src');
     $('.pic-main').attr('src',imgSrc);
 });
-
