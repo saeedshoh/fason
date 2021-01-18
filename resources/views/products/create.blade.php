@@ -18,28 +18,28 @@
           </div>
           <div class="my-3">
             <label for="image">
-              <img src="/storage/theme/icons/add_prod-img.svg" class="px-0 btn mw-100 w-100" id="main-poster">
+              <img src="/storage/theme/avatar_product.svg" class="px-0 btn mw-100 w-100 rounded" id="main-poster">
             </label>
           </div>
           <div class="row add-product-secondary" id="preview-product-secondary">
             <div class="col-3 text-center">
               <label for="gallery">
-                  <img src="/storage/theme/icons/add_prod-secondary.svg" class="px-0 btn mw-100"  alt="">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
               </label>
             </div>
             <div class="col-3 text-center">
               <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="px-0 btn mw-100"  alt="">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
               </label>
             </div>
             <div class="col-3 text-center">
               <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="px-0 btn mw-100"  alt="">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
               </label>
             </div>
             <div class="col-3 text-center">
               <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="px-0 btn mw-100" alt="">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
               </label>
             </div>
           </div>
@@ -119,6 +119,7 @@
                   @enderror
                 </div>
               </div>
+             
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: </label>
                 <div class="w-75 input_placeholder_style">

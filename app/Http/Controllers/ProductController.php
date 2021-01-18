@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Http\Requests\ProductRequest;
 use App\Models\Log;
+use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,7 +69,8 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->get();
-        return view('products.single', compact('product', 'similars'));
+        $attributes = $product->attribute_variation;
+        return view('products.single', compact('product', 'similars', 'attributes'));
     }
 
     /**
@@ -110,7 +112,6 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
-        return $request->all();
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
@@ -158,13 +159,15 @@ class ProductController extends Controller
         $product = Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
 
 
-
-        DB::table('product_attribute')->insert([
-            'product_id' => $product->id,
-            'attribute_id' => 123,
-            'attribuse_value_id' => 1
-        ]);
-      
+        foreach ($request->attribute as $attribute) {
+           foreach($attribute as $item) {
+               ProductAttribute::insert([
+                'product_id' => $product->id,
+                'attribute_id' => $attribute['id'],
+                'attribute_value_id' => $item
+            ]);
+           }
+        }
         return redirect()->route('home');
     }
 

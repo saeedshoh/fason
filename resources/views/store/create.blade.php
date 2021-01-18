@@ -24,7 +24,9 @@
       <div class="row mt-sm-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
-            <img src="/storage/theme/itpark.png" class="w-100 rounded" id="avatar-poster" height="216">
+            <label for="avatar" class="cursor-pointer">
+              <img src="/storage/theme/avatar_store.svg" class="w-100 rounded" id="avatar-poster" height="216">
+            </label>
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
@@ -34,7 +36,9 @@
           </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/theme/yellowbanner.png" class="w-100 rounded store-image" id="cover-poster" height="216">
+          <label for="cover" class="cursor-pointer">
+            <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster" height="216">
+          </label>
 
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
@@ -43,9 +47,8 @@
             </label>
           </div>
           <div class="mobile-avatar position-absolute d-lg-none">
-            <img src="/storage/theme/icons/Avatar.svg" class="store-image rounded-circle" width="90" height="90" id="avatar-poster-mobile">
-            <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
-              <img src="/storage/theme/icons/camera.svg">
+            <label for="avatar" class="cursor-pointer">
+              <img src="/storage/theme/banner_store.svg" class="store-image rounded-circle shadow-lg" width="90" height="90" id="avatar-poster-mobile">
             </label>
           </div>
         </div>
