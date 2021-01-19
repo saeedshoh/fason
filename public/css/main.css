@@ -12348,3 +12348,20 @@ input[type=number]:hover::-webkit-outer-spin-button {
   border: 1px solid #FE0054 !important;
 }
 
+.categories-site_products ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.categories-site_products ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.categories-site_products ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 11px;
+}
+
+.categories-site_products ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

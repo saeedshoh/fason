@@ -1154,11 +1154,32 @@ input[type="number"]:hover::-webkit-outer-spin-button {
         }
     }
 }
+
 .add-icon{
     position: absolute;
     top: -1rem;
     height: 2.5rem;
 }
+
 .pic-item-active{
     border: 1px solid #FE0054 !important;
+}
+
+.categories-site_products{
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 11px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 }
