@@ -72,14 +72,14 @@
               @endforeach
             </div>
           </div>
-          
+
           <nav>
             Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted font-weight-bold text-decoration-none"> {{ $product->store->name }}     </a>
           </nav>
-          
+
         </div>
         <div class="col-12 col-lg-6 order-lg-2">
-          
+
           <div class="my-3">
             <h4 class="font-weight-bold">Описание товара:</h4>
             <p class="text-secondary text-semi-bold">{{ $product->description }}</p>
@@ -108,13 +108,13 @@
                   @endforeach
                 </div>
               </div>
-              
+
             </div>
           </div>
           <div class="row align-items-center mt-3 prod-controls">
             <div class="col col">
               <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
+                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ round($product->price_after_margin) }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
             <div class="col my-md-0 my-3 text-center">
@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                               <div class="title mb-3">Цена:</div>
-                              <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
+                              <span class="text-secondary text-semi-bold price-start">{{ round($product->price_after_margin) }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
@@ -182,7 +182,7 @@
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
                               <div class="d-flex flex-row flex-lg-column justify-content-between">
                                 <div class="title mb-3">Сумма:</div>
-                                <div class="text-semi-bold"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
+                                <div class="text-semi-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
                               </div>
                             </div>
                           </div>
@@ -275,7 +275,7 @@
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
+                <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
