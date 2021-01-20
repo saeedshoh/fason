@@ -22,7 +22,7 @@
                 <p class="text-muted mb-pre--text">
                    Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
                 </p>
-                <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}">
+                <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}"  onsubmit="return false">
                   <div class="input-group text-left  btn-group-fs">
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
@@ -69,7 +69,7 @@ aria-hidden="true">
       </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data">
+        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="100" height="116" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,8 +93,8 @@ aria-hidden="true">
             <input type="text" class="form-control" placeholder="Адрес дома..." name="address">
           </div>
           <h5 class="text-secondary">Город:</h5>
-          <div class="form-row">
-            <div class="form-group col-6">
+          <div class="form-row justify-content-around">
+            <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="dushanbe" value="1" name="city_id">
                 <label class="form-check-label text-dark" for="dushanbe">

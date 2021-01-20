@@ -22,7 +22,6 @@
                 <h1 class="header-title text-truncate">
                   Все сотрудники
                 </h1>
-
               </div>
               <div class="col-auto">
 

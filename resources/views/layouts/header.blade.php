@@ -54,7 +54,7 @@
 
                       </div> --}}
 
-                    
+
                     </div>
                   </div>
                   <div class="modal-footer border-1 d-flex justify-content-end mt-1">
@@ -86,7 +86,7 @@
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                 @csrf
 
-                <button type="submit" class="btn btn-outline-dark border-0 px-0">
+                <button type="submit" class="btn btn-link text-dark text-decoration-none border-0 px-0">
                   <i class="fas fa-sign-out-alt"></i> Выход
                 </button>
               </form>
@@ -98,29 +98,29 @@
       </div>
     </div>
     <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
-      <div class="col text-center">
+      <div class="col text-center px-0">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/home.svg" alt="">
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>
-      <div class="col text-center">
+      <div class="col text-center px-0">
         <a href="{{ route('favorite.index') }}" class="text-decoration-none  d-flex flex-column pt-2">
           <img src="/storage/theme/icons/favourite-mob.svg" alt="">
           <span class="mobile-nav--title">Сохраненные</span>
         </a>
       </div>
-      @if ($is_store != null)
+      @if ($is_store != null && $is_store->is_active == 1)
         @auth
-        <div class="col add-good text-center position-relative">
-          <a href="" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
+        <div class="col add-good text-center position-relative px-0">
+          <a href="{{ route('ft_product.add_product') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
             <img class="add-icon " src="/storage/theme/icons/plus.svg" alt="">
             <span class="mobile-nav--title mt-3">Добавить</span>
           </a>
         </div>
         @endauth
       @endif
-      <div class="col text-center">
+      <div class="col text-center px-0">
         <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/orderes-mob.svg" alt="">
           <span class="mobile-nav--title">Заказы</span>
@@ -128,24 +128,24 @@
       </div>
       @if ($is_store == null)
         @auth
-        <div class="col text-center">
+        <div class="col text-center px-0">
           <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2">
-            <i class="fas fa-door-open"></i>
-            <span class="mobile-nav--title">Магазин</span>
+            <i class="fas fa-door-open text-pinky"></i>
+            <span class="mobile-nav--title text-pinky">В магазин</span>
           </a>
         </div>
         @endauth
         @guest
-        <div class="col text-center">
+        <div class="col text-cente px-0">
           <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
             <img src="/storage/theme/icons/store-mob.svg" alt="">
             <span class="mobile-nav--title">
-              Магазин</span>
+              Открыть магазин</span>
             </a>
         </div>
         @endguest
       @else
-      <div class="col text-center">
+      <div class="col text-center px-0">
         <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2">
           <img src="/storage/theme/icons/opened-exit-door.svg" alt="">
           <span class="mobile-nav--title">Магазин</span>

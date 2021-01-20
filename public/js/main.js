@@ -3580,6 +3580,42 @@ function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "funct
 __webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.inputmask.bundle.js");
 
 $(document).ready(function () {
+  $('body').on('keyup', '#nameStoreCreate', function () {
+    $('#storeSubmit').attr('disabled', true);
+    var store = $(this).val();
+
+    if (store.length >= 3) {
+      setTimeout(function () {
+        $.get('/store/exist/' + store, function (data) {
+          if (data.exist) {
+            $('.store-exist').removeClass('d-none');
+            $('#storeSubmit').attr('disabled', true);
+          } else {
+            $('.store-exist').addClass('d-none');
+            $('#storeSubmit').attr('disabled', false);
+          }
+        });
+      }, 2000);
+    }
+  });
+  $('body').on('keyup', '#nameEditStore', function () {
+    $('#storeEditSubmit').attr('disabled', true);
+    var store = $(this).val();
+
+    if (store != this.defaultValue) {
+      setTimeout(function () {
+        $.get('/store/exist/' + store, function (data) {
+          if (data.exist) {
+            $('.store-exist').removeClass('d-none');
+            $('#storeEditSubmit').attr('disabled', true);
+          } else {
+            $('.store-exist').addClass('d-none');
+            $('#storeEditSubmit').attr('disabled', false);
+          }
+        });
+      }, 2000);
+    }
+  });
   $('.sms--false').hide();
   $(window).scroll(fetchPosts);
 
@@ -3692,6 +3728,10 @@ $(document).ready(function () {
     $(".sort[data-sort=".concat(sort, "]")).attr('checked', true);
     $(".city[data-city=".concat(city, "]")).attr('checked', true);
   }
+
+  $('.att-show').on('click', function () {
+    $(this).toggleClass('active');
+  });
 });
 $('body').on('click', '#filter', function () {
   var cat_id = $(this).data('cat-id');
@@ -3811,7 +3851,7 @@ $(document).on('change', '.js-attribute', function () {
       if (!_this.is(":checked")) {
         _this.closest('div').find('select').remove();
       } else {
-        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
+        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\" multiple>\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
 
         data.forEach(function (element) {
           _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
@@ -4257,6 +4297,10 @@ $('.add-product-secondary .pic-item').on("click", function () {
   $('.pic-main').attr('src', imgSrc);
   $('.add-product-secondary .pic-item').removeClass('pic-item-active');
   $(this).addClass('pic-item-active');
+});
+$('.add-product-secondary .pic-item').on('click', function () {
+  var imgSrc = $(this).attr('data-image-src');
+  $('.pic-main').attr('src', imgSrc);
 }); //zoom image
 
 $(function ($) {
@@ -4420,7 +4464,7 @@ $(function ($) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

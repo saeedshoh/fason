@@ -10,14 +10,14 @@
   <section class="container mt-lg-4">
     <div class="under-menu-category d-lg-block d-none">
       <div class="row">
-        <div class="col-12 col-md-4 col-lg-3 d-flex">
+        <div class="col-12 col-md-4 col-lg-2 d-flex">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle font-weight-bold category-dropdown position-relative" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Категории
             </button>
           </div>
         </div>
-        <div class="col-md-8 col-lg-6 d-none d-flex px-0 justify-content-between">
+        <div class="col-md-8 col-lg-7 d-none d-flex px-0 justify-content-around">
           @if ($is_store == null)
 
             @auth
@@ -58,7 +58,7 @@
 
         </div>
         @auth
-        <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
+        <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
           <a href="{{ route('profile') }}" class="text-decoration-none text-secondary">
             <img class="rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
@@ -72,7 +72,7 @@
         </div>
         @endauth
        @guest
-        <div class="col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
+        <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end">
           <button type="button" class="mr-2 btn-danger rounded-11  px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход
           </button>
