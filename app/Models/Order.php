@@ -20,7 +20,6 @@ class Order extends Model
         'order_status_id',
     ];
 
-
     public function product() {
         return $this->belongsTo('App\Models\Product');
     }
