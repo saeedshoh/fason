@@ -12389,3 +12389,28 @@ input[type=number]:hover::-webkit-outer-spin-button {
   border-color: #dc3545;
 }
 
+#adressChange {
+  z-index: 9999;
+}
+
+.store-discription {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.store-icon {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  border-radius: 50%;
+}
+
+.store-banner {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media only screen and (max-width: 575px) {
+  .store-discription {
+    border: none;
+  }
+}
+

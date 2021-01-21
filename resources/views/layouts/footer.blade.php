@@ -38,7 +38,6 @@
                       <div class="pre--info">
                         <p class="text-muted mb-pre--text sms--true">Вам будет выслан смс с кодом активации для подтверждения вашего номера телефона</p>
                         <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
-
                       </div>
                       <button type="button" class="btn btn-danger rounded-11 px-5 btn-lg" id="btn-login">Вход</button>
                   </div>
@@ -64,7 +63,7 @@ aria-hidden="true">
     </div>
     <div class="modal-body text-center">
       <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
-      <p class="text-muted mb-pre--text">
+      <p class="text-muted mb-pre--text mb-0">
          Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
       </p>
       <div class="container text-center">
@@ -76,17 +75,20 @@ aria-hidden="true">
               <path d="M248 8C111 8 0 119 0 256C0 393 111 504 248 504C385 504 496 393 496 256C496 119 385 8 248 8ZM248 104C296.6 104 336 143.4 336 192C336 240.6 296.6 280 248 280C199.4 280 160 240.6 160 192C160 143.4 199.4 104 248 104ZM248 448C189.3 448 136.7 421.4 101.5 379.8C120.3 344.4 157.1 320 200 320C202.4 320 204.8 320.4 207.1 321.1C220.1 325.3 233.7 328 248 328C262.3 328 276 325.3 288.9 321.1C291.2 320.4 293.6 320 296 320C338.9 320 375.7 344.4 394.5 379.8C359.3 421.4 306.7 448 248 448Z" fill="#E5E5E5"/>
             </svg>
             <img src="" alt="" width="100" height="100" style="display: none" class="rounded-circle">
+            <div class="text-center">
+              <h6>Добавить фото</h6>
+            </div>
           </label>
           <div class="custom-file d-none">
             <input type="file" class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
           </div>
-          <div class="input-group text-left  btn-group-fs my-4">
+          <div class="input-group text-left  btn-group-fs my-2">
             <div class="input-group-prepend position-relative">
               <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
             </div>
             <input type="text" class="form-control" placeholder="Имя.." name="name">
           </div>
-          <div class="input-group text-left  btn-group-fs  mb-4">
+          <div class="input-group text-left  btn-group-fs  mb-2">
             <div class="input-group-prepend position-relative">
               <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
             </div>
@@ -94,7 +96,7 @@ aria-hidden="true">
           </div>
           <h5 class="text-secondary">Город:</h5>
           <div class="form-row justify-content-around">
-            <div class="form-group">
+            <div class="form-group mb-0">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="dushanbe" value="1" name="city_id">
                 <label class="form-check-label text-dark" for="dushanbe">
@@ -103,9 +105,9 @@ aria-hidden="true">
               </div>
             </div>
           </div>
-          <p class="privacy-policy mb-pre--text">
+          <p class="privacy-policy mb-pre--text mb-0">
             <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
-              Ознакомитесь с пользовательским соглашением
+              Политика конфиденциальности
             </a>
           </p>
           <button type="submit" class="btn btn-danger rounded-11 btn-lg">Сохранить</button>
