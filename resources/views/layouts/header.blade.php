@@ -81,7 +81,7 @@
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
-              <a class="dropdown-item" href="#">Профиль</a>
+              <a class="dropdown-item" href="{{ route('profile') }}">Профиль</a>
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                 @csrf

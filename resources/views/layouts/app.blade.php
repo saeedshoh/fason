@@ -17,6 +17,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/storage/favicon-16x16.png">
     <link rel="manifest" href="/storage/site.webmanifest">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W352P4J3KX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-W352P4J3KX');
+    </script>
   </head>
   <body>
     @yield('header')

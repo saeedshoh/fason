@@ -12102,7 +12102,6 @@ input[type=number] {
     margin: 1em 0 2em 0em !important;
   }
 
-  .mb-currency,
   .divide {
     display: none;
   }
@@ -12412,5 +12411,34 @@ input[type=number]:hover::-webkit-outer-spin-button {
   .store-discription {
     border: none;
   }
+}
+
+.count-products {
+  color: #b7b7b7;
+}
+
+.list-group-flush > .list-group-item > .list-group-row::after {
+  content: "";
+  border-bottom: 2px solid #EDEDED !important;
+  height: 1px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 70%;
+}
+
+.list-group-flush > .list-group-item {
+  border: 0;
+}
+
+.count-products {
+  color: #a0a0a0;
+  font-weight: 400;
+  font-size: 13px;
+  display: block;
+}
+
+.category-mix a {
+  line-height: 1.7;
 }
 
