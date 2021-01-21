@@ -22,6 +22,27 @@
             </label>
           </div>
           <div class="row add-product-secondary" id="preview-product-secondary">
+            
+            <div class="col-3 text-center">
+              <label for="gallery">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+              </label>
+            </div>
+            <div class="col-3 text-center">
+              <label for="gallery">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+              </label>
+            </div>
+            <div class="col-3 text-center">
+              <label for="gallery">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
+              </label>
+            </div>
+            <div class="col-3 text-center">
+              <label for="gallery">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
+              </label>
+            </div>
             <div class="col-3 text-center">
               <label for="gallery">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
@@ -40,7 +61,7 @@
             <div class="col-3 text-center">
               <label for="gallery">
                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-              </label>
+            </label>
             </div>
           </div>
         </div>

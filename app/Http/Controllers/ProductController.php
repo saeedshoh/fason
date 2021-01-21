@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Http\Requests\ProductRequest;
 use App\Models\Log;
+use App\Models\Order;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
@@ -68,9 +69,18 @@ class ProductController extends Controller
     public function single($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->get();
+        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
+        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
+
+        $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
+        ->groupBy('product_id');
+        $topProducts = Product::where('product_status_id', 2)
+        ->select(DB::raw('products.*, countProd.countProd'))
+        ->leftJoinSub($countProd, 'countProd', function ($join) {
+            $join->on('products.id', '=', 'countProd.product_id');
+        })->orderByDesc('countProd')->paginate(15);
         $attributes = $product->attribute_variation;
-        return view('products.single', compact('product', 'similars', 'attributes'));
+        return view('products.single', compact('product', 'similars', 'attributes', 'topProducts'));
     }
 
     /**
@@ -117,7 +127,7 @@ class ProductController extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(145, 62)->opacity('50');
         $img->insert($watermark, 'bottom-right', 50, 50);
 
         //Create folder if doesn't exist

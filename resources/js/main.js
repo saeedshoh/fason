@@ -120,24 +120,24 @@ $(document).ready(function(){
     // const xl = $('#hello').val()
     // console.log(JSON.parse(xl))
 
-    $('.subcategory').each(function () {
-        let category = $(this).data('id')
-        let _this = $(this)
-        $.ajax({
-            url: '/countProducts',
-            data: {
-                category: category
-            },
-            method: "GET",
-            dataType: 'json',
-            success: function (data) {
-                _this.parent().find('.spinner-grow').remove()
-                _this.parent().append(`
-                    <span class="badge badge-danger badge-pill">${data}</span>
-                `)
-            }
-        })
-    })
+    // $('.subcategory').each(function () {
+    //     let category = $(this).data('id')
+    //     let _this = $(this)
+    //     $.ajax({
+    //         url: '/countProducts',
+    //         data: {
+    //             category: category
+    //         },
+    //         method: "GET",
+    //         dataType: 'json',
+    //         success: function (data) {
+    //             _this.parent().find('.spinner-grow').remove()
+    //             _this.parent().append(`
+    //                 <span class="badge badge-danger badge-pill">${data}</span>
+    //             `)
+    //         }
+    //     })
+    // })
 
     var url = $(location).attr("href")
     if (url.indexOf('sort=') !== -1) {
@@ -156,7 +156,8 @@ $(document).ready(function(){
     }
 
     $('.att-show').on('click', function() {
-        $(this).toggleClass('active');
+        $('.att-show').removeClass('active');
+        $(this).addClass('active');
     })
 })
 
@@ -554,7 +555,7 @@ $(function () {
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var img = $('<div class="col-3 text-center"><img /></div>');
+                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: cover"/></div>');
                         img.find('img').addClass("mw-100");
                         img.find('img').attr("src", e.target.result);
                         dvPreview.append(img);

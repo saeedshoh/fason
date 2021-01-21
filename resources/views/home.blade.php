@@ -89,13 +89,16 @@
             Категории </h6>
           <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
-            <li class="list-group-item bg-transparent  d-flex justify-content-between align-items-center">
-              <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-1"> {{ $category->name }}</a>
-              {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
-              {{--  <div class="spinner-grow text-center text-danger float-right" role="status">
-                {{--  <span class="sr-only">Loading...</span>
-              </div>  --}}
-              {{--  <span class="badge badge-danger badge-pill">{{ $category->products->count() }}</span>  --}}
+            <li class="list-group-item bg-transparent py-2">
+              <div class="list-group-row d-flex align-items-center ">
+                <img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2"> 
+                <nav class="category-mix">
+                  <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-secondary">{{ $category->name }}
+                    {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
+                    <span class="count-products"> {{ $category->products->count() }} товаров</span>
+                  </a>
+                </nav>
+              </div>
             </li>
             @empty
               Извините ничего не найдено
