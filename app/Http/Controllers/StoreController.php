@@ -206,4 +206,11 @@ class StoreController extends Controller
         }
         abort(404);
     }
+
+    public function showStoreInfo(Store $store){
+        $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
+        ->join('products', 'orders.product_id', '=', 'products.id')
+        ->paginate(50);
+        return view('dashboard.store.show', compact('store', 'orders'));
+    }
 }

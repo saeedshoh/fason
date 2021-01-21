@@ -126,6 +126,9 @@
                         </div>
                       </td>
                       <td class="text-right">
+                        <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-warning m-1 pull-right">
+                            <i class="fe fe-eye"> </i>
+                        </a>
                         <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
                             @csrf
                             <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right">
