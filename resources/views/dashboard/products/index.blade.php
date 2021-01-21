@@ -103,7 +103,7 @@
                         {{ ++$key }}
                       </td>
                       <td class="item-name">
-                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->name }}</span>
+                        <a class="item-name text-reset" href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                       </td>
                       <td class="item-total">
                         {{ $product->price }}
