@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @section('title')
-    {{ $stores->name }}
+    {{ $store->name }}
 @endsection
 @extends('layouts.footer')
 @section('content')
@@ -13,7 +13,7 @@
         <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="/storage/{{ $stores->avatar }}" class="w-100 rounded store-image" alt=""  height="216">
+            <img src="/storage/{{ $store->avatar }}" class="w-100 rounded store-image" alt=""  height="216">
               {{-- <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button> --}}
             </div>
           </div>
@@ -21,9 +21,9 @@
         <div class="col-12 col-lg-9 px-0 px-md-2">
             <div class="text-center">
               <div class="position-relative d-inline-block">
-              <img src="/storage/{{ $stores->cover ?? '/theme/yellowbanner.png'}}" class="w-100 rounded store-image" alt=""  height="216">
+              <img src="/storage/{{ $store->cover ?? '/theme/yellowbanner.png'}}" class="w-100 rounded store-image" alt=""  height="216">
               <div class="mobile-avatar position-absolute w-lg-100">
-                <img src="/storage/{{ $stores->avatar ?? '/theme/icons/Avatar.svg'}}" class="store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
+                <img src="/storage/{{ $store->avatar ?? '/theme/icons/Avatar.svg'}}" class="store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
               </div>
               </div>
             </div>
@@ -32,7 +32,7 @@
         <!--store-info start-->
         <div class="col-12 mt-lg-4">
           <div class="d-none d-lg-block">
-            <p>{{ $stores->description ?? '' }}</p>
+            <p>{{ $store->description ?? '' }}</p>
             <a href="{{ route('useful_links.privacy_policy') }}" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
           </div>
           <div class="my-5 my-lg-3">
@@ -42,7 +42,7 @@
               </div>
               <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
-                  {{ $stores->user->phone ?? '' }}
+                  {{ $store->user->phone ?? '' }}
                 </h5>
               </div>
               <div class="col-5">
@@ -50,7 +50,7 @@
               </div>
               <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
-                  {{ $stores->city->name ?? ''}}
+                  {{ $store->city->name ?? ''}}
                 </h5>
               </div>
               <div class="col-5">
@@ -58,7 +58,7 @@
               </div>
               <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
-                  {{ $stores->name ?? ''}}
+                  {{ $store->name ?? ''}}
                 </h5>
               </div>
               <div class="col-5">
@@ -66,12 +66,12 @@
               </div>
               <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
-                  {{ $stores->address ?? ''}}
+                  {{ $store->address ?? ''}}
                 </h5>
               </div>
               <div class="offset-0 offset-md-6 col-12 col-md-6 mt-md-0 mt-3">
                 <div class="text-center text-md-right">
-                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $stores->slug) }}">Изменить</a>
+                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $store->slug) }}">Изменить</a>
                 </div>
               </div>
             </div>
@@ -85,10 +85,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft-store.show', $stores->slug) }}"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
+          <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft-store.show', $store->slug) }}"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
-          <a class="btn btn-danger w-100 rounded-11" href="{{ route('salesHistory', $stores->slug) }}"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
+          <a class="btn btn-danger w-100 rounded-11" href="{{ route('salesHistory', $store->slug) }}"><img class="mr-1" src="/storage/theme/icons/orders.svg" alt="">  История продаж</a>
         </div>
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
           <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
@@ -117,6 +117,9 @@
       </li>
       <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклоненные {{ count($canceledProducts) }}</a>
+      </li>
+      <li class="nav-item position-relative">
+        <a class="nav-link border-0 font-weight-bold" id="notInStock-tab" data-toggle="tab" href="#notInStock" aria-selected="false">Нет в наличии {{ count($notInStock) }}</a>
       </li>
       {{-- <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>
@@ -245,6 +248,30 @@
         </div>
       </div>
       <!--Declined end-->
+      <!--Not in stock-->
+      <div class="tab-pane fade" id="notInStock" role="tabpanel" aria-labelledby="notInStock-tab">
+        <div class="all-product container mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+              @forelse ($notInStock as $product)
+              <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+                <div class="card rounded shadow border-0  h-100 w-100">
+                  <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+                  <div class="container">
+                    <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                    <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+                  Извените ничего не найдено
+              @endforelse
+            </div>
+        </div>
+      </div>
+      <!--Declined end-->
       <!--On Delete-->
       {{-- <div class="tab-pane fade" id="onDelete" role="tabpanel" aria-labelledby="onDelete-tab">
         <div class="all-product container mt-5">
@@ -275,7 +302,7 @@
     </div>
     <!--Tab content end-->
     <div class="text-center">
-        @if($stores->is_active == 1)
+        @if($store->is_active == 1)
         <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
         @else
         <div class="alert alert-warning" role="alert">

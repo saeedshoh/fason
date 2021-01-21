@@ -96,10 +96,10 @@
                       <td class="item-name">
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
-                        </div><a class="text-reset" href="team-overview.html">{{ $store->name }}</a>
+                        </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
                       </td>
                       <td class="item-phone">
-                        <a class="text-reset" href="profile-posts.html">{{ $store->user->phone }}</a>
+                        <a class="text-reset" href="tel:{{ $store->user->phone }}">{{ $store->user->phone }}</a>
                       </td>
                       <td class="item-location">
                         {{ $store->city->name }}
@@ -126,9 +126,6 @@
                         </div>
                       </td>
                       <td class="text-right">
-                        <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-warning m-1 pull-right">
-                            <i class="fe fe-eye"> </i>
-                        </a>
                         <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
                             @csrf
                             <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right">
