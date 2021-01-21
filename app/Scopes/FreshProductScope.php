@@ -17,6 +17,6 @@ class FreshProductScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('updated_at', '>', now()->subWeek());
+        $builder->where('quantity', '>', 0)->where('updated_at', '>', now()->subWeek());
     }
 }

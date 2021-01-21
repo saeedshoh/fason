@@ -12,23 +12,23 @@
       <div class="row mt-sm-3">
          <div class="col-md-3 px-0 px-md-2 position-relative">
            <div class="text-center d-none d-md-block">
-            <img src="{{ Storage::url($store->avatar) }}" height="215" class="rounded">
+            <img src="{{ Storage::url($store->avatar) }}" height="215" class="img-fluid rounded">
            </div>
          </div>
          <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="{{ Storage::url($store->cover) }}" class="w-100 rounded" height="215">
+          <img src="{{ Storage::url($store->cover) }}" class="w-100 rounded store-banner" height="215">
          </div>
-         <div class="col-12 d-blockmy-4">
-          <h2 class="d-md-none">Магазин</h2>
-          <div class="row">
-            <div class="col-3 text-center">
+         <div class="col-12 d-block my-4">
+          <div class="row align-items-center">
+            <div class="col-4 col-md-3 text-center">
               <div class="d-inline-block position-relative  d-md-none">
-                <img src="{{ Storage::url($store->avatar) }}" width="80px">
+                <img class="store-icon" src="{{ Storage::url($store->avatar) }}" width="80px" height="80px">
               </div>
             </div>
-            <div class="col-9 d-flex justify-content-between order-0 order-lg-1 mt-3">
-              <div>
-                <h3 class="font-weight-bold">Название: {{ $store->user->name }}</h3>
+            <div class="col-8 col-md-9 order-0 order-lg-1 mt-0 mt-sm-3">
+              <div class="d-flex flex-column flex-md-row justify-content-between">
+                <h3 class="font-weight-bold">{{ $store->user->name }}</h3>
+                <span class="text-monospace">г.{{ $store->city->name }}</span> 
               </div>
             </div>
           </div>
@@ -41,15 +41,9 @@
           <h3 class="font-weight-bold">О магазине:</h3>
         </div>
         <div class="col-12 col-md-9">
-          <div class="border rounded p-2">
+          <div class="">
            {{ $store->description }}
           </div>
-        </div>
-        <div class="col-6 mt-3 d-block d-md-none">
-          <h3 class="font-weight-bold">Город:</h3>
-        </div>
-        <div class="col-6 text-right d-block d-md-none">
-            {{ $store->city->name }}
         </div>
       </div>
       <!--store info end-->
@@ -59,19 +53,21 @@
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
         @forelse ($products as $product)
-          <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-            <div class="card rounded shadow  h-100 w-100">
-              <img class="img-fluid rounded mb-md-3" src="{{ Storage::url($product->image) }}" alt="">
-              <div class="container">
-                <h4 class="product-name shop-subject" >{{ $product->name }}</h4>
-                <span class="text-muted">{{ $product->category->name }}</span>
-                <div class="price-place d-flex justify-content-between align-items-center mb-3">
-                  <span class="font-weight-bold">TJS {{ $product->price_after_margin }}</span>
-                  <a href="{{ route('ft-products.single', $product->slug) }}" class="btn btn-danger rounded-pill"> Купить </a>
-                </div>
+        <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+          <div class="card rounded shadow border-0 h-100 w-100">
+            <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
+            <div class="container">
+              <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+              <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                <span class="font-weight-bold">
+                  {{ $product->price_after_margin }} сомони
+                </span>
+                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+
               </div>
             </div>
           </div>
+        </div>
         @empty
             Извените ничего не найдено
         @endforelse

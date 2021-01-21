@@ -136,7 +136,7 @@
         </div>
         @endauth
         @guest
-        <div class="col text-cente px-0">
+        <div class="col text-center px-0">
           <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2">
             <img src="/storage/theme/icons/store-mob.svg" alt="">
             <span class="mobile-nav--title">

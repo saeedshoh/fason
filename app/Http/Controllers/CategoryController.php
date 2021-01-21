@@ -69,8 +69,7 @@ class CategoryController extends Controller
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
-        // return $productss;
-        $products = $productss->paginate(9);
+        $products = $productss->inRandomOrder()->paginate(9);
 
         if($request->ajax()) {
 

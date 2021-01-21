@@ -1216,6 +1216,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
         border-color: $danger;
     }
 }
+
 .count-products {
     color: #b7b7b7;
 }
@@ -1241,3 +1242,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     line-height: 1.7;
 }
 
+#adressChange{
+    z-index: 9999;
+}
+
+.store-icon{
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    border-radius: 50%;
+}
+.store-banner{
+    object-fit: cover;
+}

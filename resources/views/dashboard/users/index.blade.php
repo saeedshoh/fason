@@ -38,7 +38,7 @@
 
                 @if(request()->is('dashboard/users*'))
                 <!-- Buttons -->
-                <a href="#!" class="btn btn-primary ml-2">
+                <a href="{{ route('users.create') }}" class="btn btn-primary ml-2">
                   Добавить сотрудника
                 </a>
                 @endif
@@ -210,25 +210,28 @@
                           <div class="avatar avatar-xs align-middle mr-2">
                             <img class="avatar-img rounded-circle" src="/assets/img/avatars/profiles/avatar-1.jpg" alt="...">
                           </div>
-                          <a class="text-reset" href="javascript:void(0);">{{ $user->name }}</a>
+                          <a class="text-reset" href="{{ route('clients.show', $user) }}">{{ $user->name }}</a>
                         </td>
                         <td class="item-address">
-                          <a class="text-reset" href="javascript:void(0);">{{ $user->address ?? '' }}</a>
+                          {{ $user->address ?? '' }}
                         </td>
                         <td class="item-phone">
                           <!-- Phone -->
                           <a class="text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
                         </td>
                         <td class="item-registration-date">
-                          <a class="text-reset" href="javascript:void(0);">{{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}</a>
+                          {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
                         </td>
                         <td class="text-right">
-                          <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                            @csrf
-                            <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right">
-                              <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                          </form>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1 pull-right">
+                                <i class="fe fe-edit"></i>
+                            </a>
+                            <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                @csrf
+                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right">
+                                <i class="fe fe-trash"> </i></button>
+                                @method('DELETE')
+                            </form>
                           {{-- <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                           </a>
