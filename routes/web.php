@@ -49,7 +49,9 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
     Route::get('/logs', [CategoryController::class, 'logsIndex'])->name('logs');
     Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
+    Route::get('clients/{user}', [UserController::class, 'show'])->name('clients.show');
     Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
+    Route::get('/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

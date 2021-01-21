@@ -40,15 +40,15 @@
                     <h5 class="captions-of__modal ">Сортировать</h5>
                   </div>
                   <div class="form-check mt-3">
-                      <input data-sort="new" checked class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
+                      <input data-sort="new" @if(!request()->__get('sort')=='cheap' && !request()->__get('sort')=='expensive') checked @endif class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
                       <label class="form-check-label" for="inlineRadio1">Сначала новые</label>
                   </div>
                   <div class="form-check mt-3">
-                      <input data-sort="cheap" class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
+                      <input data-sort="cheap" @if(request()->__get('sort')=='cheap') checked @endif class="form-check-input sort" type="radio" name="sort" id="inlineRadio2" value="option2">
                       <label class="form-check-label" for="inlineRadio2">Сначала дешевые</label>
                   </div>
                   <div class="form-check mt-3">
-                      <input data-sort="expensive" class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
+                      <input data-sort="expensive" @if(request()->__get('sort')=='expensive') checked @endif class="form-check-input sort" type="radio" name="sort" id="inlineRadio3" value="option3">
                       <label class="form-check-label" for="inlineRadio3">Сначала дорогие</label>
                   </div>
 
@@ -58,7 +58,7 @@
                     <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input data-city="2" class="form-check-input city" name="city" type="radio" id="inlineCheckbox2" value="option2">
+                    <input data-city="2" @if(request()->__get('city')=='2') checked @endif class="form-check-input city" name="city" type="radio" id="inlineCheckbox2" value="option2">
                     <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
                   </div>
                   <br>
@@ -97,7 +97,7 @@
                   <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
                   <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                     <span class="font-weight-bold">
-                      {{ $product->price_after_margin }} сомони
+                      {{ round($product->price_after_margin) }} сомони
                     </span>
                     <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                   </div>

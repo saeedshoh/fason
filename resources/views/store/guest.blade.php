@@ -63,6 +63,7 @@
                   {{ $product->price_after_margin }} сомони
                 </span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+
               </div>
             </div>
           </div>

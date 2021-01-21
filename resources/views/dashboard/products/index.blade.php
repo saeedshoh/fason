@@ -103,7 +103,7 @@
                         {{ ++$key }}
                       </td>
                       <td class="item-name">
-                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->name }}</span>
+                        <span class="item-name text-reset">{{ $product->name }}</span>
                       </td>
                       <td class="item-total">
                         {{ $product->price }}
@@ -120,7 +120,7 @@
                         {{ $product->quantity }}
                       </td>
                       <td class="item-company">
-                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->store->name }}</span>
+                        <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->store->id) }}">{{ $product->store->name }}</a>
                       </td>
                       <td class="item-status">
                         <!-- Badge -->
