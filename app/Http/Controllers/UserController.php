@@ -116,7 +116,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $cities = City::get();
+        return view('dashboard.users.edit', compact('user', 'cities'));
     }
 
     /**
@@ -128,7 +129,25 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'address' => 'required',
+            'city_id' => 'required',
+            'phone' => 'required'
+        ]);
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month, 0777, true);
+        }
+        if($request->file('profile_photo_path')) {
+            $request->validate([
+                'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+            ]);
+            $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        }
+        $user->update($request->all() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+
+        return redirect()->route('clients.index');
     }
 
     /**

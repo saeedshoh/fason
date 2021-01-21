@@ -223,12 +223,15 @@
                           {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
                         </td>
                         <td class="text-right">
-                          <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                            @csrf
-                            <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right">
-                              <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                          </form>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1 pull-right">
+                                <i class="fe fe-edit"></i>
+                            </a>
+                            <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                @csrf
+                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right">
+                                <i class="fe fe-trash"> </i></button>
+                                @method('DELETE')
+                            </form>
                           {{-- <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                           </a>
