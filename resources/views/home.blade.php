@@ -91,11 +91,11 @@
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent py-2">
               <div class="list-group-row d-flex align-items-center ">
-                <img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2"> 
+                <img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">
                 <nav class="category-mix">
                   <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-secondary">{{ $category->name }}
                     {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
-                    <span class="count-products"> {{ $category->products->count() }} товаров</span>
+                    <span class="count-products" data-id="{{ $category->id }}"></span>
                   </a>
                 </nav>
               </div>

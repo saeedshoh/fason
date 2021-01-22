@@ -33,7 +33,7 @@
 
                   <!-- Avatar -->
                   <div class="avatar">
-                    <img class="avatar-img rounded-circle" src="/storage/dashboard/img/avatars/profiles/avatar-1.jpg" alt="...">
+                    <img class="avatar-img rounded-circle" src="{{ Storage::url($user->profile_photo_path) }}" alt="...">
                     <input type="file" id="profile_photo_path" class="d-none" name="profile_photo_path">
                   </div>
 
@@ -101,7 +101,7 @@
             </div>
             <div class="col-md-6">
 
-                <!-- First name -->
+                <!-- Address -->
                 <div class="form-group">
 
                   <!-- Label -->
