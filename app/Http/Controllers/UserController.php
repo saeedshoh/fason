@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->validate($request, [
+        $validated = $request->validate([
             'name' => 'required',
             'address' => 'required',
             'city_id' => 'required',
@@ -145,7 +145,7 @@ class UserController extends Controller
             ]);
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         }
-        $user->update($request->all() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+        $user->update($validated + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
 
         return redirect()->route('clients.index');
     }
