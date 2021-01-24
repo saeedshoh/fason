@@ -151,17 +151,18 @@ class ProductController extends Controller
             array_push($galleries, $image_single);
         }
 
-        $product = Product::create($request->validated() + ['image' => $image, 'gallery' => json_encode($galleries, true)]);
+        $product = Product::create($request->validated() + ['image' => $nowYear, 'gallery' => json_encode($galleries, true)]);
 
-
-        foreach ($request->attribute as $attribute) {
-           foreach($attribute as $item) {
-               ProductAttribute::insert([
-                'product_id' => $product->id,
-                'attribute_id' => $attribute['id'],
-                'attribute_value_id' => $item
-            ]);
-           }
+        if(isset($request->attribute)) {
+            foreach ($request->attribute as $attribute) {
+                foreach($attribute as $item) {
+                    ProductAttribute::insert([
+                    'product_id' => $product->id,
+                    'attribute_id' => $attribute['id'],
+                    'attribute_value_id' => $item
+                ]);
+                }
+            }
         }
         return redirect()->route('home');
     }

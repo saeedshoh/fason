@@ -15,9 +15,11 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QrCodeGeneratorController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
+use BaconQrCode\Encoder\QrCode;
 
 /*
 |--------------------------------------------------------------------------

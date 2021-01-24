@@ -66,10 +66,6 @@
                     <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
                     <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input data-city="2" @if(request()->__get('city')=='2') checked @endif class="form-check-input city" name="city" type="radio" id="inlineCheckbox2" value="option2">
-                    <label class="form-check-label" for="inlineCheckbox2">Худжанд</label>
-                  </div>
                   <br>
                   <h5 class="captions-of__modal mt-5">Цена</h5>
                   <div class="form-row">

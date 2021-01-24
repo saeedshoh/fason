@@ -121,7 +121,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('dashboard.order.check', compact('order'));
     }
 
     /**

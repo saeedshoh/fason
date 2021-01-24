@@ -446,3 +446,10 @@ $('body').on('change', '#cat_child', function(){
         }
     })
 })
+
+$(function($){
+	$(".action-print").click(function(){
+		window.print();
+		return false;
+	});
+});

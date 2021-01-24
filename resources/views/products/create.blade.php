@@ -144,7 +144,7 @@
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: </label>
                 <div class="w-75 input_placeholder_style">
-                  <input type="number" class="input_placeholder_style form-control position-relative @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}">
+                  <input type="number" class="input_placeholder_style form-control position-relative @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}">
                   @error('price')
                     <div class="invalid-feedback">
                       {{ $message }}
