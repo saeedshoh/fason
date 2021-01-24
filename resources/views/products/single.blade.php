@@ -218,7 +218,7 @@
                             </div>
                           </div>
                           <div class="mt-3">
-                            <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
+                            <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
                             <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
                           </div>
                         </div>
@@ -387,7 +387,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <div class="border-bottom text-secondary mb-2">Ваш адресс</div>
+            <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
             <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
           </div>
         </div>

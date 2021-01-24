@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <label class="font-weight-bold h5" for="name">Адресс:</label>
+                            <label class="font-weight-bold h5" for="name">Адрес:</label>
                             <div class="input-group text-left  btn-group-fs">
                                 <div class="input-group-prepend position-relative">
                                   <div class="input-group-text btn-linkwdwd btn-custom-fs text-decoration-none px-1"></div>

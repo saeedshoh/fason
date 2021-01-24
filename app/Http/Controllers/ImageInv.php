@@ -10,12 +10,12 @@ class ImageInv extends Controller
 {
     public function index()
     {
-        // $canva = Image::canvas(967, 800, '#0e0e0e');
-        // $img = Image::make(public_path('/storage/example.jpg'))->resize(480, 480);
+        $canva = Image::canvas(967, 800, '#0e0e0e');
+        $img = Image::make(public_path('/storage/example.jpg'))->resize(480, 480);
 
-        // $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('90');
-        // $img->insert($watermark, 'bottom-right', 25, 25);
-        // $canva->insert($img, 'center', 25, 25);
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('90');
+        $img->insert($watermark, 'bottom-right', 25, 25);
+        $canva->insert($img, 'center', 25, 25);
         $img = Image::make(public_path('/storage/tort_slide.jpg'));
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         return $this->cropImage($img, 480, 50, $nowYear);

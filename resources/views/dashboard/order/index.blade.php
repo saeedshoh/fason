@@ -109,7 +109,9 @@
                     #{{ ++$key}}
                   </td>
                   <td class="orders-client">
-                    {{ $order->user->name}}
+                    <a href="{{ route('orders.show', $order) }}">
+                      {{ $order->user->name}}
+                    </a>
                   </td>
                   <td class="orders-client-info">
                     {{ 'Тел: '.$order->user->phone.', Адрес:'.$order->user->address}}
