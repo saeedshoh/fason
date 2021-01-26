@@ -21,48 +21,56 @@
               <img src="/storage/theme/avatar_product.svg" class="px-0 btn mw-100 w-100 rounded" id="main-poster">
             </label>
           </div>
-          <div class="row add-product-secondary" id="preview-product-secondary">
+          <div class="add-product-secondary" id="preview-product-secondary">
             
-            <div class="col-3 text-center">
-              <label for="gallery">
+              <div class="col-3 text-center">
+                <label for="gallery">
+                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+                </label>
+              </div>
+            <div id="db-preview-image" class="row">
+              <div class="col-3 text-center">
+                <label for="gallery">
+                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
+                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-              </label>
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+                </label>
+              </div>
+              <div class="col-3 text-center">
+                <label for="gallery">
+                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
+                </label>
+              </div>
             </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-            </label>
-            </div>
+
           </div>
         </div>
         <!--add image end-->

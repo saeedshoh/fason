@@ -3689,25 +3689,24 @@ $(document).ready(function () {
     }
   }); // const xl = $('#hello').val()
   // console.log(JSON.parse(xl))
-  // $('.subcategory').each(function () {
-  //     let category = $(this).data('id')
-  //     let _this = $(this)
-  //     $.ajax({
-  //         url: '/countProducts',
-  //         data: {
-  //             category: category
-  //         },
-  //         method: "GET",
-  //         dataType: 'json',
-  //         success: function (data) {
-  //             _this.parent().find('.spinner-grow').remove()
-  //             _this.parent().append(`
-  //                 <span class="badge badge-danger badge-pill">${data}</span>
-  //             `)
-  //         }
-  //     })
-  // })
 
+  $('.count-products').each(function () {
+    var category = $(this).data('id');
+
+    var _this = $(this);
+
+    $.ajax({
+      url: '/countProducts',
+      data: {
+        category: category
+      },
+      method: "GET",
+      dataType: 'json',
+      success: function success(data) {
+        _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u043E\u0432"));
+      }
+    });
+  });
   var url = $(location).attr("href");
 
   if (url.indexOf('sort=') !== -1) {
@@ -4072,10 +4071,10 @@ function startTimer(duration, display) {
 $(function () {
   $("#gallery").change(function () {
     if (typeof FileReader != "undefined") {
-      var dvPreview = $("#preview-product-secondary");
+      var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
       dvPreview.html("");
-      var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-      $($(this)[0].files).each(function () {
+      var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
+      $($(this)[0].files).each(function (index) {
         var file = $(this);
         console.log(file);
 
@@ -4083,7 +4082,7 @@ $(function () {
           var reader = new FileReader();
 
           reader.onload = function (e) {
-            var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: cover"/></div>');
+            var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
             img.find('img').addClass("mw-100");
             img.find('img').attr("src", e.target.result);
             dvPreview.append(img);
@@ -4100,6 +4099,27 @@ $(function () {
       alert("This browser does not support HTML5 FileReader.");
     }
   });
+});
+$('.db-preview-remove').on('click', function () {
+  console.log(this);
+  var gallery = $("#gallery")[0].files;
+  console.log(gallery);
+  var value = $(this).attr('data-id');
+  console.log(value);
+
+  function removeItemOnce(arr, value) {
+    var index = arr.indexOf(value);
+
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+
+    console.log(arr);
+  }
+
+  ;
+  removeItemOnce(gallery.files, value);
+  console.log(gallery.files);
 });
 $('body').on('click', '.deleteImage', function () {
   var images = $('#hello').val();
@@ -4468,7 +4488,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

@@ -541,18 +541,20 @@ function startTimer(duration, display) {
 // preview image
 
 $(function () {
+
     $("#gallery").change(function () {
         if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#preview-product-secondary");
+            var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
             dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
+            
+            $($(this)[0].files).each(function (index) {
                 var file = $(this);
-                console.log(file)
+                console.log(file);
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: cover"/></div>');
+                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="'+index+'" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
                         img.find('img').addClass("mw-100");
                         img.find('img').attr("src", e.target.result);
                         dvPreview.append(img);
@@ -569,7 +571,23 @@ $(function () {
         }
     });
 });
+$('.db-preview-remove').on('click', function() {
+    console.log(this);
+    let gallery = $("#gallery")[0].files;
+    console.log(gallery);
 
+    let value = $(this).attr('data-id');
+    console.log(value);
+    function removeItemOnce(arr, value) {
+            var index = arr.indexOf(value);
+            if (index > -1) {
+            arr.splice(index, 1);
+            }
+            console.log(arr);
+    };
+    removeItemOnce(gallery.files, value);
+    console.log(gallery.files);
+});
 $('body').on('click', '.deleteImage', function () {
     let images = $('#hello').val()
     images = JSON.parse(images)

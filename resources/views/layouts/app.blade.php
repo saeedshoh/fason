@@ -11,7 +11,6 @@
     <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <title>Fason.tj - @yield('title')</title>
 
-    {{--  <link rel="stylesheet" href="{{ asset('css/dashboard/app.css') }}">  --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/storage/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">
@@ -37,6 +36,7 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
     <script>
       $(function(){
           $('.pic-main').okzoom({
