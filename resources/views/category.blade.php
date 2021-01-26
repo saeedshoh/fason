@@ -24,8 +24,7 @@
               <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center py-2">
                 <nav class="category-mix">
                   <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
-                   {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
-                    <span class="count-products"> {{ $category->products->count() }} товаров</span>
+                    <span class="count-products">{{ $category->products->count() }} @if (in_array(substr($category->products->count(), -1), [2, 3, 4])) товара  @elseif(substr($category->products->count(), -1) == 1) товар @else товаров @endif </span>
                   </a>
                 </nav>
               </li>
@@ -35,9 +34,7 @@
                         <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
                             <nav class="category-mix">
                               <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
-                            
-                              {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
-                                <span class="count-products"> {{ $category->products->count() }} товаров</span>
+                                <span class="count-products">{{ $category->products->count() }} @if (in_array(substr($category->products->count(), -1), [2, 3, 4])) товара  @elseif(substr($category->products->count(), -1) == 1) товар @else товаров @endif </span>
                               </a>
                             </nav>
                         </li>
