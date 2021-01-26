@@ -1,3 +1,5 @@
+const { stubString } = require('lodash');
+
 require('./jquery.inputmask.bundle.js');
 
 $(document).ready(function(){
@@ -131,7 +133,15 @@ $(document).ready(function(){
             method: "GET",
             dataType: 'json',
             success: function (data) {
-                _this.text(`${data}  товаров`)
+                if([2, 3, 4].includes(data%10)){
+                    _this.text(`${data}  товара`)
+                }
+                else if(data%10 == 1){
+                    _this.text(`${data}  товар`)
+                }
+                else{
+                    _this.text(`${data}  товаров`)
+                }
             }
         })
     })
@@ -547,7 +557,7 @@ $(function () {
             var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
             dvPreview.html("");
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
-            
+
             $($(this)[0].files).each(function (index) {
                 var file = $(this);
                 console.log(file);
