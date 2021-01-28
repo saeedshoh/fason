@@ -44,6 +44,14 @@ class Store extends Model
             'id'
         );
     }
+    public function categories() {
+        return $this->hasManyThrough(
+            'App\Models\Category',
+            'App\Models\Product',
+            'id',
+            'id',
+        );
+    }
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

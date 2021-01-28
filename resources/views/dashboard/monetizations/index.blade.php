@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() + $personalisations->count() }}</span>
+                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
                 </h1>
 
               </div>
@@ -38,13 +38,18 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap active">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations->count() - $monetizationsCategories->count() }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
                         Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
                       </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap">
+                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCategories->count() }}</span>
+                        </a>
                     </li>
                   </ul>
 
@@ -54,7 +59,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status"]}'>
+        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status", "monetizations-added_val"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -96,8 +101,8 @@
                     </a>
                   </th>
                   <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-status">
-                      Статус
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-added_val">
+                       Добавочная стоимость
                     </a>
                   </th>
                   <th></th>
@@ -106,7 +111,7 @@
               </thead>
               <tbody class="list">
                 @forelse ($monetizations as $key => $monetization)
-                @if($monetization->stores->isEmpty())
+                @if($monetization->stores->isEmpty() && $monetization->categories->isEmpty())
                 <tr>
                   <td class="monetizations-order">
                     #{{ ++$key}}
@@ -120,11 +125,8 @@
                   <td class="monetizations-margin">
                     {{ $monetization->margin}}%
                   </td>
-                  <td class="monetizations-status">
-                    <!-- Badge -->
-                    <div class="badge badge-primary">
-                      {{ $monetization->is_active ? 'Активен' : 'Неактивен' }}
-                    </div>
+                  <td class="monetizations-added_val">
+                    {{ $monetization->added_val}}
                   </td>
                   <td class="text-right">
                     <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
@@ -135,9 +137,6 @@
                     </form>
                     <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
                         <i class="fe fe-edit"> </i>
-                    </a>
-                    <a href="{{ route('monetizations.show', $monetization) }}" class="btn btn-warning m-1 fa-pull-right">
-                        <i class="fe fe-eye" aria-hidden="true"></i>
                     </a>
                   </td>
                 </tr>

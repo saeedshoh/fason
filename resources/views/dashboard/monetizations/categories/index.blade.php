@@ -42,12 +42,12 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap active">
+                      <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
                         Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap">
+                        <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap active">
                           По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCategories->count() }}</span>
                         </a>
                     </li>
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status"]}'>
+        <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-min", "item-max", "item-margin", "item-added_val"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -86,80 +86,21 @@
                 <th>
                     <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
                 </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">Телефон</a>
-                </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
-                </th>
-
-                  {{-- <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-order">
-                      №
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-min">
-                      Сумма от
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-max">
-                      Сумма до
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-margin">
-                      Процентная ставка
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-status">
-                      Статус
-                    </a>
-                  </th> --}}
                   <th></th>
 
                 </tr>
               </thead>
               <tbody class="list">
-                @forelse ($personalisations as $key => $personalisation)
+                @forelse ($monetizationsCategories as $key => $monetizationCategory)
                 <tr>
                     <td class="item-order">
                         {{ ++$key }}
                     </td>
                     <td class="item-name">
-                        <div class="avatar avatar-xs align-middle mr-2">
-                            <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
-                        </div>
-                        <a class="text-reset" href="team-overview.html">{{ $personalisation->name }}</a>
+                        <span class="text-reset">{{ $monetizationCategory->name }}</span>
                     </td>
-                    <td class="item-phone">
-                        <a class="text-reset" href="profile-posts.html">{{ $personalisation->user->phone }}</a>
-                    </td>
-                    <td class="item-location">
-                        {{ $personalisation->city->name }}
-                    </td>
-                  {{-- <td class="monetizations-order">
-                    #{{ ++$key}}
-                  </td>
-                  <td class="monetizations-min">
-                    {{ $monetization->min}}
-                  </td>
-                  <td class="monetizations-max">
-                    {{ $monetization->max}}
-                  </td>
-                  <td class="monetizations-margin">
-                    {{ $monetization->margin}}%
-                  </td>
-                  <td class="monetizations-status">
-                    <!-- Badge -->
-                    <div class="badge badge-primary">
-                      {{ $monetization->is_active ? 'Активен' : 'Неактивен' }}
-                    </div>
-                  </td> --}}
                   <td class="text-right">
-                    <a href="{{ route('monetizations.show', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
+                    <a href="{{ route('showCategoryMonetization', $monetizationCategory) }}" class="btn btn-warning m-1 fa-pull-right">
                         <i class="fe fe-eye" aria-hidden="true"></i>
                     </a>
                   </td>

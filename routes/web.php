@@ -19,6 +19,7 @@ use App\Http\Controllers\QrCodeGeneratorController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
+use App\Models\MonetizationCategory;
 use BaconQrCode\Encoder\QrCode;
 
 /*
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
     Route::get('clients/{user}', [UserController::class, 'show'])->name('clients.show');
     Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
+    Route::get('categoryMonetizations', [MonetizationController::class, 'categoryMonetizationsIndex'])->name('categoryMonetizations.index');
     Route::get('/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
     Route::resources([
         'orders' => OrderController::class,
@@ -65,6 +67,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
         'cities' => CityController::class,
     ]);
     Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
+    Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

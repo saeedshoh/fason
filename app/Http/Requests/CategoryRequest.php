@@ -27,6 +27,7 @@ class CategoryRequest extends FormRequest
             'name' => 'required|max:255',
             'parent_id' => '',
             'is_active' => '',
+            'is_monetized' => ''
         ];
     }
 

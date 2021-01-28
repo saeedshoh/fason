@@ -18,31 +18,31 @@ class MonetizationSeeder extends Seeder
             'min'       => 0,
             'max'       => 100,
             'margin'    => 5,
-            'is_active' => true
+            'added_val' => 5,
         ]);
         Monetization::create([
             'min'       => 100,
             'max'       => 500,
             'margin'    => 7.5,
-            'is_active' => true
+            'added_val' => 5,
         ]);
         Monetization::create([
             'min'       => 500,
             'max'       => 1000,
             'margin'    => 10,
-            'is_active' => true
+            'added_val' => 5,
         ]);
         Monetization::create([
             'min'       => 1000,
             'max'       => 5000,
             'margin'    => 12.5,
-            'is_active' => true
+            'added_val' => 5,
         ]);
         Monetization::create([
             'min'       => 5000,
             'max'       => 50000,
             'margin'    => 15,
-            'is_active' => true
+            'added_val' => 5,
         ]);
     }
 }

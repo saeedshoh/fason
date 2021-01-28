@@ -17,8 +17,8 @@ class CreateMonetizationsTable extends Migration
             $table->id();
             $table->float('min');
             $table->float('max');
-            $table->float('margin');
-            $table->boolean('is_active')->default(true);
+            $table->float('margin')->nullable();
+            $table->float('added_val')->default(0);
             $table->timestamps();
         });
     }
