@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('icon')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->foreignId('parent_id');
+            $table->boolean('is_monetized')->default(false);
             $table->timestamps();
         });
     }

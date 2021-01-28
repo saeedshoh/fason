@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Персонализированная-'.$store->name)
+@section('title', 'Персонализированная')
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() + $personalisations->count() }}</span>
+                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCount }}</span>
                 </h1>
 
               </div>
@@ -32,14 +32,19 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCount - $personalisationsCount - $categoriesCount }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
+                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisationsCount }}</span>
                       </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
+                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $categoriesCount }}</span>
+                        </a>
+                      </li>
                   </ul>
 
                 </div>
@@ -48,7 +53,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status"]}'>
+        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -89,17 +94,12 @@
                       Процентная ставка
                     </a>
                   </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-status">
-                      Статус
-                    </a>
-                  </th>
                   <th></th>
 
                 </tr>
               </thead>
               <tbody class="list">
-                @forelse ($personalized as $key => $monetization)
+                @forelse ($monetizations as $key => $monetization)
                 <tr>
                   <td class="monetizations-order">
                     #{{ ++$key}}
@@ -112,12 +112,6 @@
                   </td>
                   <td class="monetizations-margin">
                     {{ $monetization->margin}}%
-                  </td>
-                  <td class="monetizations-status">
-                    <!-- Badge -->
-                    <div class="badge badge-primary">
-                      {{ $monetization->is_active ? 'Активен' : 'Неактивен' }}
-                    </div>
                   </td>
                   <td class="text-right">
                     <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">

@@ -27,7 +27,8 @@ class MonetizationRequest extends FormRequest
             'store_id'  => 'sometimes|required|min:1',
             'min'       => 'required|min:0',
             'max'       => 'required|min:1',
-            'margin'    => 'required',
+            'margin'    => 'sometimes',
+            'added_val'    => 'sometimes',
         ];
     }
 
@@ -37,6 +38,7 @@ class MonetizationRequest extends FormRequest
             'min'       => 'Введите сумма от',
             'max'       => 'Выберите сумма до',
             'margin'    => 'Введите процентную ставку',
+            'added_val' => 'Введите добавочную стоимость',
         ];
     }
 }

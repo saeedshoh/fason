@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Monetization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -13,7 +14,7 @@ class Category extends Model
     use HasSlug;
     use HasFactory;
 
-    protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id'];
+    protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id', 'is_monetized'];
 
     public function parent()   {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
@@ -39,4 +40,11 @@ class Category extends Model
         ->saveSlugsTo('slug');
     }
 
+    /**
+     * The monetizations that belong to the store.
+     */
+    public function monetizations()
+    {
+        return $this->belongsToMany(Monetization::class);
+    }
 }

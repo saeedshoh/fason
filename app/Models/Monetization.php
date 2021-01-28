@@ -14,7 +14,7 @@ class Monetization extends Model
         'min',
         'max',
         'margin',
-        'is_active',
+        'added_val',
     ];
 
     /**
@@ -23,5 +23,13 @@ class Monetization extends Model
     public function stores()
     {
         return $this->belongsToMany(Store::class);
+    }
+
+    /**
+     * The stores that belong to the monetization.
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

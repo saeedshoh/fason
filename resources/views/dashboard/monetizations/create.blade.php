@@ -43,7 +43,7 @@
             @endif
             <div class="row">
 
-                <div class="col-lg-6 mx-auto">
+                <div class="col-lg-8 mx-auto">
                     <div class="card">
                         <div class="card-body">
 
@@ -73,8 +73,29 @@
                                     </div>
                                 </div>
                                 @endif
+                                @if(Str::contains($previous, 'categoryMonetizations'))
                                 <div class="row mb-5">
                                     <div class="col">
+                                        <label for="category_id">Категория</label>
+                                        <select class="custom-select @error('category_id') is-invalid @enderror" name="category_id">
+                                            <option disabled selected>Выберите категория</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                        <small class="text-muted">
+                                            * Выберите, чтобы добавить в категорию персонализированную монетизацию
+                                        </small>
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="row mb-5">
+                                    <div class="col-md-6">
                                         <label for="min">Сумма от</label>
                                         <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите сумму от" name="min" value="{{ old('min') }}" required="">
                                         @error('min')
@@ -83,7 +104,7 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-6">
                                         <label for="max">Сумма до</label>
                                         <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите сумму до" name="max" value="{{ old('max') }}" required="">
                                         @error('max')
@@ -92,7 +113,7 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-6 mt-3">
                                         <label for="margin">Процентная ставка</label>
                                         <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите процентную ставку" name="margin" value="{{ old('margin') }}" required="">
                                         @error('margin')
@@ -101,11 +122,22 @@
                                         </div>
                                         @enderror
                                     </div>
+                                    @if(Str::contains($previous, 'monetizations'))
+                                    <div class="col-md-6 mt-3">
+                                        <label for="added_val">Добавочная стоимость</label>
+                                        <input type="number" class="form-control @error('added_val') is-invalid @enderror" id="added_val" placeholder="Введите добавочную стоимость" name="added_val" value="{{ old('added_val') }}" required="">
+                                        @error('added_val')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <!-- Button -->
-                                        <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+                                        <button class="btn btn-primary float-right" type="submit">Добавить</button>
                                     </div>
                                 </div>
                             </div>
