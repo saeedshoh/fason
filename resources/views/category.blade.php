@@ -7,6 +7,7 @@
 @extends('layouts.footer')
 
 @section('content')
+
 <section class="content mt-4">
     <div class="all-product container mt-5">
       <a href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">

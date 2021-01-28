@@ -18,11 +18,16 @@
           </div>
           <div class="my-3">
             <label for="image">
-              <img src="/storage/theme/avatar_product.svg" class="px-0 btn mw-100 w-100 rounded" id="main-poster" height="325" style="object-fit: contain;">
+              <img src="/storage/theme/avatar_product.svg" class="px-0 btn mw-100 w-100 rounded" id="main-poster">
             </label>
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
             
+              <div class="col-3 text-center">
+                <label for="gallery">
+                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+                </label>
+              </div>
             <div id="db-preview-image" class="row">
               <div class="col-3 text-center">
                 <label for="gallery">
@@ -110,8 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-            
+            <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
               <div class="w-75 input_placeholder_style">
                 <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
@@ -161,7 +165,7 @@
               <input type="hidden" name="product_status_id" value="1">
               <div class="append-div w-75 ml-auto py-2"></div>
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2"> Добавить </button>
+                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Добавить </button>
               </div>
             </div>
           </form>
