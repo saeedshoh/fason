@@ -571,23 +571,7 @@ $(function () {
         }
     });
 });
-$('.db-preview-remove').on('click', function() {
-    console.log(this);
-    let gallery = $("#gallery")[0].files;
-    console.log(gallery);
 
-    let value = $(this).attr('data-id');
-    console.log(value);
-    function removeItemOnce(arr, value) {
-            var index = arr.indexOf(value);
-            if (index > -1) {
-            arr.splice(index, 1);
-            }
-            console.log(arr);
-    };
-    removeItemOnce(gallery.files, value);
-    console.log(gallery.files);
-});
 $('body').on('click', '.deleteImage', function () {
     let images = $('#hello').val()
     images = JSON.parse(images)
