@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\Log;
 use App\Models\Monetization;
 use App\Models\Order;
 use App\Models\Product;
@@ -35,7 +36,11 @@ class HomeController extends Controller
         $ordersCount = Order::where('order_status_id', 3)->count('id');
         $productsCount = Product::count('id');
         $newProductsCount = Product::whereBetween('updated_at', [$now->startOfWeek()->format('Y-m-d H:i'), $now->endOfWeek()->format('Y-m-d H:i')])->count('id');
-        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount'));
+        $deletedProductsCount = Log::where('table', 'Продукты')->where('action', 3)->count();
+        $profitIncludingCommission = Order::sum('total');
+        $storesCount = Store::count();
+        $newStores = Store::whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d H:i'), $now->endOfMonth()->format('Y-m-d H:i')])->orderByDesc('id')->get();
+        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores'));
     }
 
     public function index(Request $request)

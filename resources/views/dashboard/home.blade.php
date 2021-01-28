@@ -152,6 +152,122 @@
 
       </div>
     </div> <!-- / .row -->
+    <h1 class="header-title my-2">
+        Товары
+    </h1>
+    <div class="row">
+      <div class="col-12 col-lg-6 col-xl">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+
+                <!-- Title -->
+                <h6 class="text-uppercase text-muted mb-2">
+                  Общее количество товаров
+                </h6>
+
+                <div class="row align-items-center no-gutters">
+                  <div class="col-auto">
+
+                    <!-- Heading -->
+                    <span class="h2 mr-2 mb-0">
+                      {{ $productsCount }}
+                    </span>
+
+                  </div>
+                </div> <!-- / .row -->
+
+              </div>
+              <div class="col-auto">
+
+                <!-- Icon -->
+                <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+
+              </div>
+            </div> <!-- / .row -->
+          </div>
+        </div>
+
+      </div>
+      <div class="col-12 col-lg-6 col-xl">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+
+                <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                      Количество новых товаров
+                    </h6>
+
+                    <div class="row align-items-center no-gutters">
+                      <div class="col-auto">
+
+                        <!-- Heading -->
+                        <span class="h2 mr-2 mb-0">
+                          {{ $newProductsCount }}
+                        </span>
+
+                      </div>
+                    </div> <!-- / .row -->
+
+              </div>
+              <div class="col-auto">
+
+                <!-- Icon -->
+                <span class="h2 fe fe-shopping-bag text-muted mb-0"></span>
+
+              </div>
+            </div> <!-- / .row -->
+          </div>
+        </div>
+
+      </div>
+      <div class="col-12 col-lg-6 col-xl">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+
+                <!-- Title -->
+                <h6 class="text-uppercase text-muted mb-2">
+                  Количество удаленных товаров
+                </h6>
+
+                <div class="row align-items-center no-gutters">
+                  <div class="col-auto">
+
+                    <!-- Heading -->
+                    <span class="h2 mr-2 mb-0">
+                      {{ $deletedProductsCount }}
+                    </span>
+
+                  </div>
+                </div> <!-- / .row -->
+              </div>
+              <div class="col-auto">
+
+                <!-- Icon -->
+                <span class="h2 fe fe-trash text-muted mb-0"></span>
+
+              </div>
+            </div> <!-- / .row -->
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+      <h1 class="header-title my-2">
+        Заказы
+      </h1>
     <div class="row">
       <div class="col-12 col-lg-6 col-xl">
 
@@ -184,7 +300,6 @@
 
       </div>
       <div class="col-12 col-lg-6 col-xl">
-
         <!-- Card -->
         <div class="card">
           <div class="card-body">
@@ -204,8 +319,10 @@
               </div>
               <div class="col-auto">
 
-                <!-- Icon -->
-                <span class="h2 fe fe-shopping-bag text-muted mb-0"></span>
+                <!-- Chart -->
+                <div class="chart chart-sparkline"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                </div>
 
               </div>
             </div> <!-- / .row -->
@@ -223,7 +340,7 @@
 
                 <!-- Title -->
                 <h6 class="text-uppercase text-muted mb-2">
-                  Общее количество товаров
+                  Прибыль с учетом комиссии
                 </h6>
 
                 <div class="row align-items-center no-gutters">
@@ -231,7 +348,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mr-2 mb-0">
-                      {{ $productsCount }}
+                      {{ $profitIncludingCommission }}
                     </span>
 
                   </div>
@@ -240,46 +357,21 @@
               <div class="col-auto">
 
                 <!-- Icon -->
-                <span class="h2 fe fe-clipboard text-muted mb-0"></span>
+                <span class="h2 fe fe-arrow-up text-muted mb-0"></span>
 
               </div>
             </div> <!-- / .row -->
           </div>
         </div>
-
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col">
-
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Количество новых товаров
-                    </h6>
-
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto">
-
-                        <!-- Heading -->
-                        <span class="h2 mr-2 mb-0">
-                          {{ $newProductsCount }}
-                        </span>
-
-                      </div>
-                    </div> <!-- / .row -->
-                  </div>
-            </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
-
-      </div>
     </div> <!-- / .row -->
+
     <div class="row">
+        <div class="col-lg-12">
+            <h1 class="header-title ml-3 my-2">
+                Магазины
+                <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
+            </h1>
+        </div>
       <div class="col-12 col-xl-4">
 
         <!-- Activity -->
@@ -288,174 +380,46 @@
             <div class="card-header">
 
               <!-- Title -->
-              <h4 class="card-header-title">
-                Recent Activity
-              </h4>
-
-              <!-- Button -->
-              <a class="small" href="#!">View all</a>
+              <h3 class="card-header-title">
+                Новые магазины
+                <span class="badge badge-pill badge-soft-secondary">{{ $newStores->count() }}</span>
+              </h3>
 
             </div>
             <div class="card-body">
 
               <!-- List group -->
               <div class="list-group list-group-flush list-group-activity my-n3">
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
+                  @foreach ($newStores as $store)
+                  @if($loop->iteration < 6)
+                    <div class="list-group-item">
+                        <div class="row">
+                        <div class="col-auto">
 
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
+                            <!-- Avatar -->
+                            <div class="avatar avatar-sm">
+                            <img src="{{ Storage::url($store->avatar) }}" alt="..." class="avatar-img rounded-circle" />
+                            </div>
 
+                        </div>
+                        <div class="col ml-n2">
+
+                            <!-- Content -->
+                            <div class="small">
+                            <strong>{{ $store->name }}</strong><br>
+                            {{ $store->description }}
+                            </div>
+
+                            <!-- Time -->
+                            <small class="text-muted">
+                            2m ago
+                            </small>
+
+                        </div>
+                        </div> <!-- / .row -->
                     </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Dianna Smiley</strong> shared your post with Ab Hadley, Adolfo
-                        Hess, and 3 others.
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
-
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-2.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Ab Hadley</strong> reacted to your post with a 😍
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
-
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-3.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Adolfo Hess</strong> commented
-                        <blockquote class="mb-0">
-                          “I don’t think this really makes sense to do without approval from
-                          Johnathan since he’s the one...”
-                        </blockquote>
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
-
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-4.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Daniela Dewitt</strong> subscribed to you.
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
-
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-5.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Miyah Myles</strong> shared your post with Ryu Duke, Glen Rouse,
-                        and 3 others.
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                  <div class="row">
-                    <div class="col-auto">
-
-                      <!-- Avatar -->
-                      <div class="avatar avatar-sm">
-                        <img src="./assets/img/avatars/profiles/avatar-6.jpg" alt="..." class="avatar-img rounded-circle" />
-                      </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                      <!-- Content -->
-                      <div class="small">
-                        <strong>Ryu Duke</strong> reacted to your post with a 😍
-                      </div>
-
-                      <!-- Time -->
-                      <small class="text-muted">
-                        2m ago
-                      </small>
-
-                    </div>
-                  </div> <!-- / .row -->
-                </div>
+                    @endif
+                  @endforeach
               </div>
 
             </div>
@@ -471,7 +435,7 @@
 
             <!-- Title -->
             <h4 class="card-header-title">
-              Best Selling Products
+              Топ 5 активных магазинов
             </h4>
 
           </div>
