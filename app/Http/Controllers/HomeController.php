@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,31 @@ class HomeController extends Controller
         $this->banners = Banners::latest()->get();
         $this->monetizations = Monetization::get();
     }
-    public function dashboard() {
+    public function dashboard()
+    {
+        $stores = Store::all();
+        $total = [];
+        foreach ($stores as $store) {
+            $store_orders = $store->orders;
+            $totalsumm = [];
+            foreach ($store_orders as $item) {
+                array_push($totalsumm, $item->total);
+            }
+            $totalsumm = array_sum($totalsumm);
+            if ($totalsumm != null) {
+                $total[$store->id] =  intval($totalsumm);
+            }
+        }
+        arsort($total);
+        $total = array_slice($total, 0, 5, true);
+        [$keys, $values] = Arr::divide($total);
+        $topstores = collect();
+        foreach ($total as $key => $value) {
+           $topstores->push($store = Store::select('name', 'avatar', 'is_active', DB::raw("$value as orders"))->where('id', $key)->get());
+        }
+        $topstores = $topstores->flatten();
+        $months = Order::select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
+        
         $now = Carbon::now();
         $salesSum = Order::sum('total');
         $ordersCount = Order::where('order_status_id', 3)->count('id');
@@ -40,7 +65,7 @@ class HomeController extends Controller
         $profitIncludingCommission = Order::sum('total');
         $storesCount = Store::count();
         $newStores = Store::whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d H:i'), $now->endOfMonth()->format('Y-m-d H:i')])->orderByDesc('id')->get();
-        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores'));
+        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores', 'topstores'));
     }
 
     public function index(Request $request)
@@ -67,19 +92,17 @@ class HomeController extends Controller
     {
         $back = url()->previous();
         $productss = Product::whereNotNull('id')->where('product_status_id', 2);
-        if($request->sort == 'new'){
+        if ($request->sort == 'new') {
             $productss->orderByDesc('id');
-        }
-        elseif($request->sort == 'cheap'){
+        } elseif ($request->sort == 'cheap') {
             $productss->orderBy('price');
-        }
-        elseif($request->sort == 'expensive'){
+        } elseif ($request->sort == 'expensive') {
             $productss->orderByDesc('price');
         }
-        if($request->priceFrom){
+        if ($request->priceFrom) {
             $productss->where('price', '>=', $request->priceFrom);
         }
-        if($request->priceTo){
+        if ($request->priceTo) {
             $productss->where('price', '<=', $request->priceTo);
         }
         $store = Store::where('city_id', $request->city)->get('id');
@@ -91,7 +114,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $back = url()->previous();
-        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%'.strtoupper($request->q).'%')->where('product_status_id', 2)->get();
+        $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%' . strtoupper($request->q) . '%')->where('product_status_id', 2)->get();
         return view('search', compact('products', 'back'));
     }
 
@@ -161,19 +184,19 @@ class HomeController extends Controller
         //
     }
 
-    public function addToFavorites(Request $request){
+    public function addToFavorites(Request $request)
+    {
         $user_id = Auth::user()->id;
         $exist = Favorite::where('product_id', $request->product_id)
             ->where('user_id', $user_id)
             ->first();
-        if($exist){
+        if ($exist) {
             $exist->update([
                 'user_id' => $user_id,
                 'product_id' => $request->product_id,
                 'status'    => $exist->status == 1 ? 0 : 1
             ]);
-        }
-        else{
+        } else {
             Favorite::updateOrCreate([
                 'user_id' => $user_id,
                 'product_id' => $request->product_id,

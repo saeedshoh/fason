@@ -103,9 +103,18 @@
                         </div> <a class="item-name text-reset" href="profile-posts.html">{{ $category->name }}</a>
 
                       </td>
-                      <td>
+                      @if ($category->parent_id != null)
+                        <td>
+                          <div class="avatar avatar-xs align-middle mr-2">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent->icon }}">
+                          </div> <a class="item-name text-reset" href="profile-posts.html">{{ $category->parent->name }}</a>
+                        </td>
+                      @else
+                          <td>
 
-                      </td>
+                          </td>
+                      @endif
+                     
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                             @csrf
