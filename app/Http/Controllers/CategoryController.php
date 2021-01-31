@@ -50,28 +50,26 @@ class CategoryController extends Controller
         $productss = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2);
         $sliders = $this->banners->where('type', 1);
 
-        if($request->sort == 'new'){
+        if ($request->sort == 'new') {
             $productss->orderByDesc('id');
-        }
-        elseif($request->sort == 'cheap'){
+        } elseif ($request->sort == 'cheap') {
             $productss->orderBy('price');
-        }
-        elseif($request->sort == 'expensive'){
+        } elseif ($request->sort == 'expensive') {
             $productss->orderByDesc('price');
         }
-        if($request->priceFrom){
+        if ($request->priceFrom) {
             $productss->where('price', '>=', $request->priceFrom);
         }
-        if($request->priceTo){
+        if ($request->priceTo) {
             $productss->where('price', '<=', $request->priceTo);
         }
-        if($request->city){
+        if ($request->city) {
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
         $products = $productss->inRandomOrder()->paginate(9);
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
             return [
                 'posts' => view('ajax.category', compact('products'))->render(),
@@ -113,7 +111,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::where('parent_id', '0')->paginate(10);
+        $categories = Category::paginate(10);
 
         return view('dashboard.category.index', compact('categories'));
     }
@@ -141,8 +139,8 @@ class CategoryController extends Controller
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
-        if($request->attribute[0] > 0) {
-            for($i = 0; $i < count($request->attribute); $i++){
+        if ($request->attribute[0] > 0) {
+            for ($i = 0; $i < count($request->attribute); $i++) {
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }
         }
@@ -203,8 +201,8 @@ class CategoryController extends Controller
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
-        if($request->attribute[0] > 0) {
-            for($i = 0; $i < count($request->attribute); $i++){
+        if ($request->attribute[0] > 0) {
+            for ($i = 0; $i < count($request->attribute); $i++) {
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }
         }
@@ -245,8 +243,10 @@ class CategoryController extends Controller
         $isActive = $category->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $category->parent_id != 0  ? Category::where('id', $category->parent_id)->first()->name : 'Родительская';
-        for($i = 0; $i < count($category->attribute); $i++){
-            $attributes =  $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';
+        if ($category->attribute != null) {
+            for ($i = 0; $i < count($category->attribute); $i++) {
+                $attributes =  $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';
+            }
         }
         Log::create([
             'user_id' => Auth::user()->id,
@@ -281,7 +281,8 @@ class CategoryController extends Controller
         }
     }
 
-    public function logsIndex(){
+    public function logsIndex()
+    {
         $count = Log::count();
         $logs = Log::orderBy('id', 'desc')->paginate(50);
         return view('dashboard.logs.index', compact('logs', 'count'));

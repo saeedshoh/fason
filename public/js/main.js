@@ -20809,50 +20809,6 @@ function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "funct
 var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
     stubString = _require.stubString;
 
-__webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.inputmask.bundle.js"); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-
-
-$(function () {
-  $("#galler").change(function () {
-    var fd = new FormData();
-    fd.append('_token', $('meta[name=csrf-token]').attr("content"));
-    var files = $('#galler')[0].files;
-
-    if (files.length > 0) {
-      for (var i = 0; i < files.length; i++) {
-        fd.append('image', files[i]);
-        $.ajax({
-          url: '/uploadImage',
-          type: 'post',
-          data: fd,
-          contentType: false,
-          processData: false,
-          success: function success(response) {
-            $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
-            var gallery = $('#gallery');
-
-            if (gallery.val() == '') {
-              gallery.val(gallery.val() + response);
-            } else {
-              gallery.val(gallery.val() + ',' + response);
-            }
-          }
-        });
-      }
-    } else {
-      alert("Please select a file.");
-    }
-  });
-});
-$('body').on('click', '.deleteImage', function () {
-  var url = $(this).parent().find('img').data('image-src'); // if(url.indexOf('storage/')){
-  //     url = url.split('/storage/')[1]
-  // }
-
-  console.log('url= ' + url);
-  var gallery = $('#gallery');
-  var array = gallery.val().split(',');
-  var index = array.indexOf(url);
 
   if (index > -1) {
     array.splice(index, 1);
@@ -21775,7 +21731,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! e:\OpenServer\domains\fason.loc\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
