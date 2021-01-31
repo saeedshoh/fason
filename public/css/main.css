@@ -11661,7 +11661,7 @@ a {
 .mobile-nav {
   position: fixed;
   bottom: 0;
-  z-index: 9999;
+  z-index: 9966;
   height: 56px;
 }
 
@@ -12322,6 +12322,23 @@ input[type=number]:hover::-webkit-outer-spin-button {
   color: #000;
 }
 
+.profile-pic:hover .deleteAddedImage {
+  display: block;
+}
+
+.deleteAddedImage {
+  padding-top: 10px;
+  padding-right: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+
+.deleteAddedImage a {
+  color: #000;
+}
+
 @media screen and (min-device-width: 320px) and (orientation: landscape) {
   #categories {
     height: 440px;
@@ -12425,5 +12442,28 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .store-banner {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+/*mobile-filter*/
+
+.mobile-filter select,
+.mobile-filter button {
+  font-size: 13px !important;
+}
+
+.mobile-filter .custom-select {
+  background: #fff url(/storage/theme/icons/dashicons_arrow-down-alt2.svg) no-repeat right 0rem center/14px 14px;
+  font-weight: 500;
+}
+
+#enableFilter {
+  z-index: 9999;
+}
+
+#enableFilter .modal-dialog {
+  max-width: 90% !important;
+  position: absolute;
+  right: 0;
+  margin: 0;
 }
 

@@ -3,64 +3,63 @@ const { stubString } = require('lodash');
 require('./jquery.inputmask.bundle.js');
 
 ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-$(function () {
+$(function() {
 
-    $("#galler").change(function () {
+    $("#galler").change(function() {
         var fd = new FormData()
         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
         var files = $('#galler')[0].files;
-        if(files.length > 0 ){
-            for(let i=0; i<files.length; i++){
-                fd.append('image',files[i]);
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                fd.append('image', files[i]);
                 $.ajax({
-                url: '/uploadImage',
-                type: 'post',
-                data: fd,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
+                    url: '/uploadImage',
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
                             <div class="profile-pic">
                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
                             </div>
                     `)
 
-                    let gallery = $('#gallery')
-                    if(gallery.val() == ''){
-                        gallery.val(gallery.val() + response)
-                    } else{
-                        gallery.val(gallery.val() + ',' + response)
-                    }
-                },
+                        let gallery = $('#gallery')
+                        if (gallery.val() == '') {
+                            gallery.val(gallery.val() + response)
+                        } else {
+                            gallery.val(gallery.val() + ',' + response)
+                        }
+                    },
                 });
             }
 
-        }else{
+        } else {
             alert("Please select a file.");
         }
     });
 });
 
 
-$('body').on('click', '.deleteImage', function(){
+$('body').on('click', '.deleteImage', function() {
     let url = $(this).parent().find('img').data('image-src')
-    // if(url.indexOf('storage/')){
-    //     url = url.split('/storage/')[1]
-    // }
+        // if(url.indexOf('storage/')){
+        //     url = url.split('/storage/')[1]
+        // }
     console.log('url= ' + url)
     let gallery = $('#gallery')
-    let array =  gallery.val().split(',')
+    let array = gallery.val().split(',')
     const index = array.indexOf(url)
     if (index > -1) {
         array.splice(index, 1);
     }
     gallery.val(array)
     $(this).parent().parent().remove()
-    if(url.indexOf('products/edit/') !== -1) {
+    if (url.indexOf('products/edit/') !== -1) {
         $(this).parent().parent().parent().remove()
-    }
-    else{
+    } else {
         $(this).parent().parent().remove()
     }
     $('#db-preview-image').append(`
@@ -72,14 +71,14 @@ $('body').on('click', '.deleteImage', function(){
     `)
 })
 
-$(document).ready(function(){
-    $('body').on('keyup', '#nameStoreCreate', function () {
+$(document).ready(function() {
+    $('body').on('keyup', '#nameStoreCreate', function() {
         $('#storeSubmit').attr('disabled', true);
         var store = $(this).val();
-        if(store.length >= 3){
+        if (store.length >= 3) {
             setTimeout(() => {
-                $.get('/store/exist/'+store, function(data){
-                    if(data.exist){
+                $.get('/store/exist/' + store, function(data) {
+                    if (data.exist) {
                         $('.store-exist').removeClass('d-none');
                         $('#storeSubmit').attr('disabled', true);
                     } else {
@@ -91,13 +90,13 @@ $(document).ready(function(){
         }
     });
 
-    $('body').on('keyup', '#nameEditStore', function () {
+    $('body').on('keyup', '#nameEditStore', function() {
         $('#storeEditSubmit').attr('disabled', true);
         var store = $(this).val();
-        if(store != this.defaultValue) {
+        if (store != this.defaultValue) {
             setTimeout(() => {
-                $.get('/store/exist/'+store, function(data){
-                    if(data.exist){
+                $.get('/store/exist/' + store, function(data) {
+                    if (data.exist) {
                         $('.store-exist').removeClass('d-none');
                         $('#storeEditSubmit').attr('disabled', true);
                     } else {
@@ -115,23 +114,22 @@ $(document).ready(function(){
     function fetchPosts() {
         var url = $(location).attr("href")
         var page = $('.endless-pagination').data('next-page');
-        if(page !== null && page !== '') {
+        if (page !== null && page !== '') {
 
-            clearTimeout( $.data( this, "scrollCheck" ) );
+            clearTimeout($.data(this, "scrollCheck"));
 
-            $.data( this, "scrollCheck", setTimeout(function() {
+            $.data(this, "scrollCheck", setTimeout(function() {
                 var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
-                if(scroll_position_for_posts_load >= $(document).height()) {
+                if (scroll_position_for_posts_load >= $(document).height()) {
                     if (url.indexOf('sort=') !== -1) {
                         const sort = url.split('?')[1]
-                        $.get(page + '&' + sort, function(data){
+                        $.get(page + '&' + sort, function(data) {
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
                         });
-                    }
-                    else{
-                        $.get(page, function(data){
+                    } else {
+                        $.get(page, function(data) {
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
                         });
@@ -181,18 +179,18 @@ $(document).ready(function(){
         placeholder: ' ',
         showMaskOnHover: false,
         showMaskOnFocus: false,
-        onBeforePaste: function (pastedValue, opts) {
-        var processedValue = pastedValue;
+        onBeforePaste: function(pastedValue, opts) {
+            var processedValue = pastedValue;
 
-        //do something with it
+            //do something with it
 
-        return processedValue;
+            return processedValue;
         }
     });
     // const xl = $('#hello').val()
     // console.log(JSON.parse(xl))
 
-    $('.count-products').each(function () {
+    $('.count-products').each(function() {
         let category = $(this).data('id')
         let _this = $(this)
         $.ajax({
@@ -202,14 +200,12 @@ $(document).ready(function(){
             },
             method: "GET",
             dataType: 'json',
-            success: function (data) {
-                if([2, 3, 4].includes(data%10)){
+            success: function(data) {
+                if ([2, 3, 4].includes(data % 10)) {
                     _this.text(`${data}  товара`)
-                }
-                else if(data%10 == 1){
+                } else if (data % 10 == 1) {
                     _this.text(`${data}  товар`)
-                }
-                else{
+                } else {
                     _this.text(`${data}  товаров`)
                 }
             }
@@ -238,7 +234,7 @@ $(document).ready(function(){
     })
 })
 
-$('body').on('click', '#filter', function () {
+$('body').on('click', '#filter', function() {
     const cat_id = $(this).data('cat-id')
     const cat_slug = $(this).data('cat-slug')
     let sort = $("input[name='sort']:checked").data('sort')
@@ -288,18 +284,18 @@ $('body').on('click', '#filter', function () {
 //     })
 // })
 
-$('body').on('click', '#prevCategory', function () {
+$('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
     $('#categories').show()
 })
 
-$('body').on('click', '.subcategory', function () {
+$('body').on('click', '.subcategory', function() {
     $('#attributes').empty();
     let category = $(this).data('slug')
     window.location.href = '/category/' + category
 })
 
-$(document).on('change', '#cat_parent', function () {
+$(document).on('change', '#cat_parent', function() {
     $('#attributes').empty();
     const id = $('#cat_parent option:selected').val();
     $.ajax({
@@ -309,7 +305,7 @@ $(document).on('change', '#cat_parent', function () {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $('#cat_child').empty().append(`
                 <option>Выберите подкатегорию</option>
             `)
@@ -323,7 +319,7 @@ $(document).on('change', '#cat_parent', function () {
     });
 });
 
-$(document).on('change', '[name="category_id"]', function () {
+$(document).on('change', '[name="category_id"]', function() {
     const id = $('[name="category_id"] option:selected').val();
     $.ajax({
         url: '/getAttributes',
@@ -332,7 +328,7 @@ $(document).on('change', '[name="category_id"]', function () {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $('#attributes').empty();
             data.forEach(element => {
                 $('#attributes').append(`
@@ -356,11 +352,10 @@ $(document).on('change', '.js-attribute', function() {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
-            if(!_this.is(":checked")) {
+        success: function(data) {
+            if (!_this.is(":checked")) {
                 _this.closest('div').find('select').remove();
-            }
-            else {
+            } else {
                 _this.closest('div').append(`
                     <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]" multiple>
                         <option disabled>Выберите значение</option>
@@ -377,7 +372,7 @@ $(document).on('change', '.js-attribute', function() {
     });
 });
 
-$('body').on('change', '#cat_child', function () {
+$('body').on('change', '#cat_child', function() {
     const id = $('#cat_child option:selected').val()
     $.ajax({
         url: '/getSubcategories',
@@ -386,7 +381,7 @@ $('body').on('change', '#cat_child', function () {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             if (data.hasOwnProperty('0')) {
                 $('#cat_child').attr('name', 'subcategory')
                 $('#child_div').remove()
@@ -413,16 +408,16 @@ $('body').on('change', '#cat_child', function () {
     })
 })
 
-$('.select-color').on('click', function () {
+$('.select-color').on('click', function() {
     $('.product-colors label').removeClass('color-active');
     $(this).addClass('color-active');
 })
-$('.sizes .product-size').on('click', function () {
-    $('.product-size').removeClass('text-danger');
-    $(this).addClass('text-danger');
-})
-// search
-$('.main-search').on('keyup keypress keydown change', function () {
+$('.sizes .product-size').on('click', function() {
+        $('.product-size').removeClass('text-danger');
+        $(this).addClass('text-danger');
+    })
+    // search
+$('.main-search').on('keyup keypress keydown change', function() {
     let value = $(this).val();
     if (value.length >= 3) {
         $.ajax({
@@ -438,14 +433,15 @@ $('.main-search').on('keyup keypress keydown change', function () {
                 $('.search-result').show();
                 $('.search-result').html(data);
             },
-            error: function (xhr, status, error) {}
+            error: function(xhr, status, error) {}
         })
     } else {
         $('.search-result').hide();
     }
 });
+
 // orders add
-$('.checkout-product').on('click', function () {
+$('.checkout-product').on('click', function() {
     let total_price = $(this).closest('#buyProduct').find('.total-price').text();
     let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
@@ -466,13 +462,14 @@ $('.checkout-product').on('click', function () {
             $('.order-number').text("Номер вашего заказа: " + data.order.id);
             console.log(data);
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.log(status);
         }
     })
 });
+
 // favorite add
-$('.favorite').on('click', function () {
+$('.favorite').on('click', function() {
 
     if ($(this).hasClass('active')) {
         var status = 0;
@@ -484,21 +481,21 @@ $('.favorite').on('click', function () {
 
     const product_id = $(this).attr('data-id');
     $.ajax({
-        url: '/add_to_favorite',
-        data: {
-            product_id: product_id,
-            status: status,
-        },
-        method: "GET",
-        dataType: 'json',
-        success: (data) => {
-            this_.toggleClass('active');
-        },
-        error: function (xhr, status, error) {
-            console.log(status);
-        }
-    })
-    // $.ajax({
+            url: '/add_to_favorite',
+            data: {
+                product_id: product_id,
+                status: status,
+            },
+            method: "GET",
+            dataType: 'json',
+            success: (data) => {
+                this_.toggleClass('active');
+            },
+            error: function(xhr, status, error) {
+                console.log(status);
+            }
+        })
+        // $.ajax({
 
     //     url: '/add_to_favorite/' + product_id,
     //     type: 'GET',
@@ -520,7 +517,7 @@ $('.favorite').on('click', function () {
 });
 
 // sms-congirm
-$('#btn-login, #code').on('click change', function () {
+$('#btn-login, #code').on('click change', function() {
     const phone = $('#phone').val();
     const code = $('#code').val()
     $.ajax({
@@ -546,14 +543,14 @@ $('#btn-login, #code').on('click change', function () {
             }
 
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.log(status);
         }
 
     });
 });
 // sms-code
-$('#send-code, .send-code').on('click', function () {
+$('#send-code, .send-code').on('click', function() {
     $(this).attr('disabled', true);
     const phone = $('#phone').val();
     $.ajax({
@@ -578,7 +575,7 @@ $('#send-code, .send-code').on('click', function () {
                 display = document.querySelector('#count-down');
             return startTimer(fiveMinutes, display);
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
 
             console.log(status);
         }
@@ -610,21 +607,21 @@ function startTimer(duration, display) {
 
 // preview image
 
-$(function () {
+$(function() {
 
-    $("#gallery").change(function () {
-        if (typeof (FileReader) != "undefined") {
+    $("#gallery").change(function() {
+        if (typeof(FileReader) != "undefined") {
             var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
             dvPreview.html("");
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
 
-            $($(this)[0].files).each(function (index) {
+            $($(this)[0].files).each(function(index) {
                 var file = $(this);
                 console.log(file);
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="'+index+'" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
+                    reader.onload = function(e) {
+                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
                         img.find('img').addClass("mw-100");
                         img.find('img').attr("src", e.target.result);
                         dvPreview.append(img);
@@ -657,12 +654,13 @@ $('.db-preview-remove').on('click', function() {
 
     let value = $(this).attr('data-id');
     console.log(value);
+
     function removeItemOnce(arr, value) {
-            var index = arr.indexOf(value);
-            if (index > -1) {
+        var index = arr.indexOf(value);
+        if (index > -1) {
             arr.splice(index, 1);
-            }
-            console.log(arr);
+        }
+        console.log(arr);
     };
     removeItemOnce(gallery.files, value);
     console.log(gallery.files);
@@ -679,7 +677,7 @@ function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             $('#main-poster').attr('src', e.target.result);
         }
 
@@ -691,7 +689,7 @@ function avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             $('#avatar-poster').attr('src', e.target.result);
             $('#avatar-poster-mobile').attr('src', e.target.result);
         }
@@ -704,18 +702,19 @@ function cover(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             $('#cover-poster').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 function user_avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         console.log(reader)
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             $('.user_avatar svg').hide();
             $('.user_avatar img').show().attr('src', e.target.result);
         }
@@ -724,25 +723,25 @@ function user_avatar(input) {
     }
 }
 
-$("#profile_photo_path").change(function () {
+$("#profile_photo_path").change(function() {
     user_avatar(this);
 });
 
-$("#image").change(function () {
+$("#image").change(function() {
     readURL(this);
 });
 
-$("#avatar").change(function () {
+$("#avatar").change(function() {
     avatar(this);
 });
 
-$("#cover").change(function () {
+$("#cover").change(function() {
     cover(this);
 });
 /* iteration number */
 
 //gets the input by element Id, gets min, max, and step from the markup. Gets the subtract and add buttons either by optional classnames, or by the next or last element sibling.
-var NumberSpinner = function (elemId, subtractClassName, addClassName) {
+var NumberSpinner = function(elemId, subtractClassName, addClassName) {
     'use strict';
     var spinnerInput = document.getElementById(elemId);
     var btnSubtract = document.querySelector(addClassName) || spinnerInput.previousElementSibling;
@@ -833,7 +832,7 @@ var NumberSpinner = function (elemId, subtractClassName, addClassName) {
 NumberSpinner('spinner-input', 'js-spinner-horizontal-subtract', 'js-spinner-horizontal-add');
 
 var product_price = $('#price').text();
-$('.spinner__button').on('click', function () {
+$('.spinner__button').on('click', function() {
 
     let count = $('#spinner-input').val();
     let res = parseInt(product_price * count);
@@ -841,7 +840,7 @@ $('.spinner__button').on('click', function () {
     $('.quantity-product').text(count);
 
 });
-$('#spinner-input').on('change', function () {
+$('#spinner-input').on('change', function() {
 
     let count = $(this).val();
     let res = parseInt(product_price * count);
@@ -849,19 +848,19 @@ $('#spinner-input').on('change', function () {
     $('.quantity-product').text(count);
 
 });
-$('body').on('click', '.change-address', function () {
+$('body').on('click', '.change-address', function() {
     $('#checkout_address').prop("disabled", false);
     $('#checkout_address').focus();
 });
 
 ///product picture on hover change
-$('.add-product-secondary .pic-item').on("click", function(){
+$('.add-product-secondary .pic-item').on("click", function() {
     let imgSrc = $(this).attr('data-image-src');
-    $('.pic-main').attr('src',imgSrc);
+    $('.pic-main').attr('src', imgSrc);
     $('.add-product-secondary .pic-item').removeClass('pic-item-active');
     $(this).addClass('pic-item-active');
 });
-$('.add-product-secondary .pic-item').on('click', function(){
+$('.add-product-secondary .pic-item').on('click', function() {
     let imgSrc = $(this).attr('data-image-src');
     $('.pic-main').attr('src', imgSrc);
 });
@@ -869,175 +868,174 @@ $('.add-product-secondary .pic-item').on('click', function(){
 
 
 //zoom image
-$(function($){
-    $.fn.okzoom = function(options){
-      options = $.extend({}, $.fn.okzoom.defaults, options);
+$(function($) {
+    $.fn.okzoom = function(options) {
+        options = $.extend({}, $.fn.okzoom.defaults, options);
 
-      return this.each(function(){
-        var base = {};
-        var el = this;
-        base.options = options;
-        base.$el = $(el);
-        base.el = el;
+        return this.each(function() {
+            var base = {};
+            var el = this;
+            base.options = options;
+            base.$el = $(el);
+            base.el = el;
 
-        base.listener = document.createElement('div');
-        base.$listener = $(base.listener).addClass('ok-listener').css({
-          position: 'absolute',
-          zIndex: 10000
+            base.listener = document.createElement('div');
+            base.$listener = $(base.listener).addClass('ok-listener').css({
+                position: 'absolute',
+                zIndex: 10000
+            });
+            $('body').append(base.$listener);
+
+            var loupe = document.createElement("div");
+            loupe.id = "ok-loupe";
+            loupe.style.position = "absolute";
+            loupe.style.backgroundRepeat = "no-repeat";
+            loupe.style.pointerEvents = "none";
+            loupe.style.display = "none";
+            loupe.style.zIndex = 7879;
+            $('body').append(loupe);
+            base.loupe = loupe;
+
+            base.$el.data("okzoom", base);
+
+            base.options = options;
+            $(base.el).bind('mouseover', (function(b) {
+                return function(e) { $.fn.okzoom.build(b, e); };
+            }(base)));
+
+            base.$listener.bind('mousemove', (function(b) {
+                return function(e) { $.fn.okzoom.mousemove(b, e); };
+            }(base)));
+
+            base.$listener.bind('mouseout', (function(b) {
+                return function(e) { $.fn.okzoom.mouseout(b, e); };
+            }(base)));
+
+            base.options.height = base.options.height || base.options.width;
+
+            base.image_from_data = base.$el.data("okimage");
+            base.has_data_image = typeof base.image_from_data !== "undefined";
+
+            if (base.has_data_image) {
+                base.img = new Image();
+                base.img.src = base.image_from_data;
+            }
+
+            base.msie = -1; // Return value assumes failure.
+            if (navigator.appName == 'Microsoft Internet Explorer') {
+                var ua = navigator.userAgent;
+                var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+                if (re.exec(ua) != null)
+                    base.msie = parseFloat(RegExp.$1);
+            }
         });
-        $('body').append(base.$listener);
-
-        var loupe = document.createElement("div");
-        loupe.id = "ok-loupe";
-        loupe.style.position = "absolute";
-        loupe.style.backgroundRepeat = "no-repeat";
-        loupe.style.pointerEvents = "none";
-        loupe.style.display = "none";
-        loupe.style.zIndex = 7879;
-        $('body').append(loupe);
-        base.loupe = loupe;
-
-        base.$el.data("okzoom", base);
-
-        base.options = options;
-        $(base.el).bind('mouseover', (function(b) {
-          return function(e) { $.fn.okzoom.build(b, e); };
-        }(base)));
-
-        base.$listener.bind('mousemove', (function(b) {
-          return function(e) { $.fn.okzoom.mousemove(b, e); };
-        }(base)));
-
-        base.$listener.bind('mouseout', (function(b) {
-          return function(e) { $.fn.okzoom.mouseout(b, e); };
-        }(base)));
-
-        base.options.height = base.options.height || base.options.width;
-
-        base.image_from_data = base.$el.data("okimage");
-        base.has_data_image = typeof base.image_from_data !== "undefined";
-
-        if (base.has_data_image) {
-          base.img = new Image ();
-          base.img.src = base.image_from_data;
-        }
-
-        base.msie = -1; // Return value assumes failure.
-        if (navigator.appName == 'Microsoft Internet Explorer') {
-          var ua = navigator.userAgent;
-          var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-          if (re.exec(ua) != null)
-            base.msie = parseFloat(RegExp.$1);
-        }
-      });
     };
 
     $.fn.okzoom.defaults = {
-      "width": 150,
-      "height": null,
-      "scaleWidth": null,
-      "round": true,
-      "background": "#fff",
-      "backgroundRepeat": "no-repeat",
-      "shadow": "0 0 5px #000",
-      "border": 0
+        "width": 150,
+        "height": null,
+        "scaleWidth": null,
+        "round": true,
+        "background": "#fff",
+        "backgroundRepeat": "no-repeat",
+        "shadow": "0 0 5px #000",
+        "border": 0
     };
 
-    $.fn.okzoom.build = function(base, e){
-      if (! base.has_data_image) {
-        base.img = base.el;
-      }
-      else if (base.image_from_data != base.$el.attr('data-okimage')) {
-        // data() returns cached values, whereas attr() returns from the dom.
-        base.image_from_data = base.$el.attr('data-okimage');
+    $.fn.okzoom.build = function(base, e) {
+        if (!base.has_data_image) {
+            base.img = base.el;
+        } else if (base.image_from_data != base.$el.attr('data-okimage')) {
+            // data() returns cached values, whereas attr() returns from the dom.
+            base.image_from_data = base.$el.attr('data-okimage');
 
-        $(base.img).remove();
-        base.img = new Image();
-        base.img.src = base.image_from_data;
-      }
+            $(base.img).remove();
+            base.img = new Image();
+            base.img.src = base.image_from_data;
+        }
 
-      if (base.msie > -1 && base.msie < 9.0 && !base.img.naturalized) {
-        var naturalize = function(img) {
-          img = img || this;
-          var io = new Image();
+        if (base.msie > -1 && base.msie < 9.0 && !base.img.naturalized) {
+            var naturalize = function(img) {
+                img = img || this;
+                var io = new Image();
 
-          io.el = img;
-          io.src = img.src;
+                io.el = img;
+                io.src = img.src;
 
-          img.naturalWidth = io.width;
-          img.naturalHeight = io.height;
-          img.naturalized = true;
-        };
-        if (base.img.complete) naturalize(base.img);
-        else return;
-      }
+                img.naturalWidth = io.width;
+                img.naturalHeight = io.height;
+                img.naturalized = true;
+            };
+            if (base.img.complete) naturalize(base.img);
+            else return;
+        }
 
-      base.offset = base.$el.offset();
-      base.width = base.$el.width();
-      base.height = base.$el.height();
-      base.$listener.css({
-        display: 'block',
-        width: base.$el.outerWidth(),
-        height: base.$el.outerHeight(),
-        top: base.$el.offset().top,
-        left: base.$el.offset().left
-      });
+        base.offset = base.$el.offset();
+        base.width = base.$el.width();
+        base.height = base.$el.height();
+        base.$listener.css({
+            display: 'block',
+            width: base.$el.outerWidth(),
+            height: base.$el.outerHeight(),
+            top: base.$el.offset().top,
+            left: base.$el.offset().left
+        });
 
-      if (base.options.scaleWidth) {
-        base.naturalWidth = base.options.scaleWidth;
-        base.naturalHeight = Math.round( base.img.naturalHeight * base.options.scaleWidth / base.img.naturalWidth );
-      } else {
-        base.naturalWidth = base.img.naturalWidth;
-        base.naturalHeight = base.img.naturalHeight;
-      }
+        if (base.options.scaleWidth) {
+            base.naturalWidth = base.options.scaleWidth;
+            base.naturalHeight = Math.round(base.img.naturalHeight * base.options.scaleWidth / base.img.naturalWidth);
+        } else {
+            base.naturalWidth = base.img.naturalWidth;
+            base.naturalHeight = base.img.naturalHeight;
+        }
 
-      base.widthRatio = base.naturalWidth / base.width;
-      base.heightRatio = base.naturalHeight / base.height;
+        base.widthRatio = base.naturalWidth / base.width;
+        base.heightRatio = base.naturalHeight / base.height;
 
-      base.loupe.style.width = base.options.width + "px";
-      base.loupe.style.height = base.options.height + "px";
-      base.loupe.style.border = base.options.border;
-      base.loupe.style.background = base.options.background + " url(" + base.img.src + ")";
-      base.loupe.style.backgroundRepeat = base.options.backgroundRepeat;
-      base.loupe.style.backgroundSize = base.options.scaleWidth ?
-          base.naturalWidth + "px " + base.naturalHeight + "px" : "auto";
-      base.loupe.style.borderRadius =
-      base.loupe.style.OBorderRadius =
-      base.loupe.style.MozBorderRadius =
-      base.loupe.style.WebkitBorderRadius = base.options.round ? base.options.width + "px" : 0;
+        base.loupe.style.width = base.options.width + "px";
+        base.loupe.style.height = base.options.height + "px";
+        base.loupe.style.border = base.options.border;
+        base.loupe.style.background = base.options.background + " url(" + base.img.src + ")";
+        base.loupe.style.backgroundRepeat = base.options.backgroundRepeat;
+        base.loupe.style.backgroundSize = base.options.scaleWidth ?
+            base.naturalWidth + "px " + base.naturalHeight + "px" : "auto";
+        base.loupe.style.borderRadius =
+            base.loupe.style.OBorderRadius =
+            base.loupe.style.MozBorderRadius =
+            base.loupe.style.WebkitBorderRadius = base.options.round ? base.options.width + "px" : 0;
 
-      base.loupe.style.boxShadow = base.options.shadow;
-      base.initialized = true;
-      $.fn.okzoom.mousemove(base, e);
+        base.loupe.style.boxShadow = base.options.shadow;
+        base.initialized = true;
+        $.fn.okzoom.mousemove(base, e);
     };
 
-    $.fn.okzoom.mousemove = function (base, e) {
-      if (!base.initialized) return;
-      var shimLeft = base.options.width / 2;
-      var shimTop = base.options.height / 2;
-      var pageX = typeof e.pageX !== 'undefined' ? e.pageX :
-          (e.clientX + document.documentElement.scrollLeft);
-      var pageY = typeof e.pageY !== 'undefined' ? e.pageY :
-          (e.clientY + document.documentElement.scrollTop);
-      var scaleLeft = -1 * Math.floor( (pageX - base.offset.left) * base.widthRatio - shimLeft );
-      var scaleTop  = -1 * Math.floor( (pageY - base.offset.top) * base.heightRatio - shimTop );
+    $.fn.okzoom.mousemove = function(base, e) {
+        if (!base.initialized) return;
+        var shimLeft = base.options.width / 2;
+        var shimTop = base.options.height / 2;
+        var pageX = typeof e.pageX !== 'undefined' ? e.pageX :
+            (e.clientX + document.documentElement.scrollLeft);
+        var pageY = typeof e.pageY !== 'undefined' ? e.pageY :
+            (e.clientY + document.documentElement.scrollTop);
+        var scaleLeft = -1 * Math.floor((pageX - base.offset.left) * base.widthRatio - shimLeft);
+        var scaleTop = -1 * Math.floor((pageY - base.offset.top) * base.heightRatio - shimTop);
 
-      document.body.style.cursor = "none";
-      base.loupe.style.display = "block";
-      base.loupe.style.left = pageX - shimLeft + "px";
-      base.loupe.style.top = pageY - shimTop + "px";
-      base.loupe.style.backgroundPosition = scaleLeft + "px " + scaleTop + "px";
+        document.body.style.cursor = "none";
+        base.loupe.style.display = "block";
+        base.loupe.style.left = pageX - shimLeft + "px";
+        base.loupe.style.top = pageY - shimTop + "px";
+        base.loupe.style.backgroundPosition = scaleLeft + "px " + scaleTop + "px";
     };
 
-    $.fn.okzoom.mouseout = function (base, e) {
-      base.loupe.style.display = "none";
-      base.loupe.style.background = "none";
-      base.listener.style.display = "none";
-      document.body.style.cursor = "auto";
-  };
+    $.fn.okzoom.mouseout = function(base, e) {
+        base.loupe.style.display = "none";
+        base.loupe.style.background = "none";
+        base.listener.style.display = "none";
+        document.body.style.cursor = "auto";
+    };
 });
 
-$('.add-product-secondary .pic-item').on('click', function(){
+$('.add-product-secondary .pic-item').on('click', function() {
     let imgSrc = $(this).attr('data-image-src');
-    $('.pic-main').attr('src',imgSrc);
+    $('.pic-main').attr('src', imgSrc);
 });
