@@ -83511,6 +83511,101 @@ $(function ($) {
     window.print();
     return false;
   });
+}); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+
+$(function () {
+  $("#galler").change(function () {
+    var fd = new FormData();
+    fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+    var files = $('#galler')[0].files;
+
+    if (files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        fd.append('image', files[i]);
+        $.ajax({
+          url: '/uploadImage',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function success(response) {
+            $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
+            var gallery = $('#gallery');
+
+            if (gallery.val() == '') {
+              gallery.val(gallery.val() + response);
+            } else {
+              gallery.val(gallery.val() + ',' + response);
+            }
+          }
+        });
+      }
+    } else {
+      alert("Please select a file.");
+    }
+  });
+});
+$('body').on('click', '.deleteImage', function () {
+  var url = $(this).parent().find('img').data('image-src');
+  console.log('url= ' + url);
+  var gallery = $('#gallery');
+  var array = gallery.val().split(',');
+  var index = array.indexOf(url);
+
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+
+  gallery.val(array);
+  $(this).parent().parent().remove();
+
+  if (url.indexOf('products/edit/') !== -1) {
+    $(this).parent().parent().parent().remove();
+  } else {
+    $(this).parent().parent().remove();
+  }
+
+  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image\" data-image=\"false\">\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
+});
+$(document).on('change', '[name="category_id"]', function () {
+  var id = $('[name="category_id"] option:selected').val();
+  $.ajax({
+    url: '/getAttributes',
+    data: {
+      category_id: id
+    },
+    method: "GET",
+    dataType: 'json',
+    success: function success(data) {
+      $('#attributes').empty();
+      data.forEach(function (element) {
+        $('#attributes').append("\n                    <div class=\"form-check form-check\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+      });
+    }
+  });
+});
+$(document).on('change', '.js-attribute', function () {
+  var _this = $(this);
+
+  $.ajax({
+    url: '/getAttributesValue',
+    data: {
+      attribute_id: _this.val()
+    },
+    method: "GET",
+    dataType: 'json',
+    success: function success(data) {
+      if (!_this.is(":checked")) {
+        _this.closest('div').find('select').remove();
+      } else {
+        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\" multiple>\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
+
+        data.forEach(function (element) {
+          _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+        });
+      }
+    }
+  });
 });
 
 /***/ }),
