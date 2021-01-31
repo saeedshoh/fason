@@ -37,7 +37,7 @@ class Product extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function attriute()
+    public function attribute()
     {
         return $this->belongsTo('App\Models\Attribute');
     }

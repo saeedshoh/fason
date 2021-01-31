@@ -22,54 +22,51 @@
             </label>
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
-            
-              <div class="col-3 text-center">
-                <label for="gallery">
-                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-                </label>
-              </div>
             <div id="db-preview-image" class="row">
-              <div class="col-3 text-center">
-                <label for="gallery">
-                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
+              <div class="col-3 text-center product_image" data-image="false">
+                <label for="galler">
+                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                     <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
                 </label>
               </div>
-              <div class="col-3 text-center">
-                <label for="gallery">
+              <div data-image="false" class="col-3 text-center product_image">
+                <label for="galler">
                   <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
                 </label>
               </div>
             </div>
+            <form method="post" action="" enctype="multipart/form-data" id="myform">
+                <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+            </form>
 
           </div>
         </div>
@@ -79,7 +76,7 @@
           <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product">
             @csrf
             @method('POST')
-            <input type="file" id="gallery" class="d-none" name="gallery[]" multiple form="add_product" required>
+            <input class="d-none" id="gallery" type="text" name="gallery">
 
             <input type="file" id="image" class="d-none" name="image" required>
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -148,7 +145,7 @@
                   @enderror
                 </div>
               </div>
-             
+
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: </label>
                 <div class="w-75 input_placeholder_style">
@@ -159,8 +156,9 @@
                     </div>
                   @enderror
                 </div>
-
               </div>
+              <div id="attributes" class="row"></div>
+
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}" required>
               <input type="hidden" name="product_status_id" value="1">
               <div class="append-div w-75 ml-auto py-2"></div>

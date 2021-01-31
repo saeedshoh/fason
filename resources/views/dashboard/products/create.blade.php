@@ -43,13 +43,12 @@
             @endif
             <div class="row">
 
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
 
                         <!-- Form -->
                         <form action="{{ route('products.store') }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_product">
-
                             @csrf
                             @method('POST')
                             <div class="form-row">
@@ -63,7 +62,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="cat_parent">Родительская категория</label>
                                     <select class="form-control" id="cat_parent" name="cat_parent">
-                                        <option disabled>Выберите категорию</option>
+                                        <option disabled selected>Выберите категорию</option>
                                         @foreach($categories->where('parent_id', 0) as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -73,7 +72,7 @@
                             <div class="form-row" id="subCategories">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="cat_child">Под-категория</label>
-                                    <select class="form-control" id="cat_child" name="categoy_id">
+                                    <select class="form-control" id="cat_child" name="category_id">
                                         <option disabled>Выберите подкатегорию</option>
                                     </select>
                                 </div>
@@ -101,6 +100,9 @@
                                     <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="Введите описание">{{ old('description') }}</textarea>
                                 </div>
                             </div>
+
+                            <div id="attributes" class="row"></div>
+
                             <!-- Button -->
                             <input type="hidden" name="product_status_id" value="2">
 
@@ -108,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
@@ -128,14 +130,22 @@
                                     </div>
                                     <small class="text-muted">Внимание размер: </small>
                                 </div>
-                                <div class="col-12 col-md-12 mb-3">
-                                    <label for="gallery">Галерея</label>
-                                    <div class="custom-file">
-                                        <label class="custom-file-label" for="icon">Выберите файл</label>
-                                        <input value="{{old('image')}}" type="file" name="gallery[]" form="create_product" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru" multiple required>
-                                    </div>
-                                    <small class="text-muted">Внимание размер: </small>
+                                <div id="db-preview-image" class="row">
+                                    @for($i=0; $i<8; $i++)
+                                        <div class="col-3 text-center product_image" data-image="false">
+                                            <label for="galler">
+                                                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+                                            </label>
+                                        </div>
+                                    @endfor
                                 </div>
+
+                                <input class="d-none" id="gallery" type="text" name="gallery">
+
+
+                                <form method="post" action="" enctype="multipart/form-data" id="myform">
+                                    <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                                </form>
                             </div>
                         </div>
                     </form>

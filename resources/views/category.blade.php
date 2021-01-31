@@ -19,6 +19,7 @@
       <div class="row mt-3">
         <div class="col-12 col-md-4 mb-2 px-2 px-lg-3">
           <div class="catalog__ategory col-12 bg-white px-0">
+            <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4>{{ $name->parent ? $name->parent->name : $name->name }}</h4></a>
             <ul class="shop-subject list-group list-group-flush h-100">
               @forelse ($categories as $category)
               <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center py-2">

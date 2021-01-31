@@ -453,3 +453,125 @@ $(function($){
 		return false;
 	});
 });
+
+
+////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+$(function () {
+
+    $("#galler").change(function () {
+        var fd = new FormData()
+        fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+        var files = $('#galler')[0].files;
+        if(files.length > 0 ){
+            for(let i=0; i<files.length; i++){
+                fd.append('image',files[i]);
+                $.ajax({
+                url: '/uploadImage',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
+                            <div class="profile-pic">
+                                <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
+                                <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                            </div>
+                    `)
+
+                    let gallery = $('#gallery')
+                    if(gallery.val() == ''){
+                        gallery.val(gallery.val() + response)
+                    } else{
+                        gallery.val(gallery.val() + ',' + response)
+                    }
+                },
+                });
+            }
+
+        }else{
+            alert("Please select a file.");
+        }
+    });
+});
+
+
+$('body').on('click', '.deleteImage', function(){
+    let url = $(this).parent().find('img').data('image-src')
+    console.log('url= ' + url)
+    let gallery = $('#gallery')
+    let array =  gallery.val().split(',')
+    const index = array.indexOf(url)
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+    gallery.val(array)
+    $(this).parent().parent().remove()
+    if(url.indexOf('products/edit/') !== -1) {
+        $(this).parent().parent().parent().remove()
+    }
+    else{
+        $(this).parent().parent().remove()
+    }
+    $('#db-preview-image').append(`
+        <div class="col-3 text-center product_image" data-image="false">
+            <label for="galler">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+            </label>
+        </div>
+    `)
+})
+
+$(document).on('change', '[name="category_id"]', function () {
+    const id = $('[name="category_id"] option:selected').val();
+    $.ajax({
+        url: '/getAttributes',
+        data: {
+            category_id: id
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function (data) {
+            $('#attributes').empty();
+            data.forEach(element => {
+                $('#attributes').append(`
+                    <div class="form-check form-check">
+                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                    </div>
+                `);
+            })
+        }
+    });
+})
+
+
+$(document).on('change', '.js-attribute', function() {
+    const _this = $(this);
+    $.ajax({
+        url: '/getAttributesValue',
+        data: {
+            attribute_id: _this.val()
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function (data) {
+            if(!_this.is(":checked")) {
+                _this.closest('div').find('select').remove();
+            }
+            else {
+                _this.closest('div').append(`
+                    <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]" multiple>
+                        <option disabled>Выберите значение</option>
+                    </select>
+                `);
+
+                data.forEach(element => {
+                    _this.closest('div').find('select').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `);
+                })
+            }
+        }
+    });
+});

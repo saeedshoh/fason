@@ -20,59 +20,42 @@
           <div class="my-3">
             <label for="image">
               <img src="{{ Storage::url($product->image) }}" class="mw-100 w-100" id="main-poster">
-              {{--  <img src="/storage/theme/icons/add_prod-img.svg" class="mw-100 w-100" id="main-poster">  --}}
             </label>
           </div>
-          <div class="row add-product-secondary">
-            @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
-                <div class="col-3 text-center">
-                    <label for="gallery">
-                        <div class="profile-pic">
-                            <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
-                            <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
-                        </div>
+          <div id="db-preview-image" class="row add-product-secondary">
+            @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
+                <div class="col-3 text-center product_image" data-image="true">
+                    <div class="profile-pic">
+                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ explode(',', $product->gallery)[$i] }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
+                        <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                    </div>
+                </div>
+            @endfor
+            @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
+                <div class="col-3 text-center product_image" data-image="false">
+                    <label for="galler">
+                        <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
                     </label>
                 </div>
             @endfor
-            <div id="salom" class="col-3 text-center">
-                <img class="position-relative" src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
-            </div>
-            {{--  <div class="col-3 text-center">
-              <label for="gallery">
-                  <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100"  alt="">
-              </label>
-            </div>
-            <div class="col-3 text-center">
-              <label for="gallery">
-                <img src="/storage/theme/icons/add_prod-secondary.svg" class="mw-100" alt="">
-              </label>
-            </div>  --}}
           </div>
+          <form method="post" action="" enctype="multipart/form-data" id="myform">
+            <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+          </form>
         </div>
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
-          <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product">
+          <form action="{{ route('ft-products.update', $product) }}" method="POST" enctype="multipart/form-data" id="add_product">
             @csrf
-            @method('PATCH')
-            <input class="form-control" id="hello" type="hidden" value="{{ $product->gallery }}">
-            <input type="file" id="gallery" class="d-none" name="gallery[]" multiple form="add_product">
+            @method('PUT')
+            <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
 
             <input type="file" id="image" class="d-none" name="image">
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
               <div class="w-75 input_placeholder_style">
-                <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
+                <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="parent_cat">
                   <option >Выберите категорию</option>
                   @if ($grandParent)
                     @forelse ($cat_parent as $cat)
@@ -236,10 +219,26 @@
                   @enderror
                 </div>
               </div>
+              <div id="attributes" class="row">
+                @foreach ($attributes as $index => $attribute)
+                <div class="form-check form-check">
+                    <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
+                    <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                    @if ($attribute->is_checked)
+                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
+                        <option disabled="">Выберите значение</option>
+                        @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                            <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
+                        @endforeach
+                    </select>
+                    @endif
+                </div>
+                @endforeach
+            </div>
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
               <input type="hidden" name="product_status_id" value="1">
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Добавить </button>
+                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Изменить </button>
               </div>
             </div>
           </form>

@@ -1155,6 +1155,23 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     color: #000;
 }
 
+.profile-pic:hover .deleteAddedImage {
+    display: block;
+}
+
+.deleteAddedImage {
+    padding-top: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.deleteAddedImage a {
+    color: #000;
+}
+
 @media screen and (min-device-width: 320px) and (orientation: landscape) {
     #categories {
         height: 440px;

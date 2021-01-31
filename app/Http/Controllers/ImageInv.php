@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ImageInv extends Controller
@@ -23,48 +24,60 @@ class ImageInv extends Controller
         // return $canva->response('jpg');
     }
 
-    function cropImage($img, $dimension, $sides, $nowYear)
-        {
-            $width  = $img->width();
-            $height = $img->height();
+    private function cropImage($img, $dimension, $sides, $nowYear)
+    {
+        $width  = $img->width();
+        $height = $img->height();
+        $vertical   = (($width < $height) ? true : false);
+        $horizontal = (($width > $height) ? true : false);
+        $square     = (($width = $height) ? true : false);
 
-            /*
-            *  canvas
-            */
+        if ($vertical) {
+            $top = $bottom = $sides;
+            $newHeight = ($dimension) - ($bottom + $top);
+            $img->resize(null, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+            });
 
-            $vertical   = (($width < $height) ? true : false);
-            $horizontal = (($width > $height) ? true : false);
-            $square     = (($width = $height) ? true : false);
+        } else if ($horizontal) {
+            $right = $left = 0;
+            $newWidth = ($dimension) - ($right + $left);
+            $img->resize($newWidth, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
 
-            if ($vertical) {
-                $top = $bottom = $sides;
-                $newHeight = ($dimension) - ($bottom + $top);
-                $img->resize(null, $newHeight, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+        } else if ($square) {
+            $right = $left = 0;
+            $newWidth = ($dimension) - ($left + $right);
+            $img->resize($newWidth, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+        $image = $nowYear . $dimension . 'x' . $dimension . '.jpg';
 
-            } else if ($horizontal) {
-                $right = $left = 0;
-                $newWidth = ($dimension) - ($right + $left);
-                $img->resize($newWidth, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+        $img->resizeCanvas($dimension, $dimension, 'center', false, '#ffffff');
+        $img->save(public_path('/storage/' . $image));
+    }
 
-            } else if ($square) {
-                $right = $left = $sides;
-                $newWidth = ($dimension) - ($left + $right);
-                $img->resize($newWidth, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-            $image = $nowYear . $dimension . 'x' . $dimension . '.jpg';
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+        ]);
 
-            $img->resizeCanvas($dimension, $dimension, 'center', false, '#ffffff');
-            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-            $img->insert($watermark, 'bottom-right', 75, 75);
-            $img->save(public_path('/storage/' . $image));
-            return $img->response('jpg');
+        $img = Image::make($request->file('image')->getRealPath());
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $img->insert($watermark, 'bottom-right', 50, 50);
 
+        //Create folder if doesn't exist
+        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($yearFolder)){
+            File::makeDirectory($yearFolder, 0777, true);
         }
 
+        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+        $this->cropImage($img, 480, 50, $nowYear);
+        $this->cropImage($img, 800, 83, $nowYear);
+        return $nowYear . '480x480.jpg';
+    }
 }
