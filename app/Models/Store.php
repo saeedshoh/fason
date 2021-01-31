@@ -66,4 +66,6 @@ class Store extends Model
     {
         return $this->belongsToMany(Monetization::class);
     }
+
+
 }
