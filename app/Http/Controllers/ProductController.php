@@ -98,9 +98,19 @@ class ProductController extends Controller
 
     public function editProduct($slug)
     {
+        $product = Product::where('slug', $slug)->first();
+        $attributes = $product->category->attributes->map(function($attributes) use ($product) {
+            $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);
+            return $attributes;
+        });
+
+        $attrValues = AttributeValue::all()->map(function($attrValues) use ($product) {
+            $attrValues->is_checked = $product->attribute_variation->pluck('attribute_value_id')->contains($attrValues->id);
+            return $attrValues;
+        });
+
         $allCategories = Category::get();
-        $id = Product::where('slug', $slug)->first();
-        $category = Category::where('id', $id->category_id)->first();
+        $category = Category::where('id', $product->category_id)->first();
         $parent = null;
         $grandParent = null;
         if($category->parent_id != 0){
@@ -110,8 +120,7 @@ class ProductController extends Controller
             }
         }
         $cat_parent = $this->categories->where('parent_id', 0);
-        $product = Product::where('id', $id->id)->first();
-        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories'));
+        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories', 'attributes', 'attrValues'));
     }
 
     /**
@@ -124,6 +133,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+            'gallery' => 'required'
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
@@ -140,28 +150,70 @@ class ProductController extends Controller
         $this->cropImage($img, 480, 50, $nowYear);
         $this->cropImage($img, 800, 83, $nowYear);
 
-        $gallery = $request->file('gallery');
-        $galleries = [];
-        foreach($gallery as $images){
-            $singleImage = Image::make($images->getRealPath());
-            $singleImage->insert($watermark, 'bottom-right', 50, 50);
-            $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($singleImage, 800, 83, $nowYear1);
-            $image_single = $nowYear1 . '800x800.jpg';
-            array_push($galleries, $image_single);
-        }
-
-        $product = Product::create($request->validated() + ['image' => $nowYear, 'gallery' => json_encode($galleries, true)]);
+        $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
         if(isset($request->attribute)) {
-            foreach ($request->attribute as $attribute) {
-                foreach($attribute as $item) {
-                    ProductAttribute::insert([
+            foreach ($request->attribute as $name => $attribute) {
+                $attribute_id = Attribute::where('slug', $name)->first()->id;
+                ProductAttribute::create([
                     'product_id' => $product->id,
-                    'attribute_id' => $attribute['id'],
-                    'attribute_value_id' => $item
+                    'attribute_id' => $attribute_id,
+                    'attribute_value_id' => $attribute['value']
                 ]);
-                }
+            }
+        }
+        return redirect()->route('home');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function ft_update(ProductRequest $request, Product $product)
+    {
+        if ($request->image != $product->image && $request->image != null)
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+                'gallery' => 'required'
+            ]);
+
+            //Create folder if doesn't exist
+            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+            if(!File::isDirectory($yearFolder)){
+                File::makeDirectory($yearFolder, 0777, true);
+            }
+
+            $img = Image::make($request->file('image')->getRealPath());
+            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $img->insert($watermark, 'bottom-right', 50, 50);
+            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+            $this->cropImage($img, 480, 50, $nowYear);
+            $this->cropImage($img, 800, 83, $nowYear);
+
+            $image = $nowYear . '480x480.jpg';
+            $product->update([
+                'image' => $image,
+            ]);
+        }
+        $product->update($request->validated() + ['gallery' => $request->gallery]);
+        if(isset($request->attribute)) {
+
+            $delete = ProductAttribute::where('product_id', $product->id);
+            if($delete->count() > 0){
+                $delete->delete();
+            }
+
+            foreach ($request->attribute as $name => $attribute) {
+                $attribute_id = Attribute::where('slug', $name)->first()->id;
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_id' => $attribute_id,
+                    'attribute_value_id' => $attribute['value']
+                ]);
             }
         }
         return redirect()->route('home');
@@ -177,6 +229,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+            'gallery' => 'required'
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
@@ -193,18 +246,18 @@ class ProductController extends Controller
         $this->cropImage($img, 480, 50, $nowYear);
         $this->cropImage($img, 800, 83, $nowYear);
 
-        $gallery = $request->file('gallery');
-        $galleries = [];
-        foreach($gallery as $images){
-            $singleImage = Image::make($images->getRealPath());
-            $singleImage->insert($watermark, 'bottom-right', 50, 50);
-            $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($singleImage, 800, 83, $nowYear1);
-            $image_single = $nowYear1 . '800x800.jpg';
-            array_push($galleries, $image_single);
-        }
+        $product = Product::create($request->validated() + ['image' => $nowYear . '480x480.jpg', 'gallery' => $request->gallery]);
 
-        Product::create($request->validated() + ['image' => $nowYear . '480x480.jpg', 'gallery' => json_encode($galleries, true)]);
+        if(isset($request->attribute)) {
+            foreach ($request->attribute as $name => $attribute) {
+                $attribute_id = Attribute::where('slug', $name)->first()->id;
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_id' => $attribute_id,
+                    'attribute_value_id' => $attribute['value']
+                ]);
+            }
+        }
 
         //Save to Logs
         $category = Category::where('id', $request->category_id)->first()->name;
@@ -215,7 +268,7 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $request->name . ', Категория: ' . $category . ', Цена: ' . $request->price . ', Количество: ' . $request->quantity . ', Описание: ' . $request->description . ', Магазин: ' . $store
         ]);
-        return redirect()->route('dashboard.products');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -237,6 +290,16 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $attributes = $product->category->attributes->map(function($attributes) use ($product) {
+            $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);
+            return $attributes;
+        });
+
+        $attrValues = AttributeValue::all()->map(function($attrValues) use ($product) {
+            $attrValues->is_checked = $product->attribute_variation->pluck('attribute_value_id')->contains($attrValues->id);
+            return $attrValues;
+        });
+
         $allCategories = Category::get();
         $category = Category::where('id', $product->category_id)->first();
         $parent = null;
@@ -248,7 +311,7 @@ class ProductController extends Controller
             }
         }
         $categories = $this->categories;
-        return view('dashboard.products.edit', compact('product', 'allCategories', 'parent', 'grandParent', 'category'));
+        return view('dashboard.products.edit', compact('product', 'allCategories', 'parent', 'grandParent', 'category', 'attributes', 'attrValues'));
     }
 
     /**
@@ -264,6 +327,7 @@ class ProductController extends Controller
         {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+                'gallery' => 'required'
             ]);
 
             //Create folder if doesn't exist
@@ -284,31 +348,23 @@ class ProductController extends Controller
                 'image' => $image,
             ]);
         }
+        $product->update($request->validated() + ['gallery' => $request->gallery]);
+        if(isset($request->attribute)) {
 
-        if(!empty($gallery = $request->file('gallery'))){
-            $gallery = $request->file('gallery');
-            $galleries = [];
-            foreach($gallery as $images){
-                $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-                if(!File::isDirectory($yearFolder)){
-                    File::makeDirectory($yearFolder, 0777, true);
-                }
-
-                $singleImage = Image::make($images->getRealPath());
-                $img = Image::make($request->file('image')->getRealPath());
-                $img->insert($watermark, 'bottom-right', 50, 50);
-                $nowYear1 = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-                $this->cropImage($singleImage, 800, 83, $nowYear1);
-
-                $image_single = $nowYear1 . '800x800.jpg';
-                array_push($galleries, $image_single);
+            $delete = ProductAttribute::where('product_id', $product->id);
+            if($delete->count() > 0){
+                $delete->delete();
             }
-            $product->update([
-                'gallery' => json_encode($galleries),
-            ]);
-        }
 
-        $product->update($request->validated());
+            foreach ($request->attribute as $name => $attribute) {
+                $attribute_id = Attribute::where('slug', $name)->first()->id;
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_id' => $attribute_id,
+                    'attribute_value_id' => $attribute['value']
+                ]);
+            }
+        }
         $category = Category::where('id', $request->category_id)->first()->name;
         $store = Store::where('id', $request->store_id)->first()->name;
         Log::create([
@@ -378,7 +434,7 @@ class ProductController extends Controller
             });
 
         } else if ($square) {
-            $right = $left = $sides;
+            $right = $left = 0;
             $newWidth = ($dimension) - ($left + $right);
             $img->resize($newWidth, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -387,8 +443,6 @@ class ProductController extends Controller
         $image = $nowYear . $dimension . 'x' . $dimension . '.jpg';
 
         $img->resizeCanvas($dimension, $dimension, 'center', false, '#ffffff');
-        // $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-        // $img->insert($watermark, 'bottom-right', 25, 25);
         $img->save(public_path('/storage/' . $image));
     }
 }

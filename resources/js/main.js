@@ -2,6 +2,76 @@ const { stubString } = require('lodash');
 
 require('./jquery.inputmask.bundle.js');
 
+////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+$(function () {
+
+    $("#galler").change(function () {
+        var fd = new FormData()
+        fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+        var files = $('#galler')[0].files;
+        if(files.length > 0 ){
+            for(let i=0; i<files.length; i++){
+                fd.append('image',files[i]);
+                $.ajax({
+                url: '/uploadImage',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
+                            <div class="profile-pic">
+                                <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
+                                <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                            </div>
+                    `)
+
+                    let gallery = $('#gallery')
+                    if(gallery.val() == ''){
+                        gallery.val(gallery.val() + response)
+                    } else{
+                        gallery.val(gallery.val() + ',' + response)
+                    }
+                },
+                });
+            }
+
+        }else{
+            alert("Please select a file.");
+        }
+    });
+});
+
+
+$('body').on('click', '.deleteImage', function(){
+    let url = $(this).parent().find('img').data('image-src')
+    // if(url.indexOf('storage/')){
+    //     url = url.split('/storage/')[1]
+    // }
+    console.log('url= ' + url)
+    let gallery = $('#gallery')
+    let array =  gallery.val().split(',')
+    const index = array.indexOf(url)
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+    gallery.val(array)
+    $(this).parent().parent().remove()
+    if(url.indexOf('products/edit/') !== -1) {
+        $(this).parent().parent().parent().remove()
+    }
+    else{
+        $(this).parent().parent().remove()
+    }
+    $('#db-preview-image').append(`
+        <div class="col-3 text-center product_image" data-image="false">
+            <label for="galler">
+                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+            </label>
+        </div>
+    `)
+})
+
 $(document).ready(function(){
     $('body').on('keyup', '#nameStoreCreate', function () {
         $('#storeSubmit').attr('disabled', true);
@@ -224,28 +294,13 @@ $('body').on('click', '#prevCategory', function () {
 })
 
 $('body').on('click', '.subcategory', function () {
+    $('#attributes').empty();
     let category = $(this).data('slug')
     window.location.href = '/category/' + category
-    // $('#catProducts').empty().append(`
-    //     <div style="margin: 0 auto; display: block;" class="spinner-grow text-center text-danger" role="status">
-    //         <span class="sr-only">Loading...</span>
-    //     </div>
-    // `)
-    // $.ajax({
-    //     url: '/categoryProducts',
-    //     data: {
-    //         category: category
-    //     },
-    //     method: "GET",
-    //     dataType: 'html',
-    //     success: function (data) {
-    //         $('#catProducts').empty().append(data)
-    //     }
-    // })
-
 })
 
 $(document).on('change', '#cat_parent', function () {
+    $('#attributes').empty();
     const id = $('#cat_parent option:selected').val();
     $.ajax({
         url: '/getSubcategories',
@@ -266,7 +321,10 @@ $(document).on('change', '#cat_parent', function () {
             })
         }
     });
+});
 
+$(document).on('change', '[name="category_id"]', function () {
+    const id = $('[name="category_id"] option:selected').val();
     $.ajax({
         url: '/getAttributes',
         data: {
@@ -275,9 +333,9 @@ $(document).on('change', '#cat_parent', function () {
         method: "GET",
         dataType: 'json',
         success: function (data) {
-            $('.append-div').empty();
+            $('#attributes').empty();
             data.forEach(element => {
-                $('.append-div').append(`
+                $('#attributes').append(`
                     <div class="form-check form-check">
                         <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
@@ -286,7 +344,8 @@ $(document).on('change', '#cat_parent', function () {
             })
         }
     });
-});
+})
+
 
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this);
@@ -300,7 +359,8 @@ $(document).on('change', '.js-attribute', function() {
         success: function (data) {
             if(!_this.is(":checked")) {
                 _this.closest('div').find('select').remove();
-            } else {
+            }
+            else {
                 _this.closest('div').append(`
                     <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]" multiple>
                         <option disabled>Выберите значение</option>
@@ -581,6 +641,15 @@ $(function () {
         }
     });
 });
+
+
+
+
+
+
+
+
+
 $('.db-preview-remove').on('click', function() {
     console.log(this);
     let gallery = $("#gallery")[0].files;
@@ -598,12 +667,12 @@ $('.db-preview-remove').on('click', function() {
     removeItemOnce(gallery.files, value);
     console.log(gallery.files);
 });
-$('body').on('click', '.deleteImage', function () {
-    let images = $('#hello').val()
-    images = JSON.parse(images)
-    console.log(images)
-    $(this).parent().find('img').remove()
-})
+// $('body').on('click', '.deleteImage', function () {
+//     let images = $('#hello').val()
+//     images = JSON.parse(images)
+//     console.log(images)
+//     $(this).parent().find('img').remove()
+// })
 
 // single preview
 function readURL(input) {
@@ -645,7 +714,7 @@ function cover(input) {
 function user_avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
+        console.log(reader)
         reader.onload = function (e) {
             $('.user_avatar svg').hide();
             $('.user_avatar img').show().attr('src', e.target.result);

@@ -29,9 +29,9 @@
           <div class="product-img-holder d-none d-lg-block">
             <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main" alt="" height="373px">
             <div class="add-product-secondary my-3 d-flex">
-                @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
+                @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
                     <div class="mr-3 mb-2">
-                        <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" width="65" height="65" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" width="65" height="65" alt="{{ $product->name }}">
                     </div>
                 @endfor
             </div>
@@ -43,18 +43,18 @@
           <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
             <ol class="carousel-indicators d-flex align-items-center">
               <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
-                @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
-                  <li data-target="#prodCarousel" data-slide-to="{{ $i }}"></li>
+                @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
+                    <li data-target="#prodCarousel" data-slide-to="{{ $i }}"></li>
                 @endfor
-             
+
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
               </div>
-              @for ($i = 0; $i < count(json_decode($product->gallery)); $i++)
+              @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
               <div class="carousel-item">
-                <img src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" data-image-src="{{ Storage::url(json_decode($product->gallery)[$i]) }}" class="d-block w-100"  alt="{{ $product->name }}">
+                <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="d-block w-100"  alt="{{ $product->name }}">
               </div>
              @endfor
             </div>

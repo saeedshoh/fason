@@ -50,7 +50,6 @@
 
                         <!-- Form -->
                         <form action="{{ route('products.update', $product) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
-
                             @csrf
                             @method('put')
                             <div class="form-row">
@@ -213,6 +212,22 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <div id="attributes" class="row">
+                                    @foreach ($attributes as $index => $attribute)
+                                    <div class="form-check form-check">
+                                        <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
+                                        <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                                        @if ($attribute->is_checked)
+                                        <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
+                                            <option disabled="">Выберите значение</option>
+                                            @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                                <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @endif
+                                    </div>
+                                    @endforeach
+                                </div>
                             </div>
                             <!-- Button -->
                             <input type="hidden" name="store_id" value="{{ $product->store_id }}">
@@ -250,7 +265,30 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row">
+
+                                    <div id="db-preview-image" class="row add-product-secondary">
+                                        @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
+                                            <div class="col-3 text-center product_image" data-image="true">
+                                                <div class="profile-pic">
+                                                    <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ explode(',', $product->gallery)[$i] }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
+                                                    <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                                                </div>
+                                            </div>
+                                        @endfor
+                                        @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
+                                            <div class="col-3 text-center product_image" data-image="false">
+                                                <label for="galler">
+                                                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+                                                </label>
+                                            </div>
+                                        @endfor
+                                    </div>
+                                    <input type="text" id="gallery" class="form-control d-none" name="gallery" value="{{ $product->gallery }}" form="create_category">
+
+                                    <form method="post" action="" enctype="multipart/form-data" id="myform">
+                                        <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                                    </form>
+                                    {{-- <div class="row">
 
                                         {{-- @forelse ($product->gallery as $gallery)
                                             <div class="avatar avatar-lg avatar-4by3">
@@ -258,7 +296,7 @@
                                             </div>
                                         @empty
 
-                                        @endforelse --}}
+                                        @endforelse
 
                                         <div class="col-12">
                                             <label for="gallery">Галерея</label>
@@ -274,7 +312,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
