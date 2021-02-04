@@ -26,7 +26,7 @@ class Monetization extends Model
     }
 
     /**
-     * The stores that belong to the monetization.
+     * The categories that belong to the monetization.
      */
     public function categories()
     {

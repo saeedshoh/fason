@@ -33,7 +33,6 @@
     ================================================== -->
 
     <script src="{{ asset('js/dashboard/app.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 
   </body>
 </html>

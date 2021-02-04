@@ -54,7 +54,7 @@
                             <div class="form-row">
                                 <div class="col mb-3 mr-3">
                                     <label for="min">Сумма от</label>
-                                    <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите название категори" name="min" value="{{ old('min') ? old('min') : $monetization->min }}" required="">
+                                    <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Минимальная стоимость" name="min" value="{{ old('min') ? old('min') : $monetization->min }}" required="">
                                     @error('min')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col mb-3 mr-3">
                                     <label for="max">Сумма до</label>
-                                    <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите название категори" name="max" value="{{ old('max') ? old('max') : $monetization->max }}" required="">
+                                    <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Максимальная стоимость" name="max" value="{{ old('max') ? old('max') : $monetization->max }}" required="">
                                     @error('max')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -72,8 +72,17 @@
                                 </div>
                                 <div class="col mb-3">
                                     <label for="margin">Процентная ставка</label>
-                                    <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите название категори" name="margin" value="{{ old('margin') ? old('margin') : $monetization->margin }}" required="">
+                                    <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Процентная ставка" name="margin" value="{{ old('margin') ? old('margin') : $monetization->margin }}" required="">
                                     @error('margin')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="added_val">Добавочная стоимость</label>
+                                    <input type="number" class="form-control @error('added_val') is-invalid @enderror" id="added_val" placeholder="Добавочная стоимость" name="added_val" value="{{ old('added_val') ? old('added_val') : $monetization->added_val }}" required="">
+                                    @error('added_val')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

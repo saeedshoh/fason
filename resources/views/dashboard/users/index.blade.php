@@ -180,7 +180,7 @@
                         <td class="text-right">
                           <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
                             @csrf
-                            <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                               <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                           </form>

@@ -131,7 +131,7 @@
                   <td class="text-right">
                     <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
                         @csrf
-                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right">
+                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                             <i class="fe fe-trash"> </i></button>
                         @method('DELETE')
                     </form>

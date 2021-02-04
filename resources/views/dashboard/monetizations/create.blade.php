@@ -122,7 +122,6 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    @if(Str::contains($previous, 'monetizations'))
                                     <div class="col-md-6 mt-3">
                                         <label for="added_val">Добавочная стоимость</label>
                                         <input type="number" class="form-control @error('added_val') is-invalid @enderror" id="added_val" placeholder="Введите добавочную стоимость" name="added_val" value="{{ old('added_val') }}" required="">
@@ -132,7 +131,6 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="col">

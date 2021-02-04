@@ -532,14 +532,15 @@ $('#btn-login, #code').on('click change', function() {
             code,
         },
         success: (data) => {
-            if ($('#adressChange')) {
-                $('#enter_site').modal('hide')
-                $('#adressChange').modal('show')
-
-            } else {
-                if (data == 2) {
-                    location.reload(true);
+            console.log(data)
+            if(data['name'] == '' || data['name'] == null){
+                if ($('#adressChange')) {
+                    $('#enter_site').modal('hide')
+                    $('#adressChange').modal('show')
                 }
+            }
+             else {
+                location.reload(true);
             }
 
         },

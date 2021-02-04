@@ -114,11 +114,11 @@
 
                           </td>
                       @endif
-                     
+
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                             @csrf
-                            <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
@@ -148,7 +148,7 @@
                         <td class="text-right">
                           <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                               @csrf
-                              <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right">
+                              <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                   <i class="fe fe-trash"> </i></button>
                               @method('DELETE')
                           </form>

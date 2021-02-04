@@ -128,7 +128,7 @@
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
                             @csrf
-                            <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>

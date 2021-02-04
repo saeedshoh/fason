@@ -95,11 +95,9 @@
                       </td>
 
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('cities.destroy', $item) }}" method="POST">
-                            @csrf
-                            <button type="submit" href="{{ route('cities.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right">
+                        <form class="d-inline" action="#" method="POST">
+                            <button type="button" class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
                         </form>
                         <a href="{{ route('cities.edit', $item) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>

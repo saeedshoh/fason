@@ -31,8 +31,9 @@
     @yield('header')
 
     @yield('content')
-
-    @yield('footer')
+    @if(Request::is('/'))
+        @yield('footer')
+    @endif
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>

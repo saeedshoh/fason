@@ -6,31 +6,31 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-  
+
             <!-- Header -->
             <div class="header">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
-        
+
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
                             изменение категории
                         </h6>
-        
+
                         <!-- Title -->
                         <h1 class="header-title text-truncate">
                             Изменение
                         </h1>
-        
+
                         </div>
                         <div class="col-auto">
-        
+
                         <!-- Buttons -->
                         <a href="{{ route('categories.index')}}" class="btn btn-primary ml-2">
                             Все категории
                         </a>
-        
+
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
             </div>
             @endif
             <div class="row">
-            
+
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
@@ -85,7 +85,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="attribute">Аттрибут для категори</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
-                                        <option value="0" selected>Выберите аттрибут</option>
+                                        <option disabled selected>Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                         @endforeach
@@ -136,7 +136,7 @@
                                         {{ $message }}
                                     </div>
                                     @enderror
-                                
+
                                     <small class="text-muted">Внимание размер: 64px * 64px</small>
                                 </div>
                             </div>
