@@ -206,8 +206,8 @@
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center position-relative">
             <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80" height="80">
-          <h3 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h3>
-          <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span>
+          <h5 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h5>
+          {{-- <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span> --}}
           <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>
         </div>
         @empty
