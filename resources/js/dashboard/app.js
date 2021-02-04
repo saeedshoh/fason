@@ -25,24 +25,23 @@ const Toast = Swal.mixin({
   })
 
 $('body').on('click', '.delete-confirm', function(event) {
-    console.log('dsfsdfsdf')
-      var form =  $(this).closest("form");
-      event.preventDefault();
-      Swal.fire({
+    var form =  $(this).closest("form");
+    event.preventDefault();
+    Swal.fire({
         title: 'Вы уверены?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Отмена',
-        confirmButtonText: 'Удалить!',
+        confirmButtonText: 'Удалить',
         buttons: true,
         dangerMode: true,
-      }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
     })
-  });
+});
 
 require('./components/list');

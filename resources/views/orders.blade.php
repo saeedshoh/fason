@@ -13,11 +13,11 @@
             <div class="container">
             <ul class="nav nav-pills justify-content-between" id="myTab" role="tablist">
                 <li class="nav-item w-50 text-center" role="presentation">
-                    <a class="nav-link active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
+                    <a class="nav-link orders active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
                 </li>
                 @if ($is_store != null)
                 <li class="nav-item w-50 text-center" role="presentation">
-                    <a class="nav-link" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
+                    <a class="nav-link orders" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
                 </li>
                 @endif
             </ul>
@@ -28,11 +28,11 @@
 
                 @forelse ($orders as $order)
 
-                    <div class="@if ($order->order_status_id == 1) in-road-card @elseif($order->order_status_id == 2) declined-card @else success-card @endif">
+                    <div class="@if ($order->order_status_id == 3)success-card @elseif($order->order_status_id == 2)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none">
-                            <h6 class="@if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->order_status->name }}</h6>
+                            <h6 class="@if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                         </div>
-                        <div class="row border-top border-bottom my-2 py-3 align-items-center position-relative">
+                        <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
                                 <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($order->product->image) }}" width="64" >
@@ -64,18 +64,20 @@
                         </div>
                     </div>
                 @empty
-                    <p>У вас нет заказов</p>
+                <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
+                    <p class="m-0">У вас нет покупок</p>
+                </div>
                 @endforelse
 
                 </div>
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                 @forelse ($sales as $sale)
                     @if ($sale->product->store_id == Auth::user()->id)
-                    <div class="@if ($sale->store_status_id == 1) in-road-card @elseif($sale->order_status_id == 2) declined-card @else success-card @endif">
+                    <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 2)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none">
-                            <h6 class="@if ($sale->store_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @else text-success @endif ">{{ $sale->order_status->name }}</h6>
+                            <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
                         </div>
-                        <div class="row border-top border-bottom my-2 py-3 align-items-center position-relative">
+                        <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
                                 <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($sale->product->image) }}" width="64" >
@@ -108,7 +110,9 @@
                     </div>
                     @endif
                 @empty
-                    <p>У вас нет заказов</p>
+                <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
+                    <p class="m-0">У вас нет продаж</p>
+                </div>
                 @endforelse
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Banners;
 use App\Models\Store;
+use App\Models\Order;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
             function ($view) {
                 $is_store = null;
                 if (Auth::check()) {
-                    $is_store = Store::where('user_id', Auth::id())->first();
+                    $is_store = Store::with('orders')->where('user_id', Auth::id())->firstOrFail();
                 }
 
                 $view->with(['is_store' => $is_store]);

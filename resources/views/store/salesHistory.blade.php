@@ -91,67 +91,89 @@
       </div>
     </div>
   </div>
-  <div class="container my-3" id="accordion">
-    <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>
-      <div class="products-status position-relative row justify-content-center text-center">
-        <div class="info-status__products status-success col-12 col-lg-2 mx-1"> Заказ выполнен</div>
-        <div class="info-status__products status-cancled col-12 col-lg-2 mx-1"> Заказ отменен </div>
-        <div class="info-status__products status-preparing col-12 col-lg-2  mx-1"> В пути</div>
-      </div>
-    @forelse ($months as $month => $items)
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $month }}" aria-expanded="true" aria-controls="collapseOne">
-                        {{ $month }}
-                    </button>
-                </h5>
+  <div class="container mt-3 mb-5" id="accordion">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+      @forelse ($stores->orders as $order)
+        <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
+          <div class="row  mx-0">
+            <div class="info-status__products @if($order->order_status_id == 3)status-success @elseif($order->order_status_id == 2)status-preparing @else()status-canceled @endif col-12 mb-1"></div>
+            <div class="card rounded shadow border-0  h-100 w-100">
+              <img class="img-fluid rounded" src="{{ Storage::url($order->product->image) }}" alt="">
+              <div class="container">
+                <h4 class="product-name shop-subject mt-3" >{{ $order->product->name }}</h4>
+                <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+                  <span class="font-weight-bold">{{ round($order->product->price_after_margin) }} сомони</span>
+                  <a href="{{ route('ft-products.single', $order->product->slug) }}" class="stretched-link"></a>
+                </div>
+              </div>
             </div>
-
-            <div id="collapse{{ $month }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                @foreach ($items as $order)
-                    <div class="row border-top border-bottom my-2 py-3 align-items-center position-relative">
-                        <div class="col-12 col-lg-6">
-                            <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($order->product->image) }}" width="64" >
-                                <div class="d-flex flex-column align-self-center w-100">
-                                    <h5 class="h5">{{ $order->product->name }}</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-secondary">Дата заказа: {{ $order->updated_at->format('d.m.Y') }}</small>
-                                        <h6 class="h6 text-secondary d-block d-lg-none">
-                                            <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total }} Сомони</span>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 d-none d-lg-block">
-                            <h6 class="h6">Дата заказа</h6>
-                            <h4 class="h4 font-weight-bold">{{ $order->updated_at->format('d.m.Y') }}</h4>
-                        </div>
-                        <div class="col-2 d-none d-lg-block">
-                            <h6 class="h6">Цена</h6>
-                            <h4 class="h4 font-weight-bold">{{ $order->total }} Сомони</h4>
-                        </div>
-                        <div class="col-2 d-none d-lg-block">
-                            <h6 class="h6">Кол-во</h6>
-                            <h4 class="h5 font-weight-bold">{{ $order->quantity }}</h4>
-                        </div>
-                        <a href="{{ route('ft-products.single', $order->product->slug) }}" class="stretched-link"></a>
-                    </div>
-                @endforeach
-            </div>
+          </div>
         </div>
-    @empty
-        <p>У вас нет заказов</p>
-    @endforelse
+      @empty
+          Извените ничего не найдено
+      @endforelse
+    </div>
+    <h4 class="text-secondary mt-4 text-center w-100">Определение статусов по цвету</h4>
+      <div class="products-status position-relative row justify-content-center text-center pb-5 pb-lg-0">
+        <div class="info-status__products status-success col-12 col-lg-2 mx-1"> Заказ выполнен</div>
+        <div class="info-status__products status-canceled col-12 col-lg-2 mx-1"> Заказ отменен </div>
+        <div class="info-status__products status-preparing col-12 col-lg-2 mx-1"> В ожидании</div>
+      </div>
+      {{-- @forelse ($months as $month => $items)
+          <div class="card">
+              <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $month }}" aria-expanded="true" aria-controls="collapseOne">
+                          {{ $month }}
+                      </button>
+                  </h5>
+              </div>
+
+              <div id="collapse{{ $month }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  @foreach ($items as $order)
+                      <div class="row border-top border-bottom my-2 py-3 align-items-center position-relative">
+                          <div class="col-12 col-lg-6">
+                              <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
+                                  <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($order->product->image) }}" width="64" >
+                                  <div class="d-flex flex-column align-self-center w-100">
+                                      <h5 class="h5">{{ $order->product->name }}</h5>
+                                      <div class="d-flex justify-content-between">
+                                          <small class="text-secondary">Дата заказа: {{ $order->updated_at->format('d.m.Y') }}</small>
+                                          <h6 class="h6 text-secondary d-block d-lg-none">
+                                              <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total }} Сомони</span>
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-2 d-none d-lg-block">
+                              <h6 class="h6">Дата заказа</h6>
+                              <h4 class="h4 font-weight-bold">{{ $order->updated_at->format('d.m.Y') }}</h4>
+                          </div>
+                          <div class="col-2 d-none d-lg-block">
+                              <h6 class="h6">Цена</h6>
+                              <h4 class="h4 font-weight-bold">{{ $order->total }} Сомони</h4>
+                          </div>
+                          <div class="col-2 d-none d-lg-block">
+                              <h6 class="h6">Кол-во</h6>
+                              <h4 class="h5 font-weight-bold">{{ $order->quantity }}</h4>
+                          </div>
+                          <a href="{{ route('ft-products.single', $order->product->slug) }}" class="stretched-link"></a>
+                      </div>
+                  @endforeach
+              </div>
+          </div>
+      @empty
+          <p>У вас нет заказов</p>
+      @endforelse --}}
+
   </div>
   <!--customer-navs end-->
-  <div class="container">
+  {{-- <div class="container">
     <div class="text-center">
         <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
     </div>
-  </div>
-      
+  </div> --}}
+
   </section>
 @endsection
