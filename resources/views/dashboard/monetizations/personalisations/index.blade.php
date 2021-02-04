@@ -132,10 +132,10 @@
                         <div class="avatar avatar-xs align-middle mr-2">
                             <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
                         </div>
-                        <a class="text-reset" href="team-overview.html">{{ $personalisation->name }}</a>
+                        <a class="text-reset" href="{{ route('showStoreMonetization', $personalisation) }}">{{ $personalisation->name }}</a>
                     </td>
                     <td class="item-phone">
-                        <a class="text-reset" href="profile-posts.html">{{ $personalisation->user->phone }}</a>
+                        <span class="text-reset">{{ $personalisation->user->phone }}</span>
                     </td>
                     <td class="item-location">
                         {{ $personalisation->city->name }}
@@ -159,7 +159,7 @@
                     </div>
                   </td> --}}
                   <td class="text-right">
-                    <a href="{{ route('monetizations.show', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
+                    <a href="{{ route('showStoreMonetization', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
                         <i class="fe fe-eye" aria-hidden="true"></i>
                     </a>
                   </td>

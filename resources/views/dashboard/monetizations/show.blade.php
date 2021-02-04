@@ -53,7 +53,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin"]}'>
+        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-added_val"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -94,6 +94,11 @@
                       Процентная ставка
                     </a>
                   </th>
+                  <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-added_val">
+                      Добавочная стоимость
+                    </a>
+                  </th>
                   <th></th>
 
                 </tr>
@@ -113,13 +118,16 @@
                   <td class="monetizations-margin">
                     {{ $monetization->margin}}%
                   </td>
+                  <td class="monetizations-added_val">
+                    {{ $monetization->added_val}}
+                  </td>
                   <td class="text-right">
                     <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
                       <i class="fe fe-edit"> </i>
                     </a>
                     <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
                         @csrf
-                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right">
+                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                             <i class="fe fe-trash"> </i></button>
                         @method('DELETE')
                     </form>

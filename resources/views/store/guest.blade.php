@@ -27,8 +27,8 @@
             </div>
             <div class="col-8 col-md-9 order-0 order-lg-1 mt-0 mt-sm-3">
               <div class="d-flex flex-column flex-md-row justify-content-between">
-                <h3 class="font-weight-bold">{{ $store->user->name }}</h3>
-                <span class="text-monospace">г.{{ $store->city->name }}</span> 
+                <h3 class="font-weight-bold">{{ $store->name }}</h3>
+                <span class="text-monospace">г.{{ $store->city->name }}</span>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                 <span class="font-weight-bold">
-                  {{ $product->price_after_margin }} сомони
+                    {{ round($product->price_after_margin) }} сомони
                 </span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
 

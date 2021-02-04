@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MonetizationRequest;
 use App\Models\Category;
 use App\Models\MonetizationCategory;
+use Illuminate\Http\Request;
 
 class MonetizationController extends Controller
 {
@@ -120,6 +121,22 @@ class MonetizationController extends Controller
         $personalisationsCount = Store::where('is_monetized', true)->count();
         $categoriesCount = Category::where('is_monetized', true)->count();
         $monetized = Category::find($monetization->id);
+        $monetizations = $monetized->monetizations;
+        return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Monetization  $monetization
+     * @return \Illuminate\Http\Response
+     */
+    public function showStoreMonetization($id)
+    {
+        $monetizationsCount = Monetization::count();
+        $personalisationsCount = Store::where('is_monetized', true)->count();
+        $categoriesCount = Category::where('is_monetized', true)->count();
+        $monetized = Store::where('id', $id)->first();
         $monetizations = $monetized->monetizations;
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }

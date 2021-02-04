@@ -129,7 +129,7 @@
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger m-1 pull-right">
+                            <button type="submit" class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>

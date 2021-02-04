@@ -59,7 +59,7 @@ class Store extends Model
             ->saveSlugsTo('slug');
     }
 
-    /**
+     /**
      * The monetizations that belong to the store.
      */
     public function monetizations()

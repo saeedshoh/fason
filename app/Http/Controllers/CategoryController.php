@@ -198,10 +198,11 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+        // return $request;
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
-        if ($request->attribute[0] > 0) {
+        if ($request->attribute && $request->attribute[0] > 0) {
             for ($i = 0; $i < count($request->attribute); $i++) {
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }

@@ -109,7 +109,7 @@
                       <td class="text-right">
                         <form class="d-inline" action="{{ route('banners.destroy', $slider) }}" method="POST">
                             @csrf
-                            <button type="submit" href="{{ route('banners.destroy', $slider->id) }}"  class="btn btn-danger m-1 pull-right">
+                            <button type="submit" href="{{ route('banners.destroy', $slider->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>

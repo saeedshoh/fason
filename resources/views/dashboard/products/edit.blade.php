@@ -324,7 +324,7 @@
                             <div class="row justify-content-between">
                                 <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
                                     @csrf
-                                        <button class="btn btn-danger" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
+                                        <button class="btn btn-danger" type="submit"><i class="fe fe-trash delete-confirm"> </i> Удалить</button>
                                     @method('DELETE')
                                 </form>
                                 <form class="d-inline" action="{{ route('products.decline', $product) }}" method="POST">
