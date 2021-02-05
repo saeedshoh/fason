@@ -10,6 +10,11 @@ body {
     color: #FF0055;
 }
 
+.orders.active {
+    background-color: #FF0055 !important;
+    color: white !important;
+}
+
 .text-pinky:hover {
     color: #FF0055 !important;
 }
@@ -360,7 +365,7 @@ a {
     color: #03D087 !important;
 }
 
-.status-cancled {
+.status-canceled {
     border-bottom: 10px solid #FF0055 !important;
     color: #FF0055 !important;
 }

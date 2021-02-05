@@ -126,7 +126,7 @@
       </li> --}}
     </ul>
     <!--Tab-content>-->
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content mb-5" id="myTabContent">
       <!--all-product-->
       <div class="tab-pane fade show active" id="all-product" role="tabpanel" aria-labelledby="all-product-tab">
         <div class="all-product container mt-5">

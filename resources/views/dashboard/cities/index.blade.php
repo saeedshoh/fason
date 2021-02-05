@@ -95,7 +95,9 @@
                       </td>
 
                       <td class="text-right">
-                        <form class="d-inline" action="#" method="POST">
+                        <form class="d-inline" action="{{ route('cities.destroy', $item->id) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
                             <button type="button" class="btn btn-danger m-1 pull-right delete-confirm">
                                 <i class="fe fe-trash"> </i></button>
                         </form>

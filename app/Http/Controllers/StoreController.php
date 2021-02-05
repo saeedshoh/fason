@@ -90,8 +90,8 @@ class StoreController extends Controller
      */
     public function salesHistory($slug)
     {
-        $id = Store::where('slug', $slug)->first()->id;
-        $orders = Order::where('user_id', $id)->get();
+        $stores = Store::with('orders')->where('slug', $slug)->first();
+        $orders = Order::where('user_id', $stores->user_id)->get();
         $months = [];
 
         foreach ($orders as $item) {
@@ -99,7 +99,8 @@ class StoreController extends Controller
             $date->locale('ru_RU');
             $months[$date->monthName][] = $item;
         }
-        $stores = Store::where('id', $id)->first();
+        // dd($stores);
+        // $stores = Store::where('id', $id)->first();
         return view('store.salesHistory', compact('orders', 'months', 'stores'));
     }
 
