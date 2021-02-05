@@ -126,7 +126,7 @@
       </li> --}}
     </ul>
     <!--Tab-content>-->
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content mb-5" id="myTabContent">
       <!--all-product-->
       <div class="tab-pane fade show active" id="all-product" role="tabpanel" aria-labelledby="all-product-tab">
         <div class="all-product container mt-5">
@@ -301,7 +301,7 @@
       <!--On Delete end-->
     </div>
     <!--Tab content end-->
-    <div class="text-center">
+    <div class="d-none d-lg-block text-center mt-1 mb-5">
         @if($store->is_active == 1)
         <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
         @else

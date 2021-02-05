@@ -4,7 +4,7 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 
-.custom-bttn{ 
+.custom-bttn{
     font-family: 'Montserrat', sans-serif;
     color: #FFF !important;
     background: #FF0055;
@@ -78,7 +78,7 @@ body{
 
 .product-price{
     color: #737373;
-    font-size: 22px; 
+    font-size: 22px;
     font-weight: 500;
     transition: 0.8s;
     transform: scale(1);
@@ -187,7 +187,7 @@ body{
     color: #878786;
 }
 
-.snk-info__name , 
+.snk-info__name ,
 .snk-info__name_modal{
     font-family: 'Montserrat';
     font-style: normal ;
@@ -197,7 +197,7 @@ body{
     color: #464646;
 }
 
-.snk-info__name_modal{ 
+.snk-info__name_modal{
     font-size: 18px !important;
     line-height: 22px;
 }
@@ -342,7 +342,7 @@ body{
     color: #03D087 !important ;
 }
 
-.status-cancled{
+.status-canceled{
     border-bottom: 10px solid #FF0055 !important;
     color: #FF0055 !important ;
 }
@@ -475,8 +475,8 @@ body{
     font-size: 15px;
 }
 .main-search{
-    width: 80% !important; 
-    height: 35px; 
+    width: 80% !important;
+    height: 35px;
     font-size:14px;
     border: 1.17647px solid #FF0055;
 }
@@ -524,13 +524,13 @@ body{
       padding-bottom: 1rem;
       transform: scale(0.8);
   }
-  
+
   .sample-carousel .item{
     height: 8rem;
   }
   .owl-theme .owl-dots .owl-dot.active span{
       background: #FF0055 !important;
-  } 
+  }
   button:focus{
       outline: none !important;
       box-shadow: none !important;
@@ -619,7 +619,7 @@ input[type=number] {
         height: 0;
     }
     .main-search{
-        width: 100% !important; 
+        width: 100% !important;
     }
     .filter-btn, .search-btn{
         background: none !important;
@@ -652,7 +652,7 @@ input[type=number] {
         font-size: 10px;
     }
   }
-  
+
 /* New */
 
 .btn-edit{
@@ -795,7 +795,7 @@ input[type=number] {
     background: transparent;
     color: #FF0055;
     font-weight: bold;
-    
+
 }
 .order-tab .nav-link{
     color: #99879D;
