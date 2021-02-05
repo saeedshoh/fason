@@ -47,9 +47,8 @@ class AppServiceProvider extends ServiceProvider
             function ($view) {
                 $is_store = null;
                 if (Auth::check()) {
-                    $is_store = Store::with('orders')->where('user_id', Auth::id())->firstOrFail();
+                    $is_store = Store::with('orders')->where('user_id', Auth::id())->first();
                 }
-
                 $view->with(['is_store' => $is_store]);
             }
         );
