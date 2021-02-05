@@ -127,7 +127,6 @@ Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-st
 Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
 Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
 
-
 Route::get('/testJson', function(){
     // echo json_encode(json_encode('2021/01/6013cca9c8ca6480x480.jpg,2021/01/6013ccaa90c3c480x480.jpg,2021/01/6013ccab535d9480x480.jpg,2021/01/6013ccabe5397480x480.jpg,2021/01/6013ccac91749480x480.jpg'));
     echo json_encode('"2021/01/6013cd601d21d480x480.jpg","2021/01/6013cd60b0171480x480.jpg","2021/01/6013cd61429b1480x480.jpg","2021/01/6013cd61ce6fa480x480.jpg","2021/01/6013cd62748b2480x480.jpg","2021/01/6013cd63237e0480x480.jpg"');

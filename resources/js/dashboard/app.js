@@ -13,19 +13,8 @@ require('./components/wizard');
 // require('./main.js');
 
 import Swal from 'sweetalert2'
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-center',
-    showConfirmButton: false,
-    timer: 2000,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
 
 $('body').on('click', '.delete-confirm', function(event) {
-    console.log('dsfsdfsdf')
       var form =  $(this).closest("form");
       event.preventDefault();
       Swal.fire({
