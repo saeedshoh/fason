@@ -7,6 +7,7 @@ $(function() {
 
     $("#galler").change(function() {
         var fd = new FormData()
+        var this_ = this
         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
         var files = $('#galler')[0].files;
         if (files.length > 0) {
@@ -18,8 +19,15 @@ $(function() {
                     data: fd,
                     contentType: false,
                     processData: false,
+                    beforeSend: function(){
+                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                        x.find('img').hide()
+                        x.find('.spinner-border').removeClass('d-none')
+                    },
                     success: function(response) {
-                        $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
+                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                        x.find('.spinner-border').addClass('d-none')
+                        x.html('').attr('data-image', 'true').append(`
                             <div class="profile-pic">
                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
@@ -45,10 +53,6 @@ $(function() {
 
 $('body').on('click', '.deleteImage', function() {
     let url = $(this).parent().find('img').data('image-src')
-        // if(url.indexOf('storage/')){
-        //     url = url.split('/storage/')[1]
-        // }
-    console.log('url= ' + url)
     let gallery = $('#gallery')
     let array = gallery.val().split(',')
     const index = array.indexOf(url)
@@ -63,7 +67,10 @@ $('body').on('click', '.deleteImage', function() {
         $(this).parent().parent().remove()
     }
     $('#db-preview-image').append(`
-        <div class="col-3 text-center product_image" data-image="false">
+        <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+            <div class="spinner-border d-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
             <label for="galler">
                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
             </label>
@@ -115,21 +122,24 @@ $(document).ready(function() {
         var url = $(location).attr("href")
         var page = $('.endless-pagination').data('next-page');
         if (page !== null && page !== '') {
-
             clearTimeout($.data(this, "scrollCheck"));
 
             $.data(this, "scrollCheck", setTimeout(function() {
+                $('#scroll-spinner').toggleClass('d-none')
+
                 var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
                 if (scroll_position_for_posts_load >= $(document).height()) {
                     if (url.indexOf('sort=') !== -1) {
                         const sort = url.split('?')[1]
                         $.get(page + '&' + sort, function(data) {
+                            $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
                         });
                     } else {
                         $.get(page, function(data) {
+                            $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
                         });
@@ -459,6 +469,7 @@ $('.checkout-product').on('click', function() {
             product_id,
         },
         success: (data) => {
+            console.log(data)
             $('.order-number').text("Номер вашего заказа: " + data.order.id);
             console.log(data);
         },
@@ -517,7 +528,7 @@ $('.favorite').on('click', function() {
 });
 
 // sms-congirm
-$('#btn-login, #code').on('click change', function() {
+$('#btn-login, #code').on('click change', function () {
     const phone = $('#phone').val();
     const code = $('#code').val()
     $.ajax({
@@ -532,19 +543,18 @@ $('#btn-login, #code').on('click change', function() {
             code,
         },
         success: (data) => {
-            console.log(data)
-            if(data['name'] == '' || data['name'] == null){
-                if ($('#adressChange')) {
-                    $('#enter_site').modal('hide')
-                    $('#adressChange').modal('show')
+            if ($('#adressChange')) {
+                $('#enter_site').modal('hide')
+                $('#adressChange').modal('show')
+
+            } else {
+                if (data == 2) {
+                    location.reload(true);
                 }
-            }
-             else {
-                location.reload(true);
             }
 
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log(status);
         }
 

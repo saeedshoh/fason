@@ -471,8 +471,15 @@ $(function () {
                 data: fd,
                 contentType: false,
                 processData: false,
+                beforeSend: function(){
+                    var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                    x.find('img').hide()
+                    x.find('.spinner-border').removeClass('d-none')
+                },
                 success: function(response){
-                    $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append(`
+                    var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                    x.find('.spinner-border').addClass('d-none')
+                    x.html('').attr('data-image', 'true').append(`
                             <div class="profile-pic">
                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
@@ -498,7 +505,6 @@ $(function () {
 
 $('body').on('click', '.deleteImage', function(){
     let url = $(this).parent().find('img').data('image-src')
-    console.log('url= ' + url)
     let gallery = $('#gallery')
     let array =  gallery.val().split(',')
     const index = array.indexOf(url)
@@ -514,7 +520,10 @@ $('body').on('click', '.deleteImage', function(){
         $(this).parent().parent().remove()
     }
     $('#db-preview-image').append(`
-        <div class="col-3 text-center product_image" data-image="false">
+        <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+            <div class="spinner-border d-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
             <label for="galler">
                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
             </label>

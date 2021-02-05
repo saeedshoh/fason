@@ -32,8 +32,11 @@
                 </div>
             @endfor
             @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
-                <div class="col-3 text-center product_image" data-image="false">
+                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
                     <label for="galler">
+                        <div class="spinner-border d-none" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                         <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
                     </label>
                 </div>
