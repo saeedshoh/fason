@@ -33,7 +33,7 @@ body {
 }
 
 .mobile-avatar {
-    top: 4rem;
+    top: 10.5rem;
     left: 2rem;
 }
 
@@ -687,6 +687,7 @@ input[type=number] {
     .filter-btn {
         right: 0;
     }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -1270,6 +1271,9 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .mobile-filter .custom-select {
     background: #fff url(/storage/theme/icons/dashicons_arrow-down-alt2.svg) no-repeat right 0rem center/14px 14px;
     font-weight: 500;
+    &:focus{
+        box-shadow: none !important;
+    }
 }
 
 #enableFilter {
@@ -1277,8 +1281,50 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 #enableFilter .modal-dialog {
-    max-width: 90% !important;
+    max-width: 83% !important;
     position: absolute;
     right: 0;
     margin: 0;
+}
+
+.categories{
+    height: 8rem !important;
+    overflow: auto;
+    width: 95%;
+    margin: 0 auto;
+}
+.categories::-webkit-scrollbar,
+.categories::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 15px;
+}
+
+.categories::-webkit-scrollbar-track,
+.categories::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.categories::-webkit-scrollbar-thumb,
+.categories::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
+}
+
+.categories::-webkit-scrollbar,
+.categories::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 15px;
+}
+
+.categories-markets::-webkit-scrollbar-track,
+.categories::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.categories::-webkit-scrollbar-thumb,
+.categories::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
 }
