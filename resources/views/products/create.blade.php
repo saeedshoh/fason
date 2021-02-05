@@ -23,46 +23,16 @@
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image" class="row">
-              <div class="col-3 text-center product_image" data-image="false">
-                <label for="galler">
-                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded"  alt="">
-                </label>
-              </div>
-              <div data-image="false" class="col-3 text-center product_image">
-                <label for="galler">
-                  <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded" alt="">
-                </label>
-              </div>
+            @for ($i = 0; $i < 8; $i++)
+                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+                    <div class="spinner-border d-none" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <label for="galler">
+                        <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+                    </label>
+                </div>
+            @endfor
             </div>
             <form method="post" action="" enctype="multipart/form-data" id="myform">
                 <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
@@ -163,7 +133,7 @@
               <input type="hidden" name="product_status_id" value="1">
               <div class="append-div w-75 ml-auto py-2"></div>
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Добавить </button>
+                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75 add-product-btn"> Добавить </button>
               </div>
             </div>
           </form>

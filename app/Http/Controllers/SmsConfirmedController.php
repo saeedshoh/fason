@@ -25,7 +25,7 @@ class SmsConfirmedController extends Controller
             }
             if ($sms_confirmed->is_active == 1) {
                 Auth::login($user);
-                return $user;
+                return 2;
             }
         }
     }

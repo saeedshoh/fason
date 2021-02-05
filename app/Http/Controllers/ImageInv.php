@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ImageInv extends Controller
@@ -33,7 +34,7 @@ class ImageInv extends Controller
         $square     = (($width = $height) ? true : false);
 
         if ($vertical) {
-            $top = $bottom = $sides;
+            $top = $bottom = 0;
             $newHeight = ($dimension) - ($bottom + $top);
             $img->resize(null, $newHeight, function ($constraint) {
                 $constraint->aspectRatio();
@@ -53,10 +54,14 @@ class ImageInv extends Controller
                 $constraint->aspectRatio();
             });
         }
-        $image = $nowYear . $dimension . 'x' . $dimension . '.jpg';
+        $path = $nowYear . $dimension . 'x' . $dimension . '.jpg';
 
-        $img->resizeCanvas($dimension, $dimension, 'center', false, '#ffffff');
-        $img->save(public_path('/storage/' . $image));
+        // create an image manager instance with favored driver
+        $manager = new ImageManager(array('driver' => 'gd'));
+
+        $back = $manager->canvas($dimension, $dimension, '#ffffff');
+        $back->insert($img, 'center');
+        $back->save(public_path('/storage/' . $path));
     }
 
     public function uploadImage(Request $request)
