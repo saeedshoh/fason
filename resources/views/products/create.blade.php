@@ -132,8 +132,8 @@
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}" required>
               <input type="hidden" name="product_status_id" value="1">
               <div class="append-div w-75 ml-auto py-2"></div>
-              <div class="form-group d-flex flex-column flex-md-row mb-5 justify-content-center justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-5 rounded py-2 w-lg-75"> Добавить </button>
+              <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75 add-product-btn"> Добавить </button>
               </div>
             </div>
           </form>

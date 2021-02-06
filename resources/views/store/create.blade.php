@@ -46,7 +46,7 @@
               <input type="file" class="d-none" id="cover" name="cover">
             </label>
           </div>
-          <div class="mobile-avatar position-absolute d-md-none">
+          <div class="mobile-avatar position-absolute d-lg-none">
             <label for="avatar" class="cursor-pointer">
               <img src="/storage/theme/banner_store.svg" class="store-image rounded-circle shadow-lg" width="90" height="90" id="avatar-poster-mobile">
             </label>
@@ -117,8 +117,8 @@
               </div>
             </div>
           </div>
-          <div class="form-group row mb-5 mb-lg-0">
-            <div class="col mb-3">
+          <div class="form-group row">
+            <div class="col">
                 <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeSubmit">Отправить</button>
             </div>
           </div>

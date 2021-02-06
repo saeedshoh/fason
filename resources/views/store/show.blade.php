@@ -301,9 +301,9 @@
       <!--On Delete end-->
     </div>
     <!--Tab content end-->
-    <div class="text-center mb-5 mb-lg-0">
+    <div class="d-none d-lg-block text-center mt-1 mb-5">
         @if($store->is_active == 1)
-        <a class="btn btn-danger rounded-11 mb-5" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
+        <a class="btn btn-danger col-6 col-sm-2 rounded-11" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
         @else
         <div class="alert alert-warning" role="alert">
             Магазин еще не прошел модерацию.

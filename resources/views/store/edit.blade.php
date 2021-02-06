@@ -108,8 +108,8 @@
               </div>
             </div>
           </div>
-          <div class="form-group row mb-5 mb-lg-0">
-            <div class="col mb-3">
+          <div class="form-group row">
+            <div class="col">
               <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeEditSubmit">Отправить</button>
             </div>
           </div>
