@@ -14,7 +14,7 @@
       <div class="modal-body bg-white h-100 px-0 pb-0">
         <div class="h-100">
           <div class="d-flex flex-column justify-content-between h-100">
-            <a href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
+            <a class="text-decoration-none" href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
               <h3 class="shop-subject mb-3 pl-3"> <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#FF0055"/>
                 </svg>  <span class="ml-2"> Назад</span>
@@ -22,32 +22,32 @@
             </a>
 
             <div class="catalog__ategory col-12 bg-white px-0">
-              <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3">{{ $name->parent ? $name->parent->name : $name->name }}</h4></a>
+              {{-- <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3">{{ $name->parent ? $name->parent->name : $name->name }}</h4></a> --}}
               <ul class="shop-subject list-group list-group-flush h-100">
                 @forelse ($categories as $category)
-                <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center py-2">
+                {{-- <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center py-2">
                   <nav class="category-mix">
                     <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $name->parent ? $name->parent->name : $name->name }}</a>
                       <span class="count-products" data-id="{{ $category->id }}"></span>
                     </a>
                   </nav>
-                </li>
+                </li> --}}
                 @empty
                   @if ($parent_cat)
                       @foreach ($parent_cat as $category)
-                          <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
+                          {{-- <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
                               <nav class="category-mix">
                                 <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $name->parent ? $name->parent->name : $name->name }}</a>
                                   <span class="count-products" data-id="{{ $category->id }}"></span>
                                 </a>
                               </nav>
-                          </li>
+                          </li> --}}
                       @endforeach
                   @endif
                 @endforelse
-                  <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                      <h5 class="captions-of__modal ">Сортировать</h5>
+                  <div class="col-12 col-lg-12 line-test__category fix_modal-line bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="captions-of__modal ">Сортировать<img src="/storage/theme/icons/sort.svg"></h5>
                     </div>
                     <div class="form-check mt-3">
                         <input data-sort="new" @if(!request()->__get('sort')=='cheap' && !request()->__get('sort')=='expensive') checked @endif class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
@@ -92,13 +92,48 @@
     </div>
   </div>
 </div>
+<div class="d-block d-lg-none container px-0">
+  @if(!$name->parent)
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{{ $name->name }}</h4></a>
+  @elseif(!$name->parent->parent)
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{{ $name->name }}</h4></a>
+  @elseif(!isset($name->childrens->first()->id))
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3">{{ $name->parent->name }}</h4></a>
+  @elseif(!$name->parent->parent->parent)
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{{ $name->name }}</h4></a>
+  @else
+    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3">{{ $name->parent->name }}</h4></a>
+  @endif
+    <ul class="shop-subject categories list-group list-group-flush h-100 mx-0">
+      @forelse ($categories as $category)
+      <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center py-2 ">
+        <nav class="category-mix">
+          <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
+            <span class="count-products" data-id="{{ $category->id }}"></span>
+          </a>
+        </nav>
+      </li>
+      @empty
+        @if ($parent_cat)
+            @foreach ($parent_cat as $category)
+                <li class="list-group-item  bg-transparent  d-flex justify-content-between align-items-center">
+                    <nav class="category-mix">
+                      <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
+                        <span class="count-products" data-id="{{ $category->id }}"></span>
+                      </a>
+                    </nav>
+                </li>
+            @endforeach
+        @endif
+      @endforelse
+    </ul>
+</div>
 <!--filter end mobi-->
-
-<section class="content mt-2">
+<section class="content mt-2 mb-5">
   <!--Filter mobi-controll-->
-      <div class="d-flex justify-content-between d-md-none mb-3 mobile-filter w-100">
-        <div class="">
-            <select class="custom-select border-0 bg-transparent text-pinky px-3">
+      <div class="d-flex justify-content-between d-lg-none mb-3 mobile-filter w-100 container">
+        <div class="d-flex">
+          <img src="/storage/theme/icons/sort.svg"><select class="custom-select border-0 bg-transparent text-pinky pl-1 pr-3">
               <option selected>Сначала новые</option>
               <option value="1">Сначала дешевые</option>
               <option value="2">Сначала дорогие</option>
@@ -106,7 +141,7 @@
         </div>
         <div class="">
           <button type="button" id="enableFilter" class="btn py-1 text-pinky" data-toggle="modal"
-            data-target="#enableFilter"><img class="pr-1" src="/storage/theme/icons/filter.svg" alt="">Фильтр</button>
+            data-target="#enableFilter"><img class="pr-1" height="20px" width="18px"  src="/storage/theme/icons/filter.svg" alt="">Фильтр</button>
         </div>
       </div>
       <!--Filter mobi-controll-->
@@ -114,7 +149,7 @@
 
       <div class="row mt-3">
         <div class="col-12 col-md-4 mb-2 px-2 px-lg-3 d-lg-block d-none">
-          <a href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
+          <a class="text-decoration-none" href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
             <h3 class="shop-subject mb-3"> <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#FF0055"/>
               </svg>  <span class="ml-2"> Назад</span>
@@ -156,7 +191,7 @@
                 @endforelse
                     <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <h5 class="captions-of__modal ">Сортировать</h5>
+                        <h5 class="captions-of__modal ">Сортировать  <img src="/storage/theme/icons/sort.svg"></h5>
                     </div>
                     <div class="form-check mt-3">
                         <input data-sort="new" @if(!request()->__get('sort')=='cheap' && !request()->__get('sort')=='expensive') checked @endif class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">

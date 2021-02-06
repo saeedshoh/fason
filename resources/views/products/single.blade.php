@@ -26,9 +26,9 @@
            </p>
           </div>
           <!--desktop slider-->
-          <div class="product-img-holder d-none d-lg-block">
-            <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main" alt="" height="373px">
-            <div class="add-product-secondary my-3 d-flex">
+          <div class="product-img-holder">
+            <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main  img-fluid" alt="" height="373px">
+            <div class="add-product-secondary my-3 d-flex flex-wrap justify-content-sm-start justify-content-center">
                 @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
                     <div class="mr-3 mb-2">
                         <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" width="65" height="65" alt="{{ $product->name }}">
@@ -40,7 +40,7 @@
           </div>
         <div>
           <!--mobile slider-->
-          <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
+          {{-- <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
             <ol class="carousel-indicators d-flex align-items-center">
               <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
                 @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
@@ -66,13 +66,13 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+          </div> --}}
             <!--mobile slider-end-->
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
             <span>Цвет:</span>
-            <div class="d-flex mt-3 gap-3 att-show-row">
+            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap">
               @foreach ($attributes as $attribute)
                 <nav class="att-show text-capitalize px-3">
                   {{ $attribute->attribute_value->name }}

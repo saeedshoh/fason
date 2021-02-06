@@ -4,8 +4,8 @@
 
 @section('content')
   <section>
-    <div class="container mt-3">
-      <div class="bg-white p-3">
+    <div class="container mt-3 mb-5">
+      <div class="bg-white p-0 p-sm-3">
         <div class="container">
           <div class="text-center position-relative post-line">
             <h2 class="text-danger font-weight-bold mb-4">Условия и положения</h2>
@@ -120,7 +120,7 @@
                 • раскрыта неумышленно, несмотря на принятие таких же мер предосторожности, какие обвиняемая Сторона принимает для своей информации, являющейся ее собственностью.
                 Сторона, нарушившая данное положение, обязуется возместить второй Стороне все убытки, предусмотренные действующим законодательством, которые понесла вторая Сторона в связи с разглашением конфиденциальной информации.
             </p>
-            <p class="text-justify text-center h3">
+            <p class="text-justify text-lg-center h3">
                 Политика обработки персональных данных
             </p>
             <p class="text-justify h4">

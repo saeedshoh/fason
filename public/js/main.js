@@ -20809,6 +20809,54 @@ function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "funct
 var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
     stubString = _require.stubString;
 
+__webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.inputmask.bundle.js"); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+
+
+$(function () {
+  $("#galler").change(function () {
+    var fd = new FormData();
+    var this_ = this;
+    fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+    var files = $('#galler')[0].files;
+
+    if (files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        fd.append('image', files[i]);
+        $.ajax({
+          url: '/uploadImage',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          beforeSend: function beforeSend() {
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('img').hide();
+            x.find('.spinner-border').removeClass('d-none');
+          },
+          success: function success(response) {
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('.spinner-border').addClass('d-none');
+            x.html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
+            var gallery = $('#gallery');
+
+            if (gallery.val() == '') {
+              gallery.val(gallery.val() + response);
+            } else {
+              gallery.val(gallery.val() + ',' + response);
+            }
+          }
+        });
+      }
+    } else {
+      alert("Please select a file.");
+    }
+  });
+});
+$('body').on('click', '.deleteImage', function () {
+  var url = $(this).parent().find('img').data('image-src');
+  var gallery = $('#gallery');
+  var array = gallery.val().split(',');
+  var index = array.indexOf(url);
 
   if (index > -1) {
     array.splice(index, 1);
@@ -20823,7 +20871,7 @@ var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.j
     $(this).parent().parent().remove();
   }
 
-  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image\" data-image=\"false\">\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
+  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image d-flex justify-content-center align-items-center\" data-image=\"false\">\n            <div class=\"spinner-border d-none\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n            </div>\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
 });
 $(document).ready(function () {
   $('body').on('keyup', '#nameStoreCreate', function () {
@@ -20872,17 +20920,20 @@ $(document).ready(function () {
     if (page !== null && page !== '') {
       clearTimeout($.data(this, "scrollCheck"));
       $.data(this, "scrollCheck", setTimeout(function () {
+        $('#scroll-spinner').toggleClass('d-none');
         var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
         if (scroll_position_for_posts_load >= $(document).height()) {
           if (url.indexOf('sort=') !== -1) {
             var sort = url.split('?')[1];
             $.get(page + '&' + sort, function (data) {
+              $('#scroll-spinner').toggleClass('d-none');
               $('.endless-pagination').append(data.posts);
               $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
             });
           } else {
             $.get(page, function (data) {
+              $('#scroll-spinner').toggleClass('d-none');
               $('.endless-pagination').append(data.posts);
               $('.endless-pagination').data('next-page', data.next_page);
             });
@@ -21176,6 +21227,7 @@ $('.checkout-product').on('click', function () {
       product_id: product_id
     },
     success: function success(data) {
+      console.log(data);
       $('.order-number').text("Номер вашего заказа: " + data.order.id);
       console.log(data);
     },
@@ -21731,7 +21783,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! e:\OpenServer\domains\fason.loc\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })
