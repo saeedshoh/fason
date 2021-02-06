@@ -85913,18 +85913,7 @@ __webpack_require__(/*! ./components/wizard */ "./resources/js/dashboard/compone
 
 
 
-var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
-  toast: true,
-  position: 'top-center',
-  showConfirmButton: false,
-  timer: 2000,
-  didOpen: function didOpen(toast) {
-    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.stopTimer);
-    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.resumeTimer);
-  }
-});
 $('body').on('click', '.delete-confirm', function (event) {
-  console.log('dsfsdfsdf');
   var form = $(this).closest("form");
   event.preventDefault();
   sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
@@ -85934,7 +85923,7 @@ $('body').on('click', '.delete-confirm', function (event) {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     cancelButtonText: 'Отмена',
-    confirmButtonText: 'Удалить!',
+    confirmButtonText: 'Удалить',
     buttons: true,
     dangerMode: true
   }).then(function (result) {
@@ -87216,8 +87205,15 @@ $(function () {
           data: fd,
           contentType: false,
           processData: false,
+          beforeSend: function beforeSend() {
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('img').hide();
+            x.find('.spinner-border').removeClass('d-none');
+          },
           success: function success(response) {
-            $('#db-preview-image').find('.product_image[data-image="false"]').first().html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('.spinner-border').addClass('d-none');
+            x.html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
             var gallery = $('#gallery');
 
             if (gallery.val() == '') {
@@ -87235,7 +87231,6 @@ $(function () {
 });
 $('body').on('click', '.deleteImage', function () {
   var url = $(this).parent().find('img').data('image-src');
-  console.log('url= ' + url);
   var gallery = $('#gallery');
   var array = gallery.val().split(',');
   var index = array.indexOf(url);
@@ -87253,7 +87248,7 @@ $('body').on('click', '.deleteImage', function () {
     $(this).parent().parent().remove();
   }
 
-  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image\" data-image=\"false\">\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
+  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image d-flex justify-content-center align-items-center\" data-image=\"false\">\n            <div class=\"spinner-border d-none\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n            </div>\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
 });
 $(document).on('change', '[name="category_id"]', function () {
   var id = $('[name="category_id"] option:selected').val();
@@ -87305,8 +87300,8 @@ $(document).on('change', '.js-attribute', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/behruz/Documents/GitHub/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
-module.exports = __webpack_require__(/*! /Users/behruz/Documents/GitHub/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
+__webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
 
 
 /***/ })

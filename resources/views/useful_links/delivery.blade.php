@@ -5,12 +5,12 @@
 @section('content')
   <section>
     <div class="container mt-3">
-      <div class="bg-white p-3">
+      <div class="bg-white p-0 p-sm-3">
         <div class="container">
           <div class="text-center position-relative post-line">
             <h3 class="text-danger h3 font-weight-bold mb-4">Правила размещения информации</h3>
           </div>
-          <div class="content mt-3">
+          <div class="content mt-3 mb-5">
             <p class="text-justify">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac sem est. Morbi quis nisi eget lectus vulputate placerat. Phasellus a gravida enim, non porta dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget est et mi fringilla suscipit. Nunc aliquet egestas mi. Vestibulum tortor lectus, congue eget eros lobortis, gravida volutpat ligula. Etiam ultricies nibh sollicitudin urna pulvinar malesuada ut bibendum velit. Aenean pellentesque nec dolor in sollicitudin. Vestibulum venenatis tempor ipsum sit amet pretium. Nam consectetur, massa feugiat tempor scelerisque, massa ipsum aliquam magna, sed semper ante quam ut quam. Etiam dignissim facilisis libero ut aliquam.
             </p>

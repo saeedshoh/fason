@@ -4,20 +4,20 @@
 
 @section('content')
   <section>
-    <div class="container mt-3">
-      <div class="bg-white p-3">
+    <div class="container mt-3 mb-5">
+      <div class="bg-white p-0 p-sm-3">
         <div class="container">
           <div class="text-center position-relative post-line">
             <h3 class="text-danger h3 font-weight-bold mb-4">Правила размещения информации</h3>
           </div>
           <div class="content mt-3">
-            <p class="text-justify h3 text-center">
+            <p class="text-justify h3 text-lg-center">
                 Фотографии товаров.
             </p>
             <p class="text-justify">
                 <br> Запрещается публиковать фотографии, не соответствующие товару и фотографии, содержащие эротические и порнографические элементы.
             </p>
-            <p class="text-justify h3 text-center">
+            <p class="text-justify h3 text-lg-center">
                 Запрещенные товары.
             </p>
             <p>
