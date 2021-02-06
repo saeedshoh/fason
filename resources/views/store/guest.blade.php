@@ -50,7 +50,7 @@
     </div>
     <!--goods start-->
     <div class="container">
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 ">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
 
         @forelse ($products as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
