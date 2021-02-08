@@ -35,6 +35,7 @@ class User extends Authenticatable
         'city_id',
         'profile_photo_path',
         'sms_verified_at',
+        'registered_at'
     ];
 
     /**

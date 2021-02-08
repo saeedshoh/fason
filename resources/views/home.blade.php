@@ -196,7 +196,7 @@
 
       <!--BANNER  -->
       <div class="row under_banner d-none d-md-block mt-4">
-        <a href="{{ $middle_banner->url }}">
+        <a href="{{ $middle_banner ? $middle_banner->url : '' }}">
           <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
         </a>
       </div>

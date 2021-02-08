@@ -28,10 +28,10 @@
           <!--desktop slider-->
           <div class="product-img-holder">
             <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main  img-fluid" alt="" height="373px">
-            <div class="add-product-secondary my-3 d-flex flex-wrap justify-content-sm-start justify-content-center">
+            <div class="add-product-secondary my-2 row">
                 @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
-                    <div class="mr-3 mb-2">
-                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" width="65" height="65" alt="{{ $product->name }}">
+                    <div class="col-3 mt-3">
+                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
                     </div>
                 @endfor
             </div>
@@ -71,13 +71,27 @@
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
-            <span>Цвет:</span>
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap">
-              @foreach ($attributes as $attribute)
-                <nav class="att-show text-capitalize px-3">
-                  {{ $attribute->attribute_value->name }}
-                </nav>
-              @endforeach
+              @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
+                  <div class="row">
+                    <span>{{ $item->first()->attribute->name }}:</span>
+                    @foreach ($product->attribute_variation as $attribute)
+                      @if ($key == $attribute->attribute_id)
+                        @if (substr($attribute->attribute_value->value, 0, 1) == '#')
+                            <label class="checkbox-container">
+                              <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
+                              <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
+                            </label>
+                        @else
+                          <nav class="att-show text-capitalize px-3">
+                            {{ $attribute->attribute_value->name }}
+                          </nav>
+                        @endif                     
+                          
+                      @endif
+                    @endforeach
+                  </div>                  
+              @endforeach                
             </div>
           </div>
 
@@ -130,13 +144,27 @@
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
               <div class="my-3 ">
-                <span>Цвет:</span>
-                <div class="d-flex mt-3 gap-3 att-show-row">
-                  @foreach ($attributes as $attribute)
-                    <nav class="att-show text-capitalize px-3">
-                      {{ $attribute->attribute_value->name }}
-                    </nav>
-                  @endforeach
+                <div class="d-flex mt-3 gap-3 att-show-row flex-column">
+                  @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
+                      <div class="row">
+                        <span>{{ $item->first()->attribute->name }}:</span>
+                        @foreach ($product->attribute_variation as $attribute)
+                          @if ($key == $attribute->attribute_id)
+                            @if (substr($attribute->attribute_value->value, 0, 1) == '#')
+                                <label class="checkbox-container">
+                                  <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
+                                  <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
+                                </label>
+                            @else
+                              <nav class="att-show text-capitalize px-3">
+                                {{ $attribute->attribute_value->name }}
+                              </nav>
+                            @endif                     
+                              
+                          @endif
+                        @endforeach
+                      </div>                  
+                  @endforeach   
                 </div>
               </div>
 

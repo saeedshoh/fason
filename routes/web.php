@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
     Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');
     Route::get('/showStoreMonetization/{id}', [MonetizationController::class, 'showStoreMonetization'])->name('showStoreMonetization');
+    Route::get('/changeCategoryOrder', [CategoryController::class, 'changeCategoryOrder'])->name('changeCategoryOrder');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

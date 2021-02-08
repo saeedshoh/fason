@@ -24,8 +24,13 @@ class SmsConfirmedController extends Controller
                 $confirm = SmsConfirmed::where('code', $request->code)->update(['is_active' => 1]);
             }
             if ($sms_confirmed->is_active == 1) {
-                Auth::login($user);
-                return 2;
+                if($user->registered_at !== null){
+                    Auth::login($user);
+                    return 'true';
+                }
+                else {
+                    return 'false';
+                }
             }
         }
     }

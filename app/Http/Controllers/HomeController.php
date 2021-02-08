@@ -55,7 +55,7 @@ class HomeController extends Controller
         }
         $topstores = $topstores->flatten();
         $months = Order::select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
-        
+
         $now = Carbon::now();
         $salesSum = Order::sum('total');
         $ordersCount = Order::where('order_status_id', 3)->count('id');
@@ -71,7 +71,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $stores = $this->stores;
-        $categories = $this->categories->where('parent_id', 0);
+        $categories = $this->categories->where('parent_id', 0)->sortBy('order_no');
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
         $monetizations = $this->monetizations;

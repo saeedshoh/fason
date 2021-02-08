@@ -33,7 +33,7 @@ class CategoryController extends Controller
     {
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first();
-        $categories = Category::where('parent_id', $cat_id)->get();
+        $categories = Category::where('parent_id', $cat_id)->orderBy('order_no')->get();
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
             ->value('id'))
             ->pluck('id')
@@ -45,7 +45,7 @@ class CategoryController extends Controller
                 array_push($categoryIds, $child->id);
             }
         }
-        $parent_cat = Category::where('parent_id', $name->parent_id)->get();
+        $parent_cat = Category::where('parent_id', $name->parent_id)->orderBy('order_no')->get();
 
         $productss = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2);
         $sliders = $this->banners->where('type', 1);
@@ -67,12 +67,12 @@ class CategoryController extends Controller
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
-        $products = $productss->inRandomOrder()->paginate(9);
+        $products = $productss->inRandomOrder()->paginate(2);
 
         if ($request->ajax()) {
-
+            $style = $request->style;
             return [
-                'posts' => view('ajax.category', compact('products'))->render(),
+                'posts' => view('ajax.category', compact('products', 'style'))->render(),
                 'next_page' => $products->nextPageUrl()
             ];
         }
@@ -111,9 +111,10 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::orderBy('order_no')->paginate(10);
+        $allCategories = Category::get();
 
-        return view('dashboard.category.index', compact('categories'));
+        return view('dashboard.category.index', compact('categories', 'allCategories'));
     }
 
     /**
@@ -139,7 +140,7 @@ class CategoryController extends Controller
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
-        if ($request->attribute[0] > 0) {
+        if ($request->attribute) {
             for ($i = 0; $i < count($request->attribute); $i++) {
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }
@@ -287,5 +288,18 @@ class CategoryController extends Controller
         $count = Log::count();
         $logs = Log::orderBy('id', 'desc')->paginate(50);
         return view('dashboard.logs.index', compact('logs', 'count'));
+    }
+
+    public function changeCategoryOrder(Request $request){
+        $category = Category::where('id', $request->category)->first();
+        $tempCategory = $category->order_no;
+        $sibling = Category::where('order_no', $request->sibling)->first();
+        $category->update([
+            'order_no' => $sibling->order_no
+        ]);
+        $sibling->update([
+            'order_no' => $tempCategory
+        ]);
+        return true;
     }
 }

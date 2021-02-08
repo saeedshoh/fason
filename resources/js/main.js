@@ -1,7 +1,25 @@
-const { stubString } = require('lodash');
+const { stubString, last } = require('lodash');
 
 require('./jquery.inputmask.bundle.js');
 
+$('#listView').on('click', function(){
+    $('#catProducts .row').removeClass('row-cols-2').addClass('row-cols-1');
+    $('#gridView').removeClass('d-none');
+    $(this).addClass('d-none');
+    $('#catProducts .discription').removeClass('d-none');
+    $('#catProducts .card').addClass('flex-row');
+    $('#catProducts .card img').addClass('w-50');
+    $('#catProducts .row').attr('data-style', '2');
+});
+$('#gridView').on('click', function(){
+    $('#catProducts .row').attr('data-style', '1');
+    $('.card').find('img').removeClass('w-50');
+    $('#catProducts .card').removeClass('flex-row');
+    $('#catProducts .row').removeClass('row-cols-1').addClass('row-cols-2');
+    $('#listView').removeClass('d-none');
+    $(this).addClass('d-none');
+    $('#catProducts .discription').addClass('d-none');
+});
 ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 $(function() {
 
@@ -130,15 +148,18 @@ $(document).ready(function() {
                 var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
                 if (scroll_position_for_posts_load >= $(document).height()) {
+                    var style = $('#catProducts .row').attr('data-style');
+                    console.log(style);
                     if (url.indexOf('sort=') !== -1) {
                         const sort = url.split('?')[1]
-                        $.get(page + '&' + sort, function(data) {
+
+                        $.get(page + '&' + sort, {style: style}, function(data) {
                             $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
                         });
                     } else {
-                        $.get(page, function(data) {
+                        $.get(page, {style: style}, function(data) {
                             $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
@@ -242,6 +263,27 @@ $(document).ready(function() {
         $('.att-show').removeClass('active');
         $(this).addClass('active');
     })
+
+    var urlMobi = $(location).attr("href")
+    if (url.indexOf('sort=') !== -1) {
+        const sortMobi = urlMobi.split('sort=')[1].split('&')[0]
+        const cityMobi = urlMobi.split('city=')[1].split('&')[0]
+        if (urlMobi.indexOf('priceFromMobi')) {
+            const priceFromMobi = urlMobi.split('priceFromMobi=')[1].split('&')[0]
+            $('#priceFromMobi').val(priceFromMobi)
+        }
+        if (urlMobi.indexOf('priceToMobi')) {
+            const priceToMobi = urlMobi.split('priceToMobi=')[1].split('&')[0]
+            $('#priceToMobi').val(priceToMobi)
+        }
+        $(`.sort[data-sort=${sortMobi}]`).attr('checked', true)
+        $(`.city[data-city=${cityMobi}]`).attr('checked', true)
+    }
+
+    $('.att-show').on('click', function() {
+        $('.att-show').removeClass('active');
+        $(this).addClass('active');
+    })
 })
 
 $('body').on('click', '#filter', function() {
@@ -260,6 +302,26 @@ $('body').on('click', '#filter', function() {
     } else {
         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
     }
+})
+
+$('body').on('click', '#filterMobi', function() {
+    const cat_idMobi = $(this).data('cat-id')
+    const cat_slugMobi = $(this).data('cat-slug')
+    let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
+    let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
+    let priceFromMobi = $('#priceFromMobi').val()
+    let priceToMobi = $('#priceToMobi').val()
+
+    if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
+        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
+    } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
+        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
+    } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
+        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi+ '&priceTo=' + priceToMobi
+    } else {
+        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
+    }
+
 })
 
 // $('body').on('click', '.category', function () {
@@ -307,6 +369,7 @@ $('body').on('click', '.subcategory', function() {
 
 $(document).on('change', '#cat_parent', function() {
     $('#attributes').empty();
+    var this_ = $(this)
     const id = $('#cat_parent option:selected').val();
     $.ajax({
         url: '/getSubcategories',
@@ -316,15 +379,35 @@ $(document).on('change', '#cat_parent', function() {
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            $('#cat_child').empty().append(`
-                <option>Выберите подкатегорию</option>
-            `)
-            $('#child_div').remove()
-            data.forEach(element => {
-                $('#cat_child').append(`
-                    <option value="${element['id']}">${element['name']}</option>
+            $('#categories-row').empty()
+            if(data != '') {
+                $('#subCategories').empty()
+                this_.attr('name', 'parent_cat')
+                $('#categories-row').append(`
+                    <div id="subCategories">
+                        <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                            <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                            <div class="w-75 input_placeholder_style">
+                                <select class="input_placeholder_style form-control position-relative" id="cat_child" name="category_id" required>
+                                    <option selected disabled value>Выберите категорию</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 `)
-            })
+                $('#cat_child').empty().append(`
+                    <option disabled selected>Выберите подкатегорию</option>
+                `)
+                $('#child_div').remove()
+                data.forEach(element => {
+                    $('#cat_child').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `)
+                })
+            }
+            else{
+                this_.attr('name', 'category_id')
+            }
         }
     });
 });
@@ -342,7 +425,7 @@ $(document).on('change', '[name="category_id"]', function() {
             $('#attributes').empty();
             data.forEach(element => {
                 $('#attributes').append(`
-                    <div class="form-check form-check">
+                    <div class="form-check form-check w-75">
                         <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
                     </div>
@@ -365,25 +448,100 @@ $(document).on('change', '.js-attribute', function() {
         success: function(data) {
             if (!_this.is(":checked")) {
                 _this.closest('div').find('select').remove();
+                $('.Selects').remove();
+                $('#color_attr').empty()
             } else {
-                _this.closest('div').append(`
-                    <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]" multiple>
-                        <option disabled>Выберите значение</option>
-                    </select>
-                `);
-
-                data.forEach(element => {
-                    _this.closest('div').find('select').append(`
-                        <option value="${element['id']}">${element['name']}</option>
+                if(data[0]['slug'] == 'cvet'){
+                    $('#color_attr').append(`
+                        <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
+                    `)
+                    _this.closest('div').append(`
+                        <div class="Selects d-flex flex-wrap justify-content-between form-group" name="attribute[${data[0]['slug']}][value]">
+                        </div>
                     `);
-                })
+                    _this.closest('div').find('.Selects').empty();
+                    data.forEach(element => {
+                        _this.closest('div').find('.Selects').append(`
+                        <label class="checkbox-container">
+                        <input cheked class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
+                        <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
+                        </label>
+                    `);
+
+                        // if(element['slug'] == 'cvet'){
+                        //     $('#test').append(`
+                        //         <div class="position-relative">
+                        //         <input class="form-check-input" for="${element['name']}" style="background: ${element['value']}; width: 10px; height: 10px;" type="checkbox">
+                        //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
+                        //         </div>
+                        //     `);
+                        // }
+                    })
+                }
+                else{
+                    _this.closest('div').append(`
+                        <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
+                            <option disabled>Выберите значение</option>
+                        </select>
+                    `);
+                    data.forEach(element => {
+                        _this.closest('div').find('select').append(`
+                            <option value="${element['id']}">${element['name']}</option>
+                        `);
+                    })
+                }
+
             }
         }
     });
 });
 
+$(document).on('change', "input[name='cvet']", function(){
+    const val = $(this).val()
+    const colors = $('#colors_input')
+    if(this.checked) {
+        console.log(val)
+        if(colors.val().length < 1){
+            colors.val(colors.val() + val)
+        }
+        else{
+            colors.val(colors.val() + ',' + val)
+        }
+    }
+    else{
+        let array = colors.val().split(',')
+        const index = array.indexOf(val)
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        colors.val(array)
+    }
+
+})
+
 $('body').on('change', '#cat_child', function() {
     const id = $('#cat_child option:selected').val()
+    console.log('cat_id = ' + id)
+    $.ajax({
+        url: '/getAttributes',
+        data: {
+            category_id: id
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function(data) {
+            console.log('attr Working')
+            $('#attributes').empty();
+            data.forEach(element => {
+                $('#attributes').append(`
+                    <div class="form-check form-check">
+                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                    </div>
+                `);
+            })
+        }
+    });
     $.ajax({
         url: '/getSubcategories',
         data: {
@@ -399,9 +557,9 @@ $('body').on('change', '#cat_child', function() {
                     <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                         <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="w-75 input_placeholder_style">
-                        <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
-                            <option disabled>Выберите категорию</option>
-                        </select>
+                            <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id" required>
+                                <option disabled selected>Выберите категорию</option>
+                            </select>
                         </div>
                     </div>
                 `)
@@ -414,6 +572,7 @@ $('body').on('change', '#cat_child', function() {
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
             }
+
         }
     })
 })
@@ -543,6 +702,9 @@ $('#btn-login, #code').on('click change', function () {
             code,
         },
         success: (data) => {
+            if (data == 'true') {
+                location.reload(true);
+            }
             if ($('#adressChange')) {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
