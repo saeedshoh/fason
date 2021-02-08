@@ -27,7 +27,8 @@ class CategoryFactory extends Factory
             'icon' => 'img/2020/11/rMtrTPdv9thzYXoZ69SJISUATJTO4f67EWc0iJti.svg',
             'is_active' => '1',
             'slug' => $this->faker->word,
-            'parent_id' => 0
+            'parent_id' => 0,
+            'order_no' => 1
         ];
     }
 }

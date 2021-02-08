@@ -1,8 +1,8 @@
 @section('header')
 <header class="d-block" style="font-family: 'Montserrat', sans-serif;">
     <div class="container-fluid bg-white px-0">
-      <div class="d-none d-md-block position-relative" style="background:url({{ Storage::url($header_banner->image ?? '') }}); height:80px; background-position:center;">
-        <a href="{{ $header_banner->url }}" class="stretched-link"></a>
+      <div class="d-none d-md-block position-relative" style="background:url({{ Storage::url( $header_banner ? $header_banner->image : '') }}); {{ $header_banner ? 'height:80px; background-position:center;' : '' }}">
+        <a href="{{ $header_banner ? $header_banner->url : '#' }}" class="stretched-link"></a>
       </div>
       <div class="container">
         <div class="row py-3 px-3 px-lg-0">

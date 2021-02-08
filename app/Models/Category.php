@@ -14,7 +14,7 @@ class Category extends Model
     use HasSlug;
     use HasFactory;
 
-    protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id', 'is_monetized'];
+    protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id', 'is_monetized', 'order_no'];
 
     public function parent()   {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
@@ -46,5 +46,16 @@ class Category extends Model
     public function monetizations()
     {
         return $this->belongsToMany(Monetization::class);
+    }
+
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->order_no = $model->max('order_no') + 1;
+        });
     }
 }

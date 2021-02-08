@@ -307,6 +307,7 @@ $('body').on('click', '.subcategory', function() {
 
 $(document).on('change', '#cat_parent', function() {
     $('#attributes').empty();
+    var this_ = $(this)
     const id = $('#cat_parent option:selected').val();
     $.ajax({
         url: '/getSubcategories',
@@ -316,15 +317,35 @@ $(document).on('change', '#cat_parent', function() {
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            $('#cat_child').empty().append(`
-                <option>Выберите подкатегорию</option>
-            `)
-            $('#child_div').remove()
-            data.forEach(element => {
-                $('#cat_child').append(`
-                    <option value="${element['id']}">${element['name']}</option>
+            $('#categories-row').empty()
+            if(data != '') {
+                $('#subCategories').empty()
+                this_.attr('name', 'parent_cat')
+                $('#categories-row').append(`
+                    <div id="subCategories">
+                        <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                            <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                            <div class="w-75 input_placeholder_style">
+                                <select class="input_placeholder_style form-control position-relative" id="cat_child" name="category_id" required>
+                                    <option selected disabled value>Выберите категорию</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 `)
-            })
+                $('#cat_child').empty().append(`
+                    <option disabled selected>Выберите подкатегорию</option>
+                `)
+                $('#child_div').remove()
+                data.forEach(element => {
+                    $('#cat_child').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `)
+                })
+            }
+            else{
+                this_.attr('name', 'category_id')
+            }
         }
     });
 });
@@ -384,6 +405,27 @@ $(document).on('change', '.js-attribute', function() {
 
 $('body').on('change', '#cat_child', function() {
     const id = $('#cat_child option:selected').val()
+    console.log('cat_id = ' + id)
+    $.ajax({
+        url: '/getAttributes',
+        data: {
+            category_id: id
+        },
+        method: "GET",
+        dataType: 'json',
+        success: function(data) {
+            console.log('attr Working')
+            $('#attributes').empty();
+            data.forEach(element => {
+                $('#attributes').append(`
+                    <div class="form-check form-check">
+                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                    </div>
+                `);
+            })
+        }
+    });
     $.ajax({
         url: '/getSubcategories',
         data: {
@@ -399,9 +441,9 @@ $('body').on('change', '#cat_child', function() {
                     <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                         <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="w-75 input_placeholder_style">
-                        <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
-                            <option disabled>Выберите категорию</option>
-                        </select>
+                            <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id" required>
+                                <option disabled selected>Выберите категорию</option>
+                            </select>
                         </div>
                     </div>
                 `)
@@ -414,6 +456,7 @@ $('body').on('change', '#cat_child', function() {
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
             }
+
         }
     })
 })
@@ -543,6 +586,9 @@ $('#btn-login, #code').on('click change', function () {
             code,
         },
         success: (data) => {
+            if (data == 'true') {
+                location.reload(true);
+            }
             if ($('#adressChange')) {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')

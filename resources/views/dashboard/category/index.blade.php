@@ -40,12 +40,13 @@
             {{session()->get('success')}}
         </div>
         @endif
+
         <!-- Tab content -->
         <div class="tab-content">
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-parent"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -78,7 +79,10 @@
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                       </th>
                       <th>
-                        Родитель
+                        <a class="list-sort text-muted" data-sort="item-order" href="#">Позиция</a>
+                      </th>
+                      <th>
+                        <a class="list-sort text-muted" data-sort="item-parent" href="#">Родитель</a>
                       </th>
                       <th class="text-right">
 
@@ -103,11 +107,18 @@
                         </div> <a class="item-name text-reset" href="profile-posts.html">{{ $category->name }}</a>
 
                       </td>
+                      <td>
+                        <select data-id="{{ $category->id }}" class="item-order text-reset form-control order_no" name="order_no" id="order_no">
+                            @foreach ($allCategories->where('parent_id', $category->parent_id)->sortBy('order_no') as $sibling)
+                                <option {{ $sibling->order_no == $category->order_no ? 'selected' : '' }}  value="{{ $sibling->order_no }}">{{ $loop->iteration }}</option>
+                            @endforeach
+                        </select>
+                      </td>
                       @if ($category->parent_id != null)
                         <td>
                           <div class="avatar avatar-xs align-middle mr-2">
-                            <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent->icon }}">
-                          </div> <a class="item-name text-reset" href="profile-posts.html">{{ $category->parent->name }}</a>
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent ? $category->parent->icon : '' }}">
+                          </div> <a class="item-parent text-reset" href="profile-posts.html">{{ $category->parent ? $category->parent->name : '' }}</a>
                         </td>
                       @else
                           <td>

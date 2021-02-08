@@ -40,6 +40,13 @@ class AppServiceProvider extends ServiceProvider
                 }
                 view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
             }
+            else{
+                $is_store = null;
+                if (Auth::check()) {
+                    $is_store = $this->stores->where('user_id', Auth::id())->first();
+                }
+                view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
+            }
         }
 
         view()->composer(
@@ -47,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
             function ($view) {
                 $is_store = null;
                 if (Auth::check()) {
-                    $is_store = Store::with('orders')->where('user_id', Auth::id())->firstOrFail();
+                    $is_store = Store::with('orders')->where('user_id', Auth::id())->first();
                 }
 
                 $view->with(['is_store' => $is_store]);

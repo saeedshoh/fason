@@ -20,6 +20,7 @@ class CategorySeeder extends Seeder
             'icon' => '2020/12/5fd47be2396d0480x480.jpg',
             'is_active' => '1',
             'parent_id' => '0',
+            'order_no' => 1
         ]);
     }
 }

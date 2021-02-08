@@ -114,6 +114,10 @@ class ProductController extends Controller
         $category = Category::where('id', $product->category_id)->first();
         $parent = null;
         $grandParent = null;
+        $hasParentCategory = false;
+        if(!$product->category->parent){
+            $hasParentCategory = true;
+        }
         if($category->parent_id != 0){
             $parent = Category::where('id', $category->parent_id)->first();
             if($parent->parent_id){
@@ -121,7 +125,7 @@ class ProductController extends Controller
             }
         }
         $cat_parent = $this->categories->where('parent_id', 0);
-        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories', 'attributes', 'attrValues'));
+        return view('products.edit', compact('product', 'cat_parent', 'category', 'parent', 'grandParent', 'allCategories', 'attributes', 'attrValues', 'hasParentCategory'));
     }
 
     /**

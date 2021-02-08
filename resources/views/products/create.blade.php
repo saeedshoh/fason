@@ -49,30 +49,33 @@
             <input class="d-none" id="gallery" type="text" name="gallery">
 
             <input type="file" id="image" class="d-none" name="image" required>
-            <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-              <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
-              <div class="w-75 input_placeholder_style">
-                <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="cat_parent" required>
-                  <option value>Выберите категорию</option>
-                  @forelse ($cat_parent as $category)
-                  <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                  @empty
-                      Извините ничего не найдено
-                  @endforelse
-                </select>
-                @error('category_id')
-                <div class="invalid-feedback">
-                  {{ $message }}
+                <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                    <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
+                    <div class="w-75 input_placeholder_style">
+                      <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="cat_id" required>
+                        <option selected disabled value>Выберите категорию</option>
+                        @forelse ($cat_parent as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @empty
+                            Извините ничего не найдено
+                        @endforelse
+                      </select>
+                      @error('category_id')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
                 </div>
-                @enderror
-              </div>
-            </div>
-            <div id="subCategories">
+                <div id="categories-row">
+
+                </div>
+            {{-- <div id="subCategories">
                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                     <div class="w-75 input_placeholder_style">
                       <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id" required>
-                        <option value>Выберите категорию</option>
+                        <option selected disabled value>Выберите категорию</option>
                       </select>
                       @error('category_id')
                         <div class="invalid-feedback">
@@ -81,7 +84,7 @@
                       @enderror
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
               <div class="w-75 input_placeholder_style">

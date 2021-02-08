@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Log;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -38,7 +39,8 @@ class UserController extends Controller
                 'name' =>  $request->name,
                 'address' =>  $request->address,
                 'city_id' =>  $request->city_id,
-                'profile_photo_path' =>  $image ? $image : null
+                'profile_photo_path' =>  $image ? $image : null,
+                'registered_at' => Carbon::now()
             ]
         );
 
@@ -84,6 +86,7 @@ class UserController extends Controller
             'status' =>  1,
             'profile_photo_path' => $request->profile_photo_path,
             'password' => Hash::make($request->password,),
+            'registered_at' => Carbon::now()
         ]);
         $user->attachRole($request->role);
 
