@@ -20807,8 +20807,75 @@ function _typeof2(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "funct
 /***/ (function(module, exports, __webpack_require__) {
 
 var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
-    stubString = _require.stubString;
+    stubString = _require.stubString,
+    last = _require.last;
 
+__webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.inputmask.bundle.js");
+
+$('#listView').on('click', function () {
+  $('#catProducts .row').removeClass('row-cols-2').addClass('row-cols-1');
+  $('#gridView').removeClass('d-none');
+  $(this).addClass('d-none');
+  $('#catProducts .discription').removeClass('d-none');
+  $('#catProducts .card').addClass('flex-row');
+  $('#catProducts .card img').addClass('w-50');
+  $('#catProducts .row').attr('data-style', '2');
+});
+$('#gridView').on('click', function () {
+  $('#catProducts .row').attr('data-style', '1');
+  $('.card').find('img').removeClass('w-50');
+  $('#catProducts .card').removeClass('flex-row');
+  $('#catProducts .row').removeClass('row-cols-1').addClass('row-cols-2');
+  $('#listView').removeClass('d-none');
+  $(this).addClass('d-none');
+  $('#catProducts .discription').addClass('d-none');
+}); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+
+$(function () {
+  $("#galler").change(function () {
+    var fd = new FormData();
+    var this_ = this;
+    fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+    var files = $('#galler')[0].files;
+
+    if (files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        fd.append('image', files[i]);
+        $.ajax({
+          url: '/uploadImage',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          beforeSend: function beforeSend() {
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('img').hide();
+            x.find('.spinner-border').removeClass('d-none');
+          },
+          success: function success(response) {
+            var x = $('#db-preview-image').find('.product_image[data-image="false"]').first();
+            x.find('.spinner-border').addClass('d-none');
+            x.html('').attr('data-image', 'true').append("\n                            <div class=\"profile-pic\">\n                                <img src=\"/storage/".concat(response, "\" data-image-src=\"").concat(response, "\" class=\"position-relative mw-100 pic-item\">\n                                <div class=\"deleteImage\"><i class=\"fa fa-trash fa-lg text-danger\"></i></div>\n                            </div>\n                    "));
+            var gallery = $('#gallery');
+
+            if (gallery.val() == '') {
+              gallery.val(gallery.val() + response);
+            } else {
+              gallery.val(gallery.val() + ',' + response);
+            }
+          }
+        });
+      }
+    } else {
+      alert("Please select a file.");
+    }
+  });
+});
+$('body').on('click', '.deleteImage', function () {
+  var url = $(this).parent().find('img').data('image-src');
+  var gallery = $('#gallery');
+  var array = gallery.val().split(',');
+  var index = array.indexOf(url);
 
   if (index > -1) {
     array.splice(index, 1);
@@ -20823,7 +20890,7 @@ var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.j
     $(this).parent().parent().remove();
   }
 
-  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image\" data-image=\"false\">\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
+  $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image d-flex justify-content-center align-items-center\" data-image=\"false\">\n            <div class=\"spinner-border d-none\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n            </div>\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
 });
 $(document).ready(function () {
   $('body').on('keyup', '#nameStoreCreate', function () {
@@ -20872,17 +20939,27 @@ $(document).ready(function () {
     if (page !== null && page !== '') {
       clearTimeout($.data(this, "scrollCheck"));
       $.data(this, "scrollCheck", setTimeout(function () {
+        $('#scroll-spinner').toggleClass('d-none');
         var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100;
 
         if (scroll_position_for_posts_load >= $(document).height()) {
+          var style = $('#catProducts .row').attr('data-style');
+          console.log(style);
+
           if (url.indexOf('sort=') !== -1) {
             var sort = url.split('?')[1];
-            $.get(page + '&' + sort, function (data) {
+            $.get(page + '&' + sort, {
+              style: style
+            }, function (data) {
+              $('#scroll-spinner').toggleClass('d-none');
               $('.endless-pagination').append(data.posts);
               $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
             });
           } else {
-            $.get(page, function (data) {
+            $.get(page, {
+              style: style
+            }, function (data) {
+              $('#scroll-spinner').toggleClass('d-none');
               $('.endless-pagination').append(data.posts);
               $('.endless-pagination').data('next-page', data.next_page);
             });
@@ -20983,6 +21060,30 @@ $(document).ready(function () {
     $('.att-show').removeClass('active');
     $(this).addClass('active');
   });
+  var urlMobi = $(location).attr("href");
+
+  if (url.indexOf('sort=') !== -1) {
+    var sortMobi = urlMobi.split('sort=')[1].split('&')[0];
+    var cityMobi = urlMobi.split('city=')[1].split('&')[0];
+
+    if (urlMobi.indexOf('priceFromMobi')) {
+      var priceFromMobi = urlMobi.split('priceFromMobi=')[1].split('&')[0];
+      $('#priceFromMobi').val(priceFromMobi);
+    }
+
+    if (urlMobi.indexOf('priceToMobi')) {
+      var priceToMobi = urlMobi.split('priceToMobi=')[1].split('&')[0];
+      $('#priceToMobi').val(priceToMobi);
+    }
+
+    $(".sort[data-sort=".concat(sortMobi, "]")).attr('checked', true);
+    $(".city[data-city=".concat(cityMobi, "]")).attr('checked', true);
+  }
+
+  $('.att-show').on('click', function () {
+    $('.att-show').removeClass('active');
+    $(this).addClass('active');
+  });
 });
 $('body').on('click', '#filter', function () {
   var cat_id = $(this).data('cat-id');
@@ -21000,6 +21101,24 @@ $('body').on('click', '#filter', function () {
     window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo;
   } else {
     window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city;
+  }
+});
+$('body').on('click', '#filterMobi', function () {
+  var cat_idMobi = $(this).data('cat-id');
+  var cat_slugMobi = $(this).data('cat-slug');
+  var sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort');
+  var cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city');
+  var priceFromMobi = $('#priceFromMobi').val();
+  var priceToMobi = $('#priceToMobi').val();
+
+  if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
+    window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi;
+  } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
+    window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi;
+  } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
+    window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi;
+  } else {
+    window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi;
   }
 }); // $('body').on('click', '.category', function () {
 //     let category = $(this).data('id')
@@ -21073,7 +21192,7 @@ $(document).on('change', '[name="category_id"]', function () {
     success: function success(data) {
       $('#attributes').empty();
       data.forEach(function (element) {
-        $('#attributes').append("\n                    <div class=\"form-check form-check\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+        $('#attributes').append("\n                    <div class=\"form-check form-check w-75\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
       });
     }
   });
@@ -21091,15 +21210,61 @@ $(document).on('change', '.js-attribute', function () {
     success: function success(data) {
       if (!_this.is(":checked")) {
         _this.closest('div').find('select').remove();
-      } else {
-        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value]\" multiple>\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
 
-        data.forEach(function (element) {
-          _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
-        });
+        $('.Selects').remove();
+        $('#color_attr').empty();
+      } else {
+        if (data[0]['slug'] == 'cvet') {
+          $('#color_attr').append("\n                        <input type=\"text\" id=\"colors_input\" name=\"cvet\" class=\"form-control\" value=\"\">\n                    ");
+
+          _this.closest('div').append("\n                        <div class=\"Selects d-flex flex-wrap justify-content-between form-group\" name=\"attribute[".concat(data[0]['slug'], "][value]\">\n                        </div>\n                    "));
+
+          _this.closest('div').find('.Selects').empty();
+
+          data.forEach(function (element) {
+            _this.closest('div').find('.Selects').append("\n                        <label class=\"checkbox-container\">\n                        <input cheked class=\"form-check-input\" name=\"cvet\" value=\"".concat(element['id'], "\" type=\"checkbox\">\n                        <span class=\"checkmark\" style=\"background: ").concat(element['value'], "; width: 25px; height: 25px;\"></span>\n                        </label>\n                    ")); // if(element['slug'] == 'cvet'){
+            //     $('#test').append(`
+            //         <div class="position-relative">
+            //         <input class="form-check-input" for="${element['name']}" style="background: ${element['value']}; width: 10px; height: 10px;" type="checkbox">
+            //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
+            //         </div>
+            //     `);
+            // }                   
+
+          });
+        } else {
+          _this.closest('div').append("\n                        <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple>\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                        </select>\n                    "));
+
+          data.forEach(function (element) {
+            _this.closest('div').find('select').append("\n                            <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                        "));
+          });
+        }
       }
     }
   });
+});
+$(document).on('change', "input[name='cvet']", function () {
+  var val = $(this).val();
+  var colors = $('#colors_input');
+
+  if (this.checked) {
+    console.log(val);
+
+    if (colors.val().length < 1) {
+      colors.val(colors.val() + val);
+    } else {
+      colors.val(colors.val() + ',' + val);
+    }
+  } else {
+    var array = colors.val().split(',');
+    var index = array.indexOf(val);
+
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+
+    colors.val(array);
+  }
 });
 $('body').on('change', '#cat_child', function () {
   var id = $('#cat_child option:selected').val();
@@ -21176,6 +21341,7 @@ $('.checkout-product').on('click', function () {
       product_id: product_id
     },
     success: function success(data) {
+      console.log(data);
       $('.order-number').text("Номер вашего заказа: " + data.order.id);
       console.log(data);
     },
@@ -21731,7 +21897,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! e:\OpenServer\domains\fason.loc\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

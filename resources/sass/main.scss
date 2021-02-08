@@ -38,9 +38,12 @@ body {
 }
 
 .mobile-avatar {
-    top: 4rem;
+    top: 10.5rem;
     left: 2rem;
 }
+.mobile-filter .custom-select:focus {
+    box-shadow: none !important;
+  }
 
 .rounded-25 {
     border-radius: 25px;
@@ -1282,8 +1285,134 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 #enableFilter .modal-dialog {
-    max-width: 90% !important;
+    max-width: 83% !important;
     position: absolute;
     right: 0;
     margin: 0;
 }
+//Categorie scroll
+.categories {
+    height: 8rem !important;
+    overflow: auto;
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .categories::-webkit-scrollbar,
+  .categories::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 15px;
+  }
+  
+  .categories::-webkit-scrollbar-track,
+  .categories::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+  }
+  
+  .categories::-webkit-scrollbar-thumb,
+  .categories::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
+  }
+  
+  .categories::-webkit-scrollbar,
+  .categories::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 15px;
+  }
+  
+  .categories-markets::-webkit-scrollbar-track,
+  .categories::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+  }
+  
+  .categories::-webkit-scrollbar-thumb,
+  .categories::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 15px;
+  }
+//Categorie scroll end
+
+//Color picker 
+
+  /* Блок чекбокса*/
+
+  .checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Скрываем дефолтный чекбокс*/
+
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Чекбокс */
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+  }
+  
+  /* добавить тень при наведении*/
+
+  .checkbox-container:hover input ~ .checkmark {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Поставить тень и грани во время активности */
+
+  .checkbox-container input:checked ~ .checkmark {
+    border: 1px solid #CCCCCC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Создать галочку и скрыть */
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Показать что галочку */
+
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Стили галочки*/
+  
+  .checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+//Color picker

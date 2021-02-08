@@ -67,12 +67,12 @@ class CategoryController extends Controller
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
-        $products = $productss->inRandomOrder()->paginate(9);
+        $products = $productss->inRandomOrder()->paginate(2);
 
         if ($request->ajax()) {
-
+            $style = $request->style;
             return [
-                'posts' => view('ajax.category', compact('products'))->render(),
+                'posts' => view('ajax.category', compact('products', 'style'))->render(),
                 'next_page' => $products->nextPageUrl()
             ];
         }

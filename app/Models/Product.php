@@ -67,6 +67,8 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductAttribute', 'product_id');
     }
 
+   
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

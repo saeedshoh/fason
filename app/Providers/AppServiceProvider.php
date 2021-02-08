@@ -56,7 +56,6 @@ class AppServiceProvider extends ServiceProvider
                 if (Auth::check()) {
                     $is_store = Store::with('orders')->where('user_id', Auth::id())->first();
                 }
-
                 $view->with(['is_store' => $is_store]);
             }
         );

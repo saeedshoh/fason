@@ -227,7 +227,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="container-fluid">
+            <div class="">
               <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
                 <div class="w-75 input_placeholder_style">
@@ -250,7 +250,7 @@
                   @enderror
                 </div>
               </div>
-              <div id="attributes" class="row">
+              <div id="attributes" class="row justify-content-start justify-content-lg-end">
                 @foreach ($attributes as $index => $attribute)
                 <div class="form-check form-check">
                     <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
@@ -268,8 +268,8 @@
             </div>
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
               <input type="hidden" name="product_status_id" value="1">
-              <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-2 rounded py-2 w-lg-75"> Изменить </button>
+              <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
+                <button type="submit" class="w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
               </div>
             </div>
           </form>
