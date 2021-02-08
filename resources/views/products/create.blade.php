@@ -130,7 +130,7 @@
                   @enderror
                 </div>
               </div>
-              <div id="attributes" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center"></div>
+              <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end w-75"></div>
               @csrf
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}" required>
               <input type="hidden" name="product_status_id" value="1">

@@ -152,7 +152,7 @@ $(document).ready(function() {
                     console.log(style);
                     if (url.indexOf('sort=') !== -1) {
                         const sort = url.split('?')[1]
-                        
+
                         $.get(page + '&' + sort, {style: style}, function(data) {
                             $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
@@ -263,7 +263,7 @@ $(document).ready(function() {
         $('.att-show').removeClass('active');
         $(this).addClass('active');
     })
-    
+
     var urlMobi = $(location).attr("href")
     if (url.indexOf('sort=') !== -1) {
         const sortMobi = urlMobi.split('sort=')[1].split('&')[0]
@@ -429,7 +429,7 @@ $(document).on('change', '[name="category_id"]', function() {
                         <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
                     </div>
-                `);               
+                `);
             })
         }
     });
@@ -450,10 +450,10 @@ $(document).on('change', '.js-attribute', function() {
                 _this.closest('div').find('select').remove();
                 $('.Selects').remove();
                 $('#color_attr').empty()
-            } else {                
+            } else {
                 if(data[0]['slug'] == 'cvet'){
                     $('#color_attr').append(`
-                        <input type="text" id="colors_input" name="cvet" class="form-control" value="">
+                        <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
                     `)
                     _this.closest('div').append(`
                         <div class="Selects d-flex flex-wrap justify-content-between form-group" name="attribute[${data[0]['slug']}][value]">
@@ -467,7 +467,7 @@ $(document).on('change', '.js-attribute', function() {
                         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
                         </label>
                     `);
-                
+
                         // if(element['slug'] == 'cvet'){
                         //     $('#test').append(`
                         //         <div class="position-relative">
@@ -475,9 +475,9 @@ $(document).on('change', '.js-attribute', function() {
                         //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
                         //         </div>
                         //     `);
-                        // }                   
+                        // }
                     })
-                }   
+                }
                 else{
                     _this.closest('div').append(`
                         <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
@@ -489,8 +489,8 @@ $(document).on('change', '.js-attribute', function() {
                             <option value="${element['id']}">${element['name']}</option>
                         `);
                     })
-                }             
-              
+                }
+
             }
         }
     });
@@ -501,7 +501,7 @@ $(document).on('change', "input[name='cvet']", function(){
     const colors = $('#colors_input')
     if(this.checked) {
         console.log(val)
-        if(colors.val().length < 1){            
+        if(colors.val().length < 1){
             colors.val(colors.val() + val)
         }
         else{
@@ -516,7 +516,7 @@ $(document).on('change', "input[name='cvet']", function(){
         }
         colors.val(array)
     }
-   
+
 })
 
 $('body').on('change', '#cat_child', function() {

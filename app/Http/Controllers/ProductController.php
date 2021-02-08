@@ -81,7 +81,7 @@ class ProductController extends Controller
             $join->on('products.id', '=', 'countProd.product_id');
         })->orderByDesc('countProd')->paginate(15);
         $attributes = $product->attribute_variation;
-        
+
         return view('products.single', compact('product', 'similars', 'attributes', 'topProducts'));
     }
 
@@ -136,7 +136,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ft_store(ProductRequest $request)
-    { 
+    {
         // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
@@ -161,14 +161,23 @@ class ProductController extends Controller
 
         if(isset($request->attribute)) {
             foreach ($request->attribute as $name => $attribute) {
+                // print($attribute);
                 if($name != 'cvet'){
                     $attribute_id = Attribute::where('slug', $name)->first()->id;
-                    ProductAttribute::create([
-                        'product_id' => $product->id,
-                        'attribute_id' => $attribute_id,
-                        'attribute_value_id' => $attribute['value']
-                    ]);
-                }                
+                    foreach($attribute['value'] as $value){
+                        ProductAttribute::create([
+                            'product_id' => $product->id,
+                            'attribute_id' => $attribute_id,
+                            'attribute_value_id' => $value
+                        ]);
+                    }
+                }
+                //     ProductAttribute::create([
+                //         'product_id' => $product->id,
+                //         'attribute_id' => $attribute_id,
+                //         'attribute_value_id' => $attribute['value']
+                //     ]);
+                // }
             }
         }
         if(isset($request->cvet)) {

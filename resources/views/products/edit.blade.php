@@ -271,6 +271,9 @@
               <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
                 <button type="submit" class="w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
               </div>
+              <div id="color_attr">
+                <input type="text" id="colors_input" name="cvet" class="form-control" value="">
+              </div>
             </div>
           </form>
         </div>
