@@ -94,21 +94,21 @@
 </div>
 <div class="d-block d-lg-none container px-0">
   <a class="text-decoration-none" href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
-    <h3 class="shop-subject mb-3"> <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <h3 class="shop-subject mb-3 px-3"> <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#FF0055"/>
       </svg>  <span class="ml-2"> Назад</span>
     </h3>
   </a>
   @if(!$name->parent)
-      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
+      <a class="text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3 px-5"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
   @elseif(!$name->parent->parent)
-      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3 px-5"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
   @elseif(!isset($name->childrens->first()->id))
-      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3 px-5"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
   @elseif(!$name->parent->parent->parent)
-      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3 px-5"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
   @else
-    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
+    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3 px-5"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
   @endif
     <ul class="shop-subject categories list-group list-group-flush h-100 mx-0 px-5">
       @forelse ($categories as $category)
@@ -123,7 +123,7 @@
         @if ($parent_cat)
             @foreach ($parent_cat as $category)
                 <li class="list-group-item  bg-transparent border-bottom">
-                    <nav class="category-mix w-100 text-center">
+                    <nav class="category-mix w-100">
                       <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
                         <span class="count-products d-block" data-id="{{ $category->id }}"></span>
                       </a>
@@ -169,15 +169,15 @@
           </a>
           <div class="catalog__ategory col-12 bg-white px-0">
                 @if(!$name->parent)
-                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
+                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
                 @elseif(!$name->parent->parent)
-                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
+                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
                 @elseif(!isset($name->childrens->first()->id))
-                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
+                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
                 @elseif(!$name->parent->parent->parent)
-                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{<img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{ $name->name }}</h4></a>
+                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{ $name->name }}</h4></a>
                 @else
-                  <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3"><img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
+                  <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
                 @endif
                 <ul class="shop-subject list-group list-group-flush h-100">
                 @forelse ($categories as $category)

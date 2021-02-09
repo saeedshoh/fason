@@ -1,6 +1,5 @@
 @section('footer')
 
-
 {{-- Место Модалок --}}
 
 <div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -117,6 +116,7 @@ aria-hidden="true">
   </div>
 </div>
 </div>
+
 {{-- Раздел Футера --}}
 <footer class="mt-5 mb-5 mb-sm-0">
     <div class="container border-top border-bottom py-4">

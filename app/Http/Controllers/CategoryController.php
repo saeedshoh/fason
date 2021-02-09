@@ -67,7 +67,7 @@ class CategoryController extends Controller
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
-        $products = $productss->inRandomOrder()->paginate(2);
+        $products = $productss->inRandomOrder()->paginate(9);
 
         if ($request->ajax()) {
             $style = $request->style;
@@ -186,7 +186,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $attributes = Attribute::get();
-        $categories = Category::where('parent_id', 0)->get();
+        $categories = Category::get();
         return view('dashboard.category.edit', compact('categories', 'category', 'attributes'));
     }
 
