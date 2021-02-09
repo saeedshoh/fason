@@ -71,7 +71,7 @@
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
-            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap">
+            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-3">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row px-3">
                     <span>{{ $item->first()->attribute->name }}:</span>
@@ -86,12 +86,12 @@
                           <nav class="att-show text-capitalize px-3">
                             {{ $attribute->attribute_value->name }}
                           </nav>
-                        @endif                     
-                          
+                        @endif
+
                       @endif
                     @endforeach
-                  </div>                  
-              @endforeach                
+                  </div>
+              @endforeach
             </div>
           </div>
 
@@ -133,7 +133,7 @@
         </div>
         <!--slider-proiduct-and-description-end-->
         <!--product-information-and-attribute-->
-        <div class="col-12 col-lg-7 order-lg-1">
+        <div class="col-12 col-lg-7 order-lg-1 px-md-5">
           <h3 class="h3 title mt-3 mt-lg-2 d-none d-lg-block">Информация о товаре</h3>
           <div class="mt-3 mt-lg-5 d-none d-lg-block ">
 
@@ -147,7 +147,7 @@
                 <div class="d-flex mt-3 gap-3 att-show-row flex-column">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                       <div class="row">
-                        <span>{{ $item->first()->attribute->name }}:</span>
+                        <span class="pr-3">{{ $item->first()->attribute->name }}:</span>
                         @foreach ($product->attribute_variation as $attribute)
                           @if ($key == $attribute->attribute_id)
                             @if (substr($attribute->attribute_value->value, 0, 1) == '#')
@@ -159,12 +159,12 @@
                               <nav class="att-show text-capitalize px-3">
                                 {{ $attribute->attribute_value->name }}
                               </nav>
-                            @endif                     
-                              
+                            @endif
+
                           @endif
                         @endforeach
-                      </div>                  
-                  @endforeach   
+                      </div>
+                  @endforeach
                 </div>
               </div>
 

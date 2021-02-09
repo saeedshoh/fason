@@ -1,5 +1,4 @@
 const { stubString, last } = require('lodash');
-
 require('./jquery.inputmask.bundle.js');
 
 $('#listView').on('click', function(){
@@ -499,8 +498,8 @@ $(document).on('change', '.js-attribute', function() {
 $(document).on('change', "input[name='cvet']", function(){
     const val = $(this).val()
     const colors = $('#colors_input')
+    console.log(colors.val())
     if(this.checked) {
-        console.log(val)
         if(colors.val().length < 1){
             colors.val(colors.val() + val)
         }
@@ -521,7 +520,6 @@ $(document).on('change', "input[name='cvet']", function(){
 
 $('body').on('change', '#cat_child', function() {
     const id = $('#cat_child option:selected').val()
-    console.log('cat_id = ' + id)
     $.ajax({
         url: '/getAttributes',
         data: {
@@ -530,7 +528,6 @@ $('body').on('change', '#cat_child', function() {
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            console.log('attr Working')
             $('#attributes').empty();
             data.forEach(element => {
                 $('#attributes').append(`
@@ -628,9 +625,7 @@ $('.checkout-product').on('click', function() {
             product_id,
         },
         success: (data) => {
-            console.log(data)
             $('.order-number').text("Номер вашего заказа: " + data.order.id);
-            console.log(data);
         },
         error: function(xhr, status, error) {
             console.log(status);
@@ -736,7 +731,6 @@ $('#send-code, .send-code').on('click', function() {
             phone,
         },
         success: (data) => {
-            console.log(data);
             $('#send-code').hide();
             $('.enter-code').show();
             $('.sms--true').show();
@@ -790,7 +784,6 @@ $(function() {
 
             $($(this)[0].files).each(function(index) {
                 var file = $(this);
-                console.log(file);
                 if (regex.test(file[0].name.toLowerCase())) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
@@ -821,22 +814,16 @@ $(function() {
 
 
 $('.db-preview-remove').on('click', function() {
-    console.log(this);
     let gallery = $("#gallery")[0].files;
-    console.log(gallery);
-
     let value = $(this).attr('data-id');
-    console.log(value);
 
     function removeItemOnce(arr, value) {
         var index = arr.indexOf(value);
         if (index > -1) {
             arr.splice(index, 1);
         }
-        console.log(arr);
     };
     removeItemOnce(gallery.files, value);
-    console.log(gallery.files);
 });
 // $('body').on('click', '.deleteImage', function () {
 //     let images = $('#hello').val()
@@ -886,7 +873,6 @@ function cover(input) {
 function user_avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        console.log(reader)
         reader.onload = function(e) {
             $('.user_avatar svg').hide();
             $('.user_avatar img').show().attr('src', e.target.result);

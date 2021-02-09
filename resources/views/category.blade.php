@@ -273,7 +273,7 @@
             @endforelse
           </div>
           <div class="row d-flex justify-content-center align-items-center">
-            <div id="scroll-spinner" class="spinner-border d-none" style="width: 3rem; height: 3rem;" role="status">
+            <div id="scroll-spinner" class="spinner-border d-none mb-5" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
           </div>
