@@ -71,10 +71,10 @@
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
-            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap">
+            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row">
-                    <span>{{ $item->first()->attribute->name }}:</span>
+                    <span class="pr-3">{{ $item->first()->attribute->name }}:</span>
                     @foreach ($product->attribute_variation as $attribute)
                       @if ($key == $attribute->attribute_id)
                         @if (substr($attribute->attribute_value->value, 0, 1) == '#')
