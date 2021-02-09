@@ -218,7 +218,7 @@
                                         <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
                                         <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
                                         @if ($attribute->is_checked)
-                                        <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
+                                        <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
                                             <option disabled="">Выберите значение</option>
                                             @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                                 <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
@@ -327,7 +327,7 @@
                             <div class="row justify-content-between">
                                 <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
                                     @csrf
-                                        <button class="btn btn-danger" type="submit"><i class="fe fe-trash delete-confirm"> </i> Удалить</button>
+                                        <button class="btn btn-danger delete-confirm" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
                                     @method('DELETE')
                                 </form>
                                 <form class="d-inline" action="{{ route('products.decline', $product) }}" method="POST">

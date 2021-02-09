@@ -9,7 +9,7 @@
 {{ dd($allCategories->where('parent_id', $category->id)) }}  --}}
 <section class="content" >
     <div class="container">
-      <h2 class="title text-center w-100 mt-5 mb-4 d-none d-lg-block">Добавить Товар</h2>
+      <h2 class="title text-center w-100 mt-5 mb-4 d-none d-lg-block">Изменить Товар</h2>
       <div class="row d-flex justify-content-between" >
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
@@ -250,29 +250,90 @@
                   @enderror
                 </div>
               </div>
-              <div id="attributes" class="row justify-content-start justify-content-lg-end">
+              <div id="attributes" class="form-group d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 @foreach ($attributes as $index => $attribute)
-                <div class="form-check form-check">
-                    <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
-                    <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
-                    @if ($attribute->is_checked)
-                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
-                        <option disabled="">Выберите значение</option>
-                        @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
-                            <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
-                        @endforeach
-                    </select>
-                    @endif
-                </div>
+                    <div class="form-check w-50 d-flex flex-wrap">
+                            <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
+                            <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                        @if ($attribute->is_checked)
+                            @if ($attribute->slug == 'cvet')
+                                <div class="Selects d-flex flex-wrap justify-content-between form-group" name="attribute[cvet][value]">
+                                    @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                        <label class="checkbox-container">
+                                            <input {{ $attrValue->is_checked == true ? 'checked' : '' }} class="form-check-input" name="checkSvet" value="{{ $attrValue->id }}" type="checkbox">
+                                            <span class="checkmark" style="background: {{ $attrValue->value }}; width: 25px; height: 25px;"></span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div id="color_attr">
+                                    <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="@foreach ($attrValues->where('attribute_id', $attribute->id)->where('is_checked', 'true') as $attrValue){{ $loop->last ? $attrValue->id : $attrValue->id.',' }}@endforeach">
+                                </div>
+                            @else
+                                <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
+                                    <option disabled="">Выберите значение</option>
+                                    @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                        <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
+                        @endif
+                    </div>
                 @endforeach
+                <div id="color_attr"></div>
+                {{-- @foreach ($attributes as $index => $attribute)
+                    <div class="form-check w-50">
+                        <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
+                        <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                        @if ($attribute->is_checked)
+                            @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                @if (substr($attrValue->value, 0, 1) == '#')
+                                    <label class="checkbox-container">
+                                        <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
+                                        <span class="checkmark" style="background: {{ $attrValue->value }}; width: 25px; height: 25px;"></span>
+                                    </label>
+                                @endif
+                            @endforeach
+                            @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                @if (substr($attrValue->value, 0, 1) != '#')
+                                   @php
+                                        $isset_select = true;
+                                   @endphp
+                                @endif
+                            @endforeach
+                            @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                @if (substr($attrValue->value, 0, 1) != '#' && $isset_select)
+                                   <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
+                                        <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
+                                    </select>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                @endforeach --}}
+                {{-- @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
+                    <div class="row">
+                        <span>{{ $item->first()->attribute->name }}:</span>
+                        @foreach ($product->attribute_variation as $attribute)
+                        @if ($key == $attribute->attribute_id)
+                            @if (substr($attribute->attribute_value->value, 0, 1) == '#')
+                                <label class="checkbox-container">
+                                <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
+                                <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
+                                </label>
+                            @else
+                            <nav class="att-show text-capitalize px-3">
+                                {{ $attribute->attribute_value->name }}
+                            </nav>
+                            @endif
+                        @endif
+                        @endforeach
+                    </div>
+                @endforeach --}}
             </div>
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
               <input type="hidden" name="product_status_id" value="1">
               <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
-                <button type="submit" class="w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
-              </div>
-              <div id="color_attr">
-                <input type="text" id="colors_input" name="cvet" class="form-control" value="">
+                <button id="submitAddProduct" type="submit" class="w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
               </div>
             </div>
           </form>

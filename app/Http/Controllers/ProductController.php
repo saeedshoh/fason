@@ -172,12 +172,6 @@ class ProductController extends Controller
                         ]);
                     }
                 }
-                //     ProductAttribute::create([
-                //         'product_id' => $product->id,
-                //         'attribute_id' => $attribute_id,
-                //         'attribute_value_id' => $attribute['value']
-                //     ]);
-                // }
             }
         }
         if(isset($request->cvet)) {
@@ -229,19 +223,36 @@ class ProductController extends Controller
             ]);
         }
         $product->update($request->validated() + ['gallery' => $request->gallery]);
-        if(isset($request->attribute)) {
 
+        if(isset($request->attribute) || isset($request->cvet)) {
             $delete = ProductAttribute::where('product_id', $product->id);
             if($delete->count() > 0){
                 $delete->delete();
             }
+        }
 
+        if(isset($request->attribute)) {
             foreach ($request->attribute as $name => $attribute) {
-                $attribute_id = Attribute::where('slug', $name)->first()->id;
+                if($name != 'cvet'){
+                    $attribute_id = Attribute::where('slug', $name)->first()->id;
+                    foreach($attribute['value'] as $value){
+                        ProductAttribute::create([
+                            'product_id' => $product->id,
+                            'attribute_id' => $attribute_id,
+                            'attribute_value_id' => $value
+                        ]);
+                    }
+                }
+            }
+        }
+        if(isset($request->cvet)) {
+            $cvet = explode(',', $request->cvet);
+            for($i = 0; $i < count($cvet); $i++){
+                $attribute_id = Attribute::where('slug', 'cvet')->first()->id;
                 ProductAttribute::create([
                     'product_id' => $product->id,
                     'attribute_id' => $attribute_id,
-                    'attribute_value_id' => $attribute['value']
+                    'attribute_value_id' => $cvet[$i]
                 ]);
             }
         }
@@ -387,11 +398,13 @@ class ProductController extends Controller
 
             foreach ($request->attribute as $name => $attribute) {
                 $attribute_id = Attribute::where('slug', $name)->first()->id;
-                ProductAttribute::create([
-                    'product_id' => $product->id,
-                    'attribute_id' => $attribute_id,
-                    'attribute_value_id' => $attribute['value']
-                ]);
+                foreach($attribute['value'] as $value){
+                    ProductAttribute::create([
+                        'product_id' => $product->id,
+                        'attribute_id' => $attribute_id,
+                        'attribute_value_id' => $value
+                    ]);
+                }
             }
         }
         $category = Category::where('id', $request->category_id)->first()->name;

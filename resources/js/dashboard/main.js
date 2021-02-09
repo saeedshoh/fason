@@ -570,7 +570,7 @@ $(document).on('change', '.js-attribute', function() {
             }
             else {
                 _this.closest('div').append(`
-                    <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value]" multiple>
+                    <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
                         <option disabled>Выберите значение</option>
                     </select>
                 `);
