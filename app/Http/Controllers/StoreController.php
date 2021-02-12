@@ -70,7 +70,7 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->first();
-        $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
+        $products = Product::where('store_id', $store->id)->get();
         $acceptedProducts = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         $onCheckProducts = Product::where('store_id', $store->id)->where('product_status_id', 1)->get();
         $hiddenProducts = Product::where('store_id', $store->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->get();

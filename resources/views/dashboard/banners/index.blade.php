@@ -116,9 +116,6 @@
                         <a href="{{ route('banners.edit', $banner) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
-                        <a href="{{ route('banners.show', $banner) }}" class="btn btn-warning m-1 fa-pull-right">
-                            <i class="fe fe-eye" aria-hidden="true"></i>
-                        </a>
                       </td>
                     </tr>
 

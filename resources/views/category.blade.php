@@ -139,11 +139,19 @@
   <!--Filter mobi-controll-->
       <div class="d-flex justify-content-between d-lg-none mb-3 mobile-filter w-100 container">
         <div class="d-flex">
-          <img src="/storage/theme/icons/sort.svg"><select class="custom-select border-0 bg-transparent text-pinky pl-1 pr-3">
+          <img src="/storage/theme/icons/sort.svg">
+          {{--  <select class="custom-select border-0 bg-transparent text-pinky pl-1 pr-3">
               <option selected>Сначала новые</option>
               <option value="1">Сначала дешевые</option>
               <option value="2">Сначала дорогие</option>
-            </select>
+          </select>  --}}
+          <form method="get" action="{{route('ft-category.category', $name->slug)}}">
+             <select id="mobSort" class="custom-select border-0 bg-transparent text-pinky pl-1 pr-3" name="sort">
+              <option selected value="new">Сначала новые</option>
+              <option value="cheap">Сначала дешевые</option>
+              <option value="expensive">Сначала дорогие</option>
+             </select>
+            </form>
         </div>
         <div id="mobileConrols">
           <button id="gridView" class="btn d-none p-0">
@@ -173,7 +181,6 @@
                 @elseif(!$name->parent->parent)
                     <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</h4></a>
                 @elseif(!isset($name->childrens->first()->id))
-                    <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><h4 class="py-3"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</h4></a>
                 @elseif(!$name->parent->parent->parent)
                     <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><h4 class="py-3">{<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{ $name->name }}</h4></a>
                 @else
@@ -281,5 +288,17 @@
       </div>
     </div>
   </section>
+
+@endsection
+
+@section('script')
+<script>
+    $(function() {
+        $('#mobSort').change(function() {
+            console.log('hello')
+            $(this).closest('form').submit();
+        });
+    });
+</script>
 
 @endsection

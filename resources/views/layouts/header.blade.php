@@ -85,7 +85,6 @@
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                 @csrf
-
                 <button type="submit" class="btn btn-link text-dark text-decoration-none border-0 px-0">
                   <i class="fas fa-sign-out-alt"></i> Выход
                 </button>
@@ -122,8 +121,13 @@
       @endif
       <div class="col text-center px-0">
         <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          <img src="/storage/theme/icons/orderes-mob.svg" width="19">
-          <span class="mobile-nav--title">Заказы</span>
+        @isset($is_store->orders)
+            @if ($is_store->orders->where('order_status_id', 1)->count() > 0)
+                <sub class="h6 bg-danger rounded-circle m-0 float-right ml-3 mt-n3 text-white px-1">{{ $is_store->orders->where('order_status_id', 1)->count() }}</sub>
+            @endif
+        @endisset
+        <img src="/storage/theme/icons/orderes-mob.svg" width="19">
+        <span class="mobile-nav--title">Заказы</span>
         </a>
       </div>
       @if ($is_store == null)
@@ -147,11 +151,6 @@
       @else
       <div class="col text-center px-0">
         <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          @isset($is_store->orders)
-            @if ($is_store->orders->where('order_status_id', 1)->count() > 0)
-              <sub class="h6 bg-danger rounded-circle m-0 float-right ml-3 mt-n3 text-white px-1">{{ $is_store->orders->where('order_status_id', 1)->count() }}</sub>
-            @endif
-          @endisset
           <img src="/storage/theme/icons/opened-exit-door.svg" width="19">
           <span class="mobile-nav--title">Магазин</span>
         </a>

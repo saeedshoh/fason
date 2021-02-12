@@ -41,7 +41,7 @@
                                     <div class="d-flex justify-content-between">
                                         <small class="text-secondary">Дата заказа: {{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
-                                            <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total }} Сомони</span>
+                                            <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total+$order->margin }} Сомони</span>
                                         </h6>
                                     </div>
 
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>
-                                <h4 class="h4 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->total }} Сомони</h4>
+                                <h4 class="h4 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->total+$order->margin }} Сомони</h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Статус</h6>

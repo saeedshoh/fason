@@ -153,6 +153,7 @@ aria-hidden="true">
     @endif
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    @yield('script')
     <script>
       $(function(){
           $('.pic-main').okzoom({
@@ -167,5 +168,4 @@ aria-hidden="true">
   </body>
 </html>
 
-   
-  
+

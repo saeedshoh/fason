@@ -35,7 +35,8 @@ class BannersController extends Controller
      */
     public function create()
     {
-        return view('dashboard.banners.create');
+        $back = url()->previous();
+        return view('dashboard.banners.create', compact('back'));
     }
 
     /**
@@ -87,7 +88,8 @@ class BannersController extends Controller
      */
     public function edit(Banners $banner)
     {
-        return view('dashboard.banners.edit', compact('banner'));
+        $back = url()->previous();
+        return view('dashboard.banners.edit', compact('banner', 'back'));
     }
 
     /**

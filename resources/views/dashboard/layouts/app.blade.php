@@ -33,6 +33,7 @@
     ================================================== -->
 
     <script src="{{ asset('js/dashboard/app.js') }}"></script>
+    @yield('script')
 
   </body>
 </html>
