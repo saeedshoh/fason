@@ -1440,7 +1440,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .order-tab{
  img{
-     object-fit: cover;
+    object-fit: cover;
+    height: 6rem;
  }
 }
 
@@ -1468,3 +1469,61 @@ input[type="number"]:hover::-webkit-outer-spin-button {
         top: -0.7rem;
     }
 }
+
+//custom-radio
+
+.radio-container {
+  display: block;
+  position: relative;
+  padding: 0 0.8rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent
+}
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .radio-checkmark {
+  background-color: transparent;
+  border: 2px solid #f00 !important;
+  border-radius: 8px;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .radio-checkmark:after {
+  display: block;
+}
+.radio-checkmark{
+	border: 2px solid #ccc;
+    border-radius: 8px;
+   }

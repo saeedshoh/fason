@@ -60,6 +60,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         if ($request->ajax()) {
             $product = Product::find($request->product_id);
             $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
