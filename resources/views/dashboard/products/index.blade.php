@@ -27,6 +27,14 @@
               <div class="col-auto">
 
                 <!-- Buttons -->
+                <a href="{{ route('editItemsForPage', 1)}}" class="ml-2">
+                  Кол-во на главной странице
+                </a>
+
+              </div>
+              <div class="col-auto">
+
+                <!-- Buttons -->
                 <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
                   Добавить
                 </a>

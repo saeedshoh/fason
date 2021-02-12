@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageInv;
+use App\Http\Controllers\ItemsForPageController;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QrCodeGeneratorController;
@@ -72,6 +73,8 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');
     Route::get('/showStoreMonetization/{id}', [MonetizationController::class, 'showStoreMonetization'])->name('showStoreMonetization');
     Route::get('/changeCategoryOrder', [CategoryController::class, 'changeCategoryOrder'])->name('changeCategoryOrder');
+    Route::get('editItemsForPage/{itemsForPage}', [ItemsForPageController::class, 'edit'])->name('editItemsForPage');
+    Route::put('editItemsForPage/{itemsForPage}', [ItemsForPageController::class, 'update'])->name('updateItemsForPage');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
