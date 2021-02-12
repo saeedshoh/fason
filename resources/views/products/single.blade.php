@@ -73,8 +73,8 @@
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                  <div class="row">
-                    <span class="pr-3">{{ $item->first()->attribute->name }}:</span>
+                  <div class="row px-3">
+                    <span>{{ $item->first()->attribute->name }}:</span>
                     @foreach ($product->attribute_variation as $attribute)
                       @if ($key == $attribute->attribute_id)
                         @if (substr($attribute->attribute_value->value, 0, 1) == '#')
@@ -326,7 +326,7 @@
       <div class="text-center">
         <h2 class="my-5"> <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted mb-other-product text-decoration-none">Другие товары продавца</a></h2>
       </div>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
         @forelse ($similars as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0  h-100 w-100">
@@ -351,7 +351,7 @@
       <div class="text-center">
         <h2 class="my-5 text-muted mb-other-product">Топ продаж</h2>
       </div>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
         @forelse ($topProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0  h-100 w-100">

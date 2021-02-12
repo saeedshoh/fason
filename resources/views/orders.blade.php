@@ -9,15 +9,15 @@
   <section>
     <div class="container mt-3">
        <!--tabs-->
-        <div class="order-tab bg-white rounded p-3">
-            <div class="container">
+        <div class="order-tab bg-white rounded px-0 p-md-3">
+            <div class="">
             <ul class="nav nav-pills justify-content-between" id="myTab" role="tablist">
-                <li class="nav-item w-50 text-center" role="presentation">
-                    <a class="nav-link orders active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
+                <li class="nav-item w-50 text-center pr-1" role="presentation">
+                    <a class="nav-link orders active px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
                 </li>
                 @if ($is_store != null)
-                <li class="nav-item w-50 text-center" role="presentation">
-                    <a class="nav-link orders" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
+                <li class="nav-item w-50 text-center pl-1" role="presentation">
+                    <a class="nav-link orders px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
                 </li>
                 @endif
             </ul>
@@ -29,17 +29,17 @@
                 @forelse ($orders as $order)
 
                     <div class="@if ($order->order_status_id == 3)success-card @elseif($order->order_status_id == 2)in-road-card @else()declined-card @endif">
-                        <div class="text-right d-block d-lg-none">
+                        <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-6 px-2 px-sm-3">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($order->product->image) }}" width="64" >
+                                <img class="mr-3 rounded img-fluid" src="{{ Storage::url($order->product->image) }}" width="64" >
                                 <div class="d-flex flex-column align-self-center w-100">
-                                    <h5 class="h5">{{ $order->product->name }}</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-secondary">Дата заказа: {{ $order->created_at->format('d.m.Y') }}</small>
+                                    <h5 class="h5 text-truncate order-title">{{ $order->product->name }}</h5>
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <small class="text-secondary">{{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total }} Сомони</span>
                                         </h6>
@@ -74,17 +74,17 @@
                 @forelse ($sales as $sale)
                     @if ($sale->product->store_id == Auth::user()->id)
                     <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 2)in-road-card @else()declined-card @endif">
-                        <div class="text-right d-block d-lg-none">
+                        <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="d-none d-md-block mr-3 rounded" src="{{ Storage::url($sale->product->image) }}" width="64" >
+                                <img class="mr-3 rounded" src="{{ Storage::url($sale->product->image) }}" width="64" >
                                 <div class="d-flex flex-column align-self-center w-100">
-                                    <h5 class="h5">{{ $sale->product->name}}</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-secondary">Дата заказа: {{ $sale->created_at->format('d.m.Y') }}</small>
+                                    <h5 class="h5 text-truncate order-title">{{ $sale->product->name}}</h5>
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <small class="text-secondary">{{ $sale->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $sale->total }} Сомони</span>
                                         </h6>

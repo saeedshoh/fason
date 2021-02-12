@@ -85946,6 +85946,22 @@ $('body').on('click', '.delete-confirm', function (event) {
     }
   });
 });
+$(document).on('change', '.order_no', function () {
+  var id = $(this).data('id');
+  var sibling = $(this).find('option:selected').val();
+  $.ajax({
+    url: '/dashboard/changeCategoryOrder',
+    data: {
+      category: id,
+      sibling: sibling
+    },
+    method: "GET",
+    dataType: 'json',
+    success: function success(data) {
+      location.reload(true);
+    }
+  });
+});
 
 __webpack_require__(/*! ./components/list */ "./resources/js/dashboard/components/list.js");
 

@@ -20829,7 +20829,60 @@ $('#gridView').on('click', function () {
   $('#listView').removeClass('d-none');
   $(this).addClass('d-none');
   $('#catProducts .discription').addClass('d-none');
-}); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+});
+$('.numeric').on('change keyup', function () {
+  var sanitized = $(this).val().replace(/[^0-9]/g, '');
+  $(this).val(sanitized);
+}); ///  products line 
+
+$(document).ready(function () {
+  var url = $(location).attr("href");
+
+  if (url.indexOf('category') !== -1) {
+    var myFunction = function myFunction(x) {
+      if (x.matches) {
+        // If media query matches
+        for (var i = 1; i <= 2; i++) {
+          // выведет линию над первыми 2 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+        }
+      } else {
+        for (var _i = 1; _i <= 3; _i++) {
+          // выведет линию над первыми 3 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + _i + ') .card').addClass('position-relative line-test');
+        }
+      }
+    };
+
+    var x = window.matchMedia("(max-width: 767px)");
+    myFunction(x); // Call listener function at run time
+
+    x.addListener(myFunction); // Attach listener function on state changes
+  } else {
+    var _myFunction = function _myFunction(x) {
+      if (x.matches) {
+        // If media query matches
+        for (var i = 1; i <= 2; i++) {
+          // выведет линию над первыми 2 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+        }
+      } else {
+        for (var _i2 = 1; _i2 <= 5; _i2++) {
+          // выведет линию над первыми 5 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + _i2 + ') .card').addClass('position-relative line-test');
+        }
+      }
+    };
+
+    var x = window.matchMedia("(max-width: 767px)");
+
+    _myFunction(x); // Call listener function at run time
+
+
+    x.addListener(_myFunction); // Attach listener function on state changes
+  }
+}); /// products line end
+////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 
 $(function () {
   $("#galler").change(function () {
@@ -21163,6 +21216,7 @@ $('body').on('click', '.subcategory', function () {
 });
 $(document).on('change', '#cat_parent', function () {
   $('#attributes').empty();
+  var this_ = $(this);
   var id = $('#cat_parent option:selected').val();
   $.ajax({
     url: '/getSubcategories',
@@ -21172,11 +21226,20 @@ $(document).on('change', '#cat_parent', function () {
     method: "GET",
     dataType: 'json',
     success: function success(data) {
-      $('#cat_child').empty().append("\n                <option>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n            ");
-      $('#child_div').remove();
-      data.forEach(function (element) {
-        $('#cat_child').append("\n                    <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                "));
-      });
+      $('#categories-row').empty();
+
+      if (data != '') {
+        $('#subCategories').empty();
+        this_.attr('name', 'parent_cat');
+        $('#categories-row').append("\n                    <div id=\"subCategories\">\n                        <div class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                            <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                            <div class=\"w-75 input_placeholder_style\">\n                                <select class=\"input_placeholder_style form-control position-relative\" id=\"cat_child\" name=\"category_id\" required>\n                                    <option selected disabled value>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                ");
+        $('#cat_child').empty().append("\n                    <option disabled selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                ");
+        $('#child_div').remove();
+        data.forEach(function (element) {
+          $('#cat_child').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+        });
+      } else {
+        this_.attr('name', 'category_id');
+      }
     }
   });
 });
@@ -21215,7 +21278,7 @@ $(document).on('change', '.js-attribute', function () {
         $('#color_attr').empty();
       } else {
         if (data[0]['slug'] == 'cvet') {
-          $('#color_attr').append("\n                        <input type=\"text\" id=\"colors_input\" name=\"cvet\" class=\"form-control\" value=\"\">\n                    ");
+          $('#color_attr').append("\n                        <input type=\"text\" id=\"colors_input\" name=\"cvet\" class=\"form-control d-none\" value=\"\">\n                    ");
 
           _this.closest('div').append("\n                        <div class=\"Selects d-flex flex-wrap justify-content-between form-group\" name=\"attribute[".concat(data[0]['slug'], "][value]\">\n                        </div>\n                    "));
 
@@ -21229,7 +21292,7 @@ $(document).on('change', '.js-attribute', function () {
             //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
             //         </div>
             //     `);
-            // }                   
+            // }
 
           });
         } else {
@@ -21268,6 +21331,22 @@ $(document).on('change', "input[name='cvet']", function () {
 });
 $('body').on('change', '#cat_child', function () {
   var id = $('#cat_child option:selected').val();
+  console.log('cat_id = ' + id);
+  $.ajax({
+    url: '/getAttributes',
+    data: {
+      category_id: id
+    },
+    method: "GET",
+    dataType: 'json',
+    success: function success(data) {
+      console.log('attr Working');
+      $('#attributes').empty();
+      data.forEach(function (element) {
+        $('#attributes').append("\n                    <div class=\"form-check form-check\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+      });
+    }
+  });
   $.ajax({
     url: '/getSubcategories',
     data: {
@@ -21279,7 +21358,7 @@ $('body').on('change', '#cat_child', function () {
       if (data.hasOwnProperty('0')) {
         $('#cat_child').attr('name', 'subcategory');
         $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                        <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\">\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                        </select>\n                        </div>\n                    </div>\n                ");
+        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                            <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                                <option disabled selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                            </select>\n                        </div>\n                    </div>\n                ");
         data.forEach(function (element) {
           $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
         });
@@ -21407,6 +21486,10 @@ $('#btn-login, #code').on('click change', function () {
       code: code
     },
     success: function success(data) {
+      if (data == 'true') {
+        location.reload(true);
+      }
+
       if ($('#adressChange')) {
         $('#enter_site').modal('hide');
         $('#adressChange').modal('show');

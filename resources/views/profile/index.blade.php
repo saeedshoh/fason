@@ -15,7 +15,7 @@
                 @csrf
                 @method('POST')
                 <div class="row">
-                    <div class="col-md-3 px-0 px-md-2 position-relative">
+                    <div class="col-lg-3 px-0 px-md-2 position-relative">
                         <div class="text-center">
                             @if($user->profile_photo_path == '')
                                 <label for="avatar" class="cursor-pointer d-block user_avatar">
@@ -26,8 +26,8 @@
                                         <input type="file" class="d-none" id="avatar" name="profile_photo_path">
                                 </label>
                             @else
-                                <img src="/storage/{{ $user->profile_photo_path }}" class="w-100 rounded" id="avatar-poster">
-                                <div class="edit-store-logo position-absolute w-100">
+                                <img src="/storage/{{ $user->profile_photo_path }}" class="rounded-pill" height="250px" width="250px" id="avatar-poster">
+                                <div class="edit-store-logo position-absolute w-100 edit-pofile-img">
                                     <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                                         Изменить
                                         <input type="file" class="d-none" id="avatar" name="profile_photo_path">
@@ -54,7 +54,7 @@
                     {{-- <div class="col-md-3 text-md-left text-center">
                         <img class="img-fluid" src="/storage/theme/itpark.png" alt="">
                     </div> --}}
-                    <div class="col-md-6 mt-md-0 mt-3">
+                    <div class="col-lg-6 mt-md-0 mt-3">
                         <div class="form-row">
                             <label class="font-weight-bold col-12 col-lg-6 h5">Город:</label>
                             @foreach ($cities as $city)

@@ -34,4 +34,21 @@ $('body').on('click', '.delete-confirm', function(event) {
     })
 });
 
+$(document).on('change', '.order_no', function() {
+    const id = $(this).data('id')
+    const sibling = $(this).find('option:selected').val()
+    $.ajax({
+        url: '/dashboard/changeCategoryOrder',
+        data: {
+            category: id,
+            sibling: sibling
+        },
+        method: "GET",
+        dataType : 'json',
+        success: function( data ) {
+            location.reload(true);
+        }
+    })
+})
+
 require('./components/list');

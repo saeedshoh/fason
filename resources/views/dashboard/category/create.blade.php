@@ -82,7 +82,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="attribute">Аттрибут для категори</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
-                                        <option selected>Выберите аттрибут</option>
+                                        <option disabled selected value="">Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                         @endforeach

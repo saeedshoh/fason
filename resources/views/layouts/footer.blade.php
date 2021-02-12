@@ -1,6 +1,5 @@
 @section('footer')
 
-
 {{-- Место Модалок --}}
 
 <div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -27,7 +26,7 @@
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
                     </div>
-                    <input data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
+                    <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
@@ -117,6 +116,7 @@ aria-hidden="true">
   </div>
 </div>
 </div>
+
 {{-- Раздел Футера --}}
 <footer class="mt-5 mb-5 mb-sm-0">
     <div class="container border-top border-bottom py-4">

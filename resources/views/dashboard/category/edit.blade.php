@@ -66,9 +66,9 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Категории</label>
                                     <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
-                                        <option value="0" selected>Сделать родительской</option>
+                                        <option value="0">Сделать родительской</option>
                                         @foreach($categories as $item)
-                                            <option value="{{ $item->id }}" class="font-weight-bold" {{ $category->id == $item->id ? 'disabled' : ''}}>
+                                            <option value="{{ $item->id }}" {{ $category->parent_id == $item->id ? 'selected' : '' }} class="font-weight-bold" {{ $category->id == $item->id ? 'disabled' : '' }}>
                                             {{ $item->name }}
                                             </option>
                                         @endforeach
