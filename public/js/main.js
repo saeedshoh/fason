@@ -20829,7 +20829,60 @@ $('#gridView').on('click', function () {
   $('#listView').removeClass('d-none');
   $(this).addClass('d-none');
   $('#catProducts .discription').addClass('d-none');
-}); ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+});
+$('.numeric').on('change keyup', function () {
+  var sanitized = $(this).val().replace(/[^0-9]/g, '');
+  $(this).val(sanitized);
+}); ///  products line 
+
+$(document).ready(function () {
+  var url = $(location).attr("href");
+
+  if (url.indexOf('category') !== -1) {
+    var myFunction = function myFunction(x) {
+      if (x.matches) {
+        // If media query matches
+        for (var i = 1; i <= 2; i++) {
+          // выведет линию над первыми 2 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+        }
+      } else {
+        for (var _i = 1; _i <= 3; _i++) {
+          // выведет линию над первыми 3 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + _i + ') .card').addClass('position-relative line-test');
+        }
+      }
+    };
+
+    var x = window.matchMedia("(max-width: 767px)");
+    myFunction(x); // Call listener function at run time
+
+    x.addListener(myFunction); // Attach listener function on state changes
+  } else {
+    var _myFunction = function _myFunction(x) {
+      if (x.matches) {
+        // If media query matches
+        for (var i = 1; i <= 2; i++) {
+          // выведет линию над первыми 2 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+        }
+      } else {
+        for (var _i2 = 1; _i2 <= 5; _i2++) {
+          // выведет линию над первыми 5 элементами класса ".custom-lined"
+          $('.custom-lined .col:nth-child(' + _i2 + ') .card').addClass('position-relative line-test');
+        }
+      }
+    };
+
+    var x = window.matchMedia("(max-width: 767px)");
+
+    _myFunction(x); // Call listener function at run time
+
+
+    x.addListener(_myFunction); // Attach listener function on state changes
+  }
+}); /// products line end
+////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 
 $(function () {
   $("#galler").change(function () {
@@ -21927,7 +21980,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

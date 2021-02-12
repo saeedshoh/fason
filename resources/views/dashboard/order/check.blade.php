@@ -54,12 +54,12 @@
             <div class="col-lg-6 col-6">
                 <div class="card">
                     <div class="card-body">
-                  
+
                       <!-- Title -->
                       <nav class="text-center my-4">
                         <img src="/storage/theme/logo_fason.svg" alt="fason" width="120">
                       </nav>
-                  
+
                       <!-- Price -->
                       <div class="row no-gutters align-items-center justify-content-center mb-5">
                         <div class="col-auto">
@@ -103,7 +103,7 @@
                                     <p class="font-weight-bold h3">Спасибо за покупку !</p>
                                     <small>Дата / время: <strong>{{ $order->created_at }}</strong></small>
                                 </div>
-                            </li>   
+                            </li>
                         </ul>
                       </div>
                     </div>
@@ -116,7 +116,7 @@
                       <nav class="text-center my-4">
                         <img src="/storage/theme/logo_fason.svg" alt="fason" width="120">
                       </nav>
-                  
+
                       <!-- Price -->
                       <div class="row no-gutters align-items-center justify-content-center mb-5">
                         <div class="col-auto">
@@ -165,6 +165,24 @@
                             </li>
                         </ul>
                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5 float-right">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row justify-content-between">
+                        <form class="d-inline" action="{{ route('acceptOrder', $order) }}" method="POST">
+                            @csrf
+                                <button class="btn btn-success mx-2"><i class="fe fe-check"> </i> Принять</button>
+                        </form>
+                        <form class="d-inline" action="{{ route('declineOrder', $order) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger mx-2"><i class="fe fe-x-circle"> </i> Отклонить</button>
+                            @method('POST')
+                        </form>
                     </div>
                 </div>
             </div>
