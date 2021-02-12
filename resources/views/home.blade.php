@@ -90,10 +90,10 @@
           <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent py-2">
-              <div class="list-group-row d-flex align-items-center ">
+              <div class="list-group-row d-flex align-items-center position-relative">
                 <img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">
                 <nav class="category-mix">
-                  <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-secondary">{{ $category->name }}
+                  <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
                     {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
                     <span class="count-products" data-id="{{ $category->id }}"></span>
                   </a>
@@ -138,9 +138,7 @@
 <!--Category list end-->
     <div class="all-product px-0">
     <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
-
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
-
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
         @forelse ($newProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0 h-100 w-100">
@@ -157,9 +155,8 @@
           </div>
         </div>
         @empty
-            Извените ничего не найдено
+          Извените ничего не найдено
         @endforelse
-
       </div>
 
 
@@ -167,7 +164,7 @@
 
         <h2 class="shop-subject title mt-lg-5 mb-4" >Топ продаж </h2>
 
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
 
           @forelse ($topProducts as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">

@@ -19,6 +19,49 @@ $('#gridView').on('click', function(){
     $(this).addClass('d-none');
     $('#catProducts .discription').addClass('d-none');
 });
+
+$('.numeric').on('change keyup', function() {
+    var sanitized = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(sanitized);
+  });
+///  products line 
+
+$(document).ready(function(){
+    const url = $(location).attr("href")
+    if (url.indexOf('category') !== -1) {
+        function myFunction(x) {
+            if (x.matches) { // If media query matches
+                for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
+                }
+            } else {
+                for (let i = 1; i <= 3; i++) { // выведет линию над первыми 3 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
+                }
+            }
+        }
+        var x = window.matchMedia("(max-width: 767px)")
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
+    }
+    else{
+       function myFunction(x) {
+            if (x.matches) { // If media query matches
+                for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
+                $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
+            }
+            } else {
+                for (let i = 1; i <= 5; i++) { // выведет линию над первыми 5 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
+                }
+            }
+        }
+        var x = window.matchMedia("(max-width: 767px)")
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
+    }
+})
+/// products line end
 ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 $(function() {
 
