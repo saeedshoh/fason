@@ -71,7 +71,7 @@
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
-            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-3">
+            <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row px-3">
                     <span>{{ $item->first()->attribute->name }}:</span>
@@ -143,7 +143,7 @@
               <nav class="text-muted">
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
-              <div class="my-3 ">
+              <div class="my-3 px-0 px-lg-3">
                 <div class="d-flex mt-3 gap-3 att-show-row flex-column">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                       <div class="row">
