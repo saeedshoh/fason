@@ -73,21 +73,19 @@
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                  <div class="row px-3">
-                    <span>{{ $item->first()->attribute->name }}:</span>
+                  <div class="row px-3 flex-wrap">
+                    <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
                     @foreach ($product->attribute_variation as $attribute)
                       @if ($key == $attribute->attribute_id)
-                        @if (substr($attribute->attribute_value->value, 0, 1) == '#')
-                            <label class="checkbox-container">
-                              <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                              <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
-                            </label>
-                        @else
-                          <nav class="att-show text-capitalize px-3">
+                        <label class="radio-container mr-2">
+                          {{ $attribute->attribute_value->name }}
+                          {{-- {{ dd($attribute->attribute_value_id) }} --}}
+                          <input type="radio" name="attr[{{$attribute->attribute_value->attribute_id}}]" value="{{ $attribute->id }}">
+                          <span class="radio-checkmark"></span>
+                        </label>
+                          {{-- <nav class="att-show text-capitalize px-3">
                             {{ $attribute->attribute_value->name }}
-                          </nav>
-                        @endif
-
+                          </nav> --}}
                       @endif
                     @endforeach
                   </div>
@@ -143,27 +141,25 @@
               <nav class="text-muted">
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
-              <div class="my-3 px-0 px-lg-3">
-                <div class="d-flex mt-3 gap-3 att-show-row flex-column">
+              <div class="my-3 px-0">
+                <div class="d-flex mt-3 gap-3 att-show-row flex-column  ">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                      <div class="row">
-                        <span class="pr-3">{{ $item->first()->attribute->name }}:</span>
-                        @foreach ($product->attribute_variation as $attribute)
-                          @if ($key == $attribute->attribute_id)
-                            @if (substr($attribute->attribute_value->value, 0, 1) == '#')
-                                <label class="checkbox-container">
-                                  <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                                  <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
-                                </label>
-                            @else
-                              <nav class="att-show text-capitalize px-3">
-                                {{ $attribute->attribute_value->name }}
-                              </nav>
-                            @endif
-
-                          @endif
-                        @endforeach
-                      </div>
+                  <div class="row px-3 flex-wrap xls">
+                    <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
+                    @foreach ($product->attribute_variation as $attribute)
+                      @if ($key == $attribute->attribute_id)
+                        <label class="radio-container mr-2">
+                          {{ $attribute->attribute_value->name }}
+                          {{-- {{ dd($attribute->attribute_value_id) }} --}}
+                          <input type="radio" name="attr[{{$attribute->attribute_value->attribute_id}}]"  value="{{ $attribute->id }}">
+                          <span class="radio-checkmark"></span>
+                        </label>
+                          {{-- <nav class="att-show text-capitalize px-3">
+                            {{ $attribute->attribute_value->name }}
+                          </nav> --}}
+                      @endif
+                    @endforeach
+                    </div>
                   @endforeach
                 </div>
               </div>
@@ -195,7 +191,7 @@
                     <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
+                    <button id="buyBtn" type="button" class="btn btn-danger custom-radius" data-toggle="modal">
                         Купить
                     </button>
                   @endif
@@ -371,9 +367,6 @@
 
       </div>
   </section>
-
-
-
   <!-- Modal 1-->
   <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
   aria-hidden="true">

@@ -122,7 +122,7 @@
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: </label>
                 <div class="w-75 input_placeholder_style position-relative">
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control text-right @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"> <span class="currency-holder">C.</span> @error('price')
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control text-right @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"> <span class="currency-holder">с.</span> @error('price')
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>
