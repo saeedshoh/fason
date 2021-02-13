@@ -67,7 +67,7 @@ aria-hidden="true">
       </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data">
+        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" novalidate>
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="80" height="80" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">

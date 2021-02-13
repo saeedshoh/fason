@@ -811,14 +811,10 @@ $('#btn-login, #code').on('click change', function () {
             if (data == 'true') {
                 location.reload(true);
             }
-            if ($('#adressChange')) {
+            else {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
 
-            } else {
-                if (data == 2) {
-                    location.reload(true);
-                }
             }
 
         },
