@@ -567,8 +567,7 @@ $(document).on('change', '.js-attribute', function() {
         success: function (data) {
             if(!_this.is(":checked")) {
                 _this.closest('div').find('select').remove();
-            }
-            else {
+            }else {
                 _this.closest('div').append(`
                     <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
                         <option disabled>Выберите значение</option>
