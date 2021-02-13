@@ -81,6 +81,13 @@
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Название товара: </small> <small>{{ $order->product->name }}</small>
                             </li>
+                            @if ($attributes)
+                                @foreach ($attributes as $attribute)
+                                    <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                        <small>{{ $attribute->attribute->name }}: </small> <small>{{ $attribute->name }}</small>
+                                    </li>
+                                @endforeach
+                            @endif
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Кол-во: </small> <small>{{ $order->quantity }}</small>
                             </li>
@@ -138,6 +145,13 @@
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Название товара: </small> <small>{{ $order->product->name }}</small>
                             </li>
+                            @if ($attributes)
+                                @foreach ($attributes as $attribute)
+                                    <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                        <small>{{ $attribute->attribute->name }}: </small> <small>{{ $attribute->name }}</small>
+                                    </li>
+                                @endforeach
+                            @endif
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Кол-во: </small> <small>{{ $order->quantity }}</small>
                             </li>

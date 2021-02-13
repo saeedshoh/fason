@@ -18,7 +18,13 @@ class Order extends Model
         'margin',
         'quantity',
         'order_status_id',
+        'attributes'
     ];
+
+    protected $casts = [
+        'attributes' => 'array'
+    ];
+
 
     public function product() {
         return $this->belongsTo('App\Models\Product');

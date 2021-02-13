@@ -3,6 +3,16 @@ require('./jquery.inputmask.bundle.js');
 require('sweetalert2');
 
 import Swal from 'sweetalert2'
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-center',
+    showConfirmButton: false,
+    timer: 2000,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 $('#listView').on('click', function(){
     $('#catProducts .row').removeClass('row-cols-2').addClass('row-cols-1');
@@ -27,7 +37,7 @@ $('.numeric').on('change keyup', function() {
     var sanitized = $(this).val().replace(/[^0-9]/g, '');
     $(this).val(sanitized);
   });
-///  products line 
+///  products line
 
 $(document).ready(function(){
     const url = $(location).attr("href")
@@ -653,22 +663,49 @@ $('.main-search').on('keyup keypress keydown change', function() {
 });
 
 $('#buyBtn').on('click', function(e){
-    console.log('sashura')
     var count = 0;
-    var questions = $(".xls");
+    var questions = $(".desktopAttrs");
+    $('.selectedAttrs').empty()
     questions.each(function () {
         if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+            const attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text()
+            const attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name')
+            $('.selectedAttrs').append(`
+                <h6 class="text">${attrName} ${attrValueName}</h6>
+            `)
             count++;
         }
     });
     if (count >= questions.length) {
-        $('#buyProduct').modal("show") 
+        $('#buyProduct').modal("show")
     } else {
-        Swal.fire({
+        Toast.fire({
             icon: 'error',
-            title: 'Ошибка',
-            text: 'Выберите все параметры товара!',
-        })   
+            title: 'Выберите все параметры товара!'
+        })
+    }
+})
+
+$('#buyBtnMob').on('click', function(e){
+    var count = 0;
+    var questions = $(".mobAttrs");
+    questions.each(function () {
+        if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+            const attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text()
+            const attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name')
+            $('.selectedAttrs').append(`
+                <h6 class="text">${attrName} ${attrValueName}</h6>
+            `)
+            count++;
+        }
+    });
+    if (count >= questions.length) {
+        $('#buyProduct').modal("show")
+    } else {
+        Toast.fire({
+            icon: 'error',
+            title: 'Выберите все параметры товара!'
+        })
     }
 })
 
@@ -682,6 +719,7 @@ $('.checkout-product').on('click', function() {
     $('input[type=radio]:checked').each(function(){
         attributes.push($(this).val())
     })
+
     $.ajax({
         url: '/orders/store',
         type: 'POST',
@@ -693,15 +731,17 @@ $('.checkout-product').on('click', function() {
             address,
             quantity,
             product_id,
-            'attributes': attributes
+            attributes
         },
         success: (data) => {
+            console.log(data)
             $('.order-number').text("Номер вашего заказа: " + data.order.id);
         },
         error: function(xhr, status, error) {
             console.log(status);
         }
     })
+
 });
 
 // favorite add

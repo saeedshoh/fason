@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttributeValue;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
@@ -60,11 +61,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         if ($request->ajax()) {
             $product = Product::find($request->product_id);
-            $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
+            if($request->input('attributes')){
+                $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'attributes' => $request->attributes ? json_encode($request->input('attributes')) : null, 'order_status_id' => '1']);
+            }
+            else{
+                $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
+            }
             if($order) {
+                $id = $order->id;
+                $name = $order->product->name;
+                $quantity = $order->quantity;
+                $margin = $order->total+$order->margin;
+                $address = $order->address;
+
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
                     'hash' => '9c1891437739e62b0cd45d7c8e232739',  // Ваш хэш, который выдается администратором OsonSMS
@@ -75,7 +86,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .$order->total+$order->margin. "\n Адресс доставки: " .$order->address;
+                $message = "Ваш заказ: #" .$id. " \n Название товара: " .$name. "\n Количество: " .$quantity. "\n Сумма: " .$margin. "\n Адресс доставки: " .$address;
 
                 $params = array(
                     "from" => $config['sender'],
@@ -122,7 +133,14 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('dashboard.order.check', compact('order'));
+        $attributes = null;
+        if($order->attributes){
+            $attributes = collect();
+            for ($i=0; $i < count(json_decode($order->attributes)); $i++) {
+                $attributes->push(AttributeValue::where('id', json_decode($order->attributes)[$i])->first());
+            }
+        }
+        return view('dashboard.order.check', compact('order', 'attributes'));
     }
 
     /**
