@@ -265,7 +265,7 @@
               <div class="card rounded shadow border-0 h-100 w-100">
                 <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
                 <div class="container">
-                  <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+                  <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                   <div class="discription d-none">
                     <p style="width: 6rem;" class="text-truncate">
                       {{ $product->description }}

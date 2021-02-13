@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banners;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\ItemsForPage;
 use App\Models\Log;
 use App\Models\Monetization;
 use App\Models\Order;
@@ -75,7 +76,7 @@ class HomeController extends Controller
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();
         $monetizations = $this->monetizations;
-
+        $itemsForPage = ItemsForPage::first()->qty;
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
             ->groupBy('product_id');
 
@@ -83,8 +84,8 @@ class HomeController extends Controller
             ->select(DB::raw('products.*, countProd.countProd'))
             ->leftJoinSub($countProd, 'countProd', function ($join) {
                 $join->on('products.id', '=', 'countProd.product_id');
-            })->orderByDesc('countProd')->paginate(15);
-        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->paginate(15);
+            })->orderByDesc('countProd')->take($itemsForPage)->get();
+        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->take($itemsForPage)->get();
         return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts', 'monetizations'));
     }
 

@@ -50,7 +50,6 @@
 
                         <!-- Form -->
                         <form action="{{ route('categories.update', $category) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
-
                             @csrf
                             @method('put')
                             <div class="form-row">

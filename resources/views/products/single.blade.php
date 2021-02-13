@@ -5,8 +5,6 @@
 @endsection
 @extends('layouts.footer')
 @section('content')
-
-{{--  {{ dd(json_decode($product->gallery)) }}  --}}
   <section>
     <div class="container mt-lg-5">
       <div class="row">
@@ -39,55 +37,20 @@
           <!--desktop slider end-->
           </div>
         <div>
-          <!--mobile slider-->
-          {{-- <div id="prodCarousel" class="carousel slide d-block d-lg-none" data-ride="carousel">
-            <ol class="carousel-indicators d-flex align-items-center">
-              <li data-target="#prodCarousel" data-slide-to="0" class="active"></li>
-                @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
-                    <li data-target="#prodCarousel" data-slide-to="{{ $i }}"></li>
-                @endfor
-
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="{{ Storage::url($product->image) }}" class="d-block w-100 " alt="...">
-              </div>
-              @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
-              <div class="carousel-item">
-                <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="d-block w-100"  alt="{{ $product->name }}">
-              </div>
-             @endfor
-            </div>
-            <a class="carousel-control-prev" href="#prodCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#prodCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div> --}}
-            <!--mobile slider-end-->
         </div>
         <div class="col-12 d-block d-lg-none order-2">
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                  <div class="row px-3">
-                    <span>{{ $item->first()->attribute->name }}:</span>
+                  <div class="row px-3 flex-wrap mobAttrs">
+                    <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
                     @foreach ($product->attribute_variation as $attribute)
                       @if ($key == $attribute->attribute_id)
-                        @if (substr($attribute->attribute_value->value, 0, 1) == '#')
-                            <label class="checkbox-container">
-                              <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                              <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
-                            </label>
-                        @else
-                          <nav class="att-show text-capitalize px-3">
-                            {{ $attribute->attribute_value->name }}
-                          </nav>
-                        @endif
-
+                        <label class="radio-container mr-2">
+                          {{ $attribute->attribute_value->name }}
+                          <input type="radio" data-name="{{ $item->first()->attribute->name }}:" name="{{ $attribute->attribute_value->attribute_id }}" value="{{ $attribute->attribute_value->id }}">
+                          <span class="radio-checkmark"></span>
+                        </label>
                       @endif
                     @endforeach
                   </div>
@@ -143,27 +106,21 @@
               <nav class="text-muted">
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
-              <div class="my-3 px-0 px-lg-3">
-                <div class="d-flex mt-3 gap-3 att-show-row flex-column">
+              <div class="my-3 px-0">
+                <div class="d-flex mt-3 gap-3 att-show-row flex-column  ">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                      <div class="row">
-                        <span class="pr-3">{{ $item->first()->attribute->name }}:</span>
-                        @foreach ($product->attribute_variation as $attribute)
-                          @if ($key == $attribute->attribute_id)
-                            @if (substr($attribute->attribute_value->value, 0, 1) == '#')
-                                <label class="checkbox-container">
-                                  <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                                  <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
-                                </label>
-                            @else
-                              <nav class="att-show text-capitalize px-3">
-                                {{ $attribute->attribute_value->name }}
-                              </nav>
-                            @endif
-
-                          @endif
-                        @endforeach
-                      </div>
+                  <div class="row px-3 flex-wrap desktopAttrs">
+                    <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
+                    @foreach ($product->attribute_variation as $attribute)
+                      @if ($key == $attribute->attribute_id)
+                        <label class="radio-container mr-2">
+                          {{ $attribute->attribute_value->name }}
+                          <input type="radio" data-name="{{ $item->first()->attribute->name }}:" name="{{ $attribute->attribute_value->attribute_id }}"  value="{{ $attribute->attribute_value->id }}">
+                          <span class="radio-checkmark"></span>
+                        </label>
+                      @endif
+                    @endforeach
+                    </div>
                   @endforeach
                 </div>
               </div>
@@ -195,7 +152,10 @@
                     <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger custom-radius" data-toggle="modal" data-target="#buyProduct">
+                    <button id="buyBtn" type="button" class="btn btn-danger custom-radius d-none d-lg-block" data-toggle="modal">
+                        Купить
+                    </button>
+                    <button id="buyBtnMob" type="button" class="btn btn-danger custom-radius d-block d-lg-none" data-toggle="modal">
                         Купить
                     </button>
                   @endif
@@ -216,33 +176,34 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <div class="container">
+                        <div class="container text-dark">
                           <div class="row modal-item position-relative">
                             <div class="col-12 col-lg-5">
-                              <div class="title mb-3">Товар:</div>
-                              <div class="row">
-                                <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
-                                <div class="col-8 col-lg-6">
-                                 <h6 class="h6 font-weight-bold checkout-id" data-id="{{ $product->id }}">{{ $product->name }}</h6>
-                                  <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
+                                <div class="title mb-3">Товар:</div>
+                                <div class="row">
+                                    <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
+                                    <div class="col-8 col-lg-6">
+                                        <h6 class="h6 font-weight-bold checkout-id text-dark" data-id="{{ $product->id }}">{{ $product->name }}</h6>
+                                        <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
+                                        <div class="selectedAttrs text-dark"></div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                            <div class="col-2 d-none d-lg-block">
-                              <div class="title mb-3">Цена:</div>
-                              <span class="text-secondary text-semi-bold price-start">{{ round($product->price_after_margin) }} </span>Сомони
+                            <div class="col-2 d-none d-lg-block text-dark">
+                                <div class="title mb-3">Цена:</div>
+                                <span class="text-secondary text-semi-bold price-start">{{ round($product->price_after_margin) }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
-                              <div class="d-flex flex-row flex-lg-column justify-content-between">
-                                <div class="title mb-3">Количество:</div>
-                                <span class="text-secondary text-semi-bold quantity-product">1</span>
-                              </div>
+                                <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
+                                    <div class="title mb-3">Количество:</div>
+                                    <span class="text-secondary text-semi-bold quantity-product">1</span>
+                                </div>
                             </div>
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
-                              <div class="d-flex flex-row flex-lg-column justify-content-between">
-                                <div class="title mb-3">Сумма:</div>
-                                <div class="text-semi-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
-                              </div>
+                                <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
+                                    <div class="title mb-3">Сумма:</div>
+                                    <div class="text-semi-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
+                                </div>
                             </div>
                           </div>
                           <div class="mt-3">
@@ -278,7 +239,7 @@
                         <div class="text-secondary">Ваш заказ приянт, в ближайшее время Вам позвонят наши операторы!</div>
                         <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
                         <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-                        <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div>
+                        {{-- <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div> --}}
                       </div>
                     </div>
                     <div class="modal-footer border-0">
@@ -332,7 +293,7 @@
           <div class="card rounded shadow border-0  h-100 w-100">
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
             <div class="container">
-              <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
+              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                 <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
@@ -371,9 +332,6 @@
 
       </div>
   </section>
-
-
-
   <!-- Modal 1-->
   <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
   aria-hidden="true">
