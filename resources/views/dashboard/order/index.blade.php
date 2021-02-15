@@ -104,7 +104,7 @@
               </thead>
               <tbody class="list">
                 @forelse ($orders as $key => $order)
-                <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @else()success @endif">
+                <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @elseif($order->order_status->id == 4)primary @else()success @endif">
                   <td class="orders-order">
                     #{{ ++$key}}
                   </td>
