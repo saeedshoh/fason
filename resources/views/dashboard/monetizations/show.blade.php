@@ -41,7 +41,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
+                        <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap">
                           По категориям <span class="badge badge-pill badge-soft-secondary">{{ $categoriesCount }}</span>
                         </a>
                       </li>

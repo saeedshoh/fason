@@ -115,12 +115,12 @@ class MonetizationController extends Controller
      * @param  \App\Models\Monetization  $monetization
      * @return \Illuminate\Http\Response
      */
-    public function showCategoryMonetization(Monetization $monetization)
+    public function showCategoryMonetization($id)
     {
         $monetizationsCount = Monetization::count();
         $personalisationsCount = Store::where('is_monetized', true)->count();
         $categoriesCount = Category::where('is_monetized', true)->count();
-        $monetized = Category::find($monetization->id);
+        $monetized = Category::where('id', $id)->first();
         $monetizations = $monetized->monetizations;
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }

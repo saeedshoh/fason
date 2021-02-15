@@ -183,9 +183,8 @@
                 @if(!$name->parent)
                   <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</a></h4>
                 @elseif(!$name->parent->parent)
-                  <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</a></h4>
+                    <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</a></h4>
                 @elseif(!isset($name->childrens->first()->id))
-                  <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent->slug) }}"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</a></h4>
                 @elseif(!$name->parent->parent->parent)
                   <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}"><img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->name }}</a></h4>
                 @else
