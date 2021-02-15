@@ -169,7 +169,7 @@
                 <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
                   aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered buy-modal">
-                    <div class="modal-content">
+                    <div class="modal-content mb-5">
                       <div class="modal-header border-0">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <img src="/storage/theme/icons/close-modal.svg" alt="">
@@ -312,7 +312,7 @@
       <div class="text-center">
         <h2 class="my-5 text-muted mb-other-product">Топ продаж</h2>
       </div>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-5 px-2 px-md-0 custom-lined">
         @forelse ($topProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0  h-100 w-100">
@@ -320,7 +320,7 @@
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
+                <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
