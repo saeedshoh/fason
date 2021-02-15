@@ -10,7 +10,7 @@
           <div class="text-center position-relative post-line">
             <h3 class="text-danger h3 font-weight-bold mb-4">Правила размещения информации</h3>
           </div>
-          <div class="content mt-3">
+          <div class="content mt-3 pb-5 pb-lg-0 ">
             <p class="text-justify h3 text-lg-center">
                 Фотографии товаров.
             </p>
