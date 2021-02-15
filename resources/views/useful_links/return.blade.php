@@ -10,7 +10,7 @@
           <div class="text-center position-relative post-line">
             <h3 class="text-danger h3 font-weight-bold mb-4">Условия возврата товара</h3>
           </div>
-          <div class="content mt-3">
+          <div class="content mt-3 pb-5 pb-lg-0 ">
             <p class="text-justify">
               Для возврата товара продавцу он должен соответствовать изначальным характеристикам, то есть сохранить товарный вид и свойства на момент возврата.
             </p>

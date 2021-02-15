@@ -24468,6 +24468,16 @@ __webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.i
 __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
 
+var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  toast: true,
+  position: 'top-center',
+  showConfirmButton: false,
+  timer: 2000,
+  didOpen: function didOpen(toast) {
+    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.resumeTimer);
+  }
+});
 $('#listView').on('click', function () {
   $('#catProducts .row').removeClass('row-cols-2').addClass('row-cols-1');
   $('#gridView').removeClass('d-none');
@@ -24489,7 +24499,7 @@ $('#gridView').on('click', function () {
 $('.numeric').on('change keyup', function () {
   var sanitized = $(this).val().replace(/[^0-9]/g, '');
   $(this).val(sanitized);
-}); ///  products line 
+}); ///  products line
 
 $(document).ready(function () {
   var url = $(location).attr("href");
@@ -25055,11 +25065,14 @@ $('.main-search').on('keyup keypress keydown change', function () {
   }
 });
 $('#buyBtn').on('click', function (e) {
-  console.log('sashura');
   var count = 0;
-  var questions = $(".xls");
+  var questions = $(".desktopAttrs");
+  $('.selectedAttrs').empty();
   questions.each(function () {
     if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+      var attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text();
+      var attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name');
+      $('.selectedAttrs').append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
       count++;
     }
   });
@@ -25067,10 +25080,30 @@ $('#buyBtn').on('click', function (e) {
   if (count >= questions.length) {
     $('#buyProduct').modal("show");
   } else {
-    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+    Toast.fire({
       icon: 'error',
-      title: 'Ошибка',
-      text: 'Выберите все параметры товара!'
+      title: 'Выберите все параметры товара!'
+    });
+  }
+});
+$('#buyBtnMob').on('click', function (e) {
+  var count = 0;
+  var questions = $(".mobAttrs");
+  questions.each(function () {
+    if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+      var attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text();
+      var attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name');
+      $('.selectedAttrs').append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
+      count++;
+    }
+  });
+
+  if (count >= questions.length) {
+    $('#buyProduct').modal("show");
+  } else {
+    Toast.fire({
+      icon: 'error',
+      title: 'Выберите все параметры товара!'
     });
   }
 }); // orders add
@@ -25095,9 +25128,10 @@ $('.checkout-product').on('click', function () {
       address: address,
       quantity: quantity,
       product_id: product_id,
-      'attributes': attributes
+      attributes: attributes
     },
     success: function success(data) {
+      console.log(data);
       $('.order-number').text("Номер вашего заказа: " + data.order.id);
     },
     error: function error(xhr, status, _error2) {
@@ -25164,15 +25198,9 @@ $('#btn-login, #code').on('click change', function () {
     success: function success(data) {
       if (data == 'true') {
         location.reload(true);
-      }
-
-      if ($('#adressChange')) {
+      } else {
         $('#enter_site').modal('hide');
         $('#adressChange').modal('show');
-      } else {
-        if (data == 2) {
-          location.reload(true);
-        }
       }
     },
     error: function error(xhr, status, _error4) {

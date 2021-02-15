@@ -114,7 +114,7 @@
   @else
     <h4 class="py-3 category-item border-bottom text-dark"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}"><img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">{{ $name->parent->name }}</a></h4>
   @endif
-    <ul class="shop-subject categories list-group list-group-flush h-100 mx-0">
+    <ul class="shop-subject px-5 list-group list-group-flush h-100 mx-0">
       @forelse ($categories as $category)
       <li class="list-group-item  bg-transparent py-2 border-bottom">
         <nav class="category-mix px-3">
