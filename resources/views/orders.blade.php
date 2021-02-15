@@ -28,9 +28,9 @@
 
                 @forelse ($orders as $order)
 
-                    <div class="@if ($order->order_status_id == 3)success-card @elseif($order->order_status_id == 2)in-road-card @else()declined-card @endif">
+                    <div class="@if ($order->order_status_id == 3)success-card @elseif($order->order_status_id == 1)in-road-card @elseif($order->order_status_id == 4)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
-                            <h6 class="@if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
+                            <h6 class="@if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-warning @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6 px-2 px-sm-3">
@@ -41,7 +41,7 @@
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary">{{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
-                                            <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $order->total+$order->margin }} Сомони</span>
+                                            <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-warning @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
                                         </h6>
                                     </div>
 
@@ -54,11 +54,11 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>
-                                <h4 class="h4 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->total+$order->margin }} Сомони</h4>
+                                <h4 class="h4 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-warning @else text-success @endif ">{{ $order->total+$order->margin }} Сомони</h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Статус</h6>
-                                <h4 class="h5 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @else text-success @endif ">{{ $order->order_status->name }}</h4>
+                                <h4 class="h5 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-warning @else text-success @endif ">{{ $order->order_status->name }}</h4>
                             </div>
                             <a href="{{ route('ft-products.single', $order->product->slug) }}" class="stretched-link"></a>
                         </div>
@@ -73,9 +73,9 @@
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                 @forelse ($sales as $sale)
                     @if ($sale->product->store_id == Auth::user()->id)
-                    <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 2)in-road-card @else()declined-card @endif">
+                    <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)in-road-card @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
-                            <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 2)text-warning @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
+                            <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-warning @elseif($sale->order_status_id == 1)text-warning @elseif($order->order_status_id == 4) text-warning @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
@@ -86,7 +86,7 @@
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary">{{ $sale->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
-                                            <span class="text-uppercase">Цена</span>: <span class="text-danger"> {{ $sale->total }} Сомони</span>
+                                            <span class="text-uppercase">Цена</span>: <span class=" @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-warning @else text-success @endif "> {{ $sale->total }} Сомони</span>
                                         </h6>
                                     </div>
 
@@ -99,11 +99,11 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>
-                                <h4 class="h4 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @else text-success @endif ">{{ $sale->total }} Сомони</h4>
+                                <h4 class="h4 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-warning @else text-success @endif ">{{ $sale->total }} Сомони</h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Статус</h6>
-                                <h4 class="h5 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @else text-success @endif ">{{ $sale->order_status->name }}</h4>
+                                <h4 class="h5 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-warning @else text-success @endif ">{{ $sale->order_status->name }}</h4>
                             </div>
                             <a href="{{ route('ft-products.single', $sale->product->slug) }}" class="stretched-link"></a>
                         </div>

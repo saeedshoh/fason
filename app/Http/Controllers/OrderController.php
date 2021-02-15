@@ -230,8 +230,15 @@ class OrderController extends Controller
     public function acceptOrder(Order $order)
     {
         // return $order;
-        $order->update(['order_status_id' => 3]);
+        $order->update(['order_status_id' => 4]);
         return redirect()->route('orders.index')->with(['success' => 'Заказ успншно приянт']);
+    }
+
+    public function completeOrder(Order $order)
+    {
+        // return $order;
+        $order->update(['order_status_id' => 3]);
+        return redirect()->route('orders.index')->with(['success' => 'Заказ успншно выполнен']);
     }
 
     public function declineOrder(Order $order)

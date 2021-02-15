@@ -190,7 +190,7 @@
       </div>
 
       <div class="partners_and_another">
-
+      @if($middle_banner)
       <!--BANNER  -->
       <div class="row under_banner d-none d-md-block mt-4">
         <a href="{{ $middle_banner ? $middle_banner->url : '' }}">
@@ -198,6 +198,7 @@
         </a>
       </div>
       <!--Banner end-->
+      @endif
       <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)

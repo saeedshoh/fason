@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     ]);
     Route::post('/acceptOrder/{order}', [OrderController::class, 'acceptOrder'])->name('acceptOrder');
     Route::post('/declineOrder/{order}', [OrderController::class, 'declineOrder'])->name('declineOrder');
+    Route::post('/completeOrder/{order}', [OrderController::class, 'completeOrder'])->name('completeOrder');
     Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
     Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');
     Route::get('/showStoreMonetization/{id}', [MonetizationController::class, 'showStoreMonetization'])->name('showStoreMonetization');
