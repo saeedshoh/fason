@@ -243,7 +243,7 @@ class OrderController extends Controller
 
     public function declineOrder(Order $order)
     {
-        $order->update(['order_status_id' => 2]);
+        $order->update(['order_status_id' => 2]); 
         return redirect()->route('orders.index')->with(['success' => 'Заказ отклонен']);
     }
 }
