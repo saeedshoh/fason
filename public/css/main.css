@@ -12730,3 +12730,17 @@ input[type=number]:hover::-webkit-outer-spin-button {
   color: #000 !important;
 }
 
+#catProducts img {
+  height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media only screen and (max-width: 375px) {
+  #catProducts img {
+    height: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+
