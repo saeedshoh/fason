@@ -11,7 +11,7 @@
             <h2 class="text-danger font-weight-bold mb-4">Условия и положения</h2>
             <h3 class="text-danger font-weight-bold mb-4">Условия использования сайта</h3>
           </div>
-          <div class="content mt-3">
+          <div class="content mt-3 pb-5 pb-lg-0 ">
             <p class="text-justify h4">
                 1. Общие положения
             </p>

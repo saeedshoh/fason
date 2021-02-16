@@ -24972,10 +24972,9 @@ $(document).on('change', '.js-attribute', function () {
     }
   });
 });
-$(document).on('change', "input[name='cvet']", function () {
+$(document).on('change', "input[name='cvet'], input[name='checkSvet']", function () {
   var val = $(this).val();
   var colors = $('#colors_input');
-  console.log(colors.val());
 
   if (this.checked) {
     if (colors.val().length < 1) {

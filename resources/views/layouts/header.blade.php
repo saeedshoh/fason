@@ -119,6 +119,7 @@
         </div>
         @endauth
       @endif
+      @auth
       <div class="col text-center px-0">
         <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
         @isset($is_store->orders)
@@ -130,6 +131,20 @@
         <span class="mobile-nav--title">Заказы</span>
         </a>
       </div>
+      @endauth
+      @guest
+      <div class="col text-center px-0">
+        <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
+        @isset($is_store->orders)
+            @if ($is_store->orders->where('order_status_id', 1)->count() > 0)
+                <sub class="h6 bg-danger rounded-circle m-0 float-right ml-3 mt-n3 text-white px-1">{{ $is_store->orders->where('order_status_id', 1)->count() }}</sub>
+            @endif
+        @endisset
+        <img src="/storage/theme/icons/orderes-mob.svg" width="19">
+        <span class="mobile-nav--title">Заказы</span>
+        </a>
+      </div>   
+      @endguest
       @if ($is_store == null)
         @auth
         <div class="col text-center px-0">

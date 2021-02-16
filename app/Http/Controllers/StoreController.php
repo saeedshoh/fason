@@ -142,7 +142,7 @@ class StoreController extends Controller
             $data['cover'] = $cover;
         }
         $data['user_id'] = Auth::id();
-        if(Store::where('id', $store->id)->update($data)) {
+        if(Store::where('id', $store->id)->update($data + ['is_active' => 0])) {
             $store = Store::where('id', $store->id)->first();
         }
         $city = City::where('id', $request->city_id)->first()->name;
