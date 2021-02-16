@@ -145,7 +145,7 @@
                 </div>
               </div>
               @empty
-                  Извините ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -175,7 +175,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -199,7 +199,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -223,7 +223,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -247,7 +247,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -271,7 +271,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -298,7 +298,7 @@
                 </div>
               </div>
               @empty
-                  Извените ничего не найдено
+                  <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>

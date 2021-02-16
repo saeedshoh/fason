@@ -6,8 +6,8 @@
         <div class="container">
             <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
             <div class="discription d-none">
-                <p style="width: 6rem;" class="text-truncate">
-                {{ $product->description }}
+                <p style="width: 6rem;">
+                 {{ Str::limit($product->description, 20) }}
                 </p>
             </div>
             <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
@@ -30,8 +30,8 @@
     <div class="container">
         <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
         <div class="discription">
-            <p style="width: 6rem;" class="text-truncate">
-            {{ $product->description }}
+            <p style="width: 6rem;">
+                 {{ Str::limit($product->description, 20) }}
             </p>
         </div>
         <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">

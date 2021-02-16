@@ -87330,8 +87330,13 @@ $(document).on('change', '.js-attribute', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
+=======
 __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
 module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
+>>>>>>> eb48360b1c490ed3bc55cfe76ff2e5136ee525d7
 
 
 /***/ })

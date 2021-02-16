@@ -24972,10 +24972,9 @@ $(document).on('change', '.js-attribute', function () {
     }
   });
 });
-$(document).on('change', "input[name='cvet']", function () {
+$(document).on('change', "input[name='cvet'], input[name='checkSvet']", function () {
   var val = $(this).val();
   var colors = $('#colors_input');
-  console.log(colors.val());
 
   if (this.checked) {
     if (colors.val().length < 1) {
@@ -25538,7 +25537,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })
