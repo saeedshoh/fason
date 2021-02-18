@@ -70,11 +70,6 @@ class OrderController extends Controller
                 $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
             }
             if($order) {
-                $id = $order->id;
-                $name = $order->product->name;
-                $quantity = $order->quantity;
-                $margin = $order->total+$order->margin;
-                $address = $order->address;
 
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
@@ -86,7 +81,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$id. " \n Название товара: " .$name. "\n Количество: " .$quantity. "\n Сумма: " .$margin. "\n Адресс доставки: " .$address;
+                $message = "Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .$order->margin. "\n Адресс доставки: " .$order->address;
 
                 $params = array(
                     "from" => $config['sender'],
@@ -243,7 +238,7 @@ class OrderController extends Controller
 
     public function declineOrder(Order $order)
     {
-        $order->update(['order_status_id' => 2]); 
+        $order->update(['order_status_id' => 2]);
         return redirect()->route('orders.index')->with(['success' => 'Заказ отклонен']);
     }
 }

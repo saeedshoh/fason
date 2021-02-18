@@ -444,14 +444,12 @@ $(document).on('change', '#cat_parent', function() {
                             <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                             <div class="w-75 input_placeholder_style">
                                 <select class="input_placeholder_style form-control position-relative" id="cat_child" name="category_id" required>
-                                    <option selected disabled value>Выберите категорию</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 `)
                 $('#cat_child').empty().append(`
-                    <option disabled selected>Выберите подкатегорию</option>
                 `)
                 $('#child_div').remove()
                 data.forEach(element => {
@@ -610,7 +608,6 @@ $('body').on('change', '#cat_child', function() {
                         <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="w-75 input_placeholder_style">
                             <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id" required>
-                                <option disabled selected>Выберите категорию</option>
                             </select>
                         </div>
                     </div>

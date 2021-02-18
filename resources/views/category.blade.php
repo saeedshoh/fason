@@ -103,7 +103,6 @@
   </h3>
     <a class="text-pinky font-weight-bold" href="{{route('home')}}">Все категории</a>
   </div>
-
   @if(!$name->parent)
     <h4 class="py-3 category-item border-bottom text-dark"><a class="text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
   @elseif(!$name->parent->parent)
@@ -127,15 +126,17 @@
       </li>
       @empty
         @if ($parent_cat)
-            @foreach ($parent_cat as $category)
-                <li class="list-group-item  bg-transparent border-bottom">
-                    <nav class="category-mix w-100 px-3">
-                      <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
-                        <span class="count-products d-block" data-id="{{ $category->id }}"></span>
-                      </a>
-                    </nav>
-                </li>
-            @endforeach
+            @if(isset($name->childrens->first()->id))
+                @foreach ($parent_cat as $category)
+                    <li class="list-group-item  bg-transparent border-bottom">
+                        <nav class="category-mix w-100 px-3">
+                        <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
+                            <span class="count-products d-block" data-id="{{ $category->id }}"></span>
+                        </a>
+                        </nav>
+                    </li>
+                @endforeach
+            @endif
         @endif
       @endforelse
     </ul>
