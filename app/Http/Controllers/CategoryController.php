@@ -100,13 +100,16 @@ class CategoryController extends Controller
             ->push($parentId)
             ->all();
         $has = Category::with('grandchildren')->find($request->category);
-        if (isset($has->grandchildren[0])) {
-            foreach ($has->grandchildren[0]->childrens as $child) {
-                array_push($categoryIds, $child->id);
+        if(isset($has->grandchildren[0])){
+            for ($i=0; $i < count($has->grandchildren); $i++) {
+                foreach($has->grandchildren[$i]->childrens as $child)
+                {
+                    array_push($categoryIds, $child->id);
+                }
             }
         }
-        $count = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->get('id');
-        return response()->json(count($count));
+        $count = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->count();
+        return response()->json($count);
     }
 
     public function index()
