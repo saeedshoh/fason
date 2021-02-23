@@ -34,15 +34,18 @@ class CategoryController extends Controller
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first();
         $categories = Category::where('parent_id', $cat_id)->orderBy('order_no')->get();
-        $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
+        $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
             ->value('id'))
             ->pluck('id')
             ->push($parentId)
             ->all();
-        $has = Category::with('grandchildren')->find($cat_id);
-        if (isset($has->grandchildren[0])) {
-            foreach ($has->grandchildren[0]->childrens as $child) {
-                array_push($categoryIds, $child->id);
+        $has = Category::with('grandchildren')->find($request->category);
+        if(isset($has->grandchildren[0])){
+            for ($i=0; $i < count($has->grandchildren); $i++) {
+                foreach($has->grandchildren[$i]->childrens as $child)
+                {
+                    array_push($categoryIds, $child->id);
+                }
             }
         }
         $parent_cat = Category::where('parent_id', $name->parent_id)->orderBy('order_no')->get();

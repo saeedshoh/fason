@@ -140,7 +140,7 @@ class ProductController extends Controller
         // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
-            'gallery' => 'required'
+            'gallery' => 'sometimes'
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
@@ -201,7 +201,7 @@ class ProductController extends Controller
         {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-                'gallery' => 'required'
+                'gallery' => 'sometimes'
             ]);
 
             //Create folder if doesn't exist
@@ -269,7 +269,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
-            'gallery' => 'required'
+            'gallery' => 'sometimes'
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
@@ -367,7 +367,7 @@ class ProductController extends Controller
         {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-                'gallery' => 'required'
+                'gallery' => 'sometimes'
             ]);
 
             //Create folder if doesn't exist
