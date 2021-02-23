@@ -8,6 +8,8 @@ use App\Models\City;
 use App\Models\Order;
 use App\Models\Store;
 use App\Models\Product;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Auth;
@@ -54,10 +56,23 @@ class StoreController extends Controller
 			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
         ]);
 
-		$avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
-        $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month);
+        }
+        $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
+        $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
 
-        Store::create($request->validated() + ['avatar' => $avatar, 'cover' => $cover, 'user_id' => Auth::id() ]);
+        $avatar = Image::make($request->file('avatar'))->fit(270, 215, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $cover = Image::make($request->file('cover'))->fit(840, 215, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $avatar->save(public_path('/storage/'.$avatarPath));
+        $cover->save(public_path('/storage/'.$coverPath));
+
+        Store::create($request->validated() + ['avatar' => $avatarPath, 'cover' => $coverPath, 'user_id' => Auth::id() ]);
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -127,19 +142,32 @@ class StoreController extends Controller
     public function update(StoreRequest $request, Store $store)
     {
         $data = $request->validated();
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month);
+        }
         if(isset($request->avatar)){
             $request->validate([
                 'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
-            $avatar = $request->file('avatar')->store(now()->year . '/' . sprintf("%02d", now()->month));
-            $data['avatar'] = $avatar;
+            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
+
+            $avatar = Image::make($request->file('avatar'))->fit(270, 215, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $avatar->save(public_path('/storage/'.$avatarPath));
+            $data['avatar'] = $avatarPath;
         }
         if(isset($request->cover)){
             $request->validate([
                 'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
-            $cover = $request->file('cover')->store(now()->year . '/' . sprintf("%02d", now()->month));
-            $data['cover'] = $cover;
+            $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
+            $cover = Image::make($request->file('cover'))->fit(840, 215, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $cover->save(public_path('/storage/'.$coverPath));
+            $data['cover'] = $coverPath;
         }
         $data['user_id'] = Auth::id();
         if(Store::where('id', $store->id)->update($data + ['is_active' => 0])) {
