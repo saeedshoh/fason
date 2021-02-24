@@ -810,9 +810,7 @@ $('#btn-login, #code').on('click change', function () {
             else {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
-
             }
-
         },
         error: function (xhr, status, error) {
             console.log(status);

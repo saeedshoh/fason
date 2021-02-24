@@ -25344,7 +25344,7 @@ function cover(input) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-      $('#cover-poster').attr('src', e.target.result);
+      $('#cover-poster-mobile').attr('src', e.target.result);
     };
 
     reader.readAsDataURL(input.files[0]);
