@@ -109,7 +109,7 @@
           <span class="mobile-nav--title">Сохраненные</span>
         </a>
       </div>
-      @if ($is_store != null && $is_store->is_active == 1)
+      {{-- @if ($is_store != null && $is_store->is_active == 1) --}}
         @auth
         <div class="col add-good text-center position-relative px-0">
           <a href="{{ route('ft_product.add_product') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
@@ -118,7 +118,7 @@
           </a>
         </div>
         @endauth
-      @endif
+      {{-- @endif --}}
       @auth
       <div class="col text-center px-0">
         <a href="{{ route('ft-order.orders') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
@@ -143,14 +143,14 @@
         <img src="/storage/theme/icons/orderes-mob.svg" width="19">
         <span class="mobile-nav--title">Заказы</span>
         </a>
-      </div>   
+      </div>
       @endguest
       @if ($is_store == null)
         @auth
         <div class="col text-center px-0">
           <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
             <i class="fas fa-door-open text-pinky" width="19"></i>
-            <span class="mobile-nav--title text-pinky">В магазин</span>
+            <span class="mobile-nav--title text-pinky">Открыть магазин</span>
           </a>
         </div>
         @endauth

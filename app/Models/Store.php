@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\ActiveStoreScope;
 use App\Models\Monetization;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -67,5 +68,13 @@ class Store extends Model
         return $this->belongsToMany(Monetization::class);
     }
 
-
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new ActiveStoreScope);
+    }
 }

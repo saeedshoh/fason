@@ -150,43 +150,50 @@ $('body').on('click', '.deleteImage', function() {
         </div>
     `)
 })
-
+function throttle(f, delay){
+    var timer = null;
+    return function(){
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = window.setTimeout(function(){
+            f.apply(context, args);
+        },
+        delay || 2000);
+    };
+}
 $(document).ready(function() {
-    $('body').on('keyup', '#nameStoreCreate', function() {
+    $('#nameStoreCreate').on('keyup', throttle(function() {
         $('#storeSubmit').attr('disabled', true);
         var store = $(this).val();
         if (store.length >= 3) {
-            setTimeout(() => {
-                $.get('/store/exist/' + store, function(data) {
-                    if (data.exist) {
-                        $('.store-exist').removeClass('d-none');
-                        $('#storeSubmit').attr('disabled', true);
-                    } else {
-                        $('.store-exist').addClass('d-none');
-                        $('#storeSubmit').attr('disabled', false);
-                    }
-                });
-            }, 2000);
+            console.log(store);
+            $.get('/store/exist/' + store, function(data) {
+                if (data.exist) {
+                    $('.store-exist').removeClass('d-none');
+                    $('#storeSubmit').attr('disabled', true);
+                } else {
+                    $('.store-exist').addClass('d-none');
+                    $('#storeSubmit').attr('disabled', false);
+                }
+            });
         }
-    });
+    }));
 
-    $('body').on('keyup', '#nameEditStore', function() {
+    $('#nameEditStore').on('keyup', throttle(function() {
         $('#storeEditSubmit').attr('disabled', true);
         var store = $(this).val();
         if (store != this.defaultValue) {
-            setTimeout(() => {
-                $.get('/store/exist/' + store, function(data) {
-                    if (data.exist) {
-                        $('.store-exist').removeClass('d-none');
-                        $('#storeEditSubmit').attr('disabled', true);
-                    } else {
-                        $('.store-exist').addClass('d-none');
-                        $('#storeEditSubmit').attr('disabled', false);
-                    }
-                });
-            }, 2000);
+            $.get('/store/exist/' + store, function(data) {
+                if (data.exist) {
+                    $('.store-exist').removeClass('d-none');
+                    $('#storeEditSubmit').attr('disabled', true);
+                } else {
+                    $('.store-exist').addClass('d-none');
+                    $('#storeEditSubmit').attr('disabled', false);
+                }
+            });
         }
-    });
+    }));
 
     $('.sms--false').hide();
     $(window).scroll(fetchPosts);
@@ -789,9 +796,11 @@ $('.favorite').on('click', function() {
 });
 
 // sms-congirm
-$('#btn-login, #code').on('click change', function () {
+$('#btn-login').on('click', function () {
     const phone = $('#phone').val();
-    const code = $('#code').val()
+    const code = $('#code').val();
+    // console.log(code);
+    $('.wrong-code').hide();
     $.ajax({
 
         url: '/sms-confirmed',
@@ -807,9 +816,12 @@ $('#btn-login, #code').on('click change', function () {
             if (data == 'true') {
                 location.reload(true);
             }
-            else {
+            else if (data == 'false') {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
+            }
+            else if (data == 'wrong code'){
+                $('.wrong-code').show();
             }
         },
         error: function (xhr, status, error) {
@@ -832,6 +844,7 @@ $('#send-code, .send-code').on('click', function() {
             phone,
         },
         success: (data) => {
+            $('#btn-login').prop("disabled", false);
             $('#send-code').hide();
             $('.enter-code').show();
             $('.sms--true').show();
@@ -868,7 +881,7 @@ function startTimer(duration, display) {
             $('.sms--true').hide();
             $('.sms--false').show();
             clearInterval(time);
-
+            $('#btn-login').prop("disabled", true);
         }
     }, 1000);
 }

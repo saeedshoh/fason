@@ -28,7 +28,7 @@ class StoreController extends Controller
     }
     public function index()
     {
-        $stores = Store::latest()->paginate(20);
+        $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->paginate(20);
         return view('dashboard.store.index', compact('stores'));
     }
 
@@ -51,28 +51,36 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $request->validate([
-			'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp',
-			'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
-        ]);
-
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
         }
-        $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
-        $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
+        if(isset($request->avatar)){
+            $request->validate([
+                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
+            $avatar = Image::make($request->file('avatar'))->fit(270, 215, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $avatar->save(public_path('/storage/'.$avatarPath));
+            $data['avatar'] = $avatarPath;
+        }
+        if(isset($request->cover)){
+            $request->validate([
+                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            ]);
+            $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
+            $cover = Image::make($request->file('cover'))->fit(840, 215, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $cover->save(public_path('/storage/'.$coverPath));
+            $data['cover'] = $coverPath;
+        }
 
-        $avatar = Image::make($request->file('avatar'))->fit(270, 215, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $cover = Image::make($request->file('cover'))->fit(840, 215, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $avatar->save(public_path('/storage/'.$avatarPath));
-        $cover->save(public_path('/storage/'.$coverPath));
-
-        Store::create($request->validated() + ['avatar' => $avatarPath, 'cover' => $coverPath, 'user_id' => Auth::id() ]);
+        Store::create($data);
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -84,7 +92,7 @@ class StoreController extends Controller
      */
     public function show($slug)
     {
-        $store = Store::where('slug', $slug)->first();
+        $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
         $products = Product::where('store_id', $store->id)->get();
         $acceptedProducts = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         $onCheckProducts = Product::where('store_id', $store->id)->where('product_status_id', 1)->get();
@@ -105,7 +113,7 @@ class StoreController extends Controller
      */
     public function salesHistory($slug)
     {
-        $stores = Store::with('orders')->where('slug', $slug)->first();
+        $stores = Store::with('orders')->where('slug', $slug)->withoutGlobalScopes()->first();
         $orders = Order::where('user_id', $stores->user_id)->get();
         $months = [];
 
@@ -127,7 +135,7 @@ class StoreController extends Controller
      */
     public function edit ($slug)
     {
-        $store = Store::where('slug', $slug)->first();
+        $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
         $cities = City::get();
         return view('store.edit', compact('store', 'cities'));
     }
@@ -139,7 +147,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRequest $request, Store $store)
+    public function update(StoreRequest $request, $store)
     {
         $data = $request->validated();
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
@@ -170,8 +178,8 @@ class StoreController extends Controller
             $data['cover'] = $coverPath;
         }
         $data['user_id'] = Auth::id();
-        if(Store::where('id', $store->id)->update($data + ['is_active' => 0])) {
-            $store = Store::where('id', $store->id)->first();
+        if(Store::where('id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
+            $store = Store::where('id', $store)->withoutGlobalScopes()->first();
         }
         $city = City::where('id', $request->city_id)->first()->name;
         Log::create([
@@ -229,7 +237,7 @@ class StoreController extends Controller
     public function exist(Request $request, $name)
     {
         if($request->ajax()){
-            if (Store::where('name', $name)->exists()) {
+            if (Store::where('name', $name)->withoutGlobalScopes()->exists()) {
                 return response(['exist' => true], 200);
             }
             return response(['exist' => false], 200);

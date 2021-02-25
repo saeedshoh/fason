@@ -31,7 +31,8 @@
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
                     <div class="form-group text-center">
-                      <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
+                      <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код" max="999999">
+                      <p class="text-danger wrong-code text-left mt-1" style="display: none;">Введен не правильный код</p>
                     </div>
                       <h2 id="count-down" class="my-3">01:00</h2>
                       <div class="pre--info">

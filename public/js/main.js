@@ -24611,43 +24611,53 @@ $('body').on('click', '.deleteImage', function () {
 
   $('#db-preview-image').append("\n        <div class=\"col-3 text-center product_image d-flex justify-content-center align-items-center\" data-image=\"false\">\n            <div class=\"spinner-border d-none\" role=\"status\">\n                <span class=\"sr-only\">Loading...</span>\n            </div>\n            <label for=\"galler\">\n                <img src=\"/storage/theme/avatar_gallery.svg\" class=\"px-0 btn mw-100 rounded gallery\"  alt=\"\">\n            </label>\n        </div>\n    ");
 });
+
+function throttle(f, delay) {
+  var timer = null;
+  return function () {
+    var context = this,
+        args = arguments;
+    clearTimeout(timer);
+    timer = window.setTimeout(function () {
+      f.apply(context, args);
+    }, delay || 2000);
+  };
+}
+
 $(document).ready(function () {
-  $('body').on('keyup', '#nameStoreCreate', function () {
+  $('#nameStoreCreate').on('keyup', throttle(function () {
     $('#storeSubmit').attr('disabled', true);
     var store = $(this).val();
 
     if (store.length >= 3) {
-      setTimeout(function () {
-        $.get('/store/exist/' + store, function (data) {
-          if (data.exist) {
-            $('.store-exist').removeClass('d-none');
-            $('#storeSubmit').attr('disabled', true);
-          } else {
-            $('.store-exist').addClass('d-none');
-            $('#storeSubmit').attr('disabled', false);
-          }
-        });
-      }, 2000);
+      console.log(store);
+      $.get('/store/exist/' + store, function (data) {
+        if (data.exist) {
+          $('.store-exist').removeClass('d-none');
+          $('#storeSubmit').attr('disabled', true);
+        } else {
+          $('.store-exist').addClass('d-none');
+          $('#storeSubmit').attr('disabled', false);
+        }
+      });
     }
-  });
-  $('body').on('keyup', '#nameEditStore', function () {
+  }));
+  $('#nameEditStore').on('keyup', throttle(function () {
     $('#storeEditSubmit').attr('disabled', true);
     var store = $(this).val();
 
     if (store != this.defaultValue) {
-      setTimeout(function () {
-        $.get('/store/exist/' + store, function (data) {
-          if (data.exist) {
-            $('.store-exist').removeClass('d-none');
-            $('#storeEditSubmit').attr('disabled', true);
-          } else {
-            $('.store-exist').addClass('d-none');
-            $('#storeEditSubmit').attr('disabled', false);
-          }
-        });
-      }, 2000);
+      $.get('/store/exist/' + store, function (data) {
+        if (data.exist) {
+          $('.store-exist').removeClass('d-none');
+          $('#storeEditSubmit').attr('disabled', true);
+        } else {
+          $('.store-exist').addClass('d-none');
+          $('#storeEditSubmit').attr('disabled', false);
+        }
+      });
     }
-  });
+  }));
   $('.sms--false').hide();
   $(window).scroll(fetchPosts);
 
@@ -25181,9 +25191,11 @@ $('.favorite').on('click', function () {
   // });
 }); // sms-congirm
 
-$('#btn-login, #code').on('click change', function () {
+$('#btn-login').on('click', function () {
   var phone = $('#phone').val();
-  var code = $('#code').val();
+  var code = $('#code').val(); // console.log(code);
+
+  $('.wrong-code').hide();
   $.ajax({
     url: '/sms-confirmed',
     type: 'post',
@@ -25197,9 +25209,11 @@ $('#btn-login, #code').on('click change', function () {
     success: function success(data) {
       if (data == 'true') {
         location.reload(true);
-      } else {
+      } else if (data == 'false') {
         $('#enter_site').modal('hide');
         $('#adressChange').modal('show');
+      } else if (data == 'wrong code') {
+        $('.wrong-code').show();
       }
     },
     error: function error(xhr, status, _error4) {
@@ -25221,6 +25235,7 @@ $('#send-code, .send-code').on('click', function () {
       phone: phone
     },
     success: function success(data) {
+      $('#btn-login').prop("disabled", false);
       $('#send-code').hide();
       $('.enter-code').show();
       $('.sms--true').show();
@@ -25256,6 +25271,7 @@ function startTimer(duration, display) {
       $('.sms--true').hide();
       $('.sms--false').show();
       clearInterval(time);
+      $('#btn-login').prop("disabled", true);
     }
   }, 1000);
 } // preview image
@@ -25537,7 +25553,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

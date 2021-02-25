@@ -24,7 +24,7 @@
       <div class="row mt-sm-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
-            <img src="/storage/{{ $store->avatar }}" class="w-100 rounded" id="avatar-poster" height="216">
+            <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="w-100 rounded" id="avatar-poster" height="216">
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/{{ $store->cover }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
+          <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
 
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">

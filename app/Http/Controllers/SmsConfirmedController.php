@@ -17,13 +17,15 @@ class SmsConfirmedController extends Controller
     public function confirmed(Request $request)
     {
         if ($request->ajax()) {
+            //check if user exists
             $user = User::where('phone', str_replace(' ', '', $request->phone))->first();
 
-            $sms_confirmed = SmsConfirmed::where('code', $request->code)->orderBy('id', 'desc')->first();
-            if ($request->code == $sms_confirmed->code && $sms_confirmed->is_active == 0) {
-                $confirm = SmsConfirmed::where('code', $request->code)->update(['is_active' => 1]);
-            }
-            if ($sms_confirmed->is_active == 1) {
+            //get the last sms user received
+            $last_sms = SmsConfirmed::where('user_id', $user->id)->orderBy('id', 'desc')->first();
+
+            //check if sms code is correct
+            if($last_sms->code == $request->code && $last_sms->is_active == 0){
+                $last_sms->update(['is_active' => 1]);
                 if($user->registered_at !== null){
                     Auth::login($user);
                     return 'true';
@@ -31,6 +33,9 @@ class SmsConfirmedController extends Controller
                 else {
                     return 'false';
                 }
+            }
+            else {
+                return 'wrong code';
             }
         }
     }

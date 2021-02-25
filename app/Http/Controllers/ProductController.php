@@ -57,7 +57,8 @@ class ProductController extends Controller
     public function add_product()
     {
         $cat_parent = $this->categories->where('parent_id', 0);
-        return view('products.create', compact('cat_parent'));
+        $store = Store::withoutGlobalScopes()->where('user_id', Auth::id())->first()->id;
+        return view('products.create', compact('cat_parent', 'store'));
     }
 
 
@@ -71,11 +72,11 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
-        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
         ->groupBy('product_id');
         $topProducts = Product::where('product_status_id', 2)
+        ->where('category_id', $product->category_id)
         ->select(DB::raw('products.*, countProd.countProd'))
         ->leftJoinSub($countProd, 'countProd', function ($join) {
             $join->on('products.id', '=', 'countProd.product_id');

@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
           <label for="cover" class="cursor-pointer">
-            <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster" height="216">
+            <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
           </label>
 
           <div class="change-banner position-absolute">
