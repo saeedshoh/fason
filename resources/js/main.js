@@ -149,15 +149,17 @@ $('body').on('click', '.deleteImage', function() {
         </div>
     `)
 })
-function throttle(f, delay){
+
+function throttle(f, delay) {
     var timer = null;
-    return function(){
-        var context = this, args = arguments;
+    return function() {
+        var context = this,
+            args = arguments;
         clearTimeout(timer);
-        timer = window.setTimeout(function(){
-            f.apply(context, args);
-        },
-        delay || 2000);
+        timer = window.setTimeout(function() {
+                f.apply(context, args);
+            },
+            delay || 2000);
     };
 }
 $(document).ready(function() {
@@ -269,6 +271,19 @@ $(document).ready(function() {
     $("#phone").inputmask({
         mask: '999 99 9999',
         placeholder: ' ',
+        showMaskOnHover: false,
+        showMaskOnFocus: false,
+        onBeforePaste: function(pastedValue, opts) {
+            var processedValue = pastedValue;
+
+            //do something with it
+
+            return processedValue;
+        }
+    });
+    $("#code").inputmask({
+        mask: '99999',
+        placeholder: '',
         showMaskOnHover: false,
         showMaskOnFocus: false,
         onBeforePaste: function(pastedValue, opts) {
@@ -790,7 +805,7 @@ $('.favorite').on('click', function() {
 });
 
 // sms-congirm
-$('#btn-login').on('click', function () {
+$('#btn-login').on('click', function() {
     const phone = $('#phone').val();
     const code = $('#code').val();
     // console.log(code);
@@ -809,12 +824,10 @@ $('#btn-login').on('click', function () {
         success: (data) => {
             if (data == 'true') {
                 location.reload(true);
-            }
-            else if (data == 'false') {
+            } else if (data == 'false') {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
-            }
-            else if (data == 'wrong code'){
+            } else if (data == 'wrong code') {
                 $('.wrong-code').show();
             }
         },
@@ -828,67 +841,43 @@ $('#btn-login').on('click', function () {
 $('#send-code, .send-code').on('click', function() {
     $(this).attr('disabled', true);
     const phone = $('#phone').val();
-    $.ajax({
-        url: '/sms-send',
-        type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            phone,
-        },
-        success: (data) => {
-            $('#btn-login').prop("disabled", false);
-            $('#send-code').hide();
-            $('.enter-code').show();
-            $('.sms--true').show();
-            $('.sms--false').hide();
-            if (data == 1) {
-                $('#adressChange').remove();
-            }
-            var fiveMinutes = 6 * 10,
-                display = document.querySelector('#count-down');
-            return startTimer(fiveMinutes, display);
-        },
-        error: function(xhr, status, error) {
-            console.log(status);
-        }
-    });
-});
-$('#phone').on('change', function() {
-    if (this.value.replace(/\s/g, '').length === 9) {
-        $('#send-code, .send-code').on('click', function() {
-            $(this).attr('disabled', true);
-            const phone = $('#phone').val();
-            $.ajax({
-                url: '/sms-send',
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    phone,
-                },
-                success: (data) => {
-                    $('#send-code').hide();
-                    $('.enter-code').show();
-                    $('.sms--true').show();
-                    $('.sms--false').hide();
-                    if (data == 1) {
-                        $('#adressChange').remove();
-                    }
-                    var fiveMinutes = 6 * 10,
-                        display = document.querySelector('#count-down');
-                    return startTimer(fiveMinutes, display);
-                },
-                error: function(xhr, status, error) {
+    if (phone.replace(/\s/g, '').length == 9) {
+        $('#phone').closest('.btn-group-fs').find('.btn-custom-fs').attr('style', "background-color: #e9ecef;");
+        $('#phone').attr('disabled', true);
+        $('.wrong-phone-number').hide();
 
-                    console.log(status);
+        $.ajax({
+            url: '/sms-send',
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                phone,
+            },
+            success: (data) => {
+                $('#btn-login').prop("disabled", false);
+                $('#send-code').hide();
+                $('.enter-code').show();
+                $('.sms--true').show();
+                $('.sms--false').hide();
+                if (data == 1) {
+                    $('#adressChange').remove();
                 }
-
-            });
+                var fiveMinutes = 6 * 10,
+                    display = document.querySelector('#count-down');
+                return startTimer(fiveMinutes, display);
+            },
+            error: function(xhr, status, error) {
+                console.log(status);
+            }
         });
+    } else {
+        $('.wrong-phone-number').show();
+        $(this).attr('disabled', false);
+
     }
+
 });
 
 function startTimer(duration, display) {

@@ -24739,6 +24739,17 @@ $(document).ready(function () {
 
       return processedValue;
     }
+  });
+  $("#code").inputmask({
+    mask: '99999',
+    placeholder: '',
+    showMaskOnHover: false,
+    showMaskOnFocus: false,
+    onBeforePaste: function onBeforePaste(pastedValue, opts) {
+      var processedValue = pastedValue; //do something with it
+
+      return processedValue;
+    }
   }); // const xl = $('#hello').val()
   // console.log(JSON.parse(xl))
 
@@ -25225,68 +25236,42 @@ $('#btn-login').on('click', function () {
 $('#send-code, .send-code').on('click', function () {
   $(this).attr('disabled', true);
   var phone = $('#phone').val();
-  $.ajax({
-    url: '/sms-send',
-    type: 'post',
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    data: {
-      phone: phone
-    },
-    success: function success(data) {
-      $('#btn-login').prop("disabled", false);
-      $('#send-code').hide();
-      $('.enter-code').show();
-      $('.sms--true').show();
-      $('.sms--false').hide();
 
-      if (data == 1) {
-        $('#adressChange').remove();
-      }
+  if (phone.replace(/\s/g, '').length == 9) {
+    $('#phone').closest('.btn-group-fs').find('.btn-custom-fs').attr('style', "background-color: #e9ecef;");
+    $('#phone').attr('disabled', true);
+    $('.wrong-phone-number').hide();
+    $.ajax({
+      url: '/sms-send',
+      type: 'post',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: {
+        phone: phone
+      },
+      success: function success(data) {
+        $('#btn-login').prop("disabled", false);
+        $('#send-code').hide();
+        $('.enter-code').show();
+        $('.sms--true').show();
+        $('.sms--false').hide();
 
-      var fiveMinutes = 6 * 10,
-          display = document.querySelector('#count-down');
-      return startTimer(fiveMinutes, display);
-    },
-    error: function error(xhr, status, _error5) {
-      console.log(status);
-    }
-  });
-});
-$('#phone').on('change', function () {
-  if (this.value.replace(/\s/g, '').length === 9) {
-    $('#send-code, .send-code').on('click', function () {
-      $(this).attr('disabled', true);
-      var phone = $('#phone').val();
-      $.ajax({
-        url: '/sms-send',
-        type: 'post',
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-          phone: phone
-        },
-        success: function success(data) {
-          $('#send-code').hide();
-          $('.enter-code').show();
-          $('.sms--true').show();
-          $('.sms--false').hide();
-
-          if (data == 1) {
-            $('#adressChange').remove();
-          }
-
-          var fiveMinutes = 6 * 10,
-              display = document.querySelector('#count-down');
-          return startTimer(fiveMinutes, display);
-        },
-        error: function error(xhr, status, _error6) {
-          console.log(status);
+        if (data == 1) {
+          $('#adressChange').remove();
         }
-      });
+
+        var fiveMinutes = 6 * 10,
+            display = document.querySelector('#count-down');
+        return startTimer(fiveMinutes, display);
+      },
+      error: function error(xhr, status, _error5) {
+        console.log(status);
+      }
     });
+  } else {
+    $('.wrong-phone-number').show();
+    $(this).attr('disabled', false);
   }
 });
 
@@ -25588,7 +25573,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
