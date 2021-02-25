@@ -87307,6 +87307,22 @@ $(document).on('change', '.js-attribute', function () {
   });
 });
 
+function image(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#main-poster').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#image").change(function () {
+  image(this);
+});
+
 /***/ }),
 
 /***/ 2:
@@ -87316,8 +87332,8 @@ $(document).on('change', '.js-attribute', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
-module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
+__webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\dashboard\main.js */"./resources/js/dashboard/main.js");
 
 
 /***/ })

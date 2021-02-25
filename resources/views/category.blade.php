@@ -3,6 +3,12 @@
 @section('title')
     {{ $name->name }}
 @endsection
+@section('seo-desc')
+Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.
+@endsection
+@section('seo-keywords') 
+{{ $name->name.','. $name->slug }}
+@endsection
 @extends('layouts.header')
 @extends('layouts.footer')
 

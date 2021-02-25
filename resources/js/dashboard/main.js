@@ -391,14 +391,14 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
 })();
 
 
-$('body').on('change', '#cat_parent', function(){
+$('body').on('change', '#cat_parent', function() {
     const id = $('#cat_parent option:selected').val()
     $.ajax({
         url: '/getSubcategories',
-        data: {category: id},
+        data: { category: id },
         method: "GET",
-        dataType : 'json',
-        success: function( data ) {
+        dataType: 'json',
+        success: function(data) {
             $('#cat_child').empty().append(`
                 <option>Выберите подкатегорию</option>
             `)
@@ -412,15 +412,15 @@ $('body').on('change', '#cat_parent', function(){
     })
 })
 
-$('body').on('change', '#cat_child', function(){
+$('body').on('change', '#cat_child', function() {
     const id = $('#cat_child option:selected').val()
     $.ajax({
         url: '/getSubcategories',
-        data: {category: id},
+        data: { category: id },
         method: "GET",
-        dataType : 'json',
-        success: function( data ) {
-            if(data.hasOwnProperty('0')){
+        dataType: 'json',
+        success: function(data) {
+            if (data.hasOwnProperty('0')) {
                 $('#cat_child').attr('name', 'subcategory')
                 $('#child_div').remove()
                 $('#subCategories').append(`
@@ -438,8 +438,7 @@ $('body').on('change', '#cat_child', function(){
                         <option value="${element['id']}">${element['name']}</option>
                     `)
                 })
-            }
-            else{
+            } else {
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
             }
@@ -447,76 +446,75 @@ $('body').on('change', '#cat_child', function(){
     })
 })
 
-$(function($){
-	$(".action-print").click(function(){
-		window.print();
-		return false;
-	});
+$(function($) {
+    $(".action-print").click(function() {
+        window.print();
+        return false;
+    });
 });
 
 
 ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-$(function () {
+$(function() {
 
-    $("#galler").change(function () {
+    $("#galler").change(function() {
         var fd = new FormData()
         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
         var files = $('#galler')[0].files;
-        if(files.length > 0 ){
-            for(let i=0; i<files.length; i++){
-                fd.append('image',files[i]);
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                fd.append('image', files[i]);
                 $.ajax({
-                url: '/uploadImage',
-                type: 'post',
-                data: fd,
-                contentType: false,
-                processData: false,
-                beforeSend: function(){
-                    var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-                    x.find('img').hide()
-                    x.find('.spinner-border').removeClass('d-none')
-                },
-                success: function(response){
-                    var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-                    x.find('.spinner-border').addClass('d-none')
-                    x.html('').attr('data-image', 'true').append(`
+                    url: '/uploadImage',
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                        x.find('img').hide()
+                        x.find('.spinner-border').removeClass('d-none')
+                    },
+                    success: function(response) {
+                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+                        x.find('.spinner-border').addClass('d-none')
+                        x.html('').attr('data-image', 'true').append(`
                             <div class="profile-pic">
                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
                             </div>
                     `)
 
-                    let gallery = $('#gallery')
-                    if(gallery.val() == ''){
-                        gallery.val(gallery.val() + response)
-                    } else{
-                        gallery.val(gallery.val() + ',' + response)
-                    }
-                },
+                        let gallery = $('#gallery')
+                        if (gallery.val() == '') {
+                            gallery.val(gallery.val() + response)
+                        } else {
+                            gallery.val(gallery.val() + ',' + response)
+                        }
+                    },
                 });
             }
 
-        }else{
+        } else {
             alert("Please select a file.");
         }
     });
 });
 
 
-$('body').on('click', '.deleteImage', function(){
+$('body').on('click', '.deleteImage', function() {
     let url = $(this).parent().find('img').data('image-src')
     let gallery = $('#gallery')
-    let array =  gallery.val().split(',')
+    let array = gallery.val().split(',')
     const index = array.indexOf(url)
     if (index > -1) {
         array.splice(index, 1);
     }
     gallery.val(array)
     $(this).parent().parent().remove()
-    if(url.indexOf('products/edit/') !== -1) {
+    if (url.indexOf('products/edit/') !== -1) {
         $(this).parent().parent().parent().remove()
-    }
-    else{
+    } else {
         $(this).parent().parent().remove()
     }
     $('#db-preview-image').append(`
@@ -531,7 +529,7 @@ $('body').on('click', '.deleteImage', function(){
     `)
 })
 
-$(document).on('change', '[name="category_id"]', function () {
+$(document).on('change', '[name="category_id"]', function() {
     const id = $('[name="category_id"] option:selected').val();
     $.ajax({
         url: '/getAttributes',
@@ -540,7 +538,7 @@ $(document).on('change', '[name="category_id"]', function () {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $('#attributes').empty();
             data.forEach(element => {
                 $('#attributes').append(`
@@ -564,10 +562,10 @@ $(document).on('change', '.js-attribute', function() {
         },
         method: "GET",
         dataType: 'json',
-        success: function (data) {
-            if(!_this.is(":checked")) {
+        success: function(data) {
+            if (!_this.is(":checked")) {
                 _this.closest('div').find('select').remove();
-            }else {
+            } else {
                 _this.closest('div').append(`
                     <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
                         <option disabled>Выберите значение</option>
@@ -585,3 +583,19 @@ $(document).on('change', '.js-attribute', function() {
 });
 
 
+
+function image(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#main-poster').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#image").change(function() {
+    image(this);
+});

@@ -19,8 +19,8 @@
                         <div class="text-center">
                             @if($user->profile_photo_path == '')
                                 <label for="avatar" class="cursor-pointer d-block user_avatar">
-                                        <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="w-50 rounded-pill">
-                                        <h6>Добавить аватар</h6>
+                                        <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="rounded-pill" height="149" width="149" style="object-fit: cover;">
+                                        <h6 class="mt-2 font-weight-bold">Добавить аватар</h6>
                                         <input type="file" class="d-none" id="avatar" name="profile_photo_path">
                                 </label>
 
