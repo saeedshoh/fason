@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-
+@section('title') 
+Условия и положения@endsection
+@section('seo-desc')
+Условия использования сайта - Общие положения, Учетная запись Пользователя, Согласие на получение сообщений, Правила заказа товаров
+@endsection
+@section('seo-keywords') 
+Общие положения, Учетная запись Пользователя, Согласие на получение сообщений, Правила заказа товаров
+@endsection
 @section('content')
   <section>
     <div class="container mt-3 mb-5">

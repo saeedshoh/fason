@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @extends('layouts.header')
-@section('title')
-    {{ $store->name }}
+@section('title') 
+{{ $store->name }} 
+@endsection
+@section('seo-desc')
+{{ $store->description }} 
+@endsection
+@section('seo-keywords') 
+{{ $store->name }}
 @endsection
 @extends('layouts.footer')
 @section('content')

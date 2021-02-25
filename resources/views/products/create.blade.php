@@ -35,7 +35,7 @@
             @endfor
             </div>
             <form method="post" action="" enctype="multipart/form-data" id="myform">
-                <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                <input type="file" id="galler" class="d-none" name="galler" accept=".jpg, .jpeg, .png, .WebP">
             </form>
 
           </div>

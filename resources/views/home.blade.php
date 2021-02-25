@@ -3,6 +3,12 @@
 @section('title')
 Торговая площадка
 @endsection
+@section('seo-desc')
+Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.
+@endsection
+@section('seo-keywords') 
+Fason, Fason.tj, бесплатно, Торговая площадка, площадке, товары, Душанбе, Таджикистан
+@endsection
 @extends('layouts.footer')
 @section('content')
 

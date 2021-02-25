@@ -1,9 +1,18 @@
 @extends('layouts.app')
 @extends('layouts.header')
-@section('title')
+
+@extends('layouts.footer')
+
+@section('title') 
+{{ $product->name }} 
+@endsection
+@section('seo-desc')
+{{ $product->description }} 
+@endsection
+@section('seo-keywords') 
 {{ $product->name }}
 @endsection
-@extends('layouts.footer')
+
 @section('content')
   <section>
     <div class="container mt-lg-5">

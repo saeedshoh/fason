@@ -25254,6 +25254,41 @@ $('#send-code, .send-code').on('click', function () {
     }
   });
 });
+$('#phone').on('change', function () {
+  if (this.value.replace(/\s/g, '').length === 9) {
+    $('#send-code, .send-code').on('click', function () {
+      $(this).attr('disabled', true);
+      var phone = $('#phone').val();
+      $.ajax({
+        url: '/sms-send',
+        type: 'post',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          phone: phone
+        },
+        success: function success(data) {
+          $('#send-code').hide();
+          $('.enter-code').show();
+          $('.sms--true').show();
+          $('.sms--false').hide();
+
+          if (data == 1) {
+            $('#adressChange').remove();
+          }
+
+          var fiveMinutes = 6 * 10,
+              display = document.querySelector('#count-down');
+          return startTimer(fiveMinutes, display);
+        },
+        error: function error(xhr, status, _error6) {
+          console.log(status);
+        }
+      });
+    });
+  }
+});
 
 function startTimer(duration, display) {
   var timer = duration,

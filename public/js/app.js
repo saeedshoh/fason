@@ -37422,10 +37422,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/sass/dashboard/theme.scss */"./resources/sass/dashboard/theme.scss");
-__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/sass/main.scss */"./resources/sass/main.scss");
+__webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\sass\dashboard\theme.scss */"./resources/sass/dashboard/theme.scss");
+__webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\sass\main.scss */"./resources/sass/main.scss");
 
 
 /***/ })
