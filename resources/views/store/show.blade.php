@@ -1,15 +1,14 @@
 @extends('layouts.app')
 @extends('layouts.header')
 
-@section('title') 
-{{ $store->name }} 
-@endsection
-@section('seo-desc')
-{{ $store->description }} 
-@endsection
-@section('seo-keywords') 
-{{ $store->name }}
-@endsection
+@section('title', $store->name)
+@section('seo-desc', $store->description)
+@section('seo-keywords', $store->name)
+@section('og:title', $store->name)
+@section('og:description', $store->description)
+@section('og:image', Storage::url($store->avatar))
+@section('og:image:alt', $store->name)
+
 @extends('layouts.footer')
 @section('content')
  <!--Header-end-->

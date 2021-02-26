@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('name')
-@section('title')
-    {{ $name->name }}
-@endsection
-@section('seo-desc')
-Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.
-@endsection
-@section('seo-keywords')
-{{ $name->name.','. $name->slug }}
+
+@section('title', $name->name)
+@section('seo-desc', 'Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.'
+@section('seo-keywords', 'Fason, Fason.tj, бесплатно, Торговая площадка, площадке, товары, Душанбе, Таджикистан')
+@section('og:title',  $name->name)
+@section('og:description', 'Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.')
+@section('og:image', '/storage/theme/logo_fason.svg')
+@section('og:image:alt',  $name->name)
+
 @endsection
 @extends('layouts.header')
 @extends('layouts.footer')
