@@ -117,13 +117,13 @@
                     {{ 'Тел: '.$order->user->phone.', Адрес:'.$order->user->address}}
                   </td>
                   <td class="orders-product">
-                    {{ $order->product->name}}
+                    {{ $order->no_scope_product->name}}
                   </td>
                   <td class="orders-store">
-                    {{ $order->product->store->name}}
+                    {{ $order->no_scope_product->no_scope_store->name}}
                   </td>
                   <td class="orders-store-info">
-                    {{ 'Тел: '.$order->product->store->user->phone.', Адрес: '.$order->product->store->address}}
+                    {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
                   </td>
                   <td class="orders-date">
                     <!-- Time -->

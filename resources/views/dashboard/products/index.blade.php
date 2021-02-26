@@ -128,7 +128,7 @@
                         {{ $product->quantity }}
                       </td>
                       <td class="item-company">
-                        <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->store->id) }}">{{ $product->store->name }}</a>
+                        <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->no_scope_store->id) }}">{{ $product->no_scope_store->name }}</a>
                       </td>
                       <td class="item-status">
                         <!-- Badge -->
