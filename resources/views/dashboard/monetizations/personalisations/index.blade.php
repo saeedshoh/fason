@@ -38,17 +38,17 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations->count() - $monetizationsCategories->count() }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations_count - $monetizations_categories_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap active">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
+                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap">
-                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCategories->count() }}</span>
+                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizations_categories_count }}</span>
                         </a>
                     </li>
                   </ul>
@@ -79,97 +79,57 @@
             <table class="table table-sm table-nowrap card-table">
               <thead>
                 <tr>
-
-                <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
-                </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
-                </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">Телефон</a>
-                </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
-                </th>
-
-                  {{-- <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-order">
-                      №
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-min">
-                      Сумма от
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-max">
-                      Сумма до
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-margin">
-                      Процентная ставка
-                    </a>
-                  </th>
-                  <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="monetizations-status">
-                      Статус
-                    </a>
-                  </th> --}}
-                  <th></th>
-
+                    <th>
+                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
+                    </th>
+                    <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
+                    </th>
+                    <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">Телефон</a>
+                    </th>
+                    <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
+                    </th>
+                    <th></th>
                 </tr>
               </thead>
               <tbody class="list">
                 @forelse ($personalisations as $key => $personalisation)
-                <tr>
-                    <td class="item-order">
-                        {{ ++$key }}
+                    @if ($personalisation->monetizations_count !== 0)
+                    <tr>
+                        <td class="item-order">
+                            {{ ++$key }}
+                        </td>
+                        <td class="item-name">
+                            <div class="avatar avatar-xs align-middle mr-2">
+                                <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
+                            </div>
+                            <a class="text-reset" href="{{ route('showStoreMonetization', $personalisation) }}">{{ $personalisation->name }}</a>
+                        </td>
+                        <td class="item-phone">
+                            <span class="text-reset">{{ $personalisation->user->phone }}</span>
+                        </td>
+                        <td class="item-location">
+                            {{ $personalisation->city->name }}
+                        </td>
+                    <td class="text-right">
+                        <a href="{{ route('showStoreMonetization', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
+                            <i class="fe fe-eye" aria-hidden="true"></i>
+                        </a>
                     </td>
-                    <td class="item-name">
-                        <div class="avatar avatar-xs align-middle mr-2">
-                            <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
-                        </div>
-                        <a class="text-reset" href="{{ route('showStoreMonetization', $personalisation) }}">{{ $personalisation->name }}</a>
-                    </td>
-                    <td class="item-phone">
-                        <span class="text-reset">{{ $personalisation->user->phone }}</span>
-                    </td>
-                    <td class="item-location">
-                        {{ $personalisation->city->name }}
-                    </td>
-                  {{-- <td class="monetizations-order">
-                    #{{ ++$key}}
-                  </td>
-                  <td class="monetizations-min">
-                    {{ $monetization->min}}
-                  </td>
-                  <td class="monetizations-max">
-                    {{ $monetization->max}}
-                  </td>
-                  <td class="monetizations-margin">
-                    {{ $monetization->margin}}%
-                  </td>
-                  <td class="monetizations-status">
-                    <!-- Badge -->
-                    <div class="badge badge-primary">
-                      {{ $monetization->is_active ? 'Активен' : 'Неактивен' }}
-                    </div>
-                  </td> --}}
-                  <td class="text-right">
-                    <a href="{{ route('showStoreMonetization', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
-                        <i class="fe fe-eye" aria-hidden="true"></i>
-                    </a>
-                  </td>
-                </tr>
+                    </tr>
+                    @endif
                 @empty
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
                 @endforelse
-
+                @if ($personalisations_count === 0)
+                    <tr>
+                        <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
+                    </tr>
+                @endif
               </tbody>
             </table>
           </div>

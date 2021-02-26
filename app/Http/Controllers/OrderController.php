@@ -39,7 +39,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest()->get();
+        $orders = Order::orderBy('order_status_id')->get();
         return view('dashboard.order.index', compact('orders'));
     }
 
@@ -64,10 +64,29 @@ class OrderController extends Controller
         if ($request->ajax()) {
             $product = Product::find($request->product_id);
             if($request->input('attributes')){
-                $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'attributes' => $request->attributes ? json_encode($request->input('attributes')) : null, 'order_status_id' => '1']);
+                $order = Order::create([
+                    'product_id' => $request->product_id,
+                    'user_id' => Auth::id(),
+                    'total' => $product->price,
+                    'margin' => $request->total_price-$product->price,
+                    'address' => $request->address,
+                    'quantity' => $request->quantity,
+                    'attributes' => $request->attributes ? json_encode($request->input('attributes')) : null,
+                    'comment' => $request->comment,
+                    'order_status_id' => '1'
+                ]);
             }
             else{
-                $order = Order::create(['product_id' => $request->product_id, 'user_id' => Auth::id(), 'total' => $product->price, 'margin' => $request->total_price-$product->price, 'address' => $request->address, 'quantity' => $request->quantity, 'order_status_id' => '1']);
+                $order = Order::create([
+                    'product_id' => $request->product_id,
+                    'user_id' => Auth::id(),
+                    'total' => $product->price,
+                    'margin' => $request->total_price-$product->price,
+                    'address' => $request->address,
+                    'quantity' => $request->quantity,
+                    'comment' => $request->comment,
+                    'order_status_id' => '1'
+                ]);
             }
             if($order) {
 

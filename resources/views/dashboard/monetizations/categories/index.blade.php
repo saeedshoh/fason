@@ -38,17 +38,17 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations->count() - $monetizationsCategories->count() }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations_count - $monetizations_categories_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
+                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap active">
-                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCategories->count() }}</span>
+                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizations_categories_count }}</span>
                         </a>
                     </li>
                   </ul>
@@ -79,38 +79,42 @@
             <table class="table table-sm table-nowrap card-table">
               <thead>
                 <tr>
-
-                <th>
-                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
-                </th>
-                <th>
-                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
-                </th>
-                  <th></th>
-
+                    <th>
+                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
+                    </th>
+                    <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
+                    </th>
+                    <th></th>
                 </tr>
               </thead>
               <tbody class="list">
                 @forelse ($monetizationsCategories as $key => $monetizationCategory)
-                <tr>
-                    <td class="item-order">
-                        {{ ++$key }}
-                    </td>
-                    <td class="item-name">
-                        <span class="text-reset">{{ $monetizationCategory->name }}</span>
-                    </td>
-                  <td class="text-right">
-                    <a href="{{ route('showCategoryMonetization', $monetizationCategory) }}" class="btn btn-warning m-1 fa-pull-right">
-                        <i class="fe fe-eye" aria-hidden="true"></i>
-                    </a>
-                  </td>
-                </tr>
+                    @if ($monetizationCategory->monetizations_count !== 0)
+                    <tr>
+                        <td class="item-order">
+                            {{ ++$key }}
+                        </td>
+                        <td class="item-name">
+                            <span class="text-reset">{{ $monetizationCategory->name }}</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="{{ route('showCategoryMonetization', $monetizationCategory) }}" class="btn btn-warning m-1 fa-pull-right">
+                                <i class="fe fe-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endif
                 @empty
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
                 @endforelse
-
+                @if ($monetizations_categories_count === 0)
+                    <tr>
+                        <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
+                    </tr>
+                @endif
               </tbody>
             </table>
           </div>

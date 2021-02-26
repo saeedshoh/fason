@@ -24849,38 +24849,7 @@ $('body').on('click', '#filterMobi', function () {
   } else {
     window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi;
   }
-}); // $('body').on('click', '.category', function () {
-//     let category = $(this).data('id')
-//     $.ajax({
-//         url: '/subcategories',
-//         data: {
-//             category: category
-//         },
-//         method: "GET",
-//         dataType: 'html',
-//         success: function (data) {
-//             $('#categories').hide()
-//             $('#categoriesRow').prepend(data)
-//             $('.childCategory').each(function () {
-//                 let category = $(this).data('id')
-//                 let _this = $(this)
-//                 $.ajax({
-//                     url: '/countProducts',
-//                     data: {
-//                         category: category
-//                     },
-//                     method: "GET",
-//                     dataType: 'json',
-//                     success: function (data) {
-//                         _this.parent().find('.spinner-grow').remove()
-//                         _this.parent().find('.cat_spinner').append(`${data}`)
-//                     }
-//                 })
-//             })
-//         }
-//     })
-// })
-
+});
 $('body').on('click', '#prevCategory', function () {
   $('#subcategories').hide();
   $('#categories').show();
@@ -24908,7 +24877,7 @@ $(document).on('change', '#cat_parent', function () {
         $('#subCategories').empty();
         this_.attr('name', 'parent_cat');
         $('#categories-row').append("\n                    <div id=\"subCategories\">\n                        <div class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                            <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                            <div class=\"w-75 input_placeholder_style\">\n                                <select class=\"input_placeholder_style form-control position-relative\" id=\"cat_child\" name=\"category_id\" required>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                ");
-        $('#cat_child').empty().append("\n                ");
+        $('#cat_child').empty().append("\n                    <option disabled selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                ");
         $('#child_div').remove();
         data.forEach(function (element) {
           $('#cat_child').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
@@ -25122,6 +25091,7 @@ $('.checkout-product').on('click', function () {
   var address = $('#checkout_address').val();
   var quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
   var product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
+  var comment = $('#comment').val();
   var attributes = [];
   $('input[type=radio]:checked').each(function () {
     attributes.push($(this).val());
@@ -25137,6 +25107,7 @@ $('.checkout-product').on('click', function () {
       address: address,
       quantity: quantity,
       product_id: product_id,
+      comment: comment,
       attributes: attributes
     },
     success: function success(data) {
@@ -25253,41 +25224,6 @@ $('#send-code, .send-code').on('click', function () {
       console.log(status);
     }
   });
-});
-$('#phone').on('change', function () {
-  if (this.value.replace(/\s/g, '').length === 9) {
-    $('#send-code, .send-code').on('click', function () {
-      $(this).attr('disabled', true);
-      var phone = $('#phone').val();
-      $.ajax({
-        url: '/sms-send',
-        type: 'post',
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-          phone: phone
-        },
-        success: function success(data) {
-          $('#send-code').hide();
-          $('.enter-code').show();
-          $('.sms--true').show();
-          $('.sms--false').hide();
-
-          if (data == 1) {
-            $('#adressChange').remove();
-          }
-
-          var fiveMinutes = 6 * 10,
-              display = document.querySelector('#count-down');
-          return startTimer(fiveMinutes, display);
-        },
-        error: function error(xhr, status, _error6) {
-          console.log(status);
-        }
-      });
-    });
-  }
 });
 
 function startTimer(duration, display) {
