@@ -87339,8 +87339,8 @@ $("#image").change(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\main.js */"./resources/js/dashboard/main.js");
+__webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\dashboard\main.js */"./resources/js/dashboard/main.js");
 
 
 /***/ })
