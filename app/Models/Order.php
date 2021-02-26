@@ -26,9 +26,13 @@ class Order extends Model
         'attributes' => 'array'
     ];
 
-
     public function product() {
         return $this->belongsTo('App\Models\Product');
+    }
+
+    public function no_scope_product()
+    {
+        return $this->product()->withoutGlobalScopes();
     }
 
     public function user() {

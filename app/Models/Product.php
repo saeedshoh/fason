@@ -47,6 +47,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Store');
     }
 
+    public function no_scope_store()
+    {
+        return $this->store()->withoutGlobalScopes();
+    }
+
     public function product_status()
     {
         return $this->belongsTo('App\Models\ProductStatus');
@@ -66,8 +71,6 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\ProductAttribute', 'product_id');
     }
-
-   
 
     public function getSlugOptions(): SlugOptions
     {
