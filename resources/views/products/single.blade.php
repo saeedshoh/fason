@@ -3,13 +3,13 @@
 
 @extends('layouts.footer')
 
-@section('title') 
-{{ $product->name }} 
+@section('title')
+{{ $product->name }}
 @endsection
 @section('seo-desc')
-{{ $product->description }} 
+{{ $product->description }}
 @endsection
-@section('seo-keywords') 
+@section('seo-keywords')
 {{ $product->name }}
 @endsection
 
@@ -185,7 +185,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <div class="container text-dark">
+                        <div class="container text-dark px-0">
                           <div class="row modal-item position-relative">
                             <div class="col-12 col-lg-5">
                                 <div class="title mb-3">Товар:</div>
@@ -216,8 +216,12 @@
                             </div>
                           </div>
                           <div class="mt-3">
+                            <div class="border-bottom text-secondary mb-2">Примичание к заказу</div>
+                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment">
+                          </div>
+                          <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
-                            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
+                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
                           </div>
                         </div>
                       </div>

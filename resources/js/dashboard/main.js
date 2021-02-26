@@ -3,7 +3,6 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
     var e = document.getElementById("audienceChart");
     var labels = statistic['labels']
     var datas = statistic['datas']
-    console.log(statistic)
     "undefined" != typeof Chart &&
         e &&
         new Chart(e, {
@@ -70,6 +69,12 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
                 },
             });
     })()
+});
+$('body').on('keyup', '#categorySearch', function () {
+    var category = $(this).val();
+    $.get('/dashboard/categories', {name: category}, function (data) {
+        $('#categoryCard').empty().append(data.categories);
+    });
 });
 // !(function() {
 //     var e = document.getElementById("audienceChart");

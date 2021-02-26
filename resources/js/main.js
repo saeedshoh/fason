@@ -399,38 +399,6 @@ $('body').on('click', '#filterMobi', function() {
 
 })
 
-// $('body').on('click', '.category', function () {
-//     let category = $(this).data('id')
-//     $.ajax({
-//         url: '/subcategories',
-//         data: {
-//             category: category
-//         },
-//         method: "GET",
-//         dataType: 'html',
-//         success: function (data) {
-//             $('#categories').hide()
-//             $('#categoriesRow').prepend(data)
-//             $('.childCategory').each(function () {
-//                 let category = $(this).data('id')
-//                 let _this = $(this)
-//                 $.ajax({
-//                     url: '/countProducts',
-//                     data: {
-//                         category: category
-//                     },
-//                     method: "GET",
-//                     dataType: 'json',
-//                     success: function (data) {
-//                         _this.parent().find('.spinner-grow').remove()
-//                         _this.parent().find('.cat_spinner').append(`${data}`)
-//                     }
-//                 })
-//             })
-//         }
-//     })
-// })
-
 $('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
     $('#categories').show()
@@ -470,6 +438,7 @@ $(document).on('change', '#cat_parent', function() {
                     </div>
                 `)
                 $('#cat_child').empty().append(`
+                    <option disabled selected>Выберите под-категорию</option>
                 `)
                 $('#child_div').remove()
                 data.forEach(element => {
@@ -727,6 +696,7 @@ $('.checkout-product').on('click', function() {
     let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
+    let comment = $('#comment').val();
     let attributes = [];
     $('input[type=radio]:checked').each(function() {
         attributes.push($(this).val())
@@ -743,6 +713,7 @@ $('.checkout-product').on('click', function() {
             address,
             quantity,
             product_id,
+            comment,
             attributes
         },
         success: (data) => {
