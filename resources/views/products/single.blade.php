@@ -3,15 +3,14 @@
 
 @extends('layouts.footer')
 
-@section('title')
-{{ $product->name }}
-@endsection
-@section('seo-desc')
-{{ $product->description }}
-@endsection
-@section('seo-keywords')
-{{ $product->name }}
-@endsection
+@section('title', $product->name)
+@section('seo-desc', $product->description)
+@section('seo-keywords', $product->name)
+@section('og:title', $product->name)
+@section('og:description', $product->description)
+@section('og:image', Storage::url($product->image))
+@section('og:image:alt', $product->name)
+
 
 @section('content')
   <section>

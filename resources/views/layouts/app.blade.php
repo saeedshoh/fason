@@ -17,6 +17,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/storage/favicon-16x16.png">
     <link rel="manifest" href="/storage/site.webmanifest">
+    <meta property="og:title" content="@yield('og:title') - Fason.tj" />
+    <meta property="og:site_name" content="FASON.TJ" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="@yield('og:description')" />
+    <meta property="og:url" content="https://fason.tj/" />
+
+    <meta property="og:image" content="@yield('og:image')" />
+    <meta property="og:image:alt" content="@yield('og:image:alt') - Fason" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W352P4J3KX"></script>
