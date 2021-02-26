@@ -35,7 +35,7 @@
             @endfor
             </div>
             <form method="post" action="" enctype="multipart/form-data" id="myform">
-                <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                <input type="file" id="galler" class="d-none" name="galler" accept=".jpg, .jpeg, .png, .WebP">
             </form>
 
           </div>
@@ -131,7 +131,7 @@
               </div>
               <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end w-75"></div>
               @csrf
-              <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}" required>
+              <input type="hidden" name="store_id" value="{{ $store }}" required>
               <input type="hidden" name="product_status_id" value="1">
               <div class="append-div w-75 ml-auto py-2"></div>
               <div class="form-group d-flex flex-row mb-5 justify-content-center justify-content-md-end align-items-start align-items-md-center">

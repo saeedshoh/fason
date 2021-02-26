@@ -86710,7 +86710,6 @@ $.get("/dashboard/ordersStatistic", function (statistic) {
   var e = document.getElementById("audienceChart");
   var labels = statistic['labels'];
   var datas = statistic['datas'];
-  console.log(statistic);
   "undefined" != typeof Chart && e && new Chart(e, {
     type: "line",
     options: {
@@ -86785,6 +86784,14 @@ $.get("/dashboard/ordersStatistic", function (statistic) {
       }
     });
   })();
+});
+$('body').on('keyup', '#categorySearch', function () {
+  var category = $(this).val();
+  $.get('/dashboard/categories', {
+    name: category
+  }, function (data) {
+    $('#categoryCard').empty().append(data.categories);
+  });
 }); // !(function() {
 //     var e = document.getElementById("audienceChart");
 //     var labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
@@ -87307,6 +87314,22 @@ $(document).on('change', '.js-attribute', function () {
   });
 });
 
+function image(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#main-poster').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#image").change(function () {
+  image(this);
+});
+
 /***/ }),
 
 /***/ 2:
@@ -87316,8 +87339,8 @@ $(document).on('change', '.js-attribute', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/app.js */"./resources/js/dashboard/app.js");
-module.exports = __webpack_require__(/*! /var/www/fason/data/www/fason.tj/resources/js/dashboard/main.js */"./resources/js/dashboard/main.js");
+__webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\app.js */"./resources/js/dashboard/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\fason.tj\resources\js\dashboard\main.js */"./resources/js/dashboard/main.js");
 
 
 /***/ })

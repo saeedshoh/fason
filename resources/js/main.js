@@ -14,7 +14,7 @@ const Toast = Swal.mixin({
     }
 })
 
-$('#listView').on('click', function(){
+$('#listView').on('click', function() {
     $('#catProducts .row').removeClass('row-cols-2').addClass('row-cols-1');
     $('#gridView').removeClass('d-none');
     $(this).addClass('d-none');
@@ -23,7 +23,7 @@ $('#listView').on('click', function(){
     $('#catProducts .card img').addClass('w-50');
     $('#catProducts .row').attr('data-style', '2');
 });
-$('#gridView').on('click', function(){
+$('#gridView').on('click', function() {
     $('#catProducts .row').attr('data-style', '1');
     $('.card').find('img').removeClass('w-50');
     $('#catProducts .card').removeClass('flex-row');
@@ -36,46 +36,45 @@ $('#gridView').on('click', function(){
 $('.numeric').on('change keyup', function() {
     var sanitized = $(this).val().replace(/[^0-9]/g, '');
     $(this).val(sanitized);
-  });
+});
 ///  products line
 
-$(document).ready(function(){
-    const url = $(location).attr("href")
-    if (url.indexOf('category') !== -1) {
-        function myFunction(x) {
-            if (x.matches) { // If media query matches
-                for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
-                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
-                }
-            } else {
-                for (let i = 1; i <= 3; i++) { // выведет линию над первыми 3 элементами класса ".custom-lined"
-                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
+$(document).ready(function() {
+        const url = $(location).attr("href")
+        if (url.indexOf('category') !== -1) {
+            function myFunction(x) {
+                if (x.matches) { // If media query matches
+                    for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
+                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                    }
+                } else {
+                    for (let i = 1; i <= 3; i++) { // выведет линию над первыми 3 элементами класса ".custom-lined"
+                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                    }
                 }
             }
+            var x = window.matchMedia("(max-width: 767px)")
+            myFunction(x) // Call listener function at run time
+            x.addListener(myFunction) // Attach listener function on state changes
+        } else {
+            function myFunction(x) {
+                if (x.matches) { // If media query matches
+                    for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
+                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                    }
+                } else {
+                    for (let i = 1; i <= 5; i++) { // выведет линию над первыми 5 элементами класса ".custom-lined"
+                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                    }
+                }
+            }
+            var x = window.matchMedia("(max-width: 767px)")
+            myFunction(x) // Call listener function at run time
+            x.addListener(myFunction) // Attach listener function on state changes
         }
-        var x = window.matchMedia("(max-width: 767px)")
-        myFunction(x) // Call listener function at run time
-        x.addListener(myFunction) // Attach listener function on state changes
-    }
-    else{
-       function myFunction(x) {
-            if (x.matches) { // If media query matches
-                for (let i = 1; i <= 2; i++) { // выведет линию над первыми 2 элементами класса ".custom-lined"
-                $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
-            }
-            } else {
-                for (let i = 1; i <= 5; i++) { // выведет линию над первыми 5 элементами класса ".custom-lined"
-                    $('.custom-lined .col:nth-child('+i+') .card').addClass('position-relative line-test')
-                }
-            }
-        }
-        var x = window.matchMedia("(max-width: 767px)")
-        myFunction(x) // Call listener function at run time
-        x.addListener(myFunction) // Attach listener function on state changes
-    }
-})
-/// products line end
-////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+    })
+    /// products line end
+    ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 $(function() {
 
     $("#galler").change(function() {
@@ -92,7 +91,7 @@ $(function() {
                     data: fd,
                     contentType: false,
                     processData: false,
-                    beforeSend: function(){
+                    beforeSend: function() {
                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
                         x.find('img').hide()
                         x.find('.spinner-border').removeClass('d-none')
@@ -151,42 +150,51 @@ $('body').on('click', '.deleteImage', function() {
     `)
 })
 
+function throttle(f, delay) {
+    var timer = null;
+    return function() {
+        var context = this,
+            args = arguments;
+        clearTimeout(timer);
+        timer = window.setTimeout(function() {
+                f.apply(context, args);
+            },
+            delay || 2000);
+    };
+}
 $(document).ready(function() {
-    $('body').on('keyup', '#nameStoreCreate', function() {
+    $('#nameStoreCreate').on('keyup', throttle(function() {
         $('#storeSubmit').attr('disabled', true);
         var store = $(this).val();
         if (store.length >= 3) {
-            setTimeout(() => {
-                $.get('/store/exist/' + store, function(data) {
-                    if (data.exist) {
-                        $('.store-exist').removeClass('d-none');
-                        $('#storeSubmit').attr('disabled', true);
-                    } else {
-                        $('.store-exist').addClass('d-none');
-                        $('#storeSubmit').attr('disabled', false);
-                    }
-                });
-            }, 2000);
+            console.log(store);
+            $.get('/store/exist/' + store, function(data) {
+                if (data.exist) {
+                    $('.store-exist').removeClass('d-none');
+                    $('#storeSubmit').attr('disabled', true);
+                } else {
+                    $('.store-exist').addClass('d-none');
+                    $('#storeSubmit').attr('disabled', false);
+                }
+            });
         }
-    });
+    }));
 
-    $('body').on('keyup', '#nameEditStore', function() {
+    $('#nameEditStore').on('keyup', throttle(function() {
         $('#storeEditSubmit').attr('disabled', true);
         var store = $(this).val();
         if (store != this.defaultValue) {
-            setTimeout(() => {
-                $.get('/store/exist/' + store, function(data) {
-                    if (data.exist) {
-                        $('.store-exist').removeClass('d-none');
-                        $('#storeEditSubmit').attr('disabled', true);
-                    } else {
-                        $('.store-exist').addClass('d-none');
-                        $('#storeEditSubmit').attr('disabled', false);
-                    }
-                });
-            }, 2000);
+            $.get('/store/exist/' + store, function(data) {
+                if (data.exist) {
+                    $('.store-exist').removeClass('d-none');
+                    $('#storeEditSubmit').attr('disabled', true);
+                } else {
+                    $('.store-exist').addClass('d-none');
+                    $('#storeEditSubmit').attr('disabled', false);
+                }
+            });
         }
-    });
+    }));
 
     $('.sms--false').hide();
     $(window).scroll(fetchPosts);
@@ -208,13 +216,13 @@ $(document).ready(function() {
                     if (url.indexOf('sort=') !== -1) {
                         const sort = url.split('?')[1]
 
-                        $.get(page + '&' + sort, {style: style}, function(data) {
+                        $.get(page + '&' + sort, { style: style }, function(data) {
                             $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page + '&' + sort);
                         });
                     } else {
-                        $.get(page, {style: style}, function(data) {
+                        $.get(page, { style: style }, function(data) {
                             $('#scroll-spinner').toggleClass('d-none')
                             $('.endless-pagination').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
@@ -273,9 +281,21 @@ $(document).ready(function() {
             return processedValue;
         }
     });
+    $("#code").inputmask({
+        mask: '99999',
+        placeholder: '',
+        showMaskOnHover: false,
+        showMaskOnFocus: false,
+        onBeforePaste: function(pastedValue, opts) {
+            var processedValue = pastedValue;
+
+            //do something with it
+
+            return processedValue;
+        }
+    });
     // const xl = $('#hello').val()
     // console.log(JSON.parse(xl))
-
     $('.count-products').each(function() {
         let category = $(this).data('id')
         let _this = $(this)
@@ -372,44 +392,12 @@ $('body').on('click', '#filterMobi', function() {
     } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
     } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi+ '&priceTo=' + priceToMobi
+        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
     } else {
         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
     }
 
 })
-
-// $('body').on('click', '.category', function () {
-//     let category = $(this).data('id')
-//     $.ajax({
-//         url: '/subcategories',
-//         data: {
-//             category: category
-//         },
-//         method: "GET",
-//         dataType: 'html',
-//         success: function (data) {
-//             $('#categories').hide()
-//             $('#categoriesRow').prepend(data)
-//             $('.childCategory').each(function () {
-//                 let category = $(this).data('id')
-//                 let _this = $(this)
-//                 $.ajax({
-//                     url: '/countProducts',
-//                     data: {
-//                         category: category
-//                     },
-//                     method: "GET",
-//                     dataType: 'json',
-//                     success: function (data) {
-//                         _this.parent().find('.spinner-grow').remove()
-//                         _this.parent().find('.cat_spinner').append(`${data}`)
-//                     }
-//                 })
-//             })
-//         }
-//     })
-// })
 
 $('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
@@ -435,7 +423,7 @@ $(document).on('change', '#cat_parent', function() {
         dataType: 'json',
         success: function(data) {
             $('#categories-row').empty()
-            if(data != '') {
+            if (data != '') {
                 $('#subCategories').empty()
                 this_.attr('name', 'parent_cat')
                 $('#categories-row').append(`
@@ -450,6 +438,7 @@ $(document).on('change', '#cat_parent', function() {
                     </div>
                 `)
                 $('#cat_child').empty().append(`
+                    <option disabled selected>Выберите под-категорию</option>
                 `)
                 $('#child_div').remove()
                 data.forEach(element => {
@@ -457,8 +446,7 @@ $(document).on('change', '#cat_parent', function() {
                         <option value="${element['id']}">${element['name']}</option>
                     `)
                 })
-            }
-            else{
+            } else {
                 this_.attr('name', 'category_id')
             }
         }
@@ -504,7 +492,7 @@ $(document).on('change', '.js-attribute', function() {
                 $('.Selects').remove();
                 $('#color_attr').empty()
             } else {
-                if(data[0]['slug'] == 'cvet'){
+                if (data[0]['slug'] == 'cvet') {
                     $('#color_attr').append(`
                         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
                     `)
@@ -530,8 +518,7 @@ $(document).on('change', '.js-attribute', function() {
                         //     `);
                         // }
                     })
-                }
-                else{
+                } else {
                     _this.closest('div').append(`
                         <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
                             <option disabled>Выберите значение</option>
@@ -549,18 +536,16 @@ $(document).on('change', '.js-attribute', function() {
     });
 });
 
-$(document).on('change', "input[name='cvet'], input[name='checkSvet']", function(){
+$(document).on('change', "input[name='cvet'], input[name='checkSvet']", function() {
     const val = $(this).val()
     const colors = $('#colors_input')
-    if(this.checked) {
-        if(colors.val().length < 1){
+    if (this.checked) {
+        if (colors.val().length < 1) {
             colors.val(colors.val() + val)
-        }
-        else{
+        } else {
             colors.val(colors.val() + ',' + val)
         }
-    }
-    else{
+    } else {
         let array = colors.val().split(',')
         const index = array.indexOf(val)
         if (index > -1) {
@@ -658,11 +643,11 @@ $('.main-search').on('keyup keypress keydown change', function() {
     }
 });
 
-$('#buyBtn').on('click', function(e){
+$('#buyBtn').on('click', function(e) {
     var count = 0;
     var questions = $(".desktopAttrs");
     $('.selectedAttrs').empty()
-    questions.each(function () {
+    questions.each(function() {
         if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
             const attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text()
             const attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name')
@@ -682,10 +667,10 @@ $('#buyBtn').on('click', function(e){
     }
 })
 
-$('#buyBtnMob').on('click', function(e){
+$('#buyBtnMob').on('click', function(e) {
     var count = 0;
     var questions = $(".mobAttrs");
-    questions.each(function () {
+    questions.each(function() {
         if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
             const attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest('label').text()
             const attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data('name')
@@ -711,8 +696,9 @@ $('.checkout-product').on('click', function() {
     let address = $('#checkout_address').val();
     let quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
     let product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
+    let comment = $('#comment').val();
     let attributes = [];
-    $('input[type=radio]:checked').each(function(){
+    $('input[type=radio]:checked').each(function() {
         attributes.push($(this).val())
     })
 
@@ -727,6 +713,7 @@ $('.checkout-product').on('click', function() {
             address,
             quantity,
             product_id,
+            comment,
             attributes
         },
         success: (data) => {
@@ -789,9 +776,11 @@ $('.favorite').on('click', function() {
 });
 
 // sms-congirm
-$('#btn-login, #code').on('click change', function () {
+$('#btn-login').on('click', function() {
     const phone = $('#phone').val();
-    const code = $('#code').val()
+    const code = $('#code').val();
+    // console.log(code);
+    $('.wrong-code').hide();
     $.ajax({
 
         url: '/sms-confirmed',
@@ -806,13 +795,14 @@ $('#btn-login, #code').on('click change', function () {
         success: (data) => {
             if (data == 'true') {
                 location.reload(true);
-            }
-            else {
+            } else if (data == 'false') {
                 $('#enter_site').modal('hide')
                 $('#adressChange').modal('show')
+            } else if (data == 'wrong code') {
+                $('.wrong-code').show();
             }
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.log(status);
         }
 
@@ -822,33 +812,43 @@ $('#btn-login, #code').on('click change', function () {
 $('#send-code, .send-code').on('click', function() {
     $(this).attr('disabled', true);
     const phone = $('#phone').val();
-    $.ajax({
-        url: '/sms-send',
-        type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            phone,
-        },
-        success: (data) => {
-            $('#send-code').hide();
-            $('.enter-code').show();
-            $('.sms--true').show();
-            $('.sms--false').hide();
-            if (data == 1) {
-                $('#adressChange').remove();
+    if (phone.replace(/\s/g, '').length == 9) {
+        $('#phone').closest('.btn-group-fs').find('.btn-custom-fs').attr('style', "background-color: #e9ecef;");
+        $('#phone').attr('disabled', true);
+        $('.wrong-phone-number').hide();
+
+        $.ajax({
+            url: '/sms-send',
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                phone,
+            },
+            success: (data) => {
+                $('#btn-login').prop("disabled", false);
+                $('#send-code').hide();
+                $('.enter-code').show();
+                $('.sms--true').show();
+                $('.sms--false').hide();
+                if (data == 1) {
+                    $('#adressChange').remove();
+                }
+                var fiveMinutes = 6 * 10,
+                    display = document.querySelector('#count-down');
+                return startTimer(fiveMinutes, display);
+            },
+            error: function(xhr, status, error) {
+                console.log(status);
             }
-            var fiveMinutes = 6 * 10,
-                display = document.querySelector('#count-down');
-            return startTimer(fiveMinutes, display);
-        },
-        error: function(xhr, status, error) {
+        });
+    } else {
+        $('.wrong-phone-number').show();
+        $(this).attr('disabled', false);
 
-            console.log(status);
-        }
+    }
 
-    });
 });
 
 function startTimer(duration, display) {
@@ -868,7 +868,7 @@ function startTimer(duration, display) {
             $('.sms--true').hide();
             $('.sms--false').show();
             clearInterval(time);
-
+            $('#btn-login').prop("disabled", true);
         }
     }, 1000);
 }

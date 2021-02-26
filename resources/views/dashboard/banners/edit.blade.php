@@ -97,7 +97,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <div class="row">
                                         <div class="col-auto text-center">
-                                            <img src="{{ Storage::url($banner->image) }}" alt="..." class="img-fluid rounded" style="max-width: 120px;">
+                                            <img src="{{ Storage::url($banner->image) }}" alt="..." class="img-fluid rounded" id="main-poster" style="max-width: 120px;">
                                         </div>
                                         <div class="col-auto">
                                             <label for="image">Изображения</label> <span id="bannerSize" class="badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else @if($banner->position == 1) 1600x80 @else 1140x136 @endif @endif</span>

@@ -1,7 +1,15 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-
+@section('title') 
+Правила размещения информации
+@endsection
+@section('seo-desc')
+Правила размещения информации
+@endsection
+@section('seo-keywords') 
+Правила размещения информации
+@endsection
 @section('content')
   <section>
     <div class="container mt-3">

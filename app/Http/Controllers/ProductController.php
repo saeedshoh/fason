@@ -57,7 +57,8 @@ class ProductController extends Controller
     public function add_product()
     {
         $cat_parent = $this->categories->where('parent_id', 0);
-        return view('products.create', compact('cat_parent'));
+        $store = Store::withoutGlobalScopes()->where('user_id', Auth::id())->first()->id;
+        return view('products.create', compact('cat_parent', 'store'));
     }
 
 
@@ -71,11 +72,11 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->first();
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
-        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
         ->groupBy('product_id');
         $topProducts = Product::where('product_status_id', 2)
+        ->where('category_id', $product->category_id)
         ->select(DB::raw('products.*, countProd.countProd'))
         ->leftJoinSub($countProd, 'countProd', function ($join) {
             $join->on('products.id', '=', 'countProd.product_id');
@@ -154,7 +155,7 @@ class ProductController extends Controller
         }
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 480, 50, $nowYear);
+        $this->cropImage($img, 800, 50, $nowYear);
         $this->cropImage($img, 800, 83, $nowYear);
 
         $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
@@ -211,13 +212,13 @@ class ProductController extends Controller
             }
 
             $img = Image::make($request->file('image')->getRealPath());
-            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
             $img->insert($watermark, 'bottom-right', 50, 50);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($img, 480, 50, $nowYear);
+            $this->cropImage($img, 800, 50, $nowYear);
             $this->cropImage($img, 800, 83, $nowYear);
 
-            $image = $nowYear . '480x480.jpg';
+            $image = $nowYear . '800x800.jpg';
             $product->update([
                 'image' => $image,
             ]);
@@ -273,7 +274,7 @@ class ProductController extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+        $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
         $img->insert($watermark, 'bottom-right', 50, 50);
 
         //Create folder if doesn't exist
@@ -283,10 +284,9 @@ class ProductController extends Controller
         }
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 480, 50, $nowYear);
         $this->cropImage($img, 800, 83, $nowYear);
 
-        $product = Product::create($request->validated() + ['image' => $nowYear . '480x480.jpg', 'gallery' => $request->gallery]);
+        $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
         if(isset($request->attribute)) {
             foreach ($request->attribute as $name => $attribute) {
@@ -377,13 +377,12 @@ class ProductController extends Controller
             }
 
             $img = Image::make($request->file('image')->getRealPath());
-            $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
+            $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
             $img->insert($watermark, 'bottom-right', 50, 50);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($img, 480, 50, $nowYear);
             $this->cropImage($img, 800, 83, $nowYear);
 
-            $image = $nowYear . '480x480.jpg';
+            $image = $nowYear . '800x800.jpg';
             $product->update([
                 'image' => $image,
             ]);

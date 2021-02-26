@@ -1,7 +1,15 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-
+@section('title') 
+Условия возврата товара
+@endsection
+@section('seo-desc')
+Для возврата товара продавцу он должен соответствовать изначальным характеристикам, то есть сохранить товарный вид и свойства на момент возврата.
+@endsection
+@section('seo-keywords') 
+возврата Условия товара
+@endsection
 @section('content')
   <section>
     <div class="container mt-3 mb-5">

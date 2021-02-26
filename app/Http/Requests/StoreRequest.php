@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required',
             'address' => 'required',
-            'description' => '',
+            'description' => 'required',
             'city_id' => 'required',
         ];
     }
@@ -34,10 +34,10 @@ class StoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Введите название магазина',
-            'address' => 'Введите адрес',
-            'description' => 'Введите описание магазина',
-            'city_id' => 'Выберите город',
+            'name' => 'Название магазина',
+            'address' => 'Адрес',
+            'description' => 'Описание магазина',
+            'city_id' => 'Город',
         ];
     }
 }

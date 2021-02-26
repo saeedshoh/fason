@@ -98,6 +98,9 @@
                                 <small>Адрес: </small> <small>{{ $order->user->address }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                <small>Коментарии: </small> <small>{{ $order->comment }}</small>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <strong>Цена c учётом НДС: </strong> <strong>{{ $order->total + $order->margin }} Сомони</strong>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">

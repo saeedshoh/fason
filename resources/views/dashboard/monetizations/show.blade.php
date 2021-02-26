@@ -116,10 +116,10 @@
                     {{ $monetization->max}}
                   </td>
                   <td class="monetizations-margin">
-                    {{ $monetization->margin}}%
+                    {{ $monetization->margin ?? '0'}}%
                   </td>
                   <td class="monetizations-added_val">
-                    {{ $monetization->added_val}}
+                    {{ $monetization->added_val ?? '0'}}
                   </td>
                   <td class="text-right">
                     <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">

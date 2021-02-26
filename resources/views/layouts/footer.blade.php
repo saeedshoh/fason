@@ -28,10 +28,12 @@
                     </div>
                     <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
+                  <p class="text-danger wrong-phone-number text-left mt-1 font-weight-bold mt-2" style="display: none;">Такого номера не существует !</p>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
                     <div class="form-group text-center">
-                      <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
+                      <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
+                      <p class="text-danger wrong-code text-left mt-1" style="display: none;">Введен не правильный код</p>
                     </div>
                       <h2 id="count-down" class="my-3">01:00</h2>
                       <div class="pre--info">
@@ -67,7 +69,7 @@ aria-hidden="true">
       </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" novalidate>
+        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" novalidate onsubmit="return false">
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="80" height="80" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">

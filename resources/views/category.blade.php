@@ -3,6 +3,12 @@
 @section('title')
     {{ $name->name }}
 @endsection
+@section('seo-desc')
+Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.
+@endsection
+@section('seo-keywords')
+{{ $name->name.','. $name->slug }}
+@endsection
 @extends('layouts.header')
 @extends('layouts.footer')
 
@@ -207,13 +213,15 @@
                 @empty
                     @if ($parent_cat)
                         @foreach ($parent_cat as $category)
-                            <li class="list-group-item  bg-transparent border-bottom" >
-                                <nav class="category-mix">
-                                <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
-                                    <span class="count-products" data-id="{{ $category->id }}"></span>
-                                </a>
-                                </nav>
-                            </li>
+                            @if($category->parent_id != '0')
+                                <li class="list-group-item  bg-transparent border-bottom" >
+                                    <nav class="category-mix">
+                                    <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
+                                        <span class="count-products" data-id="{{ $category->id }}"></span>
+                                    </a>
+                                    </nav>
+                                </li>
+                            @endif
                         @endforeach
                     @endif
                 @endforelse

@@ -38,17 +38,17 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap active">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations->count() - $monetizationsCategories->count() }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations_count - $monetizations_categories_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations->count() }}</span>
+                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('categoryMonetizations.index') }}" class="nav-link text-nowrap">
-                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizationsCategories->count() }}</span>
+                          По категориям <span class="badge badge-pill badge-soft-secondary">{{ $monetizations_categories_count }}</span>
                         </a>
                     </li>
                   </ul>

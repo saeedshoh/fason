@@ -248,7 +248,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <div class="row">
                                         <div class="col-auto text-center">
-                                            <img src="{{ Storage::url($product->image) }}" alt="..." class="img-fluid rounded" style="max-width: 120px;">
+                                            <img src="{{ Storage::url($product->image) }}" alt="..." class="img-fluid rounded" id="main-poster" style="max-width: 120px;">
                                         </div>
                                         <div class="col-auto">
                                             <label for="image">Image</label>

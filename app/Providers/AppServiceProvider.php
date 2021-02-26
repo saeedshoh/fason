@@ -33,19 +33,23 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         if (Schema::hasTable('banners')) {
             $header_banner = Banners::where('type', 2)->where('position', 1)->latest()->first();
+            $is_store = null;
+            if (Auth::check()) {
+                $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
+            }
             if($header_banner){
-                $is_store = null;
-                if (Auth::check()) {
-                    $is_store = $this->stores->where('user_id', Auth::id())->first();
-                }
+                // $is_store = null;
+                // if (Auth::check()) {
+                //     $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
+                // }
                 view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
             }
             else{
-                $is_store = null;
-                if (Auth::check()) {
-                    $is_store = $this->stores->where('user_id', Auth::id())->first();
-                }
-                view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
+                // $is_store = null;
+                // if (Auth::check()) {
+                //     $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
+                // }
+                view()->share(['is_store' => $is_store]);
             }
         }
 
@@ -54,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
             function ($view) {
                 $is_store = null;
                 if (Auth::check()) {
-                    $is_store = Store::with('orders')->where('user_id', Auth::id())->first();
+                    $is_store = Store::with('orders')->where('user_id', Auth::id())->withoutGlobalScopes()->first();
                 }
                 $view->with(['is_store' => $is_store]);
             }

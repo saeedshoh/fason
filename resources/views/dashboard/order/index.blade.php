@@ -106,11 +106,11 @@
                 @forelse ($orders as $key => $order)
                 <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @elseif($order->order_status->id == 4)primary @else()success @endif">
                   <td class="orders-order">
-                    #{{ ++$key}}
+                    #{{ $order->id}}
                   </td>
                   <td class="orders-client">
                     <a href="{{ route('orders.show', $order) }}">
-                      {{ $order->user->name}}
+                      {{ $order->user->name ?? $order->user->phone}}
                     </a>
                   </td>
                   <td class="orders-client-info">

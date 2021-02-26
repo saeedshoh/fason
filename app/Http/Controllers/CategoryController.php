@@ -114,12 +114,21 @@ class CategoryController extends Controller
         return response()->json($count);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('order_no')->paginate(10);
-        $allCategories = Category::get();
+        if($request->ajax()) {
+            $allCategories = Category::where('name', 'like', '%'.$request->name.'%')->get();
+            $categories = Category::where('name', 'like', '%'.$request->name.'%')->orderBy('order_no')->paginate(100);
+            return response()->json([
+                'categories'    => view('dashboard.ajax.categories', compact('categories', 'allCategories'))->render()
+            ]);
+        }
+        else {
+            $categories = Category::orderBy('order_no')->paginate(100);
+            $allCategories = Category::get();
 
-        return view('dashboard.category.index', compact('categories', 'allCategories'));
+            return view('dashboard.category.index', compact('categories', 'allCategories'));
+        }
     }
 
     /**
