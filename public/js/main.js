@@ -25207,6 +25207,7 @@ $('#btn-login').on('click', function () {
 $('#send-code, .send-code').on('click', function () {
   $(this).attr('disabled', true);
   var phone = $('#phone').val();
+
   if (phone.replace(/\s/g, '').length == 9) {
     $('#phone').closest('.btn-group-fs').find('.btn-custom-fs').attr('style', "background-color: #e9ecef;");
     $('#phone').attr('disabled', true);

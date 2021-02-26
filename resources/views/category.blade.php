@@ -8,7 +8,6 @@
 @section('og:image', '/storage/theme/logo_fason.svg')
 @section('og:image:alt',  $name->name)
 
-@endsection
 @extends('layouts.header')
 @extends('layouts.footer')
 
