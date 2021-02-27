@@ -35,9 +35,9 @@
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6 px-2 px-sm-3">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded img-fluid" src="{{ Storage::url($order->product->image) }}">
+                                <img class="mr-3 rounded img-fluid" src="{{ Storage::url($order->no_scope_product->image) }}">
                                 <div class="d-flex flex-column align-self-center w-100">
-                                    <h5 class="h5 text-truncate order-title">{{ $order->product->name }}</h5>
+                                    <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary">{{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
@@ -60,7 +60,7 @@
                                 <h6 class="h6">Статус</h6>
                                 <h4 class="h5 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-warning @else text-success @endif ">{{ $order->order_status->name }}</h4>
                             </div>
-                            <a href="{{ route('ft-products.single', $order->product->slug) }}" class="stretched-link"></a>
+                            <a href="{{ route('ft-products.single', $order->no_scope_product->slug) }}" class="stretched-link"></a>
                         </div>
                     </div>
                 @empty
@@ -72,7 +72,7 @@
                 </div>
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                 @forelse ($sales as $sale)
-                    @if (@isset($sale->product->store_id) == Auth::user()->id)
+                    @if (@isset($sale->no_scope_product->store_id) == Auth::user()->id)
                     <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)in-road-card @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-warning @elseif($sale->order_status_id == 1)text-warning @elseif($order->order_status_id == 4) text-warning @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
@@ -80,9 +80,9 @@
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded" src="{{ Storage::url($sale->product->image) }}" width="64" >
+                                <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="64" >
                                 <div class="d-flex flex-column align-self-center w-100">
-                                    <h5 class="h5 text-truncate order-title">{{ $sale->product->name}}</h5>
+                                    <h5 class="h5 text-truncate order-title">{{ $sale->no_scope_product->name}}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary">{{ $sale->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
@@ -105,7 +105,7 @@
                                 <h6 class="h6">Статус</h6>
                                 <h4 class="h5 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-warning @else text-success @endif ">{{ $sale->order_status->name }}</h4>
                             </div>
-                            <a href="{{ route('ft-products.single', $sale->product->slug) }}" class="stretched-link"></a>
+                            <a href="{{ route('ft-products.single', $sale->no_scope_product->slug) }}" class="stretched-link"></a>
                         </div>
                     </div>
                     @endif
