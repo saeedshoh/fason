@@ -81,8 +81,8 @@ class Product extends Model
 
     public function getPriceAfterMarginAttribute()
     {
-        $store = Store::find($this->store_id);
-        $category = Category::find($this->category_id);
+        $store = Store::withoutGlobalScopes()->find($this->store_id);
+        $category = Category::withoutGlobalScopes()->find($this->category_id);
         $price = 0;
         if($category->is_monetized) {
             foreach($category->monetizations as $monetization) {
@@ -92,19 +92,30 @@ class Product extends Model
             }
         }
         if($store->is_monetized){
-            foreach($store->monetizations as $monetization) {
-                if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-                    return $this->price + $this->price*($monetization->margin/100) + $monetization->added_val + $price;
-                }
-                else{
-                    $monetizations = Monetization::get();
-                    foreach($monetizations as $monet) {
-                        if ($this->price >= $monet->min && $this->price < $monet->max) {
-                            return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
-                        }
+            if($store->monetizations->first()){
+                foreach($store->monetizations as $monetization) {
+                    if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+                        return $this->price + $this->price*($monetization->margin/100) + $monetization->added_val + $price;
                     }
-                    return $this->price;
+                    else{
+                        $monetizations = Monetization::get();
+                        foreach($monetizations as $monet) {
+                            if ($this->price >= $monet->min && $this->price < $monet->max) {
+                                return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
+                            }
+                        }
+                        return $this->price;
+                    }
                 }
+            }
+            else {
+                $monetizations = Monetization::get();
+                foreach($monetizations as $monet) {
+                    if ($this->price >= $monet->min && $this->price < $monet->max) {
+                        return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
+                    }
+                }
+                return $this->price;
             }
         } else {
             $monetizations = Monetization::get();
