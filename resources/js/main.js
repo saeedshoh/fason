@@ -467,8 +467,8 @@ $(document).on('change', '[name="category_id"]', function() {
             data.forEach(element => {
                 $('#attributes').append(`
                     <div class="form-check form-check w-75">
-                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
-                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                        <label class="form-check-label bg-light" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                        <input class="form-check-input js-attribute d-none" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
                     </div>
                 `);
             })
@@ -593,6 +593,7 @@ $('body').on('change', '#cat_child', function() {
                         <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="w-75 input_placeholder_style">
                             <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id" required>
+                                <option selected>Выберите под-категорию</option>
                             </select>
                         </div>
                     </div>

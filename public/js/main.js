@@ -24911,7 +24911,7 @@ $(document).on('change', '[name="category_id"]', function () {
     success: function success(data) {
       $('#attributes').empty();
       data.forEach(function (element) {
-        $('#attributes').append("\n                    <div class=\"form-check form-check w-75\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+        $('#attributes').append("\n                    <div class=\"form-check form-check w-75\">\n                        <label class=\"form-check-label bg-light\" for=\"".concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                        <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                    </div>\n                "));
       });
     }
   });
@@ -25010,7 +25010,7 @@ $('body').on('change', '#cat_child', function () {
       if (data.hasOwnProperty('0')) {
         $('#cat_child').attr('name', 'subcategory');
         $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                            <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                            </select>\n                        </div>\n                    </div>\n                ");
+        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                            <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                                <option selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                            </select>\n                        </div>\n                    </div>\n                ");
         data.forEach(function (element) {
           $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
         });

@@ -40,6 +40,9 @@
                         <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
                     </div>
                 @endfor
+                <div class="col-3 mt-3">
+                  <img src="{{ Storage::url($product->image ) }}" data-image-src="{{ Storage::url($product->image ) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
+                </div>
             </div>
           </div>
           <!--desktop slider end-->
