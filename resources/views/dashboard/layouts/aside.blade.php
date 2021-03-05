@@ -14,8 +14,10 @@
           </button>
 
           <!-- Brand -->
+
           <a class="navbar-brand text-left" href="{{ route('orders.index') }}">
             <img src="/storage/theme/logo_fason.svg" class="navbar-brand-img" alt="...">
+
           </a>
 
 
@@ -39,7 +41,7 @@
 
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/products') ? ' active' : '' }}" href="{{ route('products.index') }}">
-                  <i class="fe fe-grid"></i> Товары
+                  <i class="fe fe-grid"></i> Товары @if($newProducts > 0)<span class="badge badge-soft-success ml-2">{{ $newProducts }} @endif</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -54,7 +56,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/orders*') ? ' active' : '' }}" href="{{ route('orders.index') }}">
-                  <i class="fe fe-shopping-bag"></i> Заказы
+                  <i class="fe fe-shopping-bag"></i> Заказы @if($newOrders > 0)<span class="badge badge-soft-success ml-2">{{ $newOrders }} @endif
                 </a>
               </li>
               <li class="nav-item">
@@ -64,7 +66,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/stores*') ? ' active' : '' }}" href="{{ route('stores.index') }}">
-                  <i class="fe fe-shopping-cart"></i> Магазины
+                  <i class="fe fe-shopping-cart"></i> Магазины @if($newStores > 0)<span class="badge badge-soft-success ml-2">{{ $newStores }} @endif
                 </a>
               </li>
               <li class="nav-item">

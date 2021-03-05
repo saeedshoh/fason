@@ -106,7 +106,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     @forelse ($products as $key => $product)
-                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @else()danger @endif">
+                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif(!$product->store)secondary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @else()danger @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>
@@ -141,9 +141,11 @@
                         </div>
                       </td>
                       <td class="text-right">
-                        <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
-                            <i class="fe fe-edit"></i>
-                        </a>
+                          @if($product->store)
+                            <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
+                                <i class="fe fe-edit"></i>
+                            </a>
+                          @endif
                       </td>
                     </tr>
                     @empty
