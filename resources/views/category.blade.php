@@ -122,8 +122,8 @@
   @endif
     <ul class="shop-subject px-5 list-group list-group-flush h-100 mx-0">
       @forelse ($categories as $category)
-      <li class="list-group-item  bg-transparent py-2 border-bottom">
-        <nav class="category-mix px-3">
+      <li class="list-group-item  bg-transparent pr-0 border-bottom">
+        <nav class="category-mix pl-3">
           <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
             <span class="count-products" data-id="{{ $category->id }}"></span>
           </a>
@@ -134,7 +134,7 @@
             @if(isset($name->childrens->first()->id))
                 @foreach ($parent_cat as $category)
                     <li class="list-group-item  bg-transparent border-bottom">
-                        <nav class="category-mix w-100 px-3">
+                        <nav class="category-mix w-100 pl-3">
                         <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
                             <span class="count-products d-block" data-id="{{ $category->id }}"></span>
                         </a>
