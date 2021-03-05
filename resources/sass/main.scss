@@ -759,9 +759,6 @@ input[type=number] {
     background: none !important;
 }
 
-.btn {
-    font-weight: 500;
-}
 
 .order-cancled::before {
     background: #FF0055;
@@ -884,33 +881,40 @@ input[type=number] {
             border: 0;
             border-radius: 0;
         }
-    }
-    .mobile-header {
-        width: 100% !important;
-    }
-    .t-neutral .spinner__button {
-        padding: 0 5px !important;
-        color: #fff !important;
-    }
-    .spinner {
-        border-color: #fff !important;
-    }
-    #spinner-input,
-    #price {
-        color: #fff !important;
-    }
-    .mb-other-product {
-        font-weight: 600;
-        font-size: 18px;
-        color: #9b9b9b;
-        margin: 1em 0 2em 0em !important;
-    }
-    .divide {
-        display: none;
-    }
-    .all-product {
-        margin: 0 !important;
-    }
+        }
+        .mobile-header {
+            width: 100% !important;
+        }
+        .t-neutral .spinner__button {
+            padding: 0 5px !important;
+            color: #fff !important;
+        }
+        .spinner {
+            border-color: #fff !important;
+        }
+        #spinner-input,
+        #price {
+            color: #fff !important;
+        }
+        .mb-other-product {
+            font-weight: 600;
+            font-size: 18px;
+            color: #9b9b9b;
+            margin: 1em 0 2em 0em !important;
+        }
+        .divide {
+            display: none;
+        }
+        .all-product {
+            margin: 0 !important;
+        }
+        .category-mix a {
+            font-size: 14px !important;
+        }
+        #cover-poster-mobile{
+            height: 80px !important;
+        }
+        
 }
 
 @media only screen and (max-width: 620px) {
@@ -1514,5 +1518,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
             height: 200px;
             object-fit: cover;
         }
+    }
+}
+.text-opacity-low{
+    color:#D2D2D2;
+}
+.create-store{
+    .form-control{
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
     }
 }
