@@ -114,7 +114,7 @@
       {{-- @if ($is_store != null && $is_store->is_active == 1) --}}
         @auth
         <div class="col add-good text-center position-relative px-0">
-          <a href="{{ route('ft_product.add_product') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
+          <a href="{{ $is_store == null ? route('ft-store.create') : route('ft_product.add_product') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
             <img class="add-icon " src="/storage/theme/icons/plus.svg">
             <span class="mobile-nav--title mt-3">Добавить</span>
           </a>

@@ -17,11 +17,21 @@
             </ul>
         </div>
     @endif
-
-    <form action="{{ route('ft-store.store') }}" enctype="multipart/form-data" method="POST">
+    <div class="row d-flex d-md-none create-store">
+      <div class="col-4"><h6 class="font-weight-bold"><svg width="15" height="13" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#000"/>
+        </svg> Назад</h6></div>
+      <div class="col-8"><h6 class="font-weight-bold text-right text-opacity-low">Информация о магазине</h6></div>
+      <div class="col-12">
+        <p class="text-center small my-3 text-muted px-4">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+        </p>
+      </div>
+    </div>
+    <form class="d-md-block d-flex flex-column" action="{{ route('ft-store.store') }}" enctype="multipart/form-data" method="POST">
       @method('POST')
       @csrf
-      <div class="row mt-sm-3">
+      <div class="row mt-sm-3 order-1">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
             <label for="avatar" class="cursor-pointer">
@@ -35,25 +45,37 @@
             </div>
           </div>
         </div>
-        <div class="col-md-9 px-0 px-md-2 position-relative">
-          <label for="cover" class="cursor-pointer">
+        <div class="col-md-9 px-md-2 position-relative">
+          <div class="d-block d-md-none mb-3">
+            <h5 class="text-secondary font-weight-bold">Добавить фотографию обложки</h5>
+            <span class="text-primary">Фотография профиля размером 512х512</span>
+          </div>
+          <label for="cover" class="cursor-pointer w-100">
             <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
           </label>
-
-          <div class="change-banner position-absolute">
+          <div class="change-banner position-absolute d-none d-md-block">
             <label for="cover" class="btn btn-edit rounded-pill">
               <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top">Изменить
               <input type="file" class="d-none" id="cover" name="cover">
             </label>
           </div>
-          <div class="mobile-avatar position-absolute d-md-none">
-            <label for="avatar" class="cursor-pointer">
-              <img src="/storage/theme/banner_store.svg" class="store-image rounded-circle shadow-lg" width="90" height="90" id="avatar-poster-mobile">
+          <div class="d-md-none">
+            <div class="my-3">
+              <h5 class="text-secondary font-weight-bold">Добавить фотографию профиля</h5>
+              <span class="text-primary">Фотография профиля размером 512х512</span>
+            </div>
+            <label for="avatar" class="cursor-pointer text-center w-100">
+              <img src="/storage/theme/banner_store.svg" class="store-image" width="120" height="120" id="avatar-poster-mobile">
             </label>
+          </div>
+          <div class="form-group row d-md-none">
+            <div class="col my-3">
+              <button type="submit" class="col-12 btn rounded-11 px-3 btn-danger font-weight-bold storeSubmit" id="storeSubmit">Создать магазин</button>
+            </div>
           </div>
         </div>
         <div class="col-12 d-block d-md-none mt-5">
-          <h2>Магазин</h2>
+          <h2 class="d-none d-md-block">Магазин</h2>
           {{-- <div class="row">
             <div class="col-3 text-center">
               <div class="d-inline-block position-relative">
@@ -77,11 +99,15 @@
       </div>
       <!--Edit logo and banner end-->
       <!--store info start-->
-      <div class="row mt-3">
+      <div class="row mt-3 order-0">
         <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
-            <div class="col-sm-8">
+
+            <div class="col-sm-8 input-group">
+              <div class="input-group-prepend position-relative bg-white border-0">
+                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+              </div>
               <input class="form-control" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
@@ -90,13 +116,20 @@
           </div>
           <div class="form-group row">
             <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдресс:</label>
-            <div class="col-sm-8">
+            <div class="col-sm-8 input-group">
+              <div class="input-group-prepend position-relative bg-white border-0">
+                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+              </div>
               <input class="form-control" type="text" name="address" id="address" value="{{ old('address') }}">
+
             </div>
           </div>
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
-            <div class="col-sm-8">
+            <div class="col-sm-8 input-group">
+              <div class="input-group-prepend position-relative bg-white border-0">
+                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+              </div>
               <input class="form-control" type="text" name="description" id="description" value="{{ old('description') }}">
             </div>
           </div>
@@ -117,9 +150,9 @@
               </div>
             </div>
           </div>
-          <div class="form-group row mb-5 mb-lg-0">
+          <div class="form-group row d-none d-md-block">
             <div class="col mb-3">
-                <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeSubmit">Отправить</button>
+              <button type="submit" class="col-12 btn rounded-11 px-3 btn-danger storeSubmit" id="storeSubmit">Отправить</button>
             </div>
           </div>
         </div>

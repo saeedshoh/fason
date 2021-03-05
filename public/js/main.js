@@ -107,14 +107,15 @@
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.20';
+  var VERSION = '4.17.21';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
 
   /** Error message constants. */
   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
-      FUNC_ERROR_TEXT = 'Expected a function';
+      FUNC_ERROR_TEXT = 'Expected a function',
+      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
 
   /** Used to stand-in for `undefined` hash values. */
   var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -247,10 +248,11 @@
   var reRegExpChar = /[\\^$.*+?()[\]{}|]/g,
       reHasRegExpChar = RegExp(reRegExpChar.source);
 
-  /** Used to match leading and trailing whitespace. */
-  var reTrim = /^\s+|\s+$/g,
-      reTrimStart = /^\s+/,
-      reTrimEnd = /\s+$/;
+  /** Used to match leading whitespace. */
+  var reTrimStart = /^\s+/;
+
+  /** Used to match a single whitespace character. */
+  var reWhitespace = /\s/;
 
   /** Used to match wrap detail comments. */
   var reWrapComment = /\{(?:\n\/\* \[wrapped with .+\] \*\/)?\n?/,
@@ -259,6 +261,18 @@
 
   /** Used to match words composed of alphanumeric characters. */
   var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
+
+  /**
+   * Used to validate the `validate` option in `_.template` variable.
+   *
+   * Forbids characters which could potentially change the meaning of the function argument definition:
+   * - "()," (modification of function parameters)
+   * - "=" (default value)
+   * - "[]{}" (destructuring of function parameters)
+   * - "/" (beginning of a comment)
+   * - whitespace
+   */
+  var reForbiddenIdentifierChars = /[()=,{}\[\]\/\s]/;
 
   /** Used to match backslashes in property paths. */
   var reEscapeChar = /\\(\\)?/g;
@@ -1089,6 +1103,19 @@
   }
 
   /**
+   * The base implementation of `_.trim`.
+   *
+   * @private
+   * @param {string} string The string to trim.
+   * @returns {string} Returns the trimmed string.
+   */
+  function baseTrim(string) {
+    return string
+      ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+      : string;
+  }
+
+  /**
    * The base implementation of `_.unary` without support for storing metadata.
    *
    * @private
@@ -1419,6 +1446,21 @@
     return hasUnicode(string)
       ? unicodeToArray(string)
       : asciiToArray(string);
+  }
+
+  /**
+   * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+   * character of `string`.
+   *
+   * @private
+   * @param {string} string The string to inspect.
+   * @returns {number} Returns the index of the last non-whitespace character.
+   */
+  function trimmedEndIndex(string) {
+    var index = string.length;
+
+    while (index-- && reWhitespace.test(string.charAt(index))) {}
+    return index;
   }
 
   /**
@@ -12589,7 +12631,7 @@
       if (typeof value != 'string') {
         return value === 0 ? value : +value;
       }
-      value = value.replace(reTrim, '');
+      value = baseTrim(value);
       var isBinary = reIsBinary.test(value);
       return (isBinary || reIsOctal.test(value))
         ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
@@ -14961,6 +15003,12 @@
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
+      // Throw an error if a forbidden character was found in `variable`, to prevent
+      // potential command injection attacks.
+      else if (reForbiddenIdentifierChars.test(variable)) {
+        throw new Error(INVALID_TEMPL_VAR_ERROR_TEXT);
+      }
+
       // Cleanup code by stripping empty strings.
       source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
         .replace(reEmptyStringMiddle, '$1')
@@ -15074,7 +15122,7 @@
     function trim(string, chars, guard) {
       string = toString(string);
       if (string && (guard || chars === undefined)) {
-        return string.replace(reTrim, '');
+        return baseTrim(string);
       }
       if (!string || !(chars = baseToString(chars))) {
         return string;
@@ -15109,7 +15157,7 @@
     function trimEnd(string, chars, guard) {
       string = toString(string);
       if (string && (guard || chars === undefined)) {
-        return string.replace(reTrimEnd, '');
+        return string.slice(0, trimmedEndIndex(string) + 1);
       }
       if (!string || !(chars = baseToString(chars))) {
         return string;
@@ -24911,8 +24959,45 @@ $(document).on('change', '[name="category_id"]', function () {
     success: function success(data) {
       $('#attributes').empty();
       data.forEach(function (element) {
-        $('#attributes').append("\n                    <div class=\"form-check form-check w-75\">\n                        <input class=\"form-check-input js-attribute\" name=\"attribute[".concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                        <label class=\"form-check-label\" for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                    </div>\n                "));
+        $('#attributes').append("\n                    <div class=\"form-check form-check w-75 p-0\">\n                        <div class=\"d-flex justify-content-between align-items-center\">\n                            <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\" for=\"".concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], ":</label>\n                            <div id=\"st-attribute_val\" class=\"font-weight-bold\"></div>\n                            <label for=\"st-attribute_select\" class=\"m-0 cursor-pointer\"><img src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                        </div>\n                        \n                        <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n\n                    </div>\n                "));
       });
+    }
+  });
+});
+$(document).on('change', '.st-attribute_add', function () {
+  $('#st-attribute_val').empty();
+  $('.st-attribute_add option:selected').each(function (el) {
+    $('#st-attribute_val').append($(this).text() + ' ');
+  });
+});
+$(document).on('click', '#btn-add_address', function () {
+  var formData = new FormData();
+  formData.append('_token', $('meta[name=csrf-token]').attr("content")); // var formData = new FormData($('#add_address'));
+
+  var phone = $('#phone').val();
+  var name = $(this).closest('form').find('input[name="name"]').val();
+  var address = $(this).closest('form').find('input[name="address"]').val();
+  var city_id = $(this).closest('form').find('input[name="city_id"]').val();
+  var profile_photo_path = $(this).closest('form').find('input[name="profile_photo_path"]')[0].files[0];
+  formData.append('phone', phone);
+  formData.append('name', name);
+  formData.append('address', address);
+  formData.append('city_id', city_id);
+  formData.append('profile_photo_path', profile_photo_path);
+  $.ajax({
+    url: '/users/contacts',
+    type: 'post',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: function success(data) {
+      location.reload(true);
+    },
+    error: function error(xhr, status, _error) {
+      console.log(status);
     }
   });
 });
@@ -24952,7 +25037,7 @@ $(document).on('change', '.js-attribute', function () {
 
           });
         } else {
-          _this.closest('div').append("\n                        <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple>\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                        </select>\n                    "));
+          _this.closest('div').append("\n                        <select class=\"input_placeholder_style form-control st-attribute_add mt-3\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple id=\"st-attribute_select\">\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                        </select>\n                    "));
 
           data.forEach(function (element) {
             _this.closest('div').find('select').append("\n                            <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                        "));
@@ -25010,7 +25095,7 @@ $('body').on('change', '#cat_child', function () {
       if (data.hasOwnProperty('0')) {
         $('#cat_child').attr('name', 'subcategory');
         $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                            <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                            </select>\n                        </div>\n                    </div>\n                ");
+        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style\">\n                            <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                                <option selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                            </select>\n                        </div>\n                    </div>\n                ");
         data.forEach(function (element) {
           $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
         });
@@ -25047,7 +25132,7 @@ $('.main-search').on('keyup keypress keydown change', function () {
         $('.search-result').show();
         $('.search-result').html(data);
       },
-      error: function error(xhr, status, _error) {}
+      error: function error(xhr, status, _error2) {}
     });
   } else {
     $('.search-result').hide();
@@ -25125,7 +25210,7 @@ $('.checkout-product').on('click', function () {
       console.log(data);
       $('.order-number').text("Номер вашего заказа: " + data.order.id);
     },
-    error: function error(xhr, status, _error2) {
+    error: function error(xhr, status, _error3) {
       console.log(status);
     }
   });
@@ -25151,7 +25236,7 @@ $('.favorite').on('click', function () {
     success: function success(data) {
       this_.toggleClass('active');
     },
-    error: function error(xhr, status, _error3) {
+    error: function error(xhr, status, _error4) {
       console.log(status);
     }
   }); // $.ajax({
@@ -25198,7 +25283,7 @@ $('#btn-login').on('click', function () {
         $('.wrong-code').show();
       }
     },
-    error: function error(xhr, status, _error4) {
+    error: function error(xhr, status, _error5) {
       console.log(status);
     }
   });
@@ -25236,7 +25321,7 @@ $('#send-code, .send-code').on('click', function () {
             display = document.querySelector('#count-down');
         return startTimer(fiveMinutes, display);
       },
-      error: function error(xhr, status, _error5) {
+      error: function error(xhr, status, _error6) {
         console.log(status);
       }
     });
@@ -25544,7 +25629,7 @@ $('.add-product-secondary .pic-item').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\XAMPP\htdocs\fason.tj\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/shuhrat/Desktop/Актуальные проекты/fason.tj/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

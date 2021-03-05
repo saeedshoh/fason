@@ -25,27 +25,31 @@ class UserController extends Controller
     {
         $image = null;
 
-        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($month)){
-            File::makeDirectory($month, 0777, true);
-        }
-        if($request->file('profile_photo_path')) {
-            $image = $request->file('profile_photo_path')->store('public/'.now()->year . '/' . sprintf("%02d", now()->month));
-        }
+        if($request->ajax()) {
 
-        $user = User::updateOrCreate(
-            ['phone' => str_replace(' ', '', $request->phone)],
-            [
-                'name' =>  $request->name,
-                'address' =>  $request->address,
-                'city_id' =>  $request->city_id,
-                'profile_photo_path' =>  $image ? $image : null,
-                'registered_at' => Carbon::now()
-            ]
-        );
+            $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+            if(!File::isDirectory($month)){
+                File::makeDirectory($month, 0777, true);
+            }
+            if($request->file('profile_photo_path')) {
+                $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+            }
 
-        Auth::loginUsingId($user->id);
-        return redirect()->route('home');
+            $user = User::updateOrCreate(
+                ['phone' => str_replace(' ', '', $request->phone)],
+                [
+                    'name' =>  $request->name,
+                    'address' =>  $request->address,
+                    'city_id' =>  $request->city_id,
+                    'profile_photo_path' =>  $image ? $image : null,
+                    'registered_at' => Carbon::now()
+                ]
+            );
+            
+            Auth::loginUsingId($user->id);
+            return $request;
+            
+        }
     }
 
     public function index()
