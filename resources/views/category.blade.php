@@ -85,7 +85,7 @@
                     </div>
                   </div>
 
-                  <button type="button" data-cat-slug="{{ $name->slug }}" data-cat-id="{{ $cat_id }}" id="filterMobi" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 mb-5 w-100">
+                  <button type="button" data-cat-slug="{{ $name->slug }}" data-cat-id="{{ $cat_id }}" id="filterMobi" class="change-bttn__modal btn btn-danger rounded-pill px-5 mb-5 w-100">
                       <i class="fas fa-search" aria-hidden="true"></i> Фильтр
                   </button>
                 </div>
@@ -259,7 +259,7 @@
                         </div>
                     </div>
 
-                    <button type="button" data-cat-slug="{{ $name->slug }}" data-cat-id="{{ $cat_id }}" id="filter" class="change-bttn__modal btn btn-outline-danger rounded-pill px-5 mb-5 w-100">
+                    <button type="button" data-cat-slug="{{ $name->slug }}" data-cat-id="{{ $cat_id }}" id="filter" class="change-bttn__modal btn btn-danger rounded-pill px-5 mb-5 w-100">
                         <i class="fas fa-search" aria-hidden="true"></i> Фильтр
                     </button>
                     </div>

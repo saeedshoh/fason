@@ -69,7 +69,7 @@ aria-hidden="true">
       </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" novalidate onsubmit="return false">
+        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="80" height="80" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +111,7 @@ aria-hidden="true">
               Политика конфиденциальности
             </a>
           </p>
-          <button type="submit" class="btn btn-danger rounded-11 btn-lg">Сохранить</button>
+          <button type="submit" class="btn btn-danger rounded-11 btn-lg" id="btn-add_address">Сохранить</button>
         </form>
       </div>
     </div>

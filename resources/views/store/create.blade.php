@@ -103,6 +103,7 @@
         <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
+
             <div class="col-sm-8 input-group">
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
@@ -120,6 +121,7 @@
                 <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
               <input class="form-control" type="text" name="address" id="address" value="{{ old('address') }}">
+
             </div>
           </div>
           <div class="form-group row">
