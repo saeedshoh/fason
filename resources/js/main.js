@@ -855,6 +855,14 @@ $('#btn-login').on('click', function() {
 
     });
 });
+
+$('#sms-confirmed, #add_address').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) { 
+      e.preventDefault();
+      return false;
+    }
+});
 // sms-code
 $('#send-code, .send-code').on('click', function() {
     $(this).attr('disabled', true);
