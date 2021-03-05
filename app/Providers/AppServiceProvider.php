@@ -61,12 +61,12 @@ class AppServiceProvider extends ServiceProvider
                 if (Auth::check()) {
                     $is_store = Store::with('orders')->where('user_id', Auth::id())->withoutGlobalScopes()->first();
                 }
-                $newProducts = Product::withoutGlobalScopes()->where('product_status_id', 1)->count();
+                $newProductsDashboard = Product::withoutGlobalScopes()->where('product_status_id', 1)->count();
                 $newOrders = Order::withoutGlobalScopes()->where('order_status_id', 1)->count();
                 $newStores = Store::withoutGlobalScopes()->where('is_active', 0)->count();
                 $view->with([
                     'is_store' => $is_store,
-                    'newProducts' => $newProducts,
+                    'newProductsDashboard' => $newProductsDashboard,
                     'newOrders' =>  $newOrders,
                     'newStores' => $newStores
                 ]);
