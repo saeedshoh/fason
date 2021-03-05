@@ -41,7 +41,7 @@
 
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/products') ? ' active' : '' }}" href="{{ route('products.index') }}">
-                  <i class="fe fe-grid"></i> Товары @if($newProducts > 0)<span class="badge badge-soft-success ml-2">{{ $newProducts }} @endif</span>
+                  <i class="fe fe-grid"></i> Товары @if($newProductsDashboard > 0)<span class="badge badge-soft-success ml-2">{{ $newProductsDashboard }} @endif</span>
                 </a>
               </li>
               <li class="nav-item">
