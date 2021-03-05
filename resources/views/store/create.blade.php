@@ -82,7 +82,7 @@
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
+              <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
               </div>
@@ -91,13 +91,13 @@
           <div class="form-group row">
             <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдресс:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') }}">
+              <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ old('address') }}">
             </div>
           </div>
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') }}">
+              <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{ old('description') }}">
             </div>
           </div>
         </div>
