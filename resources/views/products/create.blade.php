@@ -129,7 +129,9 @@
                   @enderror
                 </div>
               </div>
-              <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end w-75"></div>
+              <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
+
+              </div>
               @csrf
               <input type="hidden" name="store_id" value="{{ $store }}" required>
               <input type="hidden" name="product_status_id" value="1">

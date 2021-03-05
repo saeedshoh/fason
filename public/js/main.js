@@ -24911,8 +24911,45 @@ $(document).on('change', '[name="category_id"]', function () {
     success: function success(data) {
       $('#attributes').empty();
       data.forEach(function (element) {
-        $('#attributes').append("\n                    <div class=\"form-check form-check w-75\">\n                        <label class=\"form-check-label bg-light\" for=\"".concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], "</label>\n                        <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                    </div>\n                "));
+        $('#attributes').append("\n                    <div class=\"form-check form-check w-75 p-0\">\n                        <div class=\"d-flex justify-content-between align-items-center\">\n                            <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\" for=\"".concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\">").concat(element['at_name'], ":</label>\n                            <div id=\"st-attribute_val\" class=\"font-weight-bold\"></div>\n                            <label for=\"st-attribute_select\" class=\"m-0 cursor-pointer\"><img src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                        </div>\n                        \n                        <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n\n                    </div>\n                "));
       });
+    }
+  });
+});
+$(document).on('change', '.st-attribute_add', function () {
+  $('#st-attribute_val').empty();
+  $('.st-attribute_add option:selected').each(function (el) {
+    $('#st-attribute_val').append($(this).text() + ' ');
+  });
+});
+$(document).on('click', '#btn-add_address', function () {
+  var formData = new FormData();
+  formData.append('_token', $('meta[name=csrf-token]').attr("content")); // var formData = new FormData($('#add_address'));
+
+  var phone = $('#phone').val();
+  var name = $(this).closest('form').find('input[name="name"]').val();
+  var address = $(this).closest('form').find('input[name="address"]').val();
+  var city_id = $(this).closest('form').find('input[name="city_id"]').val();
+  var profile_photo_path = $(this).closest('form').find('input[name="profile_photo_path"]')[0].files[0];
+  formData.append('phone', phone);
+  formData.append('name', name);
+  formData.append('address', address);
+  formData.append('city_id', city_id);
+  formData.append('profile_photo_path', profile_photo_path);
+  $.ajax({
+    url: '/users/contacts',
+    type: 'post',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: function success(data) {
+      location.reload(true);
+    },
+    error: function error(xhr, status, _error) {
+      console.log(status);
     }
   });
 });
@@ -24952,7 +24989,7 @@ $(document).on('change', '.js-attribute', function () {
 
           });
         } else {
-          _this.closest('div').append("\n                        <select class=\"input_placeholder_style form-control\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple>\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                        </select>\n                    "));
+          _this.closest('div').append("\n                        <select class=\"input_placeholder_style form-control st-attribute_add mt-3\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple id=\"st-attribute_select\">\n                            <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                        </select>\n                    "));
 
           data.forEach(function (element) {
             _this.closest('div').find('select').append("\n                            <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                        "));
@@ -25047,7 +25084,7 @@ $('.main-search').on('keyup keypress keydown change', function () {
         $('.search-result').show();
         $('.search-result').html(data);
       },
-      error: function error(xhr, status, _error) {}
+      error: function error(xhr, status, _error2) {}
     });
   } else {
     $('.search-result').hide();
@@ -25125,7 +25162,7 @@ $('.checkout-product').on('click', function () {
       console.log(data);
       $('.order-number').text("Номер вашего заказа: " + data.order.id);
     },
-    error: function error(xhr, status, _error2) {
+    error: function error(xhr, status, _error3) {
       console.log(status);
     }
   });
@@ -25151,7 +25188,7 @@ $('.favorite').on('click', function () {
     success: function success(data) {
       this_.toggleClass('active');
     },
-    error: function error(xhr, status, _error3) {
+    error: function error(xhr, status, _error4) {
       console.log(status);
     }
   }); // $.ajax({
@@ -25198,7 +25235,7 @@ $('#btn-login').on('click', function () {
         $('.wrong-code').show();
       }
     },
-    error: function error(xhr, status, _error4) {
+    error: function error(xhr, status, _error5) {
       console.log(status);
     }
   });
@@ -25236,7 +25273,7 @@ $('#send-code, .send-code').on('click', function () {
             display = document.querySelector('#count-down');
         return startTimer(fiveMinutes, display);
       },
-      error: function error(xhr, status, _error5) {
+      error: function error(xhr, status, _error6) {
         console.log(status);
       }
     });

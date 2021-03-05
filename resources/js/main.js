@@ -466,9 +466,15 @@ $(document).on('change', '[name="category_id"]', function() {
             $('#attributes').empty();
             data.forEach(element => {
                 $('#attributes').append(`
-                    <div class="form-check form-check w-75">
-                        <label class="form-check-label bg-light" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                    <div class="form-check form-check w-75 p-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label class="form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}:</label>
+                            <div id="st-attribute_val" class="font-weight-bold"></div>
+                            <label for="st-attribute_select" class="m-0 cursor-pointer"><img src="/storage/theme/plus_add_attr.svg" /></label>
+                        </div>
+                        
                         <input class="form-check-input js-attribute d-none" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+
                     </div>
                 `);
             })
@@ -476,7 +482,47 @@ $(document).on('change', '[name="category_id"]', function() {
     });
 })
 
+$(document).on('change', '.st-attribute_add', function() {
+    $('#st-attribute_val').empty();
+    $('.st-attribute_add option:selected').each(function(el) {
+       $('#st-attribute_val').append($(this).text() + ' ')
+    });
+});
+$(document).on('click', '#btn-add_address', function() {
+  
+    var formData = new FormData();
+    formData.append('_token', $('meta[name=csrf-token]').attr("content"));
 
+    // var formData = new FormData($('#add_address'));
+    
+    let phone = $('#phone').val();
+    let name = $(this).closest('form').find('input[name="name"]').val();
+    let address = $(this).closest('form').find('input[name="address"]').val();
+    let city_id = $(this).closest('form').find('input[name="city_id"]').val();
+    let profile_photo_path = $(this).closest('form').find('input[name="profile_photo_path"]')[0].files[0];
+
+    formData.append('phone', phone);
+    formData.append('name', name);
+    formData.append('address', address);
+    formData.append('city_id', city_id);
+    formData.append('profile_photo_path', profile_photo_path);
+    $.ajax({
+        url: '/users/contacts',
+        type: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: (data) => {
+            location.reload(true);
+        },
+        error: function(xhr, status, error) {
+            console.log(status)
+        }
+    });
+});
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this);
     $.ajax({
@@ -520,7 +566,7 @@ $(document).on('change', '.js-attribute', function() {
                     })
                 } else {
                     _this.closest('div').append(`
-                        <select class="input_placeholder_style form-control" name="attribute[${data[0]['slug']}][value][]" multiple>
+                        <select class="input_placeholder_style form-control st-attribute_add mt-3" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
                             <option disabled>Выберите значение</option>
                         </select>
                     `);
