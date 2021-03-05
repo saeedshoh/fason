@@ -217,8 +217,9 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function toggle(Store $store)
+    public function toggle($store)
     {
+        $store = Store::withoutGlobalScopes()->find($store);
         if($store->is_active) {
             $store->update(['is_active' => 0]);
         } else {

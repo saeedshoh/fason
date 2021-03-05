@@ -19,8 +19,8 @@ class CreateStoresTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('address');
-            $table->string('avatar');
-            $table->string('cover');
+            $table->string('avatar')->nullable();
+            $table->string('cover')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->tinyInteger('is_active')->default(0);

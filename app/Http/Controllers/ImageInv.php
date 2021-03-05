@@ -21,8 +21,6 @@ class ImageInv extends Controller
         $img = Image::make(public_path('/storage/tort_slide.jpg'));
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         return $this->cropImage($img, 480, 50, $nowYear);
-        // $this->cropImage($img, 800, 83, $nowYear);
-        // return $canva->response('jpg');
     }
 
     private function cropImage($img, $dimension, $sides, $nowYear)
@@ -61,28 +59,28 @@ class ImageInv extends Controller
 
         $back = $manager->canvas($dimension, $dimension, '#ffffff');
         $back->insert($img, 'center');
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
+        $back->insert($watermark, 'bottom-right', 50, 50);
         $back->save(public_path('/storage/' . $path));
     }
 
     public function uploadImage(Request $request)
     {
+        //Create folder if doesn't exist
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month);
+        }
+
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(120, 37)->opacity('50');
-        $img->insert($watermark, 'bottom-right', 50, 50);
 
-        //Create folder if doesn't exist
-        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($yearFolder)){
-            File::makeDirectory($yearFolder, 0777, true);
-        }
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 480, 50, $nowYear);
-        $this->cropImage($img, 800, 83, $nowYear);
-        return $nowYear . '480x480.jpg';
+        $this->cropImage($img, 800, 100, $nowYear);
+        return $nowYear . '800x800.jpg';
     }
 }

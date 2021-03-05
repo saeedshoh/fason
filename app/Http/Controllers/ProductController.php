@@ -12,6 +12,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Log;
 use App\Models\Order;
 use App\Models\ProductAttribute;
+use App\Scopes\FreshProductScope;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,8 @@ class ProductController extends Controller
         $this->count = 1;
     }
 
-    public function decline(Product $product) {
+    public function decline($product) {
+        $product = Product::withoutGlobalScopes()->find($product);
         $product->update(['product_status_id' => 3]);
         Log::create([
             'user_id'   => Auth::user()->id,
@@ -43,7 +45,8 @@ class ProductController extends Controller
         ]);
         return redirect()->route('products.index');
     }
-    public function publish(Product $product) {
+    public function publish($product) {
+        $product = Product::withoutGlobalScopes()->find($product);
         $product->update(['product_status_id' => 2]);
         Log::create([
             'user_id'   => Auth::user()->id,
@@ -74,13 +77,13 @@ class ProductController extends Controller
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
-        ->groupBy('product_id');
+            ->groupBy('product_id');
         $topProducts = Product::where('product_status_id', 2)
-        ->where('category_id', $product->category_id)
-        ->select(DB::raw('products.*, countProd.countProd'))
-        ->leftJoinSub($countProd, 'countProd', function ($join) {
-            $join->on('products.id', '=', 'countProd.product_id');
-        })->orderByDesc('countProd')->paginate(15);
+            ->where('category_id', $product->category_id)
+            ->select(DB::raw('products.*, countProd.countProd'))
+            ->leftJoinSub($countProd, 'countProd', function ($join) {
+                $join->on('products.id', '=', 'countProd.product_id');
+            })->orderByDesc('countProd')->paginate(15);
         $attributes = $product->attribute_variation;
 
         return view('products.single', compact('product', 'similars', 'attributes', 'topProducts'));
@@ -145,8 +148,6 @@ class ProductController extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(145, 62)->opacity('50');
-        $img->insert($watermark, 'bottom-right', 50, 50);
 
         //Create folder if doesn't exist
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
@@ -155,8 +156,7 @@ class ProductController extends Controller
         }
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 800, 50, $nowYear);
-        $this->cropImage($img, 800, 83, $nowYear);
+        $this->cropImage($img, 800, 100, $nowYear);
 
         $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
@@ -201,7 +201,7 @@ class ProductController extends Controller
         if ($request->image != $product->image && $request->image != null)
         {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+                'image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
                 'gallery' => 'sometimes'
             ]);
 
@@ -212,11 +212,8 @@ class ProductController extends Controller
             }
 
             $img = Image::make($request->file('image')->getRealPath());
-            $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
-            $img->insert($watermark, 'bottom-right', 50, 50);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($img, 800, 50, $nowYear);
-            $this->cropImage($img, 800, 83, $nowYear);
+            $this->cropImage($img, 800, 100, $nowYear);
 
             $image = $nowYear . '800x800.jpg';
             $product->update([
@@ -274,8 +271,6 @@ class ProductController extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-        $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
-        $img->insert($watermark, 'bottom-right', 50, 50);
 
         //Create folder if doesn't exist
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
@@ -284,7 +279,7 @@ class ProductController extends Controller
         }
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 800, 83, $nowYear);
+        $this->cropImage($img, 800, 100, $nowYear);
 
         $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
@@ -328,8 +323,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($product)
     {
+        $product = Product::withoutGlobalScopes()->find($product);
         $attributes = $product->category->attributes->map(function($attributes) use ($product) {
             $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);
             return $attributes;
@@ -377,10 +373,8 @@ class ProductController extends Controller
             }
 
             $img = Image::make($request->file('image')->getRealPath());
-            $watermark = Image::make(public_path('/storage/logo_fason_with_shadow_png'))->resize(120, 37)->opacity('100');
-            $img->insert($watermark, 'bottom-right', 50, 50);
             $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($img, 800, 83, $nowYear);
+            $this->cropImage($img, 800, 100, $nowYear);
 
             $image = $nowYear . '800x800.jpg';
             $product->update([
@@ -488,6 +482,8 @@ class ProductController extends Controller
 
         $back = $manager->canvas($dimension, $dimension, '#ffffff');
         $back->insert($img, 'center');
+        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
+        $back->insert($watermark, 'bottom-right', 50, 50);
         $back->save(public_path('/storage/' . $path));
     }
 }

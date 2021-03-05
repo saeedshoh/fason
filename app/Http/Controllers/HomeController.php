@@ -39,7 +39,7 @@ class HomeController extends Controller
         foreach ($stores as $store) {
             $store_orders = $store->orders;
             $totalsumm = [];
-            foreach ($store_orders as $item) {
+            foreach ($store_orders->where('order_status_id', 3) as $item) {
                 array_push($totalsumm, $item->total);
             }
             $totalsumm = array_sum($totalsumm);
@@ -55,15 +55,15 @@ class HomeController extends Controller
            $topstores->push($store = Store::select('name', 'avatar', 'is_active', DB::raw("$value as orders"))->where('id', $key)->get());
         }
         $topstores = $topstores->flatten();
-        $months = Order::select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
+        $months = Order::where('order_status_id', 3)->select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
 
         $now = Carbon::now();
-        $salesSum = Order::sum('total');
+        $salesSum = Order::where('order_status_id', 3)->sum('total');
         $ordersCount = Order::where('order_status_id', 3)->count('id');
         $productsCount = Product::count('id');
         $newProductsCount = Product::whereBetween('updated_at', [$now->startOfWeek()->format('Y-m-d H:i'), $now->endOfWeek()->format('Y-m-d H:i')])->count('id');
         $deletedProductsCount = Log::where('table', 'Продукты')->where('action', 3)->count();
-        $profitIncludingCommission = Order::sum('total');
+        $profitIncludingCommission = Order::where('order_status_id', 3)->sum('total');
         $storesCount = Store::count();
         $newStores = Store::whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d H:i'), $now->endOfMonth()->format('Y-m-d H:i')])->orderByDesc('id')->get();
         return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores', 'topstores'));

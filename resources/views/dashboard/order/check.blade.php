@@ -81,6 +81,9 @@
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Название товара: </small> <small>{{ $order->product->name }}</small>
                             </li>
+                            <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                <small>Цена товара: </small> <small>{{ $order->total + $order->margin }} Сомони</small>
+                            </li>
                             @if ($attributes)
                                 @foreach ($attributes as $attribute)
                                     <li class="list-group-item d-flex align-items-center justify-content-between px-0">
@@ -101,7 +104,7 @@
                                 <small>Коментарии: </small> <small>{{ $order->comment }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <strong>Цена c учётом НДС: </strong> <strong>{{ $order->total + $order->margin }} Сомони</strong>
+                                <strong>Итог c учётом НДС: </strong> <strong>{{ ($order->total + $order->margin) * $order->quantity }} Сомони</strong>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <div class="col-6">
@@ -148,6 +151,9 @@
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Название товара: </small> <small>{{ $order->product->name }}</small>
                             </li>
+                            <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                <small>Цена товара: </small> <small>{{ $order->total }} Сомони</small>
+                            </li>
                             @if ($attributes)
                                 @foreach ($attributes as $attribute)
                                     <li class="list-group-item d-flex align-items-center justify-content-between px-0">
@@ -165,7 +171,7 @@
                                 <small>Адрес продавца: </small> <small>{{ $order->product->store->address }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <strong>Цена товара: </strong> <strong>{{ $order->total }} Сомони</strong>
+                                <strong>Итог: </strong> <strong>{{ $order->total * $order->quantity }} Сомони</strong>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <div class="col-6">

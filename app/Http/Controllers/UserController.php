@@ -82,10 +82,10 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' =>  $request->email,
-            'phone' =>  str_replace(' ', '', $request->phone),
-            'status' =>  1,
+            'phone' =>  str_replace(array( '(', ')', ' ', '-' ), '', $request->phone),
             'profile_photo_path' => $request->profile_photo_path,
             'password' => Hash::make($request->password,),
+            'status' =>  1,
             'registered_at' => Carbon::now()
         ]);
         $user->attachRole($request->role);
@@ -96,6 +96,11 @@ class UserController extends Controller
             'table'  => ' Пользователи',
             'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
+
+        // $previous = url()->previous();
+        // if(str_contains($previous, 'users')){
+
+        // }
 
         return redirect()->route('users.index');
     }
