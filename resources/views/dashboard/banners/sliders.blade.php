@@ -100,7 +100,7 @@
                         <!-- Avatar -->
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="/storage/{{ $slider->image }}">
-                        </div> <a class="item-name text-reset" href="profile-posts.html">Слайдер {{ ++$key }}</a>
+                        </div> <a class="item-name text-reset" href="{{ route('banners.edit', $slider) }}">Слайдер {{ ++$key }}</a>
 
                       </td>
                       <td>

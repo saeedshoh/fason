@@ -43,7 +43,7 @@
             @endfor
           </div>
           <form method="post" action="" enctype="multipart/form-data" id="myform">
-            <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+            <input type="file" accept="image/*"  id="galler" class="d-none" name="galler" multiple >
           </form>
         </div>
         <!--add image end-->
@@ -54,7 +54,7 @@
             @method('PUT')
             <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
 
-            <input type="file" id="image" class="d-none" name="image">
+            <input type="file" accept="image/*"  id="image" class="d-none" name="image">
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                 <div class="w-75 input_placeholder_style">

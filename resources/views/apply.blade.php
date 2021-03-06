@@ -169,7 +169,7 @@
                     <!-- Fallback -->
                     <div class="fallback">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="projectCoverUploads">
+                        <input type="file" accept="image/*"  class="custom-file-input" id="projectCoverUploads">
                         <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
                       </div>
                     </div>
@@ -208,7 +208,7 @@
                         <!-- Fallback -->
                         <div class="fallback">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileUpload" multiple>
+                            <input type="file" accept="image/*"  class="custom-file-input" id="customFileUpload" multiple>
                             <label class="custom-file-label" for="customFileUpload">Choose file</label>
                           </div>
                         </div>

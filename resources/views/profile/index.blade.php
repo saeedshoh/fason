@@ -21,7 +21,7 @@
                                 <label for="avatar" class="cursor-pointer d-block user_avatar">
                                         <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="rounded-pill" height="149" width="149" style="object-fit: cover;">
                                         <h6 class="mt-2 font-weight-bold">Добавить аватар</h6>
-                                        <input type="file" class="d-none" id="avatar" name="profile_photo_path">
+                                        <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
                                 </label>
 
                             @else
@@ -29,14 +29,14 @@
                                 <div class="edit-store-logo position-absolute w-100 edit-pofile-img">
                                     <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                                         Изменить
-                                        <input type="file" class="d-none" id="avatar" name="profile_photo_path">
+                                        <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
                                     </label>
                                 </div>
                             @endif
                             {{-- <div class="edit-store-logo position-absolute w-100">
                                 <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                                     Изменить
-                                    <input type="file" class="d-none" id="avatar" name="profile_photo_path">
+                                    <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
                                 </label>
                             </div> --}}
                         </div>
@@ -46,7 +46,7 @@
                         <div class="edit-store-logo position-absolute w-100">
                           <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                             Изменить
-                            <input type="file" class="d-none" id="avatar" name="avatar">
+                            <input type="file" accept="image/*"  class="d-none" id="avatar" name="avatar">
                           </label>
                         </div>
                     </div> --}}

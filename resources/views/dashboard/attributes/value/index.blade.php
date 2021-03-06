@@ -110,10 +110,10 @@
 
                       </td>
                       <td>
-                        <a class="item-name text-reset" href="profile-posts.html">{{ $item->name }}</a>
+                        <a class="item-name text-reset" href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">{{ $item->name }}</a>
                       </td>
                       <td>
-                        <a class="item-name text-reset" href="profile-posts.html">
+                        <a class="item-name text-reset" href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">
 
                             @if ($parent->name == 'Цвет')
 

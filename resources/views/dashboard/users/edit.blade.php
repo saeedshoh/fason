@@ -34,7 +34,7 @@
                   <!-- Avatar -->
                   <div class="avatar">
                     <img class="avatar-img rounded-circle" src="{{ Storage::url($user->profile_photo_path) }}" alt="...">
-                    <input type="file" id="profile_photo_path" class="d-none" name="profile_photo_path">
+                    <input type="file" accept="image/*"  id="profile_photo_path" class="d-none" name="profile_photo_path">
                   </div>
 
                 </div>

@@ -71,6 +71,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+                    
                 @forelse ($sales as $sale)
                     @if (@isset($sale->no_scope_product->store_id) == Auth::user()->id)
                     <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)in-road-card @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">

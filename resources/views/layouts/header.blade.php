@@ -105,12 +105,23 @@
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>
+      @auth
       <div class="col text-center px-0">
         <a href="{{ route('favorite.index') }}" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
           <img src="/storage/theme/icons/favourite-mob.svg" width="19">
           <span class="mobile-nav--title">Сохраненные</span>
         </a>
       </div>
+      @endauth
+      @guest
+      <div class="col text-center px-0">
+        <a data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
+          <img src="/storage/theme/icons/favourite-mob.svg" width="19">
+          <span class="mobile-nav--title">Сохраненные</span>
+        </a>
+      </div>
+      @endguest
+      
       {{-- @if ($is_store != null && $is_store->is_active == 1) --}}
         @auth
         <div class="col add-good text-center position-relative px-0">
@@ -136,7 +147,7 @@
       @endauth
       @guest
       <div class="col text-center px-0">
-        <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
+        <a data-toggle="modal" data-target="#enter_site" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
         @isset($is_store->orders)
             @if ($is_store->orders->where('order_status_id', 1)->count() > 0)
                 <sub class="h6 bg-danger rounded-circle m-0 float-right ml-3 mt-n3 text-white px-1">{{ $is_store->orders->where('order_status_id', 1)->count() }}</sub>
@@ -152,7 +163,7 @@
         <div class="col text-center px-0">
           <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
             <i class="fas fa-door-open text-pinky" width="19"></i>
-            <span class="mobile-nav--title text-pinky">Открыть магазин</span>
+            <span class="mobile-nav--title text-pinky">Магазин</span>
           </a>
         </div>
         @endauth
@@ -161,7 +172,7 @@
           <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
             <img src="/storage/theme/icons/store-mob.svg" width="19">
             <span class="mobile-nav--title">
-              Открыть магазин</span>
+              Магазин</span>
             </a>
         </div>
         @endguest

@@ -114,7 +114,7 @@
                         @endforeach
                       </td>
                       <td class="item-owner">
-                        <a class="text-reset" href="profile-posts.html">{{ $store->user->name }}</a>
+                        <span class="text-reset">{{ $store->user->name }}</span>
                       </td>
                       <td class="item-created">
                         <time datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>

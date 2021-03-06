@@ -117,7 +117,7 @@
                         {{ $product->price }}
                       </td>
                       <td class="item-category">
-                        <span class="item-name text-reset" href="profile-posts.html">{{ $product->category->name }}</span>
+                        <span class="item-name text-reset">{{ $product->category->name }}</span>
                       </td>
                       <td class="item-date">
                         <!-- Time -->

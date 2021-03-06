@@ -103,7 +103,7 @@
                                             <label for="image">Изображения</label> <span id="bannerSize" class="badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else @if($banner->position == 1) 1600x80 @else 1140x136 @endif @endif</span>
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="image">Выберите файл</label>
-                                                <input type="file" name="image" id="image" class="custom-file-input " lang="ru" value="{{ $banner->image }}">
+                                                <input type="file" accept="image/*"  name="image" id="image" class="custom-file-input " lang="ru" value="{{ $banner->image }}">
                                                 @error('image')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

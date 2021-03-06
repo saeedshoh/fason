@@ -23,8 +23,8 @@
         </svg> Назад</h6></div>
       <div class="col-8"><h6 class="font-weight-bold text-right text-opacity-low">Информация о магазине</h6></div>
       <div class="col-12">
-        <p class="text-center small my-3 text-muted px-4">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+        <p class="text-justify small my-3 text-muted">
+          Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.
         </p>
       </div>
     </div>
@@ -40,7 +40,7 @@
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
-                <input type="file" class="d-none" id="avatar" name="avatar">
+                <input type="file" accept="image/*"  class="d-none" id="avatar" name="avatar">
               </label>
             </div>
           </div>
@@ -48,7 +48,7 @@
         <div class="col-md-9 px-md-2 position-relative">
           <div class="d-block d-md-none mb-3">
             <h5 class="text-secondary font-weight-bold">Добавить фотографию обложки</h5>
-            <span class="text-primary">Фотография профиля размером 512х512</span>
+            <span class="text-primary">Фотография профиля размером 840х215</span>
           </div>
           <label for="cover" class="cursor-pointer w-100">
             <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
@@ -56,13 +56,13 @@
           <div class="change-banner position-absolute d-none d-md-block">
             <label for="cover" class="btn btn-edit rounded-pill">
               <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top">Изменить
-              <input type="file" class="d-none" id="cover" name="cover">
+              <input type="file" accept="image/*"  class="d-none" id="cover" name="cover">
             </label>
           </div>
           <div class="d-md-none">
             <div class="my-3">
               <h5 class="text-secondary font-weight-bold">Добавить фотографию профиля</h5>
-              <span class="text-primary">Фотография профиля размером 512х512</span>
+              <span class="text-primary">Фотография профиля размером 270х215</span>
             </div>
             <label for="avatar" class="cursor-pointer text-center w-100">
               <img src="/storage/theme/banner_store.svg" class="store-image" width="120" height="120" id="avatar-poster-mobile">
@@ -106,9 +106,9 @@
 
             <div class="col-sm-8 input-group">
               <div class="input-group-prepend position-relative bg-white border-0">
-                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+                <div class="input-group-text @error('name') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
+              <input class="form-control border-left-0 @error('name') is-invalid @enderror" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
               </div>
@@ -118,9 +118,9 @@
             <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдресс:</label>
             <div class="col-sm-8 input-group">
               <div class="input-group-prepend position-relative bg-white border-0">
-                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+                <div class="input-group-text @error('address') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') }}">
+              <input class="form-control border-left-0 @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ old('address') }}">
 
             </div>
           </div>
@@ -128,9 +128,9 @@
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8 input-group">
               <div class="input-group-prepend position-relative bg-white border-0">
-                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+                <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') }}">
+              <input class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{ old('description') }}">
             </div>
           </div>
         </div>
