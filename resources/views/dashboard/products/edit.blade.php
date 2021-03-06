@@ -254,7 +254,7 @@
                                             <label for="image">Image</label>
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="image">Выберите файл</label>
-                                                <input value="{{ old('image') ?? $product->image}} " type="file" name="image" form="create_category" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
+                                                <input value="{{ old('image') ?? $product->image}} " type="file" accept="image/*"  name="image" form="create_category" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
                                                 <small class="text-muted">Размер > 480px * 480px</small>
                                                 @error('image')
                                                 <div class="invalid-feedback">
@@ -289,7 +289,7 @@
                                     <input type="text" id="gallery" class="form-control d-none" name="gallery" value="{{ $product->gallery }}" form="create_category">
 
                                     <form method="post" action="" enctype="multipart/form-data" id="myform">
-                                        <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                                        <input type="file" accept="image/*"  id="galler" class="d-none" name="galler">
                                     </form>
                                     {{-- <div class="row">
 
@@ -306,7 +306,7 @@
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="gallery">Выберите файл</label>
                                                 <label class="custom-file-label" for="gallery">Выберите файл для галереи</label>
-                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" multiple name="gallery[]" form="create_category" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
+                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" accept="image/*"  multiple name="gallery[]" form="create_category" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
                                                 <small class="text-muted">Размер > 480px * 480px</small>
                                                 @error('gallery')
                                                 <div class="invalid-feedback">

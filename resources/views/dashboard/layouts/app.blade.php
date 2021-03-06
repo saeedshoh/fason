@@ -4,10 +4,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Doston Adilov" />
-    <meta name="keywords" content="fason, shop, market, tj,">
-    <meta name="author" content="Doston Adilov">
-
+    <link rel="apple-touch-icon" href="/storage/favicon.jpg">
+    <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('css/dashboard/theme.css') }}" />
     <link rel="stylesheet" href="{{ asset('fonts/feather/feather.css') }}" />

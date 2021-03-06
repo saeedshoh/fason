@@ -127,7 +127,7 @@
                                     <label for="icon">Иконка</label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" for="icon">Выберите файл</label>
-                                        <input value="{{old('icon')}}" type="file" name="icon" form="create_category" id="icon" class="custom-file-input @error('icon') is-invalid @enderror" lang="ru" required>
+                                        <input value="{{old('icon')}}" type="file" accept="image/*"  name="icon" form="create_category" id="icon" class="custom-file-input @error('icon') is-invalid @enderror" lang="ru" required>
                                     </div>
                                     @error('icon')
                                     <div class="invalid-feedback">

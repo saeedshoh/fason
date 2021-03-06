@@ -52,9 +52,9 @@
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <div class="avatar">
-                    <img class="avatar-img rounded-circle" src="/storage/dashboard/img/avatars/profiles/avatar-1.jpg" alt="...">
-                    <input type="file" id="profile_photo_path" class="d-none" name="profile_photo_path">
+                  <div class="avatar user_avatar">
+                    <img class="avatar-img rounded-circle" src="/storage/theme/no-photo.svg">
+                    <input type="file" accept="image/*"  id="profile_photo_path" class="d-none" name="profile_photo_path">
                   </div>
 
                 </div>
@@ -201,32 +201,6 @@
             Сохранить
           </button>
 
-          <!-- Divider -->
-          <hr class="my-5">
-
-          <div class="row justify-content-between">
-            <div class="col-12 col-md-6">
-
-              <!-- Heading -->
-              <h4>
-                Удалиить аккаунт
-              </h4>
-
-              <!-- Text -->
-              <p class="small text-muted mb-md-0">
-                Please note, deleting your account is a permanent action and will no be recoverable once completed.
-              </p>
-
-            </div>
-            <div class="col-auto">
-
-              <!-- Button -->
-              <button class="btn btn-danger">
-                Delete
-              </button>
-
-            </div>
-          </div> <!-- / .row -->
 
         </form>
 

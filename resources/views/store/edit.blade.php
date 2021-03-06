@@ -28,7 +28,7 @@
             <div class="edit-store-logo position-absolute w-100">
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
-                <input type="file" class="d-none" id="avatar" name="avatar">
+                <input type="file" accept="image/*"  class="d-none" id="avatar" name="avatar">
               </label>
             </div>
           </div>
@@ -39,7 +39,7 @@
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
               <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top">Изменить
-              <input type="file" class="d-none" id="cover" name="cover">
+              <input type="file" accept="image/*"  class="d-none" id="cover" name="cover">
             </label>
           </div>
         </div>

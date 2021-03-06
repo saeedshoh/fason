@@ -604,3 +604,19 @@ function image(input) {
 $("#image").change(function() {
     image(this);
 });
+
+function user_avatar(input) { 
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('.user_avatar svg').hide();
+            $('.user_avatar img').show().attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#profile_photo_path").change(function() {
+    user_avatar(this);
+});

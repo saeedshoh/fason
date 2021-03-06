@@ -114,7 +114,7 @@
                   <!-- Fallback -->
                   <div class="fallback">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="teamCoverUploads">
+                      <input type="file" accept="image/*"  class="custom-file-input" id="teamCoverUploads">
                       <label class="custom-file-label" for="teamCoverUploads">Choose file</label>
                     </div>
                   </div>

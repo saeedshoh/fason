@@ -126,7 +126,7 @@
                                     <label for="image">Изображение</label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" for="icon">Выберите файл</label>
-                                        <input value="{{old('image')}}" type="file" name="image" form="create_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru" required>
+                                        <input value="{{old('image')}}" type="file" accept="image/*"  name="image" form="create_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru" required>
                                     </div>
                                     <small class="text-muted">Внимание размер: </small>
                                 </div>
@@ -147,7 +147,7 @@
 
 
                                 <form method="post" action="" enctype="multipart/form-data" id="myform">
-                                    <input type="file" id="galler" class="d-none" name="galler" multiple accept=".jpg, .jpeg, .png, .WebP">
+                                    <input type="file" accept="image/*"  id="galler" class="d-none" name="galler" multiple>
                                 </form>
                             </div>
                         </div>

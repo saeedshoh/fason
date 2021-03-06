@@ -161,9 +161,9 @@
                         <td class="item-name">
                           <!-- Avatar -->
                           <div class="avatar avatar-xs align-middle mr-2">
-                            <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path }}" alt="...">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path  ?? 'theme/no-photo.svg' }}" alt="...">
                           </div>
-                          <a class="text-reset" href="profile-posts.html">{{ $user->name }}</a>
+                          <a class="text-reset" href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
                         </td>
                         <td class="item-email">
                           <!-- Email -->
@@ -208,7 +208,7 @@
                         <td class="item-name">
                           <!-- Avatar -->
                           <div class="avatar avatar-xs align-middle mr-2">
-                            <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path }}" alt="...">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="...">
                           </div>
                           <a class="text-reset" href="{{ route('clients.show', $user) }}">{{ $user->name }}</a>
                         </td>

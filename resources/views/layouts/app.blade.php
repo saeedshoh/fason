@@ -14,9 +14,8 @@
     <meta name="description" content="@yield('seo-desc')">
     <meta name="keywords" content="@yield('seo-keywords')">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="/storage/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/storage/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/storage/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/storage/favicon.jpg">
+    <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg">
     <link rel="manifest" href="/storage/site.webmanifest">
     <meta property="og:title" content="@yield('og:title') - Fason.tj" />
     <meta property="og:site_name" content="FASON.TJ" />
@@ -123,7 +122,7 @@ aria-hidden="true">
             </div>
           </label>
           <div class="custom-file d-none">
-            <input type="file" class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
+            <input type="file" accept="image/*"  class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
           </div>
           <div class="input-group text-left  btn-group-fs my-3">
             <div class="input-group-prepend position-relative">

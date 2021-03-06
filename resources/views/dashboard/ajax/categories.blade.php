@@ -33,7 +33,7 @@
                 <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
             @endif
             </div>
-            <a class="item-name text-reset" href="profile-posts.html">{{ $category->name }}</a>
+            <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
 
         </td>
         <td>
@@ -49,7 +49,7 @@
                 @if(!@isset($category->parent->parent->id))
                 <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent ? $category->parent->icon : '' }}">
                 @endif
-            </div> <a class="item-parent text-reset" href="profile-posts.html">{{ $category->parent ? $category->parent->name : '' }}</a>
+            </div> <a class="item-parent text-reset" href="{{ route('categories.show', $category) }}">{{ $category->parent ? $category->parent->name : '' }}</a>
             </td>
         @else
             <td>
@@ -84,7 +84,7 @@
                 @if($category->parent_id == '0')
                 <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
                 @endif
-            </div> <a class="item-name text-reset" href="profile-posts.html">&emsp;{{ $category->name }}</a>
+            </div> <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">&emsp;{{ $category->name }}</a>
             </td>
             <td>
             {{ $category->parent->name }}
