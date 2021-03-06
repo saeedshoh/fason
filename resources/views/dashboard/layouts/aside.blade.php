@@ -1,6 +1,6 @@
 @section('aside')
 
-  
+
 
       <!-- NAVIGATION
       ================================================== -->
@@ -15,7 +15,7 @@
 
           <!-- Brand -->
 
-          <a class="navbar-brand text-left" href="{{ route('orders.index') }}">
+          <a class="navbar-brand text-left" href="{{ route('dashboard.name') }}">
             <img src="/storage/theme/logo_fason.svg" class="navbar-brand-img" alt="...">
 
           </a>
@@ -32,6 +32,12 @@
                   <i class="fe fe-home"></i> Главная
                 </a>
               </li> --}}
+
+              <li class="nav-item">
+                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('home') }}">
+                  <i class="fe fe-home"></i> Главная
+                </a>
+              </li>
 
               <li class="nav-item">
                 <a class="nav-link {{ request()->is('dashboard/categories') ? ' active' : '' }}" href="{{ route('categories.index') }}">

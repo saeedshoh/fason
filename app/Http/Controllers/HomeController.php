@@ -63,7 +63,7 @@ class HomeController extends Controller
         $productsCount = Product::count('id');
         $newProductsCount = Product::whereBetween('updated_at', [$now->startOfWeek()->format('Y-m-d H:i'), $now->endOfWeek()->format('Y-m-d H:i')])->count('id');
         $deletedProductsCount = Log::where('table', 'Продукты')->where('action', 3)->count();
-        $profitIncludingCommission = Order::where('order_status_id', 3)->sum('total');
+        $profitIncludingCommission = Order::where('order_status_id', 3)->sum('margin') + $salesSum;
         $storesCount = Store::count();
         $newStores = Store::whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d H:i'), $now->endOfMonth()->format('Y-m-d H:i')])->orderByDesc('id')->get();
         return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores', 'topstores'));
