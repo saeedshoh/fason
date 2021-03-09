@@ -18,7 +18,7 @@
           </div>
           <div class="my-3">
             <label for="image">
-              <img src="/storage/theme/avatar_product.svg" class="px-0 btn mw-100 w-100 rounded" id="main-poster">
+              <img src="/storage/theme/avatar_product.svg" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" height="373" style="object-fit: cover;">
             </label>
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
@@ -43,16 +43,19 @@
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
-          <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product">
+          <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>
             @csrf
             @method('POST')
             <input class="d-none" id="gallery" type="text" name="gallery">
 
-            <input type="file" accept="image/*"  id="image" class="d-none" name="image" required>
-                <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                <input type="file" accept="image/*"  id="image" class="d-none" name="image" required>
+                <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
-                    <div class="w-75 input_placeholder_style">
-                      <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="cat_id" required>
+                    <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                      <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                      </div>
+                      <select class="strartline_stick input_placeholder_style custom-select position-relative border-left-0" id="cat_parent" name="cat_id" required>
                         <option selected disabled value>Выберите категорию</option>
                         @forelse ($cat_parent as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -60,11 +63,12 @@
                             Извините ничего не найдено
                         @endforelse
                       </select>
-                      @error('category_id')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                      @enderror
+                      {{--  @error('category_id')
+                        <div class="invalid-tooltip">
+                          {{ $message }}
+                        </div>
+                       
+                      @enderror  --}}
                     </div>
                 </div>
                 <div id="categories-row">
@@ -85,51 +89,67 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+            <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
-              <div class="w-75 input_placeholder_style">
-                <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
-                @error('name')
-                  <div class="invalid-feedback">
+              <div class="w-75 input_placeholder_style position-relative input-group  w-md-100">
+                <div class="input-group-prepend position-relative">
+                  <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                </div>
+                <input type="text" class="input_placeholder_style form-control position-relative border-left-0" id="name" name="name" value="{{ old('name') }}" required>
+                {{--  @error('name')
+                  <div class="invalid-tooltip">
                     {{ $message }}
                   </div>
-                @enderror
+                  
+                @enderror  --}}
               </div>
             </div>
-            <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+            <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="description" class="input_caption mr-2 text-left text-md-right">Описание товара: </label>
-              <div class="w-75 input_placeholder_style">
-                <textarea class="input_placeholder_style form-control position-relative  @error('description') is-invalid @enderror" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
-                @error('description')
-                  <div class="invalid-feedback">
+              <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                <div class="input-group-prepend position-relative">
+                  <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                </div>
+                <textarea class="input_placeholder_style form-control position-relative border-left-0" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
+                {{--  @error('description')
+                  <div class="invalid-tooltip">
                     {{ $message }}
                   </div>
-                @enderror
+                @enderror  --}}
               </div>
             </div>
-              <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
-                <div class="w-75 input_placeholder_style">
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
-                  @error('quantity')
-                    <div class="invalid-feedback">
+                <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                  <div class="input-group-prepend position-relative">
+                    <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                  </div>
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
+                  {{--  @error('quantity')
+                    <div class="invalid-tooltip">
                       {{ $message }}
                     </div>
-                  @enderror
+
+                  @enderror  --}}
                 </div>
               </div>
 
-              <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: <span class="badge badge-pill badge-danger">в сомони</span></label>
-                <div class="w-75 input_placeholder_style position-relative">
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}">@error('price')
-                    <div class="invalid-feedback">
+                <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                  <div class="input-group-prepend position-relative">
+                    <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                  </div>
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" value="{{ old('price') }}" required>
+                  {{--  @error('price')
+                    <div class="invalid-tooltip">
                       {{ $message }}
                     </div>
-                  @enderror
+
+                  @enderror  --}}
                 </div>
               </div>
-              <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
+              <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
 
               </div>
               @csrf

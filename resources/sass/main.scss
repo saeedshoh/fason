@@ -198,6 +198,18 @@ a {
     line-height: 18px;
     color: #888688;
 }
+.custom-select {
+    background: #fff url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDExIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01LjUgOUwwLjczNjg2IDAuNzVMMTAuMjYzMSAwLjc1TDUuNSA5WiIgZmlsbD0iI0ZGMDA1NSIvPgo8L3N2Zz4K") no-repeat right 0.75rem center/11px 11px !important;
+}
+.input_caption {
+    color: #888688;
+    font-weight: 500;
+    margin: 0;
+}
+.input_placeholder_style {
+    color: #888688;
+    font-weight: bold;
+}
 
 .second-column__modal {
     display: inline-block;
@@ -688,7 +700,9 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 768px) {
-    .input_placeholder_style,
+    .w-md-100 {
+        width: 100% !important;
+    }
     .mobile-header {
         width: 100% !important;
     }
