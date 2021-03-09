@@ -30,6 +30,7 @@
         "autosize": "^4.0.2",
         "bootstrap": "^4.5.3",
         "chart.js": "^2.9.4",
+        "compressorjs": "^1.0.7",
         "dropzone": "^5.7.2",
         "flatpickr": "^4.6.6",
         "highlightjs": "^9.16.2",
