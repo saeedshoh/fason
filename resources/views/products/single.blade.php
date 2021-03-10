@@ -145,7 +145,7 @@
                 <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ round($product->price_after_margin) }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
-            <div class="col-4 my-md-0 my-3 text-center">
+            <div class="col-4 my-md-0 my-3 p-0 text-center">
               <div class="position-relative d-flex align-items-center number">
                 <form id="number-spinner-horizontal" class="t-neutral">
                   <fieldset class="spinner spinner--horizontal l-contain--medium">
@@ -156,7 +156,7 @@
                  </form>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 p-0">
               <div class="text-center text-md-right">
 
                 @if(Auth::check())
