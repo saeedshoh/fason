@@ -43,6 +43,7 @@
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
+          
           <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>
             @csrf
             @method('POST')
@@ -56,7 +57,7 @@
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                       </div>
                       <select class="strartline_stick input_placeholder_style custom-select position-relative border-left-0" id="cat_parent" name="cat_id" required>
-                        <option selected disabled value>Выберите категорию</option>
+                        <option value="">Выберите категорию</option>
                         @forelse ($cat_parent as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @empty
