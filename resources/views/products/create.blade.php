@@ -24,12 +24,13 @@
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image" class="row">
             @for ($i = 0; $i < 8; $i++)
-                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-                    <div class="spinner-border d-none" role="status">
+                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center">
+                    {{--  <div class="spinner-border d-none" role="status">
                         <span class="sr-only">Loading...</span>
-                    </div>
-                    <label for="galler">
-                        <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+                    </div>  --}}
+                    <label for="galler-{{$i}}">
+                        <img src="/storage/theme/avatar_gallery.svg" data-id="galler-{{$i}}" class="px-0 btn mw-100 rounded gallery"  alt="" width="88" height="100" style="object-fit: cover;">
+                        <input type="file"  accept="image/*"  id="galler-{{$i}}" class="d-none gallery--img">
                     </label>
                 </div>
             @endfor

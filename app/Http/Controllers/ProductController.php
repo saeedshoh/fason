@@ -141,23 +141,23 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
+       
         // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'gallery' => 'sometimes'
         ]);
-
         $img = Image::make($request->file('image')->getRealPath());
-
+        
         //Create folder if doesn't exist
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($yearFolder)){
             File::makeDirectory($yearFolder, 0777, true);
         }
-
+        
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         $this->cropImage($img, 800, 100, $nowYear);
-
+        // return $this->cropImage($img, 800, 100, $nowYear);
         $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
         if(isset($request->attribute)) {
@@ -268,7 +268,8 @@ class ProductController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'gallery' => 'sometimes'
-        ]);
+            ]);
+        
 
         $img = Image::make($request->file('image')->getRealPath());
 
@@ -476,14 +477,15 @@ class ProductController extends Controller
             });
         }
         $path = $nowYear . $dimension . 'x' . $dimension . '.jpg';
-
+       
         // create an image manager instance with favored driver
         $manager = new ImageManager(array('driver' => 'gd'));
 
         $back = $manager->canvas($dimension, $dimension, '#ffffff');
         $back->insert($img, 'center');
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
-        $back->insert($watermark, 'bottom-right', 50, 50);
+        // $watermark = Image::make(public_path('storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
+        // $back->insert($watermark, 'bottom-right', 50, 50);
+        
         $back->save(public_path('/storage/' . $path));
     }
 }
