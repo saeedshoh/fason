@@ -158,7 +158,6 @@
             </div>
             <div class="col-4 p-0">
               <div class="text-center text-md-right">
-
                 @if(Auth::check())
                   @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                     <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
