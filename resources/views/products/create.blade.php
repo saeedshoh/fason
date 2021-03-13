@@ -142,7 +142,7 @@
                   <div class="input-group-prepend position-relative">
                     <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                   </div>
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" value="{{ old('price') }}" required>
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
                   {{--  @error('price')
                     <div class="invalid-tooltip">
                       {{ $message }}

@@ -487,17 +487,52 @@ $(document).on('change', '[name="category_id"]', function() {
     });
 })
 
+$(document).on('ready', function() {
+    $('#image', '#name', '#description', '#quantity', '#cat_id', '#price').on('change', function() {
+        alert(this);
+        if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('#cat_id').val() != '' && $('#price').val() != '') {
+            $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
+            return true;
+        }
+        else {
+            $(".add-product-btn").attr("disabled", true);
+        }
+    });
+});
+$(document).on('submit', '#add_product', function (e) {
+    e.preventDefault();
 
-// $(document).on('click', '.add-product-btn', function() {
+    $('#add_product').addClass('was-validated');
+    //stop submitting the form to see the disabled button effect
+    if($('#image').val() == '') {
+        $('#main-poster').addClass('border-danger');
+    }
+    if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('#cat_id').val() != '' && $('#price').val() != '') {
+        $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
+        return true;
+    }
+    else {
+        $(".add-product-btn").attr("disabled", true);
+    }
 
-//     $(this).prop('disabled', true);
-//     if($('#image').val() == '')
-//         $('#main-poster').addClass('border-danger');
+    //disable the submit button
+
+    //disable a normal button
+
+});
+
+$(document).on('click', '.add-product-btn', function() {
+    e.preventDefault();
+    $(this).attr("disabled", true);
+    if($('#image').val() == '')
+        $('#add_product').addClass('was-validated');
+        $('#main-poster').addClass('border-danger');
     
-//     if($('.was-validated .form-control:valid')) 
-//         $('#main-poster').addClass('border-danger');
- 
-// });
+    if($('.was-validated .form-control:valid')) 
+        $('#main-poster').addClass('border-danger');
+        return true;
+
+});
 
 
 $(document).on('change', '.st-attribute_add', function() {
@@ -1080,6 +1115,11 @@ $("#profile_photo_path").change(function() {
 });
 
 $("#image").change(function() {
+    if($(this).val() != '')
+        $('#main-poster').removeClass('border-danger').addClass('border-success');
+    else
+        $('#main-poster').addClass('border-danger');
+    
     readURL(this);
 });
 
