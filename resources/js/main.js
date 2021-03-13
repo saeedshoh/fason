@@ -487,32 +487,34 @@ $(document).on('change', '[name="category_id"]', function() {
     });
 })
 
-$(document).on('ready', function() {
-    $('#image', '#name', '#description', '#quantity', '#cat_id', '#price').on('change', function() {
-        alert(this);
-        if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('#cat_id').val() != '' && $('#price').val() != '') {
-            $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
-            return true;
-        }
-        else {
-            $(".add-product-btn").attr("disabled", true);
-        }
-    });
-});
-$(document).on('submit', '#add_product', function (e) {
-    e.preventDefault();
+$('.input_placeholder_style').on('change', function() {
 
-    $('#add_product').addClass('was-validated');
-    //stop submitting the form to see the disabled button effect
-    if($('#image').val() == '') {
-        $('#main-poster').addClass('border-danger');
-    }
-    if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('#cat_id').val() != '' && $('#price').val() != '') {
-        $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
-        return true;
+    if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+        $(".add-product-btn").removeAttr("disabled").addClass('btn-success').removeClass('btn-danger');
+       
+
     }
     else {
         $(".add-product-btn").attr("disabled", true);
+      
+    }
+});
+$(document).on('submit', '#add_product', function (event) {
+    $(this).addClass('was-validated');
+    //stop submitting the form to see the disabled button effect
+    
+    if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+      
+        $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
+       
+
+    }
+    else {
+        event.preventDefault(); 
+        $(".add-product-btn").attr("disabled", true);
+     
+
+        return false;
     }
 
     //disable the submit button

@@ -50,7 +50,7 @@
             @method('POST')
             <input class="d-none" id="gallery" type="text" name="gallery">
 
-                <input type="file" accept="image/*"  id="image" class="d-none" name="image" required>
+                <input type="file" accept="image/*"  id="image" class="d-none input_placeholder_style" name="image" required>
                 <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                     <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
