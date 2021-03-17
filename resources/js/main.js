@@ -2,9 +2,13 @@
 const { stubString, last } = require('lodash');
 require('./jquery.inputmask.bundle.js');
 require('sweetalert2');
-
+import { upload } from './upload.js';
 import Swal from 'sweetalert2'
 
+upload('#gallery', {
+    multi: true,
+    accept: ['.png', '.jpg', '.jpeg', '.gif'],
+});
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-center',
@@ -77,6 +81,7 @@ $(document).ready(function() {
     })
     /// products line end
     ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+
 // $(function() {
 
 //     $("#galler").change(function() {
@@ -124,6 +129,7 @@ $(document).ready(function() {
 //     });
 // });
 
+ 
 
 $('body').on('click', '.deleteImage', function() {
     let url = $(this).parent().find('img').data('image-src')
@@ -443,7 +449,7 @@ $(document).on('change', '#cat_parent', function() {
                     </div>
                 `)
                 $('#cat_child').empty().append(`
-                    <option disabled>Выберите под-категорию</option>
+                    <option>Выберите под-категорию</option>
                 `)
                 $('#child_div').remove()
                 data.forEach(element => {
@@ -504,10 +510,7 @@ $(document).on('submit', '#add_product', function (event) {
     //stop submitting the form to see the disabled button effect
     
     if($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-      
         $(".add-product-btn").removeAttr("disabled").addClass('btn-success');
-       
-
     }
     else {
         event.preventDefault(); 
@@ -988,38 +991,36 @@ function startTimer(duration, display) {
 
 // preview image
 
-$(function() {
+// $(function() {
 
-    $("#gallery").change(function() {
-        if (typeof(FileReader) != "undefined") {
-            var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
-            dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
+//     $("#gallery").change(function() {
+//         if (typeof(FileReader) != "undefined") {
+//             var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
+//             dvPreview.html("");
+//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
 
-            $($(this)[0].files).each(function(index) {
-                var file = $(this);
-                if (regex.test(file[0].name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
-                        img.find('img').addClass("mw-100");
-                        img.find('img').attr("src", e.target.result);
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
-});
-
-
+//             $($(this)[0].files).each(function(index) {
+//                 var file = $(this);
+//                 if (regex.test(file[0].name.toLowerCase())) {
+//                     var reader = new FileReader();
+//                     reader.onload = function(e) {
+//                         var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
+//                         img.find('img').addClass("mw-100");
+//                         img.find('img').attr("src", e.target.result);
+//                         dvPreview.append(img);
+//                     }
+//                     reader.readAsDataURL(file[0]);
+//                 } else {
+//                     alert(file[0].name + " is not a valid image file.");
+//                     dvPreview.html("");
+//                     return false;
+//                 }
+//             });
+//         } else {
+//             alert("This browser does not support HTML5 FileReader.");
+//         }
+//     });
+// });
 
 
 
@@ -1027,18 +1028,21 @@ $(function() {
 
 
 
-$('.db-preview-remove').on('click', function() {
-    let gallery = $("#gallery")[0].files;
-    let value = $(this).attr('data-id');
 
-    function removeItemOnce(arr, value) {
-        var index = arr.indexOf(value);
-        if (index > -1) {
-            arr.splice(index, 1);
-        }
-    };
-    removeItemOnce(gallery.files, value);
-});
+
+// $('.db-preview-remove').on('click', function() {
+//     let gallery = $("#gallery")[0].files;
+//     let value = $(this).attr('data-id');
+
+//     function removeItemOnce(arr, value) {
+//         var index = arr.indexOf(value);
+//         if (index > -1) {
+//             arr.splice(index, 1);
+//         }
+//     };
+//     removeItemOnce(gallery.files, value);
+// });
+
 // $('body').on('click', '.deleteImage', function () {
 //     let images = $('#hello').val()
 //     images = JSON.parse(images)
