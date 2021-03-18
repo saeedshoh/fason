@@ -141,12 +141,12 @@ class ProductController extends Controller
      */
     public function ft_store(ProductRequest $request)
     {
-       
-        // return $request;
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'gallery' => 'sometimes'
         ]);
+    
+        
         $img = Image::make($request->file('image')->getRealPath());
         
         //Create folder if doesn't exist
@@ -487,5 +487,19 @@ class ProductController extends Controller
         // $back->insert($watermark, 'bottom-right', 50, 50);
         
         $back->save(public_path('/storage/' . $path));
+    }
+
+    public function test_store(Request $request) {
+            // return $request;
+            if($request->ajax()) {
+                
+                $img = str_replace('data:image/png;base64,', '', $request->gallery);
+                $img = str_replace(' ', '+', $img);
+                $data = base64_decode($img);
+                $name = 'image.jpg';
+                $success = file_put_contents($name, $data);
+                return Storage::move($success);
+                
+            }
     }
 }

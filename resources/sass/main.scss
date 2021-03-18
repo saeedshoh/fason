@@ -1543,3 +1543,57 @@ input[type="number"]:hover::-webkit-outer-spin-button {
         border-bottom-right-radius: 5px !important;
     }
 }
+
+
+.preview-image {
+    position: relative;
+    margin-bottom: .8rem;
+}
+.preview-image.removing {
+    transform: scale(0);
+    transition: transform .3s;
+}
+
+.preview-image img {
+    width: 88px;
+    height: 100px;
+    object-fit: contain;
+    background-color: #e1e1e1;
+}
+.preview-remove {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    font-weight: bold;
+    background: rgba(255, 255, 255, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .22s;
+}
+.preview-image:hover .preview-remove{
+    opacity: 1;
+}
+
+.preview-image:hover .preview-info{
+    bottom: 0;
+}
+
+.preview-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -30;
+    height: 25px;
+    font-size: .8rem;
+    background: rgba(255, 255, 255, .5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    transition: bottom .22s;
+}

@@ -22,34 +22,35 @@
             </label>
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
-            <div id="db-preview-image" class="row">
-            @for ($i = 0; $i < 8; $i++)
-                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center">
-                    {{--  <div class="spinner-border d-none" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>  --}}
-                    <label for="galler-{{$i}}">
-                        <img src="/storage/theme/avatar_gallery.svg" data-id="galler-{{$i}}" class="px-0 btn mw-100 rounded gallery"  alt="" width="88" height="100" style="object-fit: cover;">
-                        <input type="file"  accept="image/*"  id="galler-{{$i}}" class="d-none gallery--img">
-                    </label>
-                </div>
-            @endfor
+            <div id="db-preview-image">
+              <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
+
+              {{--  @for ($i = 0; $i < 8; $i++)
+                  <div class="col-3 text-center product_image d-flex justify-content-center align-items-center">
+                      {{--  <div class="spinner-border d-none" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div> 
+                      <label for="gallery">
+                          <img src="/storage/theme/avatar_gallery.svg" data-id="galler-{{$i}}" class="px-0 btn mw-100 rounded gallery"  alt="" width="88" height="100" style="object-fit: cover;">
+                         <input type="file"  accept="image/*"  id="galler-{{$i}}" class="d-none gallery--img">  
+                      </label>
+                  </div>
+              @endfor --}}
             </div>
-            <form method="post" action="" enctype="multipart/form-data" id="myform">
-                <input type="file" accept="image/*"  id="galler" class="d-none" name="galler">
-            </form>
+            {{--  <form method="post" action="" enctype="multipart/form-data" id="myform">
+                 <input type="file" accept="image/*"  id="gallery" class="d-none" multiple name="galler"> 
+            </form>  --}}
 
           </div>
         </div>
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
+          {{--  <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>  --}}
           
-          <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>
+          <form method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
             @csrf
             @method('POST')
-            <input class="d-none" id="gallery" type="text" name="gallery">
-
                 <input type="file" accept="image/*"  id="image" class="d-none input_placeholder_style" name="image" required>
                 <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
