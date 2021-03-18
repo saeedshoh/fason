@@ -490,15 +490,31 @@ class ProductController extends Controller
     }
 
     public function test_store(Request $request) {
+        
             // return $request;
             if($request->ajax()) {
+                $base64_image = $request->gallery;
+                $month = now()->year . '/' . sprintf("%02d", now()->month);
+
+                if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                    $data = substr($base64_image, strpos($base64_image, ',') + 1);
                 
-                $img = str_replace('data:image/png;base64,', '', $request->gallery);
-                $img = str_replace(' ', '+', $img);
-                $data = base64_decode($img);
-                $name = 'image.jpg';
-                $success = file_put_contents($name, $data);
-                return Storage::move($success);
+                    $data = base64_decode($data);
+                    Storage::disk('public')->put('/2021/test.jpg', $data);
+                    return "stored";
+                }
+                // if(!File::isDirectory($month)){
+                //     File::makeDirectory($month, 0777, true);
+                // }
+                // if($request->file('profile_photo_path')) {
+                //     $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+                // }
+                // $img = str_replace('data:image/png;base64,', '', $request->gallery);
+                // $img = str_replace(' ', '+', $img);
+                // $data = base64_decode($img);
+                // $name = 'image.jpg';
+                // $success = file_put_contents($name, $data);
+                // return Storage::move($success);
                 
             }
     }

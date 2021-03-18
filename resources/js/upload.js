@@ -41,23 +41,18 @@ export function upload(selector, options = {}) {
 
     const changeHandler = event => {
 
-        // Проверка что выбраны файлы или длинна не === 0 (false)
         if (!event.target.files.length) {
             return
         }
 
-        // преобразования FileList В Массив  и вносим значение в переменую let files = []
         files = Array.from(event.target.files)
-        console.log(files);
-        // очищаем уже имеющийся список файлов
         // preview.innerHTML = '';
 
         files.forEach(file => {
-            //  проверка если в file type не содержится image то мы не работаем с этим файлом
             if (!file.type.match('image')) {
                 return
             }
-
+            
             new Compressor(file, {
               
                 quality: 0.8,
@@ -67,42 +62,43 @@ export function upload(selector, options = {}) {
                 minHeight: 700,
                 height: 700,
                 width: 700,
-
-                drew(context, canvas) {
+                beforeDraw(context, canvas) {
                     context.fillStyle = '#fff';
-                    context.font = '2rem serif';
-                    context.fillText('Fason.tj', canvas.width - 130, canvas.height - 20,);
+                    context.fillRect(0, 0, canvas.width, canvas.height);        
+                    context.filter = 'grayscale(100%)';
+
+                    // context.font = '2rem serif';
+                    // base_image.onload = function(){
+                    //     context.drawImage(base_image, 0, 0);
+                    //   }
+                    // context.fillText('Fason.tj', canvas.width - 130, canvas.height - 20,);
+                }, drew(context, canvas) {
+                    let base_image = new Image();
+                    base_image.src = '/storage/watermark.svg';
+                
+                    context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
+                    
                 },
-                // The compression process is asynchronous,
-                // which means you have to access the `result` in the `success` hook function.
+                
                 success(result) {
                     
-                    /*  Объект FileReader позволяет веб-приложениям асинхронно читать содержимое файлов (или буферы данных),
-                    хранящиеся на компьютере пользователя, используя объекты File или Blob, с помощью которых задается файл или данные для чтения. */
+                    console.log(result);
                     const reader = new FileReader()
 
-                    // создаем обработчик события, onload = Обработчик для события загрузки объекта window.
                     reader.onload = ev => {
-                        console.log(result)
                         const src = ev.target.result;
-                        
                         preview.insertAdjacentHTML('afterbegin', `
                         <div class="preview-image col-3">
                             <div class="preview-remove " data-name="${result.name}">&times;</div>
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
-                        </div>
-                        `);
+                        </div>`);
                         preview.insertAdjacentElement('beforeend', open)
                         open.classList.add('col-3')
 
                     }
-                    /*  Метод readAsDataURL используется для чтения содержимог указанного Blob или File.
-                    Когда операция закончится, readyState (en-US) примет значение DONE, и будет вызвано событие loadend.
-                    В то же время, аттрибут  result (en-US) будет содержать данные как URL, представляющий файл, кодированый в base64 строку.*/
                    
                     reader.readAsDataURL(result);
 
-                    // The third parameter is required for server
                     formData.append('file', result, result.name);
                     
                    
@@ -150,9 +146,9 @@ $(document).on('click', '.add-product-btn', function() {
 
     // var formData = new FormData($('#add_address'));
     
-    let cat_id = $(this).closest('form').find('input[name="cat_id"]').val();
+    let cat_id = $(this).closest('form').find('select[name="cat_id"]').val();
     let name = $(this).closest('form').find('input[name="name"]').val();
-    let description = $(this).closest('form').find('input[name="description"]').val();
+    let description = $(this).closest('form').find('textarea[name="description"]').val();
     let quantity = $(this).closest('form').find('input[name="quantity"]').val();
     let image = $(this).closest('form').find('input[name="image"]')[0].files[0];
 
