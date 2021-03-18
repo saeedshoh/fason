@@ -498,7 +498,7 @@ class ProductController extends Controller
                 $data = base64_decode($img);
                 $name = 'image.jpg';
                 $success = file_put_contents($name, $data);
-                return Storage::storeAs($success, $name);
+                return Storage::move($success);
                 
             }
     }

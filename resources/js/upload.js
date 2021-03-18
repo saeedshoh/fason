@@ -50,7 +50,7 @@ export function upload(selector, options = {}) {
         files = Array.from(event.target.files)
         console.log(files);
         // очищаем уже имеющийся список файлов
-        preview.innerHTML = '';
+        // preview.innerHTML = '';
 
         files.forEach(file => {
             //  проверка если в file type не содержится image то мы не работаем с этим файлом
@@ -90,12 +90,11 @@ export function upload(selector, options = {}) {
                         <div class="preview-image col-3">
                             <div class="preview-remove " data-name="${result.name}">&times;</div>
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
-                            <div class="preview-info">
-                                <span>${result.name}</span>
-                                ${bytesToSize(result.size)}
-                            </div>
                         </div>
                         `);
+                        preview.insertAdjacentElement('beforeend', open)
+                        open.classList.add('col-3')
+
                     }
                     /*  Метод readAsDataURL используется для чтения содержимог указанного Blob или File.
                     Когда операция закончится, readyState (en-US) примет значение DONE, и будет вызвано событие loadend.

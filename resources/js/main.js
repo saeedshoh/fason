@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 
 upload('#gallery', {
     multi: true,
-    accept: ['.png', '.jpg', '.jpeg', '.gif'],
+    accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
 });
 const Toast = Swal.mixin({
     toast: true,
