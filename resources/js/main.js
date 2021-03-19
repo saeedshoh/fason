@@ -4,12 +4,14 @@ require('./jquery.inputmask.bundle.js');
 require('sweetalert2');
 import { upload } from './upload.js';
 import Swal from 'sweetalert2'
+
 if($('#gallery').attr('form') == 'add_product') {
     upload('#gallery', {
         multi: true,
         accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
     });
 }
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-center',
@@ -132,32 +134,32 @@ $(document).ready(function() {
 
  
 
-$('body').on('click', '.deleteImage', function() {
-    let url = $(this).parent().find('img').data('image-src')
-    let gallery = $('#gallery')
-    let array = gallery.val().split(',')
-    const index = array.indexOf(url)
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    gallery.val(array)
-    $(this).parent().parent().remove()
-    if (url.indexOf('products/edit/') !== -1) {
-        $(this).parent().parent().parent().remove()
-    } else {
-        $(this).parent().parent().remove()
-    }
-    $('#db-preview-image').append(`
-        <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-            <div class="spinner-border d-none" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <label for="galler">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-            </label>
-        </div>
-    `)
-})
+// $('body').on('click', '.deleteImage', function() {
+//     let url = $(this).parent().find('img').data('image-src')
+//     let gallery = $('#gallery')
+//     let array = gallery.val().split(',')
+//     const index = array.indexOf(url)
+//     if (index > -1) {
+//         array.splice(index, 1);
+//     }
+//     gallery.val(array)
+//     $(this).parent().parent().remove()
+//     if (url.indexOf('products/edit/') !== -1) {
+//         $(this).parent().parent().parent().remove()
+//     } else {
+//         $(this).parent().parent().remove()
+//     }
+//     $('#db-preview-image').append(`
+//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+//             <div class="spinner-border d-none" role="status">
+//                 <span class="sr-only">Loading...</span>
+//             </div>
+//             <label for="galler">
+//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+//             </label>
+//         </div>
+//     `)
+// })
 
 function throttle(f, delay) {
     var timer = null;
