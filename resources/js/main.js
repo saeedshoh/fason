@@ -1102,8 +1102,6 @@ $("#image").change(function() {
         $('#main-poster').removeClass('border-danger').addClass('border-success');
     else
         $('#main-poster').addClass('border-danger');
-    
-    readURL(this);
 });
 
 $("#avatar").change(function() {
