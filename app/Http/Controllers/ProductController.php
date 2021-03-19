@@ -13,12 +13,14 @@ use App\Models\Log;
 use App\Models\Order;
 use App\Models\ProductAttribute;
 use App\Scopes\FreshProductScope;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -491,31 +493,44 @@ class ProductController extends Controller
 
     public function test_store(Request $request) {
         
-            // return $request;
             if($request->ajax()) {
-                $base64_image = $request->gallery;
-                $month = now()->year . '/' . sprintf("%02d", now()->month);
-
-                if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                    $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                $base64_images = json_decode($request->gallery);
+                $main_image_json = $request->image;
+                $year_month = now()->year . '/' . sprintf("%02d", now()->month);
                 
+                $main_image = $year_month.'/'.Str::random(15).'.jpg';
+                if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
+                    $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                     $data = base64_decode($data);
-                    Storage::disk('public')->put('/2021/test.jpg', $data);
-                    return "stored";
+                    Storage::disk('public')->put($main_image, $data);
+                }; 
+
+                if(!empty($base64_images)) {
+                    $images = [];
+                    foreach($base64_images as $base64_image) {
+                        $image = $year_month.'/'.Str::random(15).'.jpg';
+                        array_push($images, $image);
+                        if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                            $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                            $data = base64_decode($data);
+                            Storage::disk('public')->put($image, $data);
+                        };  
+                    }
                 }
-                // if(!File::isDirectory($month)){
-                //     File::makeDirectory($month, 0777, true);
-                // }
-                // if($request->file('profile_photo_path')) {
-                //     $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
-                // }
-                // $img = str_replace('data:image/png;base64,', '', $request->gallery);
-                // $img = str_replace(' ', '+', $img);
-                // $data = base64_decode($img);
-                // $name = 'image.jpg';
-                // $success = file_put_contents($name, $data);
-                // return Storage::move($success);
-                
+                Product::create(
+                    [
+                        'name' =>  $request->name,
+                        'description' =>  $request->description,
+                        'category_id' =>  $request->cat_id,
+                        'quantity' =>  $request->quantity,
+                        'price' =>  $request->price,
+                        'store_id' =>  $request->store_id,
+                        'product_status_id' =>  1,
+                        'image' =>  $main_image,
+                        'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
+                        'created_at' => Carbon::now()
+                    ]
+                );
             }
     }
 }

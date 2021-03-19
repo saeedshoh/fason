@@ -4,11 +4,12 @@ require('./jquery.inputmask.bundle.js');
 require('sweetalert2');
 import { upload } from './upload.js';
 import Swal from 'sweetalert2'
-
-upload('#gallery', {
-    multi: true,
-    accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
-});
+if($('#gallery').attr('form') == 'add_product') {
+    upload('#gallery', {
+        multi: true,
+        accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
+    });
+}
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-center',
@@ -1051,17 +1052,7 @@ function startTimer(duration, display) {
 // })
 
 // single preview
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function(e) {
-            $('#main-poster').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 function avatar(input) {
     if (input.files && input.files[0]) {
@@ -1099,22 +1090,6 @@ function user_avatar(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-function gallery_image(input) {
-    var id = $(input).attr('id');
-
-    if (input.files && input.files[0]) {
-        
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('img[data-id="'+id+'"]').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-$(".gallery--img").change(function() {
-    gallery_image(this);
-});
 
 $("#profile_photo_path").change(function() {
     user_avatar(this);
