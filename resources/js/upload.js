@@ -169,8 +169,7 @@ $(document).on('click', '.add-product-btn', function() {
             data: formData,
 
             success: (data) => {
-                console.log(data);
-                // $('.content .container:eq(0)').empty().html('<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно добавлен и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>');
+                $('.content .container:eq(0)').empty().html('<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно добавлен и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>');
             },
             error: function(xhr, status, error) {
                 console.log(status)
