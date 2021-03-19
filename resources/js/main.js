@@ -5,10 +5,13 @@ require('sweetalert2');
 import { upload } from './upload.js';
 import Swal from 'sweetalert2'
 
-upload('#gallery', {
-    multi: true,
-    accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
-});
+if($('#gallery').attr('form') == 'add_product') {
+    upload('#gallery', {
+        multi: true,
+        accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif'],
+    });
+}
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-center',
@@ -131,32 +134,32 @@ $(document).ready(function() {
 
  
 
-$('body').on('click', '.deleteImage', function() {
-    let url = $(this).parent().find('img').data('image-src')
-    let gallery = $('#gallery')
-    let array = gallery.val().split(',')
-    const index = array.indexOf(url)
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    gallery.val(array)
-    $(this).parent().parent().remove()
-    if (url.indexOf('products/edit/') !== -1) {
-        $(this).parent().parent().parent().remove()
-    } else {
-        $(this).parent().parent().remove()
-    }
-    $('#db-preview-image').append(`
-        <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-            <div class="spinner-border d-none" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <label for="galler">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-            </label>
-        </div>
-    `)
-})
+// $('body').on('click', '.deleteImage', function() {
+//     let url = $(this).parent().find('img').data('image-src')
+//     let gallery = $('#gallery')
+//     let array = gallery.val().split(',')
+//     const index = array.indexOf(url)
+//     if (index > -1) {
+//         array.splice(index, 1);
+//     }
+//     gallery.val(array)
+//     $(this).parent().parent().remove()
+//     if (url.indexOf('products/edit/') !== -1) {
+//         $(this).parent().parent().parent().remove()
+//     } else {
+//         $(this).parent().parent().remove()
+//     }
+//     $('#db-preview-image').append(`
+//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+//             <div class="spinner-border d-none" role="status">
+//                 <span class="sr-only">Loading...</span>
+//             </div>
+//             <label for="galler">
+//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+//             </label>
+//         </div>
+//     `)
+// })
 
 function throttle(f, delay) {
     var timer = null;
@@ -1051,17 +1054,7 @@ function startTimer(duration, display) {
 // })
 
 // single preview
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function(e) {
-            $('#main-poster').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 function avatar(input) {
     if (input.files && input.files[0]) {
@@ -1099,22 +1092,6 @@ function user_avatar(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-function gallery_image(input) {
-    var id = $(input).attr('id');
-
-    if (input.files && input.files[0]) {
-        
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('img[data-id="'+id+'"]').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-$(".gallery--img").change(function() {
-    gallery_image(this);
-});
 
 $("#profile_photo_path").change(function() {
     user_avatar(this);

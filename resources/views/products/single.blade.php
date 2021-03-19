@@ -33,16 +33,18 @@
           </div>
           <!--desktop slider-->
           <div class="product-img-holder">
-            <img src="{{ Storage::url($product->image )}}" class="rounded  pic-main  img-fluid" alt="" height="373px">
+            <img src="{{ Storage::url($product->image) }}" class="rounded  pic-main  img-fluid" alt="" height="373px">
             <div class="add-product-secondary my-2 row">
                 <div class="col-3 mt-3">
-                  <img src="{{ Storage::url($product->image ) }}" data-image-src="{{ Storage::url($product->image ) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
+                  <img src="{{ Storage::url($product->image ) }}" data-image-src="{{ Storage::url($product->image) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
                 </div>
-                @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
+                @if(!empty($product->gallery))
+                  @foreach (json_decode($product->gallery) as $gallery)
                     <div class="col-3 mt-3">
-                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($gallery) }}" data-image-src="{{ Storage::url($gallery) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
                     </div>
-                @endfor
+                  @endforeach 
+                @endif
                 
             </div>
           </div>

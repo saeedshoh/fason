@@ -23,14 +23,16 @@
             </label>
           </div>
           <div id="db-preview-image" class="row add-product-secondary">
-            @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
-                <div class="col-3 text-center product_image" data-image="true">
-                    <div class="profile-pic">
-                        <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ explode(',', $product->gallery)[$i] }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
-                        <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+            @if(!empty($product->gallery))
+                @foreach(json_decode($product->gallery) as $gallery)
+                    <div class="col-3 text-center product_image mb-3" data-image="true">
+                        <div class="profile-pic">
+                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
+                            <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                        </div>
                     </div>
-                </div>
-            @endfor
+                @endforeach
+            @endif
             @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
                 <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
                     <label for="galler">

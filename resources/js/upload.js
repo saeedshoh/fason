@@ -1,14 +1,5 @@
 import Compressor from 'compressorjs';
 
-function bytesToSize(bytes) {
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) {
-        return '0 Byte';
-    }
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-}
-
 const element = (tag, classes = [], content) => {
     const node = document.createElement(tag)
     if (classes.length) {
@@ -19,8 +10,6 @@ const element = (tag, classes = [], content) => {
     }
     return node
 }
-var formData = new FormData();
-
 export function upload(selector, options = {}) {
     let files = [];
     const input = document.querySelector(selector);
@@ -29,35 +18,30 @@ export function upload(selector, options = {}) {
     open.setAttribute("src", "/storage/theme/avatar_gallery.svg");
     input.insertAdjacentElement('afterend', preview)
     input.insertAdjacentElement('afterend', open)
+    
     if (options.multi) {
         input.setAttribute('multiple', true);
     }
 
     if (options.accept && Array.isArray(options.accept)) {
         input.setAttribute('accept', options.accept.join(','));
-
     }
     const triggerInput = () => input.click();
 
     const changeHandler = event => {
 
-        // Проверка что выбраны файлы или длинна не === 0 (false)
         if (!event.target.files.length) {
             return
         }
 
-        // преобразования FileList В Массив  и вносим значение в переменую let files = []
         files = Array.from(event.target.files)
-        console.log(files);
-        // очищаем уже имеющийся список файлов
+     
         // preview.innerHTML = '';
 
         files.forEach(file => {
-            //  проверка если в file type не содержится image то мы не работаем с этим файлом
             if (!file.type.match('image')) {
                 return
             }
-
             new Compressor(file, {
               
                 quality: 0.8,
@@ -67,56 +51,44 @@ export function upload(selector, options = {}) {
                 minHeight: 700,
                 height: 700,
                 width: 700,
-
-                drew(context, canvas) {
+                beforeDraw(context, canvas) {
+                    canvas.width = 700;               
+                    canvas.height = 700;  
                     context.fillStyle = '#fff';
-                    context.font = '2rem serif';
-                    context.fillText('Fason.tj', canvas.width - 130, canvas.height - 20,);
+                    context.fillRect(0, 0, canvas.width, canvas.height);  
+ 
+               
+                }, drew(context, canvas) {       
+                            
+                   var base_image = new Image();
+                   base_image.src = '/storage/watermark.svg';
+                  
+                   context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
                 },
-                // The compression process is asynchronous,
-                // which means you have to access the `result` in the `success` hook function.
                 success(result) {
-                    
-                    /*  Объект FileReader позволяет веб-приложениям асинхронно читать содержимое файлов (или буферы данных),
-                    хранящиеся на компьютере пользователя, используя объекты File или Blob, с помощью которых задается файл или данные для чтения. */
+                   
                     const reader = new FileReader()
 
-                    // создаем обработчик события, onload = Обработчик для события загрузки объекта window.
                     reader.onload = ev => {
-                        console.log(result)
                         const src = ev.target.result;
                         
                         preview.insertAdjacentHTML('afterbegin', `
                         <div class="preview-image col-3">
                             <div class="preview-remove " data-name="${result.name}">&times;</div>
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
-                        </div>
-                        `);
+                        </div>`);
                         preview.insertAdjacentElement('beforeend', open)
                         open.classList.add('col-3')
 
                     }
-                    /*  Метод readAsDataURL используется для чтения содержимог указанного Blob или File.
-                    Когда операция закончится, readyState (en-US) примет значение DONE, и будет вызвано событие loadend.
-                    В то же время, аттрибут  result (en-US) будет содержать данные как URL, представляющий файл, кодированый в base64 строку.*/
                    
                     reader.readAsDataURL(result);
-
-                    // The third parameter is required for server
-                    formData.append('file', result, result.name);
-                    
-                   
-                    // Send the compressed image file to server with XMLHttpRequest.
-                    //   axios.post('/path/to/upload', formData).then(() => {
-                    //     console.log('Upload success');
-                    //   });
                 },
                 error(err) {
                   console.log(err.message);
                 },
-              });
+            });
 
-            
         });
 
     }
@@ -145,38 +117,112 @@ export function upload(selector, options = {}) {
 
 
 $(document).on('click', '.add-product-btn', function() {
-    var gallery = $('.preview-element-image').attr('src');
-    formData.append('_token', $('meta[name=csrf-token]').attr("content"));
-
-    // var formData = new FormData($('#add_address'));
     
-    let cat_id = $(this).closest('form').find('input[name="cat_id"]').val();
-    let name = $(this).closest('form').find('input[name="name"]').val();
-    let description = $(this).closest('form').find('input[name="description"]').val();
-    let quantity = $(this).closest('form').find('input[name="quantity"]').val();
-    let image = $(this).closest('form').find('input[name="image"]')[0].files[0];
+    var formData = new FormData();
 
-    formData.append('cat_id', cat_id);
-    formData.append('name', name);
-    formData.append('description', description);
-    formData.append('quantity', quantity);
-    formData.append('image', image);
-    formData.append('gallery', gallery);
-    console.log(formData);
-    $.ajax({
-        url: '/product/store/test',
-        type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        contentType: false,
-        processData: false,
-        data: formData,
-        success: (data) => {
-            console.log(data);
-        },
-        error: function(xhr, status, error) {
-            console.log(status)
-        }
-    });
+    const cat_id = $(this).closest('form').find('select[name="category_id"]').val();
+    const name = $(this).closest('form').find('input[name="name"]').val();
+    const description = $(this).closest('form').find('textarea[name="description"]').val();
+    const quantity = $(this).closest('form').find('input[name="quantity"]').val();
+    const price = $(this).closest('form').find('input[name="price"]').val();
+    const store_id = $(this).closest('form').find('input[name="store_id"]').val();
+    const image = $('#main-poster').attr('src');
+
+    let gallery = $('.preview-element-image');
+    let galleries = [];
+    let itemsProcessed = 0;
+    if(gallery.length > 0) {
+        Array.from(gallery).forEach((item, index, array) => {
+            galleries.push(item.src);
+            itemsProcessed++;
+
+            if(itemsProcessed === array.length) {
+              callback();
+            }
+        });
+    }
+    else {
+        callback();
+    }
+
+
+    function callback () {
+        
+        formData.append('_token', $('meta[name=csrf-token]').attr("content"));
+        formData.append('cat_id', cat_id);
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('quantity', quantity);
+        formData.append('price', price);
+        formData.append('store_id', store_id);
+        formData.append('image', image);
+        formData.append('gallery', JSON.stringify(galleries))
+        console.log(galleries);
+        $.ajax({
+            url: '/product/store/test',
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+
+            success: (data) => {
+                console.log(data);
+                // $('.content .container:eq(0)').empty().html('<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно добавлен и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>');
+            },
+            error: function(xhr, status, error) {
+                console.log(status)
+            }
+        });
+
+    }
+
+});
+
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        new Compressor(input.files[0], {
+            quality: 0.8,
+            maxWidth: 700,
+            maxHeight: 700,
+            minWidth: 700,
+            minHeight: 700,
+            height: 700,
+            width: 700,
+            beforeDraw(context, canvas) {
+                canvas.width = 700;               
+                canvas.height = 700;  
+                context.fillStyle = '#fff';
+                context.fillRect(0, 0, canvas.width, canvas.height);
+            }, drew(context, canvas) {
+                var base_image = new Image();
+                base_image.src = '/storage/watermark.svg';
+                context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
+            },
+            success(result) {
+                const reader = new FileReader()
+
+                reader.onload = ev => {
+                    const src = ev.target.result;
+                    $('#main-poster').attr('src', src);
+                }
+                reader.readAsDataURL(result);
+            },
+            error(err) {
+              console.log(err.message);
+            },
+        });
+    }
+}
+
+$("#image").change(function() {
+    if($(this).val() != '')
+        $('#main-poster').removeClass('border-danger').addClass('border-success');
+    else
+        $('#main-poster').addClass('border-danger');
+    
+    readURL(this);
 });

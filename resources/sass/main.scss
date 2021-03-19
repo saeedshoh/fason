@@ -1555,20 +1555,21 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 .preview-image img {
-    width: 88px;
+    width: 89px;
     height: 100px;
     object-fit: contain;
-    background-color: #e1e1e1;
+    background-color: #ffffff;
 }
 .preview-remove {
     width: 20px;
     height: 20px;
     position: absolute;
-    right: 15px;
+    right: 14px;
     top: 0;
     font-weight: bold;
-    background: rgba(255, 255, 255, .5);
+    background: rgb(255 0 0 / 50%);
     display: flex;
+    color: #fff;
     justify-content: center;
     align-items: center;
     cursor: pointer;

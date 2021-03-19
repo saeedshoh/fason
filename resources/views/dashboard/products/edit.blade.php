@@ -267,24 +267,17 @@
                                     <hr>
 
                                     <div id="db-preview-image" class="row add-product-secondary">
-                                        @for ($i = 0; $i < count(explode(',', $product->gallery)); $i++)
-                                            <div class="col-3 text-center product_image" data-image="true">
-                                                <div class="profile-pic">
-                                                    <img src="{{ Storage::url(explode(',', $product->gallery)[$i]) }}" data-image-src="{{ explode(',', $product->gallery)[$i] }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
-                                                    <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                                        @if(!empty($product->gallery))
+                                            @foreach(json_decode($product->gallery) as $gallery)
+                                                <div class="col-3 text-center product_image mb-4" data-image="true">
+                                                    <div class="profile-pic">
+                                                        <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}" width="89" height="100" style="object-fit: contain;">
+                                                        <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endfor
-                                        @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
-                                            <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-                                                <div class="spinner-border d-none" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                                <label for="galler">
-                                                    <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-                                                </label>
-                                            </div>
-                                        @endfor
+                                            @endforeach
+                                        @endif
+                                       
                                     </div>
                                     <input type="text" id="gallery" class="form-control d-none" name="gallery" value="{{ $product->gallery }}" form="create_category">
 
