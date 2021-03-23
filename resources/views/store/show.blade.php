@@ -64,6 +64,7 @@
               </div>
               <div class="col-7 align-self-center">
                 <h5 class="font-weight-bold text-left text-md-right mb-1">
+         
                   {{ $store->name ?? ''}}
                 </h5>
               </div>

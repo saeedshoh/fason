@@ -1,5 +1,5 @@
 
-const { stubString, last } = require('lodash');
+// const { stubString, last } = require('lodash');
 require('./jquery.inputmask.bundle.js');
 require('sweetalert2');
 import { upload } from './upload.js';

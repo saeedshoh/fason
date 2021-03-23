@@ -67,19 +67,11 @@
                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
                       </th>
                       <th>
-                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">Телефон</a>
-                      </th>
-                      <th>
                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
                       </th>
-                      <th>
-                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-categories">Категории</a>
-                      </th>
+
                       <th>
                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Создатель</a>
-                      </th>
-                      <th>
-                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-created">Дата создания</a>
                       </th>
                       <th>
                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-status">Статус</a>
@@ -98,23 +90,8 @@
                           <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
                       </td>
-                      <td class="item-phone">
-                        <a class="text-reset" href="tel:{{ $store->user->phone }}">{{ $store->user->phone }}</a>
-                      </td>
                       <td class="item-location">
                         {{ $store->city->name }}
-                      </td>
-                      <td class="item-categories">
-                        @foreach ($store->product->unique('category') as $product)
-                          @if ($store->product->keys()->last())
-                            {{ $name = $product->category->name }}
-                          @else
-                            {{ $name = $product->category->name.', ' }}
-                          @endif
-                        @endforeach
-                      </td>
-                      <td class="item-owner">
-                        <span class="text-reset">{{ $store->user->name }}</span>
                       </td>
                       <td class="item-created">
                         <time datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>
@@ -135,7 +112,7 @@
                         <a href="{{ route('ft-store.edit', $store->slug) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
-                        <form class="d-inline" action="{{ route('ft-store.toggle', $store) }}" method="POST">
+                        <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn btn-{{ $store->is_active ? 'warning' : 'success'}} m-1 fa-pull-right">

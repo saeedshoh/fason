@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
+use App\Models\StoreEdit;
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
@@ -28,7 +29,8 @@ class StoreController extends Controller
     }
     public function index()
     {
-        $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->paginate(20);
+        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->paginate(20);
+        $stores = StoreEdit::orderBy('is_active', 'asc')->latest()->paginate(20);
         return view('dashboard.store.index', compact('stores'));
     }
 
@@ -80,7 +82,8 @@ class StoreController extends Controller
             $data['cover'] = $coverPath;
         }
 
-        Store::create($data);
+        $store = Store::create($data);
+        StoreEdit::create($data + ['store_id' => $store->id]);
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -150,6 +153,7 @@ class StoreController extends Controller
     public function update(StoreRequest $request, $store)
     {
         $data = $request->validated();
+        
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
@@ -177,9 +181,13 @@ class StoreController extends Controller
             $cover->save(public_path('/storage/'.$coverPath));
             $data['cover'] = $coverPath;
         }
-        $data['user_id'] = Auth::id();
-        if(Store::where('id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
-            $store = Store::where('id', $store)->withoutGlobalScopes()->first();
+        // $data['user_id'] = Auth::id();
+        // if(Store::where('id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
+        //     $store = Store::where('id', $store)->withoutGlobalScopes()->first();
+        // }
+        
+        if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
+            $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
         }
         $city = City::where('id', $request->city_id)->first()->name;
         Log::create([
@@ -188,8 +196,7 @@ class StoreController extends Controller
             'table'  => ' Магазины',
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
-
-        return redirect()->route('ft-store.show', $store->slug)->with('success', 'Магазин успешно обновлена!');
+        return view('useful_links.thanks')->with(['title' => 'Ваши изменения вступят в силу как только изменения пройдут модерацию !']);
     }
 
     /**
@@ -219,11 +226,22 @@ class StoreController extends Controller
      */
     public function toggle($store)
     {
-        $store = Store::withoutGlobalScopes()->find($store);
+        $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
+        $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
         if($store->is_active) {
             $store->update(['is_active' => 0]);
         } else {
             $store->update(['is_active' => 1]);
+            $stored->update([
+                'name' => $store->name,    
+                'slug' => $store->slug,    
+                'description' => $store->description,    
+                'address' => $store->address,    
+                'avatar' => $store->avatar,    
+                'cover' => $store->cover,    
+                'city_id' => $store->city_id,
+                'is_active' => 1
+            ]);
         }
         return redirect(route('stores.index'))->with('success', 'Магазин успешно изменен!');
     }
@@ -246,10 +264,11 @@ class StoreController extends Controller
         abort(404);
     }
 
-    public function showStoreInfo(Store $store){
+    public function showStoreInfo(Store $store) {
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
         ->join('products', 'orders.product_id', '=', 'products.id')
         ->paginate(50);
+
         return view('dashboard.store.show', compact('store', 'orders'));
     }
 }

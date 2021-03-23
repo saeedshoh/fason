@@ -74,8 +74,8 @@ export function upload(selector, options = {}) {
                         
                         preview.insertAdjacentHTML('afterbegin', `
                         <div class="preview-image col-3">
-                            <div class="preview-remove " data-name="${result.name}">&times;</div>
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
+                            <div class="font-weight-bold text-danger mt-3" data-name="${result.name}">&times; Удалить</div>
                         </div>`);
                         preview.insertAdjacentElement('beforeend', open)
                         open.classList.add('col-3')
@@ -169,7 +169,7 @@ $(document).on('click', '.add-product-btn', function() {
             data: formData,
 
             success: (data) => {
-                $('.content .container:eq(0)').empty().html('<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно добавлен и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>');
+                $('.content .container:eq(0)').addClass('bg-white').empty().html('<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно добавлен и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>');
             },
             error: function(xhr, status, error) {
                 console.log(status)
