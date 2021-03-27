@@ -171,7 +171,7 @@
         @guest
         <div class="col text-center px-0">
           <a href="" data-toggle="modal" data-target="#enter_site" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
-            <img src="/storage/theme/icons/store-mob.svg" width="19">
+            <img src="/storage/theme/icons/opened-exit-door.svg" width="19">
             <span class="mobile-nav--title">
               Магазин</span>
             </a>
@@ -180,7 +180,7 @@
       @else
       <div class="col text-center px-0">
         <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          <img src="/storage/theme/icons/opened-exit-door.svg" width="19">
+          <img src="/storage/theme/icons/store-mob.svg" width="19">
           <span class="mobile-nav--title">Магазин</span>
         </a>
       </div>
