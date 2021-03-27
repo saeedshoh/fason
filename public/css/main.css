@@ -12355,17 +12355,16 @@ input[type=number]:hover::-webkit-outer-spin-button {
   display: inline-block;
 }
 
-.profile-pic:hover .deleteImage {
-  display: block;
-}
-
 .deleteImage {
-  padding-top: 7px;
-  padding-right: 7px;
+  padding: 0 10px;
   position: absolute;
-  right: 0;
-  top: 0;
-  display: none;
+  right: -10px;
+  top: -10px;
+  display: block;
+  border-radius: 50%;
+  background: #ff0055;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .deleteImage a {
@@ -12397,9 +12396,6 @@ input[type=number]:hover::-webkit-outer-spin-button {
 
 .add-product-secondary .pic-item {
   border: 2px solid #fff;
-}
-
-.add-product-secondary .pic-item:hover {
   cursor: pointer;
   border: 1px solid #FE0054;
 }
