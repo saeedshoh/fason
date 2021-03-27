@@ -97,8 +97,8 @@ Route::resources([
 
 Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
 Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
-Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
-Route::put('products/{product}', [ProductController::class, 'ft_update'])->name('ft-products.update');
+// Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
+// Route::put('products/{product}', [ProductController::class, 'ft_update'])->name('ft-products.update');
 Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
 
 Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
@@ -134,6 +134,9 @@ Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-st
 Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
 Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
 Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
+Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
+
+
 Route::get('/testJson', function(){
     // echo json_encode(json_encode('2021/01/6013cca9c8ca6480x480.jpg,2021/01/6013ccaa90c3c480x480.jpg,2021/01/6013ccab535d9480x480.jpg,2021/01/6013ccabe5397480x480.jpg,2021/01/6013ccac91749480x480.jpg'));
     echo json_encode('"2021/01/6013cd601d21d480x480.jpg","2021/01/6013cd60b0171480x480.jpg","2021/01/6013cd61429b1480x480.jpg","2021/01/6013cd61ce6fa480x480.jpg","2021/01/6013cd62748b2480x480.jpg","2021/01/6013cd63237e0480x480.jpg"');

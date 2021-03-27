@@ -19,30 +19,23 @@
           </div>
           <div class="my-3">
             <label for="image">
-              <img src="{{ Storage::url($product->image) }}" class="mw-100 w-100" id="main-poster">
+                <img src="{{ Storage::url($product->image) }}" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" height="373" style="object-fit: cover;">
             </label>
           </div>
-          <div id="db-preview-image" class="row add-product-secondary">
+          <div id="db-preview-image" class="add-product-secondary" data-edit="true">
+            <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
+
             @if(!empty($product->gallery))
                 @foreach(json_decode($product->gallery) as $gallery)
-                    <div class="col-3 text-center product_image mb-3" data-image="true">
-                        <div class="profile-pic">
-                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="position-relative mw-100 pic-item" alt="{{ $product->name }}">
-                            <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+                    {{--  <div class="col-3 text-center product_image mb-3" data-image="true">  --}}
+                        <div class="preview-image col-3">
+                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image" alt="{{ $product->name }}">
+                            <div class="font-weight-bold text-danger mt-3" data-name="{{ $gallery }}">&times; Удалить</div>
                         </div>
-                    </div>
+                    {{--  </div>  --}}
                 @endforeach
             @endif
-            @for ($i = 0; $i < 8 - count(explode(',', $product->gallery)); $i++)
-                <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-                    <label for="galler">
-                        <div class="spinner-border d-none" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-                    </label>
-                </div>
-            @endfor
+            
           </div>
           <form method="post" action="" enctype="multipart/form-data" id="myform">
             <input type="file" accept="image/*"  id="galler" class="d-none" name="galler" multiple >
@@ -51,16 +44,16 @@
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5 mt-lg-0">
-          <form action="{{ route('ft-products.update', $product) }}" method="POST" enctype="multipart/form-data" id="add_product">
+          <form action="{{ route('test_update', $product) }}" method="POST" enctype="multipart/form-data" id="add_product" onsubmit="return false">
             @csrf
             @method('PUT')
             <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
 
-            <input type="file" accept="image/*"  id="image" class="d-none" name="image">
+            <input type="file" accept="image/*"  id="image" class="d-none" name="image" value="{{ $product->image }}">
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                 <div class="w-75 input_placeholder_style">
-                    <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="parent_cat">
+                    <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
                     <option >Выберите категорию</option>
                     @if($hasParentCategory)
                             @forelse ($allCategories->where('parent_id', 0) as $cat)
@@ -333,9 +326,10 @@
                 @endforeach --}}
             </div>
               <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
               <input type="hidden" name="product_status_id" value="1">
               <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
-                <button id="submitAddProduct" type="submit" class="w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
+                <button id="submitAddProduct" type="submit" class="add-product-btn w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
               </div>
             </div>
           </form>
