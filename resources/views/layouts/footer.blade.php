@@ -28,7 +28,7 @@
                     </div>
                     <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
-                  <p class="text-danger wrong-phone-number text-left mt-1 font-weight-bold mt-2" style="display: none;">Такого номера не существует !</p>
+                  <p class="text-danger wrong-phone-number text-left font-weight-bold mt-2" style="display: none;">Такого номера не существует !</p>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
                     <div class="form-group text-center">

@@ -85,8 +85,9 @@
                                     <label for="attribute">Аттрибут для категори</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
                                         <option disabled selected>Выберите аттрибут</option>
+                                       
                                         @foreach($attributes as $attribute)
-                                            <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                            <option value="{{ $attribute->id }}" @foreach ($category->attributes as $select_attribute) {{ $select_attribute->id == $attribute->id ? 'selected' : '' }} @endforeach>{{ $attribute->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('attribute')

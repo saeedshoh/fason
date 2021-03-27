@@ -10,7 +10,7 @@ body {
 }
 
 .text-brown {
-    color: #ff3a00;
+    color: #6cb2eb;
 }
 
 .orders.active {
@@ -1134,7 +1134,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     left: -3%;
     height: 100%;
     width: 5px;
-    background: #ff3a00;
+    background: #6cb2eb;
 }
 
 
@@ -1289,7 +1289,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .category-mix a {
     line-height: 1.7;
     font-size: 16px;
-    color: #A3A3A3;
+    color: #121416;
 }
 
 #adressChange {
@@ -1455,7 +1455,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 //Color picker
 .category {
-    font-size: 18px;
+    font-size: 17px;
+    font-weight: 700;
+    vertical-align: sub;
+    color: #343a40;
 }
 
 .category-item {

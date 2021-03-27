@@ -40,13 +40,14 @@ export function upload(selector, options = {}) {
     }
 
     files = Array.from(event.target.files);
-
     // preview.innerHTML = '';
     files.forEach(file => {
       if (!file.type.match('image')) {
         return;
       }
       new Compressor(file, {
+        strict: false,
+        checkOrientation: false,
         quality: 0.8,
         maxWidth: 700,
         maxHeight: 700,
@@ -54,24 +55,28 @@ export function upload(selector, options = {}) {
         minHeight: 700,
         height: 700,
         width: 700,
-        beforeDraw(context, canvas) {
-          canvas.width = 700;
-          canvas.height = 700;
-          context.fillStyle = '#fff';
-          context.fillRect(0, 0, canvas.width, canvas.height);
-        },
-        drew(context, canvas) {
-          var base_image = new Image();
-          base_image.src = '/storage/watermark.svg';
+        // beforeDraw(context, canvas) {
+        //   console.log(context);
 
-          context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
-        },
+        //   canvas.width = 700;
+        //   canvas.height = 700;
+        //   context.fillStyle = '#fff';
+
+        //   context.fillRect(0, 0, canvas.width, canvas.height);
+         
+        // },
+        // drew(context, canvas) {
+       
+        //   var base_image = new Image();
+        //   base_image.src = '/storage/watermark.svg';
+
+        //   context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
+        // },
         success(result) {
           const reader = new FileReader();
 
           reader.onload = ev => {
             const src = ev.target.result;
-
             preview.insertAdjacentHTML(
               'afterbegin',
               `
@@ -91,6 +96,8 @@ export function upload(selector, options = {}) {
         }
       });
     });
+
+    console.log(files);
   };
   const removeHandler = event => {
     if (!event.target.dataset.name) {
@@ -147,7 +154,8 @@ $(document).on('click', '.add-product-btn', function() {
     .val();
 
   const image = $('#main-poster').attr('src');
-  const query_url = check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
+  const query_url =
+    check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
   let gallery = $('.preview-element-image');
   let galleries = [];
   let itemsProcessed = 0;
@@ -186,12 +194,15 @@ $(document).on('click', '.add-product-btn', function() {
       processData: false,
       data: formData,
       success: data => {
+        // console.log(data);
         $('.content .container:eq(0)')
           .addClass('bg-white')
           .empty()
           .html(
-            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${check_page == 'true' ? 'обновлен' : 'добавлен'} и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
-        )
+            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
+              check_page == 'true' ? 'обновлен' : 'добавлен'
+            } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
+          );
       },
       error: function(xhr, status, error) {
         console.log(status);
