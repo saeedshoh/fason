@@ -504,19 +504,19 @@ class ProductController extends Controller
                     $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                     $data = base64_decode($data);
                     Storage::disk('public')->put($main_image, $data);
-                    $this->uploadImage($main_image);
+                    $main_image = $this->uploadImage($main_image);
+
                 }; 
 
                 if(!empty($base64_images)) {
                     $images = [];
                     foreach($base64_images as $base64_image) {
                         $image = $year_month.'/'.uniqid().'.jpg';
-                        array_push($images, $image);
                         if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
                             $data = substr($base64_image, strpos($base64_image, ',') + 1);
                             $data = base64_decode($data);
                             Storage::disk('public')->put($image, $data);
-                            $this->uploadImage($image);
+                            array_push($images, $this->uploadImage($image));
                         };  
                     }
                 }
@@ -572,7 +572,7 @@ class ProductController extends Controller
                         Storage::disk('public')->put($image, $data);
                         array_push($images, $this->uploadImage($image));
                     } else {
-                        $image = str_replace("http://127.0.0.1:8000/storage/","", $base64_image);
+                        $image = str_replace("https://fason.tj/storage/","", $base64_image);
                         array_push($images, $image);
                     }  
 
