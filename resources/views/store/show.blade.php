@@ -142,7 +142,13 @@
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
                 <div class="card rounded shadow border-0  h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
+                    <span class="text-secondary"><img height="15px" width="15px" src="../storage/theme/icons/clock.svg"> До скрытия
+                      @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
+                      @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4'])) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                      @else {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                      @endif
+                    </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                       <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
