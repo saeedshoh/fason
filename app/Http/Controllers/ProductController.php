@@ -141,55 +141,55 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function ft_store(ProductRequest $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
-            'gallery' => 'sometimes'
-        ]);
+    // public function ft_store(ProductRequest $request)
+    // {
+    //     $request->validate([
+    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+    //         'gallery' => 'sometimes'
+    //     ]);
     
         
-        $img = Image::make($request->file('image')->getRealPath());
+    //     $img = Image::make($request->file('image')->getRealPath());
         
-        //Create folder if doesn't exist
-        $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($yearFolder)){
-            File::makeDirectory($yearFolder, 0777, true);
-        }
+    //     //Create folder if doesn't exist
+    //     $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+    //     if(!File::isDirectory($yearFolder)){
+    //         File::makeDirectory($yearFolder, 0777, true);
+    //     }
         
-        $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-        $this->cropImage($img, 800, 100, $nowYear);
-        // return $this->cropImage($img, 800, 100, $nowYear);
-        $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
+    //     $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+    //     $this->cropImage($img, 800, 100, $nowYear);
+    //     // return $this->cropImage($img, 800, 100, $nowYear);
+    //     $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
-        if(isset($request->attribute)) {
-            foreach ($request->attribute as $name => $attribute) {
-                // print($attribute);
-                if($name != 'cvet'){
-                    $attribute_id = Attribute::where('slug', $name)->first()->id;
-                    foreach($attribute['value'] as $value){
-                        ProductAttribute::create([
-                            'product_id' => $product->id,
-                            'attribute_id' => $attribute_id,
-                            'attribute_value_id' => $value
-                        ]);
-                    }
-                }
-            }
-        }
-        if(isset($request->cvet)) {
-            $cvet = explode(',', $request->cvet);
-            for($i = 0; $i < count($cvet); $i++){
-                $attribute_id = Attribute::where('slug', 'cvet')->first()->id;
-                ProductAttribute::create([
-                    'product_id' => $product->id,
-                    'attribute_id' => $attribute_id,
-                    'attribute_value_id' => $cvet[$i]
-                ]);
-            }
-        }
-        return view('useful_links.thanks')->with(['title' => 'Товар успешно добавлен и проходит модерацию']);
-    }
+    //     if(isset($request->attribute)) {
+    //         foreach ($request->attribute as $name => $attribute) {
+    //             // print($attribute);
+    //             if($name != 'cvet'){
+    //                 $attribute_id = Attribute::where('slug', $name)->first()->id;
+    //                 foreach($attribute['value'] as $value){
+    //                     ProductAttribute::create([
+    //                         'product_id' => $product->id,
+    //                         'attribute_id' => $attribute_id,
+    //                         'attribute_value_id' => $value
+    //                     ]);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     if(isset($request->cvet)) {
+    //         $cvet = explode(',', $request->cvet);
+    //         for($i = 0; $i < count($cvet); $i++){
+    //             $attribute_id = Attribute::where('slug', 'cvet')->first()->id;
+    //             ProductAttribute::create([
+    //                 'product_id' => $product->id,
+    //                 'attribute_id' => $attribute_id,
+    //                 'attribute_value_id' => $cvet[$i]
+    //             ]);
+    //         }
+    //     }
+    //     return view('useful_links.thanks')->with(['title' => 'Товар успешно добавлен и проходит модерацию']);
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -198,66 +198,66 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function ft_update(ProductRequest $request, Product $product)
-    {
-        if ($request->image != $product->image && $request->image != null)
-        {
-            $request->validate([
-                'image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
-                'gallery' => 'sometimes'
-            ]);
+    // public function ft_update(ProductRequest $request, Product $product)
+    // {
+    //     if ($request->image != $product->image && $request->image != null)
+    //     {
+    //         $request->validate([
+    //             'image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+    //             'gallery' => 'sometimes'
+    //         ]);
 
-            //Create folder if doesn't exist
-            $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-            if(!File::isDirectory($yearFolder)){
-                File::makeDirectory($yearFolder, 0777, true);
-            }
+    //         //Create folder if doesn't exist
+    //         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
+    //         if(!File::isDirectory($yearFolder)){
+    //             File::makeDirectory($yearFolder, 0777, true);
+    //         }
 
-            $img = Image::make($request->file('image')->getRealPath());
-            $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-            $this->cropImage($img, 800, 100, $nowYear);
+    //         $img = Image::make($request->file('image')->getRealPath());
+    //         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
+    //         $this->cropImage($img, 800, 100, $nowYear);
 
-            $image = $nowYear . '800x800.jpg';
-            $product->update([
-                'image' => $image,
-            ]);
-        }
-        $product->update($request->validated() + ['gallery' => $request->gallery]);
+    //         $image = $nowYear . '800x800.jpg';
+    //         $product->update([
+    //             'image' => $image,
+    //         ]);
+    //     }
+    //     $product->update($request->validated() + ['gallery' => $request->gallery]);
 
-        if(isset($request->attribute) || isset($request->cvet)) {
-            $delete = ProductAttribute::where('product_id', $product->id);
-            if($delete->count() > 0){
-                $delete->delete();
-            }
-        }
+    //     if(isset($request->attribute) || isset($request->cvet)) {
+    //         $delete = ProductAttribute::where('product_id', $product->id);
+    //         if($delete->count() > 0){
+    //             $delete->delete();
+    //         }
+    //     }
 
-        if(isset($request->attribute)) {
-            foreach ($request->attribute as $name => $attribute) {
-                if($name != 'cvet'){
-                    $attribute_id = Attribute::where('slug', $name)->first()->id;
-                    foreach($attribute['value'] as $value){
-                        ProductAttribute::create([
-                            'product_id' => $product->id,
-                            'attribute_id' => $attribute_id,
-                            'attribute_value_id' => $value
-                        ]);
-                    }
-                }
-            }
-        }
-        if(isset($request->cvet)) {
-            $cvet = explode(',', $request->cvet);
-            for($i = 0; $i < count($cvet); $i++){
-                $attribute_id = Attribute::where('slug', 'cvet')->first()->id;
-                ProductAttribute::create([
-                    'product_id' => $product->id,
-                    'attribute_id' => $attribute_id,
-                    'attribute_value_id' => $cvet[$i]
-                ]);
-            }
-        }
-        return view('useful_links.thanks')->with(['title' => 'Товар успешно изменен и проходит модерацию']);
-    }
+    //     if(isset($request->attribute)) {
+    //         foreach ($request->attribute as $name => $attribute) {
+    //             if($name != 'cvet'){
+    //                 $attribute_id = Attribute::where('slug', $name)->first()->id;
+    //                 foreach($attribute['value'] as $value){
+    //                     ProductAttribute::create([
+    //                         'product_id' => $product->id,
+    //                         'attribute_id' => $attribute_id,
+    //                         'attribute_value_id' => $value
+    //                     ]);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     if(isset($request->cvet)) {
+    //         $cvet = explode(',', $request->cvet);
+    //         for($i = 0; $i < count($cvet); $i++){
+    //             $attribute_id = Attribute::where('slug', 'cvet')->first()->id;
+    //             ProductAttribute::create([
+    //                 'product_id' => $product->id,
+    //                 'attribute_id' => $attribute_id,
+    //                 'attribute_value_id' => $cvet[$i]
+    //             ]);
+    //         }
+    //     }
+    //     return view('useful_links.thanks')->with(['title' => 'Товар успешно изменен и проходит модерацию']);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -492,7 +492,6 @@ class ProductController extends Controller
     }
 
     public function test_store(Request $request) {
-        
             if($request->ajax()) {
                 $base64_images = json_decode($request->gallery);
                 $main_image_json = $request->image;
@@ -533,4 +532,62 @@ class ProductController extends Controller
                 );
             }
     }
+    public function test_update(Request $request, Product $product) {
+
+       
+        if($request->ajax()) {
+            $base64_images = json_decode($request->gallery);
+            
+            $main_image_json = $request->image;
+           
+            $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+
+            if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {     
+                $main_image = $year_month.'/'.Str::random(15).'.jpg';
+                $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
+               
+                $data = base64_decode($data);
+              
+                Storage::disk('public')->put($main_image, $data);
+            } else {
+                $main_image = str_replace("/storage/","", $main_image_json);
+            }  
+      
+            if(!empty($base64_images)) {
+                $images = [];
+                
+                foreach($base64_images as $base64_image) {
+                   
+                    if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                        $image = $year_month.'/'.Str::random(15).'.jpg';
+                        array_push($images, $image);
+                        $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                        $data = base64_decode($data);
+                        
+                        Storage::disk('public')->put($image, $data);
+                    } else {
+                        $image = str_replace("http://127.0.0.1:8000/storage/","", $base64_image);
+                        array_push($images, $image);
+                    }  
+
+                    
+                }
+                
+            }
+            $product->update(
+                [
+                    'name' =>  $request->name,
+                    'description' =>  $request->description,
+                    'category_id' =>  $request->cat_id,
+                    'quantity' =>  $request->quantity,
+                    'price' =>  $request->price,
+                    'store_id' =>  $request->store_id,
+                    'product_status_id' =>  1,
+                    'image' =>  $main_image,
+                    'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
+                    'created_at' => Carbon::now()
+                ]
+            );
+        }
+    }   
 }

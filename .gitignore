@@ -24,10 +24,4 @@ Homestead.json
 *.zip
 *.png
 *.svg
-public/css/dashboard/app.css
-public/css/dashboard/theme.css
-public/css/main.css
-public/js/app.js
-public/js/dashboard/app.js
-public/js/main.js
-public/mix-manifest.json
+.prettierrc
