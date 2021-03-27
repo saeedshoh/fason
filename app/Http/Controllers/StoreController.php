@@ -96,12 +96,12 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
-        $products = Product::where('store_id', $store->id)->get();
-        $acceptedProducts = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
-        $onCheckProducts = Product::where('store_id', $store->id)->where('product_status_id', 1)->get();
-        $hiddenProducts = Product::where('store_id', $store->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->get();
-        $canceledProducts = Product::where('store_id', $store->id)->where('product_status_id', 3)->get();
-        $notInStock = Product::where('store_id', $store->id)->where('quantity', '<', 1)->withoutGlobalScopes()->get();
+        $products = Product::where('store_id', $store->id)->latest('updated_at')->get();
+        $acceptedProducts = Product::where('store_id', $store->id)->where('product_status_id', 2)->latest('updated_at')->get();
+        $onCheckProducts = Product::where('store_id', $store->id)->where('product_status_id', 1)->latest('updated_at')->get();
+        $hiddenProducts = Product::where('store_id', $store->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->latest('updated_at')->get();
+        $canceledProducts = Product::where('store_id', $store->id)->where('product_status_id', 3)->latest('updated_at')->get();
+        $notInStock = Product::where('store_id', $store->id)->where('quantity', '<', 1)->withoutGlobalScopes()->latest('updated_at')->get();
         // $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
         return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock'));
     }

@@ -71,7 +71,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->withoutGlobalScopes()->paginate(10);
+        $products = Product::withoutGlobalScopes()->latest('updated_at')->paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -547,7 +547,7 @@ class ProductController extends Controller
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
             if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {     
                 $main_image = $year_month.'/'.uniqid().'.jpg';
-                
+
                 $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                
                 $data = base64_decode($data);
