@@ -10,7 +10,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 trait ImageInvTrait {
 
-    private function cropImage($img, $dimension, $sides, $nowYear)
+    function cropImage($img, $dimension, $sides, $nowYear)
     {
         $width  = $img->width();
         $height = $img->height();
@@ -44,9 +44,10 @@ trait ImageInvTrait {
         // create an image manager instance with favored driver
         $manager = new ImageManager(array('driver' => 'gd'));
 
+      
         $back = $manager->canvas($dimension, $dimension, '#ffffff');
         $back->insert($img, 'center');
-        $watermark = Image::make(public_path('/storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
+        $watermark = Image::make(public_path('/storage/watermark_.png'));
         $back->insert($watermark, 'bottom-right', 50, 50);
         $back->save(public_path('/storage/' . $path));
     }
@@ -59,15 +60,11 @@ trait ImageInvTrait {
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
         }
-     
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
-        // ]);
-        // $img = Image::make(Storage::url($image)->getRealPath());
-       
+        $img = Image::make(public_path('/storage/'.$image));
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
-      
-        // $this->cropImage($img, 800, 100, $nowYear);
+        $this->cropImage($img, 800, 100, $nowYear);
+        
+        unlink(public_path('/storage/'.$image));
         return $nowYear . '800x800.jpg';
     }
 }

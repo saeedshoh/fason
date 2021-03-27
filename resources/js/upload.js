@@ -194,15 +194,15 @@ $(document).on('click', '.add-product-btn', function() {
       processData: false,
       data: formData,
       success: data => {
-        // console.log(data);
-        $('.content .container:eq(0)')
-          .addClass('bg-white')
-          .empty()
-          .html(
-            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
-              check_page == 'true' ? 'обновлен' : 'добавлен'
-            } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
-          );
+        console.log(data);
+        // $('.content .container:eq(0)')
+        //   .addClass('bg-white')
+        //   .empty()
+        //   .html(
+        //     `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
+        //       check_page == 'true' ? 'обновлен' : 'добавлен'
+        //     } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
+        // );
       },
       error: function(xhr, status, error) {
         console.log(status);
@@ -221,17 +221,6 @@ function readURL(input) {
       minHeight: 700,
       height: 700,
       width: 700,
-      beforeDraw(context, canvas) {
-        canvas.width = 700;
-        canvas.height = 700;
-        context.fillStyle = '#fff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-      },
-      drew(context, canvas) {
-        var base_image = new Image();
-        base_image.src = '/storage/watermark.svg';
-        context.drawImage(base_image, canvas.width - 230, canvas.height - 80);
-      },
       success(result) {
         const reader = new FileReader();
 
