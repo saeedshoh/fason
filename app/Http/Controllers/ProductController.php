@@ -451,47 +451,47 @@ class ProductController extends Controller
     }
 
     // Add white background to free spaces
-    function cropImage($img, $dimension, $sides, $nowYear)
-    {
-        $width  = $img->width();
-        $height = $img->height();
-        $vertical   = (($width < $height) ? true : false);
-        $horizontal = (($width > $height) ? true : false);
-        $square     = (($width = $height) ? true : false);
+    // function cropImage($img, $dimension, $sides, $nowYear)
+    // {
+    //     $width  = $img->width();
+    //     $height = $img->height();
+    //     $vertical   = (($width < $height) ? true : false);
+    //     $horizontal = (($width > $height) ? true : false);
+    //     $square     = (($width = $height) ? true : false);
 
-        if ($vertical) {
-            $top = $bottom = 0;
-            $newHeight = ($dimension) - ($bottom + $top);
-            $img->resize(null, $newHeight, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+    //     if ($vertical) {
+    //         $top = $bottom = 0;
+    //         $newHeight = ($dimension) - ($bottom + $top);
+    //         $img->resize(null, $newHeight, function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
 
-        } else if ($horizontal) {
-            $right = $left = 0;
-            $newWidth = ($dimension) - ($right + $left);
-            $img->resize($newWidth, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+    //     } else if ($horizontal) {
+    //         $right = $left = 0;
+    //         $newWidth = ($dimension) - ($right + $left);
+    //         $img->resize($newWidth, null, function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
 
-        } else if ($square) {
-            $right = $left = 0;
-            $newWidth = ($dimension) - ($left + $right);
-            $img->resize($newWidth, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-        $path = $nowYear . $dimension . 'x' . $dimension . '.jpg';
+    //     } else if ($square) {
+    //         $right = $left = 0;
+    //         $newWidth = ($dimension) - ($left + $right);
+    //         $img->resize($newWidth, null, function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
+    //     }
+    //     $path = $nowYear . $dimension . 'x' . $dimension . '.jpg';
        
-        // create an image manager instance with favored driver
-        $manager = new ImageManager(array('driver' => 'gd'));
+    //     // create an image manager instance with favored driver
+    //     $manager = new ImageManager(array('driver' => 'gd'));
 
-        $back = $manager->canvas($dimension, $dimension, '#ffffff');
-        $back->insert($img, 'center');
-        // $watermark = Image::make(public_path('storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
-        // $back->insert($watermark, 'bottom-right', 50, 50);
+    //     $back = $manager->canvas($dimension, $dimension, '#ffffff');
+    //     $back->insert($img, 'center');
+    //     $watermark = Image::make(public_path('storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
+    //     $back->insert($watermark, 'bottom-right', 50, 50);
         
-        $back->save(public_path('/storage/' . $path));
-    }
+    //     $back->save(public_path('/storage/' . $path));
+    // }
 
     public function test_store(Request $request) {
             if($request->ajax()) {
@@ -499,22 +499,24 @@ class ProductController extends Controller
                 $main_image_json = $request->image;
                 $year_month = now()->year . '/' . sprintf("%02d", now()->month);
                 
-                $main_image = $year_month.'/'.Str::random(15).'.jpg';
+                $main_image = $year_month.'/'.uniqid().'.jpg';
                 if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
                     $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                     $data = base64_decode($data);
                     Storage::disk('public')->put($main_image, $data);
+                    $this->uploadImage($main_image);
                 }; 
 
                 if(!empty($base64_images)) {
                     $images = [];
                     foreach($base64_images as $base64_image) {
-                        $image = $year_month.'/'.Str::random(15).'.jpg';
+                        $image = $year_month.'/'.uniqid().'.jpg';
                         array_push($images, $image);
                         if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
                             $data = substr($base64_image, strpos($base64_image, ',') + 1);
                             $data = base64_decode($data);
                             Storage::disk('public')->put($image, $data);
+                            $this->uploadImage($image);
                         };  
                     }
                 }
@@ -545,14 +547,14 @@ class ProductController extends Controller
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
             if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {     
                 $main_image = $year_month.'/'.uniqid().'.jpg';
-                // $main_image = $year_month.'/'.uniqid().'.jpg';
+                
                 $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                
                 $data = base64_decode($data);
                
                 Storage::disk('public')->put($main_image, $data);
-                // return $this->uploadImage($main_image);
-              
+                $main_image = $this->uploadImage($main_image);
+
             } else {
                 $main_image = str_replace("/storage/","", $main_image_json);
             }  
@@ -564,11 +566,11 @@ class ProductController extends Controller
                    
                     if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
                         $image = $year_month.'/'.uniqid().'.jpg';
-                        array_push($images, $image);
+                      
                         $data = substr($base64_image, strpos($base64_image, ',') + 1);
                         $data = base64_decode($data);
-                        
                         Storage::disk('public')->put($image, $data);
+                        array_push($images, $this->uploadImage($image));
                     } else {
                         $image = str_replace("http://127.0.0.1:8000/storage/","", $base64_image);
                         array_push($images, $image);

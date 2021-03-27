@@ -123,7 +123,7 @@
     <ul class="shop-subject px-5 list-group list-group-flush h-100 mx-0">
       @forelse ($categories as $category)
       <li class="list-group-item  bg-transparent pr-0 border-bottom">
-        <nav class="category-mix pl-3">
+        <nav class="category-mix">
           <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
             <span class="count-products" data-id="{{ $category->id }}"></span>
           </a>
@@ -203,7 +203,7 @@
                 <ul class="shop-subject list-group list-group-flush h-100 px-4">
                 @forelse ($categories as $category)
                 <li class="list-group-item  bg-transparent py-2 border-bottom">
-                    <nav class="category-mix">
+                    <nav class="category-mix pl-3">
                     <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
                         <span class="count-products" data-id="{{ $category->id }}"></span>
                     </a>
