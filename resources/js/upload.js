@@ -81,8 +81,10 @@ export function upload(selector, options = {}) {
               'afterbegin',
               `
                         <div class="preview-image col-3">
+                          <div class="profile-pic">
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
-                            <div class="font-weight-bold text-danger mt-3" data-name="${result.name}">&times; Удалить</div>
+                            <div class="deleteImage text-white" data-name="${result.name}">&times;</div>
+                          </div>
                         </div>`
             );
             preview.insertAdjacentElement('beforeend', open);
@@ -194,15 +196,14 @@ $(document).on('click', '.add-product-btn', function() {
       processData: false,
       data: formData,
       success: data => {
-        console.log(data);
-        // $('.content .container:eq(0)')
-        //   .addClass('bg-white')
-        //   .empty()
-        //   .html(
-        //     `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
-        //       check_page == 'true' ? 'обновлен' : 'добавлен'
-        //     } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
-        // );
+        $('.content .container:eq(0)')
+          .addClass('bg-white')
+          .empty()
+          .html(
+            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
+              check_page == 'true' ? 'обновлен' : 'добавлен'
+            } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
+        );
       },
       error: function(xhr, status, error) {
         console.log(status);
