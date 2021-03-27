@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\ProductAttribute;
 use App\Scopes\FreshProductScope;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +22,10 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
-
+use App\Http\Traits\ImageInvTrait;
 class ProductController extends Controller
 {
+    use ImageInvTrait;
     /**
      * Display a listing of the resource.
      *
@@ -541,14 +543,16 @@ class ProductController extends Controller
             $main_image_json = $request->image;
            
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
-
             if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {     
-                $main_image = $year_month.'/'.Str::random(15).'.jpg';
+                $main_image = $year_month.'/'.uniqid().'.jpg';
+                // $main_image = $year_month.'/'.uniqid().'.jpg';
                 $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                
                 $data = base64_decode($data);
-              
+               
                 Storage::disk('public')->put($main_image, $data);
+                // return $this->uploadImage($main_image);
+              
             } else {
                 $main_image = str_replace("/storage/","", $main_image_json);
             }  
@@ -559,7 +563,7 @@ class ProductController extends Controller
                 foreach($base64_images as $base64_image) {
                    
                     if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                        $image = $year_month.'/'.Str::random(15).'.jpg';
+                        $image = $year_month.'/'.uniqid().'.jpg';
                         array_push($images, $image);
                         $data = substr($base64_image, strpos($base64_image, ',') + 1);
                         $data = base64_decode($data);

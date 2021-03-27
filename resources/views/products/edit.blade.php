@@ -31,6 +31,7 @@
                         <div class="preview-image col-3">
                             <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image" alt="{{ $product->name }}">
                             <div class="font-weight-bold text-danger mt-3" data-name="{{ $gallery }}">&times; Удалить</div>
+                            
                         </div>
                     {{--  </div>  --}}
                 @endforeach
