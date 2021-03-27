@@ -9,6 +9,10 @@ body {
     color: #FF0055;
 }
 
+.text-brown {
+    color: #ff3a00;
+}
+
 .orders.active {
     background-color: #FF0055 !important;
     color: white !important;
@@ -40,9 +44,10 @@ body {
     top: 10.5rem;
     left: 2rem;
 }
+
 .mobile-filter .custom-select:focus {
     box-shadow: none !important;
-  }
+}
 
 .rounded-25 {
     border-radius: 25px;
@@ -198,17 +203,31 @@ a {
     line-height: 18px;
     color: #888688;
 }
+
 .custom-select {
     background: #fff url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDExIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01LjUgOUwwLjczNjg2IDAuNzVMMTAuMjYzMSAwLjc1TDUuNSA5WiIgZmlsbD0iI0ZGMDA1NSIvPgo8L3N2Zz4K") no-repeat right 0.75rem center/11px 11px !important;
 }
+
 .input_caption {
     color: #888688;
     font-weight: 500;
     margin: 0;
 }
+
 .input_placeholder_style {
     color: #888688;
     font-weight: bold;
+}
+
+#st-attribute_select {
+    height: 200px;
+}
+
+#st-attribute_select option {
+    background-color: #e9e9e9;
+    padding: 5px 15px;
+    border-radius: 360px;
+    margin: 5px;
 }
 
 .second-column__modal {
@@ -495,7 +514,6 @@ a {
 }
 
 
-
 /*Shuhrat*/
 
 .mobile-nav {
@@ -773,7 +791,6 @@ input[type=number] {
     background: none !important;
 }
 
-
 .order-cancled::before {
     background: #FF0055;
     content: "";
@@ -895,40 +912,39 @@ input[type=number] {
             border: 0;
             border-radius: 0;
         }
-        }
-        .mobile-header {
-            width: 100% !important;
-        }
-        .t-neutral .spinner__button {
-            padding: 0 5px !important;
-            color: #fff !important;
-        }
-        .spinner {
-            border-color: #fff !important;
-        }
-        #spinner-input,
-        #price {
-            color: #fff !important;
-        }
-        .mb-other-product {
-            font-weight: 600;
-            font-size: 18px;
-            color: #9b9b9b;
-            margin: 1em 0 2em 0em !important;
-        }
-        .divide {
-            display: none;
-        }
-        .all-product {
-            margin: 0 !important;
-        }
-        .category-mix a {
-            font-size: 14px !important;
-        }
-        #cover-poster-mobile{
-            height: 150px !important;
-        }
-        
+    }
+    .mobile-header {
+        width: 100% !important;
+    }
+    .t-neutral .spinner__button {
+        padding: 0 5px !important;
+        color: #fff !important;
+    }
+    .spinner {
+        border-color: #fff !important;
+    }
+    #spinner-input,
+    #price {
+        color: #fff !important;
+    }
+    .mb-other-product {
+        font-weight: 600;
+        font-size: 18px;
+        color: #9b9b9b;
+        margin: 1em 0 2em 0em !important;
+    }
+    .divide {
+        display: none;
+    }
+    .all-product {
+        margin: 0 !important;
+    }
+    .category-mix a {
+        font-size: 14px !important;
+    }
+    #cover-poster-mobile {
+        height: 150px !important;
+    }
 }
 
 @media only screen and (max-width: 620px) {
@@ -1110,6 +1126,15 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     height: 100%;
     width: 5px;
     background: #ffc107;
+}
+
+.on-way .status::before {
+    content: '';
+    position: absolute;
+    left: -3%;
+    height: 100%;
+    width: 5px;
+    background: #ff3a00;
 }
 
 
@@ -1304,48 +1329,48 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     margin: 0;
 }
 
-  .categories::-webkit-scrollbar,
-  .categories::-webkit-scrollbar {
+.categories::-webkit-scrollbar,
+.categories::-webkit-scrollbar {
     width: 10px;
     border-radius: 15px;
-  }
+}
 
-  .categories::-webkit-scrollbar-track,
-  .categories::-webkit-scrollbar-track {
+.categories::-webkit-scrollbar-track,
+.categories::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-  }
+}
 
-  .categories::-webkit-scrollbar-thumb,
-  .categories::-webkit-scrollbar-thumb {
+.categories::-webkit-scrollbar-thumb,
+.categories::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     border-radius: 15px;
-  }
+}
 
-  .categories::-webkit-scrollbar,
-  .categories::-webkit-scrollbar {
+.categories::-webkit-scrollbar,
+.categories::-webkit-scrollbar {
     width: 5px;
     border-radius: 15px;
-  }
+}
 
-  .categories-markets::-webkit-scrollbar-track,
-  .categories::-webkit-scrollbar-track {
+.categories-markets::-webkit-scrollbar-track,
+.categories::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-  }
+}
 
-  .categories::-webkit-scrollbar-thumb,
-  .categories::-webkit-scrollbar-thumb {
+.categories::-webkit-scrollbar-thumb,
+.categories::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     border-radius: 15px;
-  }
-//Categorie scroll end
+}
 
+//Categorie scroll end
 //Color picker
 
-  /* Блок чекбокса*/
+/* Блок чекбокса*/
 
-  .checkbox-container {
+.checkbox-container {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -1356,21 +1381,23 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+}
 
-  /* Скрываем дефолтный чекбокс*/
 
-  .checkbox-container input {
+/* Скрываем дефолтный чекбокс*/
+
+.checkbox-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-  }
+}
 
-  /* Чекбокс */
 
-  .checkmark {
+/* Чекбокс */
+
+.checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -1378,38 +1405,43 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     width: 25px;
     border-radius: 15px;
     border: 1px solid transparent;
-  }
+}
 
-  /* добавить тень при наведении*/
 
-  .checkbox-container:hover input ~ .checkmark {
+/* добавить тень при наведении*/
+
+.checkbox-container:hover input~.checkmark {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
+}
 
-  /* Поставить тень и грани во время активности */
 
-  .checkbox-container input:checked ~ .checkmark {
+/* Поставить тень и грани во время активности */
+
+.checkbox-container input:checked~.checkmark {
     border: 1px solid #CCCCCC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
+}
 
-  /* Создать галочку и скрыть */
 
-  .checkmark:after {
+/* Создать галочку и скрыть */
+
+.checkmark:after {
     content: "";
     position: absolute;
     display: none;
-  }
+}
 
-  /* Показать что галочку */
 
-  .checkbox-container input:checked ~ .checkmark:after {
+/* Показать что галочку */
+
+.checkbox-container input:checked~.checkmark:after {
     display: block;
-  }
+}
 
-  /* Стили галочки*/
 
-  .checkbox-container .checkmark:after {
+/* Стили галочки*/
+
+.checkbox-container .checkmark:after {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -1419,39 +1451,39 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }
+}
 
 //Color picker
-
-.category{
+.category {
     font-size: 18px;
 }
 
-.category-item{
+.category-item {
     margin: 0 3rem;
 }
 
-.order-title{
+.order-title {
     width: 11rem;
 }
 
-.order-tab{
- img{
-    object-fit: cover;
-    height: 6rem;
- }
+.order-tab {
+    img {
+        object-fit: cover;
+        height: 6rem;
+    }
 }
 
-.edit-pofile-img{
+.edit-pofile-img {
     top: 1.5rem !important;
 }
-.numeric{
+
+.numeric {
     padding-right: 1.5rem !important;
 }
 
-.custom-lined-category{
+.custom-lined-category {
     position: relative;
-    &:before{
+    &:before {
         content: '';
         background: #FF0055;
         height: 3px;
@@ -1462,93 +1494,108 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 //custom-radio
-
 .radio-container {
-  display: block;
-  position: relative;
-  padding: 0 0.8rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    display: block;
+    position: relative;
+    padding: 0 0.8rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
 
 /* Hide the browser's default radio button */
+
 .radio-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
+
 
 /* Create a custom radio button */
+
 .radio-checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: transparent
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent
 }
+
 
 /* On mouse-over, add a grey background color */
-.radio-container:hover input ~ .checkmark {
-  background-color: transparent;
+
+.radio-container:hover input~.checkmark {
+    background-color: transparent;
 }
+
 
 /* When the radio button is checked, add a blue background */
-.radio-container input:checked ~ .radio-checkmark {
-  background-color: transparent;
-  border: 2px solid #f00 !important;
-  border-radius: 8px;
+
+.radio-container input:checked~.radio-checkmark {
+    background-color: transparent;
+    border: 2px solid #f00 !important;
+    border-radius: 8px;
 }
+
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
+
 .radio-checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
+
 
 /* Show the indicator (dot/circle) when checked */
-.radio-container input:checked ~ .radio-checkmark:after {
-  display: block;
-}
-.radio-checkmark{
-	border: 2px solid #ccc;
-    border-radius: 8px;
-   }
 
-   #price{
-       color: #000 !important;
-   }
-#catProducts{
-    img{
+.radio-container input:checked~.radio-checkmark:after {
+    display: block;
+}
+
+.radio-checkmark {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.price {
+    color: #000 !important;
+}
+
+#catProducts {
+    img {
         height: 250px;
         object-fit: cover;
     }
-    @media only screen and( max-width: 375px ){
-        img{
+    @media only screen and( max-width: 375px) {
+        img {
             height: 200px;
             object-fit: cover;
         }
     }
 }
-.text-opacity-low{
-    color:#D2D2D2;
+
+.text-opacity-low {
+    color: #D2D2D2;
 }
-.create-store{
-    .form-control{
+
+.create-store {
+    .form-control {
         border-top-right-radius: 5px !important;
         border-bottom-right-radius: 5px !important;
     }
 }
 
-
 .preview-image {
     position: relative;
     margin-bottom: .8rem;
 }
+
 .preview-image.removing {
     transform: scale(0);
     transition: transform .3s;
@@ -1560,6 +1607,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     object-fit: contain;
     background-color: #ffffff;
 }
+
 .preview-remove {
     width: 20px;
     height: 20px;
@@ -1576,11 +1624,12 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     opacity: 0;
     transition: opacity .22s;
 }
-.preview-image:hover .preview-remove{
+
+.preview-image:hover .preview-remove {
     opacity: 1;
 }
 
-.preview-image:hover .preview-info{
+.preview-image:hover .preview-info {
     bottom: 0;
 }
 
