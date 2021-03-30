@@ -11220,14 +11220,18 @@ a.text-dark:focus {
 
 body {
   background: #F2F2F2;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .text-pinky {
   color: #FF0055;
 }
 
-.text-brown {
-  color: #6cb2eb;
+.text-skyblue {
+  color: #6cb2eb !important;
 }
 
 .orders.active {
@@ -11262,6 +11266,12 @@ body {
   left: 2rem;
 }
 
+.favoriteSave {
+  color: #fff !important;
+  background-color: #FF0055 !important;
+  border-color: #FF0055 !important;
+}
+
 .mobile-filter .custom-select:focus {
   box-shadow: none !important;
 }
@@ -11283,17 +11293,6 @@ body {
   top: 20px;
   z-index: 999;
   cursor: pointer;
-}
-
-.favorite:hover path,
-.favorite.active path {
-  fill: #FF0055;
-}
-
-.favorite.btn-outline-danger:hover path,
-.favorite.btn-outline-danger.active path {
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  stroke: #fff;
 }
 
 .divide {
@@ -11453,9 +11452,11 @@ a {
   background-color: #e9e9e9;
   padding: 5px 35px 5px 15px;
   border-radius: 360px;
+  font-weight: 600;
   margin: 5px;
   float: left;
   width: auto;
+  cursor: pointer;
 }
 
 #st-attribute_select option::before {
@@ -11466,9 +11467,17 @@ a {
   right: 0;
   border-radius: 360px;
   top: 0;
-  border: 3px solid #e9e9e9;
+  border: 3px solid #fff;
   background-color: #d1d1d1;
   z-index: 50;
+}
+
+#st-attribute_select option:hover::before {
+  background: linear-gradient(#ff0055, #ff0055) !important;
+}
+
+#st-attribute_select option:checked::before {
+  background: linear-gradient(#ff0055, #ff0055) !important;
 }
 
 #st-attribute_select option:checked::after {
@@ -11482,6 +11491,41 @@ a {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   z-index: 100;
+}
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background: linear-gradient(#d1d1d1, #d1d1d1);
+  /* for IE */
+}
+
+input[type=radio] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 12px;
+  height: 12px;
+  box-shadow: inset 0 0 0 0.1em #ff0055, 0 0 0 0.1em;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ff0055;
+  outline: none;
+}
+
+input[type=radio]:checked {
+  background: #ff0055;
+  box-shadow: inset 0 0 0 0.2em white, 0 0 0 0.2em #ff0055;
+}
+
+input[type=radio]:focus {
+  outline: 0;
+}
+
+.form-check-label {
+  cursor: pointer;
 }
 
 .second-column__modal {
@@ -12203,7 +12247,7 @@ input[type=number] {
     font-weight: 600;
     font-size: 18px;
     color: #9b9b9b;
-    margin: 1em 0 2em 0em !important;
+    margin: 1em 0 2em 0em;
   }
 
   .divide {

@@ -142,9 +142,9 @@
       </div>
     </div>
 <!--Category list end-->
-    <div class="all-product px-0">
+    <div class="all-product px-0 pt-3 pt-md-0 pt-lg-0">
     <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
         @forelse ($newProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0 h-100 w-100">
@@ -170,7 +170,7 @@
 
         <h2 class="shop-subject title mt-lg-5 mb-4" >Топ продаж </h2>
 
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 custom-lined">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
 
           @forelse ($topProducts as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -205,7 +205,7 @@
       </div>
       <!--Banner end-->
       @endif
-      <h2 class="shop-subject title mt-5 mb-4 text-center w-100" >Магазины</h2>
+      <h2 class="shop-subject title mt-4 mb-4 text-center w-100" >Магазины</h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center position-relative">

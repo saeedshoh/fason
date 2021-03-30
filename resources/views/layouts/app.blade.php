@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">  --}}
@@ -16,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="apple-touch-icon" href="/storage/favicon.jpg">
     <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg" />
+    
+
     <meta property="og:title" content="@yield('og:title') - Fason.tj" />
     <meta property="og:site_name" content="FASON.TJ" />
     <meta property="og:type" content="website" />
