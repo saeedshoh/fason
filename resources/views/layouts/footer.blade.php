@@ -160,9 +160,9 @@ aria-hidden="true">
       </div>
     </div>
 
-    <div class="container mt-3 text-center">
+    <div class="container mt-3 text-center mb-5">
       <div class="row" >
-        <div class="col-12">
+        <div class="col-12 mb-2 mb-md-0 mb-lg-0">
           <p class="copyright_text_footer">© Fason.tj. Все права защищены Любое копирование и воспроизведение текста, в том числе частичное и в любых формах, без письменного разрешения правообладателя запрещено.</p>
         </div>
       </div>

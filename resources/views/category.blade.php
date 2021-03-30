@@ -68,9 +68,11 @@
                     </div>
 
                   <div class="mt-5"><h5 class="captions-of__modal ">Город</h5></div>
+                  <div class="flex-column">
                   <div class="form-check form-check-inline mt-3">
                     <input data-city="1" class="form-check-input cityM" checked="false" type="radio" name="cityM" id="inlineCheckbox1" value="option1">
                     <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
+                  </div>
                   </div>
                   <br>
                   <h5 class="captions-of__modal mt-5">Цена</h5>
@@ -242,9 +244,11 @@
                     </div>
 
                     <div class="mt-5"><h5 class="captions-of__modal ">Город</h5></div>
-                    <div class="form-check form-check-inline mt-3">
-                        <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
+                    <div class="flex-column">
+                      <div class="form-check form-check-inline mt-3">
+                          <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
+                          <label class="form-check-label" for="inlineCheckbox1">Душанбе</label>
+                      </div>
                     </div>
                     <br>
                     <h5 class="captions-of__modal mt-5">Цена</h5>

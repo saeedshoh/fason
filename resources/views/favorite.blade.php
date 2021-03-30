@@ -15,7 +15,7 @@
           назад</a>
           <h6 class="text-secondary mb-0">Сохраненные:</h6>
       </div>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product pb-5 pb-md-0">
         @forelse ($favorites as $favorite)
             @foreach ($favorite->products as $product)
                 <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
