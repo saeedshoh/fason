@@ -23,6 +23,7 @@ const Toast = Swal.mixin({
 })
 
 $('#listView').on('click', function() {
+    $('#catProducts').find('.card').addClass('active');
     $('#catProducts .row')
         .removeClass('row-cols-2')
         .addClass('row-cols-1')
@@ -32,8 +33,12 @@ $('#listView').on('click', function() {
     $('#catProducts .card').addClass('flex-row')
     $('#catProducts .card img').addClass('w-50')
     $('#catProducts .row').attr('data-style', '2')
+    $('.line-test::before').css('content', 'none');
+    $('#catProducts').removeClass('col-md-8').addClass('col-md-12');
 })
 $('#gridView').on('click', function() {
+    $('#catProducts').find('.card').removeClass('active');
+
     $('#catProducts .row').attr('data-style', '1')
     $('.card')
         .find('img')
@@ -56,47 +61,67 @@ $('.numeric').on('change keyup', function() {
     ///  products line
 
 $(document).ready(function() {
-        const url = $(location).attr('href')
-        if (url.indexOf('category') !== -1) {
-            function myFunction(x) {
-                if (x.matches) {
-                    // If media query matches
-                    for (let i = 1; i <= 2; i++) {
-                        // выведет линию над первыми 2 элементами класса ".custom-lined"
-                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
-                    }
-                } else {
-                    for (let i = 1; i <= 3; i++) {
-                        // выведет линию над первыми 3 элементами класса ".custom-lined"
-                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
-                    }
+    const url = $(location).attr('href')
+    if (url.indexOf('category') !== -1) {
+        function myFunction(x) {
+            if (x.matches) {
+                // If media query matches
+                for (let i = 1; i <= 2; i++) {
+                    // выведет линию над первыми 2 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                }
+            } else {
+                for (let i = 1; i <= 3; i++) {
+                    // выведет линию над первыми 3 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
                 }
             }
-            var x = window.matchMedia('(max-width: 767px)')
-            myFunction(x) // Call listener function at run time
-            x.addListener(myFunction) // Attach listener function on state changes
-        } else {
-            function myFunction(x) {
-                if (x.matches) {
-                    // If media query matches
-                    for (let i = 1; i <= 2; i++) {
-                        // выведет линию над первыми 2 элементами класса ".custom-lined"
-                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
-                    }
-                } else {
-                    for (let i = 1; i <= 5; i++) {
-                        // выведет линию над первыми 5 элементами класса ".custom-lined"
-                        $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
-                    }
-                }
-            }
-            var x = window.matchMedia('(max-width: 767px)')
-            myFunction(x) // Call listener function at run time
-            x.addListener(myFunction) // Attach listener function on state changes
         }
+        var x = window.matchMedia('(max-width: 767px)')
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
+    } else {
+        function myFunction(x) {
+            if (x.matches) {
+                // If media query matches
+                for (let i = 1; i <= 2; i++) {
+                    // выведет линию над первыми 2 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                }
+            } else {
+                for (let i = 1; i <= 5; i++) {
+                    // выведет линию над первыми 5 элементами класса ".custom-lined"
+                    $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+                }
+            }
+
+        }
+        var x = window.matchMedia('(max-width: 767px)')
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
+    }
+    $('#listView').on('click', function() {
+        for (let i = 2; i <= 2; i++) {
+            // выведет линию над первыми 1 элементами класса ".custom-lined"
+            $('.custom-lined .col:nth-child(' + i + ') .card').removeClass('line-test')
+
+        }
+
     })
-    /// products line end
-    ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
+    $('#gridView').on('click', function() {
+        for (let i = 1; i <= 2; i++) {
+            // выведет линию над первыми 1 элементами класса ".custom-lined"
+            $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
+
+        }
+
+
+    })
+})
+
+
+/// products line end
+////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
 
 // $(function() {
 
@@ -901,8 +926,10 @@ $('.checkout-product').on('click', function() {
 
 // favorite add
 $('.favorite').on('click', function() {
+
     if ($(this).hasClass('active')) {
         var status = 0
+
     } else {
         var status = 1
     }
@@ -919,7 +946,7 @@ $('.favorite').on('click', function() {
             method: 'GET',
             dataType: 'json',
             success: data => {
-                this_.toggleClass('active')
+                this_.toggleClass('active');
             },
             error: function(xhr, status, error) {
                 console.log(status)
@@ -1310,9 +1337,27 @@ $('.add-product-secondary .pic-item').on('click', function() {
 //     });
 // });
 
-$(function() {
-    $("#favoriteSave").click(function() {
-        $(this).toggleClass("favoriteSave");
-        alert("worked")
-    });
-})
+
+// $('#favoriteSave').one('click', function() {
+//     var mybtnfavorite = document.getElementsByClassName("favorite")[0];
+//     console.log(mybtnfavorite);
+//     mybtnfavorite.addEventListener("touchstart", function() {
+//         console.log(mybtnfavorite);
+//         mybtnfavorite.classList.add("btnHoverTouchMobile");
+//     })
+//     mybtnfavorite.addEventListener("touchend", function() {
+//         console.log(mybtnfavorite);
+//         mybtnfavorite.classList.remove("btnHoverTouchMobile");
+//     })
+// });
+// $(document).ready(function() {
+//     $('#favoriteSave').on('touchstart touchend', function(e) {
+//         e.preventDefault();
+//         if ('#favoriteSave' == 'active') {
+//             alert("active")
+//         } else {
+//             alert("NOactive")
+//         }
+//         $(this).unbind('touchstart touchend')
+//     });
+// });

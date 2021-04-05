@@ -36,7 +36,7 @@
             <img src="{{ Storage::url($product->image) }}" class="rounded  pic-main  img-fluid" alt="" height="373px">
             <div class="add-product-secondary my-2 row">
                 <div class="col-3 mt-3">
-                  <img src="{{ Storage::url($product->image ) }}" data-image-src="{{ Storage::url($product->image) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
+                  <img src="{{ Storage::url($product->image ) }}" data-image-src="{{ Storage::url($product->image) }}" class="mw-100 pic-item rounded shadow pic-item-active" alt="{{ $product->name }}">
                 </div>
                 @if(!empty($product->gallery))
                   @foreach (json_decode($product->gallery) as $gallery)
@@ -98,7 +98,7 @@
             </button>
             @endguest
             @auth
-            <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite
+            <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1  btnHoverTouchMobile favorite
             @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" data-id="{{ $product->id }}" id="favoriteSave">
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1" >
                 <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
@@ -121,7 +121,7 @@
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
               <div class="my-3 px-0">
-                <div class="d-flex mt-3 gap-3 att-show-row flex-column  ">
+                <div class="d-flex mt-3 gap-3 att-show-row flex-column">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row px-3 flex-wrap desktopAttrs">
                     <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
@@ -215,13 +215,12 @@
                             <div class="col-12 col-lg-2 mt-3 mt-lg-0">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
                                     <div class="title mb-3">Сумма:</div>
-                                    <div class="text-semi-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
+                                    <div class="text-semi-bold font-weight-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
                                 </div>
                             </div>
                           </div>
                           <div class="mt-3">
-                            <div class="border-bottom text-secondary mb-2">Примичание к заказу</div>
-                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment">
+                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу">
                           </div>
                           <div class="mt-3">
                             <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
@@ -231,8 +230,8 @@
                       </div>
                       <div class="modal-footer border-0 info-product_footer">
                         <div class="d-flex flex-column flex-sm-row justify-content-between w-100  flex-wrap">
-                          <div class="btn btn-outline-danger change-address custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
-                          <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
+                          <div class="btn btn-outline-danger change-address custom-radius mb-2 mb-sm-0 mb-md-0 font-weight-bold"> <i class="fas fa-map-marked-alt pr-2 pr-sm-0 pr-md-0"></i> Поменять адрес</div>
+                          <button type="button" class="btn btn-danger custom-radius checkout-product font-weight-bold arrange" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
                             Оформить
                           </button>
                         </div>
@@ -284,7 +283,7 @@
               @endguest
               @auth
               <button type="button" class="rounded-11 btn btn-outline-danger  ml-md-2 my-1 favorite
-              @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" data-id="{{ $product->id }}">
+              @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first())  active @endif" data-id="{{ $product->id }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15" fill="transparent" class="mr-1" >
                   <path d="M7.94597 2.71279L8.57496 3.68437L9.20478 2.71333C10.4481 0.796396 12.1312 0.462684 13.4666 0.975646C14.8495 1.50688 16.0146 3.00417 16.0146 5.08284C16.0146 5.74548 15.6555 6.61063 14.9662 7.61805C14.2922 8.60304 13.3726 9.62443 12.4091 10.579C11.4488 11.5304 10.4633 12.3978 9.66832 13.0765C9.38279 13.3203 9.12441 13.5376 8.89924 13.7269C8.81018 13.8018 8.72632 13.8723 8.64804 13.9384C8.62151 13.9608 8.59529 13.9829 8.56948 14.0048C8.53921 13.9801 8.50847 13.955 8.47739 13.9297C8.36326 13.8369 8.23979 13.7372 8.10654 13.6295C7.89922 13.462 7.66823 13.2754 7.412 13.0661C6.58031 12.3865 5.54628 11.5186 4.53756 10.5664C3.52534 9.61096 2.55824 8.58893 1.84936 7.60358C1.12275 6.59358 0.75 5.73384 0.75 5.08284C0.75 3.01509 1.98483 1.50639 3.47882 0.96746C4.9378 0.441162 6.71626 0.813318 7.94597 2.71279Z" stroke="#FF0055" stroke-width="1.5"/>
                 </svg>

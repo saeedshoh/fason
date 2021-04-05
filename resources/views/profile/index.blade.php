@@ -54,8 +54,8 @@
                         <img class="img-fluid" src="/storage/theme/itpark.png" alt="">
                     </div> --}}
                     <div class="col-lg-6 mt-md-0 mt-3">
-                        <div class="form-row">
-                            <label class="font-weight-bold col-12 col-lg-6 h5">Город:</label>
+                        <label class="font-weight-bold col-12 col-lg-6 h5 pl-0">Город:</label>
+                        <div class="form-row flex-column ml-0 ml-lg-4">
                             @foreach ($cities as $city)
                                 <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
                                     <input class="form-check-input" type="radio" id="{{ $city->name }}" name="city_id" value="{{ $city->id }}" {{ $user->city_id == $city->id ? 'checked' : '' }}>

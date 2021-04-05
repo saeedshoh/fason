@@ -54,7 +54,7 @@
             <input type="file" accept="image/*"  id="image" class="d-none" name="image" value="{{ $product->image }}">
             <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
-                <div class="w-75 input_placeholder_style">
+                <div class="w-sm-100 w-75 input_placeholder_style">
                     <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
                     <option >Выберите категорию</option>
                     @if($hasParentCategory)
@@ -204,7 +204,7 @@
 
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
-                <div class="w-75 input_placeholder_style">
+                <div class="w-sm-100 w-75 input_placeholder_style">
                     <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}">
                     @error('name')
                     <div class="invalid-feedback">
@@ -215,7 +215,7 @@
             </div>
             <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="description" class="input_caption mr-2 text-left text-md-right">Описание товара: </label>
-                <div class="w-75 input_placeholder_style">
+                <div class="w-sm-100 w-75 input_placeholder_style">
                     <textarea class="input_placeholder_style form-control position-relative  @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description') ?? $product->description }}</textarea>
                     @error('description')
                     <div class="invalid-feedback">
@@ -227,7 +227,7 @@
             <div class="">
               <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
-                <div class="w-75 input_placeholder_style">
+                <div class="w-sm-100 w-75 input_placeholder_style">
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}">
                   @error('quantity')
                     <div class="invalid-feedback">
@@ -238,7 +238,7 @@
               </div>
               <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: <span class="badge badge-pill badge-danger">в сомони</span></label>
-                <div class="w-75 input_placeholder_style">
+                <div class="w-sm-100 w-75 input_placeholder_style">
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}">
                   @error('price')
                     <div class="invalid-feedback">

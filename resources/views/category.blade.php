@@ -202,7 +202,7 @@
                 @else
                   <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}">@if($name->parent->icon)<img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->parent->name }}</a></h4>
                 @endif
-                <ul class="shop-subject list-group list-group-flush h-100 px-4">
+                <ul class="shop-subject list-group list-group-flush h-100 px-2">
                 @forelse ($categories as $category)
                 <li class="list-group-item  bg-transparent py-2 border-bottom">
                     <nav class="category-mix pl-3">
@@ -228,7 +228,7 @@
                 @endforelse
                     <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <h5 class="captions-of__modal ">Сортировать  <img src="/storage/theme/icons/sort.svg"></h5>
+                        <h5 class="captions-of__modal ">Сортировать </h5>
                     </div>
                     <div class="form-check mt-3">
                         <input data-sort="new" @if(!request()->__get('sort')=='cheap' && !request()->__get('sort')=='expensive') checked='true' @endif checked='true' class="form-check-input sort" type="radio" name="sort" id="inlineRadio1" value="option1">
