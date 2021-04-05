@@ -572,7 +572,7 @@ class ProductController extends Controller
                         Storage::disk('public')->put($image, $data);
                         array_push($images, $this->uploadImage($image));
                     } else {
-                        $image = str_replace("http://127.0.0.1:8000/storage/","", $base64_image);
+                        $image = str_replace("https://fason.tj/storage/","", $base64_image);
                         array_push($images, $image);
                     }  
 
