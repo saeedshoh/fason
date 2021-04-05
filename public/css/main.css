@@ -11266,10 +11266,22 @@ body {
   left: 2rem;
 }
 
-.favoriteSave {
+.arrange {
   color: #fff !important;
   background-color: #FF0055 !important;
-  border-color: #FF0055 !important;
+  border-color: #FF0055;
+}
+
+#comment::-moz-placeholder {
+  font-weight: 500;
+}
+
+#comment:-ms-input-placeholder {
+  font-weight: 500;
+}
+
+#comment::placeholder {
+  font-weight: 500;
 }
 
 .mobile-filter .custom-select:focus {
@@ -11293,6 +11305,34 @@ body {
   top: 20px;
   z-index: 999;
   cursor: pointer;
+}
+
+.favorite:hover path {
+  stroke: #fff !important;
+}
+
+.favorite.btn-outline-danger:hover path,
+.favorite.btn-outline-danger.active path {
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (hover: none) {
+  .favorite.btn-outline-danger:hover,
+  .favorite.btn-outline-danger.active {
+    color: #FF0055;
+    border-color: #FF0055;
+    background-color: #fff;
+  }
+}
+
+@media (hover: none) {
+  .favorite.btn-outline-danger:hover path {
+    stroke: #ff0055 !important;
+  }
+}
+
+.favorite.btn-outline-danger.active path {
+  stroke: #fff !important;
 }
 
 .divide {
@@ -11371,7 +11411,7 @@ a {
 }
 
 .line-test::before {
-  content: "";
+  content: "" !important;
   width: 100%;
   height: 3px;
   position: absolute;
@@ -12021,6 +12061,14 @@ input[type=number] {
     width: 100% !important;
   }
 
+  .w-sm-100 {
+    width: 100% !important;
+  }
+
+  .w-sm-75 {
+    width: 75% !important;
+  }
+
   .mobile-header {
     width: 100% !important;
   }
@@ -12238,8 +12286,7 @@ input[type=number] {
     border-color: #fff !important;
   }
 
-  #spinner-input,
-  #price {
+  #spinner-input {
     color: #fff !important;
   }
 
@@ -12268,6 +12315,13 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 620px) {
+  .t-neutral .spinner__button,
+  #spinner-input,
+  .spinner {
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+
   .prod-controls {
     background: #FF0055;
     color: #fff;
@@ -12280,6 +12334,10 @@ input[type=number] {
 
   .info-product_footer {
     border: none;
+  }
+
+  .mb-price {
+    color: #fff !important;
   }
 }
 
@@ -12520,7 +12578,7 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .add-product-secondary .pic-item {
   border: 2px solid #fff;
   cursor: pointer;
-  border: 1px solid #FE0054;
+  border: 1px solid #848484;
 }
 
 .add-icon {
@@ -12856,7 +12914,7 @@ input[type=number]:hover::-webkit-outer-spin-button {
 }
 
 .price {
-  color: #000 !important;
+  color: #000;
 }
 
 #catProducts img {

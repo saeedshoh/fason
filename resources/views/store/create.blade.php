@@ -135,16 +135,16 @@
           </div>
         </div>
         <div class="col-12 col-lg-3">
-          <div class="form-group row">
+          <div class="form-group row flex-column">
             <label class="col-sm-4 col-form-label text-muted font-weight-bold">Город:</label>
             <div class="col-sm-8">
-              <div class="form-group row form-check">
+              <div class="form-group row form-check mb-md-1">
                 <div class="col-sm-6">
                     @foreach ($cities as $city)
                         <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}">
                         <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
-                        </label>
+                        </label><br>
                     @endforeach
                 </div>
               </div>

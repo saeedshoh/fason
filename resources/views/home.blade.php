@@ -143,7 +143,7 @@
     </div>
 <!--Category list end-->
     <div class="all-product px-0 pt-3 pt-md-0 pt-lg-0">
-    <h2 class="shop-subject title mt-lg-5 mb-4" >Новые товары </h2>
+    <h2 class="text-muted mb-other-product text-decoration-none mb-4 mt-3 mt-md-5 font-weight-bold" >Новые товары </h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
         @forelse ($newProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -168,7 +168,7 @@
 
       <!-- Топ продаж -->
 
-        <h2 class="shop-subject title mt-lg-5 mb-4" >Топ продаж </h2>
+        <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold" >Топ продаж </h2>
 
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
 

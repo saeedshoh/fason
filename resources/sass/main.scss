@@ -46,10 +46,14 @@ body {
     left: 2rem;
 }
 
-.favoriteSave {
+.arrange {
     color: #fff !important;
     background-color: #FF0055 !important;
-    border-color: #FF0055 !important;
+    border-color: #FF0055;
+}
+
+#comment::placeholder {
+    font-weight: 500;
 }
 
 .mobile-filter .custom-select:focus {
@@ -73,17 +77,30 @@ body {
     top: 20px;
     z-index: 999;
     cursor: pointer;
-    // &:hover path,
-    // &.active path {
-    //     fill: #FF0055;
-    // }
-    // &.btn-outline-danger:hover,
-    // &.btn-outline-danger.active {
-    //     path {
-    //         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    //         stroke: #fff
-    //     }
-    // }
+    &:hover path {
+        stroke: #fff !important;
+    }
+    &.btn-outline-danger:hover,
+    &.btn-outline-danger.active {
+        path {
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        @media (hover:none) {
+            color: #FF0055;
+            border-color: #FF0055;
+            background-color: #fff;
+        }
+    }
+}
+
+.favorite.btn-outline-danger:hover path {
+    @media (hover: none) {
+        stroke: #ff0055 !important;
+    }
+}
+
+.favorite.btn-outline-danger.active path {
+    stroke: #fff !important;
 }
 
 .divide {
@@ -162,7 +179,7 @@ a {
 }
 
 .line-test::before {
-    content: "";
+    content: '' !important;
     width: 100%;
     height: 3px;
     position: absolute;
@@ -810,6 +827,12 @@ input[type=number] {
     .w-md-100 {
         width: 100% !important;
     }
+    .w-sm-100 {
+        width: 100% !important;
+    }
+    .w-sm-75 {
+        width: 75% !important;
+    }
     .mobile-header {
         width: 100% !important;
     }
@@ -1012,8 +1035,7 @@ input[type=number] {
     .spinner {
         border-color: #fff !important;
     }
-    #spinner-input,
-    #price {
+    #spinner-input {
         color: #fff !important;
     }
     .mb-other-product {
@@ -1037,6 +1059,12 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 620px) {
+    .t-neutral .spinner__button,
+    #spinner-input,
+    .spinner {
+        color: #fff !important;
+        border-color: #fff !important;
+    }
     .prod-controls {
         background: #FF0055;
         color: #fff;
@@ -1047,6 +1075,9 @@ input[type=number] {
     }
     .info-product_footer {
         border: none;
+    }
+    .mb-price {
+        color: #fff !important;
     }
 }
 
@@ -1299,7 +1330,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     .pic-item {
         border: 2px solid #fff;
         cursor: pointer;
-        border: 1px solid #FE0054;
+        border: 1px solid #848484;
     }
 }
 
@@ -1654,7 +1685,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 .price {
-    color: #000 !important;
+    color: #000;
 }
 
 #catProducts {
@@ -1737,3 +1768,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     padding: 0 5px;
     transition: bottom .22s;
 }
+
+// .endless-pagination[data-style="2"] .line-test:first-child::before {
+//     content: "" !important;
+//     width: 100%;
+//     height: 3px;
+//     position: absolute;
+//     background: #FF0055;
+//     position: absolute;
+//     top: -3%;
+//     left: 0;
+// }
