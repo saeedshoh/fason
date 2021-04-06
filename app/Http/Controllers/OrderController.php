@@ -100,7 +100,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адресс доставки: " .$order->address;
+                $message = "Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адрес доставки: " .$order->address. "\n Примичание к заказу: " .$order->comment;
 
                 $params = array(
                     "from" => $config['sender'],

@@ -65,7 +65,7 @@
               <span class="text-primary">Фотография профиля размером 270х215</span>
             </div>
             <label for="avatar" class="cursor-pointer text-center w-100">
-              <img src="/storage/theme/banner_store.svg" class="store-image" width="120" height="120" id="avatar-poster-mobile">
+              <img src="/storage/theme/avatar_store.svg" class="store-image" width="120" height="120" id="avatar-poster-mobile">
             </label>
           </div>
           <div class="form-group row d-md-none">

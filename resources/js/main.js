@@ -539,16 +539,12 @@ $(document).on('change', '[name="category_id"]', function() {
     })
 })
 
-$('.input_placeholder_style').on('change', function() {
-    if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-        $('.add-product-btn')
-            .removeAttr('disabled')
-            .addClass('btn-success')
-            .removeClass('btn-danger')
-    } else {
-        $('.add-product-btn').attr('disabled', true)
-    }
-})
+// $('.input_placeholder_style').on('change', function() {
+//     if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+//         $('.add-product-btn')
+//             .removeAttr('disabled')
+//     }
+// })
 $(document).on('submit', '#add_product', function(event) {
     $(this).addClass('was-validated')
         //stop submitting the form to see the disabled button effect
@@ -559,7 +555,7 @@ $(document).on('submit', '#add_product', function(event) {
             .addClass('btn-success')
     } else {
         event.preventDefault()
-        $('.add-product-btn').attr('disabled', true)
+        // $('.add-product-btn').attr('disabled', true)
 
         return false
     }
@@ -614,22 +610,25 @@ $(document).on('click', '#btn-add_address', function() {
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
-    $.ajax({
-        url: '/users/contacts',
-        type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        contentType: false,
-        processData: false,
-        data: formData,
-        success: data => {
-            location.reload(true)
-        },
-        error: function(xhr, status, error) {
-            console.log(status)
-        }
-    })
+    if(phone != '' && address != '' && city_id != '') {
+        $.ajax({
+            url: '/users/contacts',
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: data => {
+                location.reload(true)
+            },
+            error: function(xhr, status, error) {
+                console.log(status)
+            }
+        });
+    }
+    
 })
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this)
@@ -1178,11 +1177,15 @@ $('#profile_photo_path').change(function() {
 })
 
 $('#image').change(function() {
-    if ($(this).val() != '')
-        $('#main-poster')
-        .removeClass('border-danger')
-        .addClass('border-success')
-    else $('#main-poster').addClass('border-danger')
+    if ($(this).val() != '') {
+        $('#main-poster').removeClass('border-danger').addClass('border-success')
+        $('.image-validate').addClass('d-none');
+    }
+    else {
+        $('#main-poster').addClass('border-danger')
+        $('.image-validate').removeClass('d-none');
+
+    }
 })
 
 $('#avatar').change(function() {

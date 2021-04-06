@@ -12160,7 +12160,8 @@ input[type=number] {
   top: -2%;
 }
 
-.store-image {
+.store-image,
+.object-cover {
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -12233,6 +12234,10 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 576px) {
+  .preview-image img {
+    width: 100% !important;
+  }
+
   .mb-custom-login {
     padding: 0 !important;
   }
@@ -12816,7 +12821,6 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .order-tab img {
   -o-object-fit: cover;
      object-fit: cover;
-  height: 6rem;
 }
 
 .edit-pofile-img {

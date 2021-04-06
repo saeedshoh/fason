@@ -18,17 +18,17 @@
       <div class="row mt-sm-3">
          <div class="col-md-3 px-0 px-md-2 position-relative">
            <div class="text-center d-none d-md-block">
-            <img src="{{ Storage::url($store->avatar) }}" height="215" class="img-fluid rounded">
+            <img src="/storage/{{$store->avatar ?? '/theme/avatar_store.svg' }}" height="215" class="img-fluid rounded object-cover">
            </div>
          </div>
          <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="{{ Storage::url($store->cover) }}" class="w-100 rounded store-banner" height="215">
+          <img src="/storage/{{$store->cover ?? '/theme/banner_store.svg' }}" class="w-100 rounded store-banner" height="215">
          </div>
          <div class="col-12 d-block my-4">
           <div class="row align-items-center">
             <div class="col-4 col-md-3 text-center">
               <div class="d-inline-block position-relative  d-md-none">
-                <img class="store-icon" src="{{ Storage::url($store->avatar) }}" width="80px" height="80px">
+                <img class="store-icon object-cover" src="/storage/{{$store->avatar ?? '/theme/avatar_store.svg' }}" width="80px" height="80px">
               </div>
             </div>
             <div class="col-8 col-md-9 order-0 order-lg-1 mt-0 mt-sm-3">

@@ -35,8 +35,9 @@
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6 px-2 px-sm-3">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded img-fluid" src="{{ Storage::url($order->no_scope_product->image) }}">
+                                <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="64">
                                 <div class="d-flex flex-column align-self-center w-100">
+                                    
                                     <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary">{{ $order->created_at->format('d.m.Y') }}</small>
@@ -50,7 +51,13 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Дата заказа</h6>
-                                <h4 class="h4 font-weight-bold">{{ $order->created_at->format('d.m.Y') }}</h4>
+                                <h4 class="h4 font-weight-bold">
+                                    <img width="20px"  src="../storage/calendar.svg">
+                                    {{ $order->created_at->format('d.m.Y') }}</h4>
+                                <h4 class="h4 font-weight-bold">
+                                    <img width="20px"  src="../storage/wall-clock.svg">
+                                    {{  $order->created_at->format('G:i:s') }}
+                                </h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>
@@ -69,11 +76,11 @@
                 </div>
                 @endforelse
 
-                </div>
+                </div>               
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                     
                 @forelse ($sales as $sale)
-                    @if (@isset($sale->no_scope_product->store_id) == Auth::user()->id)
+                    @if ($sale->no_scope_product->store_id == Auth::user()->store->id)
                     <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way  @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
@@ -96,7 +103,15 @@
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Дата заказа</h6>
-                                <h4 class="h4 font-weight-bold">{{ $sale->created_at->format('d.m.Y') }}</h4>
+                                
+                                
+                                <h4 class="h4 font-weight-bold">
+                                    <img width="20px"  src="../storage/calendar.svg">
+                                    {{ $sale->created_at->format('d.m.Y') }}</h4>
+                                <h4 class="h4 font-weight-bold">
+                                    <img width="20px"  src="../storage/wall-clock.svg">
+                                    {{  $sale->created_at->format('G:i:s') }}
+                                </h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>

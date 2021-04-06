@@ -97,7 +97,7 @@
             @forelse ($categories as $category)
             <li class="list-group-item bg-transparent py-2">
               <div class="list-group-row d-flex align-items-center position-relative">
-                <img src="storage/{{ $category->icon }}" height="28" width="28" alt="" class="mr-2">
+                <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2">
                 <nav class="category-mix">
                   <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
                     {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
@@ -209,7 +209,7 @@
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center position-relative">
-            <img src="{{ Storage::url($store->avatar) }}" alt="" class="rounded-circle" width="80" height="80">
+            <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="" class="rounded-circle object-cover" width="80" height="80">
           <h5 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h5>
           {{-- <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span> --}}
           <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>

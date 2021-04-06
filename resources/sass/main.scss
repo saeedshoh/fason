@@ -958,7 +958,7 @@ input[type=number] {
     top: -2%;
 }
 
-.store-image {
+.store-image, .object-cover {
     object-fit: cover;
 }
 
@@ -1032,6 +1032,9 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 576px) {
+    .preview-image img {
+        width: 100% !important;
+    }
     .mb-custom-login {
         padding: 0 !important;
         .mb-pre--close {
@@ -1621,7 +1624,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .order-tab {
     img {
         object-fit: cover;
-        height: 6rem;
+        // height: 6rem;
     }
 }
 

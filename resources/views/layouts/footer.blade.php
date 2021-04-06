@@ -69,7 +69,7 @@ aria-hidden="true">
       </p>
       <div class="container text-center">
         <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center needs-validation" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false" novalidate>
+        <form id="add_address" class="text-center needs-validation" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
             <svg width="80" height="80" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,10 +104,10 @@ aria-hidden="true">
           <h5 class="text-secondary">Город:</h5>
           <div class="form-row justify-content-around">
             <div class="form-group mb-0">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="dushanbe" value="1" name="city_id" required>
-                <label class="form-check-label text-dark" for="dushanbe">
-                  Душанбе
+              <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
+                <input class="form-check-input" type="radio" id="Душанбе" name="city_id" value="1" required>
+                <label class="form-check-label" for="Душанбе">
+                    Душанбе
                 </label>
                 <div class="invalid-feedback">
                   Выберите ваш город

@@ -15,7 +15,7 @@
         <div class="col-12 col-lg-3 px-0">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="/storage/{{ $stores->avatar }}" class="img-fluid" alt="">
+            <img src="/storage/{{$store->avatar ?? '/theme/avatar_store.svg' }}" class="img-fluid" alt="">
               <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button>
             </div>
           </div>
