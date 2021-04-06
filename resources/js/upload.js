@@ -13,7 +13,7 @@ const element = (tag, classes = [], content) => {
 export function upload(selector, options = {}) {
     let files = [];
     const input = document.querySelector(selector);
-    const preview = element('div', ['preview', 'row', 'pl-3']);
+    const preview = element('div', ['preview', 'row']);
     const open = document.createElement('IMG');
     open.setAttribute('src', '/storage/theme/avatar_gallery.svg');
     input.insertAdjacentElement('afterend', open);

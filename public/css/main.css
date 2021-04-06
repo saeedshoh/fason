@@ -12207,6 +12207,10 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 576px) {
+  .preview-image img {
+    width: 100% !important;
+  }
+
   .mb-custom-login {
     padding: 0 !important;
   }
