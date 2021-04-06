@@ -163,7 +163,7 @@
         @auth
         <div class="col text-center px-0">
           <a href="{{ route('ft-store.create') }}" class="text-decoration-none  d-flex flex-column pt-2 align-items-center">
-            <i class="fas fa-door-open text-pinky" width="19"></i>
+            <img src="/storage/theme/icons/opened-exit-door.svg" width="19">
             <span class="mobile-nav--title text-pinky">Магазин</span>
           </a>
         </div>
