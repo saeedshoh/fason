@@ -78,7 +78,7 @@ export function upload(selector, options = {}) {
                     reader.onload = ev => {
                         const src = ev.target.result;
                         preview.insertAdjacentHTML(
-                            'afterbegin',
+                            'beforeend',
                             `
                         <div class="preview-image col-3">
                           <div class="profile-pic">

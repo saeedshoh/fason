@@ -19,7 +19,11 @@
           <div class="my-3">
             <label for="image">
               <img src="/storage/theme/avatar_product.svg" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" height="373" style="object-fit: cover;">
+              <div class="invalid-feedback">
+                Выберите изображение
+              </div>
             </label>
+           
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image">
@@ -66,13 +70,11 @@
                             Извините ничего не найдено
                         @endforelse
                       </select>
-                      {{--  @error('category_id')
-                        <div class="invalid-tooltip">
-                          {{ $message }}
-                        </div>
-                       
-                      @enderror  --}}
+                      <div class="invalid-feedback">
+                        Выберите категорию
+                      </div>
                     </div>
+                    
                 </div>
                 <div id="categories-row">
 
@@ -99,12 +101,9 @@
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
                 <input type="text" class="input_placeholder_style form-control position-relative border-left-0" id="name" name="name" value="{{ old('name') }}" required>
-                {{--  @error('name')
-                  <div class="invalid-tooltip">
-                    {{ $message }}
-                  </div>
-                  
-                @enderror  --}}
+                <div class="invalid-feedback">
+                  Введите название товара
+                </div>
               </div>
             </div>
             <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -114,11 +113,9 @@
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
                 <textarea class="input_placeholder_style form-control position-relative border-left-0" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
-                {{--  @error('description')
-                  <div class="invalid-tooltip">
-                    {{ $message }}
-                  </div>
-                @enderror  --}}
+                <div class="invalid-feedback">
+                  Введите описание товара
+                </div>
               </div>
             </div>
               <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -128,12 +125,9 @@
                     <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                   </div>
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
-                  {{--  @error('quantity')
-                    <div class="invalid-tooltip">
-                      {{ $message }}
-                    </div>
-
-                  @enderror  --}}
+                  <div class="invalid-feedback">
+                    Введите кол/во товара
+                  </div>
                 </div>
               </div>
 
@@ -144,12 +138,9 @@
                     <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                   </div>
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
-                  {{--  @error('price')
-                    <div class="invalid-tooltip">
-                      {{ $message }}
-                    </div>
-
-                  @enderror  --}}
+                  <div class="invalid-feedback">
+                    Введите цену товара
+                  </div>
                 </div>
               </div>
               <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">

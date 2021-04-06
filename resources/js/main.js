@@ -543,8 +543,6 @@ $('.input_placeholder_style').on('change', function() {
     if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
         $('.add-product-btn')
             .removeAttr('disabled')
-            .addClass('btn-success')
-            .removeClass('btn-danger')
     } else {
         $('.add-product-btn').attr('disabled', true)
     }
