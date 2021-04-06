@@ -181,21 +181,21 @@
                 <!-- Modal 1-->
                 <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
                   aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered buy-modal">
+                  <div class="modal-dialog modal-dialog-centered buy-modal px-2">
                     <div class="modal-content mb-5">
-                      <div class="modal-header border-0">
+                      <div class="modal-header border-0 pb-0">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <img src="/storage/theme/icons/close-modal.svg" alt="">
                         </button>
                       </div>
-                      <div class="modal-body">
+                      <div class="modal-body py-0">
                         <div class="container text-dark px-0">
                           <div class="row modal-item position-relative">
                             <div class="col-12 col-lg-5">
-                                <div class="title mb-3">Товар:</div>
+                                <div class="title mb-3">О<span class="small-title">формление заказа</span></div>
                                 <div class="row">
                                     <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
-                                    <div class="col-8 col-lg-6">
+                                    <div class="col-8 col-lg-6 text-truncate">
                                         <h6 class="h6 font-weight-bold checkout-id text-dark" data-id="{{ $product->id }}">{{ $product->name }}</h6>
                                         <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
                                         <div class="selectedAttrs text-dark"></div>
@@ -203,28 +203,28 @@
                                 </div>
                             </div>
                             <div class="col-2 d-none d-lg-block text-dark">
-                                <div class="title mb-3">Цена:</div>
+                                <div class="title mb-3 title-capitalize font-weight-600">Цена:</div>
                                 <span class="text-secondary text-semi-bold price-start">{{ round($product->price_after_margin) }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
-                                    <div class="title mb-3">Количество:</div>
-                                    <span class="text-secondary text-semi-bold quantity-product">1</span>
+                                    <div class="title mb-sm-1  mb-md-3 title-capitalize font-weight-600">Количество:</div>
+                                    <span class="text-secondary text-semi-bold quantity-product text-pinky font-weight-600">1 шт</span>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-2 mt-3 mt-lg-0">
+                            <div class="col-12 col-lg-2 mt-1 mt-lg-0">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
-                                    <div class="title mb-3">Сумма:</div>
-                                    <div class="text-semi-bold font-weight-bold"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
+                                    <div class="title mb-3 title-capitalize font-weight-600">Сумма:</div>
+                                    <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
                                 </div>
                             </div>
                           </div>
-                          <div class="mt-3">
+                          <div class="mt-1 mt-md-3">
                             <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу">
                           </div>
                           <div class="mt-3">
-                            <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
-                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
+                            <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
+                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}">
                           </div>
                         </div>
                       </div>

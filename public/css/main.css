@@ -11224,10 +11224,11 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  padding-bottom: 50px;
 }
 
 .text-pinky {
-  color: #FF0055;
+  color: #FF0055 !important;
 }
 
 .text-skyblue {
@@ -11270,6 +11271,18 @@ body {
   color: #fff !important;
   background-color: #FF0055 !important;
   border-color: #FF0055;
+}
+
+.font-weight-600 {
+  font-weight: 600 !important;
+}
+
+.small-title {
+  text-transform: lowercase !important;
+}
+
+.title-capitalize {
+  text-transform: capitalize !important;
 }
 
 #comment::-moz-placeholder {
@@ -12113,6 +12126,20 @@ input[type=number] {
   }
 }
 
+@media only screen and (max-width: 1500px) {
+  .buy-modal {
+    max-width: 700px !important;
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  .buy-modal {
+    max-width: -webkit-fit-content !important;
+    max-width: -moz-fit-content !important;
+    max-width: fit-content !important;
+  }
+}
+
 /* Sasha*/
 
 .btn-edit {
@@ -12185,10 +12212,6 @@ input[type=number] {
   border-radius: 11px;
 }
 
-.buy-modal {
-  max-width: 700px !important;
-}
-
 .buy-modal .title {
   font-size: 14px;
   color: #000;
@@ -12198,11 +12221,11 @@ input[type=number] {
 .modal-item::before {
   content: "";
   position: absolute;
-  top: 1.5rem;
+  top: 1.8rem;
   width: 94%;
   left: 2.5%;
   height: 1px;
-  background: #BBBBBB;
+  background: #ff0055;
 }
 
 .carousel-indicators li {
@@ -12244,6 +12267,10 @@ input[type=number] {
 
 .btn-group-fs input {
   border-left: 0;
+}
+
+.modal-content {
+  border-radius: 0.8rem;
 }
 
 @media only screen and (max-width: 576px) {
@@ -12311,6 +12338,10 @@ input[type=number] {
 
   #cover-poster-mobile {
     height: 150px !important;
+  }
+
+  .text-xs-center {
+    text-align: center;
   }
 }
 
