@@ -161,9 +161,9 @@
           </select>  --}}
           <form method="get" action="{{route('ft-category.category', $name->slug)}}">
              <select id="mobSort" class="custom-select border-0 bg-transparent text-pinky pl-1 pr-3" name="sort">
-              <option selected value="new">Сначала новые</option>
-              <option value="cheap">Сначала дешевые</option>
-              <option value="expensive">Сначала дорогие</option>
+              <option value="new" {{ request()->sort == 'new' ? 'selected' : '' }}>Сначала новые</option>
+              <option value="cheap"  {{ request()->sort == 'cheap' ? 'selected' : '' }}>Сначала дешевые</option>
+              <option value="expensive"  {{ request()->sort == 'expensive' ? 'selected' : '' }}>Сначала дорогие</option>
              </select>
             </form>
         </div>
@@ -315,7 +315,6 @@
 <script>
     $(function() {
         $('#mobSort').change(function() {
-            console.log('hello')
             $(this).closest('form').submit();
         });
     });
