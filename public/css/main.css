@@ -12790,7 +12790,6 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .order-tab img {
   -o-object-fit: cover;
      object-fit: cover;
-  height: 6rem;
 }
 
 .edit-pofile-img {
