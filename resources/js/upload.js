@@ -38,9 +38,14 @@ export function upload(selector, options = {}) {
         if (!event.target.files.length) {
             return;
         }
-
+        if(event.target.files.length > 6) {
+            alert("Вы можете загрузить только 7 фотографии для галереи");
+        }
+        
         files = Array.from(event.target.files);
         // preview.innerHTML = '';
+        console.log(files);
+
         files.forEach(file => {
             if (!file.type.match('image')) {
                 return;
@@ -81,14 +86,22 @@ export function upload(selector, options = {}) {
                             'beforeend',
                             `
                         <div class="preview-image col-3">
-                          <div class="profile-pic">
+                        <div class="profile-pic">
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
                             <div class="deleteImage text-white" data-name="${result.name}">&times;</div>
-                          </div>
+                        </div>
                         </div>`
                         );
-                        preview.insertAdjacentElement('beforeend', open);
-                        open.classList.add('col-3');
+                        if(document.querySelectorAll('.preview-image').length <= 7) {
+                            preview.insertAdjacentElement('beforeend', open);
+                            open.classList.add('col-3');
+                            open.classList.add('trigger-insert');
+                        } else {
+                            open.remove();
+                        }
+                       
+
+                        
                     };
 
                     reader.readAsDataURL(result);
@@ -98,8 +111,8 @@ export function upload(selector, options = {}) {
                 }
             });
         });
+        
 
-        console.log(files);
     };
     const removeHandler = event => {
         if (!event.target.dataset.name) {
@@ -108,12 +121,21 @@ export function upload(selector, options = {}) {
         if (files.length <= 8) {
             open.classList.remove('d-none');
         }
+        
         const { name } = event.target.dataset;
         files = files.filter(file => file.name !== name);
 
         const block = preview.querySelector(`[data-name="${name}"]`).closest('.preview-image');
         block.classList.add('removing');
-        setTimeout(() => block.remove(), 300);
+        setTimeout(() => {
+            block.remove()
+            if(document.querySelectorAll('.preview-image').length <= 7) {
+                preview.insertAdjacentElement('beforeend', open);
+                open.classList.add('col-3');
+                open.classList.add('trigger-insert');
+            }
+        }, 300);
+        
     };
 
     open.addEventListener('click', triggerInput);
@@ -122,94 +144,105 @@ export function upload(selector, options = {}) {
 }
 
 $(document).on('click', '.add-product-btn', function() {
-    var formData = new FormData();
-    const check_page = document.getElementById('db-preview-image').dataset.edit;
+    if(document.querySelectorAll('.preview-image').length > 7) {
+        alert("Вы можете загрузить только 7 фотографии для галереи");
+    } 
+    else if($('#image').val() != '') {
+        var formData = new FormData();
+        const check_page = document.getElementById('db-preview-image').dataset.edit;
 
-    const product_id = $(this)
-        .closest('form')
-        .find('input[name="product_id"]')
-        .val();
+        const product_id = $(this)
+            .closest('form')
+            .find('input[name="product_id"]')
+            .val();
 
-    const cat_id = $(this)
-        .closest('form')
-        .find('select[name="category_id"]')
-        .val();
-    const name = $(this)
-        .closest('form')
-        .find('input[name="name"]')
-        .val();
-    const description = $(this)
-        .closest('form')
-        .find('textarea[name="description"]')
-        .val();
-    const quantity = $(this)
-        .closest('form')
-        .find('input[name="quantity"]')
-        .val();
-    const price = $(this)
-        .closest('form')
-        .find('input[name="price"]')
-        .val();
-    const store_id = $(this)
-        .closest('form')
-        .find('input[name="store_id"]')
-        .val();
+        const cat_id = $(this)
+            .closest('form')
+            .find('select[name="category_id"]')
+            .val();
+        const name = $(this)
+            .closest('form')
+            .find('input[name="name"]')
+            .val();
+        const description = $(this)
+            .closest('form')
+            .find('textarea[name="description"]')
+            .val();
+        const quantity = $(this)
+            .closest('form')
+            .find('input[name="quantity"]')
+            .val();
+        const price = $(this)
+            .closest('form')
+            .find('input[name="price"]')
+            .val();
+        const store_id = $(this)
+            .closest('form')
+            .find('input[name="store_id"]')
+            .val();
 
-    const image = $('#main-poster').attr('src');
-    const query_url =
-        check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
-    let gallery = $('.preview-element-image');
-    let galleries = [];
-    let itemsProcessed = 0;
-    if (gallery.length > 0) {
-        Array.from(gallery).forEach((item, index, array) => {
-            galleries.push(item.src);
-            itemsProcessed++;
+        const image = $('#main-poster').attr('src');
+        const query_url =
+            check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
+        let gallery = $('.preview-element-image');
+        let galleries = [];
+        let itemsProcessed = 0;
+        if (gallery.length > 0) {
+            Array.from(gallery).forEach((item, index, array) => {
+                galleries.push(item.src);
+                itemsProcessed++;
 
-            if (itemsProcessed === array.length) {
-                callback();
-            }
-        });
+                if (itemsProcessed === array.length) {
+                    callback();
+                }
+            });
+        } else {
+            callback();
+        }
+
+        function callback() {
+            formData.append('_token', $('meta[name=csrf-token]').attr('content'));
+            formData.append('_method', $('input[name=_method]').val());
+            formData.append('cat_id', cat_id);
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append('quantity', quantity);
+            formData.append('price', price);
+            formData.append('store_id', store_id);
+            formData.append('image', image);
+            formData.append('gallery', JSON.stringify(galleries));
+    
+            $.ajax({
+                url: query_url,
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: data => {
+                    $('.content .container:eq(0)')
+                        .addClass('bg-white')
+                        .empty()
+                        .html(
+                            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
+                  check_page == 'true' ? 'обновлен' : 'добавлен'
+                } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
+                        );
+                },
+                error: function(xhr, status, error) {
+                    console.log(status);
+                }
+            });
+        }
     } else {
-        callback();
+        $('#main-poster').addClass('border-danger');
+        $('.image-validate').removeClass('d-none');
     }
+    
 
-    function callback() {
-        formData.append('_token', $('meta[name=csrf-token]').attr('content'));
-        formData.append('_method', $('input[name=_method]').val());
-        formData.append('cat_id', cat_id);
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('quantity', quantity);
-        formData.append('price', price);
-        formData.append('store_id', store_id);
-        formData.append('image', image);
-        formData.append('gallery', JSON.stringify(galleries));
-
-        $.ajax({
-            url: query_url,
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: data => {
-                $('.content .container:eq(0)')
-                    .addClass('bg-white')
-                    .empty()
-                    .html(
-                        `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
-              check_page == 'true' ? 'обновлен' : 'добавлен'
-            } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
-                    );
-            },
-            error: function(xhr, status, error) {
-                console.log(status);
-            }
-        });
-    }
+    
 });
 
 function readURL(input) {

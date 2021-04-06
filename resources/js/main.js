@@ -539,14 +539,12 @@ $(document).on('change', '[name="category_id"]', function() {
     })
 })
 
-$('.input_placeholder_style').on('change', function() {
-    if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-        $('.add-product-btn')
-            .removeAttr('disabled')
-    } else {
-        $('.add-product-btn').attr('disabled', true)
-    }
-})
+// $('.input_placeholder_style').on('change', function() {
+//     if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+//         $('.add-product-btn')
+//             .removeAttr('disabled')
+//     }
+// })
 $(document).on('submit', '#add_product', function(event) {
     $(this).addClass('was-validated')
         //stop submitting the form to see the disabled button effect
@@ -557,7 +555,7 @@ $(document).on('submit', '#add_product', function(event) {
             .addClass('btn-success')
     } else {
         event.preventDefault()
-        $('.add-product-btn').attr('disabled', true)
+        // $('.add-product-btn').attr('disabled', true)
 
         return false
     }
@@ -1179,11 +1177,15 @@ $('#profile_photo_path').change(function() {
 })
 
 $('#image').change(function() {
-    if ($(this).val() != '')
-        $('#main-poster')
-        .removeClass('border-danger')
-        .addClass('border-success')
-    else $('#main-poster').addClass('border-danger')
+    if ($(this).val() != '') {
+        $('#main-poster').removeClass('border-danger').addClass('border-success')
+        $('.image-validate').addClass('d-none');
+    }
+    else {
+        $('#main-poster').addClass('border-danger')
+        $('.image-validate').removeClass('d-none');
+
+    }
 })
 
 $('#avatar').change(function() {

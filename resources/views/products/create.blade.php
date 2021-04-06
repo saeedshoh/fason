@@ -19,9 +19,9 @@
           <div class="my-3">
             <label for="image">
               <img src="/storage/theme/avatar_product.svg" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" height="373" style="object-fit: cover;">
-              <div class="invalid-feedback">
+              <small class="text-danger mt-2 font-weight-bold image-validate d-none">
                 Выберите изображение
-              </div>
+              </small>
             </label>
            
           </div>
@@ -55,7 +55,7 @@
           <form method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
             @csrf
             @method('POST')
-                <input type="file" accept="image/*"  id="image" class="d-none input_placeholder_style" name="image" required>
+                <input type="file" accept="image/*" id="image" class="d-none input_placeholder_style" name="image" required>
                 <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                     <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
