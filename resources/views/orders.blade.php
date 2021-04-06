@@ -76,11 +76,11 @@
                 </div>
                 @endforelse
 
-                </div>
+                </div>               
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                     
                 @forelse ($sales as $sale)
-                    @if (@isset($sale->no_scope_product->store_id) == Auth::user()->id)
+                    @if ($sale->no_scope_product->store_id == Auth::user()->store->id)
                     <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way  @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
