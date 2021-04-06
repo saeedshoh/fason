@@ -97,6 +97,7 @@
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Дата заказа</h6>
                                 <h4 class="h4 font-weight-bold">{{ $sale->created_at->format('d.m.Y') }}</h4>
+                                <h4 class="h4 font-weight-bold">{{ $sale->created_at }}</h4>
                             </div>
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Цена</h6>

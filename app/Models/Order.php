@@ -17,6 +17,7 @@ class Order extends Model
         'total',
         'margin',
         'quantity',
+        'comment',
         'order_status_id',
         'attributes'
     ];
