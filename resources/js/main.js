@@ -614,22 +614,25 @@ $(document).on('click', '#btn-add_address', function() {
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
-    $.ajax({
-        url: '/users/contacts',
-        type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        contentType: false,
-        processData: false,
-        data: formData,
-        success: data => {
-            location.reload(true)
-        },
-        error: function(xhr, status, error) {
-            console.log(status)
-        }
-    })
+    if(phone != '' && address != '' && city_id != '') {
+        $.ajax({
+            url: '/users/contacts',
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: data => {
+                location.reload(true)
+            },
+            error: function(xhr, status, error) {
+                console.log(status)
+            }
+        });
+    }
+    
 })
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this)
