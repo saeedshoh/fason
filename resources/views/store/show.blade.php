@@ -19,7 +19,7 @@
         <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
             <div class="position-relative d-inline-block">
-            <img src="/storage/{{ $store->avatar }}" class="w-100 rounded store-image" alt=""  height="216">
+            <img src="/storage/{{ $store->cover ?? '/theme/avatar_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
               {{-- <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button> --}}
             </div>
           </div>
@@ -27,9 +27,9 @@
         <div class="col-12 col-lg-9 px-0 px-md-2">
             <div class="text-center">
               <div class="position-relative d-inline-block">
-              <img src="/storage/{{ $store->cover ?? '/theme/yellowbanner.png'}}" class="w-100 rounded store-image" alt=""  height="216">
+              <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
               <div class="mobile-avatar position-absolute w-lg-100">
-                <img src="/storage/{{ $store->avatar ?? '/theme/icons/Avatar.svg'}}" class="store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
+                <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
               </div>
               </div>
             </div>

@@ -12133,7 +12133,8 @@ input[type=number] {
   top: -2%;
 }
 
-.store-image {
+.store-image,
+.object-cover {
   -o-object-fit: cover;
      object-fit: cover;
 }
