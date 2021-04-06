@@ -226,9 +226,9 @@ $(document).on('click', '.add-product-btn', function() {
                         .addClass('bg-white')
                         .empty()
                         .html(
-                            `<div class="my-5 p-4 text-center"><img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt=""><div class="mb-3 pb-5 pb-lg-0"><h4>Товар успешно ${
+                            `<div class="mt-lg-5 py-lg-5 py-3 text-center"><img class="mb-5" src="/storage/theme/thanks.svg" width="180px" alt=""><div class="mb-3 pb-lg-0"><h5>Товар успешно ${
                   check_page == 'true' ? 'обновлен' : 'добавлен'
-                } и проходит модерацию </h4><a class="rounded-11 btn btn-outline-danger ml-md-2 my-1" href="/">На главную</a></div></div>`
+                } и проходит модерацию </h5><a class="rounded-11 btn btn-outline-danger mt-4" href="/">На главную</a></div></div>`
                         );
                 },
                 error: function(xhr, status, error) {
