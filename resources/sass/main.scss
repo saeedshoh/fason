@@ -431,6 +431,10 @@ input[type="radio"] {
     color: #BBBBBB;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
 .amount {
     font-family: 'Montserrat';
     font-style: normal;
@@ -787,6 +791,10 @@ button:focus {
     border: 2px solid #FF0055;
 }
 
+.category-Border-pinky {
+    border-bottom: 2.5px solid #d2d2d2;
+}
+
 .product-size:hover {
     cursor: pointer;
 }
@@ -833,6 +841,13 @@ input[type=number] {
     }
     .filter-btn {
         right: 0;
+    }
+    .category-item-mobile {
+        margin: 0 1rem !important;
+        font-weight: 600;
+    }
+    .category-Border-pinky {
+        border-bottom: 2.5px solid #ff0055 !important;
     }
 }
 
@@ -1109,6 +1124,10 @@ input[type=number] {
     }
     .mb-price {
         color: #fff !important;
+    }
+    h4,
+    .h4 {
+        font-size: 1.0rem;
     }
 }
 

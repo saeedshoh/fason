@@ -111,10 +111,10 @@
     <a class="text-pinky font-weight-bold" href="{{route('home')}}">Все категории</a>
   </div>
   @if(!$name->parent)
-    <h4 class="py-3 category-item border-bottom text-dark"><a class="text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
+    <h4 class="py-1 category-item border-bottom text-dark category-item-mobile category-Border-pinky uppercase"><a class="text-decoration-none subcategory py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
   @elseif(!$name->parent->parent)
   @if(isset($name->childrens->first()->id))
-    <h4 class="py-3 category-item border-bottom text-dark"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
+    <h4 class="py-3 category-item border-bottom text-dark "><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
                     @endif
   @elseif(!isset($name->childrens->first()->id))
   @elseif(!$name->parent->parent->parent)
@@ -122,7 +122,7 @@
   @else
     <h4 class="py-3 category-item border-bottom text-dark"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->parent->name }}</a></h4>
   @endif
-    <ul class="shop-subject px-5 list-group list-group-flush h-100 mx-0">
+    <ul class="shop-subject px-0 list-group list-group-flush h-100 mx-0">
       @forelse ($categories as $category)
       <li class="list-group-item  bg-transparent pr-0 border-bottom">
         <nav class="category-mix">
@@ -191,7 +191,7 @@
           </a>
           <div class="catalog__ategory col-12 bg-white px-0 custom-lined-category">
                 @if(!$name->parent)
-                  <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
+                  <h4 class="py-2 px-3 category-Border-pinky"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
                 @elseif(!$name->parent->parent)
                     @if(isset($name->childrens->first()->id))
                         <h4 class="py-3 px-3"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
@@ -205,7 +205,7 @@
                 <ul class="shop-subject list-group list-group-flush h-100 px-2">
                 @forelse ($categories as $category)
                 <li class="list-group-item  bg-transparent py-2 border-bottom">
-                    <nav class="category-mix pl-3">
+                    <nav class="category-mix">
                     <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-secondary">{{ $category->name }}</a>
                         <span class="count-products" data-id="{{ $category->id }}"></span>
                     </a>
