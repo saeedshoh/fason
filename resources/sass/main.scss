@@ -1743,12 +1743,12 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 #catProducts {
     img {
-        height: 250px;
+        // height: 250px;
         object-fit: cover;
     }
     @media only screen and( max-width: 375px) {
         img {
-            height: 200px;
+            // height: 200px;
             object-fit: cover;
         }
     }
