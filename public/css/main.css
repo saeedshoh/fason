@@ -12992,3 +12992,15 @@ input[type=number]:hover::-webkit-outer-spin-button {
   transition: bottom 0.22s;
 }
 
+.success-preloader {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.35);
+}
+

@@ -4,12 +4,13 @@
     Добавление нового товара
 @endsection
 @extends('layouts.footer')
-@section('content')
 
+@section('content')
 <section class="content" >
     <div class="container">
       <h2 class="title text-center w-100 mt-5 mb-4 d-none d-lg-block">Добавить Товар</h2>
       <div class="row d-flex justify-content-between" >
+
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
@@ -28,57 +29,41 @@
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image">
               <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
-
-              {{--  @for ($i = 0; $i < 8; $i++)
-                  <div class="col-3 text-center product_image d-flex justify-content-center align-items-center">
-                      {{--  <div class="spinner-border d-none" role="status">
-                          <span class="sr-only">Loading...</span>
-                      </div> 
-                      <label for="gallery">
-                          <img src="/storage/theme/avatar_gallery.svg" data-id="galler-{{$i}}" class="px-0 btn mw-100 rounded gallery"  alt="" width="88" height="100" style="object-fit: cover;">
-                         <input type="file"  accept="image/*"  id="galler-{{$i}}" class="d-none gallery--img">  
-                      </label>
-                  </div>
-              @endfor --}}
             </div>
-            {{--  <form method="post" action="" enctype="multipart/form-data" id="myform">
-                 <input type="file" accept="image/*"  id="gallery" class="d-none" multiple name="galler"> 
-            </form>  --}}
 
           </div>
         </div>
         <!--add image end-->
+
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5">
           {{--  <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>  --}}
-          
           <form method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
             @csrf
             @method('POST')
-                <input type="file" accept="image/*" id="image" class="d-none input_placeholder_style" name="image" required>
-                <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                    <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
-                    <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
-                      <div class="input-group-prepend position-relative">
-                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
-                      </div>
-                      <select class="strartline_stick input_placeholder_style custom-select position-relative border-left-0" id="cat_parent" name="cat_id" required>
-                        <option value="">Выберите категорию</option>
-                        @forelse ($cat_parent as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                        @empty
-                            Извините ничего не найдено
-                        @endforelse
-                      </select>
-                      <div class="invalid-feedback">
-                        Выберите категорию
-                      </div>
+              <input type="file" accept="image/*" id="image" class="d-none input_placeholder_style" name="image" required>
+              <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+                  <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
+                  <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                    <div class="input-group-prepend position-relative">
+                      <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
-                    
-                </div>
-                <div id="categories-row">
+                    <select class="strartline_stick input_placeholder_style custom-select position-relative border-left-0" id="cat_parent" name="cat_id" required>
+                      <option value="">Выберите категорию</option>
+                      @forelse ($cat_parent as $category)
+                      <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                      @empty
+                          Извините ничего не найдено
+                      @endforelse
+                    </select>
+                    <div class="invalid-feedback">
+                      Выберите категорию
+                    </div>
+                  </div>
+              </div>
+              <div id="categories-row">
 
-                </div>
+              </div>
             {{-- <div id="subCategories">
                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
@@ -145,19 +130,23 @@
               </div>
               <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
 
-              </div>
-              @csrf
-              <input type="hidden" name="store_id" value="{{ $store }}" required>
-              <input type="hidden" name="product_status_id" value="1">
-              <div class="append-div w-75 ml-auto py-2"></div>
+            </div>
+            @csrf
+            <input type="hidden" name="store_id" value="{{ $store }}" required>
+            <input type="hidden" name="product_status_id" value="1">
+            <div class="append-div w-75 ml-auto py-2"></div>
               <div class="form-group d-flex flex-row mb-5 justify-content-center justify-content-md-end align-items-start align-items-md-center">
                 <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-5 rounded py-2 w-lg-75 add-product-btn"> Добавить </button>
               </div>
-              <div id="color_attr"></div>
-            </div>
+            <div id="color_attr"></div>
           </form>
         </div>
+
       </div>
     </div>
   </section>
 @endsection
+
+<div class="success-preloader d-none">
+  <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+</div>

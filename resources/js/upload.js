@@ -221,6 +221,9 @@ $(document).on('click', '.add-product-btn', function() {
                 contentType: false,
                 processData: false,
                 data: formData,
+                beforeSend: function() {
+                    $('.success-preloader').removeClass('d-none');
+                },
                 success: data => {
                     $('.content .container:eq(0)')
                         .addClass('bg-white')
@@ -233,6 +236,9 @@ $(document).on('click', '.add-product-btn', function() {
                 },
                 error: function(xhr, status, error) {
                     console.log(status);
+                },
+                complete: function() {
+                    $('.success-preloader').remove();   
                 }
             });
         }
