@@ -45,17 +45,20 @@
         </div>
         <!--add image end-->
         <!--Main attributes of product start-->
-        <div class="col-12 col-lg-7 mt-5 mt-lg-0">
+        <div class="col-12 col-lg-7 mt-5">
           <form action="{{ route('test_update', $product) }}" method="POST" enctype="multipart/form-data" id="add_product" onsubmit="return false">
             @csrf
             @method('PUT')
             <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
 
             <input type="file" accept="image/*"  id="image" class="d-none" name="image" value="{{ $product->image }}">
-            <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+            <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
-                <div class="w-sm-100 w-75 input_placeholder_style">
-                    <select class="strartline_stick input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
+                <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
+                    <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                    </div>
+                    <select class="strartline_stick input_placeholder_style custom-select position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_parent" name="category_id">
                     <option >Выберите категорию</option>
                     @if($hasParentCategory)
                             @forelse ($allCategories->where('parent_id', 0) as $cat)
@@ -97,38 +100,44 @@
                             <div id="subCategories">
                                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                    <div class="w-75 input_placeholder_style">
-                                    <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
-                                        <option disabled>Выберите категорию</option>
-                                        @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
-                                            <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                                        @empty
-                                            Извините ничего не найдено
-                                        @endforelse
-                                    </select>
-                                    @error('category_id')
-                                        <div class="invalid-feedback">
-                                        {{ $message }}
+                                    <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
+                                        <div class="input-group-prepend position-relative">
+                                            <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                    @enderror
+                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
+                                            <option disabled>Выберите категорию</option>
+                                            @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @empty
+                                                Извините ничего не найдено
+                                            @endforelse
+                                        </select>
+                                        @error('category_id')
+                                            <div class="invalid-feedback">
+                                            {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                    <div class="w-75 input_placeholder_style">
-                                    <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
-                                        <option disabled>Выберите категорию</option>
-                                        @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
-                                            <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                                        @empty
-                                            Извините ничего не найдено
-                                        @endforelse
-                                    </select>
-                                    @error('category_id')
-                                        <div class="invalid-feedback">
-                                        {{ $message }}
+                                    <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
+                                        <div class="input-group-prepend position-relative">
+                                            <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                    @enderror
+                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                            <option disabled>Выберите категорию</option>
+                                            @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @empty
+                                                Извините ничего не найдено
+                                            @endforelse
+                                        </select>
+                                        @error('category_id')
+                                            <div class="invalid-feedback">
+                                            {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -151,20 +160,23 @@
                             <div id="subCategories">
                                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                    <div class="w-75 input_placeholder_style">
-                                    <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
-                                        <option disabled>Выберите категорию</option>
-                                        @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
-                                            <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                                        @empty
-                                            Извините ничего не найдено
-                                        @endforelse
-                                    </select>
-                                    @error('category_id')
-                                        <div class="invalid-feedback">
-                                        {{ $message }}
+                                    <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
+                                        <div class="input-group-prepend position-relative">
+                                            <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                    @enderror
+                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                            <option disabled>Выберите категорию</option>
+                                            @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @empty
+                                                Извините ничего не найдено
+                                            @endforelse
+                                        </select>
+                                        @error('category_id')
+                                            <div class="invalid-feedback">
+                                            {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +199,11 @@
                             <div id="subCategories">
                                 <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                                     <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                    <div class="w-75 input_placeholder_style">
-                                        <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                    <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
+                                        <div class="input-group-prepend position-relative">
+                                            <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                                        </div>
+                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
                                             <option disabled>Выберите категорию</option>
                                         </select>
                                         @error('category_id')
@@ -202,10 +217,13 @@
                         </div>
                     @endif
 
-            <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+            <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
-                <div class="w-sm-100 w-75 input_placeholder_style">
-                    <input type="text" class="input_placeholder_style form-control position-relative @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}">
+                <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group  w-md-100">
+                    <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                    </div>
+                    <input type="text" class="input_placeholder_style form-control position-relative border-left-0 @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}">
                     @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -213,10 +231,13 @@
                     @enderror
                 </div>
             </div>
-            <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+            <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="description" class="input_caption mr-2 text-left text-md-right">Описание товара: </label>
-                <div class="w-sm-100 w-75 input_placeholder_style">
-                    <textarea class="input_placeholder_style form-control position-relative  @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description') ?? $product->description }}</textarea>
+                <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group  w-md-100">
+                    <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                    </div>
+                    <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description') ?? $product->description }}</textarea>
                     @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -225,10 +246,13 @@
                 </div>
             </div>
             <div class="">
-              <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
-                <div class="w-sm-100 w-75 input_placeholder_style">
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}">
+                <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group  w-md-100">
+                    <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                    </div>
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}">
                   @error('quantity')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -236,10 +260,13 @@
                   @enderror
                 </div>
               </div>
-              <div class="form-group d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: <span class="badge badge-pill badge-danger">в сомони</span></label>
-                <div class="w-sm-100 w-75 input_placeholder_style">
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}">
+                <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group  w-md-100">
+                    <div class="input-group-prepend position-relative">
+                        <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
+                    </div>
+                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}">
                   @error('price')
                     <div class="invalid-feedback">
                       {{ $message }}
