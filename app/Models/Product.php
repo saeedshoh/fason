@@ -79,53 +79,92 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
+    // public function getPriceAfterMarginAttribute()
+    // {
+    //     $store = Store::withoutGlobalScopes()->find($this->store_id);
+    //     $category = Category::withoutGlobalScopes()->find($this->category_id);
+    //     $price = 0;
+    //     if($category->is_monetized) {
+    //         foreach($category->monetizations as $monetization) {
+    //             if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+    //                 $price = $this->price + $this->price*($monetization->margin/100) + $monetization->added_val;
+    //             }
+    //         }
+    //     }
+    //     if($store->is_monetized){
+    //         if($store->monetizations->first()){
+    //             foreach($store->monetizations as $monetization) {
+    //                 if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+    //                     return $this->price + $this->price*($monetization->margin/100) + $monetization->added_val + $price;
+    //                 }
+    //                 else{
+    //                     $monetizations = Monetization::get();
+    //                     foreach($monetizations as $monet) {
+    //                         if ($this->price >= $monet->min && $this->price < $monet->max) {
+    //                             return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
+    //                         }
+    //                     }
+    //                     return $this->price;
+    //                 }
+    //             }
+    //         }
+    //         else {
+    //             $monetizations = Monetization::get();
+    //             foreach($monetizations as $monet) {
+    //                 if ($this->price >= $monet->min && $this->price < $monet->max) {
+    //                     return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
+    //                 }
+    //             }
+    //             return $this->price;
+    //         }
+    //     } else {
+    //         $monetizations = Monetization::get();
+    //         foreach($monetizations as $monetization) {
+    //             if ($this->price >= $monetization->min && $this->price < $monetization->max) {
+    //                 return $this->price + ($this->price*($monetization->margin/100)) + $monetization->added_val + $price;
+    //             }
+    //         }
+    //         return $this->price;
+    //     }
+    // }
+    
     public function getPriceAfterMarginAttribute()
     {
         $store = Store::withoutGlobalScopes()->find($this->store_id);
         $category = Category::withoutGlobalScopes()->find($this->category_id);
-        $price = 0;
+
+        $common_monetization = 0;
+        $category_monetization = 0;
+        $store_monetization = 0;
+
         if($category->is_monetized) {
             foreach($category->monetizations as $monetization) {
                 if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-                    $price = $this->price + $this->price*($monetization->margin/100) + $monetization->added_val;
+                    $category_monetization = $this->price*($monetization->margin/100) + $monetization->added_val;
                 }
             }
         }
+        
         if($store->is_monetized){
             if($store->monetizations->first()){
                 foreach($store->monetizations as $monetization) {
                     if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-                        return $this->price + $this->price*($monetization->margin/100) + $monetization->added_val + $price;
-                    }
-                    else{
-                        $monetizations = Monetization::get();
-                        foreach($monetizations as $monet) {
-                            if ($this->price >= $monet->min && $this->price < $monet->max) {
-                                return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
-                            }
-                        }
-                        return $this->price;
+                        $store_monetization = $this->price*($monetization->margin/100) + $monetization->added_val;
                     }
                 }
             }
-            else {
-                $monetizations = Monetization::get();
-                foreach($monetizations as $monet) {
-                    if ($this->price >= $monet->min && $this->price < $monet->max) {
-                        return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
-                    }
-                }
-                return $this->price;
-            }
-        } else {
-            $monetizations = Monetization::get();
+        }
+        
+        $monetizations = Monetization::doesntHave('stores')->doesntHave('categories')->get();
+        if($monetizations->isNotEmpty()) {
             foreach($monetizations as $monetization) {
                 if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-                    return $this->price + ($this->price*($monetization->margin/100)) + $monetization->added_val + $price;
+                    $common_monetization = $this->price*($monetization->margin/100)+ $monetization->added_val;
                 }
             }
-            return $this->price;
         }
+        
+        return $this->price + $common_monetization + $store_monetization + $category_monetization;
     }
 
     /**
