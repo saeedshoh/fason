@@ -12934,14 +12934,12 @@ input[type=number]:hover::-webkit-outer-spin-button {
 }
 
 #catProducts img {
-  height: 250px;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
 @media only screen and (max-width: 375px) {
   #catProducts img {
-    height: 200px;
     -o-object-fit: cover;
        object-fit: cover;
   }
