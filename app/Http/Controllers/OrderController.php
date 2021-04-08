@@ -89,7 +89,10 @@ class OrderController extends Controller
                 ]);
             }
             if($order) {
-
+                $comment = '';
+                if ( !empty ( $order->comment ) ) {
+                    $comment = "\n Примичание к заказу: " .$order->comment;
+                }
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
                     'hash' => '9c1891437739e62b0cd45d7c8e232739',  // Ваш хэш, который выдается администратором OsonSMS
@@ -100,8 +103,8 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адрес доставки: " .$order->address. "\n Примичание к заказу: " .$order->comment;
-
+                $message = "\n Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адрес доставки: " .$order->address . $comment;
+                
                 $params = array(
                     "from" => $config['sender'],
                     "phone_number" => $phone_number,

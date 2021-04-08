@@ -88,7 +88,7 @@
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') ? old('description') : $store->description }}">
+              <textarea class="form-control" type="text" name="description" id="description">{{ old('description') ? old('description') : $store->description }}</textarea>
             </div>
           </div>
         </div>

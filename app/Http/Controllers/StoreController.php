@@ -196,7 +196,7 @@ class StoreController extends Controller
             'table'  => ' Магазины',
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
-        return view('useful_links.thanks')->with(['title' => 'Ваши изменения вступят в силу как только изменения пройдут модерацию !']);
+        return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.', 'route' => $store->slug]);
     }
 
     /**
