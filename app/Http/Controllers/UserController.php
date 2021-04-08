@@ -27,6 +27,12 @@ class UserController extends Controller
 
         if($request->ajax()) {
 
+            $request->validate([
+                'name' => 'required',
+                'address' => 'required',
+                'city_id' => 'required'
+            ]);
+
             $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
             if(!File::isDirectory($month)){
                 File::makeDirectory($month, 0777, true);
@@ -88,7 +94,7 @@ class UserController extends Controller
             'email' =>  $request->email,
             'phone' =>  str_replace(array( '(', ')', ' ', '-' ), '', $request->phone),
             'profile_photo_path' => $request->profile_photo_path,
-            'password' => Hash::make($request->password,),
+            'password' => Hash::make($request->password),
             'status' =>  1,
             'registered_at' => Carbon::now()
         ]);

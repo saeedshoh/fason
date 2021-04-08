@@ -102,18 +102,18 @@ aria-hidden="true">
             </div>
           </div>
           <h5 class="text-secondary">Город:</h5>
-          <div class="form-row justify-content-around">
-            <div class="form-group mb-0">
+          <div class="form-column justify-content-around">
+            @php
+            $cities = App\Models\City::get();
+            @endphp
+            @foreach($cities as $city)
               <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
-                <input class="form-check-input" type="radio" id="Душанбе" name="city_id" value="1" required>
-                <label class="form-check-label" for="Душанбе">
-                    Душанбе
-                </label>
-                <div class="invalid-feedback">
-                  Выберите ваш город
-                </div>
+                <input class="form-check-input" type="radio" id="city_{{ $city->id }}" name="city_id" value="{{ $city->id }}" required>
+                <label class="form-check-label" for="city_{{ $city->id }}">{{ $city->name }}</label>
+                <div class="invalid-feedback">Выберите ваш город</div>
               </div>
-            </div>
+            @endforeach
+
           </div>
           <p class="privacy-policy mb-pre--text mb-0">
             <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
