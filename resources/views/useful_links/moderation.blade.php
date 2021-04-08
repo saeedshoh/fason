@@ -17,7 +17,7 @@
           {{ $description }}
         </p>
         @endif
-        <a class="rounded-11 btn btn-outline-danger mt-4" href="{{ route('ft-store.show', $route) }}">Вернуться в магазин</a>
+        <a class="rounded-11 btn btn-outline-danger mt-4" href="{{ $is_back ? route('stores.index') : route('ft-store.show', $route) }}">Вернуться в магазин</a>
       </div>
     </div>
   </div>

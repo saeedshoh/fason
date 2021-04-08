@@ -120,7 +120,7 @@
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('ft-store.edit', $store->slug) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('store.profile_edit', $store->id) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
                         <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">

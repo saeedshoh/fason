@@ -56,7 +56,10 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('clients/{user}', [UserController::class, 'show'])->name('clients.show');
     Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
     Route::get('categoryMonetizations', [MonetizationController::class, 'categoryMonetizationsIndex'])->name('categoryMonetizations.index');
-    Route::get('/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
+    Route::get('/stores/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
+    Route::get('/stores/showStoreInfo/{store}/edit', [StoreController::class, 'profile_edit'])->name('store.profile_edit');
+    Route::get('/show/{store}/orders', [StoreController::class, 'profile_orders'])->name('store.profile_orders');
+    Route::get('/show/{store}/products', [StoreController::class, 'profile_products'])->name('store.profile_products');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
