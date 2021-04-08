@@ -555,7 +555,7 @@ $(document).on('submit', '#add_product', function(event) {
             .addClass('btn-success')
     } else {
         event.preventDefault()
-        // $('.add-product-btn').attr('disabled', true)
+            // $('.add-product-btn').attr('disabled', true)
 
         return false
     }
@@ -610,7 +610,7 @@ $(document).on('click', '#btn-add_address', function() {
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
-    if(phone != '' && address != '' && city_id != '') {
+    if (phone != '' && address != '' && city_id != '') {
         $.ajax({
             url: '/users/contacts',
             type: 'post',
@@ -628,7 +628,7 @@ $(document).on('click', '#btn-add_address', function() {
             }
         });
     }
-    
+
 })
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this)
@@ -1077,7 +1077,14 @@ function startTimer(duration, display) {
         }
     }, 1000)
 }
+$('.favorite').on('click', function() {
+    if ($(this).hasClass('active')) {
+        $('.activeSaved').find('.text-sucsess').text("Вы убрали товар из избранного !");
+    } else {
+        $('.activeSaved').find('.text-sucsess').text("Вы добавлии товар в избранное !");
 
+    }
+});
 // preview image
 
 // $(function() {
@@ -1180,8 +1187,7 @@ $('#image').change(function() {
     if ($(this).val() != '') {
         $('#main-poster').removeClass('border-danger').addClass('border-success')
         $('.image-validate').addClass('d-none');
-    }
-    else {
+    } else {
         $('#main-poster').addClass('border-danger')
         $('.image-validate').removeClass('d-none');
 
