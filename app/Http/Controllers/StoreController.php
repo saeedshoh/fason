@@ -29,7 +29,7 @@ class StoreController extends Controller
     }
     public function index()
     {
-        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->paginate(20);
+        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->latest()->paginate(20);
         $stores = StoreEdit::orderBy('is_active', 'asc')->latest()->paginate(20);
         return view('dashboard.store.index', compact('stores'));
     }
