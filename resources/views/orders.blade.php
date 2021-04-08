@@ -80,8 +80,9 @@
                 <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                     
                 @forelse ($sales as $sale)
+                    @isset(Auth::user()->store)
                     @if ($sale->no_scope_product->store_id == Auth::user()->store->id)
-                    <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way  @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
+                    <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                         <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
                         </div>
@@ -125,6 +126,7 @@
                         </div>
                     </div>
                     @endif
+                    @endisset
                 @empty
                 <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                     <p class="m-0">У вас нет продаж</p>

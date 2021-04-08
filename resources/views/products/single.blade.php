@@ -209,7 +209,10 @@
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
                                     <div class="title mb-sm-1  mb-md-3 title-capitalize font-weight-600">Количество:</div>
-                                    <span class="text-secondary text-semi-bold quantity-product text-pinky font-weight-600">1 шт</span>
+                                    <span class="text-secondary text-semi-bold text-pinky font-weight-600">
+                                      <span class="quantity-product">1</span>
+                                      шт
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-2 mt-1 mt-lg-0">

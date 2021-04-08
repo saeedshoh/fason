@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity');
             $table->float('total');
             $table->float('margin');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->json('attributes')->nullable();
             $table->foreignId('order_status_id')->constrained()->default(1)->onDelete('cascade');
             $table->timestamps();
