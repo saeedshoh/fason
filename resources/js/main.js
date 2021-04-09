@@ -549,12 +549,13 @@ $(document).on('submit', '#add_product', function(event) {
     $(this).addClass('was-validated')
         //stop submitting the form to see the disabled button effect
 
-    if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+    if ($('#image').attr('value') != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
         $('.add-product-btn')
             .removeAttr('disabled')
             .addClass('btn-success')
     } else {
         event.preventDefault()
+        alert(134);
             // $('.add-product-btn').attr('disabled', true)
 
         return false

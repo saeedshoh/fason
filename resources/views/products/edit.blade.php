@@ -54,7 +54,7 @@
             @method('PUT')
             <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
 
-            <input type="file" accept="image/*"  id="image" class="d-none" name="image" value="{{ $product->image }}">
+            <input type="file" accept="image/*" id="image" class="d-none" name="image" value="{{ $product->image }}">
             <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                 <label for="cat_parent" class="input_caption mr-2 text-left text-md-right">Категории:</label>
                 <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
