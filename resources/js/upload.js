@@ -147,7 +147,7 @@ $(document).on('click', '.add-product-btn', function() {
     if(document.querySelectorAll('.preview-image').length > 7) {
         alert("Вы можете загрузить только 7 фотографии для галереи");
     } 
-    else if($('#image').val() != '') {
+    else if($('#image').attr('value') != '') {
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
