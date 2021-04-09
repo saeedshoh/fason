@@ -20,6 +20,7 @@ class StoreEdit extends Model
         'cover',
         'city_id',
         'is_active',
+        'is_moderation',
     ];
 
     public function city()

@@ -150,7 +150,7 @@
             <div class="col-4 my-md-0 my-3 text-center">
               <div class="position-relative d-flex align-items-center number justify-content-center">
                 <form id="number-spinner-horizontal" class="t-neutral">
-                  <fieldset class="spinner spinner--horizontal l-contain--medium">
+                  <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
@@ -431,7 +431,7 @@ aria-hidden="true">
     </div>
     <div class="modal-body">
       <div class="container text-center">
-        <div class="text-secondary">Ваш заказ приянт, в ближайшее время Вам позвонят наши операторы!</div>
+        <div class="text-secondary">Ваш заказ принят. В ближайшее время Вам позвонят наши операторы!</div>
         <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
         <h2 class="text-danger font-weight-bold">Спасибо!</h2>
         <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div>

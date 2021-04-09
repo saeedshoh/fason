@@ -139,7 +139,7 @@ aria-hidden="true">
             <input type="text" class="form-control" placeholder="Адрес дома..." name="address" required>
           </div>
           <h5 class="text-secondary">Город:</h5>
-          <div class="form-column justify-content-around">
+          <div class="form-row justify-content-around">
             @php
             $cities = App\Models\City::get();
             @endphp

@@ -13,6 +13,8 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
 use App\Models\StoreEdit;
+use Illuminate\Support\Facades\URL;
+
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
@@ -29,7 +31,7 @@ class StoreController extends Controller
     }
     public function index()
     {
-        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->paginate(20);
+        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->latest()->paginate(20);
         $stores = StoreEdit::orderBy('is_active', 'asc')->latest()->paginate(20);
         return view('dashboard.store.index', compact('stores'));
     }
@@ -83,7 +85,7 @@ class StoreController extends Controller
         }
 
         $store = Store::create($data);
-        StoreEdit::create($data + ['store_id' => $store->id]);
+        StoreEdit::create($data + ['store_id' => $store->id, 'is_moderation' => 0]);
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -151,7 +153,7 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreRequest $request, $store)
-    {
+    {   
         $data = $request->validated();
         
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
@@ -186,7 +188,7 @@ class StoreController extends Controller
         //     $store = Store::where('id', $store)->withoutGlobalScopes()->first();
         // }
         
-        if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
+        if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
             $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
         }
         $city = City::where('id', $request->city_id)->first()->name;
@@ -196,7 +198,7 @@ class StoreController extends Controller
             'table'  => ' Магазины',
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
-        return view('useful_links.thanks')->with(['title' => 'Ваши изменения вступят в силу как только изменения пройдут модерацию !']);
+        return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => $request->is_back == 1 ? 1 : 0, 'route' => $store->slug,]);
     }
 
     /**
@@ -231,7 +233,7 @@ class StoreController extends Controller
         if($store->is_active) {
             $store->update(['is_active' => 0]);
         } else {
-            $store->update(['is_active' => 1]);
+            $store->update(['is_active' => 1, 'is_moderation' => 0]);
             $stored->update([
                 'name' => $store->name,    
                 'slug' => $store->slug,    
@@ -240,7 +242,7 @@ class StoreController extends Controller
                 'avatar' => $store->avatar,    
                 'cover' => $store->cover,    
                 'city_id' => $store->city_id,
-                'is_active' => 1
+                'is_active' => 1,
             ]);
         }
         return redirect(route('stores.index'))->with('success', 'Магазин успешно изменен!');
@@ -267,8 +269,28 @@ class StoreController extends Controller
     public function showStoreInfo(Store $store) {
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
         ->join('products', 'orders.product_id', '=', 'products.id')
-        ->paginate(50);
+        ->take(15)->get();
+        $store_edit = StoreEdit::where('store_id', $store->id)->where('is_moderation', '=', 1)->first();
 
-        return view('dashboard.store.show', compact('store', 'orders'));
+        return view('dashboard.store.show', compact('store', 'orders', 'store_edit'));
+    }
+
+    public function profile_orders(Store $store) {
+        $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
+        ->join('products', 'orders.product_id', '=', 'products.id')
+        ->paginate(35);
+
+        return view('dashboard.store.profile.orders', compact('store', 'orders'));
+    }
+    public function profile_edit(Store $store)
+    {
+        $cities = City::get();
+        return view('dashboard.store.profile.edit', compact('store', 'cities'));
+
+    }
+    public function profile_products(Store $store)    {
+        $products = Product::where('store_id', $store->id)->paginate(35);
+
+        return view('dashboard.store.profile.products', compact('store', 'products'));
     }
 }

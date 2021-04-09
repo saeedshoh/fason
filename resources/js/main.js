@@ -599,7 +599,7 @@ $(document).on('click', '#btn-add_address', function() {
         .val()
     let city_id = $(this)
         .closest('form')
-        .find('input[name="city_id"]')
+        .find('input[name="city_id"]:checked')
         .val()
     let profile_photo_path = $(this)
         .closest('form')

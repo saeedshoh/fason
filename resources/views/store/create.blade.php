@@ -130,7 +130,7 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{ old('description') }}">
+              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description">{{ old('description') }}</textarea>
             </div>
           </div>
         </div>

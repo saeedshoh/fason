@@ -69,9 +69,11 @@
                       <th>
                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
                       </th>
-
                       <th>
-                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Создатель</a>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Город</a>
+                      </th>
+                      <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Дата</a>
                       </th>
                       <th>
                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-status">Статус</a>
@@ -80,8 +82,8 @@
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    @forelse ($stores as $key => $store)
-                    <tr class="table-{{ $store->is_active ? 'success' : 'danger' }}">
+                    @forelse ($stores as $key => $store) 
+                    <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>
@@ -89,6 +91,9 @@
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
+                      </td>
+                      <td class="item-address">
+                        {{ $store->address }}
                       </td>
                       <td class="item-location">
                         {{ $store->city->name }}
@@ -99,7 +104,13 @@
                       <td class="item-status">
                         <!-- Badge -->
                         <div class="badge badge-primary">
-                            {{ $store->is_active ? 'Активен' : 'Неактивен' }}
+                            @if($store->is_moderation)
+                              В модерации
+                            @elseif($store->is_active == 0)
+                              Неактивен
+                            @else
+                              Активен
+                            @endif
                         </div>
                       </td>
                       <td class="text-right">
@@ -109,7 +120,7 @@
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('ft-store.edit', $store->slug) }}" class="btn btn-primary m-1 pull-right">
+                        <a href="{{ route('store.profile_edit', $store->id) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>
                         <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">
