@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Store;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdmin
+class CheckStore
 {
     /**
      * Handle an incoming request.
@@ -17,12 +18,16 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-        if (Auth::user()->status !== 1) {
+        $store = Store::where('slug', $request->slug)->first();
+        if($store) {
+            if($store->where('user_id', Auth::user()->id)->first()) {
+                return $next($request);
+            }
             abort(404);
         }
-        return $next($request);
+        abort(404);
+
+        
+        // return $next($request);
     }
 }
