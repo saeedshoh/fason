@@ -41,8 +41,9 @@
             <form action="{{ route('ft-store.toggle', $store->id) }}" method="POST">
               @csrf
               @method('PATCH')
-              <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn d-block d-md-inline-block lift btn-{{ $store->is_active ? 'warning' : 'success'}}">
-                  <i class="fe fe-{{ $store->is_active ? 'x' : 'check'}}" aria-hidden="true"></i>
+              <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn d-block d-md-inline-block lift @if($store->is_moderation)btn-primary @elseif($store->is_active == 0) btn-success @else btn-warning @endif">
+                <i class="fe @if($store->is_moderation) fe-feather @elseif($store->is_active == 0) fe-check @else fe-x @endif" aria-hidden="true"></i>
+                @if($store->is_moderation) Принять модерацию @elseif($store->is_active == 0) Включить магазин @else Отключить магазин @endif
               </button>
             </form>
             <!-- Button -->
@@ -74,7 +75,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('store.profile_products', $store->id) }}" class="nav-link active">
+                <a href="{{ route('store.profile_products', $store->id) }}" class="nav-link">
                   Продукты
                 </a>
               </li>

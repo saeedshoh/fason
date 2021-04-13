@@ -8,6 +8,7 @@
   <!-- HEADER -->
   <div class="header">
 
+
     <!-- Image -->
     <img src="{{ Storage::url($store->cover) }}" class="header-img-top object-cover" alt="...">
 
@@ -35,14 +36,15 @@
             <h1 class="header-title">
               {{ $store->name }}
             </h1>
-
           </div>
-          <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 d-flex">
+
+          <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 d-flex">  
             <form action="{{ route('ft-store.toggle', $store->id) }}" method="POST">
               @csrf
               @method('PATCH')
-              <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn d-block d-md-inline-block lift btn-{{ $store->is_active ? 'warning' : 'success'}}">
-                  <i class="fe fe-{{ $store->is_active ? 'x' : 'check'}}" aria-hidden="true"></i>
+              <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn d-block d-md-inline-block lift @if($store->is_moderation)btn-primary @elseif($store->is_active == 0) btn-success @else btn-warning @endif">
+                <i class="fe @if($store->is_moderation) fe-feather @elseif($store->is_active == 0) fe-check @else fe-x @endif" aria-hidden="true"></i>
+                @if($store->is_moderation) Принять модерацию @elseif($store->is_active == 0) Включить магазин @else Отключить магазин @endif
               </button>
             </form>
             <!-- Button -->

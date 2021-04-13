@@ -120,14 +120,15 @@
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('store.profile_edit', $store->id) }}" class="btn btn-primary m-1 pull-right">
-                            <i class="fe fe-edit"> </i>
+                        <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-secondary m-1 pull-right">
+                          <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                         <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn btn-{{ $store->is_active ? 'warning' : 'success'}} m-1 fa-pull-right">
-                                <i class="fe fe-{{ $store->is_active ? 'x' : 'check'}}" aria-hidden="true"></i>
+                           
+                            <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn @if($store->is_moderation)btn-primary @elseif($store->is_active == 0) btn-success @else btn-warning @endif m-1 fa-pull-right">
+                                <i class="fe @if($store->is_moderation) fe-feather @elseif($store->is_active == 0) fe-check @else fe-x @endif" aria-hidden="true"></i>
                             </button>
                         </form>
                       </td>
