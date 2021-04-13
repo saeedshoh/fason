@@ -602,15 +602,14 @@ $(document).on('click', '#btn-add_address', function() {
         .closest('form')
         .find('input[name="city_id"]:checked')
         .val()
-    let profile_photo_path = $(this)
-        .closest('form')
-        .find('input[name="profile_photo_path"]')[0].files[0]
+    let profile_photo_path = $('#main-poster').attr('src');
 
     formData.append('phone', phone)
     formData.append('name', name)
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
+    
     if (phone != '' && address != '' && city_id != '') {
         $.ajax({
             url: '/users/contacts',
@@ -1166,23 +1165,21 @@ function cover(input) {
     }
 }
 
-function user_avatar(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader()
-        reader.onload = function(e) {
-            $('.user_avatar svg').hide()
-            $('.user_avatar img')
-                .show()
-                .attr('src', e.target.result)
-        }
+// function user_avatar(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader()
+//         reader.onload = function(e) {
+//             $('.user_avatar svg').hide()
+//             $('.user_avatar img')
+//                 .show()
+//                 .attr('src', e.target.result)
+//         }
 
-        reader.readAsDataURL(input.files[0])
-    }
-}
+//         reader.readAsDataURL(input.files[0])
+//     }
+// }
 
-$('#profile_photo_path').change(function() {
-    user_avatar(this)
-})
+
 
 $('#image').change(function() {
     if ($(this).val() != '') {

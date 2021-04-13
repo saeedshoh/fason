@@ -494,47 +494,47 @@ class ProductController extends Controller
     // }
 
     public function test_store(Request $request) {
-            if($request->ajax()) {
-                $base64_images = json_decode($request->gallery);
-                $main_image_json = $request->image;
-                $year_month = now()->year . '/' . sprintf("%02d", now()->month);
-                
-                $main_image = $year_month.'/'.uniqid().'.jpg';
-                if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
-                    $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
-                    $data = base64_decode($data);
-                    Storage::disk('public')->put($main_image, $data);
-                    $main_image = $this->uploadImage($main_image);
+        if($request->ajax()) {
+            $base64_images = json_decode($request->gallery);
+            $main_image_json = $request->image;
+            $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+            
+            $main_image = $year_month.'/'.uniqid().'.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
+                $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
+                $data = base64_decode($data);
+                Storage::disk('public')->put($main_image, $data);
+                $main_image = $this->uploadImage($main_image);
 
-                }; 
+            }; 
 
-                if(!empty($base64_images)) {
-                    $images = [];
-                    foreach($base64_images as $base64_image) {
-                        $image = $year_month.'/'.uniqid().'.jpg';
-                        if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                            $data = substr($base64_image, strpos($base64_image, ',') + 1);
-                            $data = base64_decode($data);
-                            Storage::disk('public')->put($image, $data);
-                            array_push($images, $this->uploadImage($image));
-                        };  
-                    }
+            if(!empty($base64_images)) {
+                $images = [];
+                foreach($base64_images as $base64_image) {
+                    $image = $year_month.'/'.uniqid().'.jpg';
+                    if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                        $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                        $data = base64_decode($data);
+                        Storage::disk('public')->put($image, $data);
+                        array_push($images, $this->uploadImage($image));
+                    };  
                 }
-                Product::create(
-                    [
-                        'name' =>  $request->name,
-                        'description' =>  $request->description,
-                        'category_id' =>  $request->cat_id,
-                        'quantity' =>  $request->quantity,
-                        'price' =>  $request->price,
-                        'store_id' =>  $request->store_id,
-                        'product_status_id' =>  1,
-                        'image' =>  $main_image,
-                        'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
-                        'created_at' => Carbon::now()
-                    ]
-                );
             }
+            Product::create(
+                [
+                    'name' =>  $request->name,
+                    'description' =>  $request->description,
+                    'category_id' =>  $request->cat_id,
+                    'quantity' =>  $request->quantity,
+                    'price' =>  $request->price,
+                    'store_id' =>  $request->store_id,
+                    'product_status_id' =>  1,
+                    'image' =>  $main_image,
+                    'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
+                    'created_at' => Carbon::now()
+                ]
+            );
+        }
     }
     public function test_update(Request $request, Product $product) {
 

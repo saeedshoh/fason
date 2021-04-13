@@ -114,6 +114,7 @@ export function upload(selector, options = {}) {
         
 
     };
+
     const removeHandler = event => {
         if (!event.target.dataset.name) {
             return;
@@ -247,8 +248,6 @@ $(document).on('click', '.add-product-btn', function() {
         $('.image-validate').removeClass('d-none');
     }
     
-
-    
 });
 
 function readURL(input) {
@@ -286,3 +285,7 @@ $('#image').change(function() {
 
     readURL(this);
 });
+
+$('#profile_photo_path').change(function() {
+    readURL(this)
+})
