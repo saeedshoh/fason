@@ -66,7 +66,7 @@ class StoreController extends Controller
             //     'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             // ]);
             $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
-            $avatar = Image::make($request->file('avatar'))->encode('jpg', 60)->fit(270, 215, function ($constraint) {
+            $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $avatar->save(public_path('/storage/'.$avatarPath));
@@ -77,7 +77,7 @@ class StoreController extends Controller
             //     'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             // ]);
             $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
-            $cover = Image::make($request->file('cover'))->encode('jpg', 60)->fit(840, 215, function ($constraint) {
+            $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $cover->save(public_path('/storage/'.$coverPath));
@@ -166,7 +166,7 @@ class StoreController extends Controller
             ]);
             $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
 
-            $avatar = Image::make($request->file('avatar'))->fit(270, 215, function ($constraint) {
+            $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $avatar->save(public_path('/storage/'.$avatarPath));
@@ -177,7 +177,7 @@ class StoreController extends Controller
                 'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
             $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
-            $cover = Image::make($request->file('cover'))->fit(840, 215, function ($constraint) {
+            $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $cover->save(public_path('/storage/'.$coverPath));
