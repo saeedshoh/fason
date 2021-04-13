@@ -18,7 +18,7 @@ class CheckStore
      */
     public function handle(Request $request, Closure $next)
     {
-        $store = Store::where('slug', $request->slug)->first();
+        $store = Store::withoutGlobalScopes()->where('slug', $request->slug)->first();
         if($store) {
             if($store->user->id == Auth::user()->id) {
                 return $next($request);
