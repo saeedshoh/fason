@@ -54,15 +54,17 @@ trait ImageInvTrait {
 
     public function uploadImage($image)
     {
-        
+       
         //Create folder if doesn't exist
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
         }
+       
         $img = Image::make(public_path('/storage/'.$image));
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         $this->cropImage($img, 800, 100, $nowYear);
+      
         
         unlink(public_path('/storage/'.$image));
         return $nowYear . '800x800.jpg';

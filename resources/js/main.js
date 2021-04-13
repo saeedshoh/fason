@@ -620,7 +620,8 @@ $(document).on('click', '#btn-add_address', function() {
             processData: false,
             data: formData,
             success: data => {
-                location.reload(true)
+                console.log(data);
+                // location.reload(true)
             },
             error: function(xhr, status, error) {
                 console.log(status)
