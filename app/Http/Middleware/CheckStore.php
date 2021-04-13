@@ -20,7 +20,7 @@ class CheckStore
     {
         $store = Store::where('slug', $request->slug)->first();
         if($store) {
-            if($store->where('user_id', Auth::user()->id)->first()) {
+            if($store->user->id == Auth::user()->id) {
                 return $next($request);
             }
             abort(404);
