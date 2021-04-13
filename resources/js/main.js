@@ -555,8 +555,7 @@ $(document).on('submit', '#add_product', function(event) {
             .addClass('btn-success')
     } else {
         event.preventDefault()
-        alert(134);
-            // $('.add-product-btn').attr('disabled', true)
+        $('.add-product-btn').attr('disabled', true)
 
         return false
     }
