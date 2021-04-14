@@ -20,7 +20,7 @@
 
             <!-- Avatar -->
             <div class="avatar avatar-xxl header-avatar-top">
-              <img src="{{ Storage::url($store->avatar) }}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+              <img src="{{ Storage::url($store->avatar) }}" alt="..." class="avatar-img rounded-circle border-4 border-body">
             </div>
 
           </div>

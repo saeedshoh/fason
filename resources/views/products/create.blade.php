@@ -151,3 +151,10 @@
 <div class="success-preloader d-none">
   <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
 </div>
+
+<style>
+body {
+  position: relative;
+}
+
+</style>
