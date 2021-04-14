@@ -44,7 +44,7 @@ class Product extends Model
 
     public function store()
     {
-        return $this->belongsTo('App\Models\Store');
+        return $this->belongsTo('App\Models\Store')->withoutGlobalScopes();
     }
 
     public function no_scope_store()
