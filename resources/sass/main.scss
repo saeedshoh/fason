@@ -1845,5 +1845,5 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     background: rgb(0 0 0 / 35%);
 }
 .slick-arrow {
-    display: none;
+    display: none !important;
 }
