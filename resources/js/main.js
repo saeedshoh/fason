@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 if ($('#gallery').attr('form') == 'add_product') {
     upload('#gallery', {
         multi: true,
-        accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif']
+        accept: ['image/*']
     })
 }
 
