@@ -13066,6 +13066,6 @@ input[type=number]:hover::-webkit-outer-spin-button {
 }
 
 .slick-arrow {
-  display: none;
+  display: none !important;
 }
 
