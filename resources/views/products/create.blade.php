@@ -38,7 +38,7 @@
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5">
           {{--  <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>  --}}
-          <form method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
+          <form method="POST" enctype="multipart/form-data" id="add_product" class="{{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
             @csrf
             @method('POST')
               <input type="file" accept="image/*" id="image" class="d-none input_placeholder_style" name="image" required>
@@ -147,6 +147,6 @@
   </section>
 @endsection
 
-<div class="success-preloader d-none">
+<!-- <div class="success-preloader d-none">
   <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
-</div>
+</div> -->

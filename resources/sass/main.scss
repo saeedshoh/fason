@@ -14,7 +14,9 @@ body {
 .text-skyblue {
     color: #6cb2eb !important;
 }
-
+.border-gray{
+    border: 1px solid #dadada;
+}
 .orders.active {
     background-color: #FF0055 !important;
     color: white !important;
@@ -1843,4 +1845,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     height: 100%;
     z-index: 9999;
     background: rgb(0 0 0 / 35%);
+}
+
+.was-validated .form-control:valid,
+.form-control.is-valid{
+    background-image:none !important;
+    border-color: #d8d8d8;
+}
+.was-validated .custom-select:valid,
+ .custom-select.is-valid{
+    border-color: #d8d8d8;
 }
