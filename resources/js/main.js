@@ -31,7 +31,7 @@ $('#listView').on('click', function() {
     $(this).addClass('d-none')
     $('#catProducts .discription').removeClass('d-none')
     $('#catProducts .card').addClass('flex-row')
-    $('#catProducts .card img').addClass('w-50')
+    $('#catProducts .card img').addClass('w-50 h-100')
     $('#catProducts .row').attr('data-style', '2')
     $('.line-test::before').css('content', 'none');
     $('#catProducts').removeClass('col-md-8').addClass('col-md-12');
@@ -42,7 +42,7 @@ $('#gridView').on('click', function() {
     $('#catProducts .row').attr('data-style', '1')
     $('.card')
         .find('img')
-        .removeClass('w-50')
+        .removeClass('w-50 h-100')
     $('#catProducts .card').removeClass('flex-row')
     $('#catProducts .row')
         .removeClass('row-cols-1')
