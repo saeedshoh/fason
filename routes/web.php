@@ -34,7 +34,7 @@ use BaconQrCode\Encoder\QrCode;
 |
 */
 
-Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',], function () {
+Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard.name');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
@@ -56,7 +56,10 @@ Route::group(['middleware' => ['auth', 'checkAdmin'], 'prefix' => 'dashboard',],
     Route::get('clients/{user}', [UserController::class, 'show'])->name('clients.show');
     Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
     Route::get('categoryMonetizations', [MonetizationController::class, 'categoryMonetizationsIndex'])->name('categoryMonetizations.index');
-    Route::get('/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
+    Route::get('/stores/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');
+    Route::get('/stores/showStoreInfo/{store}/edit', [StoreController::class, 'profile_edit'])->name('store.profile_edit');
+    Route::get('/show/{store}/orders', [StoreController::class, 'profile_orders'])->name('store.profile_orders');
+    Route::get('/show/{store}/products', [StoreController::class, 'profile_products'])->name('store.profile_products');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
@@ -91,53 +94,66 @@ Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-Route::resources([
-    'favorite' => FavoriteController::class,
-]);
 
-Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
-Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
 // Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
 // Route::put('products/{product}', [ProductController::class, 'ft_update'])->name('ft-products.update');
-Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
+Route::middleware('auth')->group(function () {
 
-Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
-Route::get('store/{slug}', [StoreController::class, 'show'])->name('ft-store.show');
+    Route::middleware(['checkStore'])->group(function () {
+        Route::get('store/{slug}/show', [StoreController::class, 'show'])->name('ft-store.show');
+        Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
+        Route::get('store/{slug}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
+    });
+    Route::middleware(['checkProduct'])->group(function () {
+        Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
+    });    
+    
+    Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+    Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+    Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
+    Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
+    Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');
+
+
+    Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
+    Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
+    Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
+    
+    Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
+    Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
+    Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
+
+    Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
+    Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
+
+    Route::resource('favorite', FavoriteController::class);
+
+});
+
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
-Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
-Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
-Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
-Route::get('store/{slug}/edit', [StoreController::class, 'edit'])->name('ft-store.edit');
-Route::get('store/salesHistory/{slug}', [StoreController::class, 'salesHistory'])->name('salesHistory');
 
-Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
-
-Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
-Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
+Route::get('products/single/{slug}', [ProductController::class, 'single'])->name('ft-products.single');
 
 Route::get('livesearch', [SearchController::class, 'search'])->name('ft-search.search');
 
 Route::post('sms-send', [SmsConfirmedController::class, 'send'])->name('sms-send');
 Route::post('sms-confirmed', [SmsConfirmedController::class, 'confirmed'])->name('sms-confirmed');
 
-Route::get('image', [ImageInv::class, 'index']);
-Route::post('/uploadImage', [ImageInv::class, 'uploadImage']);
-Route::post('/deleteImage', [ImageInv::class, 'deleteImage']);
-
 Route::view('/delivery', 'useful_links.delivery')->name('useful_links.delivery');
 Route::view('/help', 'useful_links.help')->name('useful_links.help');
 Route::view('/return', 'useful_links.return')->name('useful_links.return');
 Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
-Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
-Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');
-Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');
-Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
-Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
-Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
+
+Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
 
 
-Route::get('/testJson', function(){
-    // echo json_encode(json_encode('2021/01/6013cca9c8ca6480x480.jpg,2021/01/6013ccaa90c3c480x480.jpg,2021/01/6013ccab535d9480x480.jpg,2021/01/6013ccabe5397480x480.jpg,2021/01/6013ccac91749480x480.jpg'));
-    echo json_encode('"2021/01/6013cd601d21d480x480.jpg","2021/01/6013cd60b0171480x480.jpg","2021/01/6013cd61429b1480x480.jpg","2021/01/6013cd61ce6fa480x480.jpg","2021/01/6013cd62748b2480x480.jpg","2021/01/6013cd63237e0480x480.jpg"');
-});
+// Route::get('image', [ImageInv::class, 'index']);
+// Route::post('/uploadImage', [ImageInv::class, 'uploadImage']);
+// Route::post('/deleteImage', [ImageInv::class, 'deleteImage']);
+
+
+// Route::get('/testJson', function(){
+//     // echo json_encode(json_encode('2021/01/6013cca9c8ca6480x480.jpg,2021/01/6013ccaa90c3c480x480.jpg,2021/01/6013ccab535d9480x480.jpg,2021/01/6013ccabe5397480x480.jpg,2021/01/6013ccac91749480x480.jpg'));
+//     echo json_encode('"2021/01/6013cd601d21d480x480.jpg","2021/01/6013cd60b0171480x480.jpg","2021/01/6013cd61429b1480x480.jpg","2021/01/6013cd61ce6fa480x480.jpg","2021/01/6013cd62748b2480x480.jpg","2021/01/6013cd63237e0480x480.jpg"');
+// });

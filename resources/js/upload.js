@@ -114,6 +114,7 @@ export function upload(selector, options = {}) {
         
 
     };
+
     const removeHandler = event => {
         if (!event.target.dataset.name) {
             return;
@@ -147,7 +148,7 @@ $(document).on('click', '.add-product-btn', function() {
     if(document.querySelectorAll('.preview-image').length > 7) {
         alert("Вы можете загрузить только 7 фотографии для галереи");
     } 
-    else if($('#image').val() != '') {
+    else if($('#image').attr('value') != '') {
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
@@ -247,8 +248,6 @@ $(document).on('click', '.add-product-btn', function() {
         $('.image-validate').removeClass('d-none');
     }
     
-
-    
 });
 
 function readURL(input) {
@@ -286,3 +285,7 @@ $('#image').change(function() {
 
     readURL(this);
 });
+
+$('#profile_photo_path').change(function() {
+    readURL(this)
+})

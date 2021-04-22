@@ -69,9 +69,11 @@
                       <th>
                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
                       </th>
-
                       <th>
-                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Создатель</a>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Город</a>
+                      </th>
+                      <th>
+                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Дата</a>
                       </th>
                       <th>
                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-status">Статус</a>
@@ -80,8 +82,8 @@
                     </tr>
                   </thead>
                   <tbody class="list font-size-base">
-                    @forelse ($stores as $key => $store)
-                    <tr class="table-{{ $store->is_active ? 'success' : 'danger' }}">
+                    @forelse ($stores as $key => $store) 
+                    <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>
@@ -89,6 +91,9 @@
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
+                      </td>
+                      <td class="item-address">
+                        {{ $store->address }}
                       </td>
                       <td class="item-location">
                         {{ $store->city->name }}
@@ -99,7 +104,13 @@
                       <td class="item-status">
                         <!-- Badge -->
                         <div class="badge badge-primary">
-                            {{ $store->is_active ? 'Активен' : 'Неактивен' }}
+                            @if($store->is_moderation)
+                              В модерации
+                            @elseif($store->is_active == 0)
+                              Неактивен
+                            @else
+                              Активен
+                            @endif
                         </div>
                       </td>
                       <td class="text-right">
@@ -109,14 +120,15 @@
                                 <i class="fe fe-trash"> </i></button>
                             @method('DELETE')
                         </form>
-                        <a href="{{ route('ft-store.edit', $store->slug) }}" class="btn btn-primary m-1 pull-right">
-                            <i class="fe fe-edit"> </i>
+                        <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-secondary m-1 pull-right">
+                          <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
                         <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn btn-{{ $store->is_active ? 'warning' : 'success'}} m-1 fa-pull-right">
-                                <i class="fe fe-{{ $store->is_active ? 'x' : 'check'}}" aria-hidden="true"></i>
+                           
+                            <button href="{{ route('ft-store.toggle', $store) }}" type="submit" class="btn @if($store->is_moderation)btn-primary @elseif($store->is_active == 0) btn-success @else btn-warning @endif m-1 fa-pull-right">
+                                <i class="fe @if($store->is_moderation) fe-feather @elseif($store->is_active == 0) fe-check @else fe-x @endif" aria-hidden="true"></i>
                             </button>
                         </form>
                       </td>

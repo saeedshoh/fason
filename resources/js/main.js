@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 if ($('#gallery').attr('form') == 'add_product') {
     upload('#gallery', {
         multi: true,
-        accept: ['.png', '.jpg', '.jpeg', '.tiff', '.WebP', '.bat', '.jfif']
+        accept: ['image/*']
     })
 }
 
@@ -549,13 +549,13 @@ $(document).on('submit', '#add_product', function(event) {
     $(this).addClass('was-validated')
         //stop submitting the form to see the disabled button effect
 
-    if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+    if ($('#image').attr('value') != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
         $('.add-product-btn')
             .removeAttr('disabled')
             .addClass('btn-success')
     } else {
         event.preventDefault()
-            // $('.add-product-btn').attr('disabled', true)
+        $('.add-product-btn').attr('disabled', true)
 
         return false
     }
@@ -599,17 +599,16 @@ $(document).on('click', '#btn-add_address', function() {
         .val()
     let city_id = $(this)
         .closest('form')
-        .find('input[name="city_id"]')
+        .find('input[name="city_id"]:checked')
         .val()
-    let profile_photo_path = $(this)
-        .closest('form')
-        .find('input[name="profile_photo_path"]')[0].files[0]
+    let profile_photo_path = $('#main-poster').attr('src');
 
     formData.append('phone', phone)
     formData.append('name', name)
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
+    
     if (phone != '' && address != '' && city_id != '') {
         $.ajax({
             url: '/users/contacts',
@@ -1165,23 +1164,21 @@ function cover(input) {
     }
 }
 
-function user_avatar(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader()
-        reader.onload = function(e) {
-            $('.user_avatar svg').hide()
-            $('.user_avatar img')
-                .show()
-                .attr('src', e.target.result)
-        }
+// function user_avatar(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader()
+//         reader.onload = function(e) {
+//             $('.user_avatar svg').hide()
+//             $('.user_avatar img')
+//                 .show()
+//                 .attr('src', e.target.result)
+//         }
 
-        reader.readAsDataURL(input.files[0])
-    }
-}
+//         reader.readAsDataURL(input.files[0])
+//     }
+// }
 
-$('#profile_photo_path').change(function() {
-    user_avatar(this)
-})
+
 
 $('#image').change(function() {
     if ($(this).val() != '') {

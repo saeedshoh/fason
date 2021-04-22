@@ -1855,4 +1855,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .was-validated .custom-select:valid,
  .custom-select.is-valid{
     border-color: #d8d8d8;
+
+.slick-arrow {
+    display: none !important;
+
 }

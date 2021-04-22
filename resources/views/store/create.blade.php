@@ -130,7 +130,7 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{ old('description') }}">
+              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description">{{ old('description') }}</textarea>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
               <div class="form-group row form-check mb-md-1">
                 <div class="col-sm-6">
                     @foreach ($cities as $city)
-                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}">
+                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" {{ old('city_id') == $city->id ? 'checked' : ''}} value="{{ $city->id }}">
                         <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
                         </label><br>

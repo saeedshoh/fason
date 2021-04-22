@@ -88,7 +88,7 @@
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="description" id="description" value="{{ old('description') ? old('description') : $store->description }}">
+              <textarea class="form-control" type="text" name="description" id="description">{{ old('description') ? old('description') : $store->description }}</textarea>
             </div>
           </div>
         </div>
@@ -97,14 +97,14 @@
             <label class="col-sm-4 col-form-label text-muted font-weight-bold">Город:</label>
             <div class="col-sm-8">
               <div class="form-group row form-check">
+                @foreach ($cities as $city)
                 <div class="col-sm-6">
-                    @foreach ($cities as $city)
-                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}" @if($store->city->id == $city->id) checked @endif>
-                        <label class="form-check-label" for="exampleRadios1">
-                            {{ $city->name }}
-                        </label>
-                    @endforeach
+                    <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}" @if($store->city->id == $city->id) checked @endif>
+                    <label class="form-check-label" for="exampleRadios1">
+                        {{ $city->name }}
+                    </label>
                 </div>
+                @endforeach
               </div>
             </div>
           </div>

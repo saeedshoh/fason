@@ -12,10 +12,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\ImageInvTrait;
 
 class UserController extends Controller
 {
+    use ImageInvTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +28,6 @@ class UserController extends Controller
     public function contacts(Request $request)
     {
         $image = null;
-
         if($request->ajax()) {
 
             $request->validate([
@@ -32,13 +35,26 @@ class UserController extends Controller
                 'address' => 'required',
                 'city_id' => 'required'
             ]);
-
+            $main_image_json = $request->profile_photo_path;
+            $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+            
+            $main_image = $year_month.'/'.uniqid().'.jpg';
+           
             $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
             if(!File::isDirectory($month)){
                 File::makeDirectory($month, 0777, true);
             }
-            if($request->file('profile_photo_path')) {
-                $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+           
+            if($request->profile_photo_path) {
+                if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
+                    $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
+                    $data = base64_decode($data);
+                    Storage::disk('public')->put($main_image, $data);
+
+                    $image = $this->uploadImage($main_image);
+                }; 
+                
+                // $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
             }
 
             $user = User::updateOrCreate(

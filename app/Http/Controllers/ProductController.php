@@ -23,6 +23,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
 use App\Http\Traits\ImageInvTrait;
+
 class ProductController extends Controller
 {
     use ImageInvTrait;
@@ -38,7 +39,8 @@ class ProductController extends Controller
         $this->count = 1;
     }
 
-    public function decline($product) {
+    public function decline($product)
+    {
         $product = Product::withoutGlobalScopes()->find($product);
         $product->update(['product_status_id' => 3]);
         Log::create([
@@ -49,7 +51,8 @@ class ProductController extends Controller
         ]);
         return redirect()->route('products.index');
     }
-    public function publish($product) {
+    public function publish($product)
+    {
         $product = Product::withoutGlobalScopes()->find($product);
         $product->update(['product_status_id' => 2]);
         Log::create([
@@ -109,12 +112,12 @@ class ProductController extends Controller
     public function editProduct($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        $attributes = $product->category->attributes->map(function($attributes) use ($product) {
+        $attributes = $product->category->attributes->map(function ($attributes) use ($product) {
             $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);
             return $attributes;
         });
 
-        $attrValues = AttributeValue::all()->map(function($attrValues) use ($product) {
+        $attrValues = AttributeValue::all()->map(function ($attrValues) use ($product) {
             $attrValues->is_checked = $product->attribute_variation->pluck('attribute_value_id')->contains($attrValues->id);
             return $attrValues;
         });
@@ -124,12 +127,12 @@ class ProductController extends Controller
         $parent = null;
         $grandParent = null;
         $hasParentCategory = false;
-        if(!$product->category->parent){
+        if (!$product->category->parent) {
             $hasParentCategory = true;
         }
-        if($category->parent_id != 0){
+        if ($category->parent_id != 0) {
             $parent = Category::where('id', $category->parent_id)->first();
-            if($parent->parent_id){
+            if ($parent->parent_id) {
                 $grandParent = Category::where('id', $parent->parent_id)->first();
             }
         }
@@ -149,16 +152,16 @@ class ProductController extends Controller
     //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
     //         'gallery' => 'sometimes'
     //     ]);
-    
-        
+
+
     //     $img = Image::make($request->file('image')->getRealPath());
-        
+
     //     //Create folder if doesn't exist
     //     $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
     //     if(!File::isDirectory($yearFolder)){
     //         File::makeDirectory($yearFolder, 0777, true);
     //     }
-        
+
     //     $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
     //     $this->cropImage($img, 800, 100, $nowYear);
     //     // return $this->cropImage($img, 800, 100, $nowYear);
@@ -272,14 +275,14 @@ class ProductController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'gallery' => 'sometimes'
-            ]);
-        
+        ]);
+
 
         $img = Image::make($request->file('image')->getRealPath());
 
         //Create folder if doesn't exist
         $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($yearFolder)){
+        if (!File::isDirectory($yearFolder)) {
             File::makeDirectory($yearFolder, 0777, true);
         }
 
@@ -288,7 +291,7 @@ class ProductController extends Controller
 
         $product = Product::create($request->validated() + ['image' => $nowYear . '800x800.jpg', 'gallery' => $request->gallery]);
 
-        if(isset($request->attribute)) {
+        if (isset($request->attribute)) {
             foreach ($request->attribute as $name => $attribute) {
                 $attribute_id = Attribute::where('slug', $name)->first()->id;
                 ProductAttribute::create([
@@ -331,12 +334,12 @@ class ProductController extends Controller
     public function edit($product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
-        $attributes = $product->category->attributes->map(function($attributes) use ($product) {
+        $attributes = $product->category->attributes->map(function ($attributes) use ($product) {
             $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);
             return $attributes;
         });
 
-        $attrValues = AttributeValue::all()->map(function($attrValues) use ($product) {
+        $attrValues = AttributeValue::all()->map(function ($attrValues) use ($product) {
             $attrValues->is_checked = $product->attribute_variation->pluck('attribute_value_id')->contains($attrValues->id);
             return $attrValues;
         });
@@ -345,9 +348,9 @@ class ProductController extends Controller
         $category = Category::where('id', $product->category_id)->first();
         $parent = null;
         $grandParent = null;
-        if($category->parent_id != 0){
+        if ($category->parent_id != 0) {
             $parent = Category::where('id', $category->parent_id)->first();
-            if($parent->parent_id){
+            if ($parent->parent_id) {
                 $grandParent = Category::where('id', $parent->parent_id)->first();
             }
         }
@@ -364,8 +367,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if ($request->image != $product->image && $request->image != null)
-        {
+        if ($request->image != $product->image && $request->image != null) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
                 'gallery' => 'sometimes'
@@ -373,7 +375,7 @@ class ProductController extends Controller
 
             //Create folder if doesn't exist
             $yearFolder = now()->year . '/' . sprintf("%02d", now()->month);
-            if(!File::isDirectory($yearFolder)){
+            if (!File::isDirectory($yearFolder)) {
                 File::makeDirectory($yearFolder, 0777, true);
             }
 
@@ -387,16 +389,16 @@ class ProductController extends Controller
             ]);
         }
         $product->update($request->validated() + ['gallery' => $request->gallery]);
-        if(isset($request->attribute)) {
+        if (isset($request->attribute)) {
 
             $delete = ProductAttribute::where('product_id', $product->id);
-            if($delete->count() > 0){
+            if ($delete->count() > 0) {
                 $delete->delete();
             }
 
             foreach ($request->attribute as $name => $attribute) {
                 $attribute_id = Attribute::where('slug', $name)->first()->id;
-                foreach($attribute['value'] as $value){
+                foreach ($attribute['value'] as $value) {
                     ProductAttribute::create([
                         'product_id' => $product->id,
                         'attribute_id' => $attribute_id,
@@ -481,7 +483,7 @@ class ProductController extends Controller
     //         });
     //     }
     //     $path = $nowYear . $dimension . 'x' . $dimension . '.jpg';
-       
+
     //     // create an image manager instance with favored driver
     //     $manager = new ImageManager(array('driver' => 'gd'));
 
@@ -489,96 +491,93 @@ class ProductController extends Controller
     //     $back->insert($img, 'center');
     //     $watermark = Image::make(public_path('storage/logo_fason_white.png'))->resize(134, 50)->opacity('50');
     //     $back->insert($watermark, 'bottom-right', 50, 50);
-        
+
     //     $back->save(public_path('/storage/' . $path));
     // }
 
-    public function test_store(Request $request) {
-            if($request->ajax()) {
-                $base64_images = json_decode($request->gallery);
-                $main_image_json = $request->image;
-                $year_month = now()->year . '/' . sprintf("%02d", now()->month);
-                
-                $main_image = $year_month.'/'.uniqid().'.jpg';
-                if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
-                    $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
-                    $data = base64_decode($data);
-                    Storage::disk('public')->put($main_image, $data);
-                    $main_image = $this->uploadImage($main_image);
-
-                }; 
-
-                if(!empty($base64_images)) {
-                    $images = [];
-                    foreach($base64_images as $base64_image) {
-                        $image = $year_month.'/'.uniqid().'.jpg';
-                        if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                            $data = substr($base64_image, strpos($base64_image, ',') + 1);
-                            $data = base64_decode($data);
-                            Storage::disk('public')->put($image, $data);
-                            array_push($images, $this->uploadImage($image));
-                        };  
-                    }
-                }
-                Product::create(
-                    [
-                        'name' =>  $request->name,
-                        'description' =>  $request->description,
-                        'category_id' =>  $request->cat_id,
-                        'quantity' =>  $request->quantity,
-                        'price' =>  $request->price,
-                        'store_id' =>  $request->store_id,
-                        'product_status_id' =>  1,
-                        'image' =>  $main_image,
-                        'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
-                        'created_at' => Carbon::now()
-                    ]
-                );
-            }
-    }
-    public function test_update(Request $request, Product $product) {
-
-       
-        if($request->ajax()) {
+    public function test_store(Request $request)
+    {
+        if ($request->ajax()) {
             $base64_images = json_decode($request->gallery);
-            
             $main_image_json = $request->image;
-           
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
-            if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {     
-                $main_image = $year_month.'/'.uniqid().'.jpg';
 
+            $main_image = $year_month . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
                 $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
-               
                 $data = base64_decode($data);
-               
                 Storage::disk('public')->put($main_image, $data);
                 $main_image = $this->uploadImage($main_image);
+            };
 
-            } else {
-                $main_image = str_replace("/storage/","", $main_image_json);
-            }  
-      
-            if(!empty($base64_images)) {
+            if (!empty($base64_images)) {
                 $images = [];
-                
-                foreach($base64_images as $base64_image) {
-                   
+                foreach ($base64_images as $base64_image) {
+                    $image = $year_month . '/' . uniqid() . '.jpg';
                     if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
-                        $image = $year_month.'/'.uniqid().'.jpg';
-                      
+                        $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                        $data = base64_decode($data);
+                        Storage::disk('public')->put($image, $data);
+                        array_push($images, $this->uploadImage($image));
+                    };
+                }
+            }
+            Product::create(
+                [
+                    'name' =>  $request->name,
+                    'description' =>  $request->description,
+                    'category_id' =>  $request->cat_id,
+                    'quantity' =>  $request->quantity,
+                    'price' =>  $request->price,
+                    'store_id' =>  $request->store_id,
+                    'product_status_id' =>  1,
+                    'image' =>  $main_image,
+                    'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
+                    'created_at' => Carbon::now()
+                ]
+            );
+        }
+    }
+    public function test_update(Request $request, Product $product)
+    {
+
+
+        if ($request->ajax()) {
+            $base64_images = json_decode($request->gallery);
+
+            $main_image_json = $request->image;
+
+            $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+            if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
+                $main_image = $year_month . '/' . uniqid() . '.jpg';
+
+                $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
+
+                $data = base64_decode($data);
+
+                Storage::disk('public')->put($main_image, $data);
+                $main_image = $this->uploadImage($main_image);
+            } else {
+                $main_image = str_replace("https://fason.tj//storage/", "", $main_image_json);
+            }
+
+            if (!empty($base64_images)) {
+                $images = [];
+
+                foreach ($base64_images as $base64_image) {
+
+                    if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                        $image = $year_month . '/' . uniqid() . '.jpg';
+
                         $data = substr($base64_image, strpos($base64_image, ',') + 1);
                         $data = base64_decode($data);
                         Storage::disk('public')->put($image, $data);
                         array_push($images, $this->uploadImage($image));
                     } else {
-                        $image = str_replace("https://fason.tj/storage/","", $base64_image);
+                        $image = str_replace("https://fason.tj//storage/", "", $base64_image);
                         array_push($images, $image);
-                    }  
-
-                    
+                    }
                 }
-                
             }
             $product->update(
                 [
@@ -595,5 +594,5 @@ class ProductController extends Controller
                 ]
             );
         }
-    }   
+    }
 }
