@@ -1876,3 +1876,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     border: 1px solid #ff0055 !important;
     font-weight: 500;
 }
+
+/* This won't work.. */
+@supports (gap: 1rem) {
+    .customer-tab {
+      gap: 16px;
+    }
+  }

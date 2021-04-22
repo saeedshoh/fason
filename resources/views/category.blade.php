@@ -278,7 +278,7 @@
             @forelse ($products as $product)
             <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
               <div class="card rounded shadow border-0 h-100 w-100">
-                <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
+                <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="" width="100%" height="212px">
                 <div class="container">
                   <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                   <div class="discription d-none">

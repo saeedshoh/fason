@@ -41,11 +41,12 @@
                                     <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary w-100">
-                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
+                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
 
                                             {{ $order->created_at->format('G:i:s') }}</small>
                                         <small class="text-secondary w-100">
-                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
+
                                             {{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
@@ -100,10 +101,10 @@
                                     <h5 class="h5 text-truncate order-title">{{ $sale->no_scope_product->name}}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <small class="text-secondary w-100">
-                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
+                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
                                             {{ $sale->created_at->format('G:i:s') }}</small>
                                         <small class="text-secondary w-100">
-                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
                                             {{ $sale->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class=" @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-skyblue @else text-success @endif "> {{ $sale->total }} Сомони</span>
