@@ -15,7 +15,7 @@
 
           <!-- Brand -->
 
-          <a class="navbar-brand text-left" href="{{ route('dashboard.name') }}">
+          <a class="navbar-brand text-left" href="{{ route('home') }}">
             <img src="/storage/theme/logo_fason.svg" class="navbar-brand-img" alt="...">
 
           </a>
@@ -34,7 +34,7 @@
               </li> --}}
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('home') }}">
+                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
                   <i class="fe fe-home"></i> Главная
                 </a>
               </li>

@@ -768,15 +768,15 @@ button:focus {
     color: #FF0055 !important;
 }
 
-.customer-tab .active:before {
-    content: '';
-    height: 5px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: #C4C4C4;
-}
+// .customer-tab .active:before {
+//     content: '';
+//     height: 5px;
+//     width: 100%;
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     background: #C4C4C4;
+// }
 
 .color-active {
     position: relative;
@@ -1858,4 +1858,21 @@ input[type="number"]:hover::-webkit-outer-spin-button {
  }
 .slick-arrow {
     display: none !important;
+}
+
+.customer-tab li.nav-item a {
+    padding: 0 0.9rem !important;
+    border: 1px solid #99879D !important;
+    font-weight: 500;
+    border-radius: 7px;
+}
+
+.customer-tab {
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.customer-tab li.nav-item a.active {
+    border: 1px solid #ff0055 !important;
+    font-weight: 500;
 }

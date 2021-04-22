@@ -111,22 +111,22 @@
   <div class="container">
     <ul class="nav nav-tabs customer-tab border-0">
       <li class="nav-item position-relative">
-        <a class="nav-link active border-0 font-weight-bold" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все {{ count($products) }}</a>
+        <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все {{ count($products) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликованные {{ count($acceptedProducts) }}</a>
+        <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликованно {{ count($acceptedProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>
+        <a class="nav-link" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="hidden-tab" data-toggle="tab" href="#hidden" aria-selected="false">Скрыты {{ count($hiddenProducts) }}</a>
+        <a class="nav-link " id="hidden-tab" data-toggle="tab" href="#hidden" aria-selected="false">Скрыты {{ count($hiddenProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклоненные {{ count($canceledProducts) }}</a>
+        <a class="nav-link" id="declined-tab" data-toggle="tab" href="#declined" aria-selected="false">Отклонённые {{ count($canceledProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="notInStock-tab" data-toggle="tab" href="#notInStock" aria-selected="false">Нет в наличии {{ count($notInStock) }}</a>
+        <a class="nav-link" id="notInStock-tab" data-toggle="tab" href="#notInStock" aria-selected="false">Нет в наличии {{ count($notInStock) }}</a>
       </li>
       {{-- <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>

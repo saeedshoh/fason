@@ -38,9 +38,7 @@ export function upload(selector, options = {}) {
         if (!event.target.files.length) {
             return;
         }
-        if(event.target.files.length > 6) {
-            alert("Вы можете загрузить только 7 фотографии для галереи");
-        }
+
         
         files = Array.from(event.target.files);
         // preview.innerHTML = '';
@@ -53,7 +51,7 @@ export function upload(selector, options = {}) {
             new Compressor(file, {
                 strict: false,
                 checkOrientation: false,
-                quality: 0.8,
+                quality: 1,
                 maxWidth: 700,
                 maxHeight: 700,
                 minWidth: 700,
@@ -92,7 +90,11 @@ export function upload(selector, options = {}) {
                         </div>
                         </div>`
                         );
-                        if(document.querySelectorAll('.preview-image').length <= 7) {
+                        let imageList = document.querySelectorAll('.preview-image');
+
+                        imageList.forEach((el, index) => index > 6 ? el.remove() : ''); 
+
+                        if(document.querySelectorAll('.preview-image').length <= 6) {
                             preview.insertAdjacentElement('beforeend', open);
                             open.classList.add('col-3');
                             open.classList.add('trigger-insert');
@@ -119,7 +121,7 @@ export function upload(selector, options = {}) {
         if (!event.target.dataset.name) {
             return;
         }
-        if (files.length <= 8) {
+        if (files.length <= 7) {
             open.classList.remove('d-none');
         }
         
@@ -145,10 +147,7 @@ export function upload(selector, options = {}) {
 }
 
 $(document).on('click', '.add-product-btn', function() {
-    if(document.querySelectorAll('.preview-image').length > 7) {
-        alert("Вы можете загрузить только 7 фотографии для галереи");
-    } 
-    else if($('#image').attr('value') != '') {
+    if($('#image').attr('value') != '') {
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
