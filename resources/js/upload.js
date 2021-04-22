@@ -85,7 +85,7 @@ export function upload(selector, options = {}) {
                         preview.insertAdjacentHTML(
                             'beforeend',
                             `
-                        <div class="preview-image col-3">
+                        <div class="preview-image col-3 border-gray">
                         <div class="profile-pic">
                             <img src="${src}" alt="${result.name}" class="preview-element-image"/>
                             <div class="deleteImage text-white" data-name="${result.name}">&times;</div>

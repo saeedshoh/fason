@@ -35,7 +35,7 @@
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6 px-2 px-sm-3">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="64">
+                                <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="64" height="64">
                                 <div class="d-flex flex-column align-self-center w-100">
                                     
                                     <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
@@ -89,7 +89,7 @@
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
                                 <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="64" >
+                                <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="64" height="64">
                                 <div class="d-flex flex-column align-self-center w-100">
                                     <h5 class="h5 text-truncate order-title">{{ $sale->no_scope_product->name}}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
