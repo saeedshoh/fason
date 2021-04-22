@@ -8,15 +8,7 @@
 <section class="content">
   <div class="container">
     <!--Edit logo and banner start-->
-    @if ($errors->any())
-        <div class="alert alert-danger my-3">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="row d-flex d-md-none create-store">
       <div class="col-4"><h6 class="font-weight-bold"><svg width="15" height="13" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#000"/>
@@ -109,6 +101,11 @@
                 <div class="input-group-text @error('name') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
               <input class="form-control border-left-0 @error('name') is-invalid @enderror" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
+              @error('name')
+                <div class="invalid-feedback">
+                  Поле наазвание магазина обязательно для заполнения.
+                </div>
+              @enderror
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
               </div>
@@ -121,7 +118,11 @@
                 <div class="input-group-text @error('address') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
               <input class="form-control border-left-0 @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ old('address') }}">
-
+              @error('address')
+              <div class="invalid-feedback">
+                Поле адрес магазина обязательно для заполнения.
+              </div>
+              @enderror
             </div>
           </div>
           <div class="form-group row">
@@ -131,6 +132,11 @@
                 <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
               <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description">{{ old('description') }}</textarea>
+              @error('description')
+              <div class="invalid-feedback">
+                Поле описание магазина обязательно для заполнения.
+              </div>
+              @enderror
             </div>
           </div>
         </div>
@@ -145,9 +151,17 @@
                         <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
                         </label><br>
+                        
                     @endforeach
+                 
                 </div>
+                @error('city_id')
+                  <div class="invalid-feedback d-block">
+                    Выберите город
+                  </div>
+                @enderror
               </div>
+             
             </div>
           </div>
           <div class="form-group row d-none d-md-block">

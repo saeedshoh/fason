@@ -147,7 +147,7 @@
                       @if($product->product_status->id == 1)
                         В модерации
                       @else
-                        <img height="15px" width="15px" src="../storage/theme/icons/clock.svg"> До скрытия
+                        <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
                           @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4'])) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
                           @else {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
