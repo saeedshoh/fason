@@ -19,7 +19,7 @@
         <div class="col-12 col-md-4 col-lg-2 d-flex">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle font-weight-bold category-dropdown position-relative" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Категории
+              Категории
             </button>
           </div>
         </div>
@@ -91,7 +91,7 @@
 
       <div id="categoriesRow" class="row">
         <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
-          <h6 class="text-muted text-decoration-none mt-4 mb-0 font-weight-bold text-center d-lg-none d-xl-none">
+          <h6 class="text-muted mb-other-product text-decoration-none mb-4 mt-3 mt-md-5 font-weight-bold text-center d-lg-none d-xl-none">
             Категории </h6>
           <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
             @forelse ($categories as $category)
