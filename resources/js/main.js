@@ -1081,8 +1081,11 @@ $('.favorite').on('click', function() {
         $('.activeSaved').find('.text-sucsess').text("Вы убрали товар из избранного !");
     } else {
         $('.activeSaved').find('.text-sucsess').text("Вы добавлии товар в избранное !");
-
     }
+    setTimeout(() => {
+        $('.activeSaved').modal('hide')
+
+    }, 1000);
 });
 // preview image
 

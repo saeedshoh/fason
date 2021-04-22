@@ -34,13 +34,19 @@
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6 px-2 px-sm-3">
-                                <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="64" height="64">
+                                <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
+                                <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="90" height="90">
                                 <div class="d-flex flex-column align-self-center w-100">
                                     
                                     <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
-                                        <small class="text-secondary">{{ $order->created_at->format('d.m.Y') }}</small>
+                                        <small class="text-secondary w-100">
+                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
+
+                                            {{ $order->created_at->format('G:i:s') }}</small>
+                                        <small class="text-secondary w-100">
+                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+                                            {{ $order->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
                                         </h6>
@@ -52,10 +58,10 @@
                             <div class="col-2 d-none d-lg-block">
                                 <h6 class="h6">Дата заказа</h6>
                                 <h4 class="h4 font-weight-bold">
-                                    <img width="20px"  src="../storage/calendar.svg">
+                                    <img width="20px"  src="/storage/calendar.svg">
                                     {{ $order->created_at->format('d.m.Y') }}</h4>
                                 <h4 class="h4 font-weight-bold">
-                                    <img width="20px"  src="../storage/wall-clock.svg">
+                                    <img width="20px"  src="/storage/wall-clock.svg">
                                     {{  $order->created_at->format('G:i:s') }}
                                 </h4>
                             </div>
@@ -88,12 +94,17 @@
                         </div>
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <div class="col-12 col-lg-6">
-                                <div class="d-flex w-100 justify-content-start justify-lg-content-center status">
-                                <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="64" height="64">
+                                <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
+                                <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="90" height="90">
                                 <div class="d-flex flex-column align-self-center w-100">
                                     <h5 class="h5 text-truncate order-title">{{ $sale->no_scope_product->name}}</h5>
                                     <div class="d-flex justify-content-between flex-wrap">
-                                        <small class="text-secondary">{{ $sale->created_at->format('d.m.Y') }}</small>
+                                        <small class="text-secondary w-100">
+                                            <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
+                                            {{ $sale->created_at->format('G:i:s') }}</small>
+                                        <small class="text-secondary w-100">
+                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+                                            {{ $sale->created_at->format('d.m.Y') }}</small>
                                         <h6 class="h6 text-secondary d-block d-lg-none">
                                             <span class="text-uppercase">Цена</span>: <span class=" @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-skyblue @else text-success @endif "> {{ $sale->total }} Сомони</span>
                                         </h6>

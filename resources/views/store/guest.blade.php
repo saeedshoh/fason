@@ -56,6 +56,7 @@
     </div>
     <!--goods start-->
     <div class="container mb-5">
+      <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center">Все товары магазина</h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0">
 
         @forelse ($products as $product)
