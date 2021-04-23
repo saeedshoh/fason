@@ -111,10 +111,10 @@
   <div class="container">
     <ul class="nav nav-tabs customer-tab border-0">
       <li class="nav-item position-relative">
-        <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все {{ count($products) }}</a>
+        <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все товары {{ count($products) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликованно {{ count($acceptedProducts) }}</a>
+        <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликовано {{ count($acceptedProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
         <a class="nav-link" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>

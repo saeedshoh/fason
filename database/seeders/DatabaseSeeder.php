@@ -20,20 +20,20 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CitySeeder::class,
-            // CategorySeeder::class,
-            // AttributeSeeder::class,
+            CategorySeeder::class,
+            AttributeSeeder::class,
             ProductStatusSeeder::class,
-            // BannerSeeder::class,
+            BannerSeeder::class,
             OrderStatusSeeder::class,
             UserSeeder::class,
-            // StoreSeeder::class,
-            // StoreEditSeeder::class,
-            // ProductSeeder::class,
+            StoreSeeder::class,
+            StoreEditSeeder::class,
+            ProductSeeder::class,
             MonetizationSeeder::class,
             PermissionSeeder::class,
         ]);
-        // Category::factory(20)->create();
-        // Product::factory(20)->create();
+        Category::factory(20)->create();
+        Product::factory(20)->create();
 
         ItemsForPage::create([
             'qty' => 20
