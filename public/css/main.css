@@ -12003,6 +12003,13 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 991px) {
+  .customer-tab {
+    display: grid;
+    gap: 10px;
+    margin-top: 0 !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
   .line-test__category::before {
     height: 0;
   }
@@ -12087,6 +12094,23 @@ input[type=number] {
 
   .price-place .custom-bttn {
     font-size: 10px;
+  }
+
+  .customer-tab {
+    display: flex !important;
+    padding: 10px 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex: 0 0 100%;
+    overflow-x: scroll;
+  }
+
+  .customer-tab .nav-item + .customer-tab .nav-item {
+    margin-right: 15px;
+  }
+
+  .customer-tab .nav-item {
+    flex: 0 0 auto;
   }
 }
 
@@ -13034,27 +13058,22 @@ input[type=number]:hover::-webkit-outer-spin-button {
 }
 
 .customer-tab li.nav-item a {
-  padding: 0 0.9rem !important;
+  padding: 0 0.5rem !important;
   border: 1px solid #99879D !important;
   font-weight: 500;
   border-radius: 7px;
 }
 
 .customer-tab {
-  gap: 1rem;
   margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  font-size: 13px;
 }
 
 .customer-tab li.nav-item a.active {
   border: 1px solid #ff0055 !important;
   font-weight: 500;
-}
-
-/* This won't work.. */
-
-@supports (gap: 1rem) {
-  .customer-tab {
-    gap: 16px;
-  }
 }
 
