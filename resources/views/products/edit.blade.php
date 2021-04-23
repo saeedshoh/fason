@@ -49,7 +49,7 @@
         <!--add image end-->
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5">
-          <form action="{{ route('test_update', $product) }}" method="POST" enctype="multipart/form-data" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate id="add_product" onsubmit="return false">
+          <form action="{{ route('test_update', $product) }}" method="POST" enctype="multipart/form-data" class="edit-product {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate id="add_product" onsubmit="return false">
             @csrf
             @method('PUT')
             <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
@@ -71,14 +71,14 @@
                                 @endforelse
                                     </select>
                                     @error('category_id')
-                                    <div class="invalid-feedback">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
-                                    </div>
+                                    </small>
                                     @enderror
                                 </select>
-                                <div class="invalid-feedback">
+                                <small class="invalid-feedback">
                                     Выберите категорию
-                                </div>
+                                </small>
                             </div>
                         </div>
                         <div id="categories-row"></div>
@@ -90,9 +90,9 @@
                                 Извините ничего не найдено
                             @endforelse
                                 </select>
-                                <div class="invalid-feedback">
+                                <small class="invalid-feedback">
                                     Выберите категорию
-                                </div>
+                                </small>
                             </div>
                         </div>
                         <div id="categories-row">
@@ -111,9 +111,9 @@
                                                 Извините ничего не найдено
                                             @endforelse
                                         </select>
-                                        <div class="invalid-feedback">
+                                        <small class="invalid-feedback">
                                             Выберите категорию
-                                        </div>
+                                        </small>
                                     </div>
                                 </div>
                                 <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -130,9 +130,9 @@
                                                 Извините ничего не найдено
                                             @endforelse
                                         </select>
-                                        <div class="invalid-feedback">
+                                        <small class="invalid-feedback">
                                             Выберите категорию
-                                        </div>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -144,9 +144,9 @@
                                     Извините ничего не найдено
                                 @endforelse
                             </select>
-                            <div class="invalid-feedback">
+                            <small class="invalid-feedback">
                                 Выберите категорию
-                            </div>
+                            </small>
                         </div>
                         </div>
                         <div id="categories-row">
@@ -165,9 +165,9 @@
                                                 Извините ничего не найдено
                                             @endforelse
                                         </select>
-                                        <div class="invalid-feedback">
+                                        <small class="invalid-feedback">
                                             Выберите категорию
-                                        </div>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -179,9 +179,9 @@
                             Извините ничего не найдено
                         @endforelse
                             </select>
-                            <div class="invalid-feedback">
+                            <small class="invalid-feedback">
                                 Выберите категорию
-                            </div>
+                            </small>
                         </div>
                         </div>
                         <div id="categories-row">
@@ -195,9 +195,9 @@
                                         <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
                                             <option disabled>Выберите категорию</option>
                                         </select>
-                                        <div class="invalid-feedback">
+                                        <small class="invalid-feedback">
                                             Выберите категорию
-                                        </div>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -211,9 +211,9 @@
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
                     <input type="text" class="input_placeholder_style form-control position-relative border-left-0 @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}">
-                    <div class="invalid-feedback">
+                    <small class="invalid-feedback">
                         Введите название товара
-                    </div>
+                    </small>
                 </div>
             </div>
             <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -223,9 +223,9 @@
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
                     <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{ old('description') ?? $product->description }}</textarea>
-                    <div class="invalid-feedback">
+                    <small class="invalid-feedback">
                         Введите описание товара
-                    </div>
+                    </small>
                 </div>
             </div>
             <div>
@@ -236,9 +236,9 @@
                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                         </div>
                     <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}">
-                    <div class="invalid-feedback">
+                    <small class="invalid-feedback">
                         Введите кол/во товара
-                    </div>
+                    </small>
                     </div>
                 </div>
                 <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -248,9 +248,9 @@
                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                         </div>
                     <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}">
-                    <div class="invalid-feedback">
+                    <small class="invalid-feedback">
                         Введите цену товара
-                    </div>
+                    </small>
                     </div>
                 </div>
                 <div id="attributes" class="form-group d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
