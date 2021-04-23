@@ -346,4 +346,14 @@
       </div>
     </div>
   </section>
+
+  
+<style>
+    body {
+      position: relative;
+    }
+  </style>
+  <div class="success-preloader d-none">
+    <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+  </div>
 @endsection

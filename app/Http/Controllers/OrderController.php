@@ -88,6 +88,8 @@ class OrderController extends Controller
                     'order_status_id' => '1'
                 ]);
             }
+            $product->decrement('quantity');
+            $product->save();
             if($order) {
                 $comment = '';
                 if ( !empty ( $order->comment ) ) {
