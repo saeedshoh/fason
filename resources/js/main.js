@@ -774,7 +774,7 @@ $('body').on('change', '#cat_child', function() {
                                 <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                             </div>
                             <select class="input_placeholder_style custom-select position-relative" id="grandchildren" name="category_id" required>
-                                <option>Выберите под-категорию</option>
+                                <option value="">Выберите под-категорию</option>
                             </select>
                             <small class="invalid-feedback">
                                 Выберите под-категорию
