@@ -365,8 +365,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, $product)
     {
+        $product = Product::withoutGlobalScopes()->find($product);
         if ($request->image != $product->image && $request->image != null) {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
