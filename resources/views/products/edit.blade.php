@@ -337,7 +337,7 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="product_status_id" value="1">
                 <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
-                    <button id="submitAddProduct" type="submit" class="add-product-btn w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 rounded py-2 w-lg-75"> Изменить </button>
+                    <button id="submitAddProduct" type="submit" class="add-product-btn w-75 font-weight-bold btn-danger border-0 my-5 my-lg-3 py-2 w-lg-75 rounded-11"> Изменить </button>
                 </div>
 
             </div>
