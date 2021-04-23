@@ -490,12 +490,15 @@ $(document).on('change', '#cat_parent', function() {
                                 </div>
                                 <select class="input_placeholder_style custom-select position-relative" id="cat_child" name="category_id" required>
                                 </select>
+                                <small class="invalid-feedback">
+                                Выберите категорию
+                              </small>
                             </div>
                         </div>
                     </div>
                 `)
                 $('#cat_child').empty().append(`
-                    <option>Выберите под-категорию</option>
+                    <option value="">Выберите под-категорию</option>
                 `)
                 $('#child_div').remove()
                 data.forEach(element => {
