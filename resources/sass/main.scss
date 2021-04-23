@@ -901,6 +901,13 @@ input[type=number] {
         font-size: 10px;
     }
 
+
+}
+
+@media only screen and (max-width: 350px) {
+    .mobile-nav--title {
+        display: none;
+    }
     .customer-tab {
         display: flex !important;
         padding: 10px 0;
@@ -908,18 +915,11 @@ input[type=number] {
         flex-wrap: nowrap;
         flex: 0 0 100%;
         overflow-x: scroll;
-        & .nav-item +  & .nav-item {
-            margin-right: 15px;
-        }
+
         & .nav-item {
+            margin-right: 15px;
             flex: 0 0 auto;
         }
-    }
-}
-
-@media only screen and (max-width: 350px) {
-    .mobile-nav--title {
-        display: none;
     }
 }
 

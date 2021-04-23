@@ -12095,6 +12095,12 @@ input[type=number] {
   .price-place .custom-bttn {
     font-size: 10px;
   }
+}
+
+@media only screen and (max-width: 350px) {
+  .mobile-nav--title {
+    display: none;
+  }
 
   .customer-tab {
     display: flex !important;
@@ -12105,18 +12111,9 @@ input[type=number] {
     overflow-x: scroll;
   }
 
-  .customer-tab .nav-item + .customer-tab .nav-item {
-    margin-right: 15px;
-  }
-
   .customer-tab .nav-item {
+    margin-right: 15px;
     flex: 0 0 auto;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  .mobile-nav--title {
-    display: none;
   }
 }
 
