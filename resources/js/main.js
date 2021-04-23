@@ -491,8 +491,8 @@ $(document).on('change', '#cat_parent', function() {
                                 <select class="input_placeholder_style custom-select position-relative" id="cat_child" name="category_id" required>
                                 </select>
                                 <small class="invalid-feedback">
-                                Выберите категорию
-                              </small>
+                                    Выберите под-категорию
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -776,6 +776,9 @@ $('body').on('change', '#cat_child', function() {
                             <select class="input_placeholder_style custom-select position-relative" id="grandchildren" name="category_id" required>
                                 <option>Выберите под-категорию</option>
                             </select>
+                            <small class="invalid-feedback">
+                                Выберите под-категорию
+                            </small>
                         </div>
                     </div>
                 `)
