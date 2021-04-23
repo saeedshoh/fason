@@ -147,7 +147,7 @@ export function upload(selector, options = {}) {
 }
 
 $(document).on('click', '.add-product-btn', function() {
-    if($('#image').attr('value') != '') {
+    if($('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
@@ -242,9 +242,6 @@ $(document).on('click', '.add-product-btn', function() {
                 }
             });
         }
-    } else {
-        $('#main-poster').addClass('border-danger');
-        $('.image-validate').removeClass('d-none');
     }
     
 });
@@ -276,11 +273,12 @@ function readURL(input) {
 }
 
 $('#image').change(function() {
-    if ($(this).val() != '')
-        $('#main-poster')
-        .removeClass('border-danger')
-        .addClass('border-success');
-    else $('#main-poster').addClass('border-danger');
+    if ($(this).val() != '') {
+        $('#main-poster').removeClass('border-danger')
+    }
+    else {
+     $('#main-poster').addClass('border-danger');
+    }    
 
     readURL(this);
 });

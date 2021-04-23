@@ -38,7 +38,7 @@
         <!--Main attributes of product start-->
         <div class="col-12 col-lg-7 mt-5">
           {{--  <form action="{{ route('ft-products.store') }}" method="POST" enctype="multipart/form-data" id="add_product" class="needs-validation {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate>  --}}
-          <form method="POST" enctype="multipart/form-data" id="add_product" class="{{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
+          <form method="POST" enctype="multipart/form-data" id="add_product" class="add-product {{ $errors->all() == true ? 'was-validated' : '' }}" novalidate onsubmit="return false">
             @csrf
             @method('POST')
               <input type="file" accept="image/*" id="image" class="d-none input_placeholder_style" name="image" required>
@@ -56,9 +56,9 @@
                           Извините ничего не найдено
                       @endforelse
                     </select>
-                    <div class="invalid-feedback">
+                    <small class="invalid-feedback">
                       Выберите категорию
-                    </div>
+                    </small>
                   </div>
               </div>
               <div id="categories-row">
@@ -86,9 +86,9 @@
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
                 <input type="text" class="input_placeholder_style form-control position-relative border-left-0" id="name" name="name" value="{{ old('name') }}" required>
-                <div class="invalid-feedback">
+                <small class="invalid-feedback">
                   Введите название товара
-                </div>
+                </small>
               </div>
             </div>
             <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -98,9 +98,9 @@
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
                 <textarea class="input_placeholder_style form-control position-relative border-left-0" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
-                <div class="invalid-feedback">
+                <small class="invalid-feedback">
                   Введите описание товара
-                </div>
+                </small>
               </div>
             </div>
               <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
@@ -110,9 +110,9 @@
                     <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                   </div>
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
-                  <div class="invalid-feedback">
+                  <small class="invalid-feedback">
                     Введите кол/во товара
-                  </div>
+                  </small>
                 </div>
               </div>
 
@@ -123,9 +123,9 @@
                     <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                   </div>
                   <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
-                  <div class="invalid-feedback">
+                  <small class="invalid-feedback">
                     Введите цену товара
-                  </div>
+                  </small>
                 </div>
               </div>
               <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">

@@ -545,17 +545,36 @@ $(document).on('change', '[name="category_id"]', function() {
 //             .removeAttr('disabled')
 //     }
 // })
-$(document).on('submit', '#add_product', function(event) {
+
+$('#add_product input, #add_product textarea, #add_product select').on('change', function() {
+    if($(this).val() == "") {
+        $(this).parent().find('div, input, textarea').addClass('border-danger');
+        $(this).parent().find('small').addClass('d-block');
+
+    } else {
+        $(this).parent().find('div, input, textarea').removeClass('border-danger');
+        $(this).parent().find('small').removeClass('d-block');
+
+    }
+    
+});
+$(document).on('submit', '#add_product',  function(event) {
     $(this).addClass('was-validated')
         //stop submitting the form to see the disabled button effect
-
-    if ($('#image').attr('value') != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-        $('.add-product-btn')
-            .removeAttr('disabled')
-            .addClass('btn-success')
-    } else {
+    if($('.add-product').find('#image').val() == '') {
+        $('#main-poster').parent().find('small').removeClass('d-none')
+        $('#main-poster').addClass('border-danger')
         event.preventDefault()
-        $('.add-product-btn').attr('disabled', true)
+        return false
+    }
+    if($('.edit-product').find('#image').attr('value') == '') {
+        $('#main-poster').parent().find('small').removeClass('d-none')
+        $('#main-poster').addClass('border-danger')
+        event.preventDefault()
+        return false
+    }
+    if ($('#name').val() == '' && $('#description').val() == '' && $('#quantity').val() == '' && $('select[name="category_id"]').val() == '' && $('#price').val() == '') {
+        event.preventDefault()
 
         return false
     }
@@ -1185,7 +1204,6 @@ function cover(input) {
 
 $('#image').change(function() {
     if ($(this).val() != '') {
-        $('#main-poster').removeClass('border-danger').addClass('border-success')
         $('.image-validate').addClass('d-none');
     } else {
         $('#main-poster').addClass('border-danger')
