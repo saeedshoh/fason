@@ -74,7 +74,7 @@
                                 <h6 class="h6">Статус</h6>
                                 <h4 class="h5 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @else text-success @endif ">{{ $order->order_status->name }}</h4>
                             </div>
-                            <a href="{{ route('ft-products.single', $order->no_scope_product->slug) }}" class="stretched-link"></a>
+                            <a href="{{ route('ft-order.single', $order->id) }}" class="stretched-link"></a>
                         </div>
                     </div>
                 @empty
@@ -134,7 +134,7 @@
                                 <h6 class="h6">Статус</h6>
                                 <h4 class="h5 font-weight-bold @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-skyblue @else text-success @endif ">{{ $sale->order_status->name }}</h4>
                             </div>
-                            <a href="{{ route('ft-products.single', $sale->no_scope_product->slug) }}" class="stretched-link"></a>
+                            <a href="{{ route('ft-order.single', $sale->id) }}" class="stretched-link"></a>
                         </div>
                     </div>
                     @endif

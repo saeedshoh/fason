@@ -19,7 +19,7 @@
           </div>
           <div class="my-3">
             <label for="image">
-              <img src="/storage/theme/avatar_product.svg" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" style="object-fit: cover;">
+              <img src="/storage/theme/icons/add_product_plus.svg" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" style="object-fit: cover;">
               <small class="text-danger mt-2 font-weight-bold image-validate d-none">
                 Выберите изображение
               </small>

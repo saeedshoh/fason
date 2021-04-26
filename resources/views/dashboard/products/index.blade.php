@@ -106,7 +106,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     @forelse ($products as $key => $product)
-                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif(!$product->store)secondary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @else()danger @endif">
+                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>

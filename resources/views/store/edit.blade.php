@@ -24,8 +24,11 @@
       <div class="row mt-sm-3">
         <div class="col-md-3 px-0 px-md-2 position-relative">
           <div class="text-center d-none d-md-block">
-            <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="w-100 rounded" id="avatar-poster" height="216">
+            <label for="avatar">
+              <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="w-100 rounded" id="avatar-poster" height="216">
+            </label>
             <div class="edit-store-logo position-absolute w-100">
+
               <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                 Изменить
                 <input type="file" accept="image/*"  class="d-none" id="avatar" name="avatar">
@@ -34,8 +37,9 @@
           </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
-
+          <label for="cover">
+            <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
+          </label>
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
               <img src="/storage/theme/icons/camera.svg" height="14px" class="mr-1 mw-100 align-text-top">Изменить
@@ -48,7 +52,7 @@
           <div class="row">
             <div class="col-4 text-center justify-items-center align-self-center">
               <div class="d-inline-block position-relative">
-                <img src="/storage/{{ $store->avatar }}" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
+                <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
                 <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
                   <img src="/storage/theme/icons/camera.svg">
                 </label>

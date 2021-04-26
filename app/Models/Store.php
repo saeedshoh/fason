@@ -8,10 +8,11 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,6 +24,7 @@ class Store extends Model
         'city_id',
         'is_active',
         'is_monetized',
+        'is_moderation',
     ];
     public function city()
     {

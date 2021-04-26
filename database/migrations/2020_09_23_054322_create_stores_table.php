@@ -25,6 +25,8 @@ class CreateStoresTable extends Migration
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->tinyInteger('is_active')->default(0);
             $table->boolean('is_monetized')->default(false);
+            $table->tinyInteger('is_moderation')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

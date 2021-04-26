@@ -189,6 +189,7 @@ class StoreController extends Controller
         // }
         
         if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+            Store::where('id', $store)->withoutGlobalScopes()->update(['is_moderation' => 1]);
             $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
         }
         $city = City::where('id', $request->city_id)->first()->name;
@@ -244,6 +245,8 @@ class StoreController extends Controller
                 'avatar' => $store->avatar,    
                 'cover' => $store->cover,    
                 'city_id' => $store->city_id,
+                'city_id' => $store->city_id,
+                'is_moderation' => 0,
                 'is_active' => 1,
             ]);
         }
