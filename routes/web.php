@@ -121,6 +121,7 @@ Route::middleware('auth')->group(function () {
     
     Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
     Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
+    Route::get('orders/single/{order}', [OrderController::class, 'single'])->name('ft-order.single');
     Route::get('/add_to_favorite', [HomeController::class, 'addToFavorites'])->name('add_to_favorite');
 
     Route::get('/profile', [UserController::class, 'ft_show'])->name('profile');

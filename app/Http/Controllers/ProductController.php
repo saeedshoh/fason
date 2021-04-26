@@ -51,10 +51,13 @@ class ProductController extends Controller
         ]);
         return redirect()->route('products.index');
     }
+
     public function publish($product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
+        
         $product->update(['product_status_id' => 2]);
+        $product->restore();
         Log::create([
             'user_id'   => Auth::user()->id,
             'action'    => 2,
@@ -428,7 +431,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $category = Category::where('id', $product->category_id)->first()->name;
-        $store = Store::where('id', $product->store_id)->first()->name;
+        $store = Store::where('id', $product->store_id)->withoutGlobalScopes()->first()->name;
         Log::create([
             'user_id'   => Auth::user()->id,
             'action'    => 3,

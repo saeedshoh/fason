@@ -14,7 +14,37 @@
  <!--Header-end-->
   <section class="content profile mt-0 mt-md-3">
     <div class="container">
+    
+      @if($store->is_moderation)
+        <div class="col-12  px-0 px-md-2">
+          <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Ваши изменения вступят в силу как только <span class="alert-link">пройдут модерацию!</span>
+          </div>
+        </div>
+      @elseif($store->is_active == 0)
+        <div class="col-12  px-0 px-md-2">
+          <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Внимание!</h4>
+            <p>На данный момент Ваш магазин находится <span class="alert-link">в процессе модерации</span>. Вы можете <span class="alert-link">добавлять товары и вносить изменения</span>.</p>
+            <hr>
+            <p class="mb-0">Данные оторазятся клиентам после одобрения.</p>
+          </div>
+        </div>
+      @else
+
+      @endif
+      <script>
+        $(".alert").alert();
+      </script>
       <div class="row">
+
+
         <!--store logo start-->
         <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">

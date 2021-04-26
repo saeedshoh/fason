@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasSlug;
-    use HasFactory;
+    use HasSlug, SoftDeletes, HasFactory;
 
     protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id', 'is_monetized', 'order_no'];
 

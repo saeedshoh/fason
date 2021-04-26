@@ -25,6 +25,7 @@ class CreateStoreEditsTable extends Migration
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->tinyInteger('is_active')->default(0);
             $table->tinyInteger('is_moderation')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

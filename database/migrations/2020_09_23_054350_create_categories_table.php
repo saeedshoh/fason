@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->foreignId('parent_id');
             $table->integer('order_no');
             $table->boolean('is_monetized')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
