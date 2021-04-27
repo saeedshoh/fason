@@ -165,10 +165,9 @@ class OrderController extends Controller
     public function single($order)
     {
         
-        $order = Order::find($order)->with('no_scope_product')->first();
-        $product = Product::withTrashed()->find($order->id)->first();
+        $order = Order::withoutGlobalScopes()->where('id', $order)->with('no_scope_product')->first();
+        $product = Product::withoutGlobalScopes()->withTrashed()->where('id', $order->product_id)->first();
         $attributes = $product->attribute_variation;
-
         return view('orders.show', compact('product', 'attributes'));
     }
 

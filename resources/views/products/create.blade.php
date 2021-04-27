@@ -97,7 +97,7 @@
                 <div class="input-group-prepend position-relative">
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
-                <textarea class="input_placeholder_style form-control position-relative border-left-0" id="description" rows="3" name="description" required>{{ old('description') }}</textarea>
+                <textarea class="input_placeholder_style form-control position-relative border-left-0" maxlength="1000" id="description" rows="3" name="description" required style="resize: vertical">{{ old('description') }}</textarea>
                 <small class="invalid-feedback">
                   Введите описание товара
                 </small>

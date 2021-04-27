@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @extends('layouts.header')
+
 @extends('layouts.footer')
 
 @section('title', $product->name)
@@ -84,7 +85,7 @@
           </div>
         </div>
         <div class="mt-3 d-block d-lg-none w-100 order-2">
-          <div class="mt-3 text-center d-flex justify-content-around mb-5">
+          <div class="my-3 text-center d-flex justify-content-around">
             <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
               <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин продавца
             </a>
@@ -123,10 +124,21 @@
 
             </div>
           </div>
-          <div class="row align-items-center mt-lg-3 prod-controls py-3">
-            <div class="col-12">
+          <div class="row align-items-center mt-lg-3 prod-controls">
+            <div class="col-12 py-3">
               <div class="text-center text-md-left">
                 <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ round($product->price_after_margin) }}</span> <span class="mb-currency">Сомони</span></h5>
+              </div>
+            </div>
+            <div class="col-4 my-md-0 my-3 text-center d-none">
+              <div class="position-relative d-flex align-items-center number justify-content-center">
+                <form id="number-spinner-horizontal" class="t-neutral">
+                  <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+                     <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                     <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                     <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                   </fieldset>
+                 </form>
               </div>
             </div>
           </div>
@@ -142,6 +154,7 @@
       </div>
     </div>
   </section>
-
+  <section class="divide"></section>
+  
 
 @endsection

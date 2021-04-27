@@ -49,9 +49,11 @@
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('products.update', $product) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
+                        <form action="{{ route('products.update', $product) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="add_product">
                             @csrf
                             @method('put')
+                            <input type="text" id="gallery" class="d-none" name="gallery" value="{{ $product->gallery }}">
+
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="category_id">Категории</label>
@@ -254,7 +256,7 @@
                                             <label for="image">Image</label>
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="image">Выберите файл</label>
-                                                <input value="{{ old('image') ?? $product->image}} " type="file" accept="image/*"  name="image" form="create_category" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
+                                                <input value="{{ old('image') ?? $product->image}} " type="file" accept="image/*"  name="image" form="add_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
                                                 <small class="text-muted">Размер > 480px * 480px</small>
                                                 @error('image')
                                                 <div class="invalid-feedback">
@@ -265,8 +267,20 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    <div id="db-preview-image" class="add-product-secondary" data-edit="true">                            
+                                        @if(!empty($product->gallery))
+                                            @foreach(json_decode($product->gallery) as $gallery)
+                                                    <div class="preview-image col-3">
+                                                        <div class="profile-pic">
+                                                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image  pic-item" alt="{{ $product->name }}" width="89" height="100" style="object-fit: contain;">
+                                                            <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
+                                                        </div>
+                                                    </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
 
-                                    <div id="db-preview-image" class="row add-product-secondary">
+                                    {{--  <div id="db-preview-image" class="row add-product-secondary">
                                         @if(!empty($product->gallery))
                                             @foreach(json_decode($product->gallery) as $gallery)
                                                 <div class="col-3 text-center product_image mb-4" data-image="true">
@@ -278,8 +292,8 @@
                                             @endforeach
                                         @endif
                                        
-                                    </div>
-                                    <input type="text" id="gallery" class="form-control d-none" name="gallery" value="{{ $product->gallery }}" form="create_category">
+                                    </div>  --}}
+                                    
 
                                     <form method="post" action="" enctype="multipart/form-data" id="myform">
                                         <input type="file" accept="image/*"  id="galler" class="d-none" name="galler">
@@ -299,7 +313,7 @@
                                             <div class="custom-file">
                                                 <label class="custom-file-label" for="gallery">Выберите файл</label>
                                                 <label class="custom-file-label" for="gallery">Выберите файл для галереи</label>
-                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" accept="image/*"  multiple name="gallery[]" form="create_category" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
+                                                <input value="{{ old('gallery') ?? $product->icon}} " type="file" accept="image/*"  multiple name="gallery[]" form="add_product" id="gallery" class="custom-file-input @error('gallery')is-invalid @enderror" lang="ru">
                                                 <small class="text-muted">Размер > 480px * 480px</small>
                                                 @error('gallery')
                                                 <div class="invalid-feedback">

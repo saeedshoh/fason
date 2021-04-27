@@ -53,6 +53,17 @@
         <div>
         </div>
         <div class="col-12 d-block d-lg-none order-2">
+{{--  
+          <div class="d-flex justify-content-center">
+
+            <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
+              @csrf
+                  <button class="btn btn-danger delete-confirm custom-radius" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
+              @method('DELETE')
+            </form>  --}}
+
+          </div>
+
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
@@ -162,7 +173,7 @@
               <div class="text-center text-md-right">
                 @if(Auth::check())
                   @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
-                    <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
+                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @else
                     <!-- Button trigger modal -->
                     <button id="buyBtn" type="button" class="btn btn-danger custom-radius d-none d-lg-block" data-toggle="modal">
@@ -192,7 +203,7 @@
                         <div class="container text-dark px-0">
                           <div class="row modal-item position-relative">
                             <div class="col-12 col-lg-5">
-                                <div class="title mb-3">О<span class="small-title">формление заказа</span></div>
+                                <div class="title mb-3"><span class="small-title">Оформление заказа</span></div>
                                 <div class="row">
                                     <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
                                     <div class="col-8 col-lg-6 text-truncate">
