@@ -167,19 +167,9 @@ class OrderController extends Controller
         
         $order = Order::find($order)->with('no_scope_product')->first();
         $product = Product::withTrashed()->find($order->id)->first();
-        $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
-       
-        $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
-            ->groupBy('product_id');
-        $topProducts = Product::where('product_status_id', 2)
-            ->where('category_id', $product->category_id)
-            ->select(DB::raw('products.*, countProd.countProd'))
-            ->leftJoinSub($countProd, 'countProd', function ($join) {
-                $join->on('products.id', '=', 'countProd.product_id');
-            })->orderByDesc('countProd')->paginate(15);
         $attributes = $product->attribute_variation;
 
-        return view('orders.show', compact('product', 'similars', 'attributes', 'topProducts'));
+        return view('orders.show', compact('product', 'attributes'));
     }
 
     /**
