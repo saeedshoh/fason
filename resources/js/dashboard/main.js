@@ -1,4 +1,5 @@
 "use strict";
+
 $.get("/dashboard/ordersStatistic", function(statistic) {
     var e = document.getElementById("audienceChart");
     var labels = statistic['labels']

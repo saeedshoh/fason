@@ -1334,24 +1334,20 @@ $('body').on('click', '.change-address', function() {
     $('#checkout_address').focus()
 })
 
+
 ///product picture on hover change
 
+$(document).ready(function () {
 $('.add-product-secondary .pic-item').on('click', function() {
     let imgSrc = $(this).attr('data-image-src')
     $('.pic-main').attr('src', imgSrc)
     $('.add-product-secondary .pic-item').removeClass('pic-item-active')
     $(this).addClass('pic-item-active')
+    
 })
+});
 
-$('.add-product-secondary .pic-item').on('click', function() {
-    let imgSrc = $(this).attr('data-image-src')
-    $('.pic-main').attr('src', imgSrc)
-})
 
-$('.add-product-secondary .pic-item').on('click', function() {
-    let imgSrc = $(this).attr('data-image-src')
-    $('.pic-main').attr('src', imgSrc)
-})
 
 // $(document).ready(function () {
 //     $(".custom-radius").on("click", function () {
