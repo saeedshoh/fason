@@ -62,7 +62,7 @@
               @method('DELETE')
             </form>  --}}
 
-          </div>
+          {{--  </div>  --}}
 
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
