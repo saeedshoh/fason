@@ -414,6 +414,21 @@ $(document).ready(function() {
         $('.att-show').removeClass('active')
         $(this).addClass('active')
     })
+
+    ///Delete store
+
+    $('.delete-store').on('click', function(){
+        Swal.fire({
+            title: 'Вы действительно хотите удалить магазин?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-danger'
+            }
+        })
+    })
 })
 
 $('body').on('click', '#filter', function() {
@@ -1344,6 +1359,20 @@ $('.add-product-secondary .pic-item').on('click', function() {
     $('.add-product-secondary .pic-item').removeClass('pic-item-active')
     $(this).addClass('pic-item-active')
     
+})
+
+///Delete product
+$('.delete-product').on('click', function(){
+    Swal.fire({
+        title: 'Вы действительно хотите удалить товар?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Да',
+        cancelButtonText: 'Нет',
+        customClass:{
+            confirmButton: 'bg-danger'
+        }
+    })
 })
 });
 
