@@ -106,9 +106,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $stores = $this->stores;
+        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get();
         $categories = $this->categories;
-
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
 
@@ -358,7 +357,9 @@ class ProductController extends Controller
             }
         }
         $categories = $this->categories;
-        return view('dashboard.products.edit', compact('product', 'allCategories', 'parent', 'grandParent', 'category', 'attributes', 'attrValues'));
+        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get();
+
+        return view('dashboard.products.edit', compact('stores', 'product', 'allCategories', 'parent', 'grandParent', 'category', 'attributes', 'attrValues'));
     }
 
     /**

@@ -2,3 +2,65 @@
 // user.scss
 // Use this to write your custom SCSS
 //
+.preview-image {
+    position: relative;
+    margin-bottom: .8rem;
+}
+
+.preview-image.removing {
+    transform: scale(0);
+    transition: transform .3s;
+}
+
+.preview-image img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    background-color: #ffffff;
+}
+
+.preview-image:hover .preview-remove {
+    opacity: 1;
+}
+
+.preview-image:hover .preview-info {
+    bottom: 0;
+}
+
+.deleteImage {
+    padding: 0 10px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    display: block;
+    border-radius: 50%;
+    background: #ff0055;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.deleteImage a {
+    color: #000;
+}
+
+.profile-pic {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-pic:hover .deleteAddedImage {
+    display: block;
+}
+
+.success-preloader {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 9999;
+    background: rgb(0 0 0 / 35%);
+}
