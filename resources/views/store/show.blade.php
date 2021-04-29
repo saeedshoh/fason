@@ -57,6 +57,7 @@
         <div class="col-12 col-lg-9 px-0 px-md-2">
             <div class="text-center">
               <div class="position-relative d-inline-block">
+                <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
               <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
               <div class="mobile-avatar position-absolute w-lg-100">
                 <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
@@ -73,43 +74,44 @@
           </div>
           <div class="my-5 my-lg-3">
             <div class="row">
-              <div class="col-5">
-                <h3 class="font-weight-bold">Телефон:</h3>
+              <div class="col-6 col-md-5 my-1 md:my-0">
+                <h4 class="font-weight-bold">Телефон:</h4>
               </div>
-              <div class="col-7 align-self-center">
-                <h5 class="font-weight-bold text-left text-md-right mb-1">
+              <div class="col-6 col-md-7 my-1 md:my-0">
+                <h5 class="text-left text-md-right">
                   {{ $store->user->phone ?? '' }}
                 </h5>
               </div>
-              <div class="col-5">
-                <h3 class="font-weight-bold">Город:</h3>
+              <div class="col-6 col-md-5 my-1 md:my-0">
+                <h4 class="font-weight-bold">Город:</h4>
               </div>
-              <div class="col-7 align-self-center">
-                <h5 class="font-weight-bold text-left text-md-right mb-1">
+              <div class="col-6 col-md-7 my-1 md:my-0">
+                <h5 class="text-left text-md-right">
                   {{ $store->city->name ?? ''}}
                 </h5>
               </div>
-              <div class="col-5">
-                <h3 class="font-weight-bold">Имя:</h3>
+              <div class="col-6 col-md-5 my-1 md:my-0">
+                <h4 class="font-weight-bold">Имя:</h4>
               </div>
-              <div class="col-7 align-self-center">
-                <h5 class="font-weight-bold text-left text-md-right mb-1">
-         
+              <div class="col-6 col-md-7 my-1 md:my-0">
+                <h5 class="text-left text-md-right">
                   {{ $store->name ?? ''}}
                 </h5>
               </div>
-              <div class="col-5">
-                <h3 class="font-weight-bold">Адрес:</h3>
+              <div class="col-6 col-md-5 my-1 md:my-0">
+                <h4 class="font-weight-bold">Адрес:</h4>
               </div>
-              <div class="col-7 align-self-center">
-                <h5 class="font-weight-bold text-left text-md-right mb-1">
+              <div class="col-6 col-md-7 my-1 md:my-0">
+                <h5 class="text-left text-md-right">
                   {{ $store->address ?? ''}}
                 </h5>
               </div>
-              <div class="offset-0 offset-md-6 col-12 col-md-6 mt-md-0 mt-3">
-                <div class="text-center text-md-right">
-                  <a class="btn btn-danger col-6 col-sm-4 rounded-11" href="{{ route('ft-store.edit', $store->slug) }}">Изменить</a>
-                </div>
+              <div class="d-flex justify-content-center justify-content-md-end w-100 store-controls mt-3 mt-md-0">
+                <button type="button" class="rounded-11 btn btn-outline-secondary mr-2 my-1 delete-store">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="-40 0 427 427.00131" width="15px"><path d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/><path d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/><path d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"/><path d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"/></svg>
+                  Удалить
+                </button>
+                <a class="btn btn-danger rounded-11 my-1" href="{{ route('ft-store.edit', $store->slug) }}">Изменить</a>
               </div>
             </div>
           </div>
@@ -144,7 +146,7 @@
         <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все товары {{ count($products) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликовано {{ count($acceptedProducts) }}</a>
+        <a class="nav-link" id="deleted-product-tab" data-toggle="tab" href="#deleted-products"  aria-selected="true">Удаленные</a>
       </li>
       <li class="nav-item position-relative">
         <a class="nav-link" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>
@@ -157,6 +159,9 @@
       </li>
       <li class="nav-item position-relative">
         <a class="nav-link" id="notInStock-tab" data-toggle="tab" href="#notInStock" aria-selected="false">Нет в наличии {{ count($notInStock) }}</a>
+      </li>
+      <li class="nav-item position-relative">
+        <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликовано {{ count($acceptedProducts) }}</a>
       </li>
       {{-- <li class="nav-item position-relative">
         <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>
@@ -355,6 +360,10 @@
         </div>
       </div> --}}
       <!--On Delete end-->
+      <!---->
+      <div class="tab-pane fade" id="deleted-products" role="tabpanel" aria-labelledby="published-tab">
+        <h3>Deleted</h3>
+      </div>
     </div>
     <!--Tab content end-->
     <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">
