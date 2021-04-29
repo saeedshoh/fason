@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все аттрибуты <span class="badge badge-pill badge-soft-secondary"> {{ $attributes->count() }}</span>
+                   Все аттрибуты <span class="badge badge-pill badge-soft-secondary"> {{ $attributes->total() }}</span>
                 </h1>
 
               </div>
@@ -45,88 +45,86 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
-              <div class="card-header">
-                <div class="row align-items-center">
-                  <div class="col">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order"]}' id="contactsList">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
 
-                    <!-- Form -->
-                    <form>
-                      <div class="input-group input-group-flush">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fe fe-search"></i>
-                          </span>
+                            <!-- Form -->
+                            <form>
+                                <div class="input-group input-group-flush">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fe fe-search"></i>
+                                        </span>
+                                    </div>
+                                    <input class="list-search form-control" type="search" placeholder="Поиск" data-item="attributes" id="search" value="{{ request()->search }}">
+                                </div>
+                            </form>
+
                         </div>
-                        <input class="list-search form-control" type="search" placeholder="Найти">
-                      </div>
-                    </form>
+                    </div> <!-- / .row -->
+                </div>
+                <div id="attributes">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover table-nowrap card-table">
+                        <thead>
+                            <tr>
+                            <th style="width: 50px;">
+                                <!-- Checkbox -->
+                                <a class="list-sort text-muted" data-sort="item-order" href="#">№</a>
+                            </th>
+                            <th>
+                                <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
+                            </th>
+                            <th class="text-right">
 
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-              <div class="table-responsive">
-                <table class="table table-sm table-hover table-nowrap card-table">
-                  <thead>
-                    <tr>
-                      <th style="width: 50px;">
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody class="list font-size-base">
+                            @forelse ($attributes as $key => $item)
+                            <tr>
+                            <td class="item-order">
+                                <!-- Checkbox -->
+                                {{ ++$key }}
+                            </td>
+                            <td>
+                                <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
+                            </td>
 
-                        <!-- Checkbox -->
-                        №
-
-                      </th>
-                      <th>
-                        <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
-                      </th>
-                      <th class="text-right">
-
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody class="list font-size-base">
-                    @forelse ($attributes as $key => $item)
-                    <tr>
-                      <td>
-
-                        <!-- Checkbox -->
-                        {{ ++$key }}
-
-                      </td>
-                      <td>
-                        <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
-                      </td>
-
-                      <td class="text-right">
-                        <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
-                            @csrf
-                            <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                        </form>
-                        <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
-                            <i class="fe fe-edit"> </i>
-                        </a>
-                      </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7">
-                            <span>Данные отсутствуют </span>
-                        </td>
-                    </tr>
-                    @endforelse
-                  </tbody>
-                </table>
-              </div>
-              <div class="card-footer d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-lg">
-                        <li class="page-item">
-                           {{ $attributes->links() }}
-                        </li>
-                    </ul>
-                </nav>
-              </div>
+                            <td class="text-right">
+                                <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                        <i class="fe fe-trash"> </i></button>
+                                    @method('DELETE')
+                                </form>
+                                <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
+                                    <i class="fe fe-edit"> </i>
+                                </a>
+                            </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7">
+                                    <span>Данные отсутствуют </span>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-lg">
+                                <li class="page-item">
+                                {{ $attributes->links() }}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
 
           </div>
