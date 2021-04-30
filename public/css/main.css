@@ -11268,7 +11268,7 @@ body {
 
 .mobile-avatar {
   top: 10.5rem;
-  left: 2rem;
+  left: 1.5rem;
 }
 
 .arrange {
@@ -12049,6 +12049,11 @@ input[type=number] {
     gap: 10px;
     margin-top: 0 !important;
     grid-template-columns: 1fr 1fr !important;
+  }
+
+  .customer-tab li:last-child {
+    grid-column: 1/3;
+    text-align: center;
   }
 
   .line-test__category::before {
@@ -13105,13 +13110,79 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .customer-tab {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   font-size: 13px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .customer-tab {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .customer-tab li.nav-item a.active {
   border: 1px solid #ff0055 !important;
   font-weight: 500;
+}
+
+@media only screen and (max-width: 420px) {
+  .product-buttons {
+    flex-direction: column;
+    padding: 0 0.5em;
+  }
+}
+
+.delete-product svg {
+  fill: #6c757d;
+}
+
+.delete-product:hover svg {
+  fill: #fff;
+}
+
+.restore-product svg {
+  fill: #3490dc;
+}
+
+.restore-product:hover svg {
+  fill: #fff;
+}
+
+.store-controls .delete-store svg {
+  fill: #6c757d;
+}
+
+.store-controls .delete-store:hover svg {
+  fill: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .store-controls a {
+    width: 45%;
+  }
+
+  .store-controls button {
+    width: 45%;
+  }
+}
+
+.store-info {
+  position: absolute;
+  left: 7.5rem;
+  bottom: -3rem;
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 470px) {
+  .store-info {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .store-info {
+    font-size: 0.8rem;
+  }
 }
 

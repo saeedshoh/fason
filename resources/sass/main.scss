@@ -1,6 +1,16 @@
 @import 'app';;
 @import '~slick-carousel/slick/slick';
 @import '~slick-carousel/slick/slick-theme';
+
+@mixin delete__svg {
+    svg{
+        fill: $secondary;
+    }
+    &:hover svg{
+        fill: $white;
+    }
+  }
+
 body {
     background: #F2F2F2;
     user-select: none;
@@ -46,7 +56,7 @@ body {
 
 .mobile-avatar {
     top: 10.5rem;
-    left: 2rem;
+    left: 1.5rem;
 }
 
 .arrange {
@@ -829,6 +839,10 @@ input[type=number] {
         gap: 10px;
         margin-top: 0 !important;
         grid-template-columns: 1fr 1fr !important;
+        & li:last-child{
+            grid-column: 1/3; 
+            text-align: center;
+        }
     }
     .line-test__category::before {
         height: 0;
@@ -1892,9 +1906,12 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .customer-tab {
     margin-top: 1.5rem;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 10px;
     font-size: 13px;
+    @media only screen and (max-width: 1199px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 
@@ -1903,3 +1920,50 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     font-weight: 500;
 }
 
+.product-buttons{
+    @media only screen and (max-width: 420px) {
+        flex-direction: column;
+        padding: 0 0.5em;
+    }  
+}
+
+.delete-product{
+   @include delete__svg;
+}
+
+.restore-product{
+    svg{
+        fill: $primary;
+    }
+    &:hover svg{
+        fill: $white;
+    }
+}
+
+.store-controls{
+    .delete-store{
+        @include delete__svg;
+     }
+     @media only screen and (max-width: 767px) {
+        a{
+            width: 45%;
+        }
+
+        button{
+            width: 45%;
+        }
+    }
+}
+
+.store-info{
+    position: absolute;
+    left: 7.5rem;
+    bottom: -3rem;
+    font-size: 1.5rem;
+    @media only screen and (max-width: 470px) {
+        font-size: 1rem;
+    }
+    @media only screen and (max-width: 340px) {
+        font-size: 0.8rem;
+    }
+}

@@ -10,6 +10,7 @@ const element = (tag, classes = [], content) => {
     }
     return node;
 };
+
 export function upload(selector, options = {}) {
     let files = [];
     const input = document.querySelector(selector);
@@ -178,9 +179,11 @@ $(document).on('click', '.add-product-btn', function() {
             .val();
         const store_id = $(this)
             .closest('form')
-            .find('input[name="store_id"]')
+            .find('*[name="store_id"]')
             .val();
-
+          
+        let aw = {product_id: product_id, cat_id:cat_id, name:name, description:description, quantity:quantity, price:price, store_id:store_id}
+        console.log(aw)
         const image = $('#main-poster').attr('src');
         const query_url =
             check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
@@ -211,7 +214,6 @@ $(document).on('click', '.add-product-btn', function() {
             formData.append('store_id', store_id);
             formData.append('image', image);
             formData.append('gallery', JSON.stringify(galleries));
-    
             $.ajax({
                 url: query_url,
                 type: 'POST',
@@ -222,9 +224,41 @@ $(document).on('click', '.add-product-btn', function() {
                 processData: false,
                 data: formData,
                 beforeSend: function() {
+                    $('.main-content .dashboard').closest('body').append(`<div class="success-preloader"><img src="/storage/Spinner-1s-200px.svg" alt="" srcset=""></div>`);
                     $('.success-preloader').removeClass('d-none');
                 },
                 success: data => {
+                    $('.main-content .dashboard').closest('body').addClass('d-flex align-items-center bg-auth border-top border-top-2 border-primary').empty()
+                    .html(
+                        `<div class="container">
+                        <div class="row justify-content-center">
+                          <div class="col-12 col-md-6 col-xl-6 my-5">
+                            <div class="text-center">
+                              <h6 class="text-uppercase text-muted mb-4">
+                              Товар ${
+                                check_page == 'true' ? 'обновлен' : 'добавлен'
+                              } 
+                              </h6>
+                              <h1 class="display-4 mb-3">
+                              Товар успешно ${
+                                check_page == 'true' ? 'обновлен' : 'добавлен'
+                              } и проходит модерацию  ${
+                                check_page == 'true' ? '😁' : '😊'
+                              }
+                              </h1>
+                              <p class="text-muted mb-4">
+                                Хотите вернуться в админку 
+                              </p>
+                              <a href="/dashboard/products" class="btn btn-lg btn-primary">
+                                Вернуться назад
+                              </a>
+                            
+                            </div>
+                  
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>`
+                    );
                     $('.content .container:eq(0)')
                         .addClass('bg-white')
                         .empty()
@@ -242,6 +276,9 @@ $(document).on('click', '.add-product-btn', function() {
                 }
             });
         }
+    }
+    else {
+        $(this).closest('form').addClass('was-validated')
     }
     
 });

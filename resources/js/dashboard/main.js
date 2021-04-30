@@ -1,4 +1,14 @@
 "use strict";
+
+import { upload } from '../upload.js'
+
+if ($('#gallery').attr('form') == 'add_product') {
+    upload('#gallery', {
+        multi: true,
+        accept: ['image/*']
+    })
+}
+
 $.get("/dashboard/ordersStatistic", function(statistic) {
     var e = document.getElementById("audienceChart");
     var labels = statistic['labels']
@@ -475,79 +485,79 @@ $(function($) {
 
 
 ////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-$(function() {
+// $(function() {
 
-    $("#galler").change(function() {
-        var fd = new FormData()
-        fd.append('_token', $('meta[name=csrf-token]').attr("content"));
-        var files = $('#galler')[0].files;
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                fd.append('image', files[i]);
-                $.ajax({
-                    url: '/uploadImage',
-                    type: 'post',
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function() {
-                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-                        x.find('img').hide()
-                        x.find('.spinner-border').removeClass('d-none')
-                    },
-                    success: function(response) {
-                        var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-                        x.find('.spinner-border').addClass('d-none')
-                        x.html('').attr('data-image', 'true').append(`
-                            <div class="profile-pic">
-                                <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
-                                <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
-                            </div>
-                    `)
+//     $("#galler").change(function() {
+//         var fd = new FormData()
+//         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
+//         var files = $('#galler')[0].files;
+//         if (files.length > 0) {
+//             for (let i = 0; i < files.length; i++) {
+//                 fd.append('image', files[i]);
+//                 $.ajax({
+//                     url: '/uploadImage',
+//                     type: 'post',
+//                     data: fd,
+//                     contentType: false,
+//                     processData: false,
+//                     beforeSend: function() {
+//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+//                         x.find('img').hide()
+//                         x.find('.spinner-border').removeClass('d-none')
+//                     },
+//                     success: function(response) {
+//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
+//                         x.find('.spinner-border').addClass('d-none')
+//                         x.html('').attr('data-image', 'true').append(`
+//                             <div class="profile-pic">
+//                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
+//                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
+//                             </div>
+//                     `)
 
-                        let gallery = $('#gallery')
-                        if (gallery.val() == '') {
-                            gallery.val(gallery.val() + response)
-                        } else {
-                            gallery.val(gallery.val() + ',' + response)
-                        }
-                    },
-                });
-            }
+//                         let gallery = $('#gallery')
+//                         if (gallery.val() == '') {
+//                             gallery.val(gallery.val() + response)
+//                         } else {
+//                             gallery.val(gallery.val() + ',' + response)
+//                         }
+//                     },
+//                 });
+//             }
 
-        } else {
-            alert("Please select a file.");
-        }
-    });
-});
+//         } else {
+//             alert("Please select a file.");
+//         }
+//     });
+// });
 
 
-$('body').on('click', '.deleteImage', function() {
-    let url = $(this).parent().find('img').data('image-src')
-    let gallery = $('#gallery')
-    let array = gallery.val().split(',')
-    const index = array.indexOf(url)
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    gallery.val(array)
-    $(this).parent().parent().remove()
-    if (url.indexOf('products/edit/') !== -1) {
-        $(this).parent().parent().parent().remove()
-    } else {
-        $(this).parent().parent().remove()
-    }
-    $('#db-preview-image').append(`
-        <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-            <div class="spinner-border d-none" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <label for="galler">
-                <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-            </label>
-        </div>
-    `)
-})
+// $('body').on('click', '.deleteImage', function() {
+//     let url = $(this).parent().find('img').data('image-src')
+//     let gallery = $('#gallery')
+//     let array = gallery.val().split(',')
+//     const index = array.indexOf(url)
+//     if (index > -1) {
+//         array.splice(index, 1);
+//     }
+//     gallery.val(array)
+//     $(this).parent().parent().remove()
+//     if (url.indexOf('products/edit/') !== -1) {
+//         $(this).parent().parent().parent().remove()
+//     } else {
+//         $(this).parent().parent().remove()
+//     }
+//     $('#db-preview-image').append(`
+//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
+//             <div class="spinner-border d-none" role="status">
+//                 <span class="sr-only">Loading...</span>
+//             </div>
+//             <label for="galler">
+//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
+//             </label>
+//         </div>
+//     `)
+// })
 
 $(document).on('change', '[name="category_id"]', function() {
     const id = $('[name="category_id"] option:selected').val();
