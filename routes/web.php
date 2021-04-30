@@ -119,8 +119,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['checkProduct'])->group(function () {
         Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
-    });    
-    
+    });
+
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
     Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
     Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
@@ -131,7 +131,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
     Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
     Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
-    
+    Route::post('/products/cancelDestroy/{product}', [ProductController::class, 'cancelDestroy'])->name('ft_product.cancelDestroy');
+
+
     Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
     Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
     Route::get('orders/single/{order}', [OrderController::class, 'single'])->name('ft-order.single');

@@ -547,7 +547,7 @@ $(document).on('change', '[name="category_id"]', function() {
                             <div id="st-attribute_val" class="font-weight-bold"></div>
                             <label for="${element['at_slug']}Checkbox${element['at_id']}" class="m-0 cursor-pointer"><img src="/storage/theme/plus_add_attr.svg" /></label>
                         </div>
-                        
+
                         <input class="form-check-input js-attribute d-none" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
 
                     </div>
@@ -574,7 +574,7 @@ $('#add_product input, #add_product textarea, #add_product select').on('change',
         $(this).parent().find('small').removeClass('d-block');
 
     }
-    
+
 });
 $(document).on('submit', '#add_product',  function(event) {
     $(this).addClass('was-validated')
@@ -645,7 +645,7 @@ $(document).on('click', '#btn-add_address', function() {
     formData.append('address', address)
     formData.append('city_id', city_id)
     formData.append('profile_photo_path', profile_photo_path)
-    
+
     if (phone != '' && address != '' && city_id != '') {
         $.ajax({
             url: '/users/contacts',
@@ -1358,11 +1358,28 @@ $('.add-product-secondary .pic-item').on('click', function() {
     $('.pic-main').attr('src', imgSrc)
     $('.add-product-secondary .pic-item').removeClass('pic-item-active')
     $(this).addClass('pic-item-active')
-    
+
 })
 
 ///Delete product
-$('.delete-product').on('click', function(){
+// $('.delete-product').on('click', function(){
+//     this.preventDefault()
+//     Swal.fire({
+//         title: 'Вы действительно хотите удалить товар?',
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonText: 'Да',
+//         cancelButtonText: 'Нет',
+//         customClass:{
+//             confirmButton: 'bg-danger'
+//         }
+//     })
+// })
+
+
+$('body').on('click', '.delete-product', function(event) {
+    var form =  $(this).closest("form");
+    event.preventDefault();
     Swal.fire({
         title: 'Вы действительно хотите удалить товар?',
         icon: 'warning',
@@ -1371,9 +1388,37 @@ $('.delete-product').on('click', function(){
         cancelButtonText: 'Нет',
         customClass:{
             confirmButton: 'bg-danger'
-        }
-    })
-})
+        },
+        buttons: true,
+        dangerMode: true,
+    }).then((result) => {
+          if (result.isConfirmed) {
+              form.submit();
+          }
+  })
+});
+
+$('body').on('click', '.restore-product', function(event) {
+    var form =  $(this).closest("form");
+    event.preventDefault();
+    Swal.fire({
+        title: 'Вы действительно хотите восстановить товар?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Да',
+        cancelButtonText: 'Нет',
+        customClass:{
+            confirmButton: 'bg-success'
+        },
+        buttons: true,
+        dangerMode: true,
+    }).then((result) => {
+          if (result.isConfirmed) {
+              form.submit();
+          }
+  })
+});
+
 });
 
 
