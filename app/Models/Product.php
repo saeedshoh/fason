@@ -167,13 +167,6 @@ class Product extends Model
         return $this->price + $common_monetization + $store_monetization + $category_monetization;
     }
 
-    // public function scopeActiveStore($query)
-    // {
-    //     return $query->whereHas('store', function($query) {
-    //         $query->where('is_active', 1);
-    //     });
-    // }
-
     /**
      * The "booted" method of the model.
      *
