@@ -146,7 +146,8 @@ class ProductController extends Controller
 
     public function single($slug)
     {
-        $product = Product::withoutGlobalScopes()->where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->first();
+        if(!$product) abort(404);
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
