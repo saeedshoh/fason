@@ -48,6 +48,13 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('products/statuses/hidden', [ProductController::class, 'hidden'])->name('products.hidden');
     Route::get('products/statuses/onCheck', [ProductController::class, 'onCheck'])->name('products.onCheck');
     Route::get('products/statuses/deleted', [ProductController::class, 'deleted'])->name('products.deleted');
+
+    Route::get('orders/statuses/accepted', [OrderController::class, 'accepted'])->name('orders.accepted');
+    Route::get('orders/statuses/onTheWay', [OrderController::class, 'onTheWay'])->name('orders.onTheWay');
+    Route::get('orders/statuses/onCheck', [OrderController::class, 'onCheck'])->name('orders.onCheck');
+    Route::get('orders/statuses/canceled', [OrderController::class, 'canceled'])->name('orders.canceled');
+    Route::get('orders/statuses/returns', [OrderController::class, 'returns'])->name('orders.returns');
+
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');

@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Заказы')
+@section('title', 'Заказы в пути')
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -21,7 +21,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
+                    В пути <span class="badge badge-pill badge-soft-primary">{{ $orders->count() }}</span>
                 </h1>
 
               </div>
@@ -48,7 +48,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('orders.onTheWay') }}" class="nav-link">
+                    <a href="{{ route('orders.onTheWay') }}" class="nav-link active">
                       В пути <span class="badge badge-pill badge-soft-primary">{{ $orders_stats->where('order_status_id', 4)->count() }}</span>
                     </a>
                   </li>

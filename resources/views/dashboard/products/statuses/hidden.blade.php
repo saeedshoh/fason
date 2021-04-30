@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                    Скрыто <span class="badge badge-pill badge-soft-secondary">{{ $products->total() }}</span>
+                    Скрыто <span class="badge badge-pill badge-soft-info">{{ $products->total() }}</span>
                 </h1>
 
               </div>

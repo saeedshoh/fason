@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Заказы')
+@section('title', 'Отмененые заказы')
 @extends('dashboard.layouts.aside')
 
 @section('content')
@@ -21,7 +21,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
+                    Отменено <span class="badge badge-pill badge-soft-danger">{{ $orders->count() }}</span>
                 </h1>
 
               </div>
@@ -58,7 +58,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('orders.canceled') }}" class="nav-link">
+                    <a href="{{ route('orders.canceled') }}" class="nav-link active">
                       Отменен <span class="badge badge-pill badge-soft-danger">{{ $orders->where('order_status_id', 2)->count() }}</span>
                     </a>
                   </li>
