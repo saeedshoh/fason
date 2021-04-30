@@ -40,8 +40,45 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
         $orders = Order::orderBy('order_status_id')->get();
-        return view('dashboard.order.index', compact('orders'));
+        return view('dashboard.order.index', compact('orders', 'orders_stats'));
+    }
+    public function accepted()
+    {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
+        $orders = Order::withoutGlobalScopes()->where('order_status_id', 3)->orderBy('updated_at')->get();
+        return view('dashboard.order.statuses.accepted', compact('orders', 'orders_stats'));
+    }
+    public function onTheWay()
+    {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
+        $orders = Order::withoutGlobalScopes()->where('order_status_id', 4)->orderBy('updated_at')->get();
+        return view('dashboard.order.statuses.onTheWay', compact('orders', 'orders_stats'));
+    }
+    public function onCheck()
+    {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
+        $orders = Order::withoutGlobalScopes()->where('order_status_id', 1)->orderBy('updated_at')->get();
+        return view('dashboard.order.statuses.onCheck', compact('orders', 'orders_stats'));
+    }
+    public function canceled()
+    {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
+        $orders = Order::withoutGlobalScopes()->where('order_status_id', 2)->orderBy('updated_at')->get();
+        return view('dashboard.order.statuses.canceled', compact('orders', 'orders_stats'));
+    }
+    public function returns()
+    {
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+
+        $orders = Order::withoutGlobalScopes()->where('order_status_id', 5)->orderBy('updated_at')->get();
+        return view('dashboard.order.statuses.returns', compact('orders', 'orders_stats'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\ItemsForPage;
+use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Permission;
 use App\Models\Product;
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Category::factory(20)->create();
         Product::factory(20)->create();
-
+        Order::factory(20)->create();
         ItemsForPage::create([
             'qty' => 20
         ]);
