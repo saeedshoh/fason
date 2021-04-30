@@ -123,10 +123,10 @@
                     {{ $monetization->max}}
                   </td>
                   <td class="monetizations-margin">
-                    {{ $monetization->margin}}%
+                    {{ $monetization->margin ?? '0'}}%
                   </td>
                   <td class="monetizations-added_val">
-                    {{ $monetization->added_val}}
+                    {{ $monetization->added_val ?? '0'}}
                   </td>
                   <td class="text-right">
                     <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">

@@ -19,7 +19,7 @@ class MonetizationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $monetizations = Monetization::get();
         $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();

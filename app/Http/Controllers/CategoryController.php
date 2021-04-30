@@ -295,11 +295,21 @@ class CategoryController extends Controller
         }
     }
 
-    public function logsIndex()
+    public function logsIndex(Request $request)
     {
-        $count = Log::count();
-        $logs = Log::orderBy('id', 'desc')->paginate(50);
-        return view('dashboard.logs.index', compact('logs', 'count'));
+        $logs = Log::latest('id')
+            ->where('table', 'like', '%'.$request->search.'%')
+            ->orWhere('description', 'like', '%'.$request->search.'%')
+            ->orWhereHas('user', function($user) use ($request){
+                $user->where('name',  'like', '%'.$request->search.'%'); })
+            ->paginate(50)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.logs', compact('logs')
+                )->render());
+        }
+        return view('dashboard.logs.index', compact('logs'));
     }
 
     public function changeCategoryOrder(Request $request){
