@@ -17,6 +17,8 @@ class StoreActiveProductsScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->with('store')->where('is_active', 1);
+        $builder->whereHas('store', function($query) {
+            $query->where('is_active', 1);
+        });
     }
 }
