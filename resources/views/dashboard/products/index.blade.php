@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все товары  <span class="badge badge-pill badge-soft-secondary">{{ $products->total() }}</span>
+                   Все товары  <span class="badge badge-pill badge-soft-secondary">{{ $products->count() }}</span>
                 </h1>
 
               </div>
@@ -38,50 +38,6 @@
                 <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
                   Добавить
                 </a>
-
-              </div>
-            </div>
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Nav -->
-                <ul class="nav nav-tabs nav-overflow header-tabs">
-                  <li class="nav-item">
-                    <a href="{{ route('products.index') }}" class="nav-link active">
-                      Все товары <span class="badge badge-pill badge-soft-secondary">{{ $products_stats->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.accepted') }}" class="nav-link">
-                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.onCheck') }}" class="nav-link">
-                      На проверке <span class="badge badge-pill badge-soft-warning">{{ $products_stats->where('product_status_id', 1)->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.canceled') }}" class="nav-link">
-                      Отклонённые <span class="badge badge-pill badge-light">{{ $products_stats->where('product_status_id', 3)->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.hidden') }}" class="nav-link">
-                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('updated_at', '<', now()->subWeek())->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.notInStock') }}" class="nav-link">
-                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('quantity', '<', 1)->count() }}</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('products.deleted') }}" class="nav-link">
-                      Удаленные <span class="badge badge-pill badge-soft-danger">{{ $products_stats->whereNotNull('deleted_at')->count() }}</span>
-                    </a>
-                  </li>
-                </ul>
 
               </div>
             </div>
@@ -150,7 +106,7 @@
                   </thead>
                   <tbody class="list font-size-base">
                     @forelse ($products as $key => $product)
-                    <tr class="table-@if($product->updated_at < now()->subWeek())info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->quantity < 1)info @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
+                    <tr class="table-@if($product->updated_at < now()->subWeek())danger @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @endif">
                       <td class="item-order">
                         {{ ++$key }}
                       </td>
@@ -179,10 +135,6 @@
                         <div class="badge badge-primary">
                             @if($product->updated_at < now()->subWeek())
                                 Скрыто
-                            @elseif($product->quantity < 1)
-                                Нет в наличии
-                            @elseif($product->deleted_at)
-                              Удаленный
                             @else
                                 {{ $product->product_status->name }}
                             @endif

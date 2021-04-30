@@ -9,7 +9,7 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body">
+          <div class="header-body border-0">
             <div class="row align-items-center">
               <div class="col">
 
@@ -22,11 +22,9 @@
                 <h1 class="header-title">
                   Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
                 </h1>
-                
+
               </div>
             </div>
-
-
           </div>
         </div>
 
