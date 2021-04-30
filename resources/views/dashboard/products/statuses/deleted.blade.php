@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                    Скрыто <span class="badge badge-pill badge-soft-secondary">{{ $products->total() }}</span>
+                    Удаленно <span class="badge badge-pill badge-soft-secondary">{{ $products->total() }}</span>
                 </h1>
 
               </div>
@@ -86,7 +86,7 @@
 
               </div>
             </div>
-            
+
           </div>
         </div>
         @if (session()->get('success'))
