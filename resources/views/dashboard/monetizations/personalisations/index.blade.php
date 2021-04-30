@@ -59,7 +59,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status"]}'>
+        <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-phone", "item-location"]}'>
           <div class="card-header">
 
             <!-- Search -->
@@ -125,11 +125,11 @@
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
                 @endforelse
-                @if ($personalisations_count === 0)
+                {{-- @if ($personalisations_count === 0)
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
-                @endif
+                @endif --}}
               </tbody>
             </table>
           </div>

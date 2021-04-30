@@ -37,14 +37,14 @@ class UserController extends Controller
             ]);
             $main_image_json = $request->profile_photo_path;
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
-            
+
             $main_image = $year_month.'/'.uniqid().'.jpg';
-           
+
             $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
             if(!File::isDirectory($month)){
                 File::makeDirectory($month, 0777, true);
             }
-           
+
             if($request->profile_photo_path) {
                 if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
                     $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
@@ -52,8 +52,8 @@ class UserController extends Controller
                     Storage::disk('public')->put($main_image, $data);
 
                     $image = $this->uploadImage($main_image);
-                }; 
-                
+                };
+
                 // $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
             }
 
@@ -67,22 +67,52 @@ class UserController extends Controller
                     'registered_at' => Carbon::now()
                 ]
             );
-            
+
             Auth::loginUsingId($user->id);
             return $request;
-            
+
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('status', 1)->latest()->paginate(20);
+        $users = User::where('status', 1)
+            ->where(function($query) use ($request){
+                $query->where('name', 'like', '%'.$request->search.'%')
+                ->orWhere('phone', 'like', '%'.$request->search.'%')
+                ->orWhere('email', 'like', '%'.$request->search.'%')
+                ->orWhereHas('store', function($store) use ($request){
+                    $store->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.users', compact('users')
+                )->render());
+        }
         return view('dashboard.users.index', compact('users'));
     }
 
-    public function clients()
+    public function clients(Request $request)
     {
-        $users = User::where('status', 2)->latest()->paginate(20);
+        $users = User::where('status', 2)
+            ->where(function($query) use ($request){
+                $query->where('name', 'like', '%'.$request->search.'%')
+                ->orWhere('phone', 'like', '%'.$request->search.'%')
+                ->orWhere('email', 'like', '%'.$request->search.'%')
+                ->orWhereHas('store', function($store) use ($request){
+                    $store->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.users', compact('users')
+                )->render());
+        }
         return view('dashboard.users.index', compact('users'));
     }
 

@@ -45,7 +45,7 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-position"]}' id="contactsList">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -58,7 +58,7 @@
                             <i class="fe fe-search"></i>
                           </span>
                         </div>
-                        <input class="list-search form-control" type="search" placeholder="Найти">
+                        <input class="list-search form-control" type="search" placeholder="Поиск">
                       </div>
                     </form>
 
@@ -70,15 +70,13 @@
                   <thead>
                     <tr>
                       <th style="width: 50px;">
-
                         №
-
                       </th>
                       <th>
                         <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                       </th>
                       <th>
-                        Позиция
+                        <a class="list-sort text-muted" data-sort="item-position" href="#">Позиция</a>
                       </th>
                       <th class="text-right">
 
@@ -90,20 +88,16 @@
                     @forelse ($sliders as $key => $slider)
                     <tr>
                       <td>
-
                         {{ ++$key }}
-
                       </td>
 
                       <td>
-
                         <!-- Avatar -->
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="/storage/{{ $slider->image }}">
                         </div> <a class="item-name text-reset" href="{{ route('banners.edit', $slider) }}">Слайдер {{ ++$key }}</a>
-
                       </td>
-                      <td>
+                      <td class="item-position">
                         {{ $slider->position }}
                       </td>
                       <td class="text-right">

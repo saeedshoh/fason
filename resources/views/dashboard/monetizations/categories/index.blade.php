@@ -110,11 +110,11 @@
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
                 @endforelse
-                @if ($monetizations_categories_count === 0)
+                {{-- @if ($monetizations_categories_count === 0)
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
-                @endif
+                @endif --}}
               </tbody>
             </table>
           </div>

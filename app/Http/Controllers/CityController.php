@@ -14,9 +14,16 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cities = City::paginate(50);
+        $cities = City::where('name', 'like', '%'.$request->search.'%')
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()){
+            return response()->json(
+                view('dashboard.ajax.cities', compact('cities')
+            )->render());
+        }
         return view('dashboard.cities.index', compact('cities'));
     }
 
