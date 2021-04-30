@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\OrderFilters;
 use App\Models\AttributeValue;
 use App\Models\User;
 use App\Models\Order;
@@ -38,10 +39,30 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, OrderFilters $filters)
     {
-        $orders = Order::orderBy('order_status_id')->get();
-        return view('dashboard.order.index', compact('orders'));
+        $orders = Order::filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'order_status', 'product')
+            ->paginate(10)
+            ->withQueryString();
+        $rdrs = Order::filter($filters)->get()->pluck('id');
+        $users = User::where('status', 2)
+            ->orwhereHas('orders', function($orders) use ($rdrs){
+                $orders->whereIn('orders.id', [$rdrs]); })
+            ->get();
+        // ddd($users);
+        $products = Product::withoutGlobalScopes()
+            ->orWhereHas('orders', function($orders) use ($rdrs){
+                $orders->whereIn('orders.id', [$rdrs]); })
+            ->get();
+        // ddd($products);
+        $stores = Store::withoutGlobalScopes()
+            ->orWhereHas('orders', function($orders) use ($rdrs){
+                $orders->whereIn('orders.id', [$rdrs]); })
+            ->get();
+        // ddd($products);
+        return view('dashboard.order.index', compact('orders', 'users', 'products', 'stores'));
     }
 
     /**
@@ -107,7 +128,7 @@ class OrderController extends Controller
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
                 $message = "\n Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адрес доставки: " .$order->address . $comment;
-                
+
                 $params = array(
                     "from" => $config['sender'],
                     "phone_number" => $phone_number,
@@ -164,7 +185,7 @@ class OrderController extends Controller
     }
     public function single($order)
     {
-        
+
         $order = Order::withoutGlobalScopes()->where('id', $order)->with('no_scope_product')->first();
         $product = Product::withoutGlobalScopes()->withTrashed()->where('id', $order->product_id)->first();
         $attributes = $product->attribute_variation;

@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\City');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 }

@@ -127,7 +127,7 @@ class Product extends Model
     //         return $this->price;
     //     }
     // }
-    
+
     public function getPriceAfterMarginAttribute()
     {
         $store = Store::withoutGlobalScopes()->find($this->store_id);
@@ -144,7 +144,7 @@ class Product extends Model
                 }
             }
         }
-        
+
         if($store->is_monetized){
             if($store->monetizations->first()){
                 foreach($store->monetizations as $monetization) {
@@ -154,7 +154,7 @@ class Product extends Model
                 }
             }
         }
-        
+
         $monetizations = Monetization::doesntHave('stores')->doesntHave('categories')->get();
         if($monetizations->isNotEmpty()) {
             foreach($monetizations as $monetization) {
@@ -163,7 +163,7 @@ class Product extends Model
                 }
             }
         }
-        
+
         return $this->price + $common_monetization + $store_monetization + $category_monetization;
     }
 
@@ -175,5 +175,10 @@ class Product extends Model
     protected static function booted()
     {
         static::addGlobalScope(new FreshProductScope);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
     }
 }

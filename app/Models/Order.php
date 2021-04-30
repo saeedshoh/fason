@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Http\Traits\FilterableTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterableTrait;
 
     protected $fillable = [
         'product_id',
