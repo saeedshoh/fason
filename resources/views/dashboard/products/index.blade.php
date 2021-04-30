@@ -97,23 +97,22 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-total", "item-category", "item-date", "item-quantity", "item-company", "item-status"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}' id="contactsList">
-              <div class="card-header">
-                <div class="row align-items-center">
-                  <div class="col">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-total", "item-category", "item-date", "item-quantity", "item-company", "item-status"]}' id="contactsList">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                    <div class="col">
 
-                    <!-- Form -->
-                    <form>
-                      <div class="input-group input-group-flush">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fe fe-search"></i>
-                          </span>
+                        <!-- Form -->
+                        <form>
+                        <div class="input-group input-group-flush">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fe fe-search"></i>
+                            </span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="Поиск" data-item="products" id="search" value="{{ request()->search }}">
                         </div>
-                        <input class="list-search form-control" type="search" placeholder="Поиск">
-                      </div>
-                    </form>
-
+                        </form>
                   </div>
                 </div> <!-- / .row -->
               </div>

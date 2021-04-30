@@ -55,7 +55,7 @@ class ProductController extends Controller
     public function publish($product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
-        
+
         $product->update(['product_status_id' => 2]);
         $product->restore();
         Log::create([
@@ -75,11 +75,24 @@ class ProductController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
 
-        $products = Product::withoutGlobalScopes()->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->orWhereHas('store', function($store) use ($request){
+                $store->where('name',  'like', '%'.$request->search.'%'); })
+            ->orWhereHas('category', function($category) use ($request){
+                $category->where('name',  'like', '%'.$request->search.'%'); })
+            ->latest('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.index', compact('products', 'products_stats'));
     }
 

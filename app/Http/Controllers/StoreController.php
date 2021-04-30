@@ -29,10 +29,22 @@ class StoreController extends Controller
         $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         return view('store.guest', compact('store', 'products'));
     }
-    public function index()
+    public function index(Request $request)
     {
-        // $stores = Store::orderBy('is_active', 'asc')->withoutGlobalScopes()->latest()->paginate(20);
-        $stores = StoreEdit::orderBy('is_active', 'asc')->withoutGlobalScopes()->latest()->paginate(20);
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->orWhere('address', 'like', '%'.$request->search.'%')
+            ->orWhereHas('city', function($city) use ($request){
+                $city->where('name',  'like', '%'.$request->search.'%'); })
+            ->orderBy('is_active', 'asc')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.stores', compact('stores')
+                )->render());
+        }
         return view('dashboard.store.index', compact('stores'));
     }
 
@@ -153,9 +165,9 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreRequest $request, $store)
-    {   
+    {
         $data = $request->validated();
-        
+
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
@@ -187,7 +199,7 @@ class StoreController extends Controller
         // if(Store::where('id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
         //     $store = Store::where('id', $store)->withoutGlobalScopes()->first();
         // }
-        
+
         if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
             Store::where('id', $store)->withoutGlobalScopes()->update(['is_moderation' => 1]);
             $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
@@ -231,19 +243,19 @@ class StoreController extends Controller
     {
         $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
         $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
-    
+
         if($store->is_active) {
             $store->update(['is_active' => 0]);
             $stored->update(['is_active' => 0]);
         } else {
             $store->update(['is_active' => 1, 'is_moderation' => 0]);
             $stored->update([
-                'name' => $store->name,    
-                'slug' => $store->slug,    
-                'description' => $store->description,    
-                'address' => $store->address,    
-                'avatar' => $store->avatar,    
-                'cover' => $store->cover,    
+                'name' => $store->name,
+                'slug' => $store->slug,
+                'description' => $store->description,
+                'address' => $store->address,
+                'avatar' => $store->avatar,
+                'cover' => $store->cover,
                 'city_id' => $store->city_id,
                 'city_id' => $store->city_id,
                 'is_moderation' => 0,
@@ -275,20 +287,33 @@ class StoreController extends Controller
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
-        ->join('products', 'orders.product_id', '=', 'products.id')
-        ->take(15)->get();
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->take(15)
+            ->get();
         $store_edit = StoreEdit::where('store_id', $store->id)->where('is_moderation', '=', 1)->first();
 
         return view('dashboard.store.show', compact('store', 'orders', 'store_edit'));
     }
 
-    public function profile_orders($store) {
+    public function profile_orders(Request $request, $store) {
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
-        ->join('products', 'orders.product_id', '=', 'products.id')
-        ->paginate(35);
-
+            ->where(function($query) use ($request){
+                $query->where('orders.id', 'like', '%'.$request->search.'%')
+                ->orWhereHas('product', function($product) use ($request){
+                    $product->where('name',  'like', '%'.$request->search.'%'); })
+                ->orWhere('orders.total', 'like', '%'.$request->search.'%')
+                ->orWhere('orders.quantity', 'like', '%'.$request->search.'%');
+            })
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.show_orders', compact('store', 'orders')
+                )->render());
+        }
         return view('dashboard.store.profile.orders', compact('store', 'orders'));
     }
     public function profile_edit($store)
@@ -299,11 +324,24 @@ class StoreController extends Controller
         return view('dashboard.store.profile.edit', compact('store', 'cities'));
 
     }
-    public function profile_products($store)    {
+    public function profile_products(Request $request, $store)    {
         $store = Store::withoutGlobalScopes()->find($store);
 
-        $products = Product::where('store_id', $store->id)->paginate(35);
-
+        $products = Product::where('store_id', $store->id)
+            ->withoutGlobalScopes()
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->orWhereHas('store', function($store) use ($request){
+                $store->where('name',  'like', '%'.$request->search.'%'); })
+            ->orWhereHas('category', function($category) use ($request){
+                $category->where('name',  'like', '%'.$request->search.'%'); })
+            ->latest('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('store', 'products')
+                )->render());
+        }
         return view('dashboard.store.profile.products', compact('store', 'products'));
     }
 }

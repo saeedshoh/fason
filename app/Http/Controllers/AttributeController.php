@@ -16,10 +16,17 @@ class AttributeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attributes = Attribute::with('attribute_values')->paginate(10);
-        // dd($attributes);
+        $attributes = Attribute::with('attribute_values')
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.attributes', compact('attributes')
+                )->render());
+        }
         return view('dashboard.attributes.index', compact('attributes'));
     }
 

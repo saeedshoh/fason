@@ -80,10 +80,25 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
             });
     })()
 });
-$('body').on('keyup', '#categorySearch', function () {
-    var category = $(this).val();
-    $.get('/dashboard/categories', {name: category}, function (data) {
-        $('#categoryCard').empty().append(data.categories);
+/**
+ * Search items
+ */
+ $('body').on('keyup', '#search', function() {
+    var search = $(this).val();
+    var item = $(this).attr('data-item');
+    $.get('/dashboard/'+item, {search: search}, function(data) {
+        if(item.indexOf('attribute/') != -1){
+            $('#attribute_values').empty().html(data);
+        }
+        else if(item.indexOf('show/') != -1 && item.indexOf('/orders') != -1){
+            $('#show_orders').empty().html(data);
+        }
+        else if(item.indexOf('show/') != -1 && item.indexOf('/products') != -1){
+            $('#show_products').empty().html(data);
+        }
+        else {
+            $('#'+item).empty().html(data);
+        }
     });
 });
 // !(function() {
@@ -597,8 +612,6 @@ $(document).on('change', '.js-attribute', function() {
     });
 });
 
-
-
 function image(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -615,7 +628,7 @@ $("#image").change(function() {
     image(this);
 });
 
-function user_avatar(input) { 
+function user_avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {

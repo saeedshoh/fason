@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все категории  <span class="badge badge-pill badge-soft-secondary"> {{ $categories->count() }}</span>
+                   Все категории  <span class="badge badge-pill badge-soft-secondary"> {{ $categories->total() }}</span>
                 </h1>
 
               </div>
@@ -46,7 +46,7 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-parent", "item-position"]}' id="contactsList">
               <div class="card-header">
                 <div class="row align-items-center">
                   <div class="col">
@@ -58,25 +58,25 @@
                             <i class="fe fe-search"></i>
                           </span>
                         </div>
-                        <input class="form-control" type="text" placeholder="Найти" id="categorySearch">
+                        <input class="form-control" type="text" placeholder="Поиск" data-item="categories" id="search" value="{{ request()->search }}">
                       </div>
 
                   </div>
                 </div> <!-- / .row -->
               </div>
-              <div id="categoryCard">
+              <div id="categories">
                 <div class="table-responsive">
                     <table class="table table-sm table-hover table-nowrap card-table">
                     <thead>
                         <tr>
                         <th style="width: 50px;">
-                            №
+                            <a class="list-sort text-muted" data-sort="item-order" href="#">№</a>
                         </th>
                         <th>
                             <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
                         </th>
                         <th>
-                            <a class="list-sort text-muted" data-sort="item-order" href="#">Позиция</a>
+                            <a class="list-sort text-muted" data-sort="item-position" href="#">Позиция</a>
                         </th>
                         <th>
                             <a class="list-sort text-muted" data-sort="item-parent" href="#">Родитель</a>

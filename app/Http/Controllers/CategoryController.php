@@ -116,19 +116,17 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        $allCategories = Category::where('name', 'like', '%'.$request->search.'%')->get();
+        $categories = Category::where('name', 'like', '%'.$request->search.'%')
+            ->orderBy('order_no')
+            ->paginate(10)
+            ->withQueryString();
         if($request->ajax()) {
-            $allCategories = Category::where('name', 'like', '%'.$request->name.'%')->get();
-            $categories = Category::where('name', 'like', '%'.$request->name.'%')->orderBy('order_no')->paginate(100);
-            return response()->json([
-                'categories'    => view('dashboard.ajax.categories', compact('categories', 'allCategories'))->render()
-            ]);
+            return response()->json(
+                    view('dashboard.ajax.categories', compact('categories', 'allCategories')
+                )->render());
         }
-        else {
-            $categories = Category::orderBy('order_no')->paginate(100);
-            $allCategories = Category::get();
-
-            return view('dashboard.category.index', compact('categories', 'allCategories'));
-        }
+        return view('dashboard.category.index', compact('categories', 'allCategories'));
     }
 
     /**
@@ -297,11 +295,21 @@ class CategoryController extends Controller
         }
     }
 
-    public function logsIndex()
+    public function logsIndex(Request $request)
     {
-        $count = Log::count();
-        $logs = Log::orderBy('id', 'desc')->paginate(50);
-        return view('dashboard.logs.index', compact('logs', 'count'));
+        $logs = Log::latest('id')
+            ->where('table', 'like', '%'.$request->search.'%')
+            ->orWhere('description', 'like', '%'.$request->search.'%')
+            ->orWhereHas('user', function($user) use ($request){
+                $user->where('name',  'like', '%'.$request->search.'%'); })
+            ->paginate(50)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.logs', compact('logs')
+                )->render());
+        }
+        return view('dashboard.logs.index', compact('logs'));
     }
 
     public function changeCategoryOrder(Request $request){
