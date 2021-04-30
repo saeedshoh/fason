@@ -177,7 +177,9 @@
                         <td class="item-status">
                           <!-- Badge -->
                           <div class="badge badge-primary">
-                              @if($product->updated_at < now()->subWeek())
+                              @if($product->store->is_active == 0)
+                                  Магазин отключен
+                              @elseif($product->updated_at < now()->subWeek())
                                   Скрыто
                               @elseif($product->quantity < 1)
                                   Нет в наличии
