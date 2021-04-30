@@ -14,7 +14,7 @@
  <!--Header-end-->
   <section class="content profile mt-0 mt-md-3">
     <div class="container">
-    
+
       @if($store->is_moderation)
         <div class="col-12  px-0 px-md-2">
           <div class="alert alert-warning" role="alert">
@@ -146,7 +146,7 @@
         <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все товары {{ count($products) }}</a>
       </li>
       <li class="nav-item position-relative">
-        <a class="nav-link" id="deleted-product-tab" data-toggle="tab" href="#deleted-products"  aria-selected="true">Удаленные</a>
+        <a class="nav-link" id="deleted-tab" data-toggle="tab" href="#deleted-products"  aria-selected="true">Удаленные {{ count($deletedProducts) }}</a>
       </li>
       <li class="nav-item position-relative">
         <a class="nav-link" id="onChecking-tab" data-toggle="tab" href="#onChecking" aria-selected="false">На проверке {{ count($onCheckProducts) }}</a>
@@ -186,7 +186,7 @@
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
                           @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4'])) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
                           @else {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
-                        @endif                      
+                        @endif
                       @endif
                     </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
@@ -334,7 +334,7 @@
       </div>
       <!--Declined end-->
       <!--On Delete-->
-      {{-- <div class="tab-pane fade" id="onDelete" role="tabpanel" aria-labelledby="onDelete-tab">
+      <div class="tab-pane fade" id="deleted-products" role="tabpanel" aria-labelledby="deleted-tab">
         <div class="all-product container mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($deletedProducts as $product)
@@ -358,12 +358,8 @@
               @endforelse
             </div>
         </div>
-      </div> --}}
-      <!--On Delete end-->
-      <!---->
-      <div class="tab-pane fade" id="deleted-products" role="tabpanel" aria-labelledby="published-tab">
-        <h3>Deleted</h3>
-      </div>
+    </div>
+
     </div>
     <!--Tab content end-->
     <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">

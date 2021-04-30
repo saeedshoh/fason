@@ -146,7 +146,12 @@ class ProductController extends Controller
 
     public function single($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::withTrashed()->where('slug', $slug)->first();
+        if(Auth::check()){
+            if($product->store->user_id != Auth::user()->id){
+                $product = Product::where('slug', $slug)->first();
+            }
+        }
         if(!$product) abort(404);
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
@@ -496,14 +501,38 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $category = Category::where('id', $product->category_id)->first()->name;
-        $store = Store::where('id', $product->store_id)->withoutGlobalScopes()->first()->name;
+        $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
+        $previous = url()->previous();
+        if(str_contains($previous, 'products/single/')){
+            $product->delete();
+            return redirect()->route('ft-store.show', $store->first()->slug);
+        }
         Log::create([
             'user_id'   => Auth::user()->id,
             'action'    => 3,
             'table'     => 'Продукты',
-            'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store
+            'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store->first()->name
         ]);
         $product->delete();
+        return redirect()->route('products.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelDestroy($product)
+    {
+        $product = Product::withTrashed()->where('slug', $product)->first();
+        $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
+        $previous = url()->previous();
+        if(str_contains($previous, 'products/single/')){
+            $product->restore();
+            return redirect()->route('ft-store.show', $store->first()->slug);
+        }
+        $product->restore();
         return redirect()->route('products.index');
     }
 

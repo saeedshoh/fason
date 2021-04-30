@@ -18,7 +18,8 @@ class OrderStatusSeeder extends Seeder
             ['name' => 'В ожидании'],
             ['name' => 'Отменен'],
             ['name' => 'Выполнен'],
-            ['name' => 'В пути']
+            ['name' => 'В пути'],
+            ['name' => 'Возврат']
         ]);
     }
 }
