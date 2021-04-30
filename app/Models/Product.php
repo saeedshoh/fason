@@ -175,6 +175,7 @@ class Product extends Model
     protected static function booted()
     {
         static::addGlobalScope(new FreshProductScope);
+        static::addGlobalScope(new StoreActiveProductsScope);
     }
 
     public function orders()

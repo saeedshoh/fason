@@ -77,6 +77,8 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
         $products = Product::withoutGlobalScopes()
             ->where('name', 'like', '%'.$request->search.'%')
             ->orWhereHas('store', function($store) use ($request){
@@ -91,12 +93,66 @@ class ProductController extends Controller
                     view('dashboard.ajax.products', compact('products')
                 )->render());
         }
-        return view('dashboard.products.index', compact('products'));
+        return view('dashboard.products.index', compact('products', 'products_stats'));
     }
+
+    // !Разбивка статусов на странички
+
+    public function accepted()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->where('product_status_id', 2)->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.accepted', compact('products', 'products_stats'));
+    }
+    public function notInStock()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->where('quantity', '<', 1)->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.notInStock', compact('products', 'products_stats'));
+    }
+    public function canceled()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->where('product_status_id', 3)->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.canceled', compact('products', 'products_stats'));
+    }
+
+    public function hidden()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.hidden', compact('products', 'products_stats'));
+    }
+    public function onCheck()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->where('product_status_id', 1)->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.onCheck', compact('products', 'products_stats'));
+    }
+    public function deleted()
+    {
+        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+
+        $products = Product::withoutGlobalScopes()->whereNotNull('deleted_at')->latest('updated_at')->paginate(10);
+        return view('dashboard.products.statuses.deleted', compact('products', 'products_stats'));
+    }
+    // #Разбивка статусов на странички
+
 
     public function single($slug)
     {
-        $product = Product::withoutGlobalScopes()->where('slug', $slug)->first();
+        $product = Product::withTrashed()->where('slug', $slug)->first();
+        if(Auth::check()){
+            if($product->store->user_id != Auth::user()->id){
+                $product = Product::where('slug', $slug)->first();
+            }
+        }
+        if(!$product) abort(404);
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
@@ -445,14 +501,38 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $category = Category::where('id', $product->category_id)->first()->name;
-        $store = Store::where('id', $product->store_id)->withoutGlobalScopes()->first()->name;
+        $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
+        $previous = url()->previous();
+        if(str_contains($previous, 'products/single/')){
+            $product->delete();
+            return redirect()->route('ft-store.show', $store->first()->slug);
+        }
         Log::create([
             'user_id'   => Auth::user()->id,
             'action'    => 3,
             'table'     => 'Продукты',
-            'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store
+            'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store->first()->name
         ]);
         $product->delete();
+        return redirect()->route('products.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelDestroy($product)
+    {
+        $product = Product::withTrashed()->where('slug', $product)->first();
+        $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
+        $previous = url()->previous();
+        if(str_contains($previous, 'products/single/')){
+            $product->restore();
+            return redirect()->route('ft-store.show', $store->first()->slug);
+        }
+        $product->restore();
         return redirect()->route('products.index');
     }
 

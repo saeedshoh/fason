@@ -42,6 +42,19 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
 
     Route::post('products/{product}/publish', [ProductController::class, 'publish'])->name('products.publish');
     Route::post('products/{product}/decline', [ProductController::class, 'decline'])->name('products.decline');
+    Route::get('products/statuses/accepted', [ProductController::class, 'accepted'])->name('products.accepted');
+    Route::get('products/statuses/notInStock', [ProductController::class, 'notInStock'])->name('products.notInStock');
+    Route::get('products/statuses/canceled', [ProductController::class, 'canceled'])->name('products.canceled');
+    Route::get('products/statuses/hidden', [ProductController::class, 'hidden'])->name('products.hidden');
+    Route::get('products/statuses/onCheck', [ProductController::class, 'onCheck'])->name('products.onCheck');
+    Route::get('products/statuses/deleted', [ProductController::class, 'deleted'])->name('products.deleted');
+
+    Route::get('orders/statuses/accepted', [OrderController::class, 'accepted'])->name('orders.accepted');
+    Route::get('orders/statuses/onTheWay', [OrderController::class, 'onTheWay'])->name('orders.onTheWay');
+    Route::get('orders/statuses/onCheck', [OrderController::class, 'onCheck'])->name('orders.onCheck');
+    Route::get('orders/statuses/canceled', [OrderController::class, 'canceled'])->name('orders.canceled');
+    Route::get('orders/statuses/returns', [OrderController::class, 'returns'])->name('orders.returns');
+
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
@@ -106,8 +119,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['checkProduct'])->group(function () {
         Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
-    });    
-    
+    });
+
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
     Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
     Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
@@ -118,7 +131,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
     Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
     Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
-    
+    Route::post('/products/cancelDestroy/{product}', [ProductController::class, 'cancelDestroy'])->name('ft_product.cancelDestroy');
+
+
     Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
     Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
     Route::get('orders/single/{order}', [OrderController::class, 'single'])->name('ft-order.single');

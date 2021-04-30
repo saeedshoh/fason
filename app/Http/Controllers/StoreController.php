@@ -116,8 +116,8 @@ class StoreController extends Controller
         $hiddenProducts = Product::where('store_id', $store->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->latest('updated_at')->get();
         $canceledProducts = Product::where('store_id', $store->id)->where('product_status_id', 3)->latest('updated_at')->get();
         $notInStock = Product::where('store_id', $store->id)->where('quantity', '<', 1)->withoutGlobalScopes()->latest('updated_at')->get();
-        // $deletedProducts = Product::where('store_id', $stores->id)->whereNotNull('deleted_at')->get();
-        return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock'));
+        $deletedProducts = Product::withTrashed()->where('store_id', $store->id)->whereNotNull('deleted_at')->get();
+        return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
     }
 
     /**

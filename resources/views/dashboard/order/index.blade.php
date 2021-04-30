@@ -9,7 +9,8 @@
 
         <!-- Header -->
         <div class="header">
-          <div class="header-body border-0">
+          <div class="header-body">
+
             <div class="row align-items-center">
               <div class="col">
 
@@ -25,6 +26,47 @@
 
               </div>
             </div>
+            
+            <div class="row align-items-center">
+              <div class="col">
+
+                <!-- Nav -->
+                <ul class="nav nav-tabs nav-overflow header-tabs">
+                  <li class="nav-item">
+                    <a href="{{ route('orders.index') }}" class="nav-link">
+                      Все товары <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('orders.accepted') }}" class="nav-link">
+                      Выполнено <span class="badge badge-pill badge-soft-success">{{ $orders_stats->where('order_status_id', 3)->count() }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('orders.onCheck') }}" class="nav-link">
+                      В ожидании <span class="badge badge-pill badge-soft-warning">{{ $orders_stats->where('order_status_id', 1)->count() }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('orders.onTheWay') }}" class="nav-link">
+                      В пути <span class="badge badge-pill badge-soft-primary">{{ $orders_stats->where('order_status_id', 4)->count() }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('orders.returns') }}" class="nav-link">
+                      Возврат <span class="badge badge-pill badge-soft-info">{{ $orders_stats->where('order_status_id', 5)->count() }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('orders.canceled') }}" class="nav-link">
+                      Отменен <span class="badge badge-pill badge-soft-danger">{{ $orders->where('order_status_id', 2)->count() }}</span>
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
           </div>
         </div>
 
