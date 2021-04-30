@@ -177,4 +177,9 @@ class Product extends Model
         static::addGlobalScope(new FreshProductScope);
         static::addGlobalScope(new StoreActiveProductsScope);
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 }
