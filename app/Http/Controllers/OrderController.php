@@ -43,61 +43,190 @@ class OrderController extends Controller
     {
         $orders = Order::filter($filters)
             ->latest('order_status_id')
-            ->with('user', 'store', 'order_status', 'product')
+            ->with('user', 'store', 'product')
             ->paginate(10)
             ->withQueryString();
+
         $rdrs = Order::filter($filters)->get()->pluck('id');
-        $users = User::where('status', 2)
-            ->orwhereHas('orders', function($orders) use ($rdrs){
-                $orders->whereIn('orders.id', [$rdrs]); })
-            ->get();
-        // ddd($users);
-        $products = Product::withoutGlobalScopes()
-            ->orWhereHas('orders', function($orders) use ($rdrs){
-                $orders->whereIn('orders.id', [$rdrs]); })
-            ->get();
-        // ddd($products);
-        $stores = Store::withoutGlobalScopes()
-            ->orWhereHas('orders', function($orders) use ($rdrs){
-                $orders->whereIn('orders.id', [$rdrs]); })
-            ->get();
-        // ddd($products);
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                // ->whereHas('orders', function($orders) use ($rdrs){
+                //     $orders->whereIn('orders.order_status_id', [$rdrs]); })
+                ->has('orders')
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->has('orders')
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->has('orders')
+                ->get();
+        }
+
+        $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
         return view('dashboard.order.index', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
-    public function accepted()
+    public function accepted(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
 
-        $orders = Order::withoutGlobalScopes()->where('order_status_id', 3)->orderBy('updated_at')->get();
-        return view('dashboard.order.statuses.accepted', compact('orders', 'orders_stats'));
+        $orders = Order::withoutGlobalScopes()
+            ->where('order_status_id', 3)
+            ->filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'product')
+            ->paginate(10)
+            ->withQueryString();
+
+        $rdrs = Order::where('order_status_id', 3)->filter($filters)->get()->pluck('id');
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 3); })
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 3); })
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 3); })
+                ->get();
+        }
+        return view('dashboard.order.statuses.accepted', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
-    public function onTheWay()
+    public function onTheWay(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
 
-        $orders = Order::withoutGlobalScopes()->where('order_status_id', 4)->orderBy('updated_at')->get();
-        return view('dashboard.order.statuses.onTheWay', compact('orders', 'orders_stats'));
+        $orders = Order::withoutGlobalScopes()
+            ->where('order_status_id', 4)
+            ->filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'product')
+            ->paginate(10)
+            ->withQueryString();
+
+        $rdrs = Order::where('order_status_id', 4)->filter($filters)->get()->pluck('id');
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 4); })
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 4); })
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 4); })
+                ->get();
+        }
+        return view('dashboard.order.statuses.onTheWay', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
-    public function onCheck()
+    public function onCheck(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
 
-        $orders = Order::withoutGlobalScopes()->where('order_status_id', 1)->orderBy('updated_at')->get();
-        return view('dashboard.order.statuses.onCheck', compact('orders', 'orders_stats'));
+        $orders = Order::withoutGlobalScopes()
+            ->where('order_status_id', 1)
+            ->filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'product')
+            ->paginate(10)
+            ->withQueryString();
+
+        $rdrs = Order::where('order_status_id', 1)->filter($filters)->get()->pluck('id');
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 1); })
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 1); })
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 1); })
+                ->get();
+        }
+        return view('dashboard.order.statuses.onCheck', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
-    public function canceled()
+    public function canceled(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
 
-        $orders = Order::withoutGlobalScopes()->where('order_status_id', 2)->orderBy('updated_at')->get();
-        return view('dashboard.order.statuses.canceled', compact('orders', 'orders_stats'));
+        $orders = Order::withoutGlobalScopes()
+            ->where('order_status_id', 2)
+            ->filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'product')
+            ->paginate(10)
+            ->withQueryString();
+
+        $rdrs = Order::where('order_status_id', 2)->filter($filters)->get()->pluck('id');
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 2); })
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 2); })
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 2); })
+                ->get();
+        }
+        return view('dashboard.order.statuses.canceled', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
-    public function returns()
+    public function returns(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
 
-        $orders = Order::withoutGlobalScopes()->where('order_status_id', 5)->orderBy('updated_at')->get();
-        return view('dashboard.order.statuses.returns', compact('orders', 'orders_stats'));
+        $orders = Order::withoutGlobalScopes()
+            ->where('order_status_id', 5)
+            ->filter($filters)
+            ->latest('order_status_id')
+            ->with('user', 'store', 'product')
+            ->paginate(10)
+            ->withQueryString();
+
+        $rdrs = Order::where('order_status_id', 5)->filter($filters)->get()->pluck('id');
+        $users = $products = $stores = null;
+        if($rdrs->isNotEmpty()) {
+            $users = User::where('status', 2)
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 5); })
+                ->get();
+
+            $products = Product::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 5); })
+                ->get();
+
+            $stores = Store::withoutGlobalScopes()
+                ->whereHas('orders', function($orders){
+                    $orders->where('orders.order_status_id', 5); })
+                ->get();
+        }
+        return view('dashboard.order.statuses.returns', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
 
     /**

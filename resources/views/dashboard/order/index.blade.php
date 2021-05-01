@@ -26,7 +26,7 @@
 
               </div>
             </div>
-            
+
             <div class="row align-items-center">
               <div class="col">
 
@@ -124,9 +124,11 @@
                                                 <!-- Select -->
                                                 <select class="custom-select custom-select-sm" name="user_id">
                                                     <option value="">Все</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}" @if(request()->user_id == $user->id)selected @endif>{{ $user->name }}</option>
-                                                    @endforeach
+                                                    @isset($users)
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}" @if(request()->user_id == $user->id)selected @endif>{{ $user->name }}</option>
+                                                        @endforeach
+                                                    @endisset
                                                 </select>
                                             </div>
                                         </div> <!-- / .row -->
@@ -141,9 +143,11 @@
                                                 <!-- Select -->
                                                 <select class="custom-select custom-select-sm" name="product_id">
                                                     <option value="">Все</option>
-                                                    @foreach ($products as $product)
-                                                        <option value="{{ $product->id }}" @if(request()->product_id == $product->id)selected @endif>{{ $product->name }}</option>
-                                                    @endforeach
+                                                    @isset($products)
+                                                        @foreach ($products as $product)
+                                                            <option value="{{ $product->id }}" @if(request()->product_id == $product->id)selected @endif>{{ $product->name }}</option>
+                                                        @endforeach
+                                                    @endisset
                                                 </select>
                                             </div>
                                         </div> <!-- / .row -->
@@ -158,9 +162,11 @@
                                                 <!-- Select -->
                                                 <select class="custom-select custom-select-sm" name="store_id">
                                                     <option value="">Все</option>
-                                                    @foreach ($stores as $store)
-                                                        <option value="{{ $store->id }}" @if(request()->store_id == $store->id)selected @endif>{{ $store->name }}</option>
-                                                    @endforeach
+                                                    @isset($stores)
+                                                        @foreach ($stores as $store)
+                                                            <option value="{{ $store->id }}" @if(request()->store_id == $store->id)selected @endif>{{ $store->name }}</option>
+                                                        @endforeach
+                                                    @endisset
                                                 </select>
                                             </div>
                                         </div> <!-- / .row -->

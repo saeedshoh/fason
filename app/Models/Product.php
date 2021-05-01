@@ -79,55 +79,6 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
-    // public function getPriceAfterMarginAttribute()
-    // {
-    //     $store = Store::withoutGlobalScopes()->find($this->store_id);
-    //     $category = Category::withoutGlobalScopes()->find($this->category_id);
-    //     $price = 0;
-    //     if($category->is_monetized) {
-    //         foreach($category->monetizations as $monetization) {
-    //             if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-    //                 $price = $this->price + $this->price*($monetization->margin/100) + $monetization->added_val;
-    //             }
-    //         }
-    //     }
-    //     if($store->is_monetized){
-    //         if($store->monetizations->first()){
-    //             foreach($store->monetizations as $monetization) {
-    //                 if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-    //                     return $this->price + $this->price*($monetization->margin/100) + $monetization->added_val + $price;
-    //                 }
-    //                 else{
-    //                     $monetizations = Monetization::get();
-    //                     foreach($monetizations as $monet) {
-    //                         if ($this->price >= $monet->min && $this->price < $monet->max) {
-    //                             return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
-    //                         }
-    //                     }
-    //                     return $this->price;
-    //                 }
-    //             }
-    //         }
-    //         else {
-    //             $monetizations = Monetization::get();
-    //             foreach($monetizations as $monet) {
-    //                 if ($this->price >= $monet->min && $this->price < $monet->max) {
-    //                     return $this->price + ($this->price*($monet->margin/100)) + $monet->added_val + $price;
-    //                 }
-    //             }
-    //             return $this->price;
-    //         }
-    //     } else {
-    //         $monetizations = Monetization::get();
-    //         foreach($monetizations as $monetization) {
-    //             if ($this->price >= $monetization->min && $this->price < $monetization->max) {
-    //                 return $this->price + ($this->price*($monetization->margin/100)) + $monetization->added_val + $price;
-    //             }
-    //         }
-    //         return $this->price;
-    //     }
-    // }
-
     public function getPriceAfterMarginAttribute()
     {
         $store = Store::withoutGlobalScopes()->find($this->store_id);
@@ -181,5 +132,96 @@ class Product extends Model
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
+    }
+
+    public function scopeFull($query, $request)
+    {
+        $query->where('name', 'like', '%'.$request->search.'%')
+            ->orWhereHas('store', function($store) use ($request){
+                $store->where('name',  'like', '%'.$request->search.'%'); })
+            ->orWhereHas('category', function($category) use ($request){
+                $category->where('name',  'like', '%'.$request->search.'%'); })
+            ->latest('updated_at');
+    }
+
+    public function scopeAccepted($query, $request)
+    {
+        $query->where('product_status_id', 2)
+            ->whereNull('deleted_at')
+            ->where('updated_at', '>', now()->subWeek())
+            ->where('quantity', '>', 1)
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
+    }
+
+    function scopeNotInStock($query, $request)
+    {
+        $query->where('quantity', '<', 1)
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
+    }
+
+    public function scopeCanceled($query, $request)
+    {
+        $query->where('product_status_id', 3)
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
+    }
+
+    public function scopeHidden($query, $request)
+    {
+        $query->where('updated_at', '<', now()->subWeek())
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
+    }
+
+    public function scopeOnCheck($query, $request)
+    {
+        $query->where('product_status_id', 1)
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
+    }
+
+    public function scopeDeleted($query, $request)
+    {
+        $query->whereNotNull('deleted_at')
+            ->where(function ($q) use ($request){
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhereHas('store', function($store) use ($request){
+                        $store->where('name',  'like', '%'.$request->search.'%'); })
+                    ->orWhereHas('category', function($category) use ($request){
+                        $category->where('name',  'like', '%'.$request->search.'%'); });
+            })
+            ->latest('updated_at');
     }
 }

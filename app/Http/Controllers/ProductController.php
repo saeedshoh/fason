@@ -77,15 +77,10 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
-            ->where('name', 'like', '%'.$request->search.'%')
-            ->orWhereHas('store', function($store) use ($request){
-                $store->where('name',  'like', '%'.$request->search.'%'); })
-            ->orWhereHas('category', function($category) use ($request){
-                $category->where('name',  'like', '%'.$request->search.'%'); })
-            ->latest('updated_at')
+            ->full($request)
             ->paginate(10)
             ->withQueryString();
         if($request->ajax()) {
@@ -98,47 +93,95 @@ class ProductController extends Controller
 
     // !Разбивка статусов на странички
 
-    public function accepted()
+    public function accepted(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->where('product_status_id', 2)->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->accepted($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.accepted', compact('products', 'products_stats'));
     }
-    public function notInStock()
+    public function notInStock(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->where('quantity', '<', 1)->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->notInStock($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.notInStock', compact('products', 'products_stats'));
     }
-    public function canceled()
+    public function canceled(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->where('product_status_id', 3)->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->canceled($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.canceled', compact('products', 'products_stats'));
     }
 
-    public function hidden()
+    public function hidden(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->hidden($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.hidden', compact('products', 'products_stats'));
     }
-    public function onCheck()
+    public function onCheck(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->where('product_status_id', 1)->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->onCheck($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.onCheck', compact('products', 'products_stats'));
     }
-    public function deleted()
+    public function deleted(Request $request)
     {
-        $products_stats = Product::withoutGlobalScopes()->latest('updated_at')->get();
+        $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()->whereNotNull('deleted_at')->latest('updated_at')->paginate(10);
+        $products = Product::withoutGlobalScopes()
+            ->deleted($request)
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.products', compact('products')
+                )->render());
+        }
         return view('dashboard.products.statuses.deleted', compact('products', 'products_stats'));
     }
     // #Разбивка статусов на странички
