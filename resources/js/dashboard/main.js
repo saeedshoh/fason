@@ -96,6 +96,24 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
         else if(item.indexOf('show/') != -1 && item.indexOf('/products') != -1){
             $('#show_products').empty().html(data);
         }
+        else if(item.indexOf('products/statuses/accepted') != -1){
+            $('#products_accepted').empty().html(data);
+        }
+        else if(item.indexOf('products/statuses/onCheck') != -1){
+            $('#products_oncheck').empty().html(data);
+        }
+        else if(item.indexOf('products/statuses/canceled') != -1){
+            $('#products_canceled').empty().html(data);
+        }
+        else if(item.indexOf('products/statuses/hidden') != -1){
+            $('#products_hidden').empty().html(data);
+        }
+        else if(item.indexOf('products/statuses/notInStock') != -1){
+            $('#products_notinstock').empty().html(data);
+        }
+        else if(item.indexOf('products/statuses/deleted') != -1){
+            $('#products_deleted').empty().html(data);
+        }
         else {
             $('#'+item).empty().html(data);
         }

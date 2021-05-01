@@ -53,7 +53,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.accepted') }}" class="nav-link">
-                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->count() }}</span>
+                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('updated_at', '>', now()->subWeek())->where('quantity', '>', 1)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -106,9 +106,9 @@
                         <form>
                           <div class="input-group input-group-flush">
                               <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                  <i class="fe fe-search"></i>
-                              </span>
+                                <span class="input-group-text">
+                                    <i class="fe fe-search"></i>
+                                </span>
                               </div>
                               <input class="form-control" type="text" placeholder="Поиск" data-item="products" id="search" value="{{ request()->search }}">
                           </div>
