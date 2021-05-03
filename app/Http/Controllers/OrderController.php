@@ -353,7 +353,7 @@ class OrderController extends Controller
         $order = Order::withoutGlobalScopes()->where('id', $order)->with('no_scope_product')->first();
         $product = Product::withoutGlobalScopes()->withTrashed()->where('id', $order->product_id)->first();
         $attributes = $product->attribute_variation;
-        return view('orders.show', compact('product', 'attributes'));
+        return view('orders.show', compact('product', 'attributes', 'order'));
     }
 
     /**

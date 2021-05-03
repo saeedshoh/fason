@@ -127,7 +127,7 @@
           <div class="row align-items-center mt-lg-3 prod-controls">
             <div class="col-12 py-3">
               <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ round($product->price_after_margin) }}</span> <span class="mb-currency">Сомони</span></h5>
+                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $order->total + $order->margin }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
             <div class="col-4 my-md-0 my-3 text-center d-none">
