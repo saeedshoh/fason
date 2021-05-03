@@ -3,6 +3,12 @@
     "/css/dashboard/theme.css": "/css/dashboard/theme.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
     "/css/main.css": "/css/main.css",
+    "/js/app.js.map": "/js/app.js.map",
+    "/css/dashboard/theme.css.map": "/css/dashboard/theme.css.map",
+    "/css/dashboard/app.css.map": "/css/dashboard/app.css.map",
+    "/css/main.css.map": "/css/main.css.map",
     "/js/dashboard/app.js": "/js/dashboard/app.js",
-    "/js/main.js": "/js/main.js"
+    "/js/dashboard/app.js.map": "/js/dashboard/app.js.map",
+    "/js/main.js": "/js/main.js",
+    "/js/main.js.map": "/js/main.js.map"
 }
