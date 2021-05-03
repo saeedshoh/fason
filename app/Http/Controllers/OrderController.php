@@ -27,8 +27,8 @@ class OrderController extends Controller
         if (Auth::check()) {
             $is_store = $this->stores->where('user_id', Auth::id())->first();
         }
-        $sales = Order::orderBy('created_at')->get();
-        $orders = Order::where('user_id', Auth::id())->latest()->orderBy('created_at')->get();
+        $sales = Order::latest('id')->get();
+        $orders = Order::where('user_id', Auth::id())->latest('id')->get();
 
         return view('orders', compact('orders', 'is_store', 'sales'));
 
