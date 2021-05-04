@@ -193,6 +193,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $route = 'clients.index';
         $validated = $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -211,7 +212,10 @@ class UserController extends Controller
         }
         $user->update($validated + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
 
-        return redirect()->route('clients.index');
+        if($user->status == 1) {
+            $route = 'users.index';
+        }
+        return redirect()->route($route);
     }
 
     /**
