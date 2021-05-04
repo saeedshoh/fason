@@ -213,7 +213,9 @@
               <div class="text-center text-md-right">
                 @if(Auth::check())
                   @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
-                    <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
+                    @if($product->deleted_at == null)
+                        <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
+                    @endif
                   @else
                     <!-- Button trigger modal -->
                     <button id="buyBtn" type="button" class="btn btn-danger custom-radius d-none d-lg-block" data-toggle="modal">
@@ -371,7 +373,7 @@
                     </g>
                     </svg>Восстановить
                 </button> --}}
-                
+
 
                 @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null)
                 <form action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
@@ -393,7 +395,7 @@
                       Восстановить
                   </button>
                 </form>
-                  
+
                 @endif
               @endif
             </div>

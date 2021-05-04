@@ -189,7 +189,7 @@ class ProductController extends Controller
 
     public function single($slug)
     {
-        $product = Product::withTrashed()->where('slug', $slug)->first();
+        $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
         if(Auth::check()){
             if($product->store->user_id != Auth::user()->id){
                 $product = Product::where('slug', $slug)->first();
