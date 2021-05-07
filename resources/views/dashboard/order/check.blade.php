@@ -210,6 +210,11 @@
                             <button class="btn btn-danger mx-2"><i class="fe fe-x-circle"> </i> Отклонить</button>
                             @method('POST')
                         </form>
+                        <form class="d-inline" action="{{ route('returnsOrder', $order) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-secondary mx-2"><i class="fe fe-info"> </i> Возврат</button>
+                            @method('POST')
+                        </form>
                     </div>
                 </div>
             </div>

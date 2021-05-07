@@ -12521,6 +12521,15 @@ input[type=number]:hover::-webkit-outer-spin-button {
   background: #0DC985;
 }
 
+.secondary-card .status::before {
+  content: "";
+  position: absolute;
+  left: -3%;
+  height: 100%;
+  width: 5px;
+  background: #6c757d;
+}
+
 .declined-card .status::before {
   content: "";
   position: absolute;
@@ -13087,7 +13096,8 @@ input[type=number]:hover::-webkit-outer-spin-button {
 
 @media only screen and (max-width: 420px) {
   .product-buttons {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 0 0.5em;
   }
 }

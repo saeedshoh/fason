@@ -457,4 +457,10 @@ class OrderController extends Controller
         $order->update(['order_status_id' => 2]);
         return redirect()->route('orders.index')->with(['success' => 'Заказ отклонен']);
     }
+
+    public function returnsOrder(Order $order)
+    {
+        $order->update(['order_status_id' => 5]);
+        return redirect()->route('orders.index')->with(['success' => 'Заказ возвращен']);
+    }
 }
