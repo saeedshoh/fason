@@ -34,7 +34,7 @@
           <p>Ваш магазин отключен. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <span class="alert-link">XXXXXXXXX</span></p>
         </div>
       </div>
-      @else
+      @elseif($store->is_active == 1)
         <div class="col-12  px-0 px-md-2">
           <div class="alert alert-warning" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
