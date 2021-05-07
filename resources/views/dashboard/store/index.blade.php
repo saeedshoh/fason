@@ -104,23 +104,23 @@
                                         <!-- Badge -->
                                         <div class="badge badge-primary">
                                             @if($store->is_moderation)
-                                            В модерации
+                                                В модерации
                                             @elseif($store->is_active == 0)
-                                            Неактивен
+                                                Неактивен
                                             @else
-                                            Активен
+                                                Активен
                                             @endif
                                         </div>
                                     </td>
                                     <td class="text-right">
-                                        <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
+                                        {{-- <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
                                             @csrf
                                             <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                                 <i class="fe fe-trash"> </i></button>
                                             @method('DELETE')
-                                        </form>
+                                        </form> --}}
                                         <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-secondary m-1 pull-right">
-                                        <i class="fe fe-eye" aria-hidden="true"></i>
+                                            <i class="fe fe-eye" aria-hidden="true"></i>
                                         </a>
                                         <form class="d-inline" action="{{ route('ft-store.toggle', $store->store_id) }}" method="POST">
                                             @csrf

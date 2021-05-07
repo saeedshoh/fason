@@ -21,7 +21,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                    Возврат <span class="badge badge-pill badge-soft-info">{{ $orders->total() }}</span>
+                    Возврат <span class="badge badge-pill badge-soft-secondary">{{ $orders->total() }}</span>
                 </h1>
 
               </div>
@@ -54,7 +54,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('orders.returns') }}" class="nav-link active">
-                      Возврат <span class="badge badge-pill badge-soft-info">{{ $orders_stats->where('order_status_id', 5)->count() }}</span>
+                      Возврат <span class="badge badge-pill badge-soft-secondary">{{ $orders_stats->where('order_status_id', 5)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -313,7 +313,7 @@
               </thead>
               <tbody class="list">
                 @forelse ($orders as $key => $order)
-                <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @elseif($order->order_status->id == 4)primary @else()success @endif">
+                <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @elseif($order->order_status->id == 4)primary @elseif($order->order_status->id == 5)secondary @else()success @endif">
                   <td class="orders-order">
                     #{{ $order->id}}
                   </td>

@@ -85,6 +85,7 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     ]);
     Route::post('/acceptOrder/{order}', [OrderController::class, 'acceptOrder'])->name('acceptOrder');
     Route::post('/declineOrder/{order}', [OrderController::class, 'declineOrder'])->name('declineOrder');
+    Route::post('/returnsOrder/{order}', [OrderController::class, 'returnsOrder'])->name('returnsOrder');
     Route::post('/completeOrder/{order}', [OrderController::class, 'completeOrder'])->name('completeOrder');
     Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
     Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');

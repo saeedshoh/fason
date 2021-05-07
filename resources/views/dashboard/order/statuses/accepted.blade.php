@@ -54,7 +54,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('orders.returns') }}" class="nav-link">
-                      Возврат <span class="badge badge-pill badge-soft-info">{{ $orders_stats->where('order_status_id', 5)->count() }}</span>
+                      Возврат <span class="badge badge-pill badge-soft-secondary">{{ $orders_stats->where('order_status_id', 5)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
