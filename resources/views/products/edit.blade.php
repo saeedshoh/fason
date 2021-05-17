@@ -40,7 +40,7 @@
                     {{--  </div>  --}}
                 @endforeach
             @endif
-            
+
           </div>
           {{--  <form method="post" action="" enctype="multipart/form-data" id="myform">
             <input type="file" accept="image/*"  id="galler" class="d-none" name="galler" multiple >
@@ -347,7 +347,7 @@
     </div>
   </section>
 
-  
+
 <style>
     body {
       position: relative;

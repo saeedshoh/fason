@@ -416,10 +416,11 @@ $(document).ready(function() {
     })
 
     ///Delete store
-
-    $('.delete-store').on('click', function(){
+    $('body').on('click', '.delete-store', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
         Swal.fire({
-            title: 'Вы действительно хотите удалить магазин?',
+            title: 'Вы действительно хотите включить магазин?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Да',
@@ -427,8 +428,33 @@ $(document).ready(function() {
             customClass:{
                 confirmButton: 'bg-danger'
             }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
         })
     })
+
+    $('body').on('click', '.restore-store', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Вы действительно хотите восстановить магазин?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-success'
+            },
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+              if (result.isConfirmed) {
+                  form.submit();
+              }
+      })
+    });
 })
 
 $('body').on('click', '#filter', function() {
@@ -1361,20 +1387,6 @@ $('.add-product-secondary .pic-item').on('click', function() {
 
 })
 
-///Delete product
-// $('.delete-product').on('click', function(){
-//     this.preventDefault()
-//     Swal.fire({
-//         title: 'Вы действительно хотите удалить товар?',
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonText: 'Да',
-//         cancelButtonText: 'Нет',
-//         customClass:{
-//             confirmButton: 'bg-danger'
-//         }
-//     })
-// })
 
 
 $('body').on('click', '.delete-product', function(event) {
