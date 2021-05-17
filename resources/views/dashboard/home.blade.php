@@ -2,376 +2,706 @@
 @extends('dashboard.layouts.aside')
 
 @section('content')
-  <!-- HEADER -->
-  <div class="header bg-dark pb-5">
+<div class="main-content">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="container-fluid">
+
+        <!-- Body -->
+        <div class="header-body">
+          <div class="row align-items-end">
+            <div class="col">
+
+                <!-- Title -->
+                <h1 class="header-title">
+                    Общая сводка
+                </h1>
+                <p class="header-subtitle">
+                    Некоторая сводка
+                </p>
+            </div>
+          </div> <!-- / .row -->
+        </div> <!-- / .header-body -->
+
+      </div>
+    </div> <!-- / .header -->
+
+    <!-- CARDS -->
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-6 col-xl">
 
-      <!-- Body -->
-      <div class="header-body">
-        <div class="row align-items-end">
-          <div class="col">
+            <!-- Value  -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
 
-            {{-- <!-- Pretitle -->
-            <h6 class="header-pretitle text-secondary">
-              Annual
-            </h6> --}}
-
-            <!-- Title -->
-            <h1 class="header-title text-white">
-              Заказы
-            </h1>
-
-          </div>
-          <div class="col-auto">
-
-            <!-- Nav -->
-            <ul class="nav nav-tabs header-tabs">
-              <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                <a href="#" class="nav-link text-center active" data-toggle="tab">
-                  {{-- <h6 class="header-pretitle text-secondary">
-                    Customers
-                  </h6> --}}
-                  <h3 class="text-white mb-0">
-                    Месяц
-                  </h3>
-                </a>
-              </li>
-              {{-- <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="1">
-                <a href="#" class="nav-link text-center" data-toggle="tab">
-                  {{-- <h6 class="header-pretitle text-secondary">
-                    Sessions
-                  </h6> --}}
-                  {{-- <h3 class="text-white mb-0">
-                    Неделя
-                  </h3>
-                </a>
-              </li> --}}
-              {{-- <li class="nav-item" data-toggle="chart" data-target="#audienceChart" data-trigger="click" data-action="toggle" data-dataset="2">
-                <a href="#" class="nav-link text-center" data-toggle="tab"> --}}
-                  {{-- <h6 class="header-pretitle text-secondary">
-                    Conversion
-                  </h6> --}}
-                  {{-- <h3 class="text-white mb-0">
-                    Месяц
-                  </h3>
-                </a>
-              </li> --}}
-            </ul>
-
-          </div>
-        </div><!-- / .row -->
-      </div> <!-- / .header-body -->
-
-      <!-- Footer -->
-      <div class="header-footer">
-
-        <!-- Chart -->
-        <div class="chart">
-          <canvas id="audienceChart" class="chart-canvas"></canvas>
-        </div>
-
-      </div>
-
-    </div>
-  </div> <!-- / .header -->
-
-  <!-- CARDS -->
-  <div class="container-fluid mt-n6">
-    <div class="row">
-      <div class="col-12 col-xl-8">
-
-        <!-- Orders -->
-        <div class="card">
-          <div class="card-header">
-
-            <!-- Title -->
-            <h4 class="card-header-title">
-              Прибыль
-            </h4>
-
-            <!-- Caption -->
-            <span class="text-muted mr-3">
-              С учетом комиссии:
-            </span>
-
-            <!-- Switch -->
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="cardToggle" data-toggle="chart" data-target="#ordersChart" data-trigger="change" data-action="add" data-dataset="1" />
-              <label class="custom-control-label" for="cardToggle"></label>
-            </div>
-
-          </div>
-          <div class="card-body">
-
-            <!-- Chart -->
-            <div class="chart">
-              <canvas id="ordersChart" class="chart-canvas"></canvas>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-xl-4">
-
-        <!-- Traffic -->
-        <div class="card">
-          <div class="card-header">
-
-            <!-- Title -->
-            <h4 class="card-header-title">
-              Traffic Channels
-            </h4>
-
-            <!-- Tabs -->
-            <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-              <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                <a href="#" class="nav-link active" data-toggle="tab">
-                  All
-                </a>
-              </li>
-              <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="1">
-                <a href="#" class="nav-link" data-toggle="tab">
-                  Direct
-                </a>
-              </li>
-            </ul>
-
-          </div>
-          <div class="card-body">
-
-            <!-- Chart -->
-            <div class="chart chart-appended">
-              <canvas id="trafficChart" class="chart-canvas" data-toggle="legend" data-target="#trafficChartLegend"></canvas>
-            </div>
-
-            <!-- Legend -->
-            <div id="trafficChartLegend" class="chart-legend"></div>
-
-          </div>
-        </div>
-
-      </div>
-    </div> <!-- / .row -->
-    <h1 class="header-title my-2">
-        Товары
-    </h1>
-    <div class="row">
-      <div class="col-12 col-lg-6 col-xl">
-
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Общее количество товаров
-                </h6>
-
-                <div class="row align-items-center no-gutters">
-                  <div class="col-auto">
-
-                    <!-- Heading -->
-                    <span class="h2 mr-2 mb-0">
-                      {{ $productsCount }}
-                    </span>
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col-auto">
-
-                <!-- Icon -->
-                <span class="h2 fe fe-clipboard text-muted mb-0"></span>
-
-              </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
-
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Title -->
+                    <!-- Title -->
                     <h6 class="text-uppercase text-muted mb-2">
-                      Количество новых товаров
+                        Пользователей
                     </h6>
 
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto">
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        $24,500
+                    </span>
+
+                    <!-- Badge -->
+                    <span class="badge badge-soft-success mt-n1">
+                        +3.5%
+                    </span>
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Hours -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+
+                        <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                            Магазинов
+                        </h6>
 
                         <!-- Heading -->
-                        <span class="h2 mr-2 mb-0">
-                          {{ $newProductsCount }}
+                        <span class="h2 mb-0">
+                            {{ $storesCount }}
                         </span>
 
-                      </div>
+                        </div>
+                        <div class="col-auto">
+
+                        <!-- Icon -->
+                        <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+
+                        </div>
                     </div> <!-- / .row -->
+                </div>
+            </div>
 
-              </div>
-              <div class="col-auto">
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
 
-                <!-- Icon -->
-                <span class="h2 fe fe-shopping-bag text-muted mb-0"></span>
+            <!-- Exit -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
 
-              </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
-
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Количество удаленных товаров
-                </h6>
-
-                <div class="row align-items-center no-gutters">
-                  <div class="col-auto">
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Товаров
+                    </h6>
 
                     <!-- Heading -->
-                    <span class="h2 mr-2 mb-0">
-                      {{ $deletedProductsCount }}
+                    <span class="h2 mb-0">
+                        {{ $productsCount }}
                     </span>
 
-                  </div>
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                    </div>
+
+                    </div>
                 </div> <!-- / .row -->
-              </div>
-              <div class="col-auto">
+                </div>
+            </div>
 
-                <!-- Icon -->
-                <span class="h2 fe fe-trash text-muted mb-0"></span>
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
 
-              </div>
-            </div> <!-- / .row -->
-          </div>
+            <!-- Time -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Заказов
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        2:37
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-clock text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+        </div> <!-- / .row -->
+        <div class="header">
+            <div class="header-body">
+
+              <!-- Title -->
+              <h1 class="header-title">
+                Товары
+              </h1>
+
+              <!-- Subtitle -->
+              <p class="header-subtitle">
+                Некоторая сводка о ваших товарах
+              </p>
+
+            </div>
         </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 col-xl">
 
-      </div>
-      </div>
+            <!-- Value  -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
 
-      <h1 class="header-title my-2">
-        Заказы
-      </h1>
-    <div class="row">
-      <div class="col-12 col-lg-6 col-xl">
+                        <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                            Новые
+                        </h6>
 
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
+                        <!-- Heading -->
+                        <span class="h2 mb-0">
+                            {{ $newProductsCount }}
+                        </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                        <!-- Icon -->
+                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Hours -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        На проверке
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        763.5
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Exit -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Отклонённые
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        35.5%
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                    </div>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Time -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Удаленные
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        {{ $deletedProductsCount }}
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-clock text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+        </div> <!-- / .row -->
+        <div class="header">
+            <div class="header-body">
+
+              <!-- Title -->
+              <h1 class="header-title">
+                Заказы
+              </h1>
+
+              <!-- Subtitle -->
+              <p class="header-subtitle">
+                Некоторая сводка о ваших заказах
+              </p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Value  -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                        <h6 class="text-uppercase text-muted mb-2">
+                            КУПЛЕННО ТОВАРОВ НА СУММУ
+                        </h6>
+
+                        <!-- Heading -->
+                        <span class="h2 mb-0">
+                            {{ $salesSum }} TJS
+                        </span>
+                    </div>
+                    <div class="col-auto">
+
+                        <!-- Icon -->
+                        <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Hours -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        ПРИНЯТО ЗАКАЗОВ
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        {{ $ordersCount }}
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Exit -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        ПРИБЫЛЬ С УЧЕТОМ КОМИССИИ
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        {{ $profitIncludingCommission }} TJS
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                    </div>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Time -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Выполненых заказов
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        2:37
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-clock text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+        </div> <!-- / .row -->
+
+        <div class="row">
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Value  -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Возврат заказов
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        $24,500
+                    </span>
+
+                    <!-- Badge -->
+                    <span class="badge badge-soft-success mt-n1">
+                        +3.5%
+                    </span>
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+            <div class="col-12 col-lg-6 col-xl">
+
+            <!-- Hours -->
+            <div class="card">
+                <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+
+                    <!-- Title -->
+                    <h6 class="text-uppercase text-muted mb-2">
+                        Отмененных заказов
+                    </h6>
+
+                    <!-- Heading -->
+                    <span class="h2 mb-0">
+                        763.5
+                    </span>
+
+                    </div>
+                    <div class="col-auto">
+
+                    <!-- Icon -->
+                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
+            </div>
+
+            </div>
+        </div> <!-- / .row -->
+        <div class="header">
+            <div class="header-body">
+
+              <!-- Title -->
+              <h1 class="header-title">
+                Магазины
+              </h1>
+
+              <!-- Subtitle -->
+              <p class="header-subtitle">
+                Узнайте о новых и лучших магазинах
+              </p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-4">
+
+            <!-- Projects -->
+            <div class="card card-fill">
+                <div class="card-header">
 
                 <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Купленно товаров на сумму
-                </h6>
+                <h4 class="card-header-title">
+                    Новые магазины
+                </h4>
 
-                <!-- Heading -->
-                <span class="h2 mb-0">
-                  {{ $salesSum }} TJS
-                </span>
+                <!-- Link -->
+                <a href="project-overview.html" class="small">Показать все</a>
 
-              </div>
-              <div class="col-auto">
+                </div>
+                <div class="card-body">
 
-                <!-- Icon -->
-                <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+                <!-- List group -->
+                    <div class="list-group list-group-flush my-n3">
+                        <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
 
-              </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
+                            <!-- Avatar -->
+                            <a href="project-overview.html" class="avatar avatar-4by3">
+                                <img src="assets/img/avatars/projects/project-1.jpg" alt="..." class="avatar-img rounded">
+                            </a>
 
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
+                            </div>
+                            <div class="col ml-n2">
 
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Принято заказов
-                </h6>
+                            <!-- Title -->
+                            <h4 class="mb-1">
+                                <a href="project-overview.html">Homepage Redesign</a>
+                            </h4>
 
-                <!-- Heading -->
-                <span class="h2 mb-0">
-                  {{ $ordersCount }}
-                </span>
+                            <!-- Time -->
+                            <p class="card-text small text-muted">
+                                <time datetime="2018-05-24">Updated 4hr ago</time>
+                            </p>
 
-              </div>
-              <div class="col-auto">
+                            </div>
+                            <div class="col-auto">
 
-                <!-- Chart -->
-                <div class="chart chart-sparkline"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                            <!-- Dropdown -->
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fe fe-more-vertical"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#!" class="dropdown-item">
+                                    Action
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                    Another action
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                    Something else here
+                                </a>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div> <!-- / .card-body -->
+            </div> <!-- / .card -->
+            </div>
+            <div class="col-12 col-xl-8">
+
+                <!-- Goals -->
+                <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                    <div class="col">
+
+                        <!-- Title -->
+                        <h4 class="card-header-title">
+                            Топ 5 активных магазинов
+                        </h4>
+
+                    </div>
+                    <div class="col-auto">
+
+                        <!-- Button -->
+                        <a href="#!" class="btn btn-sm btn-white">
+                        Export
+                        </a>
+
+                    </div>
+                    </div> <!-- / .row -->
+                </div>
+                <div class="table-responsive mb-0" data-list="{&quot;valueNames&quot;: [&quot;goal-project&quot;, &quot;goal-status&quot;, &quot;goal-progress&quot;, &quot;goal-date&quot;]}">
+                    <table class="table table-sm table-nowrap card-table">
+                    <thead>
+                        <tr>
+                        <th>
+                            <a href="#" class="text-muted list-sort" data-sort="goal-project">
+                            Goal
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" class="text-muted list-sort" data-sort="goal-status">
+                            Status
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" class="text-muted list-sort" data-sort="goal-progress">
+                            Progress
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" class="text-muted list-sort" data-sort="goal-date">
+                            Due date
+                            </a>
+                        </th>
+                        <th class="text-right">
+                            Team
+                        </th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                    <tr>
+                        <td class="goal-project">
+                            Release v1.2-Beta
+                        </td>
+                        <td class="goal-status">
+                            <span class="text-warning">●</span> In progress
+                        </td>
+                        <td class="goal-progress">
+                            25%
+                        </td>
+                        <td class="goal-date">
+                            <time datetime="2018-10-24">08/26/18</time>
+                        </td>
+                        <td class="text-right">
+                            <div class="avatar-group justify-content-end">
+                            <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
+                                <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                                <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
+                                <img src="assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
+                            </a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="dropdown">
+                            <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fe fe-more-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#!" class="dropdown-item">
+                                Action
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                Another action
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                Something else here
+                                </a>
+                            </div>
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
                 </div>
 
-              </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
+            </div>
+        </div> <!-- / .row -->
+    </div>
 
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
+  </div>
 
-        <!-- Card -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
+  <div class="container-fluid mt-6">
 
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">
-                  Прибыль с учетом комиссии
-                </h6>
-
-                <div class="row align-items-center no-gutters">
-                  <div class="col-auto">
-
-                    <!-- Heading -->
-                    <span class="h2 mr-2 mb-0">
-                      {{ $profitIncludingCommission }}
-                    </span>
-
-                  </div>
-                </div> <!-- / .row -->
-              </div>
-              <div class="col-auto">
-
-                <!-- Icon -->
-                <span class="h2 fe fe-arrow-up text-muted mb-0"></span>
-
-              </div>
-            </div> <!-- / .row -->
-          </div>
-        </div>
-    </div> <!-- / .row -->
 
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="header-title ml-3 my-2">
-                Магазины
-                <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
-            </h1>
-        </div>
       <div class="col-12 col-xl-4">
 
         <!-- Activity -->
@@ -461,7 +791,7 @@
                 </tr>
               </thead>
               <tbody class="list">
-                @foreach ($topstores as $store)               
+                @foreach ($topstores as $store)
                   <tr>
                     <td class="products-product">
                       <div class="d-flex align-items-center">
@@ -486,7 +816,7 @@
                     {{-- <td class="products-stock">
 
                       <!-- Badge -->
-                      
+
                         <span class="badge {{ $store->is_active == 1 ? 'badge-soft-success' : 'badge badge-danger'}}">{{ $store->is_active == 1 ? 'Активен' : 'Неактивен'}}</span>
 
                     </td> --}}

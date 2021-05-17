@@ -25,7 +25,7 @@
                                 </label>
 
                             @else
-                                <img src="/storage/{{ $user->profile_photo_path }}" class="rounded-pill" height="250px" width="250px" id="avatar-poster">
+                                <img src="/storage/{{ $user->profile_photo_path }}" class="rounded-pill" height="90" width="90" id="avatar-poster"  style="object-fit: cover;">
                                 <div class="edit-store-logo position-absolute w-100 edit-pofile-img">
                                     <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
                                         Изменить

@@ -262,7 +262,7 @@ class StoreController extends Controller
                 'is_active' => 1,
             ]);
         }
-        return redirect(route('stores.index'))->with('success', 'Магазин успешно изменен!');
+        return redirect()->back();
     }
 
     /**
