@@ -194,7 +194,7 @@ a {
     width: 100%;
     height: 3px;
     position: absolute;
-    background: #FF0055;
+    background: #d2d2d2;
     margin-top: -7px;
     margin-left: -0%;
 }
@@ -803,8 +803,8 @@ button:focus {
     border: 2px solid #FF0055;
 }
 
-.category-Border-pinky {
-    border-bottom: 2.5px solid #d2d2d2;
+.category-Border-gray{
+    border-bottom: 2.5px solid #d2d2d2 !important;
 }
 
 .product-size:hover {
@@ -1680,7 +1680,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 .category-item {
-    margin: 0 3rem;
+    margin: 0 1rem;
 }
 
 .order-title {
