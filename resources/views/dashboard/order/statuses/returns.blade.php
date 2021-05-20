@@ -59,7 +59,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('orders.canceled') }}" class="nav-link">
-                      Отменен <span class="badge badge-pill badge-soft-danger">{{ $orders->where('order_status_id', 2)->count() }}</span>
+                      Отменен <span class="badge badge-pill badge-soft-danger">{{ $orders_stats->where('order_status_id', 2)->count() }}</span>
                     </a>
                   </li>
                 </ul>

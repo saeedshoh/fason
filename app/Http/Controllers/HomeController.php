@@ -11,6 +11,7 @@ use App\Models\Monetization;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class HomeController extends Controller
     }
     public function dashboard()
     {
-        $stores = Store::all();
+        $stores = Store::withoutGlobalScopes()->get();
         $total = [];
         foreach ($stores as $store) {
             $store_orders = $store->orders;
@@ -52,21 +53,31 @@ class HomeController extends Controller
         [$keys, $values] = Arr::divide($total);
         $topstores = collect();
         foreach ($total as $key => $value) {
-           $topstores->push($store = Store::select('name', 'avatar', 'is_active', DB::raw("$value as orders"))->where('id', $key)->get());
+           $topstores->push($store = Store::withoutGlobalScopes()->select('id','name', 'created_at', 'is_active', 'address', DB::raw("$value as orders"))->where('id', $key)->get());
         }
         $topstores = $topstores->flatten();
         $months = Order::where('order_status_id', 3)->select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
 
         $now = Carbon::now();
+        $from = $now->startOfWeek()->format('Y-m-d');
+        $to = $now->endOfWeek()->format('Y-m-d');
+        // dd(date('2021-05-12'));
         $salesSum = Order::where('order_status_id', 3)->sum('total');
         $ordersCount = Order::where('order_status_id', 3)->count('id');
-        $productsCount = Product::count('id');
-        $newProductsCount = Product::whereBetween('updated_at', [$now->startOfWeek()->format('Y-m-d H:i'), $now->endOfWeek()->format('Y-m-d H:i')])->count('id');
+        $productsCount = Product::withoutGlobalScopes()->count();
+        $newProductsCount = Product::withoutGlobalScopes()->whereBetween('updated_at', [$from, $to])->count();
+        $onCheckProductsCount = Product::withoutGlobalScopes()->where('product_status_id', '1')->count();
+        $cancelledCheckProductsCount = Product::withoutGlobalScopes()->where('product_status_id', '3')->count();
+
         $deletedProductsCount = Log::where('table', 'Продукты')->where('action', 3)->count();
         $profitIncludingCommission = Order::where('order_status_id', 3)->sum('margin') + $salesSum;
-        $storesCount = Store::count();
-        $newStores = Store::whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d H:i'), $now->endOfMonth()->format('Y-m-d H:i')])->orderByDesc('id')->get();
-        return view('dashboard.home', compact('salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores', 'topstores'));
+        $storesCount = Store::withoutGlobalScopes()->count();
+        $newStores = Store::withoutGlobalScopes()->whereBetween('updated_at', [$now->startOfMonth()->format('Y-m-d'), $now->endOfMonth()->format('Y-m-d')])->orderByDesc('id')->get();
+
+        $usersCount = User::where('status', 2)->count();
+        $orderCanceledCount = Order::where('order_status_id', 2)->count();
+        $orderReturnsCount = Order::where('order_status_id', 5)->count();
+        return view('dashboard.home', compact('cancelledCheckProductsCount', 'onCheckProductsCount', 'orderReturnsCount', 'orderCanceledCount', 'salesSum', 'ordersCount', 'productsCount', 'newProductsCount', 'deletedProductsCount', 'profitIncludingCommission', 'storesCount', 'newStores', 'topstores', 'usersCount'));
     }
 
     public function index(Request $request)

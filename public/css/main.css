@@ -13196,3 +13196,8 @@ input[type=number]:hover::-webkit-outer-spin-button {
   }
 }
 
+.swal2-actions button,
+.swal2-popup {
+  border-radius: 11px !important;
+}
+

@@ -34,12 +34,12 @@
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
-                            <a href="{{ route('stores.index') }}" class="nav-link active">
+                            <a href="{{ route('stores.index') }}" class="nav-link">
                                 Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->count() }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.accepted') }}" class="nav-link">
+                            <a href="{{ route('stores.accepted') }}" class="nav-link active">
                                 Активные <span class="badge badge-pill badge-soft-success">{{ $stores->where('is_active', 1)->count() }}</span>
                             </a>
                             </li>

@@ -1137,11 +1137,15 @@ function startTimer(duration, display) {
             timer = duration
             $('.sms--true').hide()
             $('.sms--false').show()
+            $('.change-number').show()
             clearInterval(time)
             $('#btn-login').prop('disabled', true)
         }
     }, 1000)
 }
+$('.change-number').on('click', function() {
+    location.reload(true)
+})
 $('.favorite').on('click', function() {
     if ($(this).hasClass('active')) {
         $('.activeSaved').find('.text-sucsess').text("Вы убрали товар из избранного !");

@@ -34,23 +34,23 @@
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
-                            <a href="{{ route('stores.index') }}" class="nav-link active">
-                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->count() }}</span>
+                            <a href="{{ route('stores.index') }}" class="nav-link">
+                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('stores.accepted') }}" class="nav-link">
-                                Активные <span class="badge badge-pill badge-soft-success">{{ $stores->where('is_active', 1)->count() }}</span>
+                                Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.moderation') }}" class="nav-link">
+                            <a href="{{ route('stores.moderation') }}" class="nav-link active">
                                 В модерации <span class="badge badge-pill badge-soft-warning">{{ $stores->where('is_moderation', 1)->count() }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
+                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
                             </a>
                             </li>
                         </ul>
