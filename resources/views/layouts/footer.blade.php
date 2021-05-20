@@ -39,6 +39,7 @@
                       <div class="pre--info">
                         <p class="text-muted mb-pre--text sms--true">Вам будет выслан смс с кодом активации для подтверждения вашего номера телефона</p>
                         <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
+                        <p class="text-muted mb-pre--text sms--false" style="">Для того чтобы изменить номер телефона <br><button type="button" class="btn btn-link change-number text-decoration-none px-0 text-pinky">обновите страницу</button> и попробуйте еще раз войти.</p>
                       </div>
                       <button type="button" class="btn btn-danger rounded-11 px-5 btn-lg" id="btn-login">Вход</button>
                   </div>
@@ -134,7 +135,11 @@ aria-hidden="true">
         </div>
 
         <div class="col-12 col-lg-4">
-          <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p>
+            <p>Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.</p>
+            <a class="text-pinky h4 text-decoration-none mb-3 d-block" href="tel:000029641">
+                <i class="fas fa-phone"></i>
+                (+992) 000 02 9641
+            </a>
         </div>
         <div class="footer_links col-lg-4">
           <ul class="p-0 p-lg m-0">

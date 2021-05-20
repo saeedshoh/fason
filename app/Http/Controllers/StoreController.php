@@ -47,6 +47,58 @@ class StoreController extends Controller
         }
         return view('dashboard.store.index', compact('stores'));
     }
+    public function accepted(Request $request)
+    {
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('is_active', 1)
+            ->orWhere('name', 'like', '%'.$request->search.'%')
+            ->orWhere('address', 'like', '%'.$request->search.'%')
+            ->orWhereHas('city', function($city) use ($request){
+                $city->where('name',  'like', '%'.$request->search.'%'); })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.stores', compact('stores')
+                )->render());
+        }
+        return view('dashboard.store.statuses.accepted', compact('stores'));
+    }
+    public function moderation(Request $request)
+    {
+        $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('is_moderation', 1)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.stores', compact('stores')
+                )->render());
+        }
+        return view('dashboard.store.statuses.moderation', compact('storesCount', 'acceptedCount', 'disabledCount', 'stores'));
+    }
+    public function disabled(Request $request)
+    {
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('is_active', 0)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.stores', compact('stores')
+                )->render());
+        }
+        return view('dashboard.store.statuses.disabled', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -73,6 +73,9 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/stores/showStoreInfo/{store}/edit', [StoreController::class, 'profile_edit'])->name('store.profile_edit');
     Route::get('/show/{store}/orders', [StoreController::class, 'profile_orders'])->name('store.profile_orders');
     Route::get('/show/{store}/products', [StoreController::class, 'profile_products'])->name('store.profile_products');
+    Route::get('/stores/accepted', [StoreController::class, 'accepted'])->name('stores.accepted');
+    Route::get('/stores/moderation', [StoreController::class, 'moderation'])->name('stores.moderation');
+    Route::get('/stores/disabled', [StoreController::class, 'disabled'])->name('stores.disabled');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

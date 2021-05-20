@@ -26,14 +26,14 @@
         <form  method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
-          <div class="row justify-content-between align-items-center">
+          <div class="row justify-content-between align-items-center  pt-4">
             <div class="col">
               <div class="row align-items-center">
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <div class="avatar">
-                    <img class="avatar-img rounded-circle" src="{{ Storage::url($user->profile_photo_path) }}" alt="...">
+                  <div class="avatar user_avatar">
+                    <img class="avatar-img rounded-circle" src="{{ $user->profile_photo_path != '' ? Storage::url($user->profile_photo_path) : '/storage/theme/no-photo.svg' }}" alt="...">
                     <input type="file" accept="image/*"  id="profile_photo_path" class="d-none" name="profile_photo_path">
                   </div>
 
@@ -133,7 +133,39 @@
                   </select>
                 </div>
             </div>
-          </div> <!-- / .row -->
+            <div class="col-12 col-md-6">
+
+                <!-- Birthday -->
+                <div class="form-group">
+  
+                  <!-- Label -->
+                  <label>
+                    Пароль
+                  </label>
+  
+                  <!-- Input -->
+                  <input class="form-control flatpickr-input"  type="password" name="password" required autocomplete="new-password">
+  
+                </div>
+  
+              </div>
+              <div class="col-12 col-md-6">
+  
+                  <!-- Birthday -->
+                  <div class="form-group">
+    
+                    <!-- Label -->
+                    <label>
+                      Подтвердить пароль
+                    </label>
+    
+                    <!-- Input -->
+                    <input class="form-control flatpickr-input"  type="password" name="password_confirmation" required autocomplete="new-password">
+    
+                  </div>
+    
+                </div>
+            </div> <!-- / .row -->
           <button class="btn btn-primary mt-4 float-right" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
 
         </form>

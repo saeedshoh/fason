@@ -1977,3 +1977,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
         font-size: 0.8rem;
     }
 }
+
+.swal2-actions button, .swal2-popup {
+    border-radius: 11px !important;
+}

@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="mt-3 d-block d-lg-none w-100 order-2">
-          <div class="my-3 text-center d-flex justify-content-between product-buttons">
+          <div class="my-3 text-center d-flex justify-content-around product-buttons">
             <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
               <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин
             </a>
