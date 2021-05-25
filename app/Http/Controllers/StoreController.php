@@ -68,6 +68,7 @@ class StoreController extends Controller
     public function moderation(Request $request)
     {
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
+        $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $stores = StoreEdit::withoutGlobalScopes()
@@ -80,13 +81,14 @@ class StoreController extends Controller
                     view('dashboard.ajax.stores', compact('stores')
                 )->render());
         }
-        return view('dashboard.store.statuses.moderation', compact('storesCount', 'acceptedCount', 'disabledCount', 'stores'));
+        return view('dashboard.store.statuses.moderation', compact('storesCount', 'acceptedCount', 'disabledCount', 'stores', 'disabledUserCount'));
     }
     public function disabled(Request $request)
     {
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_active', 0)
             ->latest()
@@ -97,7 +99,25 @@ class StoreController extends Controller
                     view('dashboard.ajax.stores', compact('stores')
                 )->render());
         }
-        return view('dashboard.store.statuses.disabled', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
+        return view('dashboard.store.statuses.disabled', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores', 'disabledUserCount'));
+    }
+
+    public function disabledUser(Request $request)
+    {
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('is_active', 2)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.stores', compact('stores')
+                )->render());
+        }
+        return view('dashboard.store.statuses.disabledUser', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
     }
 
     /**
@@ -291,12 +311,37 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function toggle($store)
+    public function toggleUser($store)
     {
         $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
         $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
 
         if($store->is_active) {
+            $store->update(['is_active' => 2]);
+            $stored->update(['is_active' => 2]);
+        } else {
+            $store->update(['is_active' => 1]);
+            $stored->update([
+                'name' => $store->name,
+                'slug' => $store->slug,
+                'description' => $store->description,
+                'address' => $store->address,
+                'avatar' => $store->avatar,
+                'cover' => $store->cover,
+                'city_id' => $store->city_id,
+                'city_id' => $store->city_id,
+                'is_active' => 1,
+            ]);
+        }
+        return redirect()->route('ft-store.show', $store->slug);
+    }
+
+    public function toggle($store)
+    {
+        $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
+        $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
+
+        if($store->is_active == 1 || $store->is_active == 2) {
             $store->update(['is_active' => 0]);
             $stored->update(['is_active' => 0]);
         } else {
