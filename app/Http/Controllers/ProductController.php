@@ -64,7 +64,8 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $product->name . ', Статус: Активный'
         ]);
-        return redirect()->route('products.index');
+        // return redirect()->route('products.index');
+        return redirect()->back();
     }
 
     public function add_product()

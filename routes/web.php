@@ -76,6 +76,9 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/stores/accepted', [StoreController::class, 'accepted'])->name('stores.accepted');
     Route::get('/stores/moderation', [StoreController::class, 'moderation'])->name('stores.moderation');
     Route::get('/stores/disabled', [StoreController::class, 'disabled'])->name('stores.disabled');
+    Route::get('/stores/disabledUser', [StoreController::class, 'disabledUser'])->name('stores.disabledUser');
+    Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
@@ -125,7 +128,7 @@ Route::middleware('auth')->group(function () {
         Route::get('products/edit/{slug}', [ProductController::class, 'editProduct'])->name('ft-products.edit');
     });
 
-    Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+    Route::patch('store/toggle/{store}', [StoreController::class, 'toggleUser'])->name('ft-store.toggleUser');
     Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
     Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
     Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');

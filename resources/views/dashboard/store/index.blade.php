@@ -30,7 +30,7 @@
                 </div> <!-- / .row -->
                 <div class="row align-items-center">
                     <div class="col">
-        
+
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
@@ -49,17 +49,22 @@
                             </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
-                            </a>
+                                <a href="{{ route('stores.disabled') }}" class="nav-link">
+                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('stores.disabledUser') }}" class="nav-link">
+                                    Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->where('is_active', 2)->count() }}</span>
+                                </a>
                             </li>
                         </ul>
-        
+
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Tab content -->
         <div class="tab-content">
           <div class="tab-pane fade show active" id="companiesListPane" role="tabpanel" aria-labelledby="companiesListTab">

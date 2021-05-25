@@ -27,7 +27,7 @@
                 <p class="mb-0">Данные отображаются покупателям после одобрения магазина.</p>
                 </div>
             </div>
-        @elseif($store->is_active == 0)
+        @elseif($store->is_active == 0 || $store->is_active == 2)
             <div class="col-12  px-0 px-md-2">
                 <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -209,10 +209,13 @@
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container mt-3">
                     <span class="text-secondary"><img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                            @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
-                            @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4'])) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
-                            @else {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
-                            @endif
+                        @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
+                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
+                        @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
+                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                        @else
+                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                        @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
@@ -239,12 +242,12 @@
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container">
                     <span class="text-secondary">
-                      В модерации
+                        В модерации
                     </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
-                      <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                        <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                        <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
                 </div>
@@ -335,9 +338,6 @@
               @forelse ($deletedProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
                 <div class="card rounded shadow border-0">
-                  <svg class="position-absolute favorite @if (Auth::check() && $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()) $product->favorite->where('status', 1)->where('user_id', Auth::user()->id)->first()->product_id == $product->id ? active : '' @endif" data-id="{{ $product->id }}" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 17 15">
-                    <path d="M8.57555 2.3052C5.73968 -2.07522 0 0.311095 0 5.08284C0 8.66606 7.86879 14.2712 8.57555 15C9.28716 14.2712 16.7646 8.66606 16.7646 5.08284C16.7646 0.347271 11.4167 -2.07522 8.57555 2.3052Z" fill="#C4C4C4"/>
-                  </svg>
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container">
                     <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
