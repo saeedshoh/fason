@@ -116,7 +116,7 @@
                             </thead>
                             <tbody class="list font-size-base">
                                 @forelse ($stores as $key => $store)
-                                <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
+                                <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @elseif($store->is_active == 2) table-info @else table-success @endif">
                                     <td class="item-order">
                                         {{ ++$key }}
                                     </td>
@@ -139,7 +139,7 @@
                                         <div class="badge badge-primary">
                                             @if($store->is_moderation)
                                                 В модерации
-                                            @elseif($store->is_active == 0)
+                                            @elseif($store->is_active == 0 || $store->is_active == 2)
                                                 Неактивен
                                             @else
                                                 Активен
