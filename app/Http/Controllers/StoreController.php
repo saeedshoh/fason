@@ -316,7 +316,7 @@ class StoreController extends Controller
         $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
         $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
 
-        if($store->is_active) {
+        if($store->is_active == 1) {
             $store->update(['is_active' => 2]);
             $stored->update(['is_active' => 2]);
         } else {
@@ -333,7 +333,7 @@ class StoreController extends Controller
                 'is_active' => 1,
             ]);
         }
-        return redirect()->route('ft-store.show', $store->slug);
+        return redirect()->route('ft-store.show', $stored->slug);
     }
 
     public function toggle($store)
