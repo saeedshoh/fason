@@ -139,7 +139,7 @@
                                         <div class="badge badge-primary">
                                             @if($store->is_moderation)
                                                 В модерации
-                                            @elseif($store->is_active == 0)
+                                            @elseif($store->is_active == 0 || $store->is_active == 2)
                                                 Неактивен
                                             @else
                                                 Активен
