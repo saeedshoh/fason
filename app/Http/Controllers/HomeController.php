@@ -61,7 +61,6 @@ class HomeController extends Controller
         $now = Carbon::now();
         $from = $now->startOfWeek()->format('Y-m-d');
         $to = $now->endOfWeek()->format('Y-m-d');
-        // dd(date('2021-05-12'));
         $salesSum = Order::where('order_status_id', 3)->sum('total');
         $ordersCount = Order::where('order_status_id', 3)->count('id');
         $productsCount = Product::withoutGlobalScopes()->count();
@@ -128,72 +127,6 @@ class HomeController extends Controller
         $back = url()->previous();
         $products = Product::where(DB::raw('upper(name)'), 'LIKE', '%' . strtoupper($request->q) . '%')->where('product_status_id', 2)->get();
         return view('search', compact('products', 'back'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function addToFavorites(Request $request)

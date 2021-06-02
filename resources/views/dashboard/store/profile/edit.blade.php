@@ -56,7 +56,7 @@
                   <i class="fe fe-trash"> </i></button>
               @method('DELETE')
             </form>
-           
+
           </div>
         </div> <!-- / .row -->
         <div class="row align-items-center">
@@ -106,81 +106,76 @@
         </div>
         @endforeach
       @endif
-      <div class="col-12 col-lg-6">
-        <div class="card">
-          <div class="card-body">
+      <!-- Form -->
+      <form action="{{ route('ft-store.update', $store) }}" method="POST" class="needs-validation mb-4 row mx-0" enctype="multipart/form-data" accept-charset="utf-8" novalidate="">
+        @csrf
+        @method('PATCH')
+        <div class="col-12 col-lg-6">
+          <div class="card">
+            <div class="card-body">
 
-            <!-- Form -->
-            <form action="{{ route('ft-store.update', $store) }}" method="POST" class="needs-validation mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate="">
-              @csrf
-              @method('PATCH')
-              <input type="hidden" name="is_back" value="1">
-              <div class="form-row">
-                <div class="col-12 col-md-12 mb-3">
-                    <label for="name">Название магазина</label>
+                <input type="hidden" name="is_back" value="1">
+                <div class="form-row">
+                  <div class="col-12 col-md-12 mb-3">
+                      <label for="name">Название магазина</label>
 
-                    <input type="text" class="form-control" id="name" placeholder="Введите название магазина" name="name" value="{{ $store->name }}">
-                  
-                </div>
-                <div class="col-12 col-md-12 mb-3">
-                  <label for="name">Введите адрес</label>
+                      <input type="text" class="form-control" id="name" placeholder="Введите название магазина" name="name" value="{{ $store->name }}">
 
-                  <input type="text" class="form-control" id="address" placeholder="Введите адрес" name="address" value="{{ $store->address }}">
-                
-                </div>
-                <div class="col-12 col-md-12 mb-3">
-                  <label>Выберите город</label>
-
-                  <div class="btn-group-toggle" data-toggle="buttons">
-                    @foreach($cities as $city)
-                      <label class="btn btn-white">
-                        <input type="radio" name="city_id" id="city_{{ $city->id }}" value="{{ $city->id }}" {{ $store->city_id == $city->id ? 'checked' : '' }}> <i class="fe fe-check-circle"></i> {{ $city->name }}
-                      </label>
-                    @endforeach
                   </div>
-                  
-                </div>
-                <div class="col-12 col-md-12 mb-3">
-                  <label for="name">Введите описание</label>
+                  <div class="col-12 col-md-12 mb-3">
+                    <label for="name">Введите адрес</label>
 
-                  <textarea type="text" class="form-control" id="desciption" name="description" required="" rows="6"> {{ $store->description }}</textarea>
-                
-                </div>
-              </div>
-              <!-- Button -->
-              <button class="btn btn-primary mt-2" type="submit">Изменить</button>
+                    <input type="text" class="form-control" id="address" placeholder="Введите адрес" name="address" value="{{ $store->address }}">
 
-            </form>
+                  </div>
+                  <div class="col-12 col-md-12 mb-3">
+                    <label>Выберите город</label>
+
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                      @foreach($cities as $city)
+                        <label class="btn btn-white">
+                          <input type="radio" name="city_id" id="city_{{ $city->id }}" value="{{ $city->id }}" {{ $store->city_id == $city->id ? 'checked' : '' }}> <i class="fe fe-check-circle"></i> {{ $city->name }}
+                        </label>
+                      @endforeach
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-md-12 mb-3">
+                    <label for="name">Введите описание</label>
+
+                    <textarea type="text" class="form-control" id="desciption" name="description" required="" rows="6"> {{ $store->description }}</textarea>
+
+                  </div>
+                </div>
+                <!-- Button -->
+                <button class="btn btn-primary mt-2" type="submit">Изменить</button>
+
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div class="card">
-          <div class="card-body">
+        <div class="col-12 col-lg-6">
+          <div class="card">
+            <div class="card-body">
 
-            <div class="form-row">
-              <div class="col-12 col-md-12 mb-3">
-                <label for="name">Выберите фон</label>
+              <div class="form-row">
+                <div class="col-12 col-md-12 mb-3">
+                  <label for="name">Выберите фон</label>
 
-                <input type="file" class="form-control" id="cover" name="cover" value="{{ $store->cover }}">
-                  
+                  <input type="file" class="form-control" id="cover" name="cover" value="{{ $store->cover }}">
+
+                </div>
+                <div class="col-12 col-md-12 mb-3">
+                  <label for="name">Выберите аватарку</label>
+
+                  <input type="file" class="form-control" id="avatar" name="avatar" value="{{ $store->avatar }}">
+
+                </div>
               </div>
-              <div class="col-12 col-md-12 mb-3">
-                <label for="name">Выберите аватарку</label>
-
-                <input type="file" class="form-control" id="avatar" name="avatar" value="{{ $store->avatar }}">
-              
-              </div>
-            </div>
+          </div>
         </div>
-      </div>
-      
-      
-      
-      
+      </form>
+
     </div> <!-- / .row -->
-    
-    
 
   </div>
 </div>

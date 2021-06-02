@@ -53,7 +53,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.accepted') }}" class="nav-link">
-                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('updated_at', '>', now()->subWeek())->where('quantity', '>', 1)->count() }}</span>
+                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('quantity', '>', 1)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -68,12 +68,12 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.hidden') }}" class="nav-link">
-                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('updated_at', '<', now()->subWeek())->count() }}</span>
+                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.notInStock') }}" class="nav-link">
-                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('quantity', '<', 1)->count() }}</span>
+                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('product_status_id', 5)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -150,7 +150,7 @@
                     </thead>
                     <tbody class="list font-size-base">
                       @forelse ($products as $key => $product)
-                      <tr class="table-@if($product->updated_at < now()->subWeek())info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->quantity < 1)info @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
+                      <tr class="table-@if($product->product_status->id == 4)info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 5)primary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
                         <td class="item-order">
                           {{ ++$key }}
                         </td>

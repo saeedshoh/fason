@@ -69,6 +69,17 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    /**
+	 * The password attribute should be hashed
+	 */
+	public function setPasswordAttribute($password)
+	{
+		if ($password !== null && $password !== "")
+		{
+			$this->attributes['password'] = bcrypt($password);
+		}
+    }
+
     public function store() {
         return $this->hasOne('App\Models\Store', 'user_id')->withoutGlobalScopes();
     }

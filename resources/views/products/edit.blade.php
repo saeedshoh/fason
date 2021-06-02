@@ -272,7 +272,7 @@
                                         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="@foreach ($attrValues->where('attribute_id', $attribute->id)->where('is_checked', 'true') as $attrValue){{ $loop->last ? $attrValue->id : $attrValue->id.',' }}@endforeach">
                                     </div>
                                 @else
-                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
+                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple>
                                         <option disabled="">Выберите значение</option>
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>

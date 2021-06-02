@@ -10,12 +10,9 @@ use App\Models\Store;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use GrahamCampbell\ResultType\Success;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-
     public function __construct()
     {
         $this->stores = Store::get();
@@ -31,7 +28,6 @@ class OrderController extends Controller
         $orders = Order::where('user_id', Auth::id())->latest('id')->get();
 
         return view('orders', compact('orders', 'is_store', 'sales'));
-
     }
 
     /**
@@ -51,8 +47,6 @@ class OrderController extends Controller
         $users = $products = $stores = null;
         if($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                // ->whereHas('orders', function($orders) use ($rdrs){
-                //     $orders->whereIn('orders.order_status_id', [$rdrs]); })
                 ->has('orders')
                 ->get();
 
@@ -68,6 +62,7 @@ class OrderController extends Controller
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
         return view('dashboard.order.index', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
+
     public function accepted(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
@@ -100,6 +95,7 @@ class OrderController extends Controller
         }
         return view('dashboard.order.statuses.accepted', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
+
     public function onTheWay(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
@@ -132,6 +128,7 @@ class OrderController extends Controller
         }
         return view('dashboard.order.statuses.onTheWay', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
+
     public function onCheck(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
@@ -164,6 +161,7 @@ class OrderController extends Controller
         }
         return view('dashboard.order.statuses.onCheck', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
+
     public function canceled(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
@@ -196,6 +194,7 @@ class OrderController extends Controller
         }
         return view('dashboard.order.statuses.canceled', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
+
     public function returns(Request $request, OrderFilters $filters)
     {
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
@@ -227,16 +226,6 @@ class OrderController extends Controller
                 ->get();
         }
         return view('dashboard.order.statuses.returns', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -274,8 +263,11 @@ class OrderController extends Controller
                     'order_status_id' => '1'
                 ]);
             }
-            $product->decrement('quantity');
+            $product->decrement('quantity', $request->quantity);
             $product->save();
+            if($product->quantity == 0) {
+                $product->update(['product_status_id' => 5]);
+            }
             if($order) {
                 $comment = '';
                 if ( !empty ( $order->comment ) ) {
@@ -291,7 +283,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "\n Ваш заказ: #" .$order->id. " \n Название товара: " .$order->product->name. "\n Количество: " .$order->quantity. "\n Сумма: " .($order->total + $order->margin)." сомони". "\n Адрес доставки: " .$order->address . $comment;
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
 
                 $params = array(
                     "from" => $config['sender'],
@@ -304,8 +296,7 @@ class OrderController extends Controller
 
                 $result = $this->call_api($config['server'], "GET", $params);
                 if ((isset($result['error']) && $result['error'] == 0)) {
-                    $response = json_decode($result['msg']);
-                    print_r($response);
+                    $result = $result['msg'];
                     /* так выглядет ответ сервера
                     * {
                             "status": "ok",
@@ -319,15 +310,15 @@ class OrderController extends Controller
                     */
                     #echo "success: ".$response->msg_id; // id сообщения для проверки статуса сообщения в спорных случаях
                 } else {
-                    print_r($result);
                     #echo "error occured ".$result['msg'];
                 }
             }
             return response()->json([
-                "order"=> $order
+                "order"   => $order,
+                "product" => $product,
+                "message" => $message
             ]);
         }
-
     }
 
     /**
@@ -347,6 +338,7 @@ class OrderController extends Controller
         }
         return view('dashboard.order.check', compact('order', 'attributes'));
     }
+
     public function single($order)
     {
 
@@ -355,41 +347,6 @@ class OrderController extends Controller
         $attributes = $product->attribute_variation;
         return view('orders.show', compact('product', 'attributes', 'order'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
-
 
     public function call_api($url, $method, $params)
     {

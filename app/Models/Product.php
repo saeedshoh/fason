@@ -144,84 +144,58 @@ class Product extends Model
             ->latest('updated_at');
     }
 
-    public function scopeAccepted($query, $request)
+    public function scopeAccepted($query, $request=null)
     {
         $query->where('product_status_id', 2)
             ->whereNull('deleted_at')
-            ->where('updated_at', '>', now()->subWeek())
             ->where('quantity', '>', 1)
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+            ->misc($request);
     }
 
-    function scopeNotInStock($query, $request)
+    function scopeNotInStock($query, $request=null)
     {
-        $query->where('quantity', '<', 1)
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+        $query->where('product_status_id', 5)
+            ->whereNull('deleted_at')
+            ->where('quantity', 0)
+            ->misc($request);
     }
 
-    public function scopeCanceled($query, $request)
+    public function scopeCanceled($query, $request=null)
     {
         $query->where('product_status_id', 3)
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+            ->whereNull('deleted_at')
+            ->misc($request);
     }
 
-    public function scopeHidden($query, $request)
+    public function scopeHidden($query, $request=null)
     {
-        $query->where('updated_at', '<', now()->subWeek())
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+        $query->where('product_status_id', 4)
+            ->whereNull('deleted_at')
+            ->misc($request);
     }
 
-    public function scopeOnCheck($query, $request)
+    public function scopeOnCheck($query, $request=null)
     {
         $query->where('product_status_id', 1)
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+            ->whereNull('deleted_at')
+            ->misc($request);
     }
 
-    public function scopeDeleted($query, $request)
+    public function scopeDeleted($query, $request=null)
     {
         $query->whereNotNull('deleted_at')
-            ->where(function ($q) use ($request){
-                $q->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhereHas('store', function($store) use ($request){
-                        $store->where('name',  'like', '%'.$request->search.'%'); })
-                    ->orWhereHas('category', function($category) use ($request){
-                        $category->where('name',  'like', '%'.$request->search.'%'); });
-            })
-            ->latest('updated_at');
+            ->misc($request);
+    }
+
+    public function scopeMisc($query, $request=null)
+    {
+        $query->when($request, function ($q) use ($request){
+            $q->where('name', 'like', '%'.$request->search.'%')
+                ->orWhereHas('store', function($store) use ($request){
+                    $store->where('name',  'like', '%'.$request->search.'%'); })
+                ->orWhereHas('category', function($category) use ($request){
+                    $category->where('name',  'like', '%'.$request->search.'%'); });
+        })
+        ->latest('updated_at');
     }
 }

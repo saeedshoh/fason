@@ -24,18 +24,28 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'address' => 'required',
-            'city_id' => 'required',
+            'name'      => 'required',
+            'address'   => 'required',
+            'city_id'   => 'required',
+            'password'  => 'sometimes'
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Имя',
-            'address' => 'Адрес',
-            'city_id' => 'Выберите город',
+            'name'      => 'Имя',
+            'address'   => 'Адрес',
+            'city_id'   => 'Выберите город',
+            'password'  => 'Пароль'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('phone'))
+        {
+            $this->merge(['phone' => preg_replace('/\D+/', '', $this->phone)]);
+        }
     }
 }

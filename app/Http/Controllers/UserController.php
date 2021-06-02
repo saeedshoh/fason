@@ -191,15 +191,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $route = 'clients.index';
-        $validated = $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'city_id' => 'required',
-            'phone' => 'required'
-        ]);
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month, 0777, true);
@@ -210,7 +204,7 @@ class UserController extends Controller
             ]);
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         }
-        $user->update($validated + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+        $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
 
         if($user->status == 1) {
             $route = 'users.index';

@@ -12,16 +12,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\ImageInv;
 use App\Http\Controllers\ItemsForPageController;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\QrCodeGeneratorController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
-use App\Models\MonetizationCategory;
-use BaconQrCode\Encoder\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,9 +110,6 @@ Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-
-// Route::post('products', [ProductController::class, 'ft_store'])->name('ft-products.store');
-// Route::put('products/{product}', [ProductController::class, 'ft_update'])->name('ft-products.update');
 Route::middleware('auth')->group(function () {
 
     Route::middleware(['checkStore'])->group(function () {
@@ -139,6 +132,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
     Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
     Route::post('/products/cancelDestroy/{product}', [ProductController::class, 'cancelDestroy'])->name('ft_product.cancelDestroy');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('ft_product.destroy');
 
 
     Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
@@ -150,7 +144,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [UserController::class, 'ft_update'])->name('ft_profile.update');
 
     Route::resource('favorite', FavoriteController::class);
-
 });
 
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
@@ -169,14 +162,3 @@ Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
-
-
-// Route::get('image', [ImageInv::class, 'index']);
-// Route::post('/uploadImage', [ImageInv::class, 'uploadImage']);
-// Route::post('/deleteImage', [ImageInv::class, 'deleteImage']);
-
-
-// Route::get('/testJson', function(){
-//     // echo json_encode(json_encode('2021/01/6013cca9c8ca6480x480.jpg,2021/01/6013ccaa90c3c480x480.jpg,2021/01/6013ccab535d9480x480.jpg,2021/01/6013ccabe5397480x480.jpg,2021/01/6013ccac91749480x480.jpg'));
-//     echo json_encode('"2021/01/6013cd601d21d480x480.jpg","2021/01/6013cd60b0171480x480.jpg","2021/01/6013cd61429b1480x480.jpg","2021/01/6013cd61ce6fa480x480.jpg","2021/01/6013cd62748b2480x480.jpg","2021/01/6013cd63237e0480x480.jpg"');
-// });

@@ -119,84 +119,6 @@ $(document).ready(function() {
     })
 })
 
-
-/// products line end
-////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-
-// $(function() {
-
-//     $("#galler").change(function() {
-//         var fd = new FormData()
-//         var this_ = this
-//         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
-//         var files = $('#galler')[0].files;
-//         if (files.length > 0) {
-//             for (let i = 0; i < files.length; i++) {
-//                 fd.append('image', files[i]);
-//                 $.ajax({
-//                     url: '/uploadImage',
-//                     type: 'post',
-//                     data: fd,
-//                     contentType: false,
-//                     processData: false,
-//                     beforeSend: function() {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('img').hide()
-//                         x.find('.spinner-border').removeClass('d-none')
-//                     },
-//                     success: function(response) {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('.spinner-border').addClass('d-none')
-//                         x.html('').attr('data-image', 'true').append(`
-//                             <div class="profile-pic">
-//                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
-//                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
-//                             </div>
-//                     `)
-
-//                         let gallery = $('#gallery')
-//                         if (gallery.val() == '') {
-//                             gallery.val(gallery.val() + response)
-//                         } else {
-//                             gallery.val(gallery.val() + ',' + response)
-//                         }
-//                     },
-//                 });
-//             }
-
-//         } else {
-//             alert("Please select a file.");
-//         }
-//     });
-// });
-
-// $('body').on('click', '.deleteImage', function() {
-//     let url = $(this).parent().find('img').data('image-src')
-//     let gallery = $('#gallery')
-//     let array = gallery.val().split(',')
-//     const index = array.indexOf(url)
-//     if (index > -1) {
-//         array.splice(index, 1);
-//     }
-//     gallery.val(array)
-//     $(this).parent().parent().remove()
-//     if (url.indexOf('products/edit/') !== -1) {
-//         $(this).parent().parent().parent().remove()
-//     } else {
-//         $(this).parent().parent().remove()
-//     }
-//     $('#db-preview-image').append(`
-//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-//             <div class="spinner-border d-none" role="status">
-//                 <span class="sr-only">Loading...</span>
-//             </div>
-//             <label for="galler">
-//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-//             </label>
-//         </div>
-//     `)
-// })
-
 function throttle(f, delay) {
     var timer = null
     return function() {
@@ -583,13 +505,6 @@ $(document).on('change', '[name="category_id"]', function() {
     })
 })
 
-// $('.input_placeholder_style').on('change', function() {
-//     if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-//         $('.add-product-btn')
-//             .removeAttr('disabled')
-//     }
-// })
-
 $('#add_product input, #add_product textarea, #add_product select').on('change', function() {
     if($(this).val() == "") {
         $(this).parent().find('div, input, textarea').addClass('border-danger');
@@ -622,22 +537,7 @@ $(document).on('submit', '#add_product',  function(event) {
 
         return false
     }
-
-    //disable the submit button
-
-    //disable a normal button
 })
-
-// $(document).on('click', '.add-product-btn', function() {
-//   e.preventDefault()
-//   $(this).attr('disabled', true)
-//   if ($('#image').val() == '') $('#add_product').addClass('was-validated')
-//   $('#main-poster').addClass('border-danger')
-
-//   if ($('.was-validated .form-control:valid'))
-//     $('#main-poster').addClass('border-danger')
-//   return true
-// })
 
 $(document).on('change', '.st-attribute_add', function() {
     $('#st-attribute_val').empty()
@@ -729,15 +629,6 @@ $(document).on('change', '.js-attribute', function() {
                         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
                         </label>
                     `)
-
-                        // if(element['slug'] == 'cvet'){
-                        //     $('#test').append(`
-                        //         <div class="position-relative">
-                        //         <input class="form-check-input" for="${element['name']}" style="background: ${element['value']}; width: 10px; height: 10px;" type="checkbox">
-                        //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
-                        //         </div>
-                        //     `);
-                        // }
                     })
                 } else {
                     _this.closest('div').append(`
@@ -979,8 +870,7 @@ $('.checkout-product').on('click', function() {
             attributes
         },
         success: data => {
-            console.log(data)
-            $('.order-number').text('Номер вашего заказа: ' + data.order.id)
+            window.location.reload();
         },
         error: function(xhr, status, error) {
             console.log(status)
@@ -1016,25 +906,6 @@ $('.favorite').on('click', function() {
                 console.log(status)
             }
         })
-        // $.ajax({
-
-    //     url: '/add_to_favorite/' + product_id,
-    //     type: 'GET',
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     data: {
-    //         product_id,
-    //         status,
-    //     },
-    //     success: (data) => {
-    //         console.log(data);
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.log(status);
-    //     }
-
-    // });
 })
 
 // sms-congirm
@@ -1157,61 +1028,8 @@ $('.favorite').on('click', function() {
 
     }, 1000);
 });
-// preview image
-
-// $(function() {
-
-//     $("#gallery").change(function() {
-//         if (typeof(FileReader) != "undefined") {
-//             var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
-//             dvPreview.html("");
-//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
-
-//             $($(this)[0].files).each(function(index) {
-//                 var file = $(this);
-//                 if (regex.test(file[0].name.toLowerCase())) {
-//                     var reader = new FileReader();
-//                     reader.onload = function(e) {
-//                         var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
-//                         img.find('img').addClass("mw-100");
-//                         img.find('img').attr("src", e.target.result);
-//                         dvPreview.append(img);
-//                     }
-//                     reader.readAsDataURL(file[0]);
-//                 } else {
-//                     alert(file[0].name + " is not a valid image file.");
-//                     dvPreview.html("");
-//                     return false;
-//                 }
-//             });
-//         } else {
-//             alert("This browser does not support HTML5 FileReader.");
-//         }
-//     });
-// });
-
-// $('.db-preview-remove').on('click', function() {
-//     let gallery = $("#gallery")[0].files;
-//     let value = $(this).attr('data-id');
-
-//     function removeItemOnce(arr, value) {
-//         var index = arr.indexOf(value);
-//         if (index > -1) {
-//             arr.splice(index, 1);
-//         }
-//     };
-//     removeItemOnce(gallery.files, value);
-// });
-
-// $('body').on('click', '.deleteImage', function () {
-//     let images = $('#hello').val()
-//     images = JSON.parse(images)
-//     console.log(images)
-//     $(this).parent().find('img').remove()
-// })
 
 // single preview
-
 function avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader()
@@ -1236,23 +1054,6 @@ function cover(input) {
         reader.readAsDataURL(input.files[0])
     }
 }
-
-// function user_avatar(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader()
-//         reader.onload = function(e) {
-//             $('.user_avatar svg').hide()
-//             $('.user_avatar img')
-//                 .show()
-//                 .attr('src', e.target.result)
-//         }
-
-//         reader.readAsDataURL(input.files[0])
-//     }
-// }
-
-
-
 $('#image').change(function() {
     if ($(this).val() != '') {
         $('.image-validate').addClass('d-none');
@@ -1436,47 +1237,3 @@ $('body').on('click', '.restore-product', function(event) {
 });
 
 });
-
-
-
-// $(document).ready(function () {
-//     $(".custom-radius").on("click", function () {
-//         var count = 0;
-//         var questions = $(".xls");
-//         questions.each(function () {
-//             if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
-//                 count++;
-//             }
-//         });
-//         if (count >= questions.length) {
-//             alert("all good");
-//         } else {
-//             alert("something not checked");
-//         }
-//     });
-// });
-
-
-// $('#favoriteSave').one('click', function() {
-//     var mybtnfavorite = document.getElementsByClassName("favorite")[0];
-//     console.log(mybtnfavorite);
-//     mybtnfavorite.addEventListener("touchstart", function() {
-//         console.log(mybtnfavorite);
-//         mybtnfavorite.classList.add("btnHoverTouchMobile");
-//     })
-//     mybtnfavorite.addEventListener("touchend", function() {
-//         console.log(mybtnfavorite);
-//         mybtnfavorite.classList.remove("btnHoverTouchMobile");
-//     })
-// });
-// $(document).ready(function() {
-//     $('#favoriteSave').on('touchstart touchend', function(e) {
-//         e.preventDefault();
-//         if ('#favoriteSave' == 'active') {
-//             alert("active")
-//         } else {
-//             alert("NOactive")
-//         }
-//         $(this).unbind('touchstart touchend')
-//     });
-// });

@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\City;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
 use App\Models\Product;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
+use App\Models\StoreEdit;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
-use App\Models\StoreEdit;
-use Illuminate\Support\Facades\URL;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class StoreController extends Controller
 {
@@ -146,9 +146,6 @@ class StoreController extends Controller
             File::makeDirectory($month);
         }
         if(isset($request->avatar)){
-            // $request->validate([
-            //     'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
-            // ]);
             $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
             $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
                 $constraint->aspectRatio();
@@ -157,9 +154,6 @@ class StoreController extends Controller
             $data['avatar'] = $avatarPath;
         }
         if(isset($request->cover)){
-            // $request->validate([
-            //     'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
-            // ]);
             $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
             $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
                 $constraint->aspectRatio();
@@ -168,8 +162,8 @@ class StoreController extends Controller
             $data['cover'] = $coverPath;
         }
 
-        $store = Store::create($data);
-        StoreEdit::create($data + ['store_id' => $store->id, 'is_moderation' => 0]);
+        $store = Store::create($data + ['is_moderation' => 1]);
+        StoreEdit::create($data + ['store_id' => $store->id, 'is_moderation' => 1]);
         return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
     }
 
@@ -182,13 +176,16 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
-        $products = Product::where('store_id', $store->id)->latest('updated_at')->get();
-        $acceptedProducts = Product::where('store_id', $store->id)->where('product_status_id', 2)->latest('updated_at')->get();
-        $onCheckProducts = Product::where('store_id', $store->id)->where('product_status_id', 1)->latest('updated_at')->get();
-        $hiddenProducts = Product::where('store_id', $store->id)->where('updated_at', '<', now()->subWeek())->withoutGlobalScopes()->latest('updated_at')->get();
-        $canceledProducts = Product::where('store_id', $store->id)->where('product_status_id', 3)->latest('updated_at')->get();
-        $notInStock = Product::where('store_id', $store->id)->where('quantity', '<', 1)->withoutGlobalScopes()->latest('updated_at')->get();
-        $deletedProducts = Product::withTrashed()->where('store_id', $store->id)->whereNotNull('deleted_at')->get();
+
+        Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
+
+        $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->get();
+        $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
+        $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
+        $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
+        $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
+        $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
+        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
         return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
     }
 
@@ -211,8 +208,6 @@ class StoreController extends Controller
             $date->locale('ru_RU');
             $months[$date->monthName][] = $item;
         }
-        // dd($stores);
-        // $stores = Store::where('id', $id)->first();
         return view('store.salesHistory', compact('orders', 'months', 'stores'));
     }
 
@@ -224,7 +219,7 @@ class StoreController extends Controller
      */
     public function edit ($slug)
     {
-        $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
+        $store = Store::withoutGlobalScopes()->where('slug', $slug)->first();
         $cities = City::get();
         return view('store.edit', compact('store', 'cities'));
     }
@@ -239,12 +234,11 @@ class StoreController extends Controller
     public function update(StoreRequest $request, $store)
     {
         $data = $request->validated();
-
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
         }
-        if(isset($request->avatar)){
+        if($request->file('avatar')){
             $request->validate([
                 'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
@@ -256,7 +250,7 @@ class StoreController extends Controller
             $avatar->save(public_path('/storage/'.$avatarPath));
             $data['avatar'] = $avatarPath;
         }
-        if(isset($request->cover)){
+        if($request->file('cover')){
             $request->validate([
                 'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
@@ -267,12 +261,10 @@ class StoreController extends Controller
             $cover->save(public_path('/storage/'.$coverPath));
             $data['cover'] = $coverPath;
         }
-        // $data['user_id'] = Auth::id();
-        // if(Store::where('id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0])) {
-        //     $store = Store::where('id', $store)->withoutGlobalScopes()->first();
-        // }
-
-        if(StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+        // change to after Roles implementation
+        // $user = User::find(auth()->id);
+        // if(!$user->isAn('admin') && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+        if(auth()->user()->status == 2 && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
             Store::where('id', $store)->withoutGlobalScopes()->update(['is_moderation' => 1]);
             $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
         }
@@ -283,7 +275,11 @@ class StoreController extends Controller
             'table'  => ' Магазины',
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
-        return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => $request->is_back == 1 ? 1 : 0, 'route' => $store->slug,]);
+        if(Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')){
+            return redirect()->route('stores.index');
+        } else {
+            return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => $request->is_back == 1 ? 1 : 0, 'route' => $store->slug,]);
+        }
     }
 
     /**
@@ -383,11 +379,14 @@ class StoreController extends Controller
     public function showStoreInfo($store) {
         $store = Store::withoutGlobalScopes()->find($store);
 
-        $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
+        $orders = [];
+        if(isset($store->orders)) {
+            $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->take(15)
             ->get();
-        $store_edit = StoreEdit::where('store_id', $store->id)->where('is_moderation', '=', 1)->first();
+        }
+        $store_edit = StoreEdit::where('store_id', $store)->where('is_moderation', '=', 1)->first();
 
         return view('dashboard.store.show', compact('store', 'orders', 'store_edit'));
     }

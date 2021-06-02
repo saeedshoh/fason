@@ -18,8 +18,8 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/dashboard/theme.scss', 'public/css/dashboard')
     .sass('resources/sass/app.scss', 'public/css/dashboard')
     .sass('resources/sass/main.scss', 'public/css')
-    .sourceMaps()
-    .purgeCss()
+    // .sourceMaps()
+    // .purgeCss()
     // .postCss('resources/css/app.css', 'public/css', [
     //     require('postcss-import'),
     //     require('tailwindcss'),
