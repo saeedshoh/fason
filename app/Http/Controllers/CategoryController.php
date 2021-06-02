@@ -8,9 +8,7 @@ use App\Models\Banners;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
@@ -71,7 +69,7 @@ class CategoryController extends Controller
             $store = Store::where('city_id', $request->city)->get();
             $productss->whereIn('store_id', $store->pluck('id'));
         }
-        $products = $productss->inRandomOrder()->paginate(9);
+        $products = $productss->paginate(12);
 
         if ($request->ajax()) {
             $style = $request->style;
@@ -292,8 +290,6 @@ class CategoryController extends Controller
     public function getParentCategories(Request $request)
     {
         $id = Category::where('id', $request->category)->first();
-        // return $id;
-        // $hasParent = Category::where('id', $request->category)->first();
         if ($id->parent_id != 0) {
             $parent = Category::where('id', $id->parent_id)->first();
             if ($parent->parent_id) {
@@ -323,7 +319,8 @@ class CategoryController extends Controller
         return view('dashboard.logs.index', compact('logs'));
     }
 
-    public function changeCategoryOrder(Request $request){
+    public function changeCategoryOrder(Request $request)
+    {
         $category = Category::where('id', $request->category)->first();
         $tempCategory = $category->order_no;
         $sibling = Category::where('order_no', $request->sibling)->first();

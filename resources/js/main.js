@@ -185,8 +185,7 @@ $(document).ready(function() {
                 setTimeout(function() {
                     $('#scroll-spinner').toggleClass('d-none')
 
-                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100
-
+                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 500
                     if (scroll_position_for_posts_load >= $(document).height()) {
                         var style = $('#catProducts .row').attr('data-style')
                         console.log(style)

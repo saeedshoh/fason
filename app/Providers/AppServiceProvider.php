@@ -39,17 +39,9 @@ class AppServiceProvider extends ServiceProvider
                 $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
             }
             if($header_banner){
-                // $is_store = null;
-                // if (Auth::check()) {
-                //     $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
-                // }
                 view()->share(['is_store' => $is_store, 'header_banner' => $header_banner]);
             }
             else{
-                // $is_store = null;
-                // if (Auth::check()) {
-                //     $is_store = $this->stores->where('user_id', Auth::id())->withoutGlobalScopes()->first();
-                // }
                 view()->share(['is_store' => $is_store]);
             }
         }

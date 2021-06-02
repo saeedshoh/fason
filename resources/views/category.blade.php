@@ -275,7 +275,7 @@
         <div id="catProducts" class="col-12 col-md-8">
           <div class="row row-cols-2 row-cols-lg-3 pt-2 mt-4 my-2 endless-pagination px-2 px-md-0 custom-lined" data-style="1"  data-next-page="{{ $products->nextPageUrl() }}">
 
-            @forelse ($products as $product)
+            @forelse ($products->shuffle() as $product)
             <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
               <div class="card rounded shadow border-0 w-100">
                 <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">

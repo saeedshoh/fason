@@ -36,27 +36,6 @@
                   </div>
                   <div class="modal-body mx-4">
                     <div class="row">
-                      {{-- <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                          <h5 class="captions-of__modal ">Категории</h5><img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
-                        </div>
-                        <div class="categories__modal overflow-auto">
-                          <div class="form-check mt-3">
-                            @forelse ($categories as $category)
-                            <input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cats-{{$category->id}}">
-                            <label class="sort-checkbox__category form-check-label" for="cats-{{$category->id}}">
-                              {{ $category->name }}
-                            </label>
-                            @empty
-                              Извените ничего не найдено
-                          @endforelse
-
-                          </div>
-                        </div>
-
-                      </div> --}}
-
-
                     </div>
                   </div>
                   <div class="modal-footer border-1 d-flex justify-content-end mt-1">
