@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Banners;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Attribute;
 use App\Models\Log;
 use App\Models\Store;
+use App\Models\Banners;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Attribute;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -147,7 +149,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
@@ -157,15 +159,15 @@ class CategoryController extends Controller
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }
         }
-        if ($request->icon) {
+        if ($request->file('icon')) {
 
             $request->validate([
                 'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
             $icon = $request->file('icon')->store(now()->year . '/' . sprintf("%02d", now()->month));
-            $category = Category::create($request->all() + ['icon' => $icon]);
+            $category = Category::create($request->validated() + ['icon' => $icon]);
         } else {
-            $category = Category::create($request->all());
+            $category = Category::create($request->validated());
         }
         $category->attributes()->attach($request->attribute);
         Log::create([
@@ -211,11 +213,11 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        // return $request;
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
-        if ($request->attribute && $request->attribute[0] > 0) {
+
+        if ($request->attribute != 0 && $request->attribute && $request->attribute[0] > 0) {
             for ($i = 0; $i < count($request->attribute); $i++) {
                 $attributes =  $attributes . Attribute::where('id', $request->attribute[$i])->first()->name . ', ';
             }
@@ -233,17 +235,26 @@ class CategoryController extends Controller
                 'icon' => $icon,
             ]);
         }
-        $category->attributes()->detach();
-        $category->attributes()->attach($request->attribute);
-        $category->update($request->validated());
+        $attr = [];
+        foreach ($category->attributes as $attribute) {
+            array_push($attr, $attribute->id);
+        }
+        if($attr != $request->attribute && Product::withoutGlobalScopes()->where('category_id', $category->id)->whereHas('attribute_variation', function ($attributes) use ($category){ $attributes->whereIn('attribute_id', $category->attributes);})->exists()) {
+            return back()->with(['class' =>'danger', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
+        } else {
+            if($request->attribute != 0) {
+                $category->attributes()->sync($request->attribute);
+            }
+            $category->update($request->validated());
 
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 2,
-            'table'  => 'Категории',
-            'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
-        ]);
-        return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 2,
+                'table'  => 'Категории',
+                'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+            ]);
+            return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
+        }
     }
 
     /**

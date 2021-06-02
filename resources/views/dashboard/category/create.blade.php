@@ -37,8 +37,8 @@
             @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
-                        <span>{{ $error }}</span>
-                    @endforeach
+                    <span>{{ $error }}</span>
+                @endforeach
             </div>
             @endif
             <div class="row">
