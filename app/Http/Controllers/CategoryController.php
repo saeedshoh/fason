@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log;
+use App\Models\City;
 use App\Models\Store;
 use App\Models\Banners;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Filters\ProductFilters;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
@@ -24,13 +26,15 @@ class CategoryController extends Controller
     {
         $this->banners = Banners::latest()->get();
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function category(Request $request, $slug)
+    public function category(Request $request, $slug, ProductFilters $filters)
     {
+        // dd($request);
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first();
         $categories = Category::where('parent_id', $cat_id)->orderBy('order_no')->get();
@@ -42,34 +46,19 @@ class CategoryController extends Controller
         $has = Category::with('grandchildren')->find($cat_id);
         if(isset($has->grandchildren[0])){
             for ($i=0; $i < count($has->grandchildren); $i++) {
-                foreach($has->grandchildren[$i]->childrens as $child)
-                {
+                foreach($has->grandchildren[$i]->childrens as $child) {
                     array_push($categoryIds, $child->id);
                 }
             }
         }
         $parent_cat = Category::where('parent_id', $name->parent_id)->orderBy('order_no')->get();
-        $productss = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2);
+        $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->filter($filters)->paginate(12)->withQueryString();
+        $cities = City::whereHas('stores', function($stores) {
+            $stores->withoutGlobalScopes()->whereHas('product', function ($products) {
+                $products->withoutGlobalScopes();
+            });
+        })->get();
         $sliders = $this->banners->where('type', 1);
-
-        if ($request->sort == 'new') {
-            $productss->orderByDesc('id');
-        } elseif ($request->sort == 'cheap') {
-            $productss->orderBy('price');
-        } elseif ($request->sort == 'expensive') {
-            $productss->orderByDesc('price');
-        }
-        if ($request->priceFrom) {
-            $productss->where('price', '>=', $request->priceFrom);
-        }
-        if ($request->priceTo) {
-            $productss->where('price', '<=', $request->priceTo);
-        }
-        if ($request->city) {
-            $store = Store::where('city_id', $request->city)->get();
-            $productss->whereIn('store_id', $store->pluck('id'));
-        }
-        $products = $productss->paginate(12);
 
         if ($request->ajax()) {
             $style = $request->style;
@@ -78,7 +67,7 @@ class CategoryController extends Controller
                 'next_page' => $products->nextPageUrl()
             ];
         }
-        return view('category', compact('categories', 'products', 'sliders', 'name', 'cat_id', 'parent_cat'));
+        return view('category', compact('categories', 'products', 'sliders', 'name', 'cat_id', 'parent_cat', 'cities', 'slug'));
     }
 
     public function subcategories(Request $request)

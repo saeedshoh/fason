@@ -23,7 +23,7 @@
 @else
 
 
-    @forelse ($products->shuffle() as $product)
+    @forelse ($products as $product)
 <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
     <div class="card rounded shadow border-0 h-100 w-100 flex-row">
     <img class="img-fluid rounded w-50" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">

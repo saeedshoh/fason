@@ -5,15 +5,16 @@ namespace App\Models;
 use App\Models\Store;
 use Spatie\Sluggable\HasSlug;
 use App\Scopes\FreshProductScope;
-use App\Scopes\StoreActiveProductsScope;
 use Spatie\Sluggable\SlugOptions;
+use App\Http\Traits\FilterableTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\StoreActiveProductsScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasSlug, SoftDeletes, HasFactory;
+    use HasSlug, SoftDeletes, HasFactory, FilterableTrait;
 
     protected $fillable = [
         'name',

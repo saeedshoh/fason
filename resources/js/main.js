@@ -176,7 +176,7 @@ $(document).ready(function() {
     function fetchPosts() {
         var url = $(location).attr('href')
         var page = $('.endless-pagination').data('next-page')
-        if (page !== null && page !== '') {
+        if (page !== null && page !== '' && !page.substring(0, 5).includes('null&')) {
             clearTimeout($.data(this, 'scrollCheck'))
 
             $.data(
@@ -378,42 +378,42 @@ $(document).ready(function() {
     });
 })
 
-$('body').on('click', '#filter', function() {
-    const cat_id = $(this).data('cat-id')
-    const cat_slug = $(this).data('cat-slug')
-    let sort = $("input[name='sort']:checked").data('sort')
-    let city = $("input[name='city']:checked").data('city')
-    let priceFrom = $('#priceFrom').val()
-    let priceTo = $('#priceTo').val()
-    if (priceFrom.length > 0 && priceTo.length == 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
-    } else if (priceTo.length > 0 && priceFrom.length == 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
-    } else if (priceFrom.length > 0 && priceTo.length > 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
-    } else {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
-    }
-})
+// $('body').on('click', '#filter', function() {
+//     const cat_id = $(this).data('cat-id')
+//     const cat_slug = $(this).data('cat-slug')
+//     let sort = $("input[name='sort']:checked").data('sort')
+//     let city = $("input[name='city']:checked").data('city')
+//     let priceFrom = $('#priceFrom').val()
+//     let priceTo = $('#priceTo').val()
+//     if (priceFrom.length > 0 && priceTo.length == 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+//     } else if (priceTo.length > 0 && priceFrom.length == 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+//     } else if (priceFrom.length > 0 && priceTo.length > 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+//     } else {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
+//     }
+// })
 
-$('body').on('click', '#filterMobi', function() {
-    const cat_idMobi = $(this).data('cat-id')
-    const cat_slugMobi = $(this).data('cat-slug')
-    let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
-    let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
-    let priceFromMobi = $('#priceFromMobi').val()
-    let priceToMobi = $('#priceToMobi').val()
+// $('body').on('click', '#filterMobi', function() {
+//     const cat_idMobi = $(this).data('cat-id')
+//     const cat_slugMobi = $(this).data('cat-slug')
+//     let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
+//     let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
+//     let priceFromMobi = $('#priceFromMobi').val()
+//     let priceToMobi = $('#priceToMobi').val()
 
-    if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
-    } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
-    } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
-    } else {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
-    }
-})
+//     if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
+//     } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
+//     } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
+//     } else {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
+//     }
+// })
 
 $('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
