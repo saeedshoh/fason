@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -37,14 +36,12 @@ class ImageInv extends Controller
             $img->resize(null, $newHeight, function ($constraint) {
                 $constraint->aspectRatio();
             });
-
         } else if ($horizontal) {
             $right = $left = 0;
             $newWidth = ($dimension) - ($right + $left);
             $img->resize($newWidth, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-
         } else if ($square) {
             $right = $left = 0;
             $newWidth = ($dimension) - ($left + $right);
@@ -67,8 +64,8 @@ class ImageInv extends Controller
     public function uploadImage(Request $request)
     {
         //Create folder if doesn't exist
-        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($month)){
+        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        if (!File::isDirectory($month)) {
             File::makeDirectory($month);
         }
 
@@ -77,7 +74,6 @@ class ImageInv extends Controller
         ]);
 
         $img = Image::make($request->file('image')->getRealPath());
-
 
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         $this->cropImage($img, 800, 100, $nowYear);

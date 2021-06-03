@@ -50,7 +50,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
+                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->where('is_moderation', 0)->count() }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">

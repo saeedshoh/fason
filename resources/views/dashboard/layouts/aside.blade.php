@@ -27,20 +27,15 @@
 
             <!-- Navigation -->
             <ul class="navbar-nav">
-              {{-- <li class="nav-item">
-                <a class="nav-link  {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
-                  <i class="fe fe-home"></i> Главная
-                </a>
-              </li> --}}
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
+                <a class="nav-link {{ request()->is('dashboard*') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
                   <i class="fe fe-home"></i> Главная
                 </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/categories') ? ' active' : '' }}" href="{{ route('categories.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/categories*') ? ' active' : '' }}" href="{{ route('categories.index') }}">
                   <i class="fe fe-layers"></i> Категории
                 </a>
               </li>
@@ -51,12 +46,12 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/attributes') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/attributes*') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
                   <i class="fe fe-git-branch"></i> Аттрибуты
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/cities') ? ' active' : '' }}" href="{{ route('cities.index') }}" href="{{ route('cities.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/cities*') ? ' active' : '' }}" href="{{ route('cities.index') }}" href="{{ route('cities.index') }}">
                   <i class="fe fe-map-pin"></i> Города
                 </a>
               </li>
@@ -81,18 +76,18 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#sidebarBasics" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBasics">
+                <a class="nav-link {{ request()->is('dashboard/sliders*') || request()->is('dashboard/banners*') ? '' : 'collapsed' }}" href="#sidebarBasics" data-toggle="collapse" role="button" aria-expanded="{{ request()->is('dashboard/sliders*') || request()->is('dashboard/banners*') ? 'true' : 'false' }}" aria-controls="sidebarBasics">
                   <i class="fe fe-clipboard"></i> Баннера
                 </a>
-                <div class="collapse " id="sidebarBasics">
+                <div class="collapse {{ request()->is('dashboard/sliders*') || request()->is('dashboard/banners*') ? 'show' : '' }}" id="sidebarBasics">
                   <ul class="nav nav-sm flex-column">
                     <li class="nav-item ">
-                      <a href="{{ route('banners.sliders') }}" class="nav-link">
+                      <a href="{{ route('banners.sliders') }}" class="nav-link {{ request()->is('dashboard/sliders*') ? 'active' : '' }}">
                         Слайдер
                       </a>
                     </li>
                     <li class="nav-item ">
-                      <a href="{{ route('banners.index') }}" class="nav-link">
+                      <a href="{{ route('banners.index') }}" class="nav-link {{ request()->is('dashboard/banners*') ? 'active' : '' }}">
                         Баннера
                       </a>
                     </li>

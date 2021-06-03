@@ -36,27 +36,6 @@
                   </div>
                   <div class="modal-body mx-4">
                     <div class="row">
-                      {{-- <div class="col-md-6 col-lg-4 line-test__category fix_modal-line">
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                          <h5 class="captions-of__modal ">Категории</h5><img src="/storage/theme/icons/delete.svg" alt="delete_ctg">
-                        </div>
-                        <div class="categories__modal overflow-auto">
-                          <div class="form-check mt-3">
-                            @forelse ($categories as $category)
-                            <input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cats-{{$category->id}}">
-                            <label class="sort-checkbox__category form-check-label" for="cats-{{$category->id}}">
-                              {{ $category->name }}
-                            </label>
-                            @empty
-                              Извените ничего не найдено
-                          @endforelse
-
-                          </div>
-                        </div>
-
-                      </div> --}}
-
-
                     </div>
                   </div>
                   <div class="modal-footer border-1 d-flex justify-content-end mt-1">
@@ -101,7 +80,7 @@
     <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
       <div class="col text-center px-0">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          <img src="/storage/theme/icons/home.svg" width="19">
+          <img class="rounded-circle mr-1 object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>

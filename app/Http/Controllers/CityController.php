@@ -16,13 +16,16 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        $cities = City::where('name', 'like', '%'.$request->search.'%')
+        $cities = City::where('name', 'like', '%' . $request->search . '%')
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()){
+        if ($request->ajax()) {
             return response()->json(
-                view('dashboard.ajax.cities', compact('cities')
-            )->render());
+                view(
+                    'dashboard.ajax.cities',
+                    compact('cities')
+                )->render()
+            );
         }
         return view('dashboard.cities.index', compact('cities'));
     }
@@ -53,17 +56,6 @@ class CityController extends Controller
             'description' => 'Название: ' . $request->name
         ]);
         return redirect(route('cities.index'))->with('success', 'Город успешно добавлен!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
-     */
-    public function show(City $city)
-    {
-        //
     }
 
     /**

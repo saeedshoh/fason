@@ -47,11 +47,11 @@ class BannersController extends Controller
      */
     public function store(BannersRequest $request)
     {
-         $request->validate([
+        $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
         ]);
 
-        $image = $request->file('image')->store('public/'.now()->year . '/' . sprintf("%02d", now()->month));
+        $image = $request->file('image')->store('public/' . now()->year . '/' . sprintf("%02d", now()->month));
         Banners::create($request->validated() + ['image' => $image]);
         $type = $request->type == 1 ? 'Слайдер' : 'Баннер';
         Log::create([
@@ -60,24 +60,11 @@ class BannersController extends Controller
             'table'  => 'Атрибуты',
             'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $image
         ]);
-        if($request->type == 1) {
+        if ($request->type == 1) {
             return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно добавлен!');
-
-        }
-        else {
+        } else {
             return redirect()->route('banners.index')->with('success', 'Баннер успешно добавлен!');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Banner  $Banner
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Banners $banner)
-    {
-        //
     }
 
     /**
@@ -107,8 +94,8 @@ class BannersController extends Controller
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
             ]);
             if ($request->image != $banner->image) {
-                if(Storage::exists($banner->image))
-                Storage::delete($banner->image);
+                if (Storage::exists($banner->image))
+                    Storage::delete($banner->image);
                 $image = $request->file('image')->store(now()->year . '/' . sprintf("%02d", now()->month));
             }
             $banner->update([
@@ -125,10 +112,9 @@ class BannersController extends Controller
             'table'  => 'Атрибуты',
             'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $myImage
         ]);
-        if($request->type == 1) {
+        if ($request->type == 1) {
             return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно обновлен!');
-        }
-        else {
+        } else {
             return redirect()->route('banners.index')->with('success', 'Баннер успешно обновлен!');
         }
     }

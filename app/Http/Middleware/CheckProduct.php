@@ -19,7 +19,7 @@ class CheckProduct
      */
     public function handle(Request $request, Closure $next)
     {
-        $product = Product::where('slug', $request->slug)->first();
+        $product = Product::withoutGlobalScopes()->where('slug', $request->slug)->first();
         if($product) {
             if($product->store->user->id == Auth::user()->id) {
                 return $next($request);

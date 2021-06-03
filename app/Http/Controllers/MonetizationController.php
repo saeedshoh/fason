@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Monetization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\MonetizationCategory;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MonetizationRequest;
 
@@ -81,12 +80,12 @@ class MonetizationController extends Controller
     public function store(MonetizationRequest $request)
     {
         $monetization = Monetization::create($request->validated());
-        if($request->store_id) {
+        if ($request->store_id) {
             $store = Store::find($request->store_id);
             $store->update(['is_monetized' => true]);
             $store->monetizations()->attach($monetization->id);
         }
-        if($request->category_id) {
+        if ($request->category_id) {
             $category = Category::find($request->category_id);
             $category->update(['is_monetized' => true]);
             $category->monetizations()->attach($monetization->id);

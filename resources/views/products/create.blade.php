@@ -14,7 +14,7 @@
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
-          <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
+          <a href="{{ javascript:history.back() }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Добавить Товар</h5>
           </div>
           <div class="my-3">
@@ -24,7 +24,7 @@
                 Выберите изображение
               </small>
             </label>
-           
+
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image">

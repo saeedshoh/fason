@@ -21,7 +21,6 @@
               </div>
           </div>
         </div>
-
         <!-- Form -->
         <form  method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
@@ -133,38 +132,40 @@
                   </select>
                 </div>
             </div>
+            @if(Str::contains(url()->previous(), '/dashboard/users'))
             <div class="col-12 col-md-6">
 
                 <!-- Birthday -->
                 <div class="form-group">
-  
+
                   <!-- Label -->
                   <label>
                     Пароль
                   </label>
-  
+
                   <!-- Input -->
-                  <input class="form-control flatpickr-input"  type="password" name="password" required autocomplete="new-password">
-  
+                  <input class="form-control flatpickr-input"  type="password" name="password" autocomplete="new-password">
+
                 </div>
-  
+
               </div>
               <div class="col-12 col-md-6">
-  
+
                   <!-- Birthday -->
                   <div class="form-group">
-    
+
                     <!-- Label -->
                     <label>
                       Подтвердить пароль
                     </label>
-    
+
                     <!-- Input -->
-                    <input class="form-control flatpickr-input"  type="password" name="password_confirmation" required autocomplete="new-password">
-    
+                    <input class="form-control flatpickr-input"  type="password" name="password_confirmation" autocomplete="new-password">
+
                   </div>
-    
+
                 </div>
+                @endif
             </div> <!-- / .row -->
           <button class="btn btn-primary mt-4 float-right" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
 

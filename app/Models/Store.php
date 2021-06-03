@@ -45,7 +45,7 @@ class Store extends Model
             'product_id',
             'id',
             'id'
-        );
+        )->withoutGlobalScopes();
     }
     public function categories() {
         return $this->hasManyThrough(

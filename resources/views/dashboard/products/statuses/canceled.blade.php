@@ -53,7 +53,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.accepted') }}" class="nav-link">
-                        Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('updated_at', '>', now()->subWeek())->where('quantity', '>', 1)->count() }}</span>
+                      Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('quantity', '>', 1)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -62,18 +62,18 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.canceled') }}" class="nav-link active">
+                    <a href="{{ route('products.canceled') }}" class="nav-link">
                       Отклонённые <span class="badge badge-pill badge-light">{{ $products_stats->where('product_status_id', 3)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.hidden') }}" class="nav-link">
-                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('updated_at', '<', now()->subWeek())->count() }}</span>
+                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.notInStock') }}" class="nav-link">
-                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('quantity', '<', 1)->count() }}</span>
+                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('product_status_id', 5)->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">

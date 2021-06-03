@@ -31,7 +31,7 @@
                         <div class="col-auto">
 
                         <!-- Buttons -->
-                        <a href="{{ route('categories.index')}}" class="btn btn-primary ml-2">
+                        <a href="{{ route('banners.index')}}" class="btn btn-primary ml-2">
                             Все {{ $banner->type == 1 ? 'слайдера' : 'баннера'}}
                         </a>
                         </div>

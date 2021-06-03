@@ -10,9 +10,10 @@
 <section>
     <div class="container mt-3">
       <div class="d-flex mb-3 justify-content-between align-items-center">
-        <a href="{{ $back }}" class="text-danger font-weight-bold text-decoration-none"> <img src="/storage/theme/icons/back.svg" alt="">
-          назад</a>
-          <h6 class="text-secondary mb-0">Результаты поиска:</h6>
+        <a href="{{ javascript:history.back() }}" class="text-danger font-weight-bold text-decoration-none"> <img src="/storage/theme/icons/back.svg" alt="">
+          назад
+        </a>
+        <h6 class="text-secondary mb-0">Результаты поиска:</h6>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product">
         @forelse ($products as $product)

@@ -10,10 +10,6 @@ use Illuminate\Support\Str;
 
 class SmsConfirmedController extends Controller
 {
-    public function __construct()
-    {
-        // $this->sms_confirmed = SmsConfirmed::get();
-    }
     public function confirmed(Request $request)
     {
         if ($request->ajax()) {
@@ -24,21 +20,20 @@ class SmsConfirmedController extends Controller
             $last_sms = SmsConfirmed::where('user_id', $user->id)->orderBy('id', 'desc')->first();
 
             //check if sms code is correct
-            if($last_sms->code == $request->code && $last_sms->is_active == 0){
+            if ($last_sms->code == $request->code && $last_sms->is_active == 0) {
                 $last_sms->update(['is_active' => 1]);
-                if($user->registered_at !== null){
+                if ($user->registered_at !== null) {
                     Auth::login($user);
                     return 'true';
-                }
-                else {
+                } else {
                     return 'false';
                 }
-            }
-            else {
+            } else {
                 return 'wrong code';
             }
         }
     }
+
     public function send(Request $request)
     {
         if ($request->ajax()) {
@@ -64,7 +59,7 @@ class SmsConfirmedController extends Controller
                 );
                 $exist_phone = $user;
             }
-            $sms_confirmed = SmsConfirmed::create([
+            SmsConfirmed::create([
                 'code' => $code,
                 'user_id' => $exist_phone->id,
             ]);
@@ -98,22 +93,24 @@ class SmsConfirmedController extends Controller
             }
         }
     }
-    function call_api($url, $method, $params){
+
+    function call_api($url, $method, $params)
+    {
         $curl = curl_init();
-        $data = http_build_query ($params);
+        $data = http_build_query($params);
         if ($method == "GET") {
-            curl_setopt ($curl, CURLOPT_URL, "$url?$data");
-        }else if($method == "POST"){
-            curl_setopt ($curl, CURLOPT_URL, $url);
-            curl_setopt ($curl, CURLOPT_POSTFIELDS, $data);
-        }else if($method == "PUT"){
-            curl_setopt ($curl, CURLOPT_URL, $url);
-            curl_setopt ($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded','Content-Length:'.strlen($data)));
-            curl_setopt ($curl, CURLOPT_POSTFIELDS, $data);
-        }else if ($method == "DELETE"){
-            curl_setopt ($curl, CURLOPT_URL, "$url?$data");
-            curl_setopt ($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-        }else{
+            curl_setopt($curl, CURLOPT_URL, "$url?$data");
+        } else if ($method == "POST") {
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        } else if ($method == "PUT") {
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length:' . strlen($data)));
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        } else if ($method == "DELETE") {
+            curl_setopt($curl, CURLOPT_URL, "$url?$data");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        } else {
             dd("unkonwn method");
         }
         curl_setopt_array($curl, array(
@@ -135,10 +132,10 @@ class SmsConfirmedController extends Controller
             $arr['msg'] = $err;
         } else {
             $res = json_decode($response);
-            if (isset($res->error)){
+            if (isset($res->error)) {
                 $arr['error'] = 1;
-                $arr['msg'] = "Error Code: ". $res->error->code . " Message: " . $res->error->msg;
-            }else{
+                $arr['msg'] = "Error Code: " . $res->error->code . " Message: " . $res->error->msg;
+            } else {
                 $arr['error'] = 0;
                 $arr['msg'] = $response;
             }

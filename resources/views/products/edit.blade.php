@@ -14,7 +14,7 @@
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
-          <a href="{{ route('ft-store.show', $is_store->slug) }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
+          <a href="{{ javascript:history.back() }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Изменить Товар</h5>
           </div>
           <div class="my-3">
@@ -272,7 +272,7 @@
                                         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="@foreach ($attrValues->where('attribute_id', $attribute->id)->where('is_checked', 'true') as $attrValue){{ $loop->last ? $attrValue->id : $attrValue->id.',' }}@endforeach">
                                     </div>
                                 @else
-                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
+                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple>
                                         <option disabled="">Выберите значение</option>
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>

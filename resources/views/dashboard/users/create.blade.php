@@ -43,8 +43,8 @@
         </div>
 
         <!-- Form -->
-        <form  method="POST" action="{{ route('users.store') }}">
-            @csrf
+        <form  method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+        @csrf
 
           <div class="row justify-content-between align-items-center">
             <div class="col">
@@ -103,7 +103,7 @@
               </div>
 
             </div>
-            
+
             <div class="col-12  col-md-6">
 
               <!-- Phone -->
@@ -124,43 +124,54 @@
 
                 <!-- Phone -->
                 <div class="form-group">
-  
+
                   <!-- Label -->
                   <label>
                     Должность
                   </label>
-  
+
                   <!-- Input -->
                   <select class="custom-select" data-toggle="select" name="role">
                     @foreach ($roles as $role)
-                        
+
                     <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                     @endforeach
                   </select>
 
                 </div>
-  
+
               </div>
-              <div class="col-12">
+              <div class="col-6">
 
                 <!-- Email address -->
                 <div class="form-group">
-  
+
                   <!-- Label -->
                   <label class="mb-1">
                     E-mail
                   </label>
-  
-                  <!-- Form text -->
-                  <small class="form-text text-muted">
-                      Этот контакт будет показан другим пользователям, поэтому выбирайте его внимательно.\
-                  </small>
-  
+
                   <!-- Input -->
-                  <input type="email" class="form-control" name="email">
-  
+                  <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+
                 </div>
-  
+
+              </div>
+              <div class="col-6">
+
+                <!-- Address -->
+                <div class="form-group">
+
+                  <!-- Label -->
+                  <label class="mb-1">
+                    Адрес
+                  </label>
+
+                  <!-- Input -->
+                  <input type="text" class="form-control" name="address" value="{{ old('address') }}">
+
+                </div>
+
               </div>
             <div class="col-12 col-md-6">
 
@@ -182,20 +193,20 @@
 
                 <!-- Birthday -->
                 <div class="form-group">
-  
+
                   <!-- Label -->
                   <label>
                     Подтвердить пароль
                   </label>
-  
+
                   <!-- Input -->
                   <input class="form-control flatpickr-input"  type="password" name="password_confirmation" required autocomplete="new-password">
-  
+
                 </div>
-  
+
               </div>
           </div> <!-- / .row -->
-         
+
           <!-- Button -->
           <button class="btn btn-primary">
             Сохранить

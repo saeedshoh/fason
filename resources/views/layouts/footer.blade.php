@@ -16,7 +16,7 @@
                   Назад
                 </span>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-center bg-white">
                 <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
                 <p class="text-muted mb-pre--text">
                    Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
@@ -57,13 +57,12 @@
     </div>
 </div>
 <!--Modal-3-->
-<div class="modal fade mb-custom-login" id="adressChange" tabindex="-1" aria-labelledby="adressChange"
-aria-hidden="true">
+<div class="modal fade mb-custom-login" id="adressChange" tabindex="-1" aria-labelledby="adressChange" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-md">
   <div class="modal-content">
     <div class="modal-header border-0 d-none">
     </div>
-    <div class="modal-body text-center">
+    <div class="modal-body text-center bg-white" style="z-index: 99999;">
       <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
       <p class="text-muted mb-pre--text mb-0">
          Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
@@ -162,7 +161,7 @@ aria-hidden="true">
       </div>
     </div>
 
-    <div class="container mt-3 text-center mb-5">
+    <div class="container mt-3 text-center">
       <div class="row" >
         <div class="col-12 mb-2 mb-md-0 mb-lg-0">
           <p class="copyright_text_footer">© Fason.tj. Все права защищены Любое копирование и воспроизведение текста, в том числе частичное и в любых формах, без письменного разрешения правообладателя запрещено.</p>

@@ -14,42 +14,35 @@
  <!--Header-end-->
   <section class="content profile mt-0 mt-md-3">
     <div class="container">
-
+      <div class="row">
         @if($store->is_moderation)
-            <div class="col-12  px-0 px-md-2">
-                <div class="alert alert-warning" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="alert-heading">Внимание!</h4>
-                <p>На данный момент Ваш магазин находится <span class="alert-link">в процессе модерации</span>. Вы можете <span class="alert-link">добавлять товары и вносить изменения</span>.</p>
-                <hr>
-                <p class="mb-0">Данные отображаются покупателям после одобрения магазина.</p>
-                </div>
-            </div>
+          <div class="alert alert-warning w-100" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Внимание!</h4>
+            <p>На данный момент Ваш магазин находится <span class="alert-link">в процессе модерации</span>. Вы можете <span class="alert-link">добавлять товары и вносить изменения</span>.</p>
+            <hr>
+            <p class="mb-0">Данные отображаются покупателям после одобрения магазина.</p>
+          </div>
         @elseif($store->is_active == 0 || $store->is_active == 2)
-            <div class="col-12  px-0 px-md-2">
-                <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="alert-heading">Внимание!</h4>
-                <p>Ваш магазин отключен. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> (+992) 000 02 9641</a></p>
-                </div>
-            </div>
+          <div class="alert alert-danger w-100" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Внимание!</h4>
+            <p>Ваш магазин отключен. При выключении магазина учитите, что другие пользователи не смогут видеть ваши товары, пока вы не восстановите магазин. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> (+992) 000 02 9641</a></p>
+          </div>
         @endif
       <script>
         $(".alert").alert();
       </script>
-      <div class="row">
-
 
         <!--store logo start-->
         <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
             <div class="position-relative d-inline-block">
             <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
-              {{-- <button class="btn p-0 position-absolute change-avatar-icon"><img src="img/camera.svg" class="" alt=""></button> --}}
             </div>
           </div>
         </div>
@@ -178,9 +171,12 @@
                         В модерации
                       @else
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                        @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
-                          @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4'])) {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
-                          @else {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                        @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
+                        @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                        @else
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
                         @endif
                       @endif
                     </span>
@@ -210,11 +206,11 @@
                   <div class="container mt-3">
                     <span class="text-secondary"><img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
-                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
                         @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
-                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
                         @else
-                            {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
                         @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>

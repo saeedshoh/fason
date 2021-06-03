@@ -143,18 +143,15 @@
                                     <a class="text-reset" href="team-overview.html">{{ $user->store->name ?? '' }}</a>
                                     </td>
                                     <td class="text-right">
-                                    <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                        <i class="fe fe-trash"> </i></button>
-                                        @method('DELETE')
-                                    </form>
-                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
-                                        <i class="fe fe-edit"> </i>
-                                    </a>
-                                    <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1 fa-pull-right">
-                                        <i class="fe fe-eye" aria-hidden="true"></i>
-                                    </a>
+                                        <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                            <i class="fe fe-trash"> </i></button>
+                                            @method('DELETE')
+                                        </form>
+                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
+                                            <i class="fe fe-edit"> </i>
+                                        </a>
                                     </td>
                                 </tr>
                                 @empty
@@ -188,7 +185,10 @@
                                     {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1 pull-right">
+                                        <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1">
+                                            <i class="fe fe-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1">
                                             <i class="fe fe-edit"></i>
                                         </a>
                                         <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">

@@ -24,7 +24,7 @@ const Toast = Swal.mixin({
 
 $('#listView').on('click', function() {
     $('#catProducts').find('.card').addClass('active');
-    $('#catProducts .row')
+    $('#catProducts .endless-pagination')
         .removeClass('row-cols-2')
         .addClass('row-cols-1')
     $('#gridView').removeClass('d-none')
@@ -119,84 +119,6 @@ $(document).ready(function() {
     })
 })
 
-
-/// products line end
-////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-
-// $(function() {
-
-//     $("#galler").change(function() {
-//         var fd = new FormData()
-//         var this_ = this
-//         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
-//         var files = $('#galler')[0].files;
-//         if (files.length > 0) {
-//             for (let i = 0; i < files.length; i++) {
-//                 fd.append('image', files[i]);
-//                 $.ajax({
-//                     url: '/uploadImage',
-//                     type: 'post',
-//                     data: fd,
-//                     contentType: false,
-//                     processData: false,
-//                     beforeSend: function() {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('img').hide()
-//                         x.find('.spinner-border').removeClass('d-none')
-//                     },
-//                     success: function(response) {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('.spinner-border').addClass('d-none')
-//                         x.html('').attr('data-image', 'true').append(`
-//                             <div class="profile-pic">
-//                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
-//                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
-//                             </div>
-//                     `)
-
-//                         let gallery = $('#gallery')
-//                         if (gallery.val() == '') {
-//                             gallery.val(gallery.val() + response)
-//                         } else {
-//                             gallery.val(gallery.val() + ',' + response)
-//                         }
-//                     },
-//                 });
-//             }
-
-//         } else {
-//             alert("Please select a file.");
-//         }
-//     });
-// });
-
-// $('body').on('click', '.deleteImage', function() {
-//     let url = $(this).parent().find('img').data('image-src')
-//     let gallery = $('#gallery')
-//     let array = gallery.val().split(',')
-//     const index = array.indexOf(url)
-//     if (index > -1) {
-//         array.splice(index, 1);
-//     }
-//     gallery.val(array)
-//     $(this).parent().parent().remove()
-//     if (url.indexOf('products/edit/') !== -1) {
-//         $(this).parent().parent().parent().remove()
-//     } else {
-//         $(this).parent().parent().remove()
-//     }
-//     $('#db-preview-image').append(`
-//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-//             <div class="spinner-border d-none" role="status">
-//                 <span class="sr-only">Loading...</span>
-//             </div>
-//             <label for="galler">
-//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-//             </label>
-//         </div>
-//     `)
-// })
-
 function throttle(f, delay) {
     var timer = null
     return function() {
@@ -251,40 +173,32 @@ $(document).ready(function() {
     $('.sms--false').hide()
     $(window).scroll(fetchPosts)
 
+    var old_page = '';
     function fetchPosts() {
-        var url = $(location).attr('href')
+        // var url = $(location).attr('href')
         var page = $('.endless-pagination').data('next-page')
-        if (page !== null && page !== '') {
+        if (page !== null && page !== '' && !page.substring(0, 5).includes('null&')) {
             clearTimeout($.data(this, 'scrollCheck'))
 
             $.data(
                 this,
                 'scrollCheck',
                 setTimeout(function() {
-                    $('#scroll-spinner').toggleClass('d-none')
+                    $('#scroll-spinner').removeClass('d-none')
 
-                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 100
-
+                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 500
                     if (scroll_position_for_posts_load >= $(document).height()) {
                         var style = $('#catProducts .row').attr('data-style')
-                        console.log(style)
-                        if (url.indexOf('sort=') !== -1) {
-                            const sort = url.split('?')[1]
-
-                            $.get(page + '&' + sort, { style: style }, function(data) {
-                                $('#scroll-spinner').toggleClass('d-none')
-                                $('.endless-pagination').append(data.posts)
-                                $('.endless-pagination').data('next-page', data.next_page + '&' + sort)
-                            })
-                        } else {
+                        if(old_page != page){
                             $.get(page, { style: style }, function(data) {
-                                $('#scroll-spinner').toggleClass('d-none')
                                 $('.endless-pagination').append(data.posts)
                                 $('.endless-pagination').data('next-page', data.next_page)
+                                $('#scroll-spinner').addClass('d-none')
                             })
+                            old_page = page;
                         }
                     }
-                }, 350)
+                }, 200)
             )
         }
     }
@@ -420,8 +334,11 @@ $(document).ready(function() {
         var form =  $(this).closest("form");
         event.preventDefault();
         Swal.fire({
-            title: 'Вы действительно хотите включить магазин?',
+            title: '<h4>Вы действительно хотите выключить магазин?</h4>',
+            html: '<p style="font-size: 12px;">При выключении другие пользователи не смогут видеть ваши товары, пока вы не восстановите магазин</p>',
             icon: 'warning',
+            height: 200,
+            position: 'center',
             showCancelButton: true,
             confirmButtonText: 'Да',
             cancelButtonText: 'Нет',
@@ -439,8 +356,10 @@ $(document).ready(function() {
         var form =  $(this).closest("form");
         event.preventDefault();
         Swal.fire({
-            title: 'Вы действительно хотите восстановить магазин?',
+            title: '<h4>Вы действительно хотите восстановить магазин?</h4>',
             icon: 'warning',
+            height: 200,
+            position: 'center',
             showCancelButton: true,
             confirmButtonText: 'Да',
             cancelButtonText: 'Нет',
@@ -450,49 +369,49 @@ $(document).ready(function() {
             buttons: true,
             dangerMode: true,
         }).then((result) => {
-              if (result.isConfirmed) {
-                  form.submit();
-              }
-      })
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+        })
     });
 })
 
-$('body').on('click', '#filter', function() {
-    const cat_id = $(this).data('cat-id')
-    const cat_slug = $(this).data('cat-slug')
-    let sort = $("input[name='sort']:checked").data('sort')
-    let city = $("input[name='city']:checked").data('city')
-    let priceFrom = $('#priceFrom').val()
-    let priceTo = $('#priceTo').val()
-    if (priceFrom.length > 0 && priceTo.length == 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
-    } else if (priceTo.length > 0 && priceFrom.length == 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
-    } else if (priceFrom.length > 0 && priceTo.length > 0) {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
-    } else {
-        window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
-    }
-})
+// $('body').on('click', '#filter', function() {
+//     const cat_id = $(this).data('cat-id')
+//     const cat_slug = $(this).data('cat-slug')
+//     let sort = $("input[name='sort']:checked").data('sort')
+//     let city = $("input[name='city']:checked").data('city')
+//     let priceFrom = $('#priceFrom').val()
+//     let priceTo = $('#priceTo').val()
+//     if (priceFrom.length > 0 && priceTo.length == 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
+//     } else if (priceTo.length > 0 && priceFrom.length == 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
+//     } else if (priceFrom.length > 0 && priceTo.length > 0) {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
+//     } else {
+//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
+//     }
+// })
 
-$('body').on('click', '#filterMobi', function() {
-    const cat_idMobi = $(this).data('cat-id')
-    const cat_slugMobi = $(this).data('cat-slug')
-    let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
-    let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
-    let priceFromMobi = $('#priceFromMobi').val()
-    let priceToMobi = $('#priceToMobi').val()
+// $('body').on('click', '#filterMobi', function() {
+//     const cat_idMobi = $(this).data('cat-id')
+//     const cat_slugMobi = $(this).data('cat-slug')
+//     let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
+//     let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
+//     let priceFromMobi = $('#priceFromMobi').val()
+//     let priceToMobi = $('#priceToMobi').val()
 
-    if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
-    } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
-    } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
-    } else {
-        window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
-    }
-})
+//     if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
+//     } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
+//     } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
+//     } else {
+//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
+//     }
+// })
 
 $('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
@@ -583,13 +502,6 @@ $(document).on('change', '[name="category_id"]', function() {
     })
 })
 
-// $('.input_placeholder_style').on('change', function() {
-//     if ($('#image').val() != '' && $('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
-//         $('.add-product-btn')
-//             .removeAttr('disabled')
-//     }
-// })
-
 $('#add_product input, #add_product textarea, #add_product select').on('change', function() {
     if($(this).val() == "") {
         $(this).parent().find('div, input, textarea').addClass('border-danger');
@@ -622,22 +534,7 @@ $(document).on('submit', '#add_product',  function(event) {
 
         return false
     }
-
-    //disable the submit button
-
-    //disable a normal button
 })
-
-// $(document).on('click', '.add-product-btn', function() {
-//   e.preventDefault()
-//   $(this).attr('disabled', true)
-//   if ($('#image').val() == '') $('#add_product').addClass('was-validated')
-//   $('#main-poster').addClass('border-danger')
-
-//   if ($('.was-validated .form-control:valid'))
-//     $('#main-poster').addClass('border-danger')
-//   return true
-// })
 
 $(document).on('change', '.st-attribute_add', function() {
     $('#st-attribute_val').empty()
@@ -729,15 +626,6 @@ $(document).on('change', '.js-attribute', function() {
                         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
                         </label>
                     `)
-
-                        // if(element['slug'] == 'cvet'){
-                        //     $('#test').append(`
-                        //         <div class="position-relative">
-                        //         <input class="form-check-input" for="${element['name']}" style="background: ${element['value']}; width: 10px; height: 10px;" type="checkbox">
-                        //         <label id="${element['name']}" class="form-check-label rounded-pill" style="background: ${element['value']}; width: 50px; height: 50px;"></label>
-                        //         </div>
-                        //     `);
-                        // }
                     })
                 } else {
                     _this.closest('div').append(`
@@ -979,8 +867,7 @@ $('.checkout-product').on('click', function() {
             attributes
         },
         success: data => {
-            console.log(data)
-            $('.order-number').text('Номер вашего заказа: ' + data.order.id)
+            window.location.reload();
         },
         error: function(xhr, status, error) {
             console.log(status)
@@ -1016,25 +903,6 @@ $('.favorite').on('click', function() {
                 console.log(status)
             }
         })
-        // $.ajax({
-
-    //     url: '/add_to_favorite/' + product_id,
-    //     type: 'GET',
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     data: {
-    //         product_id,
-    //         status,
-    //     },
-    //     success: (data) => {
-    //         console.log(data);
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.log(status);
-    //     }
-
-    // });
 })
 
 // sms-congirm
@@ -1157,61 +1025,8 @@ $('.favorite').on('click', function() {
 
     }, 1000);
 });
-// preview image
-
-// $(function() {
-
-//     $("#gallery").change(function() {
-//         if (typeof(FileReader) != "undefined") {
-//             var dvPreview = $("#preview-product-secondary").find('#db-preview-image');
-//             dvPreview.html("");
-//             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.png|.bmp|.WebP|.webp|.bat|.svg|.jfif)$/;
-
-//             $($(this)[0].files).each(function(index) {
-//                 var file = $(this);
-//                 if (regex.test(file[0].name.toLowerCase())) {
-//                     var reader = new FileReader();
-//                     reader.onload = function(e) {
-//                         var img = $('<div class="col-3 text-center mb-4"><img width="87" height="87" style="object-fit: contain"/><button data-id="' + index + '" type="button" class="btn btn-danger my-3 db-preview-remove">Удалить</div>');
-//                         img.find('img').addClass("mw-100");
-//                         img.find('img').attr("src", e.target.result);
-//                         dvPreview.append(img);
-//                     }
-//                     reader.readAsDataURL(file[0]);
-//                 } else {
-//                     alert(file[0].name + " is not a valid image file.");
-//                     dvPreview.html("");
-//                     return false;
-//                 }
-//             });
-//         } else {
-//             alert("This browser does not support HTML5 FileReader.");
-//         }
-//     });
-// });
-
-// $('.db-preview-remove').on('click', function() {
-//     let gallery = $("#gallery")[0].files;
-//     let value = $(this).attr('data-id');
-
-//     function removeItemOnce(arr, value) {
-//         var index = arr.indexOf(value);
-//         if (index > -1) {
-//             arr.splice(index, 1);
-//         }
-//     };
-//     removeItemOnce(gallery.files, value);
-// });
-
-// $('body').on('click', '.deleteImage', function () {
-//     let images = $('#hello').val()
-//     images = JSON.parse(images)
-//     console.log(images)
-//     $(this).parent().find('img').remove()
-// })
 
 // single preview
-
 function avatar(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader()
@@ -1236,23 +1051,6 @@ function cover(input) {
         reader.readAsDataURL(input.files[0])
     }
 }
-
-// function user_avatar(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader()
-//         reader.onload = function(e) {
-//             $('.user_avatar svg').hide()
-//             $('.user_avatar img')
-//                 .show()
-//                 .attr('src', e.target.result)
-//         }
-
-//         reader.readAsDataURL(input.files[0])
-//     }
-// }
-
-
-
 $('#image').change(function() {
     if ($(this).val() != '') {
         $('.image-validate').addClass('d-none');
@@ -1379,104 +1177,57 @@ $('body').on('click', '.change-address', function() {
     $('#checkout_address').focus()
 })
 
-
 ///product picture on hover change
-
 $(document).ready(function () {
-$('.add-product-secondary .pic-item').on('click', function() {
-    let imgSrc = $(this).attr('data-image-src')
-    $('.pic-main').attr('src', imgSrc)
-    $('.add-product-secondary .pic-item').removeClass('pic-item-active')
-    $(this).addClass('pic-item-active')
+    $('.add-product-secondary .pic-item').on('click', function() {
+        let imgSrc = $(this).attr('data-image-src')
+        $('.pic-main').attr('src', imgSrc)
+        $('.add-product-secondary .pic-item').removeClass('pic-item-active')
+        $(this).addClass('pic-item-active')
 
-})
+    })
 
 
 
-$('body').on('click', '.delete-product', function(event) {
-    var form =  $(this).closest("form");
-    event.preventDefault();
-    Swal.fire({
-        title: 'Вы действительно хотите удалить товар?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Нет',
-        customClass:{
-            confirmButton: 'bg-danger'
-        },
-        buttons: true,
-        dangerMode: true,
-    }).then((result) => {
-          if (result.isConfirmed) {
-              form.submit();
-          }
-  })
+    $('body').on('click', '.delete-product', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Вы действительно хотите удалить товар?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-danger'
+            },
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+    })
+    });
+
+    $('body').on('click', '.restore-product', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Вы действительно хотите восстановить товар?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-success'
+            },
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+    })
+    });
 });
-
-$('body').on('click', '.restore-product', function(event) {
-    var form =  $(this).closest("form");
-    event.preventDefault();
-    Swal.fire({
-        title: 'Вы действительно хотите восстановить товар?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Нет',
-        customClass:{
-            confirmButton: 'bg-success'
-        },
-        buttons: true,
-        dangerMode: true,
-    }).then((result) => {
-          if (result.isConfirmed) {
-              form.submit();
-          }
-  })
-});
-
-});
-
-
-
-// $(document).ready(function () {
-//     $(".custom-radius").on("click", function () {
-//         var count = 0;
-//         var questions = $(".xls");
-//         questions.each(function () {
-//             if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
-//                 count++;
-//             }
-//         });
-//         if (count >= questions.length) {
-//             alert("all good");
-//         } else {
-//             alert("something not checked");
-//         }
-//     });
-// });
-
-
-// $('#favoriteSave').one('click', function() {
-//     var mybtnfavorite = document.getElementsByClassName("favorite")[0];
-//     console.log(mybtnfavorite);
-//     mybtnfavorite.addEventListener("touchstart", function() {
-//         console.log(mybtnfavorite);
-//         mybtnfavorite.classList.add("btnHoverTouchMobile");
-//     })
-//     mybtnfavorite.addEventListener("touchend", function() {
-//         console.log(mybtnfavorite);
-//         mybtnfavorite.classList.remove("btnHoverTouchMobile");
-//     })
-// });
-// $(document).ready(function() {
-//     $('#favoriteSave').on('touchstart touchend', function(e) {
-//         e.preventDefault();
-//         if ('#favoriteSave' == 'active') {
-//             alert("active")
-//         } else {
-//             alert("NOactive")
-//         }
-//         $(this).unbind('touchstart touchend')
-//     });
-// });

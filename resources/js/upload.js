@@ -40,7 +40,7 @@ export function upload(selector, options = {}) {
             return;
         }
 
-        
+
         files = Array.from(event.target.files);
         // preview.innerHTML = '';
         console.log(files);
@@ -93,7 +93,7 @@ export function upload(selector, options = {}) {
                         );
                         let imageList = document.querySelectorAll('.preview-image');
 
-                        imageList.forEach((el, index) => index > 6 ? el.remove() : ''); 
+                        imageList.forEach((el, index) => index > 6 ? el.remove() : '');
 
                         if(document.querySelectorAll('.preview-image').length <= 6) {
                             preview.insertAdjacentElement('beforeend', open);
@@ -102,9 +102,9 @@ export function upload(selector, options = {}) {
                         } else {
                             open.remove();
                         }
-                       
 
-                        
+
+
                     };
 
                     reader.readAsDataURL(result);
@@ -114,7 +114,7 @@ export function upload(selector, options = {}) {
                 }
             });
         });
-        
+
 
     };
 
@@ -125,7 +125,7 @@ export function upload(selector, options = {}) {
         if (files.length <= 7) {
             open.classList.remove('d-none');
         }
-        
+
         const { name } = event.target.dataset;
         files = files.filter(file => file.name !== name);
 
@@ -139,7 +139,7 @@ export function upload(selector, options = {}) {
                 open.classList.add('trigger-insert');
             }
         }, 300);
-        
+
     };
 
     open.addEventListener('click', triggerInput);
@@ -181,7 +181,7 @@ $(document).on('click', '.add-product-btn', function() {
             .closest('form')
             .find('*[name="store_id"]')
             .val();
-          
+
         let aw = {product_id: product_id, cat_id:cat_id, name:name, description:description, quantity:quantity, price:price, store_id:store_id}
         console.log(aw)
         const image = $('#main-poster').attr('src');
@@ -237,7 +237,7 @@ $(document).on('click', '.add-product-btn', function() {
                               <h6 class="text-uppercase text-muted mb-4">
                               Товар ${
                                 check_page == 'true' ? 'обновлен' : 'добавлен'
-                              } 
+                              }
                               </h6>
                               <h1 class="display-4 mb-3">
                               Товар успешно ${
@@ -247,14 +247,14 @@ $(document).on('click', '.add-product-btn', function() {
                               }
                               </h1>
                               <p class="text-muted mb-4">
-                                Хотите вернуться в админку 
+                                Хотите вернуться в админку
                               </p>
                               <a href="/dashboard/products" class="btn btn-lg btn-primary">
                                 Вернуться назад
                               </a>
-                            
+
                             </div>
-                  
+
                           </div>
                         </div> <!-- / .row -->
                       </div>`
@@ -272,7 +272,7 @@ $(document).on('click', '.add-product-btn', function() {
                     console.log(status);
                 },
                 complete: function() {
-                    $('.success-preloader').remove();   
+                    $('.success-preloader').remove();
                 }
             });
         }
@@ -280,7 +280,7 @@ $(document).on('click', '.add-product-btn', function() {
     else {
         $(this).closest('form').addClass('was-validated')
     }
-    
+
 });
 
 function readURL(input) {
@@ -315,7 +315,7 @@ $('#image').change(function() {
     }
     else {
      $('#main-poster').addClass('border-danger');
-    }    
+    }
 
     readURL(this);
 });

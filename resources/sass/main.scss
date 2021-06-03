@@ -14,7 +14,7 @@
 body {
     background: #F2F2F2;
     user-select: none;
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
 }
 
 .text-pinky {
@@ -654,7 +654,7 @@ input[type="radio"] {
 .mobile-nav {
     position: fixed;
     bottom: 0;
-    z-index: 9966;
+    z-index: 888888;
     height: 56px;
 }
 
@@ -1108,6 +1108,10 @@ input[type=number] {
             border: 0;
             border-radius: 0;
         }
+        .swal2-icon{
+            width: 4rem !important;
+            height: 4rem !important;
+        }
     }
     .mobile-header {
         width: 100% !important;
@@ -1500,7 +1504,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .count-products {
     color: #a0a0a0;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     display: block;
 }
 
@@ -1511,7 +1515,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 #adressChange {
-    z-index: 9999;
+    z-index: 99999;
+    .modal_body{
+        z-index: 999999;
+    }
 }
 
 .store-icon {
@@ -1950,10 +1957,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     }
 }
 
+.delete-store{
+    @include delete__svg;
+ }
+
 .store-controls{
-    .delete-store{
-        @include delete__svg;
-     }
+    // .delete-store{
+    //     @include delete__svg;
+    //  }
      @media only screen and (max-width: 767px) {
         a{
             width: 45%;
@@ -1980,4 +1991,88 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .swal2-actions button, .swal2-popup {
     border-radius: 11px !important;
+}
+
+#avatar-poster{
+    object-fit: cover;
+}
+
+.cs_list li{
+    border-width: 0.12em !important;
+    padding: 0 2.5em;
+}
+
+.cs_categoryTitle{
+    padding: 0 2.2rem;
+    border-width: 0.12em !important;
+
+}
+
+.close{
+    opacity: 1 !important;
+}
+
+/* SearchBar */
+.store__searchBar {
+    input{
+        border: none;
+        border-bottom: 1px solid #FF0055;
+        background: transparent;
+        height: 4rem;
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+        &:focus{
+            outline: none;
+        }
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #D1D1D1;
+            text-align: center;
+            opacity: 1; /* Firefox */
+          }
+
+          &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #D1D1D1;
+            text-align: center;
+          }
+
+          &::-ms-input-placeholder { /* Microsoft Edge */
+            color: #D1D1D1;
+            text-align: center;
+          }
+          @media only screen and (max-width: 600px){
+            font-size: 0.8rem;
+            height: 2rem;
+          }
+    }
+    button{
+        right: 0;
+        top: 1.8rem;
+        border: 0;
+        background: transparent;
+        &:focus{
+            outline: none;
+        }
+        @media only screen and (max-width: 600px){
+            top: 0;
+          }
+    }
+}
+
+.allStore__title{
+    color: #D1D1D1;
+}
+
+.allStore__cards{
+    .card__item{
+        img{
+            height: 11rem;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        .text-center{
+            font-weight: 500;
+        }
+    }
 }

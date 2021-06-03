@@ -35,11 +35,16 @@
                     </div>
                 </div>
             </div>
+            @if (session())
+            <div class="alert alert-{{ session('class') }}">
+                {{session()->get('message')}}
+            </div>
+            @endif
             @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
-                        <span>{{ $error }}</span>
-                    @endforeach
+                    <span>{{ $error }}</span>
+                @endforeach
             </div>
             @endif
             <div class="row">
@@ -84,8 +89,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="attribute">Аттрибут для категори</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
-                                        <option disabled selected>Выберите аттрибут</option>
-                                       
+                                        <option value="0" @if($category->attributes->count() == 0) selected @endif>Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
                                             <option value="{{ $attribute->id }}" @foreach ($category->attributes as $select_attribute) {{ $select_attribute->id == $attribute->id ? 'selected' : '' }} @endforeach>{{ $attribute->name }}</option>
                                         @endforeach
