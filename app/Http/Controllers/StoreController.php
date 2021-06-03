@@ -440,6 +440,7 @@ class StoreController extends Controller
         }
         return view('dashboard.store.profile.orders', compact('store', 'orders'));
     }
+
     public function profile_edit($store)
     {
         $store = StoreEdit::withoutGlobalScopes()->find($store);
@@ -447,6 +448,7 @@ class StoreController extends Controller
 
         return view('dashboard.store.profile.edit', compact('store', 'cities'));
     }
+
     public function profile_products(Request $request, $store)
     {
         $store = Store::withoutGlobalScopes()->find($store);
@@ -472,5 +474,11 @@ class StoreController extends Controller
             );
         }
         return view('dashboard.store.profile.products', compact('store', 'products'));
+    }
+
+    public function stores()
+    {
+        $stores = Store::get();
+        return view('stores', compact('stores'));
     }
 }

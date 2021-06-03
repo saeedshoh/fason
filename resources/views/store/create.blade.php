@@ -68,25 +68,6 @@
         </div>
         <div class="col-12 d-block d-md-none mt-5">
           <h2 class="d-none d-md-block">Магазин</h2>
-          {{-- <div class="row">
-            <div class="col-3 text-center">
-              <div class="d-inline-block position-relative">
-                <img src="/storage/theme/icons/Avatar.svg" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
-                <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
-                  <img src="/storage/theme/icons/camera.svg">
-                </label>
-              </div>
-            </div>
-            <div class="col-9 d-flex justify-content-between order-0 order-lg-1">
-              <div>
-                <h3 class="font-weight-bold"></h3>
-                <span class="text-secondary"></span>
-              </div>
-              <div>
-                <button type="button" class="btn"><img src="/storage/theme/icons/change.svg" alt=""></button>
-              </div>
-            </div>
-          </div> --}}
         </div>
       </div>
       <!--Edit logo and banner end-->
@@ -112,7 +93,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдресс:</label>
+            <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдрес:</label>
             <div class="col-sm-8 input-group">
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('address') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
@@ -151,9 +132,9 @@
                         <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
                         </label><br>
-                        
+
                     @endforeach
-                 
+
                 </div>
                 @error('city_id')
                   <div class="invalid-feedback d-block">
@@ -161,7 +142,7 @@
                   </div>
                 @enderror
               </div>
-             
+
             </div>
           </div>
           <div class="form-group row d-none d-md-block">

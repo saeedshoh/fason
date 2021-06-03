@@ -24,7 +24,7 @@ const Toast = Swal.mixin({
 
 $('#listView').on('click', function() {
     $('#catProducts').find('.card').addClass('active');
-    $('#catProducts .row')
+    $('#catProducts .endless-pagination')
         .removeClass('row-cols-2')
         .addClass('row-cols-1')
     $('#gridView').removeClass('d-none')
@@ -173,8 +173,9 @@ $(document).ready(function() {
     $('.sms--false').hide()
     $(window).scroll(fetchPosts)
 
+    var old_page = '';
     function fetchPosts() {
-        var url = $(location).attr('href')
+        // var url = $(location).attr('href')
         var page = $('.endless-pagination').data('next-page')
         if (page !== null && page !== '' && !page.substring(0, 5).includes('null&')) {
             clearTimeout($.data(this, 'scrollCheck'))
@@ -183,29 +184,21 @@ $(document).ready(function() {
                 this,
                 'scrollCheck',
                 setTimeout(function() {
-                    $('#scroll-spinner').toggleClass('d-none')
+                    $('#scroll-spinner').removeClass('d-none')
 
                     var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 500
                     if (scroll_position_for_posts_load >= $(document).height()) {
                         var style = $('#catProducts .row').attr('data-style')
-                        console.log(style)
-                        if (url.indexOf('sort=') !== -1) {
-                            const sort = url.split('?')[1]
-
-                            $.get(page + '&' + sort, { style: style }, function(data) {
-                                $('#scroll-spinner').toggleClass('d-none')
-                                $('.endless-pagination').append(data.posts)
-                                $('.endless-pagination').data('next-page', data.next_page + '&' + sort)
-                            })
-                        } else {
+                        if(old_page != page){
                             $.get(page, { style: style }, function(data) {
-                                $('#scroll-spinner').toggleClass('d-none')
                                 $('.endless-pagination').append(data.posts)
                                 $('.endless-pagination').data('next-page', data.next_page)
+                                $('#scroll-spinner').addClass('d-none')
                             })
+                            old_page = page;
                         }
                     }
-                }, 350)
+                }, 200)
             )
         }
     }
@@ -341,8 +334,11 @@ $(document).ready(function() {
         var form =  $(this).closest("form");
         event.preventDefault();
         Swal.fire({
-            title: 'Вы действительно хотите включить магазин?',
+            title: '<h4>Вы действительно хотите выключить магазин?</h4>',
+            html: '<p style="font-size: 12px;">При выключении другие пользователи не смогут видеть ваши товары, пока вы не восстановите магазин</p>',
             icon: 'warning',
+            height: 200,
+            position: 'center',
             showCancelButton: true,
             confirmButtonText: 'Да',
             cancelButtonText: 'Нет',
@@ -360,8 +356,10 @@ $(document).ready(function() {
         var form =  $(this).closest("form");
         event.preventDefault();
         Swal.fire({
-            title: 'Вы действительно хотите восстановить магазин?',
+            title: '<h4>Вы действительно хотите восстановить магазин?</h4>',
             icon: 'warning',
+            height: 200,
+            position: 'center',
             showCancelButton: true,
             confirmButtonText: 'Да',
             cancelButtonText: 'Нет',
@@ -371,10 +369,10 @@ $(document).ready(function() {
             buttons: true,
             dangerMode: true,
         }).then((result) => {
-              if (result.isConfirmed) {
-                  form.submit();
-              }
-      })
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+        })
     });
 })
 
@@ -1179,60 +1177,57 @@ $('body').on('click', '.change-address', function() {
     $('#checkout_address').focus()
 })
 
-
 ///product picture on hover change
-
 $(document).ready(function () {
-$('.add-product-secondary .pic-item').on('click', function() {
-    let imgSrc = $(this).attr('data-image-src')
-    $('.pic-main').attr('src', imgSrc)
-    $('.add-product-secondary .pic-item').removeClass('pic-item-active')
-    $(this).addClass('pic-item-active')
+    $('.add-product-secondary .pic-item').on('click', function() {
+        let imgSrc = $(this).attr('data-image-src')
+        $('.pic-main').attr('src', imgSrc)
+        $('.add-product-secondary .pic-item').removeClass('pic-item-active')
+        $(this).addClass('pic-item-active')
 
-})
+    })
 
 
 
-$('body').on('click', '.delete-product', function(event) {
-    var form =  $(this).closest("form");
-    event.preventDefault();
-    Swal.fire({
-        title: 'Вы действительно хотите удалить товар?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Нет',
-        customClass:{
-            confirmButton: 'bg-danger'
-        },
-        buttons: true,
-        dangerMode: true,
-    }).then((result) => {
-          if (result.isConfirmed) {
-              form.submit();
-          }
-  })
-});
+    $('body').on('click', '.delete-product', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Вы действительно хотите удалить товар?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-danger'
+            },
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+    })
+    });
 
-$('body').on('click', '.restore-product', function(event) {
-    var form =  $(this).closest("form");
-    event.preventDefault();
-    Swal.fire({
-        title: 'Вы действительно хотите восстановить товар?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Нет',
-        customClass:{
-            confirmButton: 'bg-success'
-        },
-        buttons: true,
-        dangerMode: true,
-    }).then((result) => {
-          if (result.isConfirmed) {
-              form.submit();
-          }
-  })
-});
-
+    $('body').on('click', '.restore-product', function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Вы действительно хотите восстановить товар?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            customClass:{
+                confirmButton: 'bg-success'
+            },
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+    })
+    });
 });

@@ -1,22 +1,23 @@
 <?php
 
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\AttributeValueController;
-use App\Http\Controllers\BannersController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CityController;
+use App\Models\Store;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\BannersController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\ItemsForPageController;
 use App\Http\Controllers\MonetizationController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SmsConfirmedController;
+use App\Http\Controllers\AttributeValueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,3 +160,5 @@ Route::view('/saller', 'useful_links.saller')->name('useful_links.saller');
 Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_links.privacy_policy');
 
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
+
+Route::get('/stores', [StoreController::class, 'stores'])->name('stores');

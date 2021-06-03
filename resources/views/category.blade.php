@@ -19,12 +19,14 @@
       <div class="modal-body bg-white h-100 px-0 pb-0">
         <div class="h-100">
           <div class="d-flex flex-column justify-content-between h-100">
-            <a class="text-decoration-none" href="{{ $name->parent ? route('ft-category.category', $name->parent->slug) : route('home') }}">
-              <h3 class="shop-subject mb-3 pl-3"> <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#FF0055"/>
-                </svg>  <span class="ml-2"> Назад</span>
-              </h3>
-            </a>
+            <button data-dismiss="modal" aria-label="Close" class="text-decoration-none close d-flex">
+              <span class="shop-subject mb-3 pl-3">
+                <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#FF0055"/>
+                </svg>
+                <span class="ml-2"> Назад</span>
+              </span>
+            </button>
 
             <div class="catalog__ategory col-12 bg-white px-0">
               <form action="{{ route('ft-category.category', $slug) }}" method="get">
@@ -36,22 +38,22 @@
                       @endforeach
                     @endif
                   @endforelse
-                    <div id="mobile-Filter" class="col-12 col-lg-12 line-test__category fix_modal-line bg-white">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="captions-of__modal ">Сортировать<img src="/storage/theme/icons/sort.svg"></h5>
-                      </div>
-                      <div class="form-check mt-3">
-                        <input data-sort="new" {{ (request()->sort != 'new' || request()->sort != 'cheap' || request()->sort != 'expensive') || request()->sort == 'new' ? 'checked' : '' }} class="form-check-input sort" type="radio" name="sort" id="new-mob" value="new">
-                        <label class="form-check-label" for="new-mob">Сначала новые</label>
-                      </div>
-                      <div class="form-check mt-3">
-                        <input data-sort="cheap" {{ request()->sort == 'cheap' ? 'selected' : '' }} class="form-check-input sort" type="radio"  name="sort" id="cheap-mob" value="cheap">
-                        <label class="form-check-label" for="cheap-mob">Сначала дешевые</label>
-                      </div>
-                      <div class="form-check mt-3">
-                        <input data-sort="expensive" {{ request()->sort == 'expensive' ? 'selected' : '' }} class="form-check-input sort" type="radio" name="sort" id="expensive-mob" value="expensive">
-                        <label class="form-check-label" for="expensive-mob">Сначала дорогие</label>
-                      </div>
+                  <div id="mobile-Filter" class="col-12 col-lg-12 line-test__category fix_modal-line bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="captions-of__modal ">Сортировать<img src="/storage/theme/icons/sort.svg"></h5>
+                    </div>
+                    <div class="form-check mt-3">
+                      <input data-sort="new" {{ (request()->sort != 'new' || request()->sort != 'cheap' || request()->sort != 'expensive') || request()->sort == 'new' ? 'checked' : '' }} class="form-check-input sort" type="radio" name="sort" id="new-mob" value="new">
+                      <label class="form-check-label" for="new-mob">Сначала новые</label>
+                    </div>
+                    <div class="form-check mt-3">
+                      <input data-sort="cheap" {{ request()->sort == 'cheap' ? 'selected' : '' }} class="form-check-input sort" type="radio"  name="sort" id="cheap-mob" value="cheap">
+                      <label class="form-check-label" for="cheap-mob">Сначала дешевые</label>
+                    </div>
+                    <div class="form-check mt-3">
+                      <input data-sort="expensive" {{ request()->sort == 'expensive' ? 'selected' : '' }} class="form-check-input sort" type="radio" name="sort" id="expensive-mob" value="expensive">
+                      <label class="form-check-label" for="expensive-mob">Сначала дорогие</label>
+                    </div>
 
                     <div class="mt-5">
                       <h5 class="captions-of__modal ">Город</h5>
@@ -108,40 +110,39 @@
   @if(!$name->parent)
     <h4 class="py-1 category-item border-bottom text-dark category-item-mobile category-Border-gray uppercase"><a class="text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
   @elseif(!$name->parent->parent)
-  @if(isset($name->childrens->first()->id))
-    <h4 class="py-3 category-item border-bottom text-dark "><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
-  @endif
+    @if(isset($name->childrens->first()->id))
+      <h4 class="py-2 category-item border-bottom text-dark cs_categoryTitle">
+          <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">
+              @if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}
+          </a>
+      </h4>
+    @endif
   @elseif(!isset($name->childrens->first()->id))
   @elseif(!$name->parent->parent->parent)
-    <h4 class="py-3 category-item border-bottom text-dark"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}</a></h4>
+    <h4 class="py-2 category-item border-bottom text-dark cs_categoryTitle">
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->slug) }}">
+        @if($name->icon)<img src="/storage/{{ $name->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->name }}
+      </a>
+    </h4>
   @else
-    <h4 class="py-3 category-item border-bottom text-dark"><a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}">@if($name->icon)<img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->parent->name }}</a></h4>
+    <h4 class="py-2 category-item border-bottom text-dark cs_categoryTitle">
+      <a class="text-center text-decoration-none subcategory text-secondary py-4" href="{{ route('ft-category.category', $name->parent ? $name->parent->slug : $name->slug) }}">
+        @if($name->icon)<img src="/storage/{{ $name->parent->icon }}" height="28" width="28" alt="" class="mr-2">@endif{{ $name->parent->name }}
+      </a>
+    </h4>
   @endif
-    <ul class="shop-subject px-0 list-group list-group-flush h-100 mx-0">
-      @forelse ($categories as $category)
-      <li class="list-group-item  bg-transparent pr-0 border-bottom">
+  <ul class="shop-subject list-group list-group-flush h-100 mx-0 cs_list px-3">
+    @forelse ($categories as $category)
+      <li class="list-group-item  bg-transparent  border-bottom py-1">
         <nav class="category-mix">
-          <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
+          <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}
             <span class="count-products" data-id="{{ $category->id }}"></span>
           </a>
         </nav>
       </li>
-      @empty
-        @if ($parent_cat)
-          @if(isset($name->childrens->first()->id))
-            @foreach ($parent_cat as $category)
-              <li class="list-group-item  bg-transparent border-bottom">
-                <nav class="category-mix w-100 pl-3">
-                  <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory">{{ $category->name }}</a>
-                    <span class="count-products d-block" data-id="{{ $category->id }}"></span>
-                  </a>
-                </nav>
-              </li>
-            @endforeach
-          @endif
-        @endif
-      @endforelse
-    </ul>
+    @empty
+    @endforelse
+  </ul>
 </div>
 <!--filter end mobi-->
 <section class="content mt-2 mb-5">

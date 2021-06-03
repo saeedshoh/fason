@@ -66,7 +66,7 @@
         @auth
         <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
           <a href="{{ route('profile') }}" class="text-decoration-none text-secondary">
-            <img class="rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
+            <img class="rounded-circle object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
             <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
           </a>
           <form method="POST" action="{{ route('logout') }}">
@@ -86,7 +86,7 @@
        @endguest
       </div>
     </div>
-<!--Category list and carousel-->
+    <!--Category list and carousel-->
     <div class="slider_and_sides mt-lg-4">
 
       <div id="categoriesRow" class="row">
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-<!--Category list end-->
+    <!--Category list end-->
     <div class="all-product px-0 pt-3 pt-md-0 pt-lg-0">
     <h2 class="text-muted mb-other-product text-decoration-none mb-4 mt-3 mt-md-5 font-weight-bold text-xs-center" >Новые товары </h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
@@ -205,7 +205,9 @@
       </div>
       <!--Banner end-->
       @endif
-      <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-center w-100" >Магазины</h2>
+      <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-center w-100" >
+        <a class="text-decoration-none text-muted" href="{{ route('stores') }}">Магазины</a>
+      </h2>
       <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
         @forelse ($stores as $store)
         <div class="item d-flex flex-column align-items-center position-relative">

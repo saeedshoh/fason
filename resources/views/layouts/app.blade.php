@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="apple-touch-icon" href="/storage/favicon.jpg">
     <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg" />
-    
+
 
     <meta property="og:title" content="@yield('og:title') - Fason.tj" />
     <meta property="og:site_name" content="FASON.TJ" />
@@ -61,7 +61,7 @@
                   Назад
                 </span>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-center bg-white">
                 <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
                 <p class="text-muted mb-pre--text">
                    Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.

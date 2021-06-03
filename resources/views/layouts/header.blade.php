@@ -80,7 +80,7 @@
     <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
       <div class="col text-center px-0">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          <img src="/storage/theme/icons/home.svg" width="19">
+          <img class="rounded-circle mr-1 object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>
