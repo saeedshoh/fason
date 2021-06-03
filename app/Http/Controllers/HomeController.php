@@ -53,7 +53,7 @@ class HomeController extends Controller
         [$keys, $values] = Arr::divide($total);
         $topstores = collect();
         foreach ($total as $key => $value) {
-           $topstores->push($store = Store::withoutGlobalScopes()->select('id','name', 'created_at', 'is_active', 'address', DB::raw("$value as orders"))->where('id', $key)->get());
+            $topstores->push($store = Store::withoutGlobalScopes()->select('id', 'name', 'created_at', 'is_active', 'address', DB::raw("$value as orders"))->where('id', $key)->get());
         }
         $topstores = $topstores->flatten();
         $months = Order::where('order_status_id', 3)->select(DB::raw("SUM(total) as total"), DB::raw("MONTH(created_at) as months"))->groupBy('months')->get();
@@ -97,29 +97,6 @@ class HomeController extends Controller
             })->orderByDesc('countProd')->take($itemsForPage)->get();
         $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->take($itemsForPage)->get();
         return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts', 'monetizations'));
-    }
-
-    public function filter(Request $request)
-    {
-        $back = url()->previous();
-        $productss = Product::whereNotNull('id')->where('product_status_id', 2);
-        if ($request->sort == 'new') {
-            $productss->orderByDesc('id');
-        } elseif ($request->sort == 'cheap') {
-            $productss->orderBy('price');
-        } elseif ($request->sort == 'expensive') {
-            $productss->orderByDesc('price');
-        }
-        if ($request->priceFrom) {
-            $productss->where('price', '>=', $request->priceFrom);
-        }
-        if ($request->priceTo) {
-            $productss->where('price', '<=', $request->priceTo);
-        }
-        $store = Store::where('city_id', $request->city)->get('id');
-        $productss->whereIn('store_id', $store);
-        $products = $productss->get();
-        return view('filter', compact('products', 'back'));
     }
 
     public function search(Request $request)

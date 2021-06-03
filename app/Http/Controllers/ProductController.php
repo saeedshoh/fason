@@ -32,8 +32,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->categories = Category::get();
-        $this->stores = Store::get();
-        $this->count = 1;
     }
 
     public function decline($product)
@@ -71,7 +69,6 @@ class ProductController extends Controller
         return view('products.create', compact('cat_parent', 'store'));
     }
 
-
     public function index(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -80,16 +77,18 @@ class ProductController extends Controller
             ->full($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.index', compact('products', 'products_stats'));
     }
 
     // !Разбивка статусов на странички
-
     public function accepted(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -98,13 +97,17 @@ class ProductController extends Controller
             ->accepted($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.accepted', compact('products', 'products_stats'));
     }
+
     public function notInStock(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -113,13 +116,17 @@ class ProductController extends Controller
             ->notInStock($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.notInStock', compact('products', 'products_stats'));
     }
+
     public function canceled(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -128,10 +135,13 @@ class ProductController extends Controller
             ->canceled($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.canceled', compact('products', 'products_stats'));
     }
@@ -144,13 +154,17 @@ class ProductController extends Controller
             ->hidden($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.hidden', compact('products', 'products_stats'));
     }
+
     public function onCheck(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -159,13 +173,17 @@ class ProductController extends Controller
             ->onCheck($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.onCheck', compact('products', 'products_stats'));
     }
+
     public function deleted(Request $request)
     {
         $products_stats = Product::withoutGlobalScopes()->get();
@@ -174,25 +192,27 @@ class ProductController extends Controller
             ->deleted($request)
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('products')
+                )->render()
+            );
         }
         return view('dashboard.products.statuses.deleted', compact('products', 'products_stats'));
     }
     // #Разбивка статусов на странички
 
-
     public function single($slug)
     {
         $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
-        if(Auth::check()){
-            if($product->store->user_id != Auth::user()->id){
+        if (Auth::check()) {
+            if ($product->store->user_id != Auth::user()->id) {
                 $product = Product::where('slug', $slug)->first();
             }
         }
-        if(!$product) abort(404);
+        if (!$product) abort(404);
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
 
         $countProd = Order::select('product_id', DB::raw('count(product_id) as countProd'))
@@ -407,7 +427,7 @@ class ProductController extends Controller
         $category = Category::where('id', $product->category_id)->first()->name;
         $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
         $previous = url()->previous();
-        if(str_contains($previous, 'products/single/')){
+        if (str_contains($previous, 'products/single/')) {
             $product->delete();
             return redirect()->route('ft-store.show', $store->first()->slug);
         }
@@ -432,7 +452,7 @@ class ProductController extends Controller
         $product = Product::withoutGlobalScopes()->where('slug', $product)->first();
         $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
         $previous = url()->previous();
-        if(str_contains($previous, 'products/single/')){
+        if (str_contains($previous, 'products/single/')) {
             $product->restore();
             return redirect()->route('ft-store.show', $store->first()->slug);
         }
@@ -507,6 +527,7 @@ class ProductController extends Controller
             }
         }
     }
+
     public function test_update(Request $request, $product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
@@ -526,7 +547,7 @@ class ProductController extends Controller
                 Storage::disk('public')->put($main_image, $data);
                 $main_image = $this->uploadImage($main_image);
             } else {
-                $main_image = str_replace(url('/').'/storage', "", $main_image_json);
+                $main_image = str_replace(url('/') . '/storage', "", $main_image_json);
             }
 
             if (!empty($base64_images)) {
@@ -542,7 +563,7 @@ class ProductController extends Controller
                         Storage::disk('public')->put($image, $data);
                         array_push($images, $this->uploadImage($image));
                     } else {
-                        $image = str_replace(url('/').'/storage/', "", $base64_image);
+                        $image = str_replace(url('/') . '/storage/', "", $base64_image);
                         array_push($images, $image);
                     }
                 }

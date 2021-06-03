@@ -28,7 +28,7 @@ class UserController extends Controller
     public function contacts(Request $request)
     {
         $image = null;
-        if($request->ajax()) {
+        if ($request->ajax()) {
 
             $request->validate([
                 'name' => 'required',
@@ -38,14 +38,14 @@ class UserController extends Controller
             $main_image_json = $request->profile_photo_path;
             $year_month = now()->year . '/' . sprintf("%02d", now()->month);
 
-            $main_image = $year_month.'/'.uniqid().'.jpg';
+            $main_image = $year_month . '/' . uniqid() . '.jpg';
 
-            $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-            if(!File::isDirectory($month)){
+            $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+            if (!File::isDirectory($month)) {
                 File::makeDirectory($month, 0777, true);
             }
 
-            if($request->profile_photo_path) {
+            if ($request->profile_photo_path) {
                 if (preg_match('/^data:image\/(\w+);base64,/', $main_image_json)) {
                     $data = substr($main_image_json, strpos($main_image_json, ',') + 1);
                     $data = base64_decode($data);
@@ -70,27 +70,30 @@ class UserController extends Controller
 
             Auth::loginUsingId($user->id);
             return $request;
-
         }
     }
 
     public function index(Request $request)
     {
         $users = User::where('status', 1)
-            ->where(function($query) use ($request){
-                $query->where('name', 'like', '%'.$request->search.'%')
-                ->orWhere('phone', 'like', '%'.$request->search.'%')
-                ->orWhere('email', 'like', '%'.$request->search.'%')
-                ->orWhereHas('store', function($store) use ($request){
-                    $store->where('name',  'like', '%'.$request->search.'%'); });
+            ->where(function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('phone', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('store', function ($store) use ($request) {
+                        $store->where('name',  'like', '%' . $request->search . '%');
+                    });
             })
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.users', compact('users')
-                )->render());
+                view(
+                    'dashboard.ajax.users',
+                    compact('users')
+                )->render()
+            );
         }
         return view('dashboard.users.index', compact('users'));
     }
@@ -98,20 +101,24 @@ class UserController extends Controller
     public function clients(Request $request)
     {
         $users = User::where('status', 2)
-            ->where(function($query) use ($request){
-                $query->where('name', 'like', '%'.$request->search.'%')
-                ->orWhere('phone', 'like', '%'.$request->search.'%')
-                ->orWhere('email', 'like', '%'.$request->search.'%')
-                ->orWhereHas('store', function($store) use ($request){
-                    $store->where('name',  'like', '%'.$request->search.'%'); });
+            ->where(function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('phone', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('store', function ($store) use ($request) {
+                        $store->where('name',  'like', '%' . $request->search . '%');
+                    });
             })
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.users', compact('users')
-                )->render());
+                view(
+                    'dashboard.ajax.users',
+                    compact('users')
+                )->render()
+            );
         }
         return view('dashboard.users.index', compact('users'));
     }
@@ -135,11 +142,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        if (!File::isDirectory($month)) {
+            File::makeDirectory($month, 0777, true);
+        }
+        $request->validate([
+            'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+        ]);
+        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         $user = User::create([
             'name' => $request->name,
             'email' =>  $request->email,
-            'phone' =>  str_replace(array( '(', ')', ' ', '-' ), '', $request->phone),
-            'profile_photo_path' => $request->profile_photo_path,
+            'address' => $request->address,
+            'phone' =>  str_replace(array('(', ')', ' ', '-'), '', $request->phone),
+            'profile_photo_path' => $image,
             'password' => Hash::make($request->password),
             'status' =>  1,
             'registered_at' => Carbon::now()
@@ -149,14 +165,9 @@ class UserController extends Controller
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 1,
-            'table'  => ' Пользователи',
+            'table'  => 'Пользователи',
             'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
-
-        // $previous = url()->previous();
-        // if(str_contains($previous, 'users')){
-
-        // }
 
         return redirect()->route('users.index');
     }
@@ -194,19 +205,24 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $route = 'clients.index';
-        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($month)){
+        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        if (!File::isDirectory($month)) {
             File::makeDirectory($month, 0777, true);
         }
-        if($request->file('profile_photo_path')) {
+        if ($request->file('profile_photo_path')) {
             $request->validate([
                 'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             ]);
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         }
         $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
-
-        if($user->status == 1) {
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 2,
+            'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
+            'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
+        ]);
+        if ($user->status == 1) {
             $route = 'users.index';
         }
         return redirect()->route($route);
@@ -220,8 +236,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'action' => 3,
+            'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
+            'description' => 'Имя: ' . $user->name . ',    Эл. почта: ' . $user->email . ', Телефон: ' . str_replace(' ', '', $user->phone)
+        ]);
         $user->delete();
-        if($user->status == 2) {
+        if ($user->status == 2) {
             return redirect(route('clients.index'))->with('success', 'Клиент успешно удален!');
         }
         return redirect(route('users.index'))->with('success', 'Сотрудник успешно удален!');
@@ -235,7 +257,7 @@ class UserController extends Controller
      */
     public function ft_show()
     {
-        if (Auth::user()){
+        if (Auth::user()) {
             $cities = City::get();
             $user = User::find(Auth::user()->id);
             return view('profile.index', compact('user', 'cities'));
@@ -252,13 +274,13 @@ class UserController extends Controller
      */
     public function ft_update(UserRequest $request)
     {
-        if (Auth::user()){
+        if (Auth::user()) {
             $user = User::find(Auth::user()->id);
-            $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-            if(!File::isDirectory($month)){
+            $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+            if (!File::isDirectory($month)) {
                 File::makeDirectory($month, 0777, true);
             }
-            if($request->file('profile_photo_path')) {
+            if ($request->file('profile_photo_path')) {
                 $request->validate([
                     'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
                 ]);

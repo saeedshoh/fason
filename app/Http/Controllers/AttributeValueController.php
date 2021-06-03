@@ -19,14 +19,17 @@ class AttributeValueController extends Controller
     {
         $parent = Attribute::find($id);
         $attributes = AttributeValue::where('attribute_id', $id)
-            ->where('name','like', '%'.$request->search.'%')
-            ->orWhere('value','like', '%'.$request->search.'%')
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->orWhere('value', 'like', '%' . $request->search . '%')
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.attribute_values', compact('attributes', 'parent')
-                )->render());
+                view(
+                    'dashboard.ajax.attribute_values',
+                    compact('attributes', 'parent')
+                )->render()
+            );
         }
         return view('dashboard.attributes.value.index', compact('attributes', 'parent'));
     }
@@ -61,17 +64,6 @@ class AttributeValueController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\AttributeValue  $attributeValue
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AttributeValue $attributeValue)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\AttributeValue  $attributeValue
@@ -101,7 +93,6 @@ class AttributeValueController extends Controller
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
         return redirect(route('attr_val.index', ['id' => $id]))->with('success', 'Значение для аттрибута успешно добавлена!');
-
     }
 
     /**

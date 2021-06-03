@@ -2,53 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\ItemsForPage;
 use Illuminate\Http\Request;
 
 class ItemsForPageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ItemsForPage  $itemsForPage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ItemsForPage $itemsForPage)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -73,17 +32,12 @@ class ItemsForPageController extends Controller
             'qty' => 'required|numeric'
         ]);
         $itemsForPage->update(['qty' => $request->qty, 'timestamps' => false]);
+        Log::create([
+            'user_id' => auth()->user()->id,
+            'action' => 1,
+            'table'  => 'Кол-во товаров на Главной странице',
+            'description' => 'Колмчество товаров на Главной странице было изменено на: ' . $request->qty
+        ]);
         return redirect()->route('editItemsForPage', 1)->with('success', 'Количество товаров на главной странице успешно изменена!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ItemsForPage  $itemsForPage
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ItemsForPage $itemsForPage)
-    {
-        //
     }
 }

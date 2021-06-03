@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\City;
-use App\Models\Store;
-use App\Models\Banners;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
@@ -22,19 +20,8 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->banners = Banners::latest()->get();
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function category(Request $request, $slug, ProductFilters $filters)
     {
-        // dd($request);
         $cat_id =  Category::where('slug', $slug)->first()->id;
         $name = Category::where('slug', $slug)->first();
         $categories = Category::where('parent_id', $cat_id)->orderBy('order_no')->get();
@@ -44,21 +31,20 @@ class CategoryController extends Controller
             ->push($parentId)
             ->all();
         $has = Category::with('grandchildren')->find($cat_id);
-        if(isset($has->grandchildren[0])){
-            for ($i=0; $i < count($has->grandchildren); $i++) {
-                foreach($has->grandchildren[$i]->childrens as $child) {
+        if (isset($has->grandchildren[0])) {
+            for ($i = 0; $i < count($has->grandchildren); $i++) {
+                foreach ($has->grandchildren[$i]->childrens as $child) {
                     array_push($categoryIds, $child->id);
                 }
             }
         }
         $parent_cat = Category::where('parent_id', $name->parent_id)->orderBy('order_no')->get();
         $products = Product::whereIn('category_id', $categoryIds)->where('product_status_id', 2)->filter($filters)->paginate(12)->withQueryString();
-        $cities = City::whereHas('stores', function($stores) {
+        $cities = City::whereHas('stores', function ($stores) {
             $stores->withoutGlobalScopes()->whereHas('product', function ($products) {
                 $products->withoutGlobalScopes();
             });
         })->get();
-        $sliders = $this->banners->where('type', 1);
 
         if ($request->ajax()) {
             $style = $request->style;
@@ -67,7 +53,7 @@ class CategoryController extends Controller
                 'next_page' => $products->nextPageUrl()
             ];
         }
-        return view('category', compact('categories', 'products', 'sliders', 'name', 'cat_id', 'parent_cat', 'cities', 'slug'));
+        return view('category', compact('categories', 'products', 'name', 'cat_id', 'parent_cat', 'cities', 'slug'));
     }
 
     public function subcategories(Request $request)
@@ -91,10 +77,9 @@ class CategoryController extends Controller
             ->push($parentId)
             ->all();
         $has = Category::with('grandchildren')->find($request->category);
-        if(isset($has->grandchildren[0])){
-            for ($i=0; $i < count($has->grandchildren); $i++) {
-                foreach($has->grandchildren[$i]->childrens as $child)
-                {
+        if (isset($has->grandchildren[0])) {
+            for ($i = 0; $i < count($has->grandchildren); $i++) {
+                foreach ($has->grandchildren[$i]->childrens as $child) {
                     array_push($categoryIds, $child->id);
                 }
             }
@@ -105,15 +90,18 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $allCategories = Category::where('name', 'like', '%'.$request->search.'%')->get();
-        $categories = Category::where('name', 'like', '%'.$request->search.'%')
+        $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
+        $categories = Category::where('name', 'like', '%' . $request->search . '%')
             ->orderBy('order_no')
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.categories', compact('categories', 'allCategories')
-                )->render());
+                view(
+                    'dashboard.ajax.categories',
+                    compact('categories', 'allCategories')
+                )->render()
+            );
         }
         return view('dashboard.category.index', compact('categories', 'allCategories'));
     }
@@ -226,10 +214,12 @@ class CategoryController extends Controller
         foreach ($category->attributes as $attribute) {
             array_push($attr, $attribute->id);
         }
-        if($attr != $request->attribute && Product::withoutGlobalScopes()->where('category_id', $category->id)->whereHas('attribute_variation', function ($attributes) use ($category){ $attributes->whereIn('attribute_id', $category->attributes);})->exists()) {
-            return back()->with(['class' =>'danger', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
+        if ($attr != $request->attribute && Product::withoutGlobalScopes()->where('category_id', $category->id)->whereHas('attribute_variation', function ($attributes) use ($category) {
+            $attributes->whereIn('attribute_id', $category->attributes);
+        })->exists()) {
+            return back()->with(['class' => 'danger', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
         } else {
-            if($request->attribute != 0) {
+            if ($request->attribute != 0) {
                 $category->attributes()->sync($request->attribute);
             }
             $category->update($request->validated());
@@ -294,16 +284,20 @@ class CategoryController extends Controller
     public function logsIndex(Request $request)
     {
         $logs = Log::latest('id')
-            ->where('table', 'like', '%'.$request->search.'%')
-            ->orWhere('description', 'like', '%'.$request->search.'%')
-            ->orWhereHas('user', function($user) use ($request){
-                $user->where('name',  'like', '%'.$request->search.'%'); })
+            ->where('table', 'like', '%' . $request->search . '%')
+            ->orWhere('description', 'like', '%' . $request->search . '%')
+            ->orWhereHas('user', function ($user) use ($request) {
+                $user->where('name',  'like', '%' . $request->search . '%');
+            })
             ->paginate(50)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.logs', compact('logs')
-                )->render());
+                view(
+                    'dashboard.ajax.logs',
+                    compact('logs')
+                )->render()
+            );
         }
         return view('dashboard.logs.index', compact('logs'));
     }

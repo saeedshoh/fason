@@ -3,7 +3,6 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\BannersController;
-use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
@@ -55,8 +54,8 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
     Route::get('attribute/{id}/value', [AttributeValueController::class, 'index'])->name('attr_val.index');
-    Route::get('attribute/{id}/value/create',[ AttributeValueController::class, 'create'])->name('attr_val.create');
-    Route::post('attribute/{id}/value/store',[ AttributeValueController::class, 'store'])->name('attr_val.store');
+    Route::get('attribute/{id}/value/create', [AttributeValueController::class, 'create'])->name('attr_val.create');
+    Route::post('attribute/{id}/value/store', [AttributeValueController::class, 'store'])->name('attr_val.store');
     Route::get('attribute/{id}/value/{val_id}/edit', [AttributeValueController::class, 'edit'])->name('attr_val.edit');
     Route::put('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'update'])->name('attr_val.update');
     Route::delete('attribute/{id}/value/{val_id}', [AttributeValueController::class, 'destroy'])->name('attr_val.destroy');
@@ -89,7 +88,6 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::post('/declineOrder/{order}', [OrderController::class, 'declineOrder'])->name('declineOrder');
     Route::post('/returnsOrder/{order}', [OrderController::class, 'returnsOrder'])->name('returnsOrder');
     Route::post('/completeOrder/{order}', [OrderController::class, 'completeOrder'])->name('completeOrder');
-    Route::get('/ordersStatistic', [BrandController::class, 'ordersStatistic'])->name('ordersStatistic');
     Route::get('/showCategoryMonetization/{monetization}', [MonetizationController::class, 'showCategoryMonetization'])->name('showCategoryMonetization');
     Route::get('/showStoreMonetization/{id}', [MonetizationController::class, 'showStoreMonetization'])->name('showStoreMonetization');
     Route::get('/changeCategoryOrder', [CategoryController::class, 'changeCategoryOrder'])->name('changeCategoryOrder');
@@ -107,7 +105,6 @@ Route::get('/getAttributes', [AttributeController::class, 'attributes'])->middle
 Route::get('/getAttributesValue', [AttributeController::class, 'attributesValue'])->middleware('auth')->name('getAttributesValue');
 Route::get('/getParentcategories', [CategoryController::class, 'getParentcategories'])->name('getParentcategories');
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
-Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {

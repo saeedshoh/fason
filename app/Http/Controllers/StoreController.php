@@ -24,47 +24,59 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function guest($slug) {
+    public function guest($slug)
+    {
         $store = Store::where('slug', $slug)->first();
         $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         return view('store.guest', compact('store', 'products'));
     }
+
     public function index(Request $request)
     {
         $stores = StoreEdit::withoutGlobalScopes()
-            ->where('name', 'like', '%'.$request->search.'%')
-            ->orWhere('address', 'like', '%'.$request->search.'%')
-            ->orWhereHas('city', function($city) use ($request){
-                $city->where('name',  'like', '%'.$request->search.'%'); })
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->orWhere('address', 'like', '%' . $request->search . '%')
+            ->orWhereHas('city', function ($city) use ($request) {
+                $city->where('name',  'like', '%' . $request->search . '%');
+            })
             ->orderBy('is_active', 'asc')
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.stores', compact('stores')
-                )->render());
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
         }
         return view('dashboard.store.index', compact('stores'));
     }
+
     public function accepted(Request $request)
     {
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_active', 1)
-            ->orWhere('name', 'like', '%'.$request->search.'%')
-            ->orWhere('address', 'like', '%'.$request->search.'%')
-            ->orWhereHas('city', function($city) use ($request){
-                $city->where('name',  'like', '%'.$request->search.'%'); })
+            ->orWhere('name', 'like', '%' . $request->search . '%')
+            ->orWhere('address', 'like', '%' . $request->search . '%')
+            ->orWhereHas('city', function ($city) use ($request) {
+                $city->where('name',  'like', '%' . $request->search . '%');
+            })
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.stores', compact('stores')
-                )->render());
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
         }
         return view('dashboard.store.statuses.accepted', compact('stores'));
     }
+
     public function moderation(Request $request)
     {
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
@@ -76,13 +88,17 @@ class StoreController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.stores', compact('stores')
-                )->render());
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
         }
         return view('dashboard.store.statuses.moderation', compact('storesCount', 'acceptedCount', 'disabledCount', 'stores', 'disabledUserCount'));
     }
+
     public function disabled(Request $request)
     {
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
@@ -94,10 +110,13 @@ class StoreController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.stores', compact('stores')
-                )->render());
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
         }
         return view('dashboard.store.statuses.disabled', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores', 'disabledUserCount'));
     }
@@ -112,10 +131,13 @@ class StoreController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.stores', compact('stores')
-                )->render());
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
         }
         return view('dashboard.store.statuses.disabledUser', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
     }
@@ -141,24 +163,24 @@ class StoreController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
-        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($month)){
+        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        if (!File::isDirectory($month)) {
             File::makeDirectory($month);
         }
-        if(isset($request->avatar)){
-            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
+        if (isset($request->avatar)) {
+            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('avatar')->getClientOriginalExtension();
             $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $avatar->save(public_path('/storage/'.$avatarPath));
+            $avatar->save(public_path('/storage/' . $avatarPath));
             $data['avatar'] = $avatarPath;
         }
-        if(isset($request->cover)){
-            $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
+        if (isset($request->cover)) {
+            $coverPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('cover')->getClientOriginalExtension();
             $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $cover->save(public_path('/storage/'.$coverPath));
+            $cover->save(public_path('/storage/' . $coverPath));
             $data['cover'] = $coverPath;
         }
 
@@ -217,7 +239,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit ($slug)
+    public function edit($slug)
     {
         $store = Store::withoutGlobalScopes()->where('slug', $slug)->first();
         $cities = City::get();
@@ -234,37 +256,37 @@ class StoreController extends Controller
     public function update(StoreRequest $request, $store)
     {
         $data = $request->validated();
-        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
-        if(!File::isDirectory($month)){
+        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        if (!File::isDirectory($month)) {
             File::makeDirectory($month);
         }
-        if($request->file('avatar')){
+        if ($request->file('avatar')) {
             $request->validate([
                 'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
-            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('avatar')->getClientOriginalExtension();
+            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('avatar')->getClientOriginalExtension();
 
             $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $avatar->save(public_path('/storage/'.$avatarPath));
+            $avatar->save(public_path('/storage/' . $avatarPath));
             $data['avatar'] = $avatarPath;
         }
-        if($request->file('cover')){
+        if ($request->file('cover')) {
             $request->validate([
                 'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
             ]);
-            $coverPath = now()->year . '/' . sprintf("%02d", now()->month).'/'.uniqid().$request->file('cover')->getClientOriginalExtension();
+            $coverPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('cover')->getClientOriginalExtension();
             $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $cover->save(public_path('/storage/'.$coverPath));
+            $cover->save(public_path('/storage/' . $coverPath));
             $data['cover'] = $coverPath;
         }
         // change to after Roles implementation
         // $user = User::find(auth()->id);
         // if(!$user->isAn('admin') && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
-        if(auth()->user()->status == 2 && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+        if (auth()->user()->status == 2 && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
             Store::where('id', $store)->withoutGlobalScopes()->update(['is_moderation' => 1]);
             $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
         }
@@ -272,10 +294,10 @@ class StoreController extends Controller
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 2,
-            'table'  => ' Магазины',
+            'table'  => 'Магазины',
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
-        if(Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')){
+        if (Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')) {
             return redirect()->route('stores.index');
         } else {
             return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => $request->is_back == 1 ? 1 : 0, 'route' => $store->slug,]);
@@ -294,7 +316,7 @@ class StoreController extends Controller
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 3,
-            'table'  => ' Магазины',
+            'table'  => 'Магазины',
             'description' => 'Название магазина: ' . $store->name . ',    Адрес: ' . $store->address . ', Описание: ' . $store->description . ', Город: ' . $city
         ]);
         $store->delete();
@@ -312,7 +334,7 @@ class StoreController extends Controller
         $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
         $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
 
-        if($store->is_active == 1) {
+        if ($store->is_active == 1) {
             $store->update(['is_active' => 2]);
             $stored->update(['is_active' => 2]);
         } else {
@@ -337,7 +359,7 @@ class StoreController extends Controller
         $store = StoreEdit::withoutGlobalScopes()->where('store_id', $store)->first();
         $stored = Store::withoutGlobalScopes()->where('id', $store->store_id)->first();
 
-        if($store->is_active == 1 || $store->is_active == 2) {
+        if ($store->is_active == 1 || $store->is_active == 2) {
             $store->update(['is_active' => 0]);
             $stored->update(['is_active' => 0]);
         } else {
@@ -367,7 +389,7 @@ class StoreController extends Controller
      */
     public function exist(Request $request, $name)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             if (Store::where('name', $name)->withoutGlobalScopes()->exists()) {
                 return response(['exist' => true], 200);
             }
@@ -376,39 +398,45 @@ class StoreController extends Controller
         abort(404);
     }
 
-    public function showStoreInfo($store) {
+    public function showStoreInfo($store)
+    {
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = [];
-        if(isset($store->orders)) {
+        if (isset($store->orders)) {
             $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
-            ->join('products', 'orders.product_id', '=', 'products.id')
-            ->take(15)
-            ->get();
+                ->join('products', 'orders.product_id', '=', 'products.id')
+                ->take(15)
+                ->get();
         }
         $store_edit = StoreEdit::where('store_id', $store)->where('is_moderation', '=', 1)->first();
 
         return view('dashboard.store.show', compact('store', 'orders', 'store_edit'));
     }
 
-    public function profile_orders(Request $request, $store) {
+    public function profile_orders(Request $request, $store)
+    {
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
-            ->where(function($query) use ($request){
-                $query->where('orders.id', 'like', '%'.$request->search.'%')
-                ->orWhereHas('product', function($product) use ($request){
-                    $product->where('name',  'like', '%'.$request->search.'%'); })
-                ->orWhere('orders.total', 'like', '%'.$request->search.'%')
-                ->orWhere('orders.quantity', 'like', '%'.$request->search.'%');
+            ->where(function ($query) use ($request) {
+                $query->where('orders.id', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('product', function ($product) use ($request) {
+                        $product->where('name',  'like', '%' . $request->search . '%');
+                    })
+                    ->orWhere('orders.total', 'like', '%' . $request->search . '%')
+                    ->orWhere('orders.quantity', 'like', '%' . $request->search . '%');
             })
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.show_orders', compact('store', 'orders')
-                )->render());
+                view(
+                    'dashboard.ajax.show_orders',
+                    compact('store', 'orders')
+                )->render()
+            );
         }
         return view('dashboard.store.profile.orders', compact('store', 'orders'));
     }
@@ -418,25 +446,30 @@ class StoreController extends Controller
         $cities = City::get();
 
         return view('dashboard.store.profile.edit', compact('store', 'cities'));
-
     }
-    public function profile_products(Request $request, $store)    {
+    public function profile_products(Request $request, $store)
+    {
         $store = Store::withoutGlobalScopes()->find($store);
 
         $products = Product::where('store_id', $store->id)
             ->withoutGlobalScopes()
-            ->where('name', 'like', '%'.$request->search.'%')
-            ->orWhereHas('store', function($store) use ($request){
-                $store->where('name',  'like', '%'.$request->search.'%'); })
-            ->orWhereHas('category', function($category) use ($request){
-                $category->where('name',  'like', '%'.$request->search.'%'); })
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->orWhereHas('store', function ($store) use ($request) {
+                $store->where('name',  'like', '%' . $request->search . '%');
+            })
+            ->orWhereHas('category', function ($category) use ($request) {
+                $category->where('name',  'like', '%' . $request->search . '%');
+            })
             ->latest('updated_at')
             ->paginate(10)
             ->withQueryString();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.products', compact('store', 'products')
-                )->render());
+                view(
+                    'dashboard.ajax.products',
+                    compact('store', 'products')
+                )->render()
+            );
         }
         return view('dashboard.store.profile.products', compact('store', 'products'));
     }
