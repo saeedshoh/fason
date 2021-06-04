@@ -75,6 +75,8 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/stores/disabledUser', [StoreController::class, 'disabledUser'])->name('stores.disabledUser');
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
 
+    Route::get('/ordersStatistic', [OrderController::class, 'statistics'])->name('ordersStatistic');
+
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
@@ -124,7 +126,6 @@ Route::middleware('auth')->group(function () {
     Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
     Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
     Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');
-
 
     Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
     Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');

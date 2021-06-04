@@ -93,7 +93,7 @@
                   </label>
 
                   <!-- Input -->
-                  <input type="text" class="form-control mb-3" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') ?? $user->phone }}">
+                  <input type="text" class="form-control mb-3 @if($user->status == 2)text-muted @endif" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') ?? $user->phone }}" @if($user->status == 2) disabled @endif>
 
                 </div>
 
@@ -132,7 +132,7 @@
                   </select>
                 </div>
             </div>
-            @if(Str::contains(url()->previous(), '/dashboard/users'))
+            @if($user->status == 1)
             <div class="col-12 col-md-6">
 
                 <!-- Birthday -->

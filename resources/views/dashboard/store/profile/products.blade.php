@@ -51,12 +51,6 @@
             <a href="{{ route('store.profile_edit', $store) }}" class="ml-3 btn btn-primary d-block d-md-inline-block lift">
               Изменить
             </a>
-            <form action="{{ route('stores.destroy', $store) }}" method="POST">
-              @csrf
-              <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="ml-3 btn d-block d-md-inline-block lift btn-danger delete-confirm">
-                  <i class="fe fe-trash"> </i></button>
-              @method('DELETE')
-            </form>
 
           </div>
         </div> <!-- / .row -->
