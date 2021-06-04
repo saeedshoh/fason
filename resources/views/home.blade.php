@@ -165,7 +165,6 @@
         @endforelse
       </div>
 
-
       <!-- Топ продаж -->
 
         <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center" >Топ продаж </h2>
@@ -213,7 +212,6 @@
         <div class="item d-flex flex-column align-items-center position-relative">
             <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="" class="rounded-circle object-cover" width="80" height="80">
           <h5 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h5>
-          {{-- <span class="text-danger font-weight-bold">Товаров: {{ $store->product->count() }}</span> --}}
           <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>
         </div>
         @empty

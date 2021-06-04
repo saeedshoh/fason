@@ -82,7 +82,7 @@
                                 <small>Название товара: </small> <small>{{ $order->product->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Цена товара: </small> <small>{{ $order->total + $order->margin }} Сомони</small>
+                                <small>Цена товара: </small> <small>{{ ($order->total + $order->margin)/$order->quantity }} Сомони</small>
                             </li>
                             @if ($attributes)
                                 @foreach ($attributes as $attribute)
@@ -104,7 +104,7 @@
                                 <small>Коментарии: </small> <small>{{ $order->comment }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <strong>Итог c учётом НДС: </strong> <strong>{{ ($order->total + $order->margin) * $order->quantity }} Сомони</strong>
+                                <strong>Итог c учётом НДС: </strong> <strong>{{ $order->total + $order->margin }} Сомони</strong>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <div class="col-6">

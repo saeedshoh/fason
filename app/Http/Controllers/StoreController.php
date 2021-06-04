@@ -255,6 +255,7 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request, $store)
     {
+        $store = Store::withoutGlobalScopes()->find($store);
         $data = $request->validated();
         $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
         if (!File::isDirectory($month)) {
@@ -286,9 +287,11 @@ class StoreController extends Controller
         // change to after Roles implementation
         // $user = User::find(auth()->id);
         // if(!$user->isAn('admin') && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
-        if (auth()->user()->status == 2 && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
-            Store::where('id', $store)->withoutGlobalScopes()->update(['is_moderation' => 1]);
-            $store = StoreEdit::where('store_id', $store)->withoutGlobalScopes()->first();
+        if (auth()->user()->status == 2 && StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+            $store->update(['is_moderation' => 1]);
+        } else {
+            StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data);
+            $store->update($data);
         }
         $city = City::where('id', $request->city_id)->first()->name;
         Log::create([
@@ -300,7 +303,7 @@ class StoreController extends Controller
         if (Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')) {
             return redirect()->route('stores.index');
         } else {
-            return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => $request->is_back == 1 ? 1 : 0, 'route' => $store->slug,]);
+            return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => 0, 'route' => $store->slug,]);
         }
     }
 

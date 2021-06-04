@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\OrderFilters;
-use App\Models\AttributeValue;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Filters\OrderFilters;
+use App\Models\AttributeValue;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -421,5 +423,19 @@ class OrderController extends Controller
     {
         $order->update(['order_status_id' => 5]);
         return redirect()->route('orders.index')->with(['success' => 'Заказ возвращен']);
+    }
+
+    public function statistics()
+    {
+        $invoices = Order::select(
+                DB::raw('format(updated_at, "MM") as month'),
+                DB::raw('SUM(total) as sum')
+            )
+            ->whereYear('updated_at', '=', Carbon::now()->year)
+            ->orWhereYear('updated_at', '=', Carbon::now()->subYear()->year)
+            ->groupBy('month')
+            ->get();
+
+        return $invoices;
     }
 }
