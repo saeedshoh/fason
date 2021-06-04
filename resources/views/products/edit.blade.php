@@ -5,8 +5,6 @@
 @endsection
 @extends('layouts.footer')
 @section('content')
-{{--  {{ dd($category) }}
-{{ dd($allCategories->where('parent_id', $category->id)) }}  --}}
 <section class="content" >
     <div class="container">
       <h2 class="title text-center w-100 mt-5 mb-4 d-none d-lg-block">Изменить Товар</h2>
@@ -14,7 +12,7 @@
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
-          <a href="{{ javascript:history.back() }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
+          <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Изменить Товар</h5>
           </div>
           <div class="my-3">
@@ -30,21 +28,16 @@
 
             @if(!empty($product->gallery))
                 @foreach(json_decode($product->gallery) as $gallery)
-                    {{--  <div class="col-3 text-center product_image mb-3" data-image="true">  --}}
-                        <div class="preview-image col-3">
-                            <div class="profile-pic">
-                                <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image  pic-item" alt="{{ $product->name }}">
-                                <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
-                            </div>
+                    <div class="preview-image col-3">
+                        <div class="profile-pic">
+                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image  pic-item" alt="{{ $product->name }}">
+                            <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
                         </div>
-                    {{--  </div>  --}}
+                    </div>
                 @endforeach
             @endif
 
           </div>
-          {{--  <form method="post" action="" enctype="multipart/form-data" id="myform">
-            <input type="file" accept="image/*"  id="galler" class="d-none" name="galler" multiple >
-          </form>  --}}
         </div>
         <!--add image end-->
         <!--Main attributes of product start-->
@@ -283,55 +276,6 @@
                         </div>
                     @endforeach
                     <div id="color_attr"></div>
-                    {{-- @foreach ($attributes as $index => $attribute)
-                        <div class="form-check w-50">
-                            <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
-                            <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
-                            @if ($attribute->is_checked)
-                                @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
-                                    @if (substr($attrValue->value, 0, 1) == '#')
-                                        <label class="checkbox-container">
-                                            <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                                            <span class="checkmark" style="background: {{ $attrValue->value }}; width: 25px; height: 25px;"></span>
-                                        </label>
-                                    @endif
-                                @endforeach
-                                @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
-                                    @if (substr($attrValue->value, 0, 1) != '#')
-                                    @php
-                                            $isset_select = true;
-                                    @endphp
-                                    @endif
-                                @endforeach
-                                @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
-                                    @if (substr($attrValue->value, 0, 1) != '#' && $isset_select)
-                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value]" multiple="">
-                                            <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
-                                        </select>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </div>
-                    @endforeach --}}
-                    {{-- @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
-                        <div class="row">
-                            <span>{{ $item->first()->attribute->name }}:</span>
-                            @foreach ($product->attribute_variation as $attribute)
-                            @if ($key == $attribute->attribute_id)
-                                @if (substr($attribute->attribute_value->value, 0, 1) == '#')
-                                    <label class="checkbox-container">
-                                    <input cheked="" class="form-check-input" name="cvet" value="1" type="checkbox">
-                                    <span class="checkmark" style="background: {{ $attribute->attribute_value->value }}; width: 25px; height: 25px;"></span>
-                                    </label>
-                                @else
-                                <nav class="att-show text-capitalize px-3">
-                                    {{ $attribute->attribute_value->name }}
-                                </nav>
-                                @endif
-                            @endif
-                            @endforeach
-                        </div>
-                    @endforeach --}}
                 </div>
                 <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
