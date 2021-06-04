@@ -14,7 +14,7 @@
         <!--add image start-->
         <div class="col-lg-5 col-12 w-100 add-product" >
           <div class="d-flex justify-content-between align-items-baseline">
-          <a href="{{ javascript:history.back() }}" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
+          <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Добавить Товар</h5>
           </div>
           <div class="my-3">
@@ -62,23 +62,7 @@
                   </div>
               </div>
               <div id="categories-row">
-
               </div>
-            {{-- <div id="subCategories">
-                <div class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                    <div class="w-75 input_placeholder_style">
-                      <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id" required>
-                        <option selected disabled value>Выберите категорию</option>
-                      </select>
-                      @error('category_id')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                      @enderror
-                    </div>
-                </div>
-            </div> --}}
             <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
               <label for="name" class="input_caption mr-2 text-left text-md-right">Название товара:</label>
               <div class="w-75 input_placeholder_style position-relative input-group  w-md-100">
@@ -147,7 +131,6 @@
     </div>
   </section>
 
-
 <style>
   body {
     position: relative;
@@ -156,5 +139,4 @@
 <div class="success-preloader d-none">
   <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
 </div>
-
 @endsection
