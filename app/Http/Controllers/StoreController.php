@@ -479,9 +479,19 @@ class StoreController extends Controller
         return view('dashboard.store.profile.products', compact('store', 'products'));
     }
 
-    public function stores()
+    public function stores(Request $request)
     {
-        $stores = Store::get();
+        $stores = Store::where('name', 'like', '%' . $request->search . '%')
+            ->withCount('orders')
+            ->latest('starred_at')
+            ->latest('orders_count')
+            ->paginate(20)->withQueryString();
+        if ($request->ajax()) {
+            return [
+                'posts' => view('ajax.stores', compact('stores'))->render(),
+                'next_page' => $stores->nextPageUrl()
+            ];
+        }
         return view('stores', compact('stores'));
     }
 
