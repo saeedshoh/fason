@@ -622,7 +622,7 @@ $(document).on('change', '.js-attribute', function() {
                     data.forEach(element => {
                         _this.closest('div').find('.Selects').append(`
                         <label class="checkbox-container">
-                        <input cheked class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
+                        <input class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
                         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
                         </label>
                     `)

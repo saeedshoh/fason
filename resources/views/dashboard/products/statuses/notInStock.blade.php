@@ -72,7 +72,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.notInStock') }}" class="nav-link">
+                    <a href="{{ route('products.notInStock') }}" class="nav-link active">
                       Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('product_status_id', 5)->count() }}</span>
                     </a>
                   </li>

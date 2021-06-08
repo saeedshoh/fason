@@ -26,6 +26,7 @@ class CreateStoresTable extends Migration
             $table->tinyInteger('is_active')->default(0);
             $table->boolean('is_monetized')->default(false);
             $table->tinyInteger('is_moderation')->nullable();
+            $table->timestamp('starred_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -484,4 +484,15 @@ class StoreController extends Controller
         $stores = Store::get();
         return view('stores', compact('stores'));
     }
+
+    public function star($id)
+    {
+        $store = Store::withoutGlobalScopes()->find($id);
+        if($store->starred_at) {
+            $store->update(['starred_at' => null]);
+        } else {
+            $store->update(['starred_at' => now()]);
+        }
+        return redirect()->back();
+    }
 }

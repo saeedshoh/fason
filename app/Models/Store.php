@@ -25,18 +25,23 @@ class Store extends Model
         'is_active',
         'is_monetized',
         'is_moderation',
+        'starred_at',
     ];
+
     public function city()
     {
         return $this->belongsTo('App\Models\City');
     }
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
+
     public function product() {
         return $this->hasMany('App\Models\Product');
     }
+
     public function orders() {
         return $this->hasManyThrough(
             'App\Models\Order',
@@ -47,6 +52,7 @@ class Store extends Model
             'id'
         )->withoutGlobalScopes();
     }
+
     public function categories() {
         return $this->hasManyThrough(
             'App\Models\Category',
@@ -55,6 +61,7 @@ class Store extends Model
             'id',
         );
     }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -68,6 +75,11 @@ class Store extends Model
     public function monetizations()
     {
         return $this->belongsToMany(Monetization::class);
+    }
+
+    public function scopeStarred()
+    {
+        return $this->whereNotNull('starred_at');
     }
 
     /**
