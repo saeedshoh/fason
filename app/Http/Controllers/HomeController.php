@@ -27,7 +27,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->stores = Store::get();
         $this->categories = Category::get();
         $this->products = Product::get();
         $this->banners = Banners::latest()->get();
@@ -81,7 +80,18 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $stores = $this->stores;
+        $stores = null;
+        $starred_stores = Store::starred()->take(10)->get();
+        if($starred_stores->count() < 10) {
+            $popular_stores = Store::where('starred_at', null)->withCount('orders')->latest('orders_count')->take(10)->get();
+            if($starred_stores->count() == 0) {
+                $stores = $popular_stores;
+            } else {
+                $stores = $starred_stores->merge($popular_stores)->take(10);
+            }
+        } else {
+            $stores = $starred_stores;
+        }
         $categories = $this->categories->where('parent_id', 0)->sortBy('order_no');
         $sliders = $this->banners->where('type', 1);
         $middle_banner = $this->banners->where('type', 2)->where('position', 2)->first();

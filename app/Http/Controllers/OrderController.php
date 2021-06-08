@@ -22,13 +22,15 @@ class OrderController extends Controller
 
     public function orders()
     {
-        $is_store = null;
+        $is_store = $sales = [];
         if (Auth::check()) {
             $is_store = $this->stores->where('user_id', Auth::id())->first();
         }
-        $sales = Order::whereHas('no_scope_product', function ($no_scope_product){
-            $no_scope_product->where('store_id', auth()->user()->store->id);
-        })->latest()->get();
+        if($is_store) {
+            $sales = Order::whereHas('no_scope_product', function ($no_scope_product){
+                $no_scope_product->where('store_id', auth()->user()->store->id);
+            })->latest()->get();
+        }
         $orders = Order::where('user_id', Auth::id())->latest('id')->get();
 
         return view('orders', compact('orders', 'is_store', 'sales'));
@@ -283,11 +285,21 @@ class OrderController extends Controller
                     'sender' => 'fason.tj', // 'Альфанумерик, СМС отправитель'
                     'server' => 'http://api.osonsms.com/sendsms_v1.php' // 'Адрес сервера'
                 );
+                $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
+                $attributes = '';
+                foreach($attributes_values as $index => $attributes_value){
+                    $attributes .= $attributes_value->attribute->name.': '.$attributes_value->name;
+                    if ($index === count($attributes_values)-1) {
+                        $attributes .= '.';
+                    } else {
+                        $attributes .= ', ';
+                    }
+                }
                 $dlm = ";";
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. '\n'.$attributes;
 
                 $params = array(
                     "from" => $config['sender'],

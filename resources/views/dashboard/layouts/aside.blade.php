@@ -46,7 +46,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/attributes*') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/attributes*') || request()->is('dashboard/attribute*') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
                   <i class="fe fe-git-branch"></i> Аттрибуты
                 </a>
               </li>

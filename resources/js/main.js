@@ -622,7 +622,7 @@ $(document).on('change', '.js-attribute', function() {
                     data.forEach(element => {
                         _this.closest('div').find('.Selects').append(`
                         <label class="checkbox-container">
-                        <input cheked class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
+                        <input class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
                         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
                         </label>
                     `)
@@ -732,7 +732,7 @@ $('.sizes .product-size').on('click', function() {
         $('.product-size').removeClass('text-danger')
         $(this).addClass('text-danger')
     })
-    // search
+// search
 $('.main-search').on('keyup keypress keydown change', function() {
     let value = $(this).val()
     if (value.length >= 3) {
@@ -755,6 +755,17 @@ $('.main-search').on('keyup keypress keydown change', function() {
         $('.search-result').hide()
     }
 })
+/**
+ * Search items
+ */
+ $('body').on('keyup', '#search', function() {
+    var search = $(this).val();
+    var item = $(this).attr('data-item');
+    $.get('/'+item, {search: search}, function(data) {
+        $('#'+item).empty().html(data.posts);
+        $('.endless-pagination').data('next-page', data.next_page)
+    });
+});
 
 $('#buyBtn').on('click', function(e) {
     var count = 0
@@ -867,7 +878,8 @@ $('.checkout-product').on('click', function() {
             attributes
         },
         success: data => {
-            window.location.reload();
+            console.log(data);
+            // window.location.reload();
         },
         error: function(xhr, status, error) {
             console.log(status)

@@ -62,7 +62,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.canceled') }}" class="nav-link">
+                    <a href="{{ route('products.canceled') }}" class="nav-link active">
                       Отклонённые <span class="badge badge-pill badge-light">{{ $products_stats->where('product_status_id', 3)->count() }}</span>
                     </a>
                   </li>

@@ -147,12 +147,14 @@
                                         </div>
                                     </td>
                                     <td class="text-right">
-                                        {{-- <form class="d-inline" action="{{ route('stores.destroy', $store) }}" method="POST">
+                                        <form class="d-inline" action="{{ route('ft-store.star', $store->store_id) }}" method="POST">
                                             @csrf
-                                            <button type="submit" href="{{ route('stores.destroy', $store->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                                <i class="fe fe-trash"> </i></button>
-                                            @method('DELETE')
-                                        </form> --}}
+                                            @method('PATCH')
+
+                                            <button type="submit" class="btn @if($store->store->starred_at) btn-success @else btn-danger @endif m-1">
+                                                <i class="fe fe-star" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
                                         <a href="{{ route('showStoreInfo', $store->id) }}" class="btn btn-secondary m-1 pull-right">
                                             <i class="fe fe-eye" aria-hidden="true"></i>
                                         </a>

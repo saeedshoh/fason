@@ -27,11 +27,11 @@ class StoreEdit extends Model
     {
         return $this->belongsTo('App\Models\City');
     }
-    
+
     public function product() {
         return $this->hasMany('App\Models\Product');
     }
-    
+
     public function orders() {
         return $this->hasManyThrough(
             'App\Models\Order',
@@ -42,7 +42,7 @@ class StoreEdit extends Model
             'id'
         );
     }
-    
+
     public function categories() {
         return $this->hasManyThrough(
             'App\Models\Category',
@@ -66,4 +66,8 @@ class StoreEdit extends Model
         return $this->belongsToMany(Monetization::class);
     }
 
+    public function store()
+    {
+        return $this->belongsTo('App\Models\Store');
+    }
 }

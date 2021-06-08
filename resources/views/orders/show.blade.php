@@ -19,7 +19,7 @@
         <!--slider-proiduct-and-description-->
         <div class="col-12 col-lg-5">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
-            <a href="{{ route('home') }}" class="text-pinky font-weight-bold text-decoration-none">
+            <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
@@ -43,9 +43,9 @@
                     <div class="col-3 mt-3">
                         <img src="{{ Storage::url($gallery) }}" data-image-src="{{ Storage::url($gallery) }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
                     </div>
-                  @endforeach 
+                  @endforeach
                 @endif
-                
+
             </div>
           </div>
           <!--desktop slider end-->
@@ -155,6 +155,6 @@
     </div>
   </section>
   <section class="divide"></section>
-  
+
 
 @endsection

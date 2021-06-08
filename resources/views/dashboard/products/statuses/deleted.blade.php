@@ -78,7 +78,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.deleted') }}" class="nav-link">
+                    <a href="{{ route('products.deleted') }}" class="nav-link active">
                       Удаленные <span class="badge badge-pill badge-soft-danger">{{ $products_stats->whereNotNull('deleted_at')->count() }}</span>
                     </a>
                   </li>

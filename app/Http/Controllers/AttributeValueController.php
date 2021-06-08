@@ -19,8 +19,10 @@ class AttributeValueController extends Controller
     {
         $parent = Attribute::find($id);
         $attributes = AttributeValue::where('attribute_id', $id)
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->orWhere('value', 'like', '%' . $request->search . '%')
+            ->when($request->search, function($att_value) use ($request) {
+                $att_value->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('value', 'like', '%' . $request->search . '%');
+            })
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {

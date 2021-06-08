@@ -74,6 +74,7 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/stores/disabled', [StoreController::class, 'disabled'])->name('stores.disabled');
     Route::get('/stores/disabledUser', [StoreController::class, 'disabledUser'])->name('stores.disabledUser');
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
+    Route::patch('store/star/{id}', [StoreController::class, 'star'])->name('ft-store.star');
 
     Route::get('/ordersStatistic', [OrderController::class, 'statistics'])->name('ordersStatistic');
 

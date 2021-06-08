@@ -52,7 +52,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.accepted') }}" class="nav-link">
+                    <a href="{{ route('products.accepted') }}" class="nav-link active">
                       Опубликовано <span class="badge badge-pill badge-soft-success">{{ $products_stats->where('product_status_id', 2)->whereNull('deleted_at')->where('quantity', '>', 1)->count() }}</span>
                     </a>
                   </li>

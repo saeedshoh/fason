@@ -503,26 +503,28 @@ class ProductController extends Controller
             }
             $product = Product::create(
                 [
-                    'name' =>  $request->name,
-                    'description' =>  $request->description,
-                    'category_id' =>  $request->cat_id,
-                    'quantity' =>  $request->quantity,
-                    'price' =>  $request->price,
-                    'store_id' =>  $request->store_id,
-                    'product_status_id' =>  1,
-                    'image' =>  $main_image,
-                    'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
-                    'created_at' => Carbon::now()
+                    'name'              => $request->name,
+                    'description'       => $request->description,
+                    'category_id'       => $request->cat_id,
+                    'quantity'          => $request->quantity,
+                    'price'             => $request->price,
+                    'store_id'          => $request->store_id,
+                    'product_status_id' => auth()->user()->status == 1 ? 2 : 1,
+                    'image'             => $main_image,
+                    'gallery'           => !empty($base64_images) ? json_encode($images) : null,
+                    'created_at'        => Carbon::now()
                 ]
             );
             if (isset($request->attribute)) {
-                foreach ($request->attribute as $name => $attribute) {
-                    $attribute_id = Attribute::where('slug', $name)->first()->id;
-                    ProductAttribute::create([
-                        'product_id' => $product->id,
-                        'attribute_id' => $attribute_id,
-                        'attribute_value_id' => $attribute['value']
-                    ]);
+                $attributes = json_decode($request->attribute);
+                foreach($attributes as $attribute){
+                    foreach($attribute->attribute_values as $attribute_value){
+                        ProductAttribute::create([
+                            'product_id' => $product->id,
+                            'attribute_id' => $attribute->id,
+                            'attribute_value_id' => $attribute_value
+                        ]);
+                    }
                 }
             }
         }
@@ -570,33 +572,35 @@ class ProductController extends Controller
             }
             $product->update(
                 [
-                    'name' =>  $request->name,
-                    'description' =>  $request->description,
-                    'category_id' =>  $request->cat_id,
-                    'quantity' =>  $request->quantity,
-                    'price' =>  $request->price,
-                    'store_id' =>  $request->store_id,
-                    'product_status_id' =>  1,
-                    'image' =>  $main_image,
-                    'gallery' =>  !empty($base64_images) ? json_encode($images) : null,
-                    'created_at' => Carbon::now()
+                    'name'              => $request->name,
+                    'description'       => $request->description,
+                    'category_id'       => $request->cat_id,
+                    'quantity'          => $request->quantity,
+                    'price'             => $request->price,
+                    'store_id'          => $request->store_id,
+                    'product_status_id' => auth()->user()->status == 1 ? 2 : 1,
+                    'image'             => $main_image,
+                    'gallery'           => !empty($base64_images) ? json_encode($images) : null,
+                    'created_at'        => Carbon::now()
                 ]
             );
             if (isset($request->attribute)) {
 
-                $delete = ProductAttribute::where('product_id', $product->id);
-                if ($delete->count() > 0) {
-                    $delete->delete();
+                $product_attributes = ProductAttribute::where('product_id', $product->id);
+                if ($product_attributes->count() > 0) {
+                    $product_attributes->delete();
                 }
 
-                foreach ($request->attribute as $name => $attribute) {
-                    $attribute_id = Attribute::where('slug', $name)->first()->id;
-                    foreach ($attribute['value'] as $value) {
-                        ProductAttribute::create([
-                            'product_id' => $product->id,
-                            'attribute_id' => $attribute_id,
-                            'attribute_value_id' => $value
-                        ]);
+                if (isset($request->attribute)) {
+                    $attributes = json_decode($request->attribute);
+                    foreach($attributes as $attribute){
+                        foreach($attribute->attribute_values as $attribute_value){
+                            ProductAttribute::create([
+                                'product_id' => $product->id,
+                                'attribute_id' => $attribute->id,
+                                'attribute_value_id' => $attribute_value
+                            ]);
+                        }
                     }
                 }
             }

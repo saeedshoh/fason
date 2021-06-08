@@ -67,7 +67,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.hidden') }}" class="nav-link">
+                    <a href="{{ route('products.hidden') }}" class="nav-link active">
                       Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->count() }}</span>
                     </a>
                   </li>
