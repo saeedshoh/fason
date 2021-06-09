@@ -79,7 +79,7 @@
         @endauth
        @guest
         <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end">
-          <button type="button" class="mr-2 btn-danger rounded-11  px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
+          <button type="button" class="btn-danger rounded-11  px-3 border-0 float-right"  data-toggle="modal" data-target="#enter_site" >
             <i class="fas fa-sign-in-alt"></i> Вход
           </button>
         </div>
@@ -111,7 +111,7 @@
             @endforelse
           </ul>
         </div>
-        <div class="categories-site_products col-12 col-lg-8 order-0 order-lg-1 px-lg-0">
+        <div class="categories-site_products col-12 col-lg-8 order-0 order-lg-1 px-lg-0 bg-transparent">
           <div id="main-slider" class="carousel slide h-100" data-ride="carousel">
             <ol class="carousel-indicators">
               @forelse ($sliders as $key => $slider )

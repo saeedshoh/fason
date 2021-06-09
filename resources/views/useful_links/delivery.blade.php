@@ -12,7 +12,7 @@
 @endsection
 @section('content')
   <section>
-    <div class="container mt-3">
+    <div class="container mt-3 px-0">
       <div class="bg-white p-0 p-sm-3">
         <div class="container">
           <div class="text-center position-relative post-line">

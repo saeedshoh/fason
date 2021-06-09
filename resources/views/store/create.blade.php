@@ -10,9 +10,7 @@
     <!--Edit logo and banner start-->
 
     <div class="row d-flex d-md-none create-store">
-      <div class="col-4"><h6 class="font-weight-bold"><svg width="15" height="13" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 6.52686H3.74194L8.91593 1.37602L7.53372 0L0 7.5L7.53372 15L8.91593 13.624L3.74194 8.47314H18V6.52686Z" fill="#000"/>
-        </svg> Назад</h6></div>
+      <div class="col-4"><a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a></div>
       <div class="col-8"><h6 class="font-weight-bold text-right text-opacity-low">Информация о магазине</h6></div>
       <div class="col-12">
         <p class="text-justify small my-3 text-muted">

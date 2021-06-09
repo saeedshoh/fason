@@ -32,7 +32,7 @@ class OrderController extends Controller
             })->latest()->get();
         }
         $orders = Order::where('user_id', Auth::id())->latest('id')->get();
-
+        // dd($sales);
         return view('orders', compact('orders', 'is_store', 'sales'));
     }
 

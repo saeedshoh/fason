@@ -25,13 +25,21 @@
             <hr>
             <p class="mb-0">Данные отображаются покупателям после одобрения магазина.</p>
           </div>
-        @elseif($store->is_active == 0 || $store->is_active == 2)
+        @elseif($store->is_active == 2)
           <div class="alert alert-danger w-100" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="alert-heading">Внимание!</h4>
             <p>Ваш магазин отключен. При выключении магазина учитите, что другие пользователи не смогут видеть ваши товары, пока вы не восстановите магазин. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> (+992) 000 02 9641</a></p>
+          </div>
+          @elseif($store->is_active == 0)
+          <div class="alert alert-danger w-100" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Внимание!</h4>
+            <p>Ваш магазин отключен со стороны администрации.Товары данного магазина не будут видны другим пользователям, пока магазин не будет включен. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> (+992) 000 02 9641</a></p>
           </div>
         @endif
       <script>
