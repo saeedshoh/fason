@@ -193,7 +193,7 @@
           <div class="row align-items-center mt-lg-3 prod-controls">
             <div class="col-4">
               <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ round($product->price_after_margin) }}</span> <span class="mb-currency">Сомони</span></h5>
+                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
               </div>
             </div>
             <div class="col-4 my-md-0 my-3 text-center">
@@ -255,7 +255,7 @@
                             </div>
                             <div class="col-2 d-none d-lg-block text-dark">
                                 <div class="title mb-3 title-capitalize font-weight-600">Цена:</div>
-                                <span class="text-secondary text-semi-bold price-start">{{ round($product->price_after_margin) }} </span>Сомони
+                                <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
                             </div>
                             <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
@@ -269,7 +269,7 @@
                             <div class="col-12 col-lg-2 mt-1 mt-lg-0">
                                 <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
                                     <div class="title mb-3 title-capitalize font-weight-600">Сумма:</div>
-                                    <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ round($product->price_after_margin) }}</span> сомони</div>
+                                    <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
                                 </div>
                             </div>
                           </div>
@@ -423,7 +423,7 @@
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
@@ -448,7 +448,7 @@
             <div class="container">
               <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
             </div>
