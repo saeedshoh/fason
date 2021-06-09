@@ -812,6 +812,8 @@ $('#buyBtn').on('click', function(e) {
         $('#buyProduct').modal('show')
     } else {
         Toast.fire({
+            toast: true,
+            position: 'top-end',
             icon: 'error',
             title: 'Выберите все параметры товара!'
         })
@@ -849,6 +851,8 @@ $('#buyBtnMob').on('click', function(e) {
         $('#buyProduct').modal('show')
     } else {
         Toast.fire({
+            toast: true,
+            position: 'top-end',
             icon: 'error',
             title: 'Выберите все параметры товара!'
         })
