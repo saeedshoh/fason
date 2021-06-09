@@ -31,8 +31,9 @@ class OrderController extends Controller
                 $no_scope_product->where('store_id', auth()->user()->store->id);
             })->latest()->get();
         }
-        $orders = Order::where('user_id', Auth::id())->latest('id')->get();
-        // dd($sales);
+        $orders = Order::where('user_id', Auth::id())
+            ->with('attribute_values')
+            ->latest('id')->get();
         return view('orders', compact('orders', 'is_store', 'sales'));
     }
 
@@ -256,6 +257,9 @@ class OrderController extends Controller
                     'comment' => $request->comment,
                     'order_status_id' => '1'
                 ]);
+                foreach($request->input('attributes') as $attribute_value) {
+                    $order->attribute_values()->attach($attribute_value);
+                }
             }
             else{
                 $order = Order::create([
