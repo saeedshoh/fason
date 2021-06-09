@@ -68,7 +68,7 @@
                             Описание: <strong class="text-body">{{ $product->description }}</strong> <br>
                             Категория: <strong class="text-body">{{ $product->category->name }}</strong> <br>
                             Количество: <strong class="text-body">{{ $product->quantity }}</strong> <br>
-                            Цена: <strong class="text-body">{{ round($product->price_after_margin) }} TJS</strong> <br>
+                            Цена: <strong class="text-body">{{ $product->price_after_margin }} TJS</strong> <br>
 
                         </p>
                         </div>
@@ -80,7 +80,7 @@
                           </div>
                     </div> <!-- / .row -->
                 </div>
-                
+
             </div>
         </div>
     </div>

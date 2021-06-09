@@ -159,9 +159,6 @@
       <li class="nav-item position-relative">
         <a class="nav-link " id="published-tab" data-toggle="tab" href="#published"  aria-selected="false">Опубликовано {{ count($acceptedProducts) }}</a>
       </li>
-      {{-- <li class="nav-item position-relative">
-        <a class="nav-link border-0 font-weight-bold" id="onDelete-tab" data-toggle="tab" href="#onDelete"  aria-selected="false">Удалено {{ count($deletedProducts) }}</a>
-      </li> --}}
     </ul>
     <!--Tab-content>-->
     <div class="tab-content mb-5" id="myTabContent">
@@ -190,7 +187,7 @@
                     </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                       <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -223,7 +220,7 @@
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                       <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -250,7 +247,7 @@
                     </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                        <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                        <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                         <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -274,7 +271,7 @@
                   <div class="container">
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                       <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -298,7 +295,7 @@
                   <div class="container">
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                       <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -322,7 +319,7 @@
                   <div class="container">
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                      <span class="font-weight-bold">{{ round($product->price_after_margin) }} сомони</span>
+                      <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
                       <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                     </div>
                   </div>
@@ -362,13 +359,7 @@
     </div>
     <!--Tab content end-->
     <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">
-        {{-- @if($store->is_active == 1) --}}
         <a class="btn btn-danger col-6 col-sm-2 rounded-11 mb-5" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
-        {{-- @else
-        <div class="alert alert-warning" role="alert">
-            Магазин еще не прошел модерацию.
-        </div>
-        @endif --}}
     </div>
   </div>
   </section>

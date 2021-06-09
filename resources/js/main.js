@@ -131,13 +131,19 @@ function throttle(f, delay) {
     }
 }
 $(document).ready(function() {
+    var timeout
     $('#nameStoreCreate').on(
         'keyup',
-        throttle(function() {
-            $('#storeSubmit').attr('disabled', true)
-            var store = $(this).val()
-            if (store.length >= 3) {
-                console.log(store)
+        function() {
+        $('#storeSubmit').attr('disabled', true)
+        $('.store-exist').addClass('d-none')
+        var store = $(this).val()
+        if (store.length == 0) {
+            $('#storeSubmit').attr('disabled', false)
+        }
+        if (store.length >= 3) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
                 $.get('/store/exist/' + store, function(data) {
                     if (data.exist) {
                         $('.store-exist').removeClass('d-none')
@@ -147,16 +153,23 @@ $(document).ready(function() {
                         $('#storeSubmit').attr('disabled', false)
                     }
                 })
-            }
-        })
-    )
+            }, 100)
+        }
+    })
+
 
     $('#nameEditStore').on(
         'keyup',
-        throttle(function() {
-            $('#storeEditSubmit').attr('disabled', true)
-            var store = $(this).val()
-            if (store != this.defaultValue) {
+        function() {
+        $('#storeEditSubmit').attr('disabled', true)
+        $('.store-exist').addClass('d-none')
+        var store = $(this).val()
+        if (store.length == 0) {
+            $('#storeEditSubmit').attr('disabled', false)
+        }
+        if (store.length >= 3 && store != this.defaultValue) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
                 $.get('/store/exist/' + store, function(data) {
                     if (data.exist) {
                         $('.store-exist').removeClass('d-none')
@@ -166,9 +179,9 @@ $(document).ready(function() {
                         $('#storeEditSubmit').attr('disabled', false)
                     }
                 })
-            }
-        })
-    )
+            }, 100)
+        }
+    })
 
     $('.sms--false').hide()
     $(window).scroll(fetchPosts)
