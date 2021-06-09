@@ -20,7 +20,7 @@
 
                   </div>
                 </div>
-                <button class="btn-danger rounded-11  border-0 px-2 nav-link btn mx-2 search-btn" type="submit">
+                <button class="btn-danger rounded-11  border-0 px-2 nav-link btn ml-2 search-btn" type="submit">
                   <i class="fas fa-search d-none d-lg-inline-block"></i><i class="fas fa-search d-inline-block text-pinky d-lg-none"></i> <span class="d-none d-lg-inline-block">Поиск</span></button>
               </form>
             </div>
@@ -58,7 +58,7 @@
           @auth
           <div class="col-6 col-md-6 col-lg-3 d-block d-lg-none order-1 order-lg-2 px-0 dropdown text-right">
             <a class="text-decoration-none text-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownProfileLink">
-              <img class="rounded-circle mr-1" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
+              <img class="rounded-circle mr-1 object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
@@ -80,7 +80,7 @@
     <div class="mobile-nav row m-0 d-flex d-lg-none w-100 bg-light align-items-center">
       <div class="col text-center px-0">
         <a href="{{ route('home') }}" class="text-decoration-none d-flex flex-column pt-2 align-items-center">
-          <img class="rounded-circle mr-1 object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
+          <img src="/storage/theme/icons/home.svg" width="19">
           <span class="mobile-nav--title">Главная</span>
         </a>
       </div>

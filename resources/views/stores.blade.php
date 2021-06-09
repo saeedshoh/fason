@@ -5,7 +5,7 @@
 @endsection
 @extends('layouts.footer')
 @section('content')
-<div class="container">
+<div class="container pl-lg-0">
     <form class="store__searchBar position-relative mt-3">
         <input class="w-100" type="text" name="" placeholder="Поиск Магазинов" id="">
         <button class="position-absolute">

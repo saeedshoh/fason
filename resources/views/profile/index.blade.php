@@ -16,7 +16,7 @@
                 @method('POST')
                 <div class="row">
                     <div class="col-lg-3 px-0 px-md-2 position-relative">
-                        <div class="text-center">
+                        <div class="text-center position-relative fs__icon-show">
                             @if($user->profile_photo_path == '')
                                 <label for="avatar" class="cursor-pointer d-block user_avatar">
                                         <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="rounded-pill" height="90" width="90" style="object-fit: cover;">
@@ -26,9 +26,9 @@
 
                             @else
                                 <img src="/storage/{{ $user->profile_photo_path }}" class="rounded-pill" height="90" width="90" id="avatar-poster"  style="object-fit: cover;">
-                                <div class="edit-store-logo position-absolute w-100 edit-pofile-img">
-                                    <label for="avatar" class="btn btn-edit rounded-pill"><img src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
-                                        Изменить
+                                <div class="mt-3 d-flex align-items-center justify-content-center fs__avatar">
+                                    <label for="avatar" class="btn btn-edit rounded-pill"><img  height="10px" src="/storage/theme/icons/camera.svg" class="mw-100 align-text-top" alt="">
+                                        <span class="d-lg-none">Изменить</span>
                                         <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
                                     </label>
                                 </div>

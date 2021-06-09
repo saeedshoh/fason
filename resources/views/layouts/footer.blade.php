@@ -62,12 +62,12 @@
   <div class="modal-content">
     <div class="modal-header border-0 d-none">
     </div>
-    <div class="modal-body text-center bg-white" style="z-index: 99999;">
+    <div class="modal-body text-center bg-white" style="z-index: 99999;overflow-y: scroll;">
       <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
       <p class="text-muted mb-pre--text mb-0">
          Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
       </p>
-      <div class="container text-center">
+      <div class="container text-center pb-5">
         <img src="img/logo fason.svg" alt="">
         <form id="add_address" class="text-center needs-validation" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
           @csrf
@@ -155,10 +155,11 @@
           </ul>
         </div>
       </div>
-
-      <div class="col-lg-2 col-8 col-md-5 mt-2 pl-0 d-flex justify-content-between">
-        <a href="https://www.instagram.com/fasontj/"><img src="storage/theme/icons/Instagram.svg" alt=""></a>
-      </div>
+      <ul class="d-flex flex-wrap list-unstyled">
+        <li><a href="https://www.instagram.com/fasontj/" target="_blank"><img src="storage/theme/icons/Instagram.svg" alt=""></a></li>
+        <li class="mx-2"><a href="https://wa.me/message/MJ75PUVHS7GDC1" target="_blank"><img src="storage/theme/icons/whatsapp-icon.svg" alt=""></a></li>
+        <li><a href="https://t.me/fasontjofficial" target="_blank"><img src="storage/theme/icons/telegram-icon.svg" alt=""></a></li>
+      </ul>
     </div>
 
     <div class="container mt-3 text-center">

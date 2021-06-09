@@ -486,7 +486,7 @@ $(document).on('change', '[name="category_id"]', function() {
             $('#attributes').empty()
             data.forEach(element => {
                 $('#attributes').append(`
-                    <div class="form-check form-check w-75 p-0">
+                    <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <label class="form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer">${element['at_name']}:</label>
                             <div id="st-attribute_val" class="font-weight-bold"></div>
@@ -629,7 +629,7 @@ $(document).on('change', '.js-attribute', function() {
                     })
                 } else {
                     _this.closest('div').append(`
-                        <select class="input_placeholder_style form-control st-attribute_add mt-3" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
+                        <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
                             <option disabled>Выберите значение</option>
                         </select>
                     `)

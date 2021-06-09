@@ -5,7 +5,7 @@
 @endsection
 @extends('layouts.footer')
 @section('content')
-<div class="container bg-white">
+<div class="container bg-white px-0">
     <div class="mt-lg-5 py-lg-5 py-3 text-center">
       <img class="my-5" src="/storage/theme/thanks.svg" width="250px" alt="">
       <div class="mb-3 pb-lg-0">
