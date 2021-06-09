@@ -45,4 +45,9 @@ class Order extends Model
     public function store() {
         return $this->belongsTo('App\Models\Store')->withoutGlobalScopes();
     }
+
+    public function attribute_values()
+    {
+        return $this->belongsToMany('App\Models\AttributeValue', 'attribute_value_orders');
+    }
 }

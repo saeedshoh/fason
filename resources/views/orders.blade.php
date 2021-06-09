@@ -59,11 +59,16 @@
                                                     <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
 
                                                     {{ $order->created_at->format('d.m.Y') }}</small>
-                                                    <small class="text-secondary w-100">
-                                                        <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
-    
-                                                        {{ $order->quantity }}</small>
-                                                    
+                                                <small class="text-secondary w-100">
+                                                    <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
+
+                                                    {{ $order->quantity }}</small>
+                                                @foreach ($order->attribute_values as $attribute_value)
+                                                <small class="text-secondary w-100">
+                                                    <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
+
+                                                    {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}</small>
+                                                @endforeach
                                                 <h6 class="h6 text-secondary d-block d-lg-none">
                                                     <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
                                                 </h6>
