@@ -12,7 +12,6 @@
 @extends('layouts.footer')
 @section('content')
 
-{{--  {{ dd(Auth::user()->favorite) }}  --}}
   <section class="container mt-lg-4">
     <div class="under-menu-category d-lg-block d-none">
       <div class="row">
@@ -100,7 +99,6 @@
                 <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2">
                 <nav class="category-mix">
                   <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
-                    {{--  <a href="{{ route('ft-category.category', $category->slug) }} " class="text-decoration-none category text-secondary"><img src="storage/{{ $category->icon }}" height="20" width="20" alt="" class="rounded-11"> {{ $category->name }}</a>  --}}
                     <span class="count-products" data-id="{{ $category->id }}"></span>
                   </a>
                 </nav>
@@ -153,7 +151,7 @@
               <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                 <span class="font-weight-bold">
-                  {{ round($product->price_after_margin) }} сомони
+                  {{ $product->price_after_margin }} сомони
                 </span>
                 <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
               </div>
@@ -179,7 +177,7 @@
                 <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                 <div class="price-place d-flex justify-content-between align-items-center mb-3  text-danger">
                   <span class="font-weight-bold">
-                    {{ round($product->price_after_margin) }} сомони
+                    {{ $product->price_after_margin }} сомони
                   </span>
                   <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                 </div>

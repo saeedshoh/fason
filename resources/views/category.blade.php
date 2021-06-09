@@ -65,10 +65,6 @@
                           <label class="form-check-label" for="{{ $city->name }}">{{ $city->name }}</label>
                         </div>
                       @endforeach
-                      {{-- <div class="form-check form-check-inline mt-3">
-                          <input data-city="1" class="form-check-input cityM" checked="false" type="radio" name="cityM" id="inlineCheckbox1" value="{{ $city->id }}">
-                          <label class="form-check-label" for="inlineCheckbox1">{{ $city->name }}</label>
-                      </div> --}}
                     </div>
                     <br>
                     <h5 class="captions-of__modal mt-5">Цена</h5>
@@ -243,8 +239,6 @@
                         <div class="form-check mt-3">
                           <input @if(isset(request()->city) && request()->city == $city->id) checked @elseif($loop->first)checked @endif class="form-check-input city" type="radio" name="city" id="{{ $city->name }}" value="{{ $city->id }}">
                           <label class="form-check-label" for="{{ $city->name }}">{{ $city->name }}</label>
-                          {{-- <input data-city="1" checked class="form-check-input city" type="radio" name="city" id="inlineCheckbox1" value="option1">
-                          <label class="form-check-label" for="inlineCheckbox1">Душанбе</label> --}}
                         </div>
                       @endforeach
                     </div>
@@ -286,7 +280,7 @@
                   </div>
                   <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                     <span class="font-weight-bold">
-                      {{ round($product->price_after_margin) }} сомони
+                      {{ $product->price_after_margin }} сомони
                     </span>
                     <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
                   </div>

@@ -111,7 +111,7 @@ class Product extends Model
             }
         }
 
-        return $this->price + $common_monetization + $store_monetization + $category_monetization;
+        return ceil($this->price + $common_monetization + $store_monetization + $category_monetization);
     }
 
     /**
