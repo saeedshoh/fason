@@ -29,7 +29,7 @@
             <ul class="navbar-nav">
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard*') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
+                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
                   <i class="fe fe-home"></i> Главная
                 </a>
               </li>
@@ -46,7 +46,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/attributes*') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/attributes*') || request()->is('dashboard/attribute*') ? ' active' : '' }}" href="{{ route('attributes.index') }}" href="{{ route('attributes.index') }}">
                   <i class="fe fe-git-branch"></i> Аттрибуты
                 </a>
               </li>

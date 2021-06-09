@@ -121,22 +121,22 @@
                                         </a>
                                     </td>
 
-                                <td class="text-right">
-                                    <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger m-1 pull-right delete-confirm">
-                                            <i class="fe fe-trash"> </i></button>
-                                        @method('DELETE')
-                                    </form>
-                                    <a href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}" class="btn btn-primary m-1 pull-right">
-                                        <i class="fe fe-edit"> </i>
-                                    </a>
-                                </td>
+                                    <td class="text-right">
+                                        <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger m-1 pull-right delete-confirm">
+                                                <i class="fe fe-trash"> </i></button>
+                                            @method('DELETE')
+                                        </form>
+                                        <a href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}" class="btn btn-primary m-1 pull-right">
+                                            <i class="fe fe-edit"> </i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
                                     <td colspan="7">
-                                        <span>Данные отсутствуют </span>
+                                        <span class="text-muted">Данные отсутствуют </span>
                                     </td>
                                 </tr>
                                 @endforelse

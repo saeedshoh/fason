@@ -87,32 +87,32 @@
                 </small>
               </div>
             </div>
-              <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
-                <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
-                  <div class="input-group-prepend position-relative">
-                    <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
-                  </div>
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
-                  <small class="invalid-feedback">
-                    Введите кол/во товара
-                  </small>
+            <div class="form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <label for="quantity" class="input_caption mr-2 text-left text-md-right">Кол/во в наличии:</label>
+              <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                <div class="input-group-prepend position-relative">
+                  <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
+                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
+                <small class="invalid-feedback">
+                Введите кол/во товара
+                </small>
               </div>
+            </div>
 
-              <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: <span class="badge badge-pill badge-danger">в сомони</span></label>
-                <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
-                  <div class="input-group-prepend position-relative">
-                    <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
-                  </div>
-                  <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
-                  <small class="invalid-feedback">
-                    Введите цену товара
-                  </small>
+            <div class="form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center">
+              <label for="price" class="input_caption mr-2 text-left text-md-right">Цена: <span class="badge badge-pill badge-danger">в сомони</span></label>
+              <div class="w-75 input_placeholder_style position-relative input-group w-md-100">
+                <div class="input-group-prepend position-relative">
+                  <div class="input-group-text px-1  btn-custom-fs bg-white"></div>
                 </div>
+                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
+                <small class="invalid-feedback">
+                Введите цену товара
+                </small>
               </div>
-              <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
+            </div>
+            <div id="attributes" class="form-group  d-flex flex-column mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
 
             </div>
             @csrf

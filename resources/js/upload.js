@@ -159,7 +159,7 @@ $(document).on('click', '.add-product-btn', function() {
 
         const cat_id = $(this)
             .closest('form')
-            .find('select[name="category_id"]')
+            .find('select[name="category_id"]:last')
             .val();
         const name = $(this)
             .closest('form')
@@ -181,9 +181,30 @@ $(document).on('click', '.add-product-btn', function() {
             .closest('form')
             .find('*[name="store_id"]')
             .val();
-
-        let aw = {product_id: product_id, cat_id:cat_id, name:name, description:description, quantity:quantity, price:price, store_id:store_id}
-        console.log(aw)
+        var attributes = [];
+        if($('#attributes').children()){
+            const values = $('#attributes').children();
+            values.each(function(){
+                var item = {}
+                if($(this).find('select').val()) {
+                    item['id'] = $(this).find('input').val()
+                    item['attribute_values'] = $(this).find('select').val()
+                }
+                else {
+                    var colors = $(this).find('.Selects').children()
+                    var color_vals = []
+                    colors.each(function(){
+                        if($(this).find('input:checked').val()){
+                            color_vals.push($(this).find('input:checked').val())
+                        }
+                    })
+                    item['id'] = $(this).find('input').val()
+                    item['attribute_values'] = color_vals
+                }
+                attributes.push(item)
+            })
+            // console.log(attributes);
+        }
         const image = $('#main-poster').attr('src');
         const query_url =
             check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
@@ -213,6 +234,7 @@ $(document).on('click', '.add-product-btn', function() {
             formData.append('price', price);
             formData.append('store_id', store_id);
             formData.append('image', image);
+            formData.append('attribute', JSON.stringify(attributes));
             formData.append('gallery', JSON.stringify(galleries));
             $.ajax({
                 url: query_url,
@@ -224,41 +246,47 @@ $(document).on('click', '.add-product-btn', function() {
                 processData: false,
                 data: formData,
                 beforeSend: function() {
-                    $('.main-content .dashboard').closest('body').append(`<div class="success-preloader"><img src="/storage/Spinner-1s-200px.svg" alt="" srcset=""></div>`);
-                    $('.success-preloader').removeClass('d-none');
+                    // $('.main-content .dashboard').closest('body').append(`<div class="success-preloader"><img src="/storage/Spinner-1s-200px.svg" alt="" srcset=""></div>`);
+                    // $('.success-preloader').removeClass('d-none');
                 },
                 success: data => {
-                    $('.main-content .dashboard').closest('body').addClass('d-flex align-items-center bg-auth border-top border-top-2 border-primary').empty()
-                    .html(
-                        `<div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12 col-md-6 col-xl-6 my-5">
-                            <div class="text-center">
-                              <h6 class="text-uppercase text-muted mb-4">
-                              Товар ${
-                                check_page == 'true' ? 'обновлен' : 'добавлен'
-                              }
-                              </h6>
-                              <h1 class="display-4 mb-3">
-                              Товар успешно ${
-                                check_page == 'true' ? 'обновлен' : 'добавлен'
-                              } и проходит модерацию  ${
-                                check_page == 'true' ? '😁' : '😊'
-                              }
-                              </h1>
-                              <p class="text-muted mb-4">
-                                Хотите вернуться в админку
-                              </p>
-                              <a href="/dashboard/products" class="btn btn-lg btn-primary">
-                                Вернуться назад
-                              </a>
+                    // console.log(window.location.href.indexOf('/dashboard/products/') > -1);
+                    if(window.location.href.indexOf('/dashboard/products/') > -1) {
+                        window.location.href='/dashboard/products';
+                        $('.tab-content').prepend(`<div class="alert alert-success">Товар успешно добавлен/изменен!</div>`);
+                        // <div class="alert alert-success">Товар успешно добавлен/изменен!</div>
+                    }
+                    // $('.main-content .dashboard').closest('body').addClass('d-flex align-items-center bg-auth border-top border-top-2 border-primary').empty()
+                    // .html(
+                    //     `<div class="container">
+                    //     <div class="row justify-content-center">
+                    //       <div class="col-12 col-md-6 col-xl-6 my-5">
+                    //         <div class="text-center">
+                    //           <h6 class="text-uppercase text-muted mb-4">
+                    //           Товар ${
+                    //             check_page == 'true' ? 'обновлен' : 'добавлен'
+                    //           }
+                    //           </h6>
+                    //           <h1 class="display-4 mb-3">
+                    //           Товар успешно ${
+                    //             check_page == 'true' ? 'обновлен' : 'добавлен'
+                    //           } и проходит модерацию  ${
+                    //             check_page == 'true' ? '😁' : '😊'
+                    //           }
+                    //           </h1>
+                    //           <p class="text-muted mb-4">
+                    //             Хотите вернуться в админку
+                    //           </p>
+                    //           <a href="/dashboard/products" class="btn btn-lg btn-primary">
+                    //             Вернуться назад
+                    //           </a>
 
-                            </div>
+                    //         </div>
 
-                          </div>
-                        </div> <!-- / .row -->
-                      </div>`
-                    );
+                    //       </div>
+                    //     </div> <!-- / .row -->
+                    //   </div>`
+                    // );
                     $('.content .container:eq(0)')
                         .addClass('bg-white')
                         .empty()

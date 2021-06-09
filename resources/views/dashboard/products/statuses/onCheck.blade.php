@@ -57,7 +57,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('products.onCheck') }}" class="nav-link">
+                    <a href="{{ route('products.onCheck') }}" class="nav-link active">
                       На проверке <span class="badge badge-pill badge-soft-warning">{{ $products_stats->where('product_status_id', 1)->count() }}</span>
                     </a>
                   </li>
