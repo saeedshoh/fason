@@ -248,12 +248,16 @@
                 </div>
                 <div id="attributes" class="form-group d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
                     @foreach ($attributes as $index => $attribute)
-                        <div class="form-check w-50 d-flex flex-wrap">
-                                <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
-                                <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                        <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                {{-- <div id="st-attribute_val" class="font-weight-semibold input_caption"></div> --}}
+                                <label class="form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer">{{ $attribute->name }}</label>
+                                <label class="m-0 cursor-pointer" for="{{ $attribute->slug.'Checkbox'.$index}}"><img class="add__attr-icon" src="{{ $attribute->is_checked ? '/storage/theme/delete_attr.svg' : '/storage/theme/plus_add_attr.svg' }}"></label>
+                            </div>
+                            <input class="form-check-input js-attribute d-none"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
                             @if ($attribute->is_checked)
                                 @if ($attribute->slug == 'cvet')
-                                    <div class="Selects d-flex flex-wrap justify-content-between form-group" name="attribute[cvet][value]">
+                                    <div class="Selects d-flex flex-wrap form-group" name="attribute[cvet][value]">
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <label class="checkbox-container">
                                                 <input {{ $attrValue->is_checked == true ? 'checked' : '' }} class="form-check-input" name="checkSvet" value="{{ $attrValue->id }}" type="checkbox">
@@ -265,7 +269,7 @@
                                         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="@foreach ($attrValues->where('attribute_id', $attribute->id)->where('is_checked', 'true') as $attrValue){{ $loop->last ? $attrValue->id : $attrValue->id.',' }}@endforeach">
                                     </div>
                                 @else
-                                    <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple>
+                                    <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[{{ $attribute->slug }}][value][]" multiple id="st-attribute_select">
                                         <option disabled="">Выберите значение</option>
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
