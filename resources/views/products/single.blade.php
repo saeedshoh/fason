@@ -17,7 +17,7 @@
     <div class="container mt-lg-5">
       <div class="row">
         <!--slider-proiduct-and-description-->
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-5 px-md-0">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
             <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
@@ -159,7 +159,7 @@
         </div>
         <!--slider-proiduct-and-description-end-->
         <!--product-information-and-attribute-->
-        <div class="col-12 col-lg-7 order-lg-1 px-md-5">
+        <div class="col-12 col-lg-7 order-lg-1 pl-md-5">
           <h3 class="h3 title mt-3 mt-lg-2 d-none d-lg-block">Информация о товаре</h3>
           <div class="mt-3 mt-lg-5 d-none d-lg-block ">
 
