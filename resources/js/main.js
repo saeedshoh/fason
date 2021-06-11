@@ -654,7 +654,10 @@ $(document).on('change', '.js-attribute', function() {
                     .closest('div')
                     .find('select')
                     .remove()
-                $('.Selects').remove()
+                _this
+                .closest('div')
+                .find('.Selects')
+                .remove()
                 $('#color_attr').empty()
             } else {
                 if (data[0]['slug'] == 'cvet') {
