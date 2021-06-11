@@ -63,7 +63,7 @@
                       <!-- Price -->
                       <div class="row no-gutters align-items-center justify-content-center mb-5">
                         <div class="col-auto">
-                          <div class="h2 mb-0"> {!! QrCode::size(120)->generate(route('ft-products.single', $order->product->slug)) !!}</div>
+                          <div class="h2 mb-0"> {!! QrCode::size(120)->generate(route('ft-products.single', $order->no_scope_product->slug)) !!}</div>
                         </div>
                       </div> <!-- / .row -->
                       <!-- Features -->
@@ -73,13 +73,13 @@
                                 <small>Имя покупателя: </small> <small>{{ $order->user->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Магазин: </small> <small>{{ $order->product->store->name }}</small>
+                                <small>Магазин: </small> <small>{{ $order->no_scope_product->store->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Номер заказа: </small> <small>{{ $order->id }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Название товара: </small> <small>{{ $order->product->name }}</small>
+                                <small>Название товара: </small> <small>{{ $order->no_scope_product->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Цена товара: </small> <small>{{ ($order->total + $order->margin)/$order->quantity }} Сомони</small>
@@ -133,23 +133,23 @@
                       <!-- Price -->
                       <div class="row no-gutters align-items-center justify-content-center mb-5">
                         <div class="col-auto">
-                          <div class="h2 mb-0"> {!! QrCode::size(120)->generate(route('ft-products.single', $order->product->slug)) !!}</div>
+                          <div class="h2 mb-0"> {!! QrCode::size(120)->generate(route('ft-products.single', $order->no_scope_product->slug)) !!}</div>
                         </div>
                       </div> <!-- / .row -->
                       <!-- Features -->
                       <div class="mb-3">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Имя Продавца:</small> <small>{{ $order->product->store->user->name }}</small>
+                                <small>Имя Продавца:</small> <small>{{ $order->no_scope_product->store->user->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Магазин: </small> <small>{{ $order->product->store->name }}</small>
+                                <small>Магазин: </small> <small>{{ $order->no_scope_product->store->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Номер заказа: </small> <small>{{ $order->id }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Название товара: </small> <small>{{ $order->product->name }}</small>
+                                <small>Название товара: </small> <small>{{ $order->no_scope_product->name }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Цена товара: </small> <small>{{ $order->total }} Сомони</small>
@@ -165,10 +165,10 @@
                                 <small>Кол-во: </small> <small>{{ $order->quantity }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Телефон Продавца: </small> <small>{{ $order->product->store->user->phone }}</small>
+                                <small>Телефон Продавца: </small> <small>{{ $order->no_scope_product->store->user->phone }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Адрес продавца: </small> <small>{{ $order->product->store->address }}</small>
+                                <small>Адрес продавца: </small> <small>{{ $order->no_scope_product->store->address }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <strong>Итог: </strong> <strong>{{ $order->total * $order->quantity }} Сомони</strong>

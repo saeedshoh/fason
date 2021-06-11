@@ -34,7 +34,7 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="{{ route('orders.index') }}" class="nav-link">
-                      Все товары <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
+                      Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
