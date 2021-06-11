@@ -549,7 +549,7 @@ class ProductController extends Controller
                 Storage::disk('public')->put($main_image, $data);
                 $main_image = $this->uploadImage($main_image);
             } else {
-                $main_image = str_replace(url('/') . '/storage', "", $main_image_json);
+                $main_image = str_replace(url('/') . '//storage', "", $main_image_json);
             }
 
             if (!empty($base64_images)) {
@@ -565,7 +565,7 @@ class ProductController extends Controller
                         Storage::disk('public')->put($image, $data);
                         array_push($images, $this->uploadImage($image));
                     } else {
-                        $image = str_replace(url('/') . '/storage/', "", $base64_image);
+                        $image = str_replace(url('/') . '//storage/', "", $base64_image);
                         array_push($images, $image);
                     }
                 }

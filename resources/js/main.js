@@ -815,8 +815,15 @@ $('.main-search').on('keyup keypress keydown change', function() {
     var search = $(this).val();
     var item = $(this).attr('data-item');
     $.get('/'+item, {search: search}, function(data) {
-        $('#'+item).empty().html(data.posts);
-        $('.endless-pagination').data('next-page', data.next_page)
+        if(data.posts.length > 0){
+            $('#'+item).empty().html(data.posts);
+            $('#noneStore').empty()
+             $('.endless-pagination').data('next-page', data.next_page)
+        }else{
+            $('#'+item).empty()
+            $('#noneStore').html('По вашему запросу нечего не найдено')
+        }
+        
     });
 });
 

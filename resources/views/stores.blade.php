@@ -6,7 +6,7 @@
 @extends('layouts.footer')
 @section('content')
 <div class="container pl-lg-0">
-    <form class="store__searchBar position-relative mt-3">
+    <form class="store__searchBar position-relative mt-3" onsubmit="event.preventDefault();">
         <input class="w-100" type="text" placeholder="Поиск Магазинов" id="search" data-item="stores" >
         <button class="position-absolute">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -27,5 +27,6 @@
             </div>
         @endforeach
     </div>
+    <div id="noneStore"></div>
 </div>
 @endsection
