@@ -151,7 +151,7 @@
                                             @csrf
                                             @method('PATCH')
 
-                                            <button type="submit" class="btn @if($store->store->starred_at) btn-success @else btn-danger @endif m-1">
+                                            <button type="submit" class="btn @if($store->no_scope_store->starred_at) btn-success @else btn-danger @endif m-1">
                                                 <i class="fe fe-star" aria-hidden="true"></i>
                                             </button>
                                         </form>
