@@ -13,11 +13,15 @@ use App\Http\Requests\MonetizationRequest;
 
 class MonetizationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function __construct()
+    {    
+        $this->middleware('permission:create-monitization', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-monitization', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-monitization', ['only' => ['destroy']]);
+        $this->middleware('permission:read-monitization', ['only' => ['index', 'show']]);   
+    }
+
     public function index(Request $request)
     {
         $monetizations = Monetization::get();

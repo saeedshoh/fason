@@ -24,12 +24,16 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
-                <!-- Buttons -->
-                <a href="{{ route('monetizations.create') }}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
-              </div>
+
+              @permission('create-monitization')
+                <div class="col-auto">
+                  <!-- Buttons -->
+                  <a href="{{ route('monetizations.create') }}" class="btn btn-primary ml-2">
+                    Добавить
+                  </a>
+                </div>
+              @endpermission
+
             </div>
             <div class="row align-items-center">
                 <div class="col">
@@ -129,15 +133,22 @@
                     {{ $monetization->added_val ?? '0'}}
                   </td>
                   <td class="text-right">
-                    <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
-                        @csrf
-                        <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                            <i class="fe fe-trash"> </i></button>
-                        @method('DELETE')
-                    </form>
-                    <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
-                        <i class="fe fe-edit"> </i>
-                    </a>
+                  
+                    @permission('delete-monitization')
+                      <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
+                          @csrf
+                          <button type="submit" href="{{ route('monetizations.destroy', $monetization->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                              <i class="fe fe-trash"> </i></button>
+                          @method('DELETE')
+                      </form>
+                    @endpermission
+
+                    @permission('update-monitization')
+                      <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
+                          <i class="fe fe-edit"> </i>
+                      </a>
+                    @endpermission
+
                   </td>
                 </tr>
                 @endif

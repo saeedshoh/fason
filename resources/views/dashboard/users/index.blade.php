@@ -24,16 +24,16 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
-
-                @if(request()->is('dashboard/users*'))
-                <!-- Buttons -->
-                <a href="{{ route('users.create') }}" class="btn btn-primary ml-2">
-                  Добавить сотрудника
-                </a>
-                @endif
-
-              </div>
+            @permission('create-employee')
+                <div class="col-auto">
+                    @if(request()->is('dashboard/users*'))
+                    <!-- Buttons -->
+                    <a href="{{ route('users.create') }}" class="btn btn-primary ml-2">
+                    Добавить сотрудника
+                    </a>
+                    @endif
+                </div>
+            @endpermission
             </div> <!-- / .row -->
           </div>
         </div>
@@ -143,15 +143,20 @@
                                     <a class="text-reset" href="team-overview.html">{{ $user->store->name ?? '' }}</a>
                                     </td>
                                     <td class="text-right">
-                                        <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                            <i class="fe fe-trash"> </i></button>
-                                            @method('DELETE')
-                                        </form>
-                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
-                                            <i class="fe fe-edit"> </i>
-                                        </a>
+                                        @permission('delete-employee')
+                                            <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                                <i class="fe fe-trash"> </i></button>
+                                                @method('DELETE')
+                                            </form>
+                                        @endpermission
+                                        @permission('update-employee')
+                                            <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
+                                                <i class="fe fe-edit"> </i>
+                                            </a>
+                                        @endpermission
+                                        
                                     </td>
                                 </tr>
                                 @empty

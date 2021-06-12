@@ -24,14 +24,17 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
 
-                <!-- Buttons -->
-                <a href="{{ route('categories.create')}}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
+              @permission('create-categories')
+                <div class="col-auto">
 
-              </div>
+                  <!-- Buttons -->
+                  <a href="{{ route('categories.create')}}" class="btn btn-primary ml-2">
+                    Добавить
+                  </a>
+
+                </div>
+              @endpermission
             </div> <!-- / .row -->
           </div>
         </div>
@@ -125,18 +128,22 @@
                         @endif
 
                         <td class="text-right">
-                            <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
-                                @csrf
-                                <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                    <i class="fe fe-trash"> </i></button>
-                                @method('DELETE')
-                            </form>
-                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
-                                <i class="fe fe-edit"> </i>
-                            </a>
-                            <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
-                                <i class="fe fe-eye" aria-hidden="true"></i>
-                            </a>
+                            @permission('delete-categories')
+                              <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
+                                  @csrf
+                                  <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                      <i class="fe fe-trash"> </i></button>
+                                  @method('DELETE')ы
+                              </form>
+                            @endpermission
+                            @permission('update-categories')
+                              <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
+                                  <i class="fe fe-edit"> </i>
+                              </a>
+                            @endpermission
+                              <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
+                                  <i class="fe fe-eye" aria-hidden="true"></i>
+                              </a>
                         </td>
                         </tr>
                         @isset($category->children)
