@@ -156,7 +156,7 @@ class UserController extends Controller
             'address' => $request->address,
             'phone' =>  str_replace(array('(', ')', ' ', '-'), '', $request->phone),
             'profile_photo_path' => $image,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'status' =>  1,
             'registered_at' => Carbon::now()
         ]);
