@@ -24,15 +24,18 @@ use App\Http\Traits\ImageInvTrait;
 class ProductController extends Controller
 {
     use ImageInvTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
+    
     public function __construct()
     {
         $this->categories = Category::get();
+    
+        $this->middleware('permission:create-products', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-products', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-products', ['only' => ['destroy']]);
+        $this->middleware('permission:read-products', ['only' => ['index', 'show']]);   
     }
+    
 
     public function decline($product)
     {

@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Storage;
 
 class BannersController extends Controller
 {
+
+    public function __construct()
+    {    
+        $this->middleware('permission:create-banners', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-banners', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-banners', ['only' => ['destroy']]);
+        $this->middleware('permission:read-banners', ['only' => ['index', 'show']]);   
+    }
+
+
     public function sliders()
     {
         $sliders = Banners::where('type', 1)->get();

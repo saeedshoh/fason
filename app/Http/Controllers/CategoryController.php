@@ -7,14 +7,22 @@ use App\Models\City;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
-use Illuminate\Http\Request;
 use App\Filters\ProductFilters;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('permission:create-categories', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-categories', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-categories', ['only' => ['destroy']]);
+        $this->middleware('permission:read-categories', ['only' => ['index', 'show']]);   
+    }
+
     /**
      * Display a listing of the resource.
      *
