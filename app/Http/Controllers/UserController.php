@@ -20,11 +20,17 @@ class UserController extends Controller
 {
     use ImageInvTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
+    public function __construct()
+    {    
+        $this->middleware('permission:create-employee', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-employee', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-employee', ['only' => ['destroy']]);
+        $this->middleware('permission:read-employee', ['only' => ['index', 'show']]);   
+    }
+
+
     public function contacts(Request $request)
     {
         $image = null;
@@ -156,7 +162,7 @@ class UserController extends Controller
             'address' => $request->address,
             'phone' =>  str_replace(array('(', ')', ' ', '-'), '', $request->phone),
             'profile_photo_path' => $image,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'status' =>  1,
             'registered_at' => Carbon::now()
         ]);

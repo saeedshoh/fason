@@ -24,14 +24,16 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
 
-                <!-- Buttons -->
-                <a href="{{ route('attributes.create')}}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
-
-              </div>
+              @permission('create-attributes')
+                <div class="col-auto">
+                  <!-- Buttons -->
+                  <a href="{{ route('attributes.create')}}" class="btn btn-primary ml-2">
+                    Добавить
+                  </a>
+                </div>
+              @endpermission
+            
             </div> <!-- / .row -->
           </div>
         </div>
@@ -94,16 +96,22 @@
                             </td>
 
                             <td class="text-right">
-                                <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                        <i class="fe fe-trash"> </i></button>
-                                    @method('DELETE')
-                                </form>
-                                <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
-                                    <i class="fe fe-edit"> </i>
-                                </a>
+                                 @permission('delete-attributes')
+                                  <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
+                                      @csrf
+                                      <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                          <i class="fe fe-trash"> </i></button>
+                                      @method('DELETE')
+                                  </form>
+                                @endpermission
+                                
+                                @permission('update-attributes')
+                                  <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
+                                      <i class="fe fe-edit"> </i>
+                                  </a>
+                                @endpermission
                             </td>
+
                             </tr>
                             @empty
                             <tr>

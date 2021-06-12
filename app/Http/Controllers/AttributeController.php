@@ -11,11 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class AttributeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function __construct()
+    {    
+        $this->middleware('permission:create-attributes', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-attributes', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-attributes', ['only' => ['destroy']]);
+        $this->middleware('permission:read-attributes', ['only' => ['index', 'show']]);   
+    }
+
+    
     public function index(Request $request)
     {
         $attributes = Attribute::with('attribute_values')

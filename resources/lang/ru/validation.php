@@ -141,6 +141,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+		'uppercase_first_char' => 'Поле :attribute должно быть первым символом в верхнем регистре.',
     ],
 
     /*

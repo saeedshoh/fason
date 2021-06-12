@@ -24,14 +24,16 @@
                 </h1>
 
               </div>
-              <div class="col-auto">
+              
+              @permission('create-banners')
+                <div class="col-auto">
+                  <!-- Buttons -->
+                  <a href="{{ route('banners.create')}}" class="btn btn-primary ml-2">
+                    Добавить
+                  </a>
+                </div>
+              @endpermission
 
-                <!-- Buttons -->
-                <a href="{{ route('banners.create')}}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
-
-              </div>
             </div> <!-- / .row -->
           </div>
         </div>
@@ -91,22 +93,30 @@
                         {{ ++$key }}
                       </td>
 
-                      <td>
-                        <!-- Avatar -->
-                        <div class="avatar avatar-xs align-middle mr-2">
-                          <img class="avatar-img rounded-circle" src="/storage/{{ $banner->image }}">
-                        </div> <a class="item-name text-reset" href="{{ route('banners.edit', $banner) }}">Баннер {{ ++$key }}</a>
-                      </td>
+                        <td>
+                      @permission('update-banners')
+                          <!-- Avatar -->
+                          <div class="avatar avatar-xs align-middle mr-2">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $banner->image }}">
+                          </div> <a class="item-name text-reset" href="{{ route('banners.edit', $banner) }}">Баннер {{ ++$key }}</a>
+                      @endpermission
+                        </td>
+
                       <td class="item-position">
                         {{ $banner->position }}
                       </td>
+
                       <td class="text-right">
-                        <form class="d-inline" action="{{ route('banners.destroy', $banner) }}" method="POST">
-                            @csrf
-                            <button type="submit" href="{{ route('banners.destroy', $banner->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                <i class="fe fe-trash"> </i></button>
-                            @method('DELETE')
-                        </form>
+                      
+                        @permission('delete-banners')
+                          <form class="d-inline" action="{{ route('banners.destroy', $banner) }}" method="POST">
+                              @csrf
+                              <button type="submit" href="{{ route('banners.destroy', $banner->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
+                                  <i class="fe fe-trash"> </i></button>
+                              @method('DELETE')
+                          </form>
+                        @endpermission
+
                         <a href="{{ route('banners.edit', $banner) }}" class="btn btn-primary m-1 pull-right">
                             <i class="fe fe-edit"> </i>
                         </a>

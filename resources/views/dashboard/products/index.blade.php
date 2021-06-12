@@ -32,14 +32,17 @@
                 </a>
 
               </div>
-              <div class="col-auto">
 
-                <!-- Buttons -->
-                <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
-                  Добавить
-                </a>
+              @permission('create-products')
+                <div class="col-auto">
 
-              </div>
+                  <!-- Buttons -->
+                  <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
+                    Добавить
+                  </a>
+
+                </div>
+              @endpermission
             </div>
             <div class="row align-items-center">
               <div class="col">
@@ -191,11 +194,14 @@
                           </div>
                         </td>
                         <td class="text-right">
-                            @if($product->store)
-                              <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
-                                  <i class="fe fe-edit"></i>
-                              </a>
-                            @endif
+                        
+                            @permission('update-products')
+                              @if($product->store)
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
+                                    <i class="fe fe-edit"></i>
+                                </a>
+                              @endif
+                            @endpermission
                         </td>
                       </tr>
                       @empty
