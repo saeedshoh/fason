@@ -27,7 +27,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permissions = Permission::get();
+        $permissions = collect(Permission::get())->chunk(4);
         return view('dashboard.roles.edit', compact('permissions', 'role'));
 
     }

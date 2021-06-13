@@ -133,7 +133,7 @@
                                   @csrf
                                   <button type="submit" href="{{ route('categories.destroy', $category->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
                                       <i class="fe fe-trash"> </i></button>
-                                  @method('DELETE')ы
+                                  @method('DELETE')
                               </form>
                             @endpermission
                             @permission('update-categories')

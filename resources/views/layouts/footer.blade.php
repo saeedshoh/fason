@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="modal-body text-center bg-white">
-                <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
+                <!--<img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">-->
                 <p class="text-muted mb-pre--text">
                    Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
                 </p>
@@ -68,7 +68,7 @@
          Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
       </p>
       <div class="container text-center pb-5">
-        <img src="img/logo fason.svg" alt="">
+        <img src="/storage/theme/logo_fason.svg" alt="">
         <form id="add_address" class="text-center needs-validation" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
           @csrf
           <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">

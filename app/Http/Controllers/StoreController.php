@@ -19,16 +19,13 @@ use Intervention\Image\Facades\Image;
 
 class StoreController extends Controller
 {
-    
-
     public function __construct()
     {    
-        $this->middleware('permission:create-stores', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update-stores', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete-stores', ['only' => ['destroy']]);
-        $this->middleware('permission:read-stores', ['only' => ['index', 'show']]);   
+        // $this->middleware('permission:create-stores', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:update-stores', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:delete-stores', ['only' => ['destroy']]);
+        // $this->middleware('permission:read-stores', ['only' => ['index', 'show']]);
     }
-
     
     public function guest($slug)
     {
