@@ -2,34 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\City;
+use Carbon\Carbon;
 use App\Models\Log;
+use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Traits\ImageInvTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Traits\ImageInvTrait;
 
 class UserController extends Controller
 {
     use ImageInvTrait;
 
-    
-
     public function __construct()
-    {    
+    {
         $this->middleware('permission:create-employee', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-employee', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-employee', ['only' => ['destroy']]);
-        $this->middleware('permission:read-employee', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-employee', ['only' => ['index', 'show']]);
     }
-
 
     public function contacts(Request $request)
     {
@@ -59,8 +55,6 @@ class UserController extends Controller
 
                     $image = $this->uploadImage($main_image);
                 };
-
-                // $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
             }
 
             $user = User::updateOrCreate(
@@ -297,5 +291,13 @@ class UserController extends Controller
         }
 
         return redirect()->route('profile');
+    }
+
+    public function changeAddress(Request $request)
+    {
+        if($request->ajax()) {
+            $order = Order::where('id', $request->id)->update(['address' => $request->address]);
+            return Order::where('id', $request->id)->first();
+        }
     }
 }

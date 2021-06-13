@@ -63,6 +63,7 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/logs', [CategoryController::class, 'logsIndex'])->name('logs');
     Route::get('clients', [UserController::class, 'clients'])->name('clients.index');
     Route::get('clients/{user}', [UserController::class, 'show'])->name('clients.show');
+    Route::post('clients/changeAddress', [UserController::class, 'changeAddress']);
     Route::get('personalisations', [MonetizationController::class, 'personalisationsIndex'])->name('personalisations.index');
     Route::get('categoryMonetizations', [MonetizationController::class, 'categoryMonetizationsIndex'])->name('categoryMonetizations.index');
     Route::get('/stores/showStoreInfo/{store}', [StoreController::class, 'showStoreInfo'])->name('showStoreInfo');

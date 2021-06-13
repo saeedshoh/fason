@@ -12,7 +12,7 @@
         <div class="order-tab bg-white rounded px-0 p-md-3">
             <div class="pb-5 pb-lg-0">
                 <ul class="nav nav-pills justify-content-between" id="myTab" role="tablist">
-                    @if(isset($sales) && count($sales) > 0)
+                    @if(isset($sales) && count($sales->where('order_status_id', 1)) > 0)
                         <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
                             <a class="nav-link orders px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
                         </li>
@@ -34,7 +34,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <!--buy tabs-->
-                    <div class="tab-pane fade @if(isset($sales) && count($sales) > 0) @else()show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+                    <div class="tab-pane fade @if(isset($orders) && count($orders) > 0) @else()show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 
                         <!--success order-->
                         @forelse ($orders as $order)
@@ -54,15 +54,15 @@
                                                 <div>
                                                     <small class="text-secondary w-100 mr-2">
                                                         <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
-    
+
                                                         {{ $order->created_at->format('G:i:s') }}</small>
                                                     <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
-    
+
                                                         {{ $order->created_at->format('d.m.Y') }}</small>
                                                     <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
-    
+
                                                         {{ $order->quantity }}</small>
                                                 </div>
                                                 @if (count($order->attribute_values)>0)

@@ -17,14 +17,14 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->stores = Store::get();    
+        $this->stores = Store::get();
 
         // $this->middleware('permission:create-orders', ['only' => ['create', 'store']]);
         // $this->middleware('permission:update-orders', ['only' => ['edit', 'update']]);
         // $this->middleware('permission:delete-orders', ['only' => ['destroy']]);
-        // $this->middleware('permission:read-orders', ['only' => ['index', 'show']]);   
+        // $this->middleware('permission:read-orders', ['only' => ['index', 'show']]);
     }
-    
+
 
     public function orders()
     {
@@ -309,7 +309,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. '\n'.$attributes;
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. ' \n'.$attributes;
 
                 $params = array(
                     "from" => $config['sender'],
