@@ -13,7 +13,7 @@
 @section('content')
   <!--Header-end-->
   <section class="content">
-    <div class="container">
+    <div class="container px-md-2">
       <!--Edit logo and banner start-->
       <div class="row mt-sm-3">
          <div class="col-md-3 px-0 px-md-2 position-relative">
@@ -55,9 +55,9 @@
       <!--store info end-->
     </div>
     <!--goods start-->
-    <div class="container mb-5">
+    <div class="container mb-5 px-md-0">
       <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center">Все товары магазина</h2>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 pb-3">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 px-2 px-md-0 pb-3 px-md-2">
 
         @forelse ($products as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
