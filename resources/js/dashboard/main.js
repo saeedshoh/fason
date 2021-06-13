@@ -403,21 +403,28 @@ $('body').on('change', '#cat_parent', function() {
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            $('#cat_child').empty().append(`
-                <option>Выберите подкатегорию</option>
-            `)
-            $('#child_div').remove()
-            data.forEach(element => {
-                $('#cat_child').append(`
-                    <option value="${element['id']}">${element['name']}</option>
+            if(data.length > 0) {
+                $('#cat_child').empty().append(`
+                    <label for="cat_child">Под-категория</label>
+                    <select class="form-control" id="cat_child_value" name="category_id" >
+                        <option disabled value>Выберите подкатегорию</option>
+                    </select>
                 `)
-            })
+                $('#child_div').remove()
+                data.forEach(element => {
+                    $('#cat_child_value').append(`
+                        <option value="${element['id']}">${element['name']}</option>
+                    `)
+                })
+            } else {
+                $('#cat_child').empty();
+            }
         }
     })
 })
 
-$('body').on('change', '#cat_child', function() {
-    const id = $('#cat_child option:selected').val()
+$('body').on('change', '#cat_child_value', function() {
+    const id = $('#cat_child_value option:selected').val()
     $.ajax({
         url: '/getSubcategories',
         data: { category: id },
@@ -425,14 +432,14 @@ $('body').on('change', '#cat_child', function() {
         dataType: 'json',
         success: function(data) {
             if (data.hasOwnProperty('0')) {
-                $('#cat_child').attr('name', 'subcategory')
+                $('#cat_child_value').attr('name', 'subcategory')
                 $('#child_div').remove()
                 $('#subCategories').append(`
                     <div id="child_div" class="form-group col-12 col-md-12 mb-3">
-                        <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                        <label class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="input_placeholder_style">
                         <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
-                            <option disabled>Выберите категорию</option>
+                            <option disabled value>Выберите категорию</option>
                         </select>
                         </div>
                     </div>

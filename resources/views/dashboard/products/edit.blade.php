@@ -82,7 +82,7 @@
                                         <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                                         <div class="input_placeholder_style">
                                         <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
-                                            <option disabled>Выберите категорию</option>
+                                            <option disabled value="">Выберите категорию</option>
                                             @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
                                                 <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                                             @empty
@@ -125,18 +125,20 @@
                         </div>
                         <div class="form-row" id="subCategories">
                             <div class="form-group col-12 col-md-12 mb-3">
-                                <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
-                                    <option disabled>Выберите категорию</option>
-                                    @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
-                                        <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                                    @empty
-                                        Извините ничего не найдено
-                                    @endforelse
-                                </select>
-                                <small class="invalid-feedback">
-                                    Выберите категорию
-                                </small>
+                                @if(count($allCategories->where('parent_id', $category->parent_id)) > 0)
+                                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                        <option disabled>Выберите категорию</option>
+                                        @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
+                                            <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                        @empty
+                                            Извините ничего не найдено
+                                        @endforelse
+                                    </select>
+                                    <small class="invalid-feedback">
+                                        Выберите категорию
+                                    </small>
+                                @endif
                             </div>
                         </div>
                                 @else
@@ -154,16 +156,16 @@
                             </div>
                         </div>
                         <div class="form-row" id="subCategories">
-                            <div class="form-group col-12 col-md-12 mb-3">
-                                <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                            <div class="form-group col-12 col-md-12 mb-3" id="cat_child">
+                                <!--<label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>-->
 
-                                <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                <!--<select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child_value" name="category_id">-->
 
-                                    <option disabled>Выберите категорию</option>
-                                </select>
-                                <small class="invalid-feedback">
-                                    Выберите категорию
-                                </small>
+                                <!--    <option disabled>Выберите категорию</option>-->
+                                <!--</select>-->
+                                <!--<small class="invalid-feedback">-->
+                                <!--    Выберите категорию-->
+                                <!--</small>-->
                             </div>
                         </div>
                             @endif

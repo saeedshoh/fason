@@ -76,7 +76,7 @@
                                                 @endif
                                                 @foreach ($order->attribute_values as $attribute_value)
                                                 <small class="text-secondary w-100">
-                                                    {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}</small>
+                                                    {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}@if(!$loop->last), @endif</small>
                                                 @endforeach
                                                 <h6 class="h6 text-secondary d-block d-lg-none">
                                                     <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
@@ -153,7 +153,7 @@
                                                     @endif
                                                     @foreach ($sale->attribute_values as $attribute_value)
                                                     <small class="text-secondary w-100">
-                                                        {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}</small>
+                                                        {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }} @if(!$loop->last), @endif</small>
                                                         @endforeach
                                                     <h6 class="h6 text-secondary d-block d-lg-none">
                                                         <span class="text-uppercase">Цена</span>: <span class=" @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-skyblue @elseif($sale->order_status_id == 5)text-secondary @else text-success @endif "> {{ $sale->total }} Сомони</span>

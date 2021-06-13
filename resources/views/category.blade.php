@@ -166,7 +166,7 @@
         </div>
       </div>
       <!--Filter mobi-controll-->
-    <div class="all-product container mt-5">
+    <div class="all-product container px-md-0 mt-5">
 
       <div class="row mt-3">
         <div class="col-12 col-md-4 mb-2 px-2 px-lg-3 d-lg-block d-none">
