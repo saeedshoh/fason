@@ -98,7 +98,7 @@
                                 <small>Телефон: </small> <small>{{ $order->user->phone }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Адрес: </small> <small>{{ $order->user->address }}</small>
+                                <small>Адрес: </small> <div id="address-input"><a href="javascript:void();" class="ml-auto mr-1 d-none" id="save-changes" data-id="{{ $order->id }}"><span class="fe fe-check text-success my-auto"></span></a><small><input type="text" name="address" id="address" class="border-0 bg-transparent text-right" value="{{ $order->address }}"></small></div>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Коментарии: </small> <small>{{ $order->comment }}</small>

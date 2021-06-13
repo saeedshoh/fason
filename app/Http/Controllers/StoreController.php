@@ -19,21 +19,35 @@ use Intervention\Image\Facades\Image;
 
 class StoreController extends Controller
 {
-    
+
 
     public function __construct()
-    {    
+    {
         $this->middleware('permission:create-stores', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-stores', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-stores', ['only' => ['destroy']]);
-        $this->middleware('permission:read-stores', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-stores', ['only' => ['index', 'show']]);
     }
 
-    
+
     public function guest($slug)
     {
         $store = Store::where('slug', $slug)->first();
         $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
+        if($store == Store::where('user_id', auth()->id())->first()){
+            $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
+
+            Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
+
+            $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->get();
+            $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
+            $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
+            $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
+            $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
+            $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
+            $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
+            return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
+        }
         return view('store.guest', compact('store', 'products'));
     }
 

@@ -119,50 +119,6 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
         }
     });
 });
-// !(function() {
-//     var e = document.getElementById("audienceChart");
-//     var labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-//     "undefined" != typeof Chart &&
-//         e &&
-//         new Chart(e, {
-//             type: "line",
-//             options: {
-//                 scales: {
-//                     yAxes: [{
-//                             id: "yAxisOne",
-//                             type: "linear",
-//                             display: "auto",
-//                             gridLines: { color: "#283E59", zeroLineColor: "#283E59" },
-//                             ticks: {
-//                                 callback: function(e) {
-//                                     return e + "k";
-//                                 },
-//                             },
-//                         },
-//                         {
-//                             id: "yAxisTwo",
-//                             type: "linear",
-//                             display: "auto",
-//                             gridLines: { color: "#283E59", zeroLineColor: "#283E59" },
-//                             ticks: {
-//                                 callback: function(e) {
-//                                     return e + "%";
-//                                 },
-//                             },
-//                         },
-//                     ],
-//                 },
-//             },
-//             data: {
-//                 labels: labels,
-//                 datasets: [
-//                     { label: "Customers", data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40], yAxisID: "yAxisOne" },
-//                     { label: "Sessions", data: [50, 75, 35, 25, 55, 87, 67, 53, 25, 80, 87, 45], yAxisID: "yAxisOne", hidden: !0 },
-//                     { label: "Conversion", data: [40, 57, 25, 50, 57, 32, 46, 28, 59, 34, 52, 48], yAxisID: "yAxisTwo", hidden: !0 },
-//                 ],
-//             },
-//         });
-// })(),
 
 (function() {
     var e = document.getElementById("trafficChart");
@@ -501,82 +457,6 @@ $(function($) {
     });
 });
 
-
-////===================aaaaaaaaaaaaaaaaaaaaaaaaaa===================//
-// $(function() {
-
-//     $("#galler").change(function() {
-//         var fd = new FormData()
-//         fd.append('_token', $('meta[name=csrf-token]').attr("content"));
-//         var files = $('#galler')[0].files;
-//         if (files.length > 0) {
-//             for (let i = 0; i < files.length; i++) {
-//                 fd.append('image', files[i]);
-//                 $.ajax({
-//                     url: '/uploadImage',
-//                     type: 'post',
-//                     data: fd,
-//                     contentType: false,
-//                     processData: false,
-//                     beforeSend: function() {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('img').hide()
-//                         x.find('.spinner-border').removeClass('d-none')
-//                     },
-//                     success: function(response) {
-//                         var x = $('#db-preview-image').find('.product_image[data-image="false"]').first()
-//                         x.find('.spinner-border').addClass('d-none')
-//                         x.html('').attr('data-image', 'true').append(`
-//                             <div class="profile-pic">
-//                                 <img src="/storage/${response}" data-image-src="${response}" class="position-relative mw-100 pic-item">
-//                                 <div class="deleteImage"><i class="fa fa-trash fa-lg text-danger"></i></div>
-//                             </div>
-//                     `)
-
-//                         let gallery = $('#gallery')
-//                         if (gallery.val() == '') {
-//                             gallery.val(gallery.val() + response)
-//                         } else {
-//                             gallery.val(gallery.val() + ',' + response)
-//                         }
-//                     },
-//                 });
-//             }
-
-//         } else {
-//             alert("Please select a file.");
-//         }
-//     });
-// });
-
-
-// $('body').on('click', '.deleteImage', function() {
-//     let url = $(this).parent().find('img').data('image-src')
-//     let gallery = $('#gallery')
-//     let array = gallery.val().split(',')
-//     const index = array.indexOf(url)
-//     if (index > -1) {
-//         array.splice(index, 1);
-//     }
-//     gallery.val(array)
-//     $(this).parent().parent().remove()
-//     if (url.indexOf('products/edit/') !== -1) {
-//         $(this).parent().parent().parent().remove()
-//     } else {
-//         $(this).parent().parent().remove()
-//     }
-//     $('#db-preview-image').append(`
-//         <div class="col-3 text-center product_image d-flex justify-content-center align-items-center" data-image="false">
-//             <div class="spinner-border d-none" role="status">
-//                 <span class="sr-only">Loading...</span>
-//             </div>
-//             <label for="galler">
-//                 <img src="/storage/theme/avatar_gallery.svg" class="px-0 btn mw-100 rounded gallery"  alt="">
-//             </label>
-//         </div>
-//     `)
-// })
-
 $(document).on('change', '[name="category_id"]', function() {
     const id = $('[name="category_id"] option:selected').val();
     $.ajax({
@@ -599,7 +479,6 @@ $(document).on('change', '[name="category_id"]', function() {
         }
     });
 })
-
 
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this);
@@ -661,3 +540,24 @@ function user_avatar(input) {
 $("#profile_photo_path").change(function() {
     user_avatar(this);
 });
+
+$('#address-input').on('focusin', function(){
+    $('#save-changes').removeClass('d-none');
+})
+
+$('#address-input').on('focusout', function(){
+    $('#save-changes').trigger('click');
+})
+
+$('#save-changes').on('click', function(){
+    var id = $(this).data('id');
+    var address = $('#address').val();
+    $.post('/dashboard/clients/changeAddress', { id:id, address:address }, function(order){
+        if(order) {
+            $('#address').val(order.address);
+        } else {
+            $('#address').val(address);
+        }
+    })
+    $('#save-changes').addClass('d-none');
+})
