@@ -12,8 +12,8 @@
 @extends('layouts.footer')
 @section('content')
  <!--Header-end-->
-  <section class="content profile mt-0 mt-md-3">
-    <div class="container">
+  <section class="content profile mt-0 mt-md-5">
+    <div class="container px-md-2">
       <div class="row">
         @if($store->is_moderation)
           <div class="alert alert-warning w-100" role="alert">
@@ -45,7 +45,6 @@
       <script>
         $(".alert").alert();
       </script>
-
         <!--store logo start-->
         <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
@@ -55,19 +54,17 @@
           </div>
         </div>
         <div class="col-12 col-lg-9 px-0 px-md-2">
-            <div class="text-center">
-              <div class="position-relative d-inline-block">
-                <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
-              <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
-              <div class="mobile-avatar position-absolute w-lg-100">
-                <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
-              </div>
-              </div>
+          <div class="position-relative d-inline-block w-100">
+            <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
+            <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
+            <div class="mobile-avatar position-absolute w-lg-100">
+              <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
             </div>
+          </div>
           </div>
         <!--store logo end-->
         <!--store-info start-->
-        <div class="col-12 mt-lg-4">
+        <div class="col-12 mt-lg-4 px-md-2">
           <div class="d-none d-lg-block">
             <p>{{ $store->description ?? '' }}</p>
             <a href="{{ route('useful_links.privacy_policy') }}" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
@@ -106,7 +103,7 @@
                   {{ $store->address ?? ''}}
                 </h5>
               </div>
-              <div class="d-flex justify-content-center justify-content-md-end w-100 store-controls mt-3 mt-md-0">
+              <div class="d-flex justify-content-center justify-content-md-end w-100 store-controls mt-3 mt-md-0 px-3">
                 <a class="btn btn-danger rounded-11 my-1" href="{{ route('ft-store.edit', $store->slug) }}">Изменить</a>
               </div>
             </div>
@@ -117,7 +114,7 @@
     <!--customer-navs start-->
     <!--customer-navs start-->
   <div class="container-fluid bg-white py-3 d-none d-md-block">
-    <div class="container">
+    <div class="container px-md-0">
       <div class="row">
         <div class="col-md-6 col-lg-3 my-3 my-lg-0">
           <a class="btn btn-danger w-100 rounded-11" href="{{ route('ft-store.show', $store->slug) }}"><img class="mr-1" src="/storage/theme/icons/store.svg" alt="">  Мои товары</a>
@@ -136,7 +133,7 @@
   </div>
   <!--customer-navs end-->
   <!--tabs with goods start-->
-  <div class="container">
+  <div class="container px-md-0">
     <ul class="nav nav-tabs customer-tab border-0">
       <li class="nav-item position-relative">
         <a class="nav-link active" id="all-product-tab" data-toggle="tab" href="#all-product"  aria-selected="true">Все товары {{ count($products) }}</a>
@@ -164,7 +161,7 @@
     <div class="tab-content mb-5" id="myTabContent">
       <!--all-product-->
       <div class="tab-pane fade show active" id="all-product" role="tabpanel" aria-labelledby="all-product-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($products as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -358,9 +355,9 @@
 
     </div>
     <!--Tab content end-->
-    <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">
+    {{-- <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">
         <a class="btn btn-danger col-6 col-sm-2 rounded-11 mb-5" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
-    </div>
+    </div> --}}
   </div>
   </section>
 @endsection
