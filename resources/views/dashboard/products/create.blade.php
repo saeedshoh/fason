@@ -68,11 +68,11 @@
                                     </div>
                                 </div>
                                 <div class="form-row" id="subCategories">
-                                    <div class="col-12 col-md-12 mb-3">
-                                        <label for="cat_child">Под-категория</label>
-                                        <select class="form-control" id="cat_child" name="category_id" >
-                                            <option disabled>Выберите подкатегорию</option>
-                                        </select>
+                                    <div class="col-12 col-md-12 mb-3" id="cat_child">
+                                <!--        <label for="cat_child">Под-категория</label>-->
+                                <!--        <select class="form-control" id="cat_child" name="category_id" >-->
+                                <!--            <option disabled>Выберите подкатегорию</option>-->
+                                <!--        </select>-->
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -128,22 +128,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                        <div class="col-auto text-center">
-                                            <label for="image">
-                                                <img src="/storage/theme/icons/add_product_plus.svg" class="img-fluid rounded" id="main-poster" style="max-width: 120px;">
-                                            </label>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label for="image">Выберите</label>
-                                            <div class="custom-file">
-                                                <label class="custom-file-label" for="image">Выберите файл</label>
-                                                <input type="file" accept="image/*" name="image" form="add_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
-                                                <small class="text-muted">Размер > 480px * 480px</small>
-                                                <div class="invalid-feedback">
-                                                    Выберите изображение
-                                                </div>
+                                    <div class="col-auto text-center">
+                                        <label for="image">
+                                            <img src="/storage/theme/icons/add_product_plus.svg" class="img-fluid rounded" id="main-poster" style="max-width: 120px;">
+                                        </label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="image">Выберите</label>
+                                        <div class="custom-file">
+                                            <label class="custom-file-label" for="image">Выберите файл</label>
+                                            <input type="file" accept="image/*" name="image" form="add_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
+                                            <small class="text-muted">Размер > 480px * 480px</small>
+                                            <div class="invalid-feedback">
+                                                Выберите изображение
                                             </div>
                                         </div>
+                                    </div>
                                     <div class="col-12">
                                         <hr>
 

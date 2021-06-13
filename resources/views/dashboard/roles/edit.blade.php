@@ -60,14 +60,17 @@
                   </div>
                 <div class="checklist row px-3" tabindex="0">
 
-                    @foreach ($permissions as $permission)
-                        <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
-                            <input class="custom-control-input" @foreach ($role->permissions as $perm) @if($permission->id == $perm->id)checked @endif @endforeach id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
-                            <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
-                            <span class="custom-control-caption">
-                                {{ $permission->display_name }}
-                            </span>
-                        </div>
+                    @foreach ($permissions as $chunk)
+                        @foreach ($chunk as $permission)
+                            <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
+                                <input class="custom-control-input" @foreach ($role->permissions as $perm) @if($permission->id == $perm->id)checked @endif @endforeach id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                                <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
+                                <span class="custom-control-caption">
+                                    {{ $permission->display_name }}
+                                </span>
+                            </div>
+                        @endforeach
+                        <div class="w-100 my-4"></div>
                     @endforeach
 
                   </div>
