@@ -660,27 +660,27 @@ $(document).on('change', '.js-attribute', function() {
                 .remove()
                 $('#color_attr').empty()
             } else {
-                if (data[0]['slug'] == 'cvet') {
-                    $('#color_attr').append(`
-                        <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
-                    `)
-                    _this.closest('div').append(`
-                        <div class="Selects d-flex flex-wrap  form-group" name="attribute[${data[0]['slug']}][value]">
-                        </div>
-                    `)
-                    _this
-                        .closest('div')
-                        .find('.Selects')
-                        .empty()
-                    data.forEach(element => {
-                        _this.closest('div').find('.Selects').append(`
-                        <label class="checkbox-container">
-                        <input class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
-                        <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
-                        </label>
-                    `)
-                    })
-                } else {
+                // if (data[0]['slug'] == 'cvet') {
+                //     $('#color_attr').append(`
+                //         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
+                //     `)
+                //     _this.closest('div').append(`
+                //         <div class="Selects d-flex flex-wrap  form-group" name="attribute[${data[0]['slug']}][value]">
+                //         </div>
+                //     `)
+                //     _this
+                //         .closest('div')
+                //         .find('.Selects')
+                //         .empty()
+                //     data.forEach(element => {
+                //         _this.closest('div').find('.Selects').append(`
+                //         <label class="checkbox-container">
+                //         <input class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
+                //         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
+                //         </label>
+                //     `)
+                //     })
+                // } else {
                     _this.closest('div').append(`
                         <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
                             <option disabled>Выберите значение</option>
@@ -691,7 +691,7 @@ $(document).on('change', '.js-attribute', function() {
                             <option value="${element['id']}">${element['name']}</option>
                         `)
                     })
-                }
+                // }
             }
         }
     })
