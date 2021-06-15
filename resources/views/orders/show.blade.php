@@ -17,7 +17,7 @@
     <div class="container mt-lg-5">
       <div class="row">
         <!--slider-proiduct-and-description-->
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-5 px-md-0">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
             <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
@@ -84,8 +84,8 @@
             <p class="text-secondary text-semi-bold">{{ $product->description }}</p>
           </div>
         </div>
-        <div class="mt-3 d-block d-lg-none w-100 order-2">
-          <div class="my-3 text-center d-flex justify-content-around">
+        <div class="mt-3 d-block d-lg-none w-100 order-2 pb-3 pb-md-0">
+          <div class="my-3 text-center d-flex justify-content-around pb-md-0 pb-5">
             <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
               <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин продавца
             </a>
@@ -143,7 +143,7 @@
             </div>
           </div>
           <div class="mt-3 mt-sm-5 d-lg-flex justify-content-end info-product_footer d-none order-1">
-            <div class="my-3 text-center d-flex justify-content-end w-100">
+            <div class="my-3 text-center d-flex justify-content-end w-100 pb-md-0 pb-5">
               <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="rounded-11 btn btn-danger mr-md-2 my-1">
                 <img class="mr-1" src="/storage/theme/icons/store.svg" alt=""> В магазин продавца
               </a>
