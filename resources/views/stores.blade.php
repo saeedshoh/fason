@@ -5,7 +5,7 @@
 @endsection
 @extends('layouts.footer')
 @section('content')
-<div class="container pl-lg-0">
+<div class="container pb-5 pb-md-0 pl-lg-0">
     <form class="store__searchBar position-relative mt-3" onsubmit="event.preventDefault();">
         <input class="w-100" type="text" placeholder="Поиск Магазинов" id="search" data-item="stores" >
         <button class="position-absolute">
@@ -15,7 +15,7 @@
         </button>
     </form>
     <h5 class="allStore__title mt-3">Список магазинов:</h5>
-    <div id="stores" class="row  row-cols-2 row-cols-md-3 row-cols-lg-5 allStore__cards endless-pagination" data-next-page="{{ $stores->nextPageUrl() }}">
+    <div id="stores" class="row  row-cols-2 row-cols-md-3 row-cols-lg-5 allStore__cards endless-pagination pb-4" data-next-page="{{ $stores->nextPageUrl() }}">
         @foreach ($stores as $store)
             <div class="col card__item mt-3 position-relative">
                 <img class="mw-100" src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}">
