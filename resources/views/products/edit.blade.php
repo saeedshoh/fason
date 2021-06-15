@@ -256,7 +256,7 @@
                             </div>
                             <input class="form-check-input js-attribute d-none"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
                             @if ($attribute->is_checked)
-                                @if ($attribute->slug == 'cvet')
+                                {{-- @if ($attribute->slug == 'cvet')
                                     <div class="Selects d-flex flex-wrap form-group" name="attribute[cvet][value]">
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <label class="checkbox-container">
@@ -268,14 +268,14 @@
                                     <div id="color_attr">
                                         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="@foreach ($attrValues->where('attribute_id', $attribute->id)->where('is_checked', 'true') as $attrValue){{ $loop->last ? $attrValue->id : $attrValue->id.',' }}@endforeach">
                                     </div>
-                                @else
+                                @else --}}
                                     <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[{{ $attribute->slug }}][value][]" multiple id="st-attribute_select">
                                         <option disabled="">Выберите значение</option>
                                         @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
                                             <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
                                         @endforeach
                                     </select>
-                                @endif
+                                {{-- @endif --}}
                             @endif
                         </div>
                     @endforeach

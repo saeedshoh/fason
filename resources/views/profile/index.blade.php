@@ -7,8 +7,8 @@
 @section('content')
 <section>
     <div class="container">
-        <div class="mt-3">
-            <div class="row d-flex justify-content-center my-4">
+        <div class="mt-md-3">
+            <div class="row d-flex justify-content-center mb-3 my-md-4">
                 <h3>Мой профиль</h3>
             </div>
             <form action="{{ route('ft_profile.update') }}" enctype="multipart/form-data" method="POST">
