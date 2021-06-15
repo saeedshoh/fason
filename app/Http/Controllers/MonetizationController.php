@@ -13,13 +13,13 @@ use App\Http\Requests\MonetizationRequest;
 
 class MonetizationController extends Controller
 {
-    
+
     public function __construct()
-    {    
+    {
         $this->middleware('permission:create-monitization', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-monitization', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-monitization', ['only' => ['destroy']]);
-        $this->middleware('permission:read-monitization', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-monitization', ['only' => ['index', 'show']]);
     }
 
     public function index(Request $request)
@@ -197,5 +197,44 @@ class MonetizationController extends Controller
         ]);
         $monetization->delete();
         return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно удалена!');
+    }
+
+    public function price(Request $request)
+    {
+        $store = Store::withoutGlobalScopes()->find($request->store_id);
+        $category = Category::withoutGlobalScopes()->find($request->category_id);
+
+        $common_monetization = 0;
+        $category_monetization = 0;
+        $store_monetization = 0;
+
+        if ($category->is_monetized) {
+            foreach ($category->monetizations as $monetization) {
+                if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                    $category_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
+                }
+            }
+        }
+
+        if ($store->is_monetized) {
+            if ($store->monetizations->first()) {
+                foreach ($store->monetizations as $monetization) {
+                    if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                        $store_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
+                    }
+                }
+            }
+        }
+
+        $monetizations = Monetization::doesntHave('stores')->doesntHave('categories')->get();
+        if ($monetizations->isNotEmpty()) {
+            foreach ($monetizations as $monetization) {
+                if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                    $common_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
+                }
+            }
+        }
+
+        return ceil($request->price + $common_monetization + $store_monetization + $category_monetization);
     }
 }

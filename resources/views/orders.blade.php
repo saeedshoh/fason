@@ -34,7 +34,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <!--buy tabs-->
-                    <div class="tab-pane fade @if(isset($orders) && count($orders) > 0) @else()show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+                    <div class="tab-pane fade @if(isset($sales) && count($sales->where('order_status_id', 1)) == 0)show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 
                         <!--success order-->
                         @forelse ($orders as $order)
@@ -115,7 +115,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade @if(isset($sales) && count($sales) > 0)show active @else() @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+                    <div class="tab-pane fade @if(isset($sales) && count($sales->where('order_status_id', 1)) > 0)show active @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                         @forelse ($sales as $sale)
                             <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way @elseif($sale->order_status_id == 5)secondary-card @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
                                 <div class="text-right d-block d-lg-none mt-3">
