@@ -51,6 +51,11 @@
 
                 </div>
               </div> <!-- / .row -->
+              @error('profile_photo_path')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
             <div class="col-auto">
 
@@ -77,7 +82,12 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control" name="name" value="{{ old('name') ?? $user->name }}">
+                <input type="text" class="form-control @error('name')is-invalid @enderror" name="name" value="{{ old('name') ?? $user->name }}">
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
               </div>
 
@@ -87,13 +97,18 @@
                 <!-- First name -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
-                      Телефон
-                  </label>
+                <!-- Label -->
+                <label>
+                  Телефон
+                </label>
 
-                  <!-- Input -->
-                  <input type="text" class="form-control mb-3 @if($user->status == 2)text-muted @endif" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') ?? $user->phone }}" @if($user->status == 2) disabled @endif>
+                <!-- Input -->
+                <input type="text" class="form-control mb-3 @if($user->status == 2)text-muted @endif @error('phone')is-invalid @enderror" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') ?? $user->phone }}" @if($user->status == 2) disabled @endif>
+                @error('phone')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
                 </div>
 
@@ -103,13 +118,18 @@
                 <!-- Address -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
-                      Адрес
-                  </label>
+                <!-- Label -->
+                <label>
+                  Адрес
+                </label>
 
-                  <!-- Input -->
-                  <input type="text" class="form-control" name="address" value="{{ old('phone') ?? $user->address }}">
+                <!-- Input -->
+                <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') ?? $user->address }}">
+                @error('address')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
                 </div>
 
@@ -119,17 +139,22 @@
                 <!-- First name -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
-                      Город
-                  </label>
+                <!-- Label -->
+                <label>
+                  Город
+                </label>
 
-                  <!-- Input -->
-                  <select class="form-control" name="city_id" id="city">
-                      @foreach ($cities as $city)
-                        <option value="{{ $city->id }}" {{ $city->id == $user->city_id ? 'selected' : '' }} >{{ $city->name }}</option>
-                      @endforeach
-                  </select>
+                <!-- Input -->
+                <select class="form-control @error('city_id')is-invalid @enderror" name="city_id" id="city">
+                    @foreach ($cities as $city)
+                    <option value="{{ $city->id }}" {{ $city->id == $user->city_id ? 'selected' : '' }} >{{ $city->name }}</option>
+                    @endforeach
+                </select>
+                @error('city_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 </div>
             </div>
             @if($user->status == 1)
@@ -138,34 +163,44 @@
                 <!-- Birthday -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
+                    <!-- Label -->
+                    <label>
                     Пароль
-                  </label>
+                    </label>
 
-                  <!-- Input -->
-                  <input class="form-control flatpickr-input"  type="password" name="password" autocomplete="new-password">
+                    <!-- Input -->
+                    <input class="form-control flatpickr-input @error('password')is-invalid @enderror"  type="password" name="password" autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
                 </div>
 
               </div>
               <div class="col-12 col-md-6">
 
-                  <!-- Birthday -->
-                  <div class="form-group">
+                <!-- Birthday -->
+                <div class="form-group">
 
                     <!-- Label -->
                     <label>
-                      Подтвердить пароль
+                        Подтвердить пароль
                     </label>
 
                     <!-- Input -->
-                    <input class="form-control flatpickr-input"  type="password" name="password_confirmation" autocomplete="new-password">
-
-                  </div>
+                    <input class="form-control flatpickr-input @error('password_confirmation')is-invalid @enderror"  type="password" name="password_confirmation" autocomplete="new-password">
+                    @error('password_confirmation')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
                 </div>
-                @endif
+
+            </div>
+            @endif
             </div> <!-- / .row -->
           <button class="btn btn-primary mt-4 float-right" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
 

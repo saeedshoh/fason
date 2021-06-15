@@ -51,11 +51,11 @@
               <div class="row align-items-center">
                 <div class="col-auto">
 
-                  <!-- Avatar -->
-                  <div class="avatar user_avatar">
-                    <img class="avatar-img rounded-circle" src="/storage/theme/no-photo.svg">
-                    <input type="file" accept="image/*"  id="profile_photo_path" class="d-none" name="profile_photo_path">
-                  </div>
+                    <!-- Avatar -->
+                    <div class="avatar user_avatar">
+                        <img class="avatar-img rounded-circle" src="/storage/theme/no-photo.svg">
+                        <input type="file" accept="image/*"  id="profile_photo_path" class="d-none" name="profile_photo_path">
+                    </div>
 
                 </div>
                 <div class="col ml-n2">
@@ -69,7 +69,11 @@
                   <small class="text-muted">
                     PNG или JPG шириной и высотой не более 1000 пикселей.
                   </small>
-
+                  @error('profile_photo_path')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
               </div> <!-- / .row -->
             </div>
@@ -98,7 +102,12 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control @error('name')is-invalid @enderror" name="name" value="{{ old('name') }}">
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
               </div>
 
@@ -115,7 +124,12 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control mb-3" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') }}">
+                <input type="text" class="form-control mb-3 @error('phone')is-invalid @enderror" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') }}">
+                @error('phone')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
               </div>
 
@@ -125,18 +139,22 @@
                 <!-- Phone -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
-                    Должность
-                  </label>
+                    <!-- Label -->
+                    <label>
+                        Должность
+                    </label>
 
-                  <!-- Input -->
-                  <select class="custom-select" data-toggle="select" name="role">
-                    @foreach ($roles as $role)
-
-                    <option value="{{ $role->id }}">{{ $role->display_name }}</option>
-                    @endforeach
-                  </select>
+                    <!-- Input -->
+                    <select class="custom-select @error('role')is-invalid @enderror" data-toggle="select" name="role">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
                 </div>
 
@@ -146,13 +164,18 @@
                 <!-- Email address -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label class="mb-1">
-                    E-mail
-                  </label>
+                    <!-- Label -->
+                    <label class="mb-1">
+                        E-mail
+                    </label>
 
-                  <!-- Input -->
-                  <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                    <!-- Input -->
+                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
                 </div>
 
@@ -162,13 +185,18 @@
                 <!-- Address -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label class="mb-1">
-                    Адрес
-                  </label>
+                    <!-- Label -->
+                    <label class="mb-1">
+                        Адрес
+                    </label>
 
-                  <!-- Input -->
-                  <input type="text" class="form-control" name="address" value="{{ old('address') }}">
+                    <!-- Input -->
+                    <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') }}">
+                    @error('address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
                 </div>
 

@@ -37,7 +37,11 @@
             </div> <!-- / .row -->
           </div>
         </div>
-
+        @if (session()->get('success'))
+        <div class="alert alert-success">
+            {{session()->get('success')}}
+        </div>
+        @endif
         <!-- Tab content -->
         <div class="tab-content">
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
@@ -55,13 +59,13 @@
                                         <i class="fe fe-search"></i>
                                     </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="Поиск" data-item="{{ (request()->is('/dashboard/users')) ? 'users' : 'clients' }}" id="search" value="{{ request()->search }}">
+                                    <input class="form-control" type="text" placeholder="Поиск" data-item="{{ (request()->is('dashboard/users')) ? 'users' : 'clients' }}" id="search" value="{{ request()->search }}">
                                 </div>
                             </form>
                         </div>
                     </div> <!-- / .row -->
                 </div>
-                <div id="{{ (request()->is('/dashboard/users')) ? 'users' : 'clients' }}">
+                <div id="{{ (request()->is('dashboard/users')) ? 'users' : 'clients' }}">
                     <div class="table-responsive">
                         <table class="table table-sm table-hover table-nowrap card-table">
                         <thead>
@@ -106,6 +110,11 @@
                                 Телефон
                                 </a>
                             </th>
+                            <th>
+                                <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-company">
+                                Магазин
+                                </a>
+                            </th>
                             <th colspan="2">
                                 <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-registration-date">
                                 Время регистрации
@@ -140,7 +149,7 @@
                                     </td>
                                     <td class="item-company">
                                     <!-- Link -->
-                                    <a class="text-reset" href="team-overview.html">{{ $user->store->name ?? '' }}</a>
+                                    <a class="text-reset" href="{{ isset($user->store->name) ? route('showStoreInfo', $user->store->id) : 'javascrip:void();' }}">{{ $user->store->name ?? '' }}</a>
                                     </td>
                                     <td class="text-right">
                                         @permission('delete-employee')
@@ -156,7 +165,6 @@
                                                 <i class="fe fe-edit"> </i>
                                             </a>
                                         @endpermission
-                                        
                                     </td>
                                 </tr>
                                 @empty
@@ -186,6 +194,10 @@
                                     <!-- Phone -->
                                     <a class="text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
                                     </td>
+                                    <td class="item-company">
+                                    <!-- Link -->
+                                    <a class="text-reset" href="{{ isset($user->store->name) ? route('showStoreInfo', $user->store->id) : 'javascrip:void();' }}">{{ $user->store->name ?? '' }}</a>
+                                    </td>
                                     <td class="item-registration-date">
                                     {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
                                     </td>
@@ -193,15 +205,19 @@
                                         <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1">
                                             <i class="fe fe-eye" aria-hidden="true"></i>
                                         </a>
+                                        @permission('update-employee')
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1">
                                             <i class="fe fe-edit"></i>
                                         </a>
+                                        @endpermission
+                                        @permission('delete-employee')
                                         <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
                                             @csrf
-                                            <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right">
+                                            <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right delete-confirm">
                                             <i class="fe fe-trash"> </i></button>
                                             @method('DELETE')
                                         </form>
+                                        @endpermission
                                     </td>
                                 </tr>
                                 @empty

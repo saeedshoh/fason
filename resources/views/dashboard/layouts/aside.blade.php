@@ -33,7 +33,7 @@
                   <i class="fe fe-home"></i> Главная
                 </a>
               </li>
-              
+
               @permission('read-categories')
                 <li class="nav-item">
                   <a class="nav-link {{ request()->is('dashboard/categories*') ? ' active' : '' }}" href="{{ route('categories.index') }}">
@@ -76,7 +76,7 @@
 
               @permission('read-employee')
                 <li class="nav-item">
-                  <a class="nav-link {{ request()->is('dashboard/users*') ? ' active' : '' }}" href="{{ route('users.index') }}">
+                  <a class="nav-link {{ request()->is('dashboard/users*') && (isset($user) && $user->status == 1) ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <i class="fe fe-users"></i> Пользователи
                   </a>
                 </li>
@@ -93,7 +93,7 @@
 
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard/clients*') ? ' active' : '' }}" href="{{ route('clients.index') }}">
+                <a class="nav-link {{ request()->is('dashboard/clients*') || (isset($user) && $user->status == 2) ? 'active' : '' }}" href="{{ route('clients.index') }}">
                   <i class="fe fe-briefcase"></i> Клиенты
                 </a>
               </li>

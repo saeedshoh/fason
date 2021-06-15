@@ -53,10 +53,9 @@ class UserController extends Controller
                     $data = base64_decode($data);
                     Storage::disk('public')->put($main_image, $data);
 
-                    $image = $this->uploadImage($main_image);
+                    $image = $this->saveImage($main_image);
                 };
             }
-
             $user = User::updateOrCreate(
                 ['phone' => str_replace(' ', '', $request->phone)],
                 [
@@ -147,15 +146,17 @@ class UserController extends Controller
             File::makeDirectory($month, 0777, true);
         }
         $request->validate([
-            'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+            'profile_photo_path' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
         ]);
-        $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        if($request->profile_photo_path) {
+            $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+        }
         $user = User::create([
             'name' => $request->name,
             'email' =>  $request->email,
             'address' => $request->address,
             'phone' =>  str_replace(array('(', ')', ' ', '-'), '', $request->phone),
-            'profile_photo_path' => $image,
+            'profile_photo_path' => $image ?? '',
             'password' => $request->password,
             'status' =>  1,
             'registered_at' => Carbon::now()
@@ -192,6 +193,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $cities = City::get();
+        view('dashboard.layouts.aside', compact('user'));
         return view('dashboard.users.edit', compact('user', 'cities'));
     }
 
@@ -236,17 +238,24 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 3,
-            'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
-            'description' => 'Имя: ' . $user->name . ',    Эл. почта: ' . $user->email . ', Телефон: ' . str_replace(' ', '', $user->phone)
-        ]);
-        $user->delete();
-        if ($user->status == 2) {
-            return redirect(route('clients.index'))->with('success', 'Клиент успешно удален!');
+        $deleted = false;
+        $message = 'Невозможно удалить клиента, потому что у клиента зарегистрирован магазин/размещены заказы!';
+        $name = $user->status == 1 ? 'users.index' : 'clients.index';
+        if($user->orders->isEmpty() && !$user->store || $name == 'users.index') {
+            if(Log::where('user_id', $user->id)->exists())
+                Log::where('user_id', $user->id)->update(['user_id' => null]);
+            $name == 'users.index' ? $message = 'Сотрудник успешно удален!' : $message = 'Клиент успешно удален!';
+            $deleted = $user->delete();
         }
-        return redirect(route('users.index'))->with('success', 'Сотрудник успешно удален!');
+        if($deleted) {
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 3,
+                'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
+                'description' => 'Имя: ' . $user->name . ',    Эл. почта: ' . $user->email . ', Телефон: ' . str_replace(' ', '', $user->phone)
+            ]);
+        }
+        return redirect(route($name))->with('success', $message);
     }
 
     /**
@@ -284,7 +293,7 @@ class UserController extends Controller
                 $request->validate([
                     'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
                 ]);
-                $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
+                $image = $this->save($request, 'profile_photo_path');
             }
             $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
             return redirect()->route('profile');
@@ -296,7 +305,7 @@ class UserController extends Controller
     public function changeAddress(Request $request)
     {
         if($request->ajax()) {
-            $order = Order::where('id', $request->id)->update(['address' => $request->address]);
+            Order::where('id', $request->id)->update(['address' => $request->address]);
             return Order::where('id', $request->id)->first();
         }
     }
