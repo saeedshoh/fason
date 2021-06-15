@@ -87,7 +87,7 @@
                                 #{{ $log->id }}
                             </td>
                             <td class="logs-user-id">
-                                {{ $log->user->name}}
+                                {{ $log->user->name ?? 'Пользователь был удален' }}
                             </td>
                             <td class="logs-action">
                                     @if ($log->action == 1)

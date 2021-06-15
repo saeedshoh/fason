@@ -298,7 +298,7 @@ class OrderController extends Controller
                 $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
                 $attributes = '';
                 foreach($attributes_values as $index => $attributes_value){
-                    $attributes .= $attributes_value->attribute->name.': '.$attributes_value->name;
+                    $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
                     if ($index === count($attributes_values)-1) {
                         $attributes .= '.';
                     } else {
@@ -309,7 +309,8 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. ' \n'.$attributes;
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
 
                 $params = array(
                     "from" => $config['sender'],
@@ -320,7 +321,17 @@ class OrderController extends Controller
                     "login" => $config['login'],
                 );
 
+                $store_params = array(
+                    "from" => $config['sender'],
+                    "phone_number" => $product->store->user->phone,
+                    "msg" => $store_message,
+                    "str_hash" => $str_hash,
+                    "txn_id" => $txn_id,
+                    "login" => $config['login'],
+                );
+
                 $result = $this->call_api($config['server'], "GET", $params);
+                $this->call_api($config['server'], "GET", $store_params);
                 if ((isset($result['error']) && $result['error'] == 0)) {
                     $result = $result['msg'];
                     /* так выглядет ответ сервера
