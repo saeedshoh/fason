@@ -1153,8 +1153,8 @@ input[type=number] {
     .t-neutral .spinner__button,
     #spinner-input,
     .spinner {
-        -webkit-text-fill-color: #fff; 
-        -webkit-opacity: 1; 
+        -webkit-text-fill-color: #fff;
+        -webkit-opacity: 1;
         color: #fff !important;
         border-color: #fff !important;
     }
@@ -2095,7 +2095,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
            border: 1px solid;
         }
     }
-    
+
 }
 
 .fs__icon-show{
@@ -2119,7 +2119,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     @media only screen and (max-width: 600px) {
        height: 3rem !important;
        background: #fff url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDExIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01LjUgOUwwLjczNjg2IDAuNzVMMTAuMjYzMSAwLjc1TDUuNSA5WiIgZmlsbD0iI0ZGMDA1NSIvPgo8L3N2Zz4K) no-repeat right 0rem center/11px 11px !important;
-       -webkit-appearance: none; 
+       -webkit-appearance: none;
        appearance: none;
     }
 }
@@ -2129,3 +2129,9 @@ input[type="number"]:hover::-webkit-outer-spin-button {
        width: 100% !important;
      }
 }
+
+@media only screen and (max-width: 600px) {
+    .append-div, .add_append{
+        width: 100% !important;
+    }
+  }

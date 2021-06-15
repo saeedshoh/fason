@@ -135,7 +135,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/cancelDestroy/{product}', [ProductController::class, 'cancelDestroy'])->name('ft_product.cancelDestroy');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('ft_product.destroy');
 
-
     Route::post('orders/store', [OrderController::class, 'store'])->name('ft-order.store');
     Route::get('orders', [OrderController::class, 'orders'])->name('ft-order.orders');
     Route::get('orders/single/{order}', [OrderController::class, 'single'])->name('ft-order.single');
@@ -165,3 +164,5 @@ Route::view('/privacy_policy', 'useful_links.privacy_policy')->name('useful_link
 Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.contacts');
 
 Route::get('/stores', [StoreController::class, 'stores'])->name('stores');
+
+Route::post('/monetization_price', [MonetizationController::class, 'price']);
