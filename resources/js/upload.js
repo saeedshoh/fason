@@ -1,4 +1,5 @@
 import Compressor from 'compressorjs';
+import { throttle } from 'lodash';
 
 const element = (tag, classes = [], content) => {
     const node = document.createElement(tag);
@@ -348,8 +349,11 @@ $('#profile_photo_path').change(function() {
     readURL(this)
 })
 
-$('body').on('keyup', '#price', function(){
-    if($('select[name="category_id"]').val() != '' && $('#price').val() != ''){
+$('body').on('keyup', '#price', throttle(function(){
+    if($(this).val() == '' || $(this).val() == '0'){
+        $('.append-div').empty();
+    }
+    if($('select[name="category_id"]').val() != '' && $('#price').val() != '' && $(this).val() != '0'){
         var category_id = $('select[name="category_id"]:last').val();
         var store_id = $('*[name="store_id"]').val();
         var price = $(this).val();
@@ -408,4 +412,4 @@ $('body').on('keyup', '#price', function(){
             }
         });
     }
-})
+}, 500))
