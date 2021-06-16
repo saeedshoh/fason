@@ -309,6 +309,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
+                $store_hash = hash('sha256', uniqid() . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
                 $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
                 $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
 
@@ -325,7 +326,7 @@ class OrderController extends Controller
                     "from" => $config['sender'],
                     "phone_number" => $product->store->user->phone,
                     "msg" => $store_message,
-                    "str_hash" => $str_hash,
+                    "str_hash" => $store_hash,
                     "txn_id" => $txn_id,
                     "login" => $config['login'],
                 );
@@ -355,9 +356,7 @@ class OrderController extends Controller
                 "product" => $product,
                 "message" => $message,
                 "result"  => $result,
-                "result_error" => $result['msg'] ?? '',
                 "store_result" => $store_result,
-                "store_result_error" => $store_result['msg'] ?? ''
             ]);
         }
     }
