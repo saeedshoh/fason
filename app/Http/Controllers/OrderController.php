@@ -309,9 +309,7 @@ class OrderController extends Controller
                 $phone_number = Auth::user()->phone; //номер телефона
                 $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
                 $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
-                $store_hash = hash('sha256', uniqid() . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
                 $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
 
                 $params = array(
                     "from" => $config['sender'],
@@ -321,13 +319,18 @@ class OrderController extends Controller
                     "txn_id" => $txn_id,
                     "login" => $config['login'],
                 );
+                //Store SMS configuration
+                $store_phone = $product->store->user->phone;
+                $store_txnID = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
+                $store_hash = hash('sha256', $store_txnID . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
 
                 $store_params = array(
                     "from" => $config['sender'],
-                    "phone_number" => $product->store->user->phone,
+                    "phone_number" => $store_phone,
                     "msg" => $store_message,
                     "str_hash" => $store_hash,
-                    "txn_id" => $txn_id,
+                    "txn_id" => $store_txnID,
                     "login" => $config['login'],
                 );
 
