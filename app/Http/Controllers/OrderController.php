@@ -295,66 +295,24 @@ class OrderController extends Controller
                     'sender' => 'fason.tj', // 'Альфанумерик, СМС отправитель'
                     'server' => 'http://api.osonsms.com/sendsms_v1.php' // 'Адрес сервера'
                 );
-                $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
-                $attributes = '';
-                foreach($attributes_values as $index => $attributes_value){
-                    $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
-                    if ($index === count($attributes_values)-1) {
-                        $attributes .= '.';
-                    } else {
-                        $attributes .= ', ';
+                if(json_decode($order->attributes)) {
+                    $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
+                    $attributes = '';
+                    foreach($attributes_values as $index => $attributes_value){
+                        $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
+                        if ($index === count($attributes_values)-1) {
+                            $attributes .= '.';
+                        } else {
+                            $attributes .= ', ';
+                        }
                     }
                 }
-                // $dlm = ";";
                 $phone = Auth::user()->phone; //номер телефона
-                // $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
-                // $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
                 $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
-
-                // $params = array(
-                //     "from" => $config['sender'],
-                //     "phone_number" => $phone_number,
-                //     "msg" => $message,
-                //     "str_hash" => $str_hash,
-                //     "txn_id" => $txn_id,
-                //     "login" => $config['login'],
-                // );
-                //Store SMS configuration
                 $store_phone = $product->store->user->phone;
-                // $store_txnID = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
-                // $store_hash = hash('sha256', $store_txnID . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $store_phone . $dlm . $config['hash']);
                 $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
-
-                // $store_params = array(
-                //     "from" => $config['sender'],
-                //     "phone_number" => $store_phone,
-                //     "msg" => $store_message,
-                //     "str_hash" => $store_hash,
-                //     "txn_id" => $store_txnID,
-                //     "login" => $config['login'],
-                // );
-
-                // $result = $this->call_api($config['server'], "GET", $params);
                 $result = $this->sendSMS($phone, $message, $config);
                 $store_result = $this->sendSMS($store_phone, $store_message, $config);
-                // $store_result = $this->call_api($config['server'], "GET", $store_params);
-                // if ((isset($result['error']) && $result['error'] == 0)) {
-                //     $result = $result['msg'];
-                    /* так выглядет ответ сервера
-                    * {
-                            "status": "ok",
-                            "timestamp": "2017-07-07 16:58:12",
-                            "txn_id": "f890b43b964c2801f62b61a9662efff96dbaa82e007bc60c22ec41d9b22a3e0b",
-                            "msg_id": 40127,
-                            "smsc_msg_id": "45f22479",
-                            "smsc_msg_status": "success",
-                            "smsc_msg_parts": 1
-                        }
-                    */
-                    #echo "success: ".$response->msg_id; // id сообщения для проверки статуса сообщения в спорных случаях
-                // } else {
-                //     #echo "error occured ".$result['msg'];
-                // }
             }
             return response()->json([
                 "order"   => $order,
