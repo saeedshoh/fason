@@ -295,9 +295,10 @@ class OrderController extends Controller
                     'sender' => 'fason.tj', // 'Альфанумерик, СМС отправитель'
                     'server' => 'http://api.osonsms.com/sendsms_v1.php' // 'Адрес сервера'
                 );
+                $attributes = null;
                 if(json_decode($order->attributes)) {
                     $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
-                    $attributes = '';
+                    // $attributes = '';
                     foreach($attributes_values as $index => $attributes_value){
                         $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
                         if ($index === count($attributes_values)-1) {
@@ -308,9 +309,13 @@ class OrderController extends Controller
                     }
                 }
                 $phone = Auth::user()->phone; //номер телефона
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
                 $store_phone = $product->store->user->phone;
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
+                if($attributes){
+                    $message .= "\nАттрибуты: ".$attributes;
+                    $store_message .= "\nАттрибуты: ".$attributes;
+                }
                 $result = $this->sendSMS($phone, $message, $config);
                 $store_result = $this->sendSMS($store_phone, $store_message, $config);
             }
