@@ -305,20 +305,20 @@ class OrderController extends Controller
                         $attributes .= ', ';
                     }
                 }
-                $dlm = ";";
-                $phone_number = Auth::user()->phone; //номер телефона
-                $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
-                $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
+                // $dlm = ";";
+                $phone = Auth::user()->phone; //номер телефона
+                // $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
+                // $str_hash = hash('sha256', $txn_id . $dlm . $config['login'] . $dlm . $config['sender'] . $dlm . $phone_number . $dlm . $config['hash']);
                 $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nАттрибуты: ".$attributes;
 
-                $params = array(
-                    "from" => $config['sender'],
-                    "phone_number" => $phone_number,
-                    "msg" => $message,
-                    "str_hash" => $str_hash,
-                    "txn_id" => $txn_id,
-                    "login" => $config['login'],
-                );
+                // $params = array(
+                //     "from" => $config['sender'],
+                //     "phone_number" => $phone_number,
+                //     "msg" => $message,
+                //     "str_hash" => $str_hash,
+                //     "txn_id" => $txn_id,
+                //     "login" => $config['login'],
+                // );
                 //Store SMS configuration
                 $store_phone = $product->store->user->phone;
                 // $store_txnID = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
@@ -334,11 +334,12 @@ class OrderController extends Controller
                 //     "login" => $config['login'],
                 // );
 
-                $result = $this->call_api($config['server'], "GET", $params);
+                // $result = $this->call_api($config['server'], "GET", $params);
+                $result = $this->sendSMS($phone, $message, $config);
                 $store_result = $this->sendSMS($store_phone, $store_message, $config);
                 // $store_result = $this->call_api($config['server'], "GET", $store_params);
-                if ((isset($result['error']) && $result['error'] == 0)) {
-                    $result = $result['msg'];
+                // if ((isset($result['error']) && $result['error'] == 0)) {
+                //     $result = $result['msg'];
                     /* так выглядет ответ сервера
                     * {
                             "status": "ok",
@@ -351,9 +352,9 @@ class OrderController extends Controller
                         }
                     */
                     #echo "success: ".$response->msg_id; // id сообщения для проверки статуса сообщения в спорных случаях
-                } else {
-                    #echo "error occured ".$result['msg'];
-                }
+                // } else {
+                //     #echo "error occured ".$result['msg'];
+                // }
             }
             return response()->json([
                 "order"   => $order,
