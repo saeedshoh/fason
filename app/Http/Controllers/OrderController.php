@@ -321,17 +321,17 @@ class OrderController extends Controller
                     "login" => $config['login'],
                 );
 
-                // $store_params = array(
-                //     "from" => $config['sender'],
-                //     "phone_number" => $product->store->user->phone,
-                //     "msg" => $store_message,
-                //     "str_hash" => $str_hash,
-                //     "txn_id" => $txn_id,
-                //     "login" => $config['login'],
-                // );
+                $store_params = array(
+                    "from" => $config['sender'],
+                    "phone_number" => $product->store->user->phone,
+                    "msg" => $store_message,
+                    "str_hash" => $str_hash,
+                    "txn_id" => $txn_id,
+                    "login" => $config['login'],
+                );
 
                 $result = $this->call_api($config['server'], "GET", $params);
-                // $this->call_api($config['server'], "GET", $store_params);
+                $store_result = $this->call_api($config['server'], "GET", $store_params);
                 if ((isset($result['error']) && $result['error'] == 0)) {
                     $result = $result['msg'];
                     /* так выглядет ответ сервера
@@ -353,7 +353,11 @@ class OrderController extends Controller
             return response()->json([
                 "order"   => $order,
                 "product" => $product,
-                "message" => $message
+                "message" => $message,
+                "result"  => $result,
+                "result_error" => $result['msg'],
+                "store_result" => $store_result,
+                "store_result_error" => $store_result['msg']
             ]);
         }
     }
