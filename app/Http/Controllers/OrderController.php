@@ -355,9 +355,9 @@ class OrderController extends Controller
                 "product" => $product,
                 "message" => $message,
                 "result"  => $result,
-                "result_error" => $result['msg'],
+                "result_error" => $result['msg'] ?? '',
                 "store_result" => $store_result,
-                "store_result_error" => $store_result['msg']
+                "store_result_error" => $store_result['msg'] ?? ''
             ]);
         }
     }
