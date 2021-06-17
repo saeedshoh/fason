@@ -98,7 +98,15 @@
                                 <small>Телефон: </small> <small>{{ $order->user->phone }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Адрес: </small> <div id="address-input"><a href="javascript:void();" class="ml-auto mr-1 d-none" id="save-changes" data-id="{{ $order->id }}"><span class="fe fe-check text-success my-auto"></span></a><small><input type="text" name="address" id="address" class="border-0 bg-transparent text-right" value="{{ $order->address }}"></small></div>
+                                <small>Адрес: </small>
+                                <div id="address-input">
+                                    <a href="javascript:void();" class="ml-auto mr-1 d-none" id="save-changes" data-id="{{ $order->id }}">
+                                        <span class="fe fe-check text-success my-auto"></span>
+                                    </a>
+                                    <small>
+                                        <input type="text" name="address" id="address" class="border-0 bg-transparent text-right" value="{{ $order->address }}">
+                                    </small>
+                                </div>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Коментарии: </small> <small>{{ $order->comment }}</small>
@@ -168,7 +176,18 @@
                                 <small>Телефон Продавца: </small> <small>{{ $order->no_scope_product->store->user->phone }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Адрес продавца: </small> <small>{{ $order->no_scope_product->store->address }}</small>
+                                <small>Адрес продавца: </small>
+                                <small>
+                                    {{-- {{ $order->no_scope_product->store->address }} --}}
+                                    <div id="store-address-input">
+                                        <a href="javascript:void();" class="ml-auto mr-1 d-none" id="store-save-changes" data-id="{{ $order->no_scope_product->store->id }}">
+                                            <span class="fe fe-check text-success my-auto"></span>
+                                        </a>
+                                        <small>
+                                            <input type="text" name="store-address" id="store-address" class="border-0 bg-transparent text-right" value="{{ $order->no_scope_product->store->address }}">
+                                        </small>
+                                    </div>
+                                </small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <strong>Итог: </strong> <strong>{{ $order->total * $order->quantity }} Сомони</strong>
