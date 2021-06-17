@@ -15,6 +15,7 @@ class Store extends Model
     use HasFactory, HasSlug, SoftDeletes;
 
     protected $fillable = [
+        'order_number',
         'name',
         'description',
         'address',
@@ -90,5 +91,8 @@ class Store extends Model
     protected static function booted()
     {
         static::addGlobalScope(new ActiveStoreScope);
+        static::created(function ($store) {
+            $store->update(['order_number' => $store->id]);
+        });
     }
 }

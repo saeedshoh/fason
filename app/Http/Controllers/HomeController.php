@@ -81,7 +81,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $stores = null;
-        $starred_stores = Store::starred()->take(10)->get();
+        $starred_stores = Store::starred()->latest('order_number')->take(10)->get();
         if($starred_stores->count() < 10) {
             $popular_stores = Store::where('starred_at', null)->withCount('orders')->latest('orders_count')->take(10)->get();
             if($starred_stores->count() == 0) {

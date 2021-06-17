@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.app')
+@section('title', 'Главная')
 @extends('dashboard.layouts.aside')
 
 @section('content')

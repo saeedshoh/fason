@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\City;
-use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
 use App\Models\Product;
@@ -15,18 +14,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Http\Traits\OrderNumberTrait;
 use Intervention\Image\Facades\Image;
 
 class StoreController extends Controller
 {
-    public function __construct()
-    {    
-        // $this->middleware('permission:create-stores', ['only' => ['create', 'store']]);
-        // $this->middleware('permission:update-stores', ['only' => ['edit', 'update']]);
-        // $this->middleware('permission:delete-stores', ['only' => ['destroy']]);
-        // $this->middleware('permission:read-stores', ['only' => ['index', 'show']]);
-    }
-  
+    use OrderNumberTrait;
+
     public function guest($slug)
     {
         $store = Store::where('slug', $slug)->first();
@@ -57,7 +51,7 @@ class StoreController extends Controller
                 $city->where('name',  'like', '%' . $request->search . '%');
             })
             ->orderBy('is_active', 'asc')
-            ->latest()
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -218,13 +212,13 @@ class StoreController extends Controller
 
         Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
 
-        $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->get();
-        $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
-        $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
-        $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
-        $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
-        $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
-        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
+        $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->latest('updated_at')->get();
+        $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->latest('updated_at')->get();
+        $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->latest('updated_at')->get();
+        $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->latest('updated_at')->get();
+        $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->latest('updated_at')->get();
+        $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->latest('updated_at')->get();
+        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->latest('updated_at')->get();
         return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
     }
 
@@ -521,5 +515,11 @@ class StoreController extends Controller
             $store->update(['starred_at' => now()]);
         }
         return redirect()->back();
+    }
+
+    public function order(Request $request)
+    {
+        $this->changeOrder($request, new Store());
+        $this->changeOrder($request, new StoreEdit());
     }
 }

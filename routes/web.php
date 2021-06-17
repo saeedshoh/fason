@@ -166,3 +166,5 @@ Route::post('users/contacts', [UserController::class, 'contacts'])->name('users.
 Route::get('/stores', [StoreController::class, 'stores'])->name('stores');
 
 Route::post('/monetization_price', [MonetizationController::class, 'price']);
+
+Route::post('stores/order', [StoreController::class, 'order']);

@@ -556,15 +556,50 @@ $('#address-input').on('focusout', function(){
     $('#save-changes').trigger('click');
 })
 
+$('#store-address-input').on('focusin', function(){
+    $('#store-save-changes').removeClass('d-none');
+})
+
+$('#store-address-input').on('focusout', function(){
+    $('#store-save-changes').trigger('click');
+})
+
 $('#save-changes').on('click', function(){
     var id = $(this).data('id');
     var address = $('#address').val();
-    $.post('/dashboard/clients/changeAddress', { id:id, address:address }, function(order){
+    $.post('/dashboard/clients/changeAddress', { id:id, address:address, table:'order' }, function(order){
         if(order) {
-            $('#address').val(order.address);
+            $('#address').val(order);
         } else {
             $('#address').val(address);
         }
     })
     $('#save-changes').addClass('d-none');
 })
+
+$('#store-save-changes').on('click', function(){
+    var id = $(this).data('id');
+    var address = $('#store-address').val();
+    $.post('/dashboard/clients/changeAddress', { id:id, address:address, table:'store' }, function(store){
+        if(store) {
+            $('#store-address').val(store);
+        } else {
+            $('#store-address').val(address);
+        }
+    })
+    $('#store-save-changes').addClass('d-none');
+})
+
+$('.change-order').on('click', function () {
+    var id = $(this).attr('data-id');
+    var order_number = $(this).attr('data-order_number');
+    var type = $(this).attr('data-type');
+    var table = $(this).attr('data-table');
+    $.post('/'+table+'/order', {
+        id: id,
+        order_number: order_number,
+        type:type,
+    }, function () {
+        location.reload();
+    });
+});

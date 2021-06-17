@@ -12,6 +12,7 @@ class StoreEdit extends Model
     use HasFactory, HasSlug;
 
     protected $fillable = [
+        'order_number',
         'name',
         'store_id',
         'description',
@@ -74,5 +75,17 @@ class StoreEdit extends Model
     public function no_scope_store()
     {
         return $this->store()->withoutGlobalScopes();
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function ($store) {
+            $store->update(['order_number' => $store->id]);
+        });
     }
 }

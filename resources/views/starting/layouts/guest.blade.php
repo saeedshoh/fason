@@ -4,8 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="apple-touch-icon" href="/storage/favicon.jpg">
+        <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Авторизация</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">

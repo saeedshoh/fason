@@ -8,6 +8,8 @@ use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Store;
+use App\Models\StoreEdit;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Traits\ImageInvTrait;
@@ -305,8 +307,14 @@ class UserController extends Controller
     public function changeAddress(Request $request)
     {
         if($request->ajax()) {
-            Order::where('id', $request->id)->update(['address' => $request->address]);
-            return Order::where('id', $request->id)->first();
+            if($request->table == 'order') {
+                Order::where('id', $request->id)->update(['address' => $request->address]);
+                return Order::where('id', $request->id)->pluck('address')->first();
+            } else if ($request->table == 'store') {
+                Store::where('id', $request->id)->update(['address' => $request->address]);
+                StoreEdit::where('id', $request->id)->update(['address' => $request->address]);
+                return Store::where('id', $request->id)->pluck('address')->first();
+            }
         }
     }
 }
