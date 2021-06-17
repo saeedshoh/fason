@@ -590,7 +590,7 @@ $('#store-save-changes').on('click', function(){
     $('#store-save-changes').addClass('d-none');
 })
 
-$('.change-order').on('click', function () {
+$('body').on('click', '.change-order', function () {
     var id = $(this).attr('data-id');
     var order_number = $(this).attr('data-order_number');
     var type = $(this).attr('data-type');
