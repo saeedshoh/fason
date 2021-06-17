@@ -96,6 +96,7 @@
                                     <th>
                                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
                                     </th>
+                                    <th width="10"></th>
                                     <th>
                                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
                                     </th>
@@ -118,7 +119,27 @@
                                 @forelse ($stores as $key => $store)
                                 <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
                                     <td class="item-order">
-                                        {{ ++$key }}
+                                        {{ $current = $stores->perPage()*($stores->currentPage()-1)+$loop->iteration }}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-start flex-column" style="width:fit-content;">
+                                            @if($loop->iteration == 1 && $stores->currentPage() == 1)
+                                            @else
+                                            <div class="mb-1">
+                                                <a class="btn btn-outline-info change-order" data-id="{{ $store->id  }}" data-type="0" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                                    <i class="fe fe-arrow-up"></i>
+                                                </a>
+                                            </div>
+                                            @endif
+
+                                            @if($stores->perPage()*($stores->currentPage()-1)+$loop->iteration != $stores->total())
+                                            <div class="mt-1">
+                                                <a class="btn btn-outline-info change-order" data-id="{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                                    <i class="fe fe-arrow-down"></i>
+                                                </a>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="item-name">
                                         <div class="avatar avatar-xs align-middle mr-2">
