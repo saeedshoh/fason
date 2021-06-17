@@ -246,6 +246,7 @@
                     </small>
                     </div>
                 </div>
+                <div class="append-div w-75 ml-auto mb-3 d-flex flex-column flex-wrap"></div>
                 <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
                     @foreach ($attributes as $index => $attribute)
                         <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">
@@ -284,7 +285,6 @@
                 <input type="hidden" name="store_id" value="{{ Auth::user()->store->id }}">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="product_status_id" value="1">
-                <div class="append-div w-75 ml-auto mb-3 d-flex flex-column flex-wrap"></div>
                 <div class="form-group d-flex flex-row mb-5 mb-lg-2 justify-content-center justify-content-md-end align-items-start align-items-md-center">
                     <button id="submitAddProduct" type="submit" class="add-product-btn w-75 font-weight-bold btn-danger border-0 mb-5 mt-lg-3 py-2 w-lg-75 rounded-11 add_append"> Изменить </button>
                 </div>

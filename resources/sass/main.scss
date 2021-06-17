@@ -2124,14 +2124,13 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     }
 }
 
-.attr__checkboxes{
-    @media only screen and (max-width: 600px) {
-       width: 100% !important;
-     }
-}
 
 @media only screen and (max-width: 600px) {
-    .append-div, .add_append{
+    .append-div, .add_append,.attr__checkboxes{
         width: 100% !important;
     }
+  }
+
+  .append-div{
+      font-size: 11px;
   }
