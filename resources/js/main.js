@@ -870,6 +870,7 @@ $('#buyBtn').on('click', function(e) {
 $('#buyBtnMob').on('click', function(e) {
     var count = 0
     var questions = $('.mobAttrs')
+    $('.selectedAttrs').empty()
     questions.each(function() {
         if (
             $(this)
