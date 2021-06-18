@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                Все Магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->total() }}</span>
+                Все Магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
                 </h1>
 
               </div>
@@ -31,32 +31,32 @@
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
                     <a href="{{ route('stores.index') }}" class="nav-link">
-                      Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->count() }}</span>
+                      Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('stores.accepted') }}" class="nav-link">
-                      Активные <span class="badge badge-pill badge-soft-success">{{ $stores->where('is_active', 1)->count() }}</span>
+                      Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('stores.moderation') }}" class="nav-link">
-                      В модерации <span class="badge badge-pill badge-soft-warning">{{ $stores->where('is_moderation', 1)->count() }}</span>
+                      В модерации <span class="badge badge-pill badge-soft-warning">{{ $moderationCount }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('stores.disabled') }}" class="nav-link">
-                      Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
+                      Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('stores.disabledUser') }}" class="nav-link">
-                      Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->where('is_active', 2)->count() }}</span>
+                      Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $disabledUserCount }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('stores.starred') }}" class="nav-link active">
-                      Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                      Звёзды <span class="badge badge-pill badge-success">{{ $stores->total() }}</span>
                     </a>
                   </li>
                 </ul>
@@ -81,13 +81,13 @@
                             <i class="fe fe-search"></i>
                           </span>
                         </div>
-                        <input class="form-control" type="text" placeholder="Поиск" data-item="stores" id="search" value="{{ request()->search }}">
+                        <input class="form-control" type="text" placeholder="Поиск" data-item="stores/starred" id="search" value="{{ request()->search }}">
                       </div>
                     </form>
                   </div>
                 </div> <!-- / .row -->
               </div>
-              <div id="stores">
+              <div id="stores_starred">
                 <div class="table-responsive">
                   <table class="table table-sm table-hover table-nowrap card-table">
                     <thead>
@@ -115,7 +115,7 @@
                       </tr>
                     </thead>
                     <tbody class="list font-size-base">
-                      @forelse ($stores as $key => $store)
+                      @forelse ($stores->whereNotNull('starred_at') as $key => $store)
                         <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
                           <td class="item-order">
                               {{ $current = $stores->perPage()*($stores->currentPage()-1)+$loop->iteration }}

@@ -44,6 +44,12 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
+        $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
+        $starredCount = StoreEdit::withoutGlobalScopes()->whereNotNull('starred_at')->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('name', 'like', '%' . $request->search . '%')
             ->orWhere('address', 'like', '%' . $request->search . '%')
@@ -62,19 +68,27 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.index', compact('stores'));
+        return view('dashboard.store.index', compact('stores', 'acceptedCount', 'moderationCount', 'disabledCount', 'disabledUserCount', 'starredCount'));
     }
 
     public function accepted(Request $request)
     {
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
+        $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
+        $starredCount = StoreEdit::withoutGlobalScopes()->whereNotNull('starred_at')->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_active', 1)
-            ->orWhere('name', 'like', '%' . $request->search . '%')
-            ->orWhere('address', 'like', '%' . $request->search . '%')
-            ->orWhereHas('city', function ($city) use ($request) {
-                $city->where('name',  'like', '%' . $request->search . '%');
+            ->where(function($store_edit) use($request){
+                $store_edit->orWhere('name', 'like', '%' . $request->search . '%')
+                ->orWhere('address', 'like', '%' . $request->search . '%')
+                ->orWhereHas('city', function ($city) use ($request) {
+                    $city->where('name',  'like', '%' . $request->search . '%');
+                });
             })
-            ->latest()
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -85,18 +99,27 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.statuses.accepted', compact('stores'));
+        return view('dashboard.store.statuses.accepted', compact('stores', 'storesCount', 'moderationCount', 'disabledCount', 'disabledUserCount', 'starredCount'));
     }
 
     public function moderation(Request $request)
     {
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
         $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
-        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
-        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $starredCount = StoreEdit::withoutGlobalScopes()->whereNotNull('starred_at')->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_moderation', 1)
-            ->latest()
+            ->where(function($store_edit) use($request){
+                $store_edit->orWhere('name', 'like', '%' . $request->search . '%')
+                ->orWhere('address', 'like', '%' . $request->search . '%')
+                ->orWhereHas('city', function ($city) use ($request) {
+                    $city->where('name',  'like', '%' . $request->search . '%');
+                });
+            })
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -107,18 +130,28 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.statuses.moderation', compact('storesCount', 'acceptedCount', 'disabledCount', 'stores', 'disabledUserCount'));
+        return view('dashboard.store.statuses.moderation', compact('stores', 'storesCount', 'acceptedCount', 'disabledCount', 'disabledUserCount', 'starredCount'));
     }
 
     public function disabled(Request $request)
     {
-        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
-        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
         $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
+        $starredCount = StoreEdit::withoutGlobalScopes()->whereNotNull('starred_at')->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_active', 0)
-            ->latest()
+            ->where('is_moderation', 0)
+            ->where(function($store_edit) use($request){
+                $store_edit->orWhere('name', 'like', '%' . $request->search . '%')
+                ->orWhere('address', 'like', '%' . $request->search . '%')
+                ->orWhereHas('city', function ($city) use ($request) {
+                    $city->where('name',  'like', '%' . $request->search . '%');
+                });
+            })
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -129,17 +162,27 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.statuses.disabled', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores', 'disabledUserCount'));
+        return view('dashboard.store.statuses.disabled', compact('stores', 'storesCount', 'acceptedCount', 'moderationCount', 'disabledUserCount', 'starredCount'));
     }
 
     public function disabledUser(Request $request)
     {
-        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
-        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
+        $starredCount = StoreEdit::withoutGlobalScopes()->whereNotNull('starred_at')->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
             ->where('is_active', 2)
-            ->latest()
+            ->where(function($store_edit) use($request){
+                $store_edit->orWhere('name', 'like', '%' . $request->search . '%')
+                ->orWhere('address', 'like', '%' . $request->search . '%')
+                ->orWhereHas('city', function ($city) use ($request) {
+                    $city->where('name',  'like', '%' . $request->search . '%');
+                });
+            })
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -150,18 +193,27 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.statuses.disabledUser', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
+        return view('dashboard.store.statuses.disabledUser', compact('stores', 'storesCount', 'acceptedCount', 'moderationCount', 'disabledCount', 'starredCount'));
     }
 
     public function starred(Request $request)
     {
-        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
-        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
         $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
+
         $stores = StoreEdit::withoutGlobalScopes()
-            ->where('is_active', 2)
-            ->latest()
+            ->whereNotNull('starred_at')
+            ->where(function($store_edit) use($request){
+                $store_edit->orWhere('name', 'like', '%' . $request->search . '%')
+                ->orWhere('address', 'like', '%' . $request->search . '%')
+                ->orWhereHas('city', function ($city) use ($request) {
+                    $city->where('name',  'like', '%' . $request->search . '%');
+                });
+            })
+            ->latest('order_number')
             ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
@@ -172,7 +224,7 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.statuses.starred', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores', 'disabledUserCount'));
+        return view('dashboard.store.statuses.starred', compact('stores', 'storesCount', 'acceptedCount', 'moderationCount', 'disabledCount', 'disabledUserCount'));
     }
 
     /**
@@ -533,8 +585,10 @@ class StoreController extends Controller
         $store = Store::withoutGlobalScopes()->find($id);
         if($store->starred_at) {
             $store->update(['starred_at' => null]);
+            $store->store_edit->update(['starred_at' => null]);
         } else {
             $store->update(['starred_at' => now()]);
+            $store->store_edit->update(['starred_at' => now()]);
         }
         return redirect()->back();
     }
