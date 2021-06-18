@@ -50,7 +50,7 @@
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('stores.disabled') }}" class="nav-link active">
-                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
+                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->total() }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
@@ -60,7 +60,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.starred') }}" class="nav-link">
-                                  Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                                  Звёзды <span class="badge badge-pill badge-success">{{ $starredCount }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -87,13 +87,13 @@
                                             <i class="fe fe-search"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores" id="search" value="{{ request()->search }}">
+                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores/disabled" id="search" value="{{ request()->search }}">
                                 </div>
                             </form>
                         </div>
                     </div> <!-- / .row -->
                 </div>
-                <div id="stores">
+                <div id="stores_disabled">
                     <div class="table-responsive">
                         <table class="table table-sm table-hover table-nowrap card-table">
                             <thead>

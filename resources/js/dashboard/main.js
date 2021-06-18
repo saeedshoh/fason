@@ -111,8 +111,20 @@ $.get("/dashboard/ordersStatistic", function(statistic) {
         else if(item.indexOf('products/statuses/notInStock') != -1){
             $('#products_notinstock').empty().html(data);
         }
-        else if(item.indexOf('products/statuses/deleted') != -1){
-            $('#products_deleted').empty().html(data);
+        else if(item.indexOf('stores/accepted') != -1){
+            $('#stores_accepted').empty().html(data);
+        }
+        else if(item.indexOf('stores/moderation') != -1){
+            $('#stores_moderation').empty().html(data);
+        }
+        else if(item.indexOf('stores/disabled') != -1){
+            $('#stores_disabled').empty().html(data);
+        }
+        else if(item.indexOf('stores/disabledUser') != -1){
+            $('#stores_disabledUser').empty().html(data);
+        }
+        else if(item.indexOf('stores/starred') != -1){
+            $('#stores_starred').empty().html(data);
         }
         else {
             $('#'+item).empty().html(data);

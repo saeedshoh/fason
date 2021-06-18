@@ -84,6 +84,14 @@ class Store extends Model
     }
 
     /**
+     * Get the store edit associated with the store.
+     */
+    public function store_edit()
+    {
+        return $this->hasOne(StoreEdit::class);
+    }
+
+    /**
      * The "booted" method of the model.
      *
      * @return void

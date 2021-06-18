@@ -22,6 +22,7 @@ class StoreEdit extends Model
         'city_id',
         'is_active',
         'is_moderation',
+        'starred_at',
     ];
 
     public function city()

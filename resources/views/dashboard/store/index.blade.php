@@ -35,32 +35,32 @@
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
                             <a href="{{ route('stores.index') }}" class="nav-link active">
-                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->count() }}</span>
+                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $stores->total() }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('stores.accepted') }}" class="nav-link">
-                                Активные <span class="badge badge-pill badge-soft-success">{{ $stores->where('is_active', 1)->count() }}</span>
+                                Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{ route('stores.moderation') }}" class="nav-link">
-                                В модерации <span class="badge badge-pill badge-soft-warning">{{ $stores->where('is_moderation', 1)->count() }}</span>
+                                В модерации <span class="badge badge-pill badge-soft-warning">{{ $moderationCount }}</span>
                             </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->where('is_moderation', 0)->count() }}</span>
+                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.disabledUser') }}" class="nav-link">
-                                    Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->where('is_active', 2)->count() }}</span>
+                                    Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $disabledUserCount }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.starred') }}" class="nav-link">
-                                  Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                                  Звёзды <span class="badge badge-pill badge-success">{{ $starredCount }}</span>
                                 </a>
                             </li>
                         </ul>

@@ -34,33 +34,33 @@
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
-                            <a href="{{ route('stores.index') }}" class="nav-link">
-                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.index') }}" class="nav-link">
+                                    Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.accepted') }}" class="nav-link">
-                                Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.accepted') }}" class="nav-link">
+                                    Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.moderation') }}" class="nav-link">
-                                В модерации <span class="badge badge-pill badge-soft-warning">{{ $moderationCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.moderation') }}" class="nav-link">
+                                    В модерации <span class="badge badge-pill badge-soft-warning">{{ $moderationCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $stores->where('is_active', 0)->count() }}</span>
-                            </a>
+                                <a href="{{ route('stores.disabled') }}" class="nav-link">
+                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.disabledUser') }}" class="nav-link active">
-                                    Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->where('is_active', 2)->count() }}</span>
+                                    Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->total() }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.starred') }}" class="nav-link">
-                                  Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                                  Звёзды <span class="badge badge-pill badge-success">{{ $starredCount }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -87,13 +87,13 @@
                                             <i class="fe fe-search"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores" id="search" value="{{ request()->search }}">
+                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores/disabledUser" id="search" value="{{ request()->search }}">
                                 </div>
                             </form>
                         </div>
                     </div> <!-- / .row -->
                 </div>
-                <div id="stores">
+                <div id="stores_disabledUser">
                     <div class="table-responsive">
                         <table class="table table-sm table-hover table-nowrap card-table">
                             <thead>

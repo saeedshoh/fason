@@ -34,24 +34,24 @@
                         <!-- Nav -->
                         <ul class="nav nav-tabs nav-overflow header-tabs">
                             <li class="nav-item">
-                            <a href="{{ route('stores.index') }}" class="nav-link">
-                                Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.index') }}" class="nav-link">
+                                    Все магазины <span class="badge badge-pill badge-soft-secondary">{{ $storesCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.accepted') }}" class="nav-link">
-                                Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.accepted') }}" class="nav-link">
+                                    Активные <span class="badge badge-pill badge-soft-success">{{ $acceptedCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.moderation') }}" class="nav-link active">
-                                В модерации <span class="badge badge-pill badge-soft-warning">{{ $stores->where('is_moderation', 1)->count() }}</span>
-                            </a>
+                                <a href="{{ route('stores.moderation') }}" class="nav-link active">
+                                    В модерации <span class="badge badge-pill badge-soft-warning">{{ $stores->total() }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{ route('stores.disabled') }}" class="nav-link">
-                                Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
-                            </a>
+                                <a href="{{ route('stores.disabled') }}" class="nav-link">
+                                    Отключенные <span class="badge badge-pill badge-soft-danger">{{ $disabledCount }}</span>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.disabledUser') }}" class="nav-link">
@@ -60,7 +60,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('stores.starred') }}" class="nav-link">
-                                  Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                                  Звёзды <span class="badge badge-pill badge-success">{{ $starredCount }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -87,13 +87,13 @@
                                             <i class="fe fe-search"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores" id="search" value="{{ request()->search }}">
+                                    <input class="form-control" type="text" placeholder="Поиск" data-item="stores/moderation" id="search" value="{{ request()->search }}">
                                 </div>
                             </form>
                         </div>
                     </div> <!-- / .row -->
                 </div>
-                <div id="stores">
+                <div id="stores_moderation">
                     <div class="table-responsive">
                         <table class="table table-sm table-hover table-nowrap card-table">
                             <thead>
