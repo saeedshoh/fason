@@ -153,6 +153,28 @@ class StoreController extends Controller
         return view('dashboard.store.statuses.disabledUser', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores'));
     }
 
+    public function starred(Request $request)
+    {
+        $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
+        $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
+        $storesCount = StoreEdit::withoutGlobalScopes()->count();
+        $disabledUserCount = StoreEdit::withoutGlobalScopes()->where('is_active', 2)->count();
+        $stores = StoreEdit::withoutGlobalScopes()
+            ->where('is_active', 2)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+        if ($request->ajax()) {
+            return response()->json(
+                view(
+                    'dashboard.ajax.stores',
+                    compact('stores')
+                )->render()
+            );
+        }
+        return view('dashboard.store.statuses.starred', compact('storesCount', 'acceptedCount', 'moderationCount', 'stores', 'disabledUserCount'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

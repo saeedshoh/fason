@@ -119,17 +119,16 @@
                         </a>
                     </td>
                     </tr>
+                    @else
+                    <tr>
+                        <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
+                    </tr>
                     @endif
                 @empty
                     <tr>
                         <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
                     </tr>
                 @endforelse
-                {{-- @if ($personalisations_count === 0)
-                    <tr>
-                        <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
-                    </tr>
-                @endif --}}
               </tbody>
             </table>
           </div>

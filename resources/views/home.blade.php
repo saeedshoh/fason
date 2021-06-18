@@ -142,7 +142,7 @@
     <!--Category list end-->
     <div class="all-product px-0 pt-3 pt-md-0 pt-lg-0">
     <h2 class="text-muted mb-other-product text-decoration-none mb-4 mt-3 mt-md-5 font-weight-bold text-xs-center" >Новые товары </h2>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined mx-md-n4">
         @forelse ($newProducts as $product)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0 h-100 w-100">
@@ -159,6 +159,8 @@
           </div>
         </div>
         @empty
+      </div>
+      <div class="text-center text-center text-md-left">
           Извените ничего не найдено
         @endforelse
       </div>
@@ -167,7 +169,7 @@
 
         <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center" >Топ продаж </h2>
 
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined mx-md-n4">
 
           @forelse ($topProducts as $product)
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -185,10 +187,10 @@
             </div>
           </div>
         @empty
+      </div>
+        <div class="text-center text-md-left">
             Извините ничего не найдено
         @endforelse
-
-
         </div>
       </div>
 
@@ -213,9 +215,8 @@
           <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>
         </div>
         @empty
-          <p>Извените ничего не найдено</p>
+          <div class="text-center">Извените ничего не найдено</div>
         @endforelse
-
      </div>
     </div>
   </section>

@@ -8,15 +8,16 @@
 
 @section('content')
 <section>
-    <div class="container mt-3">
+    <div class="container mt-3 px-md-0">
       <!--favourite start-->
       <div class="d-flex mb-3 justify-content-between align-items-center">
         <a href="javascript:history.back()" class="text-danger font-weight-bold text-decoration-none"> <img src="/storage/theme/icons/back.svg" alt="">
           назад
         </a>
-        <h6 class="text-secondary mb-0">Сохраненные:</h6>
+        <h6 class="text-secondary d-md-none mb-0">Сохраненные:</h6>
       </div>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product pb-5 pb-md-0">
+      <h4 class="text-secondary py-3 d-none d-md-block text-center">Сохраненные:</h4>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product">
         @forelse ($favorites as $favorite)
             @foreach ($favorite->products as $product)
                 <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
@@ -33,11 +34,11 @@
                 </div>
             @endforeach
             @empty
+        </div>
+            <div class="text-center">
                 Извените ничего не найдено
+            </div>
         @endforelse
-
       </div>
-      <!--favourite end-->
-    </div>
   </section>
 @endsection

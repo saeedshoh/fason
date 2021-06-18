@@ -115,7 +115,7 @@
 
                     @empty
                     <tr>
-                        <td colspan="7">
+                        <td class="text-muted h4" colspan="7">
                             <span>Данные отсутствуют </span>
                         </td>
                     </tr>

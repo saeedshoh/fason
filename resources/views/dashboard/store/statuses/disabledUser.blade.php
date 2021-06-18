@@ -58,6 +58,11 @@
                                     Отключенные клиентом <span class="badge badge-pill badge-soft-info">{{ $stores->where('is_active', 2)->count() }}</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('stores.starred') }}" class="nav-link">
+                                  Звёзды <span class="badge badge-pill badge-success">{{ $stores->whereNotNull('starred_at')->count() }}</span>
+                                </a>
+                            </li>
                         </ul>
 
                     </div>
@@ -192,7 +197,7 @@
 
                                 @empty
                                     <tr>
-                                        <td>
+                                        <td class="text-muted h4">
                                             Извините ничего не найдено
                                         </td>
                                     </tr>

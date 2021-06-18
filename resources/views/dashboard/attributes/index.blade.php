@@ -33,7 +33,7 @@
                   </a>
                 </div>
               @endpermission
-            
+
             </div> <!-- / .row -->
           </div>
         </div>
@@ -104,7 +104,7 @@
                                       @method('DELETE')
                                   </form>
                                 @endpermission
-                                
+
                                 @permission('update-attributes')
                                   <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
                                       <i class="fe fe-edit"> </i>
@@ -115,7 +115,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7">
+                                <td class="text-muted h4" colspan="7">
                                     <span>Данные отсутствуют </span>
                                 </td>
                             </tr>

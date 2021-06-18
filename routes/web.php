@@ -74,6 +74,7 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('/stores/moderation', [StoreController::class, 'moderation'])->name('stores.moderation');
     Route::get('/stores/disabled', [StoreController::class, 'disabled'])->name('stores.disabled');
     Route::get('/stores/disabledUser', [StoreController::class, 'disabledUser'])->name('stores.disabledUser');
+    Route::get('/stores/starred', [StoreController::class, 'starred'])->name('stores.starred');
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggle'])->name('ft-store.toggle');
     Route::patch('store/star/{id}', [StoreController::class, 'star'])->name('ft-store.star');
 
