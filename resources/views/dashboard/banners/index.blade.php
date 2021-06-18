@@ -24,7 +24,7 @@
                 </h1>
 
               </div>
-              
+
               @permission('create-banners')
                 <div class="col-auto">
                   <!-- Buttons -->
@@ -107,7 +107,7 @@
                       </td>
 
                       <td class="text-right">
-                      
+
                         @permission('delete-banners')
                           <form class="d-inline" action="{{ route('banners.destroy', $banner) }}" method="POST">
                               @csrf
@@ -125,7 +125,7 @@
 
                     @empty
                     <tr>
-                        <td colspan="7">
+                        <td class="text-muted h4" colspan="7">
                             <span>Данные отсутствуют </span>
                         </td>
                     </tr>

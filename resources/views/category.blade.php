@@ -288,7 +288,9 @@
               </div>
             </div>
             @empty
-              Извените ничего не найдено
+            </div>
+            <div class="text-center mb-5">
+                Извините ничего не найдено
             @endforelse
           </div>
           <div class="row d-flex justify-content-center align-items-center">

@@ -14,6 +14,8 @@
         </div>
     </div>
     @empty
+</div>
+<div class="text-center mb-5">
         Извините ничего не найдено
     @endforelse
 </div>

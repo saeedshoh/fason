@@ -33,7 +33,7 @@
                 <!-- Nav -->
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
-                    <a href="{{ route('orders.index') }}" class="nav-link">
+                    <a href="{{ route('orders.index') }}" class="nav-link active">
                       Все заказы <span class="badge badge-pill badge-soft-secondary">{{ $orders->count() }}</span>
                     </a>
                   </li>

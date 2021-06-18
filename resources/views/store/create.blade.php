@@ -11,7 +11,7 @@
 
     <div class="row d-flex d-md-none create-store">
       <div class="col-4"><a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a></div>
-      <div class="col-8"><h6 class="font-weight-bold text-right text-opacity-low">Информация о магазине</h6></div>
+      <div class="col-8 d-flex align-items-center justify-content-end"><h6 class="font-weight-bold text-right text-opacity-low mb-0">Информация о магазине</h6></div>
       <div class="col-12">
         <p class="text-justify small my-3 text-muted">
           Fason.tj - предоставляет всем предпринимателям возможность бесплатно размещать товары на площадке, так же мы облегчаем работу как продаваца так и покупателя и осуществляем доставку.

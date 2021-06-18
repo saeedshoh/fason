@@ -194,7 +194,7 @@
                           </div>
                         </td>
                         <td class="text-right">
-                        
+
                             @permission('update-products')
                               @if($product->store)
                                 <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
@@ -206,7 +206,7 @@
                       </tr>
                       @empty
                       <tr>
-                          <td colspan="7">
+                          <td class="text-muted h4" colspan="7">
                               <span>Данные отсутствуют </span>
                           </td>
                       </tr>
