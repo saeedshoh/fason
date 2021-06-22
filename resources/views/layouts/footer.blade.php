@@ -156,7 +156,7 @@
         </div>
       </div>
       <ul class="d-flex flex-wrap list-unstyled">
-        <li><a href="https://www.instagram.com/fasontj/" target="_blank"><img src="storage/theme/icons/Instagram.svg" alt=""></a></li>
+        <li><a href="https://www.instagram.com/fasontj/" target="_blank"><img src="storage/theme/icons/Instagram.svg" alt="" onContextMenu="return false;"></a></li>
         <li class="mx-2"><a href="https://wa.me/message/MJ75PUVHS7GDC1" target="_blank"><img src="storage/theme/icons/whatsapp-icon.svg" alt=""></a></li>
         <li><a href="https://t.me/fasontjofficial" target="_blank"><img src="storage/theme/icons/telegram-icon.svg" alt=""></a></li>
       </ul>

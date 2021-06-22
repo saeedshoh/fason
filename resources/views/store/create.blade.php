@@ -110,7 +110,7 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" id="description">{{ old('description') }}</textarea>
+              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" rows="5" id="description">{{ old('description') }}</textarea>
               @error('description')
               <div class="invalid-feedback">
                 Поле описание магазина обязательно для заполнения.
@@ -156,4 +156,12 @@
 
   <!--tabs with goods end-->
 </section>
+<style>
+  body {
+    position: relative;
+  }
+</style>
+<div class="success-preloader d-none">
+  <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+</div>
 @endsection

@@ -215,7 +215,7 @@
                     <div class="input-group-prepend position-relative">
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
-                    <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" maxlength="1000" id="description" rows="3" name="description" style="resize: vertical">{{ old('description') ?? $product->description }}</textarea>
+                    <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" maxlength="1000" id="description" rows="5" name="description" style="resize: vertical">{{ old('description') ?? $product->description }}</textarea>
                     <small class="invalid-feedback">
                         Введите описание товара
                     </small>
@@ -247,7 +247,7 @@
                     </div>
                 </div>
                 <div class="append-div w-75 ml-auto mb-3 d-flex flex-column flex-wrap"></div>
-                <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end mt-3">
+                <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end my-3">
                     @foreach ($attributes as $index => $attribute)
                         <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">
                             <div class="d-flex justify-content-between align-items-center w-100">

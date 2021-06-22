@@ -90,7 +90,7 @@
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <textarea class="form-control" type="text" name="description" id="description" form="update-store">{{ old('description') ? old('description') : $store->description }}</textarea>
+              <textarea class="form-control" type="text" name="description" rows="5" id="description" form="update-store">{{ old('description') ? old('description') : $store->description }}</textarea>
             </div>
           </div>
         </div>
@@ -137,4 +137,12 @@
 
   <!--tabs with goods end-->
 </section>
+<style>
+  body {
+    position: relative;
+  }
+</style>
+<div class="success-preloader d-none">
+  <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+</div>
 @endsection
