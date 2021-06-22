@@ -88,7 +88,7 @@
           </nav>
 
         </div>
-        <div class="col-12 col-lg-6 order-lg-2  order-2">
+        <div class="col-12 order-lg-2  order-2">
 
           <div class="my-3">
             <h4 class="font-weight-bold">Описание товара:</h4>
