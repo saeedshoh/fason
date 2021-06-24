@@ -63,7 +63,7 @@
                             </div>
                             <!-- Button -->
                             <button class="btn btn-primary mt-2" type="submit">Измененить</button>
-
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
                         </form>
                         </div>
                     </div>

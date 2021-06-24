@@ -59,27 +59,27 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.onCheck') }}" class="nav-link">
-                      На проверке <span class="badge badge-pill badge-soft-warning">{{ $products_stats->where('product_status_id', 1)->count() }}</span>
+                      На проверке <span class="badge badge-pill badge-soft-warning">{{ $products_stats->where('product_status_id', 1)->whereNull('deleted_at')->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.canceled') }}" class="nav-link">
-                      Отклонённые <span class="badge badge-pill badge-light">{{ $products_stats->where('product_status_id', 3)->count() }}</span>
+                      Отклонённые <span class="badge badge-pill badge-light">{{ $products_stats->where('product_status_id', 3)->whereNull('deleted_at')->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.hidden') }}" class="nav-link">
-                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->count() }}</span>
+                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->whereNull('deleted_at')->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.notInStock') }}" class="nav-link">
-                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('product_status_id', 5)->count() }}</span>
+                      Нет в наличии <span class="badge badge-pill badge-soft-primary">{{ $products_stats->where('product_status_id', 5)->whereNull('deleted_at')->count() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.deleted') }}" class="nav-link active">
-                      Удаленные <span class="badge badge-pill badge-soft-danger">{{ $products_stats->whereNotNull('deleted_at')->count() }}</span>
+                      Удаленные <span class="badge badge-pill badge-soft-danger">{{ $products->total() }}</span>
                     </a>
                   </li>
                 </ul>
@@ -202,12 +202,8 @@
                         </table>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg">
-                                <li class="page-item">
-                                {{ $products->links() }}
-                                </li>
-                            </ul>
+                        <nav>
+                            {{ $products->links() }}
                         </nav>
                     </div>
                 </div>

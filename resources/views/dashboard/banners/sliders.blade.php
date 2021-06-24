@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все слайдера <span class="badge badge-pill badge-soft-secondary"> {{ $sliders->count() }}</span>
+                   Все слайдера <span class="badge badge-pill badge-soft-secondary"> {{ $sliders->total() }}</span>
                 </h1>
 
               </div>
@@ -124,12 +124,8 @@
                 </table>
               </div>
               <div class="card-footer d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-lg">
-                        <li class="page-item">
-
-                        </li>
-                    </ul>
+                <nav>
+                    {{ $sliders->links() }}
                 </nav>
               </div>
             </div>

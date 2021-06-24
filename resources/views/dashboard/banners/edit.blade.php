@@ -47,7 +47,6 @@
             @endif
             <div class="row">
 
-
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
@@ -128,6 +127,7 @@
                             </div>
                             <!-- Button -->
                             <button class="btn btn-primary mt-4 px-5" type="submit">Изменить</button>
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
                         </div>
                     </div>
                 </div>

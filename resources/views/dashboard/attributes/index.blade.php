@@ -124,12 +124,8 @@
                         </table>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg">
-                                <li class="page-item">
-                                {{ $attributes->links() }}
-                                </li>
-                            </ul>
+                        <nav>
+                            {{ $attributes->links() }}
                         </nav>
                     </div>
                 </div>

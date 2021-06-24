@@ -86,7 +86,7 @@ class UserController extends Controller
                     });
             })
             ->latest()
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -111,7 +111,7 @@ class UserController extends Controller
                     });
             })
             ->latest()
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -194,6 +194,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        session(['previous_user' => url()->previous()]);
         $cities = City::get();
         view('dashboard.layouts.aside', compact('user'));
         return view('dashboard.users.edit', compact('user', 'cities'));
@@ -208,7 +209,6 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $route = 'clients.index';
         $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
         if (!File::isDirectory($month)) {
             File::makeDirectory($month, 0777, true);
@@ -226,10 +226,7 @@ class UserController extends Controller
             'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
             'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
-        if ($user->status == 1) {
-            $route = 'users.index';
-        }
-        return redirect()->route($route);
+        return redirect(session('previous_user'));
     }
 
     /**

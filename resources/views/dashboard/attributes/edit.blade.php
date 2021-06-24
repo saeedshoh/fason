@@ -5,31 +5,31 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-  
+
             <!-- Header -->
             <div class="header">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
-        
+
                         <!-- Pretitle -->
                         <h6 class="header-pretitle">
                             Изменение аттрибутов
                         </h6>
-        
+
                         <!-- Title -->
                         <h1 class="header-title text-truncate">
                             Изменение
                         </h1>
-        
+
                         </div>
                         <div class="col-auto">
-        
+
                         <!-- Buttons -->
                         <a href="{{ route('attributes.index')}}" class="btn btn-primary ml-2">
                             Все аттрибуты
                         </a>
-        
+
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 </ul>
             @endif
             <div class="row">
-            
+
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
@@ -64,7 +64,7 @@
                             </div>
                             <!-- Button -->
                             <button class="btn btn-primary mt-2" type="submit">Измененить</button>
-
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
                         </form>
                         @else
                         <!-- Form -->
@@ -94,18 +94,9 @@
                                         <input type="text" class="form-control" id="att_value" placeholder="Введите доб. стоимость значения атрибута" name="value" value="{{ old('value') ? old('value') : $attributeValue->value }}" required="">
                                     </div>
                                 </div>
-                                {{-- <div class="col-12 col-md-12 mb-3">
-                                    <label for="name">Название</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $attribute->name }}" required="">
-                                    @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div> --}}
                             <!-- Button -->
                             <button class="btn btn-primary mt-2" type="submit">Измененить</button>
-
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
                         </form>
                         @endif
                         </div>

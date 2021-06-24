@@ -30,13 +30,13 @@ class StoreController extends Controller
 
             Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
 
-            $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->get();
-            $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
-            $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
-            $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
-            $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
-            $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
-            $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
+            $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->latest('updated_at')->get();
+            $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->latest('updated_at')->get();
+            $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->latest('updated_at')->get();
+            $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->latest('updated_at')->get();
+            $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->latest('updated_at')->get();
+            $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->latest('updated_at')->get();
+            $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->latest('updated_at')->get();
             return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
         }
         return view('store.guest', compact('store', 'products'));
@@ -44,6 +44,7 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {
+        session()->forget('previous');
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
@@ -58,7 +59,7 @@ class StoreController extends Controller
             })
             ->orderBy('is_active', 'asc')
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -73,6 +74,7 @@ class StoreController extends Controller
 
     public function accepted(Request $request)
     {
+        session()->forget('previous');
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
@@ -89,7 +91,7 @@ class StoreController extends Controller
                 });
             })
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -104,6 +106,7 @@ class StoreController extends Controller
 
     public function moderation(Request $request)
     {
+        session()->forget('previous');
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $disabledCount = StoreEdit::withoutGlobalScopes()->where('is_active', 0)->count();
@@ -120,7 +123,7 @@ class StoreController extends Controller
                 });
             })
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -135,6 +138,7 @@ class StoreController extends Controller
 
     public function disabled(Request $request)
     {
+        session()->forget('previous');
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
@@ -152,7 +156,7 @@ class StoreController extends Controller
                 });
             })
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -167,6 +171,7 @@ class StoreController extends Controller
 
     public function disabledUser(Request $request)
     {
+        session()->forget('previous');
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
@@ -183,7 +188,7 @@ class StoreController extends Controller
                 });
             })
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -198,6 +203,7 @@ class StoreController extends Controller
 
     public function starred(Request $request)
     {
+        session()->forget('previous');
         $storesCount = StoreEdit::withoutGlobalScopes()->count();
         $acceptedCount = StoreEdit::withoutGlobalScopes()->where('is_active', 1)->count();
         $moderationCount = StoreEdit::withoutGlobalScopes()->where('is_moderation', 1)->count();
@@ -214,7 +220,7 @@ class StoreController extends Controller
                 });
             })
             ->latest('order_number')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -386,7 +392,7 @@ class StoreController extends Controller
             'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
         ]);
         if (Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')) {
-            return redirect()->route('stores.index');
+            return redirect(session('previous'));
         } else {
             return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => 0, 'route' => $store->slug,]);
         }
@@ -488,6 +494,10 @@ class StoreController extends Controller
 
     public function showStoreInfo($store)
     {
+        if(!session('previous')){
+            session(['previous' => url()->previous()]);
+        }
+        $previous = session('previous');
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = [];
@@ -499,11 +509,12 @@ class StoreController extends Controller
         }
         $store_edit = StoreEdit::where('store_id', $store)->where('is_moderation', '=', 1)->first();
 
-        return view('dashboard.store.show', compact('store', 'orders', 'store_edit'));
+        return view('dashboard.store.show', compact('store', 'orders', 'store_edit', 'previous'));
     }
 
     public function profile_orders(Request $request, $store)
     {
+        $previous = session('previous');
         $store = Store::withoutGlobalScopes()->find($store);
 
         $orders = Order::whereIn('product_id', $store->orders->pluck('product_id'))
@@ -516,7 +527,7 @@ class StoreController extends Controller
                     ->orWhere('orders.quantity', 'like', '%' . $request->search . '%');
             })
             ->join('products', 'orders.product_id', '=', 'products.id')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -526,19 +537,21 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.profile.orders', compact('store', 'orders'));
+        return view('dashboard.store.profile.orders', compact('store', 'orders', 'previous'));
     }
 
     public function profile_edit($store)
     {
+        $previous = session('previous');
         $store = StoreEdit::withoutGlobalScopes()->find($store);
         $cities = City::get();
 
-        return view('dashboard.store.profile.edit', compact('store', 'cities'));
+        return view('dashboard.store.profile.edit', compact('store', 'cities', 'previous'));
     }
 
     public function profile_products(Request $request, $store)
     {
+        $previous = session('previous');
         $store = Store::withoutGlobalScopes()->find($store);
 
         $products = Product::where('store_id', $store->id)
@@ -551,7 +564,7 @@ class StoreController extends Controller
                 $category->where('name',  'like', '%' . $request->search . '%');
             })
             ->latest('updated_at')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -561,7 +574,7 @@ class StoreController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.store.profile.products', compact('store', 'products'));
+        return view('dashboard.store.profile.products', compact('store', 'products', 'previous'));
     }
 
     public function stores(Request $request)

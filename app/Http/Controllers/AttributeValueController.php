@@ -23,7 +23,7 @@ class AttributeValueController extends Controller
                 $att_value->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('value', 'like', '%' . $request->search . '%');
             })
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -87,6 +87,10 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, AttributeValue $attributeValue, $id, $val_id)
     {
+        $page = '';
+        if(strrpos($request->previous,'?')){
+            $page = substr($request->previous, strrpos($request->previous,'?'));
+        }
         $attributeValue->find($val_id)->update($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
@@ -94,7 +98,7 @@ class AttributeValueController extends Controller
             'table'  => ' Значение атрибутов',
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
-        return redirect(route('attr_val.index', ['id' => $id]))->with('success', 'Значение для аттрибута успешно добавлена!');
+        return redirect(route('attr_val.index', ['id' => $id]).$page)->with('success', 'Значение для аттрибута успешно добавлена!');
     }
 
     /**

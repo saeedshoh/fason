@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('permission:create-categories', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-categories', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-categories', ['only' => ['destroy']]);
-        $this->middleware('permission:read-categories', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-categories', ['only' => ['index', 'show']]);
     }
 
     /**
@@ -101,7 +101,7 @@ class CategoryController extends Controller
         $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
         $categories = Category::where('name', 'like', '%' . $request->search . '%')
             ->orderBy('order_no')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -196,6 +196,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+        $page = '';
+        if(strrpos($request->previous,'?')){
+            $page = substr($request->previous, strrpos($request->previous,'?'));
+        }
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0  ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
@@ -238,7 +242,7 @@ class CategoryController extends Controller
                 'table'  => 'Категории',
                 'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
             ]);
-            return redirect(route('categories.index'))->with('success', 'Категория успешно обновлена!');
+            return redirect(route('categories.index').$page)->with('success', 'Категория успешно обновлена!');
         }
     }
 

@@ -17,7 +17,7 @@ class CityController extends Controller
     public function index(Request $request)
     {
         $cities = City::where('name', 'like', '%' . $request->search . '%')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -78,6 +78,10 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
+        $page = '';
+        if(strrpos($request->previous,'?')){
+            $page = substr($request->previous, strrpos($request->previous,'?'));
+        }
         $city->update($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
@@ -85,7 +89,7 @@ class CityController extends Controller
             'table'  => ' Города',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('cities.index'))->with('success', 'Город успешно изменена!');
+        return redirect(route('cities.index').$page)->with('success', 'Город успешно изменена!');
     }
 
     /**

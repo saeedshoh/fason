@@ -146,6 +146,7 @@ export function upload(selector, options = {}) {
 
 $(document).on('click', '.add-product-btn', function() {
     if($('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+        var return_page = $(this).data('previous');
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
@@ -249,7 +250,7 @@ $(document).on('click', '.add-product-btn', function() {
                 success: data => {
                     // console.log(window.location.href.indexOf('/dashboard/products/') > -1);
                     if(window.location.href.indexOf('/dashboard/products/') > -1) {
-                        window.location.href='/dashboard/products';
+                        window.location.href=return_page;
                         $('.tab-content').prepend(`<div class="alert alert-success">Товар успешно добавлен/изменен!</div>`);
                         // <div class="alert alert-success">Товар успешно добавлен/изменен!</div>
                     }

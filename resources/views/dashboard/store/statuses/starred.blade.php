@@ -198,13 +198,9 @@
                   </table>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-lg">
-                      <li class="page-item">
-                      {{ $stores ->links() }}
-                      </li>
-                    </ul>
-                  </nav>
+                    <nav>
+                        {{ $stores ->links() }}
+                    </nav>
                 </div>
               </div>
             </div>

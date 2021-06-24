@@ -68,7 +68,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('products.hidden') }}" class="nav-link active">
-                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products_stats->where('product_status_id', 4)->count() }}</span>
+                      Скрыто <span class="badge badge-pill badge-soft-info">{{ $products->total() }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -200,12 +200,8 @@
                         </table>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-lg">
-                                <li class="page-item">
-                                {{ $products->links() }}
-                                </li>
-                            </ul>
+                        <nav>
+                            {{ $products->links() }}
                         </nav>
                     </div>
                 </div>

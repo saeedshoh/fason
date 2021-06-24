@@ -361,11 +361,8 @@
             </table>
           </div>
           <div class="card-footer d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                    </li>
-                </ul>
+            <nav>
+                {{ $orders->links() }}
             </nav>
           </div>
         </div>
