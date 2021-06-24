@@ -15,22 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function __construct()
-    {
-        $this->stores = Store::get();
-
-        // $this->middleware('permission:create-orders', ['only' => ['create', 'store']]);
-        // $this->middleware('permission:update-orders', ['only' => ['edit', 'update']]);
-        // $this->middleware('permission:delete-orders', ['only' => ['destroy']]);
-        // $this->middleware('permission:read-orders', ['only' => ['index', 'show']]);
-    }
-
-
     public function orders()
     {
         $is_store = $sales = [];
         if (Auth::check()) {
-            $is_store = $this->stores->where('user_id', Auth::id())->first();
+            $is_store = Store::where('user_id', Auth::id())->first();
         }
         if($is_store) {
             $sales = Order::whereHas('no_scope_product', function ($no_scope_product){
@@ -53,7 +42,7 @@ class OrderController extends Controller
         $orders = Order::filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::filter($filters)->get()->pluck('id');
@@ -73,6 +62,11 @@ class OrderController extends Controller
         }
 
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
+        if($request->ajax()) {
+            return response()->json(
+                    view('dashboard.ajax.orders', compact('orders', 'orders_stats', 'users', 'products', 'stores')
+                )->render());
+        }
         return view('dashboard.order.index', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
 
@@ -85,7 +79,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 3)->filter($filters)->get()->pluck('id');
@@ -118,7 +112,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 4)->filter($filters)->get()->pluck('id');
@@ -151,7 +145,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 1)->filter($filters)->get()->pluck('id');
@@ -184,7 +178,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 2)->filter($filters)->get()->pluck('id');
@@ -217,7 +211,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 5)->filter($filters)->get()->pluck('id');
@@ -311,7 +305,7 @@ class OrderController extends Controller
                 $phone = Auth::user()->phone; //номер телефона
                 $store_phone = $product->store->user->phone;
                 $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони". "\nАдрес доставки: " .$order->address . $comment;
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони";
                 if($attributes){
                     $message .= "\nАттрибуты: ".$attributes;
                     $store_message .= "\nАттрибуты: ".$attributes;
@@ -349,7 +343,6 @@ class OrderController extends Controller
 
     public function single($order)
     {
-
         $order = Order::withoutGlobalScopes()->where('id', $order)->with('no_scope_product')->first();
         $product = Product::withoutGlobalScopes()->withTrashed()->where('id', $order->product_id)->first();
         $attributes = $product->attribute_variation;
@@ -405,28 +398,28 @@ class OrderController extends Controller
         return $arr;
     }
 
-    public function acceptOrder(Order $order)
+    public function acceptOrder(Request $request, Order $order)
     {
         $order->update(['order_status_id' => 4]);
-        return redirect()->route('orders.index')->with(['success' => 'Заказ успншно приянт']);
+        return redirect($request->previous)->with(['success' => 'Заказ успншно приянт']);
     }
 
-    public function completeOrder(Order $order)
+    public function completeOrder(Request $request, Order $order)
     {
         $order->update(['order_status_id' => 3]);
-        return redirect()->route('orders.index')->with(['success' => 'Заказ успншно выполнен']);
+        return redirect($request->previous)->with(['success' => 'Заказ успншно выполнен']);
     }
 
-    public function declineOrder(Order $order)
+    public function declineOrder(Request $request, Order $order)
     {
         $order->update(['order_status_id' => 2]);
-        return redirect()->route('orders.index')->with(['success' => 'Заказ отклонен']);
+        return redirect($request->previous)->with(['success' => 'Заказ отклонен']);
     }
 
-    public function returnsOrder(Order $order)
+    public function returnsOrder(Request $request, Order $order)
     {
         $order->update(['order_status_id' => 5]);
-        return redirect()->route('orders.index')->with(['success' => 'Заказ возвращен']);
+        return redirect($request->previous)->with(['success' => 'Заказ возвращен']);
     }
 
     public function statistics()

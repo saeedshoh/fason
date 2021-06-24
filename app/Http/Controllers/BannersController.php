@@ -13,17 +13,17 @@ class BannersController extends Controller
 {
 
     public function __construct()
-    {    
+    {
         $this->middleware('permission:create-banners', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-banners', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-banners', ['only' => ['destroy']]);
-        $this->middleware('permission:read-banners', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-banners', ['only' => ['index', 'show']]);
     }
 
 
     public function sliders()
     {
-        $sliders = Banners::where('type', 1)->get();
+        $sliders = Banners::where('type', 1)->paginate(30);
         return view('dashboard.banners.sliders', compact('sliders'));
     }
     /**
@@ -34,7 +34,7 @@ class BannersController extends Controller
 
     public function index()
     {
-        $banners = Banners::where('type', 2)->get();
+        $banners = Banners::where('type', 2)->paginate(30);
         return view('dashboard.banners.index', compact('banners'));
     }
 
@@ -98,6 +98,10 @@ class BannersController extends Controller
      */
     public function update(BannersRequest $request, Banners $banner)
     {
+        $page = '';
+        if(strrpos($request->previous,'?')){
+            $page = substr($request->previous, strrpos($request->previous,'?'));
+        }
         $myImage = 'Не установлен';
         if ($request->image != null && $request->image != $banner->image) {
             $request->validate([
@@ -123,9 +127,9 @@ class BannersController extends Controller
             'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $myImage
         ]);
         if ($request->type == 1) {
-            return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно обновлен!');
+            return redirect(route('banners.sliders').$page)->with('success', 'Слайдер успешно обновлен!');
         } else {
-            return redirect()->route('banners.index')->with('success', 'Баннер успешно обновлен!');
+            return redirect(route('banners.index').$page)->with('success', 'Баннер успешно обновлен!');
         }
     }
 

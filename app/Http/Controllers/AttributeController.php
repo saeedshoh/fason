@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\DB;
 
 class AttributeController extends Controller
 {
-    
+
     public function __construct()
-    {    
+    {
         $this->middleware('permission:create-attributes', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-attributes', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-attributes', ['only' => ['destroy']]);
-        $this->middleware('permission:read-attributes', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-attributes', ['only' => ['index', 'show']]);
     }
 
-    
+
     public function index(Request $request)
     {
         $attributes = Attribute::with('attribute_values')
             ->where('name', 'like', '%'.$request->search.'%')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if($request->ajax()) {
             return response()->json(
@@ -83,7 +83,6 @@ class AttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Attribute $attribute)
-
     {
         $categories = Category::get();
         return view('dashboard.attributes.edit', compact('attribute', 'categories'));
@@ -98,6 +97,10 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
+        $page = '';
+        if(strrpos($request->previous,'?')){
+            $page = substr($request->previous, strrpos($request->previous,'?'));
+        }
         $attribute->update($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
@@ -105,7 +108,7 @@ class AttributeController extends Controller
             'table'  => ' Атрибуты',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно изменена!');
+        return redirect(route('attributes.index').$page)->with('success', 'Аттрибут успешно изменена!');
     }
 
     /**

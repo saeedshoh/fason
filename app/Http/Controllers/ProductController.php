@@ -24,18 +24,16 @@ use App\Http\Traits\ImageInvTrait;
 class ProductController extends Controller
 {
     use ImageInvTrait;
-   
-    
+
     public function __construct()
     {
         $this->categories = Category::get();
-    
+
         $this->middleware('permission:create-products', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-products', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-products', ['only' => ['destroy']]);
-        $this->middleware('permission:read-products', ['only' => ['index', 'show']]);   
+        $this->middleware('permission:read-products', ['only' => ['index', 'show']]);
     }
-    
 
     public function decline($product)
     {
@@ -74,11 +72,12 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->full($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -94,11 +93,12 @@ class ProductController extends Controller
     // !Разбивка статусов на странички
     public function accepted(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->accepted($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -113,11 +113,12 @@ class ProductController extends Controller
 
     public function notInStock(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->notInStock($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -132,11 +133,12 @@ class ProductController extends Controller
 
     public function canceled(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->canceled($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -151,12 +153,14 @@ class ProductController extends Controller
 
     public function hidden(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->hidden($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
+
         if ($request->ajax()) {
             return response()->json(
                 view(
@@ -170,11 +174,12 @@ class ProductController extends Controller
 
     public function onCheck(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->onCheck($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -189,11 +194,12 @@ class ProductController extends Controller
 
     public function deleted(Request $request)
     {
+        session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
         $products = Product::withoutGlobalScopes()
             ->deleted($request)
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             return response()->json(
@@ -331,6 +337,9 @@ class ProductController extends Controller
      */
     public function edit($product)
     {
+        if(!session('previous_product')){
+            session(['previous_product' => url()->previous()]);
+        }
         $product = Product::withoutGlobalScopes()->find($product);
         $attributes = $product->category->attributes->map(function ($attributes) use ($product) {
             $attributes->is_checked = $product->attribute_variation->pluck('attribute_id')->contains($attributes->id);

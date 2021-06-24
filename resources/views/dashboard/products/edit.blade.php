@@ -46,14 +46,14 @@
             <form action="{{ route('test_update', $product) }}" method="POST" enctype="multipart/form-data" class="edit-product" novalidate id="add_product" onsubmit="return false">
                 @csrf
                 @method('put')
-           
+
                 <div class="row">
 
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-row">
-                                    
+
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="name">Название</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $product->name }}" required="">
@@ -157,15 +157,6 @@
                         </div>
                         <div class="form-row" id="subCategories">
                             <div class="form-group col-12 col-md-12 mb-3" id="cat_child">
-                                <!--<label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>-->
-
-                                <!--<select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child_value" name="category_id">-->
-
-                                <!--    <option disabled>Выберите категорию</option>-->
-                                <!--</select>-->
-                                <!--<small class="invalid-feedback">-->
-                                <!--    Выберите категорию-->
-                                <!--</small>-->
                             </div>
                         </div>
                             @endif
@@ -176,7 +167,7 @@
                                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Введите кол/во товаров" name="quantity" value="{{ old('quantity') ?? $product->quantity }}" required="">
                                         <small class="invalid-feedback">
                                             Введите кол/во товара
-                                        </small> 
+                                        </small>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="price">Цена</label>
@@ -213,7 +204,7 @@
                                 <!-- Button -->
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="product_status_id" value="1">
-                                <button class="btn btn-primary mt-4 add-product-btn" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
+                                <button data-previous="{{ session('previous_product') }}" class="btn btn-primary mt-4 add-product-btn" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
                             </div>
                         </div>
                     </div>

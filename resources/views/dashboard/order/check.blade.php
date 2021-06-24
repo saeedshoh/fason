@@ -218,21 +218,25 @@
                     <div class="row justify-content-between">
                         <form class="d-inline" action="{{ route('acceptOrder', $order) }}" method="POST">
                             @csrf
-                                <button class="btn btn-primary mx-2"><i class="fe fe-check"> </i> Принять</button>
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
+                            <button class="btn btn-primary mx-2"><i class="fe fe-check"> </i> В пути</button>
                         </form>
                         <form class="d-inline" action="{{ route('completeOrder', $order) }}" method="POST">
                             @csrf
-                                <button class="btn btn-success mx-2"><i class="fe fe-check"> </i> Выполнено</button>
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
+                            <button class="btn btn-success mx-2"><i class="fe fe-check"> </i> Выполнено</button>
                         </form>
                         <form class="d-inline" action="{{ route('declineOrder', $order) }}" method="POST">
                             @csrf
-                            <button class="btn btn-danger mx-2"><i class="fe fe-x-circle"> </i> Отклонить</button>
                             @method('POST')
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
+                            <button class="btn btn-danger mx-2"><i class="fe fe-x-circle"> </i> Отклонить</button>
                         </form>
                         <form class="d-inline" action="{{ route('returnsOrder', $order) }}" method="POST">
                             @csrf
-                            <button class="btn btn-secondary mx-2"><i class="fe fe-info"> </i> Возврат</button>
                             @method('POST')
+                            <input type="hidden" name="previous" value="{{ url()->previous() }}">
+                            <button class="btn btn-secondary mx-2"><i class="fe fe-info"> </i> Возврат</button>
                         </form>
                     </div>
                 </div>

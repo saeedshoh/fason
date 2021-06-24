@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все баннера <span class="badge badge-pill badge-soft-secondary"> {{ $banners->count() }}</span>
+                   Все баннера <span class="badge badge-pill badge-soft-secondary"> {{ $banners->total() }}</span>
                 </h1>
 
               </div>
@@ -134,12 +134,8 @@
                 </table>
               </div>
               <div class="card-footer d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-lg">
-                        <li class="page-item">
-
-                        </li>
-                    </ul>
+                <nav>
+                    {{ $banners->links() }}
                 </nav>
               </div>
             </div>
