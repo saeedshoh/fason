@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('ft-store.update', $store->id) }}" enctype="multipart/form-data" method="POST" id="update-store">
+    <form action="{{ route('ft-store.update', $store->id) }}" novalidate enctype="multipart/form-data" method="POST" id="update-store">
       @csrf
       @method('PATCH')
       <div class="row mt-sm-3">
@@ -69,13 +69,15 @@
       <!--Edit logo and banner end-->
       <!--store info start-->
 
-    </form>
       <div class="row mt-5">
         <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="name" form="update-store" id="nameEditStore" value="{{ old('name') ? old('name') : $store->name }}">
+              <input class="form-control" type="text" name="name" form="update-store" id="nameEditStore" value="{{ old('name') ? old('name') : $store->name }}" required>
+              <div class="invalid-feedback">
+                Поле название магазина обязательно для заполнения.
+              </div>
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
               </div>
@@ -84,13 +86,19 @@
           <div class="form-group row">
             <label for="address" class="col-sm-4 col-form-label text-secondary font-weight-bold">Aдрес:</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') ? old('address') : $store->address }}" form="update-store">
+              <input class="form-control" type="text" name="address" id="address" value="{{ old('address') ? old('address') : $store->address }}" form="update-store" required>
+              <div class="invalid-feedback">
+                Поле адрес магазина обязательно для заполнения.
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="description" class="col-sm-4 col-form-label text-muted font-weight-bold">О магазине:</label>
             <div class="col-sm-8">
-              <textarea class="form-control" type="text" name="description" rows="5" id="description" form="update-store">{{ old('description') ? old('description') : $store->description }}</textarea>
+              <textarea class="form-control" type="text" name="description" rows="5" id="description" form="update-store" required>{{ old('description') ? old('description') : $store->description }}</textarea>
+              <div class="invalid-feedback">
+                Поле описание магазина обязательно для заполнения.
+              </div>
             </div>
           </div>
         </div>
@@ -101,18 +109,21 @@
               <div class="form-group row form-check">
                 @foreach ($cities as $city)
                 <div class="col-sm-6">
-                    <input class="form-check-input" form="update-store" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}" @if($store->city->id == $city->id) checked @endif>
+                    <input class="form-check-input" form="update-store" type="radio" name="city_id" id="city_id_{{ $city->id }}" value="{{ $city->id }}" @if($store->city->id == $city->id) checked @endif required>
                     <label class="form-check-label" for="city_id_{{ $city->id }}">
                         {{ $city->name }}
                     </label>
                 </div>
                 @endforeach
+                <div class="invalid-feedback">
+                    Выберите город
+                </div>
               </div>
             </div>
           </div>
           <div class="form-group row mb-5 mb-lg-0">
             <div class="col mb-3">
-              <button type="submit" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeEditSubmit" form="update-store">Отправить</button>
+              <button type="submit" data-id="{{ $store->id }}" class="col-sm-12 col-12 btn rounded-11 px-3 btn-danger" id="storeEditSubmit" form="update-store">Отправить</button>
               {{--  $store->is_active == 2 это если пользователь отключил магазин  --}}
               @if($store->is_active)
                 <form action="{{ route('ft-store.toggleUser', $store->id) }}" method="POST">
@@ -132,6 +143,7 @@
           </div>
         </div>
       </div>
+    </form>
     <!--store info end-->
   </div>
 
@@ -142,7 +154,7 @@
     position: relative;
   }
 </style>
-<div class="success-preloader d-none">
+<div class="success-preloader d-none" style="height: 100vh;">
   <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
 </div>
 @endsection

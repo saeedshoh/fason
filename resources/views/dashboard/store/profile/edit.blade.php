@@ -138,11 +138,10 @@
                     <label for="name">Введите описание</label>
 
                     <textarea type="text" class="form-control" id="desciption" name="description" required="" rows="6"> {{ $store->description }}</textarea>
-
                   </div>
                 </div>
                 <!-- Button -->
-                <button class="btn btn-primary mt-2" type="submit">Изменить</button>
+                <button class="btn btn-primary mt-2" data-id="{{ $store->id }}" type="submit" id="storeEditSubmit">Изменить</button>
 
             </div>
           </div>
@@ -156,13 +155,14 @@
                   <label for="name">Выберите фон</label>
 
                   <input type="file" class="form-control" id="cover" name="cover" value="{{ $store->cover }}">
+                  <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image d-none" id="cover-poster-mobile" height="216">
 
                 </div>
                 <div class="col-12 col-md-12 mb-3">
                   <label for="name">Выберите аватарку</label>
 
                   <input type="file" class="form-control" id="avatar" name="avatar" value="{{ $store->avatar }}">
-
+                  <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="w-100 rounded d-none" id="avatar-poster" height="216">
                 </div>
               </div>
           </div>

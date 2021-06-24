@@ -44,7 +44,6 @@ trait ImageInvTrait {
         // create an image manager instance with favored driver
         $manager = new ImageManager(array('driver' => 'gd'));
 
-
         $back = $manager->canvas($dimension, $dimension, '#ffffff');
         $back->insert($img, 'center');
         $watermark = Image::make(public_path('/storage/watermark_.png'));
@@ -54,7 +53,6 @@ trait ImageInvTrait {
 
     public function uploadImage($image)
     {
-
         //Create folder if doesn't exist
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
@@ -64,7 +62,6 @@ trait ImageInvTrait {
         $img = Image::make(public_path('/storage/'.$image));
         $nowYear = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid();
         $this->cropImage($img, 800, 100, $nowYear);
-
 
         unlink(public_path('/storage/'.$image));
         return $nowYear . '800x800.jpg';
@@ -145,11 +142,26 @@ trait ImageInvTrait {
 
         $back = $manager->canvas(800, 800, '#ffffff');
         $back->insert($img, 'center');
-        // $watermark = Image::make(public_path('/storage/watermark_.png'));
-        // $back->insert($watermark, 'bottom-right', 50, 50);
         $back->save(public_path('/storage/' . $path));
 
         unlink(public_path('/storage/'.$image));
         return $nowYear . '800x800.jpg';
+    }
+
+    function saveUnchanged($image)
+    {
+        //Create folder if doesn't exist
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month);
+        }
+
+        $img = Image::make(public_path('/storage/'.$image));
+
+        $path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid().'.jpg';
+        Image::make($img)->save(public_path('/storage/'.$path));
+
+        unlink(public_path('/storage/'.$image));
+        return $path;
     }
 }

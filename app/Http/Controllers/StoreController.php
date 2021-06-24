@@ -11,15 +11,16 @@ use App\Models\Product;
 use App\Models\StoreEdit;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Traits\ImageInvTrait;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Traits\OrderNumberTrait;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
-    use OrderNumberTrait;
+    use OrderNumberTrait, ImageInvTrait;
 
     public function guest($slug)
     {
@@ -252,32 +253,35 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->validated();
-        $data['user_id'] = Auth::id();
-        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
-        if (!File::isDirectory($month)) {
-            File::makeDirectory($month);
-        }
-        if (isset($request->avatar)) {
-            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('avatar')->getClientOriginalExtension();
-            $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $avatar->save(public_path('/storage/' . $avatarPath));
-            $data['avatar'] = $avatarPath;
-        }
-        if (isset($request->cover)) {
-            $coverPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('cover')->getClientOriginalExtension();
-            $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $cover->save(public_path('/storage/' . $coverPath));
-            $data['cover'] = $coverPath;
-        }
+        if ($request->ajax()) {
+            $data = $request->validated();
+            $data['user_id'] = Auth::id();
+            $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+            if (!File::isDirectory($month)) {
+                File::makeDirectory($month);
+            }
 
-        $store = Store::create($data + ['is_moderation' => 1]);
-        StoreEdit::create($data + ['store_id' => $store->id, 'is_moderation' => 1]);
-        return redirect()->route('home')->with('success', 'Магазин успешно добавлена!');
+            $avatar_json = $request->avatar;
+            $avatar_path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $avatar_json)) {
+                $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
+                $vtr = base64_decode($vtr);
+                Storage::disk('public')->put($avatar_path, $vtr);
+                $data['avatar'] = $this->saveUnchanged($avatar_path);
+            };
+
+            $cover_json = $request->cover;
+            $cover_path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $cover_json)) {
+                $cvr = substr($cover_json, strpos($cover_json, ',') + 1);
+                $cvr = base64_decode($cvr);
+                Storage::disk('public')->put($cover_path, $cvr);
+                $data['cover'] = $this->saveUnchanged($cover_path);
+            };
+
+            $store = Store::create($data + ['is_moderation' => 1]);
+            StoreEdit::create($data + ['store_id' => $store->id, 'is_moderation' => 1]);
+        }
     }
 
     /**
@@ -346,56 +350,63 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request, $store)
     {
-        $store = Store::withoutGlobalScopes()->find($store);
-        $data = $request->validated();
-        $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
-        if (!File::isDirectory($month)) {
-            File::makeDirectory($month);
-        }
-        if ($request->file('avatar')) {
-            $request->validate([
-                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
-            ]);
-            $avatarPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('avatar')->getClientOriginalExtension();
+        // return $request;
+        if ($request->ajax()) {
+            $store = Store::withoutGlobalScopes()->find($store);
 
-            $avatar = Image::make($request->file('avatar'))->encode('jpg', 75)->fit(270, 215, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $avatar->save(public_path('/storage/' . $avatarPath));
-            $data['avatar'] = $avatarPath;
-        }
-        if ($request->file('cover')) {
-            $request->validate([
-                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Webp'
+            $data = $request->validated();
+            $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+            if (!File::isDirectory($month)) {
+                File::makeDirectory($month);
+            }
+
+            $avatar_json = $request->avatar;
+            $avatar_path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $avatar_json)) {
+                $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
+                $vtr = base64_decode($vtr);
+                Storage::disk('public')->put($avatar_path, $vtr);
+                $data['avatar'] = $this->saveUnchanged($avatar_path);
+            };
+
+            $cover_json = $request->cover;
+            $cover_path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $cover_json)) {
+                $cvr = substr($cover_json, strpos($cover_json, ',') + 1);
+                $cvr = base64_decode($cvr);
+                Storage::disk('public')->put($cover_path, $cvr);
+                $data['cover'] = $this->saveUnchanged($cover_path);
+            };
+            if (auth()->user()->status == 2 && StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
+                $store->update(['is_moderation' => 1]);
+            } else {
+                StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data);
+                $store->update($data);
+            }
+            $city = City::where('id', $request->city_id)->first()->name;
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 2,
+                'table'  => 'Магазины',
+                'description' => 'Название магазина: ' . $request->name . ', Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
             ]);
-            $coverPath = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . $request->file('cover')->getClientOriginalExtension();
-            $cover = Image::make($request->file('cover'))->encode('jpg', 75)->fit(840, 215, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $cover->save(public_path('/storage/' . $coverPath));
-            $data['cover'] = $coverPath;
+            if (Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')) {
+                return response()->json([
+                    'where'     => 'dashboard',
+                    'parameter' => session('previous')
+                ]);
+            } else {
+                return response()->json([
+                    'where'     => 'website',
+                    'parameter' => $store->slug
+                ]);
+            }
         }
-        // change to after Roles implementation
-        // $user = User::find(auth()->id);
-        // if(!$user->isAn('admin') && StoreEdit::where('store_id', $store)->withoutGlobalScopes()->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
-        if (auth()->user()->status == 2 && StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
-            $store->update(['is_moderation' => 1]);
-        } else {
-            StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data);
-            $store->update($data);
-        }
-        $city = City::where('id', $request->city_id)->first()->name;
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 2,
-            'table'  => 'Магазины',
-            'description' => 'Название магазина: ' . $request->name . ',    Адрес: ' . $request->address . ', Описание: ' . $request->description . ', Город: ' . $city
-        ]);
-        if (Str::contains(url()->previous(), 'dashboard/stores/showStoreInfo/')) {
-            return redirect(session('previous'));
-        } else {
-            return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => 0, 'route' => $store->slug,]);
-        }
+    }
+
+    public function usefulLinks($slug)
+    {
+        return view('useful_links.moderation')->with(['title' => 'Сохранено! Ваши изменения вступят в силу как только пройдут модерацию.',  'is_back' => 0, 'route' => $slug,]);
     }
 
     /**

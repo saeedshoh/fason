@@ -414,3 +414,125 @@ $('body').on('keyup', '#price', throttle(function(){
         });
     }
 }, 500))
+
+$(document).on('click', '#storeSubmit', function(e){
+    e.preventDefault();
+    if($('input[name="name"]').val() != '' && $('input[name="address').val() != '' && $('textarea[name="description"]').val() != '' && $('input[name="city_id"]').val() != '') {
+        var formData = new FormData();
+        const name = $(this)
+            .closest('form')
+            .find('input[name="name"]')
+            .val();
+        const address = $(this)
+            .closest('form')
+            .find('input[name="address"]')
+            .val();
+        const description = $(this)
+            .closest('form')
+            .find('textarea[name="description"]')
+            .val();
+        const city_id = $(this)
+            .closest('form')
+            .find('input[name="city_id"]')
+            .val();
+        const avatar = $('#avatar-poster').attr('src');
+        const cover = $('#cover-poster-mobile').attr('src');
+
+        formData.append('_token', $('meta[name=csrf-token]').attr('content'));
+        formData.append('_method', $('input[name=_method]').val());
+        formData.append('name', name);
+        formData.append('address', address);
+        formData.append('description', description);
+        formData.append('city_id', city_id);
+        formData.append('avatar', avatar);
+        formData.append('cover', cover);
+        $.ajax({
+            url: `/store/store`,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+            beforeSend: function() {
+                $('.success-preloader').removeClass('d-none');
+            },
+            success: () => {
+                window.location.href='/';
+                $('.content .container:eq(0)')
+                    .addClass('bg-white')
+                    .empty()
+                    .html(
+                        `<div class="mt-lg-5 py-lg-5 py-3 text-center">
+                            <img class="mb-5" src="/storage/theme/thanks.svg" width="180px" alt="">
+                            <div class="mb-3 pb-lg-0">
+                                <h5>Товар успешно ${ check_page == 'true' ? 'обновлен' : 'добавлен' } и проходит модерацию </h5>
+                                <a class="rounded-11 btn btn-outline-danger mt-4" href="/">На главную</a>
+                            </div>
+                        </div>`
+                    );
+            },
+            error: function(status) {
+                console.log(status);
+            },
+            complete: function() {
+                $('.success-preloader').remove();
+            }
+        });
+    } else {
+        $(this).closest('form').addClass('was-validated')
+    }
+})
+
+$(document).on('click', '#storeEditSubmit', function(e){
+    e.preventDefault();
+    var id = $(this).data('id')
+    if($('input[name="name"]').val() != '' && $('input[name="address').val() != '' && $('textarea[name="description"]').val() != '' && $('input[name="city_id"]').val() != '') {
+        var formData = new FormData();
+        const name = $('input[name="name"]').val();
+        const address = $('input[name="address"]').val();
+        const description = $('textarea[name="description"]').val();
+        const city_id = $('input[name="city_id"]').val();
+        const avatar = $('#avatar-poster').attr('src');
+        const cover = $('#cover-poster-mobile').attr('src');
+
+        formData.append('_token', $('meta[name=csrf-token]').attr('content'));
+        formData.append('_method', $('input[name=_method]').val());
+        formData.append('name', name);
+        formData.append('address', address);
+        formData.append('description', description);
+        formData.append('city_id', city_id);
+        formData.append('avatar', avatar);
+        formData.append('cover', cover);
+        $.ajax({
+            url: `/store/update/${id}`,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+            beforeSend: function() {
+                $('.success-preloader').removeClass('d-none');
+            },
+            success: data => {
+                console.log(data);
+                if(data.where == 'website'){
+                    window.location.href = `/moderation/${data.parameter}`;
+                } else {
+                    window.location.href = data.parameter;
+                }
+            },
+            error: function(status) {
+                console.log(status);
+            },
+            complete: function() {
+                $('.success-preloader').remove();
+            }
+        });
+    } else {
+        $('#update-store').addClass('was-validated')
+    }
+})
