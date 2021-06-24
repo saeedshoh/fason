@@ -18,7 +18,7 @@
         </p>
       </div>
     </div>
-    <form class="d-md-block d-flex flex-column" action="{{ route('ft-store.store') }}" enctype="multipart/form-data" method="POST">
+    <form class="d-md-block d-flex flex-column" action="{{ route('ft-store.store') }}" novalidate enctype="multipart/form-data" method="POST">
       @method('POST')
       @csrf
       <div class="row mt-sm-3 order-1">
@@ -79,12 +79,10 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('name') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control border-left-0 @error('name') is-invalid @enderror" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}">
-              @error('name')
+              <input class="form-control border-left-0 @error('name') is-invalid @enderror" type="text" name="name" id="nameStoreCreate" value="{{ old('name') }}" required>
                 <div class="invalid-feedback">
-                  Поле наазвание магазина обязательно для заполнения.
+                  Поле название магазина обязательно для заполнения.
                 </div>
-              @enderror
               <div class="store-exist d-none mt-1 text-danger">
                 <small>Магазин с таким названием уже зарегистрирован</small>
               </div>
@@ -96,12 +94,10 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('address') border-danger  @enderror  btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <input class="form-control border-left-0 @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ old('address') }}">
-              @error('address')
+              <input class="form-control border-left-0 @error('address') is-invalid @enderror" type="text" name="address" id="address" value="{{ old('address') }}" required>
               <div class="invalid-feedback">
                 Поле адрес магазина обязательно для заполнения.
               </div>
-              @enderror
             </div>
           </div>
           <div class="form-group row">
@@ -110,12 +106,10 @@
               <div class="input-group-prepend position-relative bg-white border-0">
                 <div class="input-group-text @error('description') border-danger  @enderror btn-link btn-custom-fs text-decoration-none px-1"></div>
               </div>
-              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" rows="5" id="description">{{ old('description') }}</textarea>
-              @error('description')
+              <textarea class="form-control border-left-0 @error('description') is-invalid @enderror" type="text" name="description" rows="5" id="description" required>{{ old('description') }}</textarea>
               <div class="invalid-feedback">
                 Поле описание магазина обязательно для заполнения.
               </div>
-              @enderror
             </div>
           </div>
         </div>
@@ -124,23 +118,18 @@
             <label class="col-sm-4 col-form-label text-muted font-weight-bold">Город:</label>
             <div class="col-sm-8">
               <div class="form-group row form-check mb-md-1">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     @foreach ($cities as $city)
-                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" {{ old('city_id') == $city->id ? 'checked' : ''}} value="{{ $city->id }}">
+                        <input class="form-check-input" type="radio" name="city_id" id="city_id_{{ $city->id }}" {{ old('city_id') == $city->id ? 'checked' : ''}} value="{{ $city->id }}" required>
                         <label class="form-check-label mr-5 mr-lg-0" for="city_id_{{ $city->id }}">
                             {{ $city->name }}
                         </label><br>
-
                     @endforeach
-
+                    <div class="invalid-feedback">
+                        Выберите город
+                    </div>
                 </div>
-                @error('city_id')
-                  <div class="invalid-feedback d-block">
-                    Выберите город
-                  </div>
-                @enderror
               </div>
-
             </div>
           </div>
           <div class="form-group row d-none d-md-block">
@@ -161,7 +150,7 @@
     position: relative;
   }
 </style>
-<div class="success-preloader d-none">
+<div class="success-preloader d-none" style="height: 100vh;">
   <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
 </div>
 @endsection

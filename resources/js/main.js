@@ -1,4 +1,3 @@
-// const { stubString, last } = require('lodash');
 require('./jquery.inputmask.bundle.js')
 require('sweetalert2')
 import { upload } from './upload.js'
@@ -18,16 +17,8 @@ $(document).on('click','.add__attr-icon', function(){
         arr = []
     }else if($(this).attr('src') === img_Delete){
         $(this).attr('src',imgAdd)
-        // for (let i = 0; i <= allAttrs.length; i++) {
-        //     if(allAttrs.includes(arr[i])){
-        //         allAttrs.splice(allAttrs.indexOf(arr[i]),1)
-        //     }
-        // }
-        // allAttrs = allAttrs.filter(val => !arr.includes(val));
         console.log(arr)
     }
-    
-
 })
 
 if ($('#gallery').attr('form') == 'add_product') {
@@ -120,7 +111,6 @@ $(document).ready(function() {
                     $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
                 }
             }
-
         }
         var x = window.matchMedia('(max-width: 767px)')
         myFunction(x) // Call listener function at run time
@@ -130,18 +120,13 @@ $(document).ready(function() {
         for (let i = 2; i <= 2; i++) {
             // выведет линию над первыми 1 элементами класса ".custom-lined"
             $('.custom-lined .col:nth-child(' + i + ') .card').removeClass('line-test')
-
         }
-
     })
     $('#gridView').on('click', function() {
         for (let i = 1; i <= 2; i++) {
             // выведет линию над первыми 1 элементами класса ".custom-lined"
             $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
-
         }
-
-
     })
 })
 
@@ -182,7 +167,6 @@ $(document).ready(function() {
             }, 100)
         }
     })
-
 
     $('#nameEditStore').on(
         'keyup',
@@ -415,43 +399,6 @@ $(document).ready(function() {
     });
 })
 
-// $('body').on('click', '#filter', function() {
-//     const cat_id = $(this).data('cat-id')
-//     const cat_slug = $(this).data('cat-slug')
-//     let sort = $("input[name='sort']:checked").data('sort')
-//     let city = $("input[name='city']:checked").data('city')
-//     let priceFrom = $('#priceFrom').val()
-//     let priceTo = $('#priceTo').val()
-//     if (priceFrom.length > 0 && priceTo.length == 0) {
-//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom
-//     } else if (priceTo.length > 0 && priceFrom.length == 0) {
-//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceTo=' + priceTo
-//     } else if (priceFrom.length > 0 && priceTo.length > 0) {
-//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city + '&priceFrom=' + priceFrom + '&priceTo=' + priceTo
-//     } else {
-//         window.location.href = '/category/' + cat_slug + '?sort=' + sort + '&city=' + city
-//     }
-// })
-
-// $('body').on('click', '#filterMobi', function() {
-//     const cat_idMobi = $(this).data('cat-id')
-//     const cat_slugMobi = $(this).data('cat-slug')
-//     let sortMobi = $("#mobile-Filter input[name='sort']:checked").attr('data-sort')
-//     let cityMobi = $("#mobile-Filter input[name='cityM']:checked").attr('data-city')
-//     let priceFromMobi = $('#priceFromMobi').val()
-//     let priceToMobi = $('#priceToMobi').val()
-
-//     if (priceFromMobi.length > 0 && priceToMobi.length == 0) {
-//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceFrom=' + priceFromMobi
-//     } else if (priceToMobi.length > 0 && priceFromMobi.length == 0) {
-//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi + '&priceTo=' + priceToMobi
-//     } else if (priceFromMobi.length > 0 && priceToMobi.length > 0) {
-//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&cityi=' + cityMobi + '&priceFrom=' + priceFromMobi + '&priceTo=' + priceToMobi
-//     } else {
-//         window.location.href = '/category/' + cat_slugMobi + '?sort=' + sortMobi + '&city=' + cityMobi
-//     }
-// })
-
 $('body').on('click', '#prevCategory', function() {
     $('#subcategories').hide()
     $('#categories').show()
@@ -576,21 +523,6 @@ $(document).on('submit', '#add_product',  function(event) {
 })
 
 $(document).on('change', '.st-attribute_add', function() {
-    // allAttrs = []
-    // $('#st-attribute_val').empty()
-    // $('#st-attribute_val').append(`Аттрибуты <svg xmlns="http://www.w3.org/2000/svg" height="12px" width="12px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 476.241 476.241" style="enable-background:new 0 0 476.241 476.241;" xml:space="preserve">
-    // <g>
-    //     <g>
-    //         <path d="M467.759,8.483c-19.264-19.264-62.824-4.752-101.336,33.752c-8.212,8.177-15.672,17.077-22.288,26.592l-87.848,6.76    c-1.903,0.147-3.691,0.97-5.04,2.32L2.342,326.819c-3.123,3.124-3.123,8.188,0,11.312l135.76,135.768    c3.124,3.123,8.188,3.123,11.312,0l248.912-248.904c1.35-1.349,2.173-3.137,2.32-5.04l6.768-88.2    c0.393-0.13,0.773-0.296,1.136-0.496c9.089-6.391,17.601-13.565,25.44-21.44C472.511,71.307,487.023,27.739,467.759,8.483z     M343.983,132.251c-1.87-2.048-3.051-4.63-3.376-7.384c2.564,0.725,4.904,2.087,6.8,3.96c6.249,6.247,6.251,16.378,0.003,22.627    s-16.378,6.251-22.627,0.003s-6.251-16.378-0.003-22.627c0.001-0.001,0.002-0.002,0.003-0.003c0.08-0.08,0.168-0.128,0.248-0.2    c0.994,5.631,3.655,10.835,7.64,14.936c3.178,3.07,8.242,2.982,11.312-0.196C346.977,140.266,346.977,135.351,343.983,132.251z     M384.919,215.779l-241.16,241.152L19.311,332.475L260.462,91.331l73.544-5.664c-4.023,7.706-6.945,15.938-8.68,24.456    c-4.453,1.554-8.504,4.082-11.856,7.4c-12.499,12.495-12.502,32.756-0.007,45.255s32.756,12.502,45.255,0.007    c12.499-12.495,12.502-32.756,0.007-45.255c-0.002-0.002-0.005-0.005-0.007-0.007c-4.496-4.529-10.253-7.596-16.52-8.8    c2.618-8.653,6.385-16.916,11.2-24.568l41.92-3.2L384.919,215.779z M422.695,98.499c-4.349,4.303-8.914,8.38-13.68,12.216    l2.912-37.84c0.34-4.405-2.955-8.252-7.361-8.592c-0.41-0.032-0.822-0.032-1.231,0l-37.912,2.92    c3.868-4.759,7.978-9.317,12.312-13.656c32.184-32.184,68.088-44.36,78.712-33.752C467.071,30.403,454.871,66.315,422.695,98.499z    "/>
-    //     </g>
-    // </g>
-    // </svg>: `)
-    // $('.st-attribute_add option:selected').each(function(el) {
-    //     $('#st-attribute_val').append($(this).text() + ' ')
-    //     allAttrs.push($(this).text())
-    // })
-    // console.log('actual')
-    // console.log(allAttrs)
 })
 $(document).on('click', '#btn-add_address', function() {
     var formData = new FormData()
@@ -660,38 +592,16 @@ $(document).on('change', '.js-attribute', function() {
                 .remove()
                 $('#color_attr').empty()
             } else {
-                // if (data[0]['slug'] == 'cvet') {
-                //     $('#color_attr').append(`
-                //         <input type="text" id="colors_input" name="cvet" class="form-control d-none" value="">
-                //     `)
-                //     _this.closest('div').append(`
-                //         <div class="Selects d-flex flex-wrap  form-group" name="attribute[${data[0]['slug']}][value]">
-                //         </div>
-                //     `)
-                //     _this
-                //         .closest('div')
-                //         .find('.Selects')
-                //         .empty()
-                //     data.forEach(element => {
-                //         _this.closest('div').find('.Selects').append(`
-                //         <label class="checkbox-container">
-                //         <input class="form-check-input" name="cvet" value="${element['id']}" type="checkbox">
-                //         <span class="checkmark" style="background: ${element['value']}; width: 25px; height: 25px;"></span>
-                //         </label>
-                //     `)
-                //     })
-                // } else {
-                    _this.closest('div').append(`
-                        <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
-                            <option disabled>Выберите значение</option>
-                        </select>
+                _this.closest('div').append(`
+                    <select class="input_placeholder_style form-control st-attribute_add mt-3 other-attr" name="attribute[${data[0]['slug']}][value][]" multiple id="st-attribute_select">
+                        <option disabled>Выберите значение</option>
+                    </select>
+                `)
+                data.forEach(element => {
+                    _this.closest('div').find('select').append(`
+                        <option value="${element['id']}">${element['name']}</option>
                     `)
-                    data.forEach(element => {
-                        _this.closest('div').find('select').append(`
-                            <option value="${element['id']}">${element['name']}</option>
-                        `)
-                    })
-                // }
+                })
             }
         }
     })
@@ -823,7 +733,6 @@ $('.main-search').on('keyup keypress keydown change', function() {
             $('#'+item).empty()
             $('#noneStore').html('По вашему запросу нечего не найдено')
         }
-        
     });
 });
 
@@ -944,7 +853,6 @@ $('.checkout-product').on('click', function() {
         },
         success: data => {
             console.log(data);
-            // window.location.reload();
         },
         error: function(xhr, status, error) {
             console.log(status)
@@ -1143,9 +1051,9 @@ $('#avatar').change(function() {
 })
 
 $('#cover').change(function() {
-        cover(this)
-    })
-    /* iteration number */
+    cover(this)
+})
+/* iteration number */
 
 //gets the input by element Id, gets min, max, and step from the markup. Gets the subtract and add buttons either by optional classnames, or by the next or last element sibling.
 var NumberSpinner = function(elemId, subtractClassName, addClassName) {
@@ -1264,8 +1172,6 @@ $(document).ready(function () {
 
     })
 
-
-
     $('body').on('click', '.delete-product', function(event) {
         var form =  $(this).closest("form");
         event.preventDefault();
@@ -1305,6 +1211,6 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 form.submit();
             }
-    })
+        })
     });
 });
