@@ -159,7 +159,7 @@
         </div>
         <!--slider-proiduct-and-description-end-->
         <!--product-information-and-attribute-->
-        <div class="col-12 col-lg-7 order-lg-1 pl-md-5">
+        <div class="col-12 col-lg-7 order-lg-1 px-0 pl-md-5">
           <h3 class="h3 title mt-3 mt-lg-2 d-none d-lg-block">Информация о товаре</h3>
           <div class="mt-3 mt-lg-5 d-none d-lg-block ">
 
@@ -190,13 +190,9 @@
 
             </div>
           </div>
-          <div class="row align-items-center mt-lg-3 prod-controls">
-            <div class="col-4">
-              <div class="text-center text-md-left">
-                <h5 class="mb-0"><span class="text-danger price mb-price" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
-              </div>
-            </div>
-            <div class="col-4 my-md-0 my-3 text-center">
+          <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px:md-0">
+            <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap w-40"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
+            <div class="d-flex align-items-center justify-content-center w-40">
               <div class="position-relative d-flex align-items-center number justify-content-center">
                 <form id="number-spinner-horizontal" class="t-neutral">
                   <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
@@ -207,28 +203,30 @@
                  </form>
               </div>
             </div>
-            <div class="col-4">
-              <div class="text-center text-md-right">
-                @if(Auth::check())
-                  @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
-                    @if($product->deleted_at == null)
-                        <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
-                    @endif
-                  @else
-                    <!-- Button trigger modal -->
-                    <button id="buyBtn" type="button" class="btn btn-danger custom-radius d-none d-lg-block" data-toggle="modal">
-                        Купить
-                    </button>
-                    <button id="buyBtnMob" type="button" class="btn btn-danger custom-radius d-block d-lg-none" data-toggle="modal">
-                        Купить
-                    </button>
+            <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+              @if(Auth::check())
+                @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
+                  @if($product->deleted_at == null)
+                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
                   @endif
+                @else
+                  <!-- Button trigger modal -->
+                  <button id="buyBtn" type="button" class="btn btn-danger custom-radius d-none d-lg-block" data-toggle="modal">
+                      Купить
+                  </button>
+                  <button id="buyBtnMob" type="button" class="btn btn-danger custom-radius d-block d-lg-none" data-toggle="modal">
+                      Купить
+                  </button>
                 @endif
-                @guest
-                <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
-                  Купить
-                </button>
-                @endguest
+              @endif
+              @guest
+              <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
+                Купить
+              </button>
+              @endguest
+            </div>
+            <div class="">
+              <div class="text-center text-md-right">
                 <!-- Modal 1-->
                 <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
                   aria-hidden="true">

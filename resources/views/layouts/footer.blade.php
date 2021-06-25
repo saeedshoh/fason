@@ -24,7 +24,7 @@
                 <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}"  onsubmit="return false">
                   <div class="input-group text-left  btn-group-fs">
                     <div class="input-group-prepend position-relative">
-                      <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
+                      <div class="input-group-text btn-link btn-custom-fs text-decoration-none position-relative">+992</div>
                     </div>
                     <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
@@ -157,8 +157,8 @@
       </div>
       <ul class="d-flex flex-wrap list-unstyled">
         <li><a href="https://www.instagram.com/fasontj/" target="_blank"><img src="storage/theme/icons/Instagram.svg" alt="" onContextMenu="return false;"></a></li>
-        <li class="mx-2"><a href="https://wa.me/message/MJ75PUVHS7GDC1" target="_blank"><img src="storage/theme/icons/whatsapp-icon.svg" alt=""></a></li>
-        <li><a href="https://t.me/fasontjofficial" target="_blank"><img src="storage/theme/icons/telegram-icon.svg" alt=""></a></li>
+        <li class="mx-2"><a href="https://wa.me/message/MJ75PUVHS7GDC1" target="_blank"><img src="storage/theme/icons/whatsapp-icon.svg" alt=""  onContextMenu="return false;"></a></li>
+        <li><a href="https://t.me/fasontjofficial" target="_blank"><img src="storage/theme/icons/telegram-icon.svg" alt=""  onContextMenu="return false;"></a></li>
       </ul>
     </div>
 

@@ -18,6 +18,7 @@ export function upload(selector, options = {}) {
     const preview = element('div', ['preview', 'row']);
     const open = document.createElement('IMG');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
+    open.setAttribute('onContextMenu','return false;');
     input.insertAdjacentElement('afterend', open);
     input.insertAdjacentElement('afterend', preview);
 
