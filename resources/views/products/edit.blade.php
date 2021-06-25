@@ -253,7 +253,7 @@
                             <div class="d-flex justify-content-between align-items-center w-100">
                                 {{-- <div id="st-attribute_val" class="font-weight-semibold input_caption"></div> --}}
                                 <label class="form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer">{{ $attribute->name }}</label>
-                                <label class="m-0 cursor-pointer" for="{{ $attribute->slug.'Checkbox'.$index}}"><img class="add__attr-icon" onContextMenu="return false;" src="{{ $attribute->is_checked ? '/storage/theme/delete_attr.svg' : '/storage/theme/plus_add_attr.svg' }}"></label>
+                                <label class="m-0 cursor-pointer" for="{{ $attribute->slug.'Checkbox'.$index}}"><img class="add__attr-icon" onContextMenu="return false;" onContextMenu="return false;" src="{{ $attribute->is_checked ? '/storage/theme/delete_attr.svg' : '/storage/theme/plus_add_attr.svg' }}"></label>
                             </div>
                             <input class="form-check-input js-attribute d-none"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
                             @if ($attribute->is_checked)

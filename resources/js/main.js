@@ -476,7 +476,7 @@ $(document).on('change', '[name="category_id"]', function() {
                     <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <label class="form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer">${element['at_name']}:</label>
-                            <label for="${element['at_slug']}Checkbox${element['at_id']}" class="m-0 cursor-pointer"><img class="add__attr-icon" data-for-id="${element['at_slug']}Checkbox${element['at_id']}" src="/storage/theme/plus_add_attr.svg" /></label>
+                            <label for="${element['at_slug']}Checkbox${element['at_id']}" class="m-0 cursor-pointer"><img class="add__attr-icon" onContextMenu="return false;" data-for-id="${element['at_slug']}Checkbox${element['at_id']}" src="/storage/theme/plus_add_attr.svg" /></label>
                         </div>
 
                         <input class="form-check-input js-attribute d-none" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
