@@ -2097,6 +2097,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 }
 
+.w-40{
+    width: 40%;
+}
+
 .fs__icon-show{
     cursor: pointer;
     &:hover>.fs__avatar label{
@@ -2132,4 +2136,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
   .append-div{
       font-size: 11px;
+  }
+
+  .btn-custom-fs::after{
+      top: 11%;
   }
