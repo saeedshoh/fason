@@ -244,6 +244,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        if(!session('previous_product')){
+            session(['previous_product' => url()->previous()]);
+        }
         $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get();
         $categories = $this->categories;
         return view('dashboard.products.create', compact('categories', 'stores'));
