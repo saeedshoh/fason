@@ -16,10 +16,19 @@ export function upload(selector, options = {}) {
     let files = [];
     const input = document.querySelector(selector);
     const preview = element('div', ['preview', 'row']);
-    const open = document.createElement('IMG');
+
+    const opendiv = document.createElement('div');
+    opendiv.setAttribute('class', 'col-3');
+
+    const open = document.createElement('img');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
     open.setAttribute('onContextMenu','return false;');
-    input.insertAdjacentElement('afterend', open);
+    open.style.minHeight = '90px';
+    open.style.width = '100%';
+
+    opendiv.appendChild(open);
+
+    input.insertAdjacentElement('afterend', opendiv);
     input.insertAdjacentElement('afterend', preview);
 
     if (document.getElementById('db-preview-image').dataset.edit == 'true') {
