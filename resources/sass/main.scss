@@ -1086,6 +1086,7 @@ input[type=number] {
 @media only screen and (max-width: 576px) {
     .preview-image img {
         width: 100% !important;
+        min-height: unset !important;
     }
     .mb-custom-login {
         padding: 0 !important;
@@ -1386,8 +1387,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 .profile-pic {
-    position: relative;
-    display: inline-block;
+    // position: relative;
+    // display: inline-block;
 }
 
 .deleteImage {
@@ -1822,7 +1823,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .preview-image {
     position: relative;
-    margin-bottom: .8rem;
+//     margin-bottom: .8rem;
 }
 
 .preview-image.removing {
@@ -1831,8 +1832,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 }
 
 .preview-image img {
-    width: 89px;
-    height: 100px;
+    width: 100%;
+    min-height: 90px;
     object-fit: contain;
     background-color: #ffffff;
 }

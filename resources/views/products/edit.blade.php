@@ -29,10 +29,8 @@
             @if(!empty($product->gallery))
                 @foreach(json_decode($product->gallery) as $gallery)
                     <div class="preview-image col-3">
-                        <div class="profile-pic">
-                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image  pic-item" alt="{{ $product->name }}">
-                            <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
-                        </div>
+                        <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="mw-100 pic-item pic-item rounded shadow" alt="{{ $product->name }}">
+                        <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
                     </div>
                 @endforeach
             @endif

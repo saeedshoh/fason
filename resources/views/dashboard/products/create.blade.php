@@ -47,12 +47,12 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="name">Название</label>
-                                        
+
                                         <input type="text" class="form-control" placeholder="Введите название товара" id="name" name="name" value="{{ old('name') }}" required>
                                         <small class="invalid-feedback">
                                         Введите название товара
                                         </small>
-                                    
+
                                     </div>
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="cat_parent">Родительская категория</label>
@@ -81,14 +81,14 @@
                                         <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" name="price" placeholder="Введите название категори" id="price" value="{{ old('price') }}" required>
                                         <small class="invalid-feedback">
                                             Введите цену товара
-                                        </small>    
+                                        </small>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="quantity">Количество</label>
                                         <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" id="quantity" placeholder="Введите название категори"  name="quantity" value="{{ old('quantity') }}" required>
                                         <small class="invalid-feedback">
                                             Введите кол/во товара
-                                        </small>                                  
+                                        </small>
                                     </div>
                                 </div>
 
@@ -107,7 +107,7 @@
                                 <!-- Button -->
                                 <input type="hidden" name="product_status_id" value="2">
 
-                                <button class="btn btn-primary mt-4 add-product-btn" type="submit">Добавить</button>
+                                <button data-previous="{{ session('previous_product') }}" class="btn btn-primary mt-4 add-product-btn" type="submit">Добавить</button>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
