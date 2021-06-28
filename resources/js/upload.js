@@ -18,13 +18,14 @@ export function upload(selector, options = {}) {
     const preview = element('div', ['preview', 'row']);
 
     const opendiv = document.createElement('div');
-    opendiv.setAttribute('class', 'col-3');
+    opendiv.setAttribute('class', 'preview-image col-3');
 
     const open = document.createElement('img');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
     open.setAttribute('onContextMenu','return false;');
     open.style.minHeight = '90px';
     open.style.width = '100%';
+    open.style.backgroundColor = 'transparent';
 
     opendiv.appendChild(open);
 
@@ -33,7 +34,7 @@ export function upload(selector, options = {}) {
 
     if (document.getElementById('db-preview-image').dataset.edit == 'true') {
         const els = document.querySelectorAll('.preview-image');
-        preview.insertAdjacentElement('afterbegin', open);
+        preview.insertAdjacentElement('afterbegin', opendiv);
         els.forEach(el => preview.insertAdjacentElement('afterbegin', el));
     }
 
@@ -107,7 +108,7 @@ export function upload(selector, options = {}) {
                         imageList.forEach((el, index) => index > 6 ? el.remove() : '');
 
                         if(document.querySelectorAll('.preview-image').length <= 6) {
-                            preview.insertAdjacentElement('beforeend', open);
+                            preview.insertAdjacentElement('beforeend', opendiv);
                             open.classList.add('col-3');
                             open.classList.add('trigger-insert');
                         } else {
@@ -142,7 +143,7 @@ export function upload(selector, options = {}) {
         setTimeout(() => {
             block.remove()
             if(document.querySelectorAll('.preview-image').length <= 7) {
-                preview.insertAdjacentElement('beforeend', open);
+                preview.insertAdjacentElement('beforeend', opendiv);
                 open.classList.add('col-3');
                 open.classList.add('trigger-insert');
             }
