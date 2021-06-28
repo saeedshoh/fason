@@ -148,18 +148,51 @@ trait ImageInvTrait {
         return $nowYear . '800x800.jpg';
     }
 
-    function saveUnchanged($image)
+    public function saveAvatar($image)
     {
-        //Create folder if doesn't exist
         $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
         if(!File::isDirectory($month)){
             File::makeDirectory($month);
         }
 
         $img = Image::make(public_path('/storage/'.$image));
+        $width  = $img->width();
+        $height = $img->height();
+        $vertical   = (($width < $height) ? true : false);
+        $horizontal = (($width > $height) ? true : false);
+        $square     = (($width = $height) ? true : false);
 
+        if ($vertical) {
+            $newWidth = 275;
+            $img->resize($newWidth, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        } else if ($horizontal || $square) {
+            $newHeight = 220;
+            $img->resize(null, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+        $back = Image::canvas('275', '220')->insert($img, 'center');
         $path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid().'.jpg';
-        Image::make($img)->save(public_path('/storage/'.$path));
+        $back->save(public_path('/storage/'.$path));
+
+        unlink(public_path('/storage/'.$image));
+        return $path;
+    }
+
+    public function saveCover($image)
+    {
+        $month = public_path('/storage/').now()->year . '/' . sprintf("%02d", now()->month);
+        if(!File::isDirectory($month)){
+            File::makeDirectory($month);
+        }
+        $img = Image::make(public_path('/storage/'.$image))->resize(850, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $back = Image::canvas('850', '220')->insert($img, 'center');
+        $path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid().'.jpg';
+        $back->save(public_path('/storage/'.$path));
 
         unlink(public_path('/storage/'.$image));
         return $path;

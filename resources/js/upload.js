@@ -146,7 +146,7 @@ export function upload(selector, options = {}) {
 }
 
 $(document).on('click', '.add-product-btn', function() {
-    if($('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '') {
+    if($('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '' && $('#main-poster').attr('src').includes('data:image')) {
         var return_page = $(this).data('previous');
         var formData = new FormData();
         const check_page = document.getElementById('db-preview-image').dataset.edit;

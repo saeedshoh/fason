@@ -172,7 +172,7 @@
                       @if($product->product_status->id == 1)
                         В модерации
                       @elseif ($product->product_status->id == 4)
-                        Товар скрыто, обновите!
+                        Товар скрыт, обновите!
                       @else
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
