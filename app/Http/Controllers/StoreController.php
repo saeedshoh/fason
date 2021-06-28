@@ -267,7 +267,7 @@ class StoreController extends Controller
                 $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
                 $vtr = base64_decode($vtr);
                 Storage::disk('public')->put($avatar_path, $vtr);
-                $data['avatar'] = $this->saveUnchanged($avatar_path);
+                $data['avatar'] = $this->saveAvatar($avatar_path);
             };
 
             $cover_json = $request->cover;
@@ -276,7 +276,7 @@ class StoreController extends Controller
                 $cvr = substr($cover_json, strpos($cover_json, ',') + 1);
                 $cvr = base64_decode($cvr);
                 Storage::disk('public')->put($cover_path, $cvr);
-                $data['cover'] = $this->saveUnchanged($cover_path);
+                $data['cover'] = $this->saveCover($cover_path);
             };
 
             $store = Store::create($data + ['is_moderation' => 1]);
@@ -366,7 +366,7 @@ class StoreController extends Controller
                 $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
                 $vtr = base64_decode($vtr);
                 Storage::disk('public')->put($avatar_path, $vtr);
-                $data['avatar'] = $this->saveUnchanged($avatar_path);
+                $data['avatar'] = $this->saveAvatar($avatar_path);
             };
 
             $cover_json = $request->cover;
@@ -375,7 +375,7 @@ class StoreController extends Controller
                 $cvr = substr($cover_json, strpos($cover_json, ',') + 1);
                 $cvr = base64_decode($cvr);
                 Storage::disk('public')->put($cover_path, $cvr);
-                $data['cover'] = $this->saveUnchanged($cover_path);
+                $data['cover'] = $this->saveCover($cover_path);
             };
             if (auth()->user()->status == 2 && StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->update($data + ['is_active' => 0, 'is_moderation' => 1])) {
                 $store->update(['is_moderation' => 1]);
