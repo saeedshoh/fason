@@ -49,9 +49,9 @@
             </div>
           </div>
         </div>
-        @if (session()->get('success'))
-        <div class="alert alert-success">
-            {{session()->get('success')}}
+        @if (session())
+        <div class="alert alert-{{ session()->get('class') }}">
+            {{session()->get('message')}}
         </div>
         @endif
         <!-- Tab content -->

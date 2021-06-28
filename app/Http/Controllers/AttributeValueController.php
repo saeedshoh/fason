@@ -109,13 +109,20 @@ class AttributeValueController extends Controller
      */
     public function destroy(AttributeValue $attributeValue, $id, $val_id)
     {
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 3,
-            'table'  => ' Значение атрибутов',
-            'description' => 'Название: ' . $attributeValue->name . ', Значение: ' . $attributeValue->value
-        ]);
-        $attributeValue->find($val_id)->delete();
-        return redirect()->back()->with('success', 'Аттрибут успешно удалена!');
+        $message = 'Аттрибут успешно удалена!';
+        $class = 'success';
+        if($attributeValue->find($val_id)->products->isEmpty()){
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 3,
+                'table'  => ' Значение атрибутов',
+                'description' => 'Название: ' . $attributeValue->name . ', Значение: ' . $attributeValue->value
+            ]);
+            $attributeValue->find($val_id)->delete();
+        } else {
+            $class = 'danger';
+            $message = 'Невозможно удалить атрибут, так как есть товар с таким атрибутом.';
+        }
+        return redirect()->back()->with(['class' => $class, 'message' => $message]);
     }
 }

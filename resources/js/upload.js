@@ -494,7 +494,7 @@ $(document).on('click', '#storeEditSubmit', function(e){
         const name = $('input[name="name"]').val();
         const address = $('input[name="address"]').val();
         const description = $('textarea[name="description"]').val();
-        const city_id = $('input[name="city_id"]').val();
+        const city_id = $('input[name="city_id"]:checked').val();
         const avatar = $('#avatar-poster').attr('src');
         const cover = $('#cover-poster-mobile').attr('src');
 
@@ -519,7 +519,6 @@ $(document).on('click', '#storeEditSubmit', function(e){
                 $('.success-preloader').removeClass('d-none');
             },
             success: data => {
-                console.log(data);
                 if(data.where == 'website'){
                     window.location.href = `/moderation/${data.parameter}`;
                 } else {

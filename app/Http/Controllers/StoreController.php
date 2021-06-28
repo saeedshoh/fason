@@ -350,7 +350,6 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request, $store)
     {
-        // return $request;
         if ($request->ajax()) {
             $store = Store::withoutGlobalScopes()->find($store);
 

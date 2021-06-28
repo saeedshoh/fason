@@ -119,14 +119,21 @@ class AttributeController extends Controller
      */
     public function destroy(Attribute $attribute)
     {
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 3,
-            'table'  => ' Атрибуты',
-            'description' => 'Название: ' . $attribute->name
-        ]);
-        $attribute->delete();
-        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно удалена!');
+        $message = 'Аттрибут успешно удалена!';
+        $class = 'success';
+        if($attribute->products->isEmpty()){
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 3,
+                'table'  => ' Атрибуты',
+                'description' => 'Название: ' . $attribute->name
+            ]);
+            $attribute->delete();
+        } else {
+            $class = 'danger';
+            $message = 'Невозможно удалить атрибут, так как есть товар с таким атрибутом.';
+        }
+        return redirect(route('attributes.index'))->with(['class' => $class, 'message' => $message]);
     }
 
     public function attributes(Request $request)
