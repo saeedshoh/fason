@@ -281,7 +281,10 @@ class CategoryController extends Controller
 
     public function getSubCategories(Request $request)
     {
-        $subcategories = Category::where('parent_id', $request->category)->where('is_active', 1)->get();
+        $subcategories = Category::where('parent_id', $request->category)
+            ->where('is_active', 1)
+            ->orderBy('order_no')
+            ->get();
         return $subcategories;
     }
 
