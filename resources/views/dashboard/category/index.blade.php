@@ -147,7 +147,9 @@
                                     </a>
                                 </td>
                             </tr>
-                            @isset($category->children)
+                            @dd($category->children)
+                            {{-- @isset($category->children)
+                            @dd($category->children)
                                 @foreach($category->children as $category)
                                 <tr>
                                     <td>
@@ -181,7 +183,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            @endisset
+                            @endisset --}}
                         @empty
                         <tr>
                             <td class="text-muted h4" colspan="7">
