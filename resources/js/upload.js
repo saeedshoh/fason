@@ -14,9 +14,18 @@ const element = (tag, classes = [], content) => {
 
 export function upload(selector, options = {}) {
     let files = [];
-    const input = document.querySelector(selector);
+    const input = document.querySelector('body');
+    const open = document.createElement('div');
+    open.setAttribute('class', 'col-3');
+    const img = document.createElement('img');
+    img.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
+    img.setAttribute('onContextMenu','return false;');
+    img.style.minHeight = '90px';
+    img.style.width = '100%';
+    open.appendChild(img);
+
+
     const preview = element('div', ['preview', 'row']);
-    const open = document.createElement('IMG');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
     open.setAttribute('onContextMenu','return false;');
     input.insertAdjacentElement('afterend', open);
