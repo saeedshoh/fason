@@ -18,8 +18,7 @@ export function upload(selector, options = {}) {
     const preview = element('div', ['preview', 'row']);
 
     const opendiv = document.createElement('div');
-    opendiv.setAttribute('class', 'preview-image col-3');
-
+    opendiv.setAttribute('class', 'preview-image col-3 col-lg-4 col-xl-3');
     const open = document.createElement('img');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
     open.setAttribute('onContextMenu','return false;');
@@ -96,26 +95,24 @@ export function upload(selector, options = {}) {
                         preview.insertAdjacentHTML(
                             'beforeend',
                             `
-                        <div class="preview-image col-3">
-                        <div class="profile-pic">
-                            <img src="${src}" alt="${result.name}" class="preview-element-image border-gray rounded shadow"/>
-                            <div class="deleteImage text-white" data-name="${result.name}">&times;</div>
-                        </div>
+                        <div class="preview-image col-3 col-lg-4 col-xl-3">
+                            <div class="profile-pic">
+                                <img src="${src}" alt="${result.name}" class="preview-element-image border-gray rounded shadow"/>
+                                <div class="deleteImage text-white" data-name="${result.name}">&times;</div>
+                            </div>
                         </div>`
                         );
                         let imageList = document.querySelectorAll('.preview-image');
 
                         imageList.forEach((el, index) => index > 6 ? el.remove() : '');
-
                         if(document.querySelectorAll('.preview-image').length <= 6) {
                             preview.insertAdjacentElement('beforeend', opendiv);
-                            open.classList.add('col-3');
                             open.classList.add('trigger-insert');
                         } else {
                             open.remove();
+                            document.querySelectorAll('.preview-image')[5].remove()
                         }
                     };
-
                     reader.readAsDataURL(result);
                 },
                 error(err) {
@@ -142,9 +139,9 @@ export function upload(selector, options = {}) {
         block.classList.add('removing');
         setTimeout(() => {
             block.remove()
-            if(document.querySelectorAll('.preview-image').length <= 7) {
+            if(document.querySelectorAll('.preview-image').length <= 8) {
                 preview.insertAdjacentElement('beforeend', opendiv);
-                open.classList.add('col-3');
+                opendiv.append(open)
                 open.classList.add('trigger-insert');
             }
         }, 300);
