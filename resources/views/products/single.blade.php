@@ -16,7 +16,16 @@
   <section>
     <div class="container mt-lg-5">
       <div class="row">
-        <!--slider-proiduct-and-description-->
+        @if($product->product_status_id == 6 && $product->deleted_at != null)
+        <div class="d-lg-block d-none mb-3 alert alert-danger w-100" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="alert-heading">Внимание!</h4>
+          <p>Ваш продукт был удален администратором. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> (+992) 000 02 9641</a></p>
+        </div>
+        @endif
+        <!--slider-product-and-description-->
         <div class="col-12 col-lg-5 px-md-0">
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
             <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none">
@@ -24,12 +33,18 @@
               назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
           </div>
+          @if($product->product_status_id == 6 && $product->deleted_at != null)
+          <div class="d-block d-lg-none col-12 my-3 alert alert-danger w-100" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Внимание!</h4>
+            <p>Ваш продукт был удален администратором. Для подробной информации свяжитесь с модератором: <br> Телефон для справки <a href="tel:+992000029641"class="alert-link"> <br> (+992) 000 02 9641</a></p>
+          </div>
+          @endif
           <div class="d-block d-lg-none my-3">
             <a href="{{ route('ft-category.category', $product->category->slug) }}" class="text-secondary font-weight-bold text-decoration-none">{{ $product->category->name }}</a>
-
             <h3 class="h3 font-weight-bold">{{ $product->name }}</h3>
-
-           </p>
           </div>
           <!--desktop slider-->
           <div class="product-img-holder">
@@ -53,16 +68,6 @@
         <div>
         </div>
         <div class="col-12 d-block d-lg-none order-2">
-{{--
-          <div class="d-flex justify-content-center">
-
-            <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
-              @csrf
-                  <button class="btn btn-danger delete-confirm custom-radius" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
-              @method('DELETE')
-            </form>  --}}
-
-          {{--  </div>  --}}
 
           <div class="my-3 ">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
@@ -127,16 +132,8 @@
                         Удалить
                       </button>
                   </form>
-                {{-- <button type="button" class="rounded-11 btn btn-outline-primary  ml-md-2 my-1 px-2 restore-product">
-                  <svg width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 14.155 14.155" style="enable-background:new 0 0 14.155 14.155;" xml:space="preserve">
-                    <g>
-                      <path d="M12.083,1.887c-0.795-0.794-1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,0.95   c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,1.99-7.229,0c-1.991-1.995-1.991-5.235,0-7.229   C3.466,3.269,3.482,3.259,3.489,3.25h0.002l1.181,1.179L4.665,0.685L0.923,0.68l1.176,1.176C2.092,1.868,2.081,1.88,2.072,1.887   c-2.763,2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,0C14.844,9.13,14.847,4.649,12.083,1.887z"/>
-                    </g>
-                    </svg>Восстановить
-                </button> --}}
 
-
-                @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null)
+                @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null && $product->product_status_id != 6)
                 <form action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
                   @csrf
                   @method('POST')
@@ -372,16 +369,8 @@
                         Удалить
                       </button>
                   </form>
-                {{-- <button type="button" class="rounded-11 btn btn-outline-primary  ml-md-2 my-1 px-2 restore-product">
-                  <svg width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 14.155 14.155" style="enable-background:new 0 0 14.155 14.155;" xml:space="preserve">
-                    <g>
-                      <path d="M12.083,1.887c-0.795-0.794-1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,0.95   c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,1.99-7.229,0c-1.991-1.995-1.991-5.235,0-7.229   C3.466,3.269,3.482,3.259,3.489,3.25h0.002l1.181,1.179L4.665,0.685L0.923,0.68l1.176,1.176C2.092,1.868,2.081,1.88,2.072,1.887   c-2.763,2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,0C14.844,9.13,14.847,4.649,12.083,1.887z"/>
-                    </g>
-                    </svg>Восстановить
-                </button> --}}
 
-
-                @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null)
+                @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null && $product->product_status_id != 6)
                 <form action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
                   @csrf
                   @method('POST')
