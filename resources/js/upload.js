@@ -22,7 +22,7 @@ export function upload(selector, options = {}) {
     const open = document.createElement('img');
     open.setAttribute('src', '/storage/theme/icons/add_prod-secondary.svg');
     open.setAttribute('onContextMenu','return false;');
-    open.style.minHeight = '90px';
+    open.style.height = '90px';
     open.style.width = '100%';
     open.style.backgroundColor = 'transparent';
 
@@ -96,7 +96,7 @@ export function upload(selector, options = {}) {
                             'beforeend',
                             `
                         <div class="preview-image col-3 col-lg-4 col-xl-3">
-                            <div class="profile-pic">
+                            <div class="profile-pic h-100">
                                 <img src="${src}" alt="${result.name}" class="preview-element-image border-gray rounded shadow"/>
                                 <div class="deleteImage text-white" data-name="${result.name}">&times;</div>
                             </div>
