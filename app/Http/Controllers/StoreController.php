@@ -295,14 +295,16 @@ class StoreController extends Controller
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
 
         Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
+        Product::withoutGlobalScopes()->where('quantity', 0)->update(['product_status_id' => 5]);
 
         $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->latest('updated_at')->get();
-        $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->latest('updated_at')->get();
-        $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->latest('updated_at')->get();
-        $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->latest('updated_at')->get();
-        $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->latest('updated_at')->get();
-        $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->latest('updated_at')->get();
-        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->latest('updated_at')->get();
+        $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
+        $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
+        $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
+        $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
+        $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
+        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
+        // ddd($deletedProducts);
         return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
     }
 

@@ -165,14 +165,22 @@
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($products as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container mt-3">
                     <span class="text-secondary">
                       @if($product->product_status->id == 1)
                         В модерации
+                      @elseif ($product->deleted_at != null)
+                        Товар удалён
+                      @elseif ($product->product_status->id == 3)
+                        Товар отклонён
                       @elseif ($product->product_status->id == 4)
                         Товар скрыт, обновите!
+                      @elseif ($product->product_status->id == 5)
+                        Товара нет в наличии
+                      @elseif ($product->product_status->id == 6)
+                        Товар удалён модератором
                       @else
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
@@ -201,21 +209,22 @@
       <!--All product-end-->
       <!--Published-tab-->
       <div class="tab-pane fade" id="published" role="tabpanel" aria-labelledby="published-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($acceptedProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container mt-3">
-                    <span class="text-secondary"><img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                        @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
-                        @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
-                        @else
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
-                        @endif
+                    <span class="text-secondary">
+                      <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
+                      @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
+                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
+                      @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
+                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                      @else
+                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                      @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
@@ -234,15 +243,15 @@
       <!--Published-tab end-->
       <!--On Checking-->
       <div class="tab-pane fade" id="onChecking" role="tabpanel" aria-labelledby="onChecking-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($onCheckProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
                     <span class="text-secondary">
-                        В модерации
+                      В модерации
                     </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
@@ -253,7 +262,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -261,13 +270,16 @@
       <!--On Checking end-->
       <!--Hidden-->
       <div class="tab-pane fade" id="hidden" role="tabpanel" aria-labelledby="hidden-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($hiddenProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
+                    <span class="text-secondary">
+                      Товар скрыт, обновите!
+                    </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                       <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
@@ -277,7 +289,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                <span class="mb-4">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -285,13 +297,16 @@
       <!--Hidden end-->
       <!--Declined-->
       <div class="tab-pane fade" id="declined" role="tabpanel" aria-labelledby="declined-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($canceledProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
+                    <span class="text-secondary">
+                      Товар отклонён
+                    </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                       <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
@@ -309,13 +324,16 @@
       <!--Declined end-->
       <!--Not in stock-->
       <div class="tab-pane fade" id="notInStock" role="tabpanel" aria-labelledby="notInStock-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($notInStock as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0  h-100 w-100">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
+                    <span class="text-secondary">
+                      Товара нет в наличии
+                    </span>
                     <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                       <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
@@ -333,13 +351,20 @@
       <!--Declined end-->
       <!--On Delete-->
       <div class="tab-pane fade" id="deleted-products" role="tabpanel" aria-labelledby="deleted-tab">
-        <div class="all-product container mt-5">
+        <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($deletedProducts as $product)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0">
+                <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container">
+                  <div class="container mt-3">
+                    <span class="text-secondary">
+                      @if ($product->deleted_at != null)
+                        Товар удалён
+                      @elseif ($product->product_status->id == 6)
+                        Товар удалён модератором
+                      @endif
+                    </span>
                     <h4 class="product-name shop-subject mt-3" >{{ $product->name }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                       <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
@@ -356,10 +381,6 @@
     </div>
 
     </div>
-    <!--Tab content end-->
-    {{-- <div class="d-none d-lg-block text-center mt-1 mb-5 mb-lg-0">
-        <a class="btn btn-danger col-6 col-sm-2 rounded-11 mb-5" href="{{ route('ft_product.add_product') }}"><img class="mr-1" src="/storage/theme/icons/add.svg" alt="">Добавить товар</a>
-    </div> --}}
   </div>
   </section>
 @endsection

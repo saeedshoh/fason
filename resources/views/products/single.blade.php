@@ -204,7 +204,7 @@
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                   @if($product->deleted_at == null)
-                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">Изменить</a>
+                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
                   @endif
                 @else
                   <!-- Button trigger modal -->
