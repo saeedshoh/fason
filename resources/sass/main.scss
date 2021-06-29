@@ -1084,10 +1084,6 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 576px) {
-    .preview-image img {
-        width: 100% !important;
-        min-height: unset !important;
-    }
     .mb-custom-login {
         padding: 0 !important;
         .mb-pre--close {
@@ -1833,9 +1829,19 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .preview-image img {
     width: 100%;
-    min-height: 90px;
+    height: 90px;
     object-fit: contain;
     background-color: #ffffff;
+    @media only screen and (max-width: 480px){
+        width: 100% !important;
+        height: 74px !important;
+        object-fit: cover;
+    }
+    @media only screen and (max-width: 375px){
+        width: 100% !important;
+        height: 54px !important;
+    }
+    
 }
 
 .preview-remove {
