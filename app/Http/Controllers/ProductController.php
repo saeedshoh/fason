@@ -452,6 +452,7 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $product->name . ', Категория: ' . $category . ', Цена: ' . $product->price . ', Количество: ' . $product->quantity . ', Описание: ' . $product->description . ', Магазин: ' . $store->first()->name
         ]);
+        $product->update(['product_status_id' => 6]);
         $product->delete();
         return redirect()->route('products.index');
     }
@@ -468,7 +469,9 @@ class ProductController extends Controller
         $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
         $previous = url()->previous();
         if (str_contains($previous, 'products/single/')) {
+            if(auth()->user()->isAn('admin')){
             $product->restore();
+            }
             return redirect()->route('ft-store.show', $store->first()->slug);
         }
         $product->restore();
