@@ -378,6 +378,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $product)
     {
+        $product_status_id = 1;
         $product = Product::withoutGlobalScopes()->find($product);
         if ($request->image != $product->image && $request->image != null) {
             $request->validate([
@@ -400,7 +401,10 @@ class ProductController extends Controller
                 'image' => $image,
             ]);
         }
-        $product->update($request->validated() + ['gallery' => $request->gallery]);
+        if(auth()->user()->isAn('admin')){
+            $product_status_id = 2;
+        }
+        $product->update($request->validated() + ['gallery' => $request->gallery, 'product_status_id' => $product_status_id]);
         if (isset($request->attribute)) {
 
             $delete = ProductAttribute::where('product_id', $product->id);
@@ -469,11 +473,10 @@ class ProductController extends Controller
         $store = Store::withoutGlobalScopes()->where('id', $product->store_id)->get();
         $previous = url()->previous();
         if (str_contains($previous, 'products/single/')) {
-            if(auth()->user()->isAn('admin')){
             $product->restore();
-            }
             return redirect()->route('ft-store.show', $store->first()->slug);
         }
+        $product->update(['product_status_id' => 2]);
         $product->restore();
         return redirect()->route('products.index');
     }
