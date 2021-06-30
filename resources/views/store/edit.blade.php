@@ -53,8 +53,8 @@
             <div class="col-4 text-center justify-items-center align-self-center">
               <div class="d-inline-block position-relative">
                 <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="rounded-circle" width="75" height="75" id="avatar-poster-mobile">
-                <label for="avatar" class="btn p-0 position-absolute change-avatar-icon m-0">
-                  <img src="/storage/theme/icons/camera.svg">
+                <label for="avatar" class="btn position-absolute change-avatar-icon m-0 d-flex">
+                  <img class="mr-1 mw-100  align-text-top" src="/storage/theme/icons/camera.svg">Изменить
                 </label>
               </div>
             </div>
