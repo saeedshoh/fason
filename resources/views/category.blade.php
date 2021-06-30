@@ -274,7 +274,7 @@
                 <div class="container">
                   <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
                   <div class="discription d-none">
-                    <p style="width: 6rem;">
+                    <p>
                       {{ Str::limit($product->description, 20) }}
                     </p>
                   </div>

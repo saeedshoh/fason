@@ -2181,9 +2181,14 @@ input[type="number"]:hover::-webkit-outer-spin-button {
   }
 
   .append-div{
-      font-size: 11px;
+    font-size: 11px;
   }
 
   .btn-custom-fs::after{
-      top: 11%;
+    top: 11%;
+  }
+
+  .add__attr-icon{
+    z-index: 100;
+    position: relative;
   }
