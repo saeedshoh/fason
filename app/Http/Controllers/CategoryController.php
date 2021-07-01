@@ -100,17 +100,28 @@ class CategoryController extends Controller
     {
         $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
         $categories = Category::where('parent_id', 0)
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->with('childrens', function($children){
-                $children->orderBy('order_no');
-            })
-            ->with('grandchildren', function($grandchildren){
-                $grandchildren->orderBy('order_no');
-            })
             ->orderBy('order_no')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
+            if($request->search != '') {
+                $categories = Category::where('parent_id', 0)
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->orWhereHas('childrens', function($children) use ($request){
+                    $children->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
+                })
+                ->orWhereHas('grandchildren', function($grandchildren) use ($request){
+                    $grandchildren->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
+                })
+                ->orderBy('order_no')
+                ->paginate(30)
+                ->withQueryString();
+            } else {
+                $categories = Category::where('parent_id', 0)
+                ->orderBy('order_no')
+                ->paginate(30)
+                ->withQueryString();
+            }
             return response()->json(
                 view(
                     'dashboard.ajax.categories',

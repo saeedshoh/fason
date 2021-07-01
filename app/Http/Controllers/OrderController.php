@@ -281,7 +281,7 @@ class OrderController extends Controller
             if($order) {
                 $comment = '';
                 if ( !empty ( $order->comment ) ) {
-                    $comment = "\n Примичание к заказу: " .$order->comment;
+                    $comment = "\nПримичание к заказу: " .$order->comment;
                 }
                 $config = array(
                     'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
@@ -292,7 +292,6 @@ class OrderController extends Controller
                 $attributes = null;
                 if(json_decode($order->attributes)) {
                     $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
-                    // $attributes = '';
                     foreach($attributes_values as $index => $attributes_value){
                         $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
                         if ($index === count($attributes_values)-1) {
@@ -304,8 +303,8 @@ class OrderController extends Controller
                 }
                 $phone = Auth::user()->phone; //номер телефона
                 $store_phone = $product->store->user->phone;
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони";
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nСпасибо за покупку.";
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони". "\nСпасибо что выбрали нас.";
                 if($attributes){
                     $message .= "\nАттрибуты: ".$attributes;
                     $store_message .= "\nАттрибуты: ".$attributes;
