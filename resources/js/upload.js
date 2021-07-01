@@ -156,6 +156,7 @@ $(document).on('click', '.add-product-btn', function() {
     if($('#name').val() != '' && $('#description').val() != '' && $('#quantity').val() != '' && $('select[name="category_id"]').val() != '' && $('#price').val() != '' && ($('#main-poster').attr('src').includes('data:image') || $('#main-poster').attr('src') != '/storage/theme/icons/add_product_plus.svg')) {
         var return_page = $(this).data('previous');
         var formData = new FormData();
+        var store_name = $(this).data('store');
         const check_page = document.getElementById('db-preview-image').dataset.edit;
 
         const product_id = $(this)
@@ -299,7 +300,7 @@ $(document).on('click', '.add-product-btn', function() {
                         .html(
                             `<div class="mt-lg-5 py-lg-5 py-3 text-center"><img class="mb-5" src="/storage/theme/thanks.svg" width="180px" alt=""><div class="mb-3 pb-lg-0"><h5>Товар успешно ${
                   check_page == 'true' ? 'обновлен' : 'добавлен'
-                } и проходит модерацию </h5><a class="rounded-11 btn btn-outline-danger mt-4" href="/">На главную</a></div></div>`
+                } и проходит модерацию </h5><a class="rounded-11 btn btn-outline-danger mt-4" href="/store/${store_name}/show">Вернуться в магазин</a></div></div>`
                         );
                 },
                 error: function(xhr, status, error) {

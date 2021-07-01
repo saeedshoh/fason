@@ -121,7 +121,7 @@
             <input type="hidden" name="product_status_id" value="1">
             <input type="hidden" name="store_slug" value="{{ Auth::user()->store->slug }}">
             <div class="form-group d-flex flex-row mb-5 mb-lg-0 justify-content-center justify-content-md-end align-items-start align-items-md-center">
-              <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-5 rounded-11 py-2 w-lg-75 add-product-btn add_append"> Добавить </button>
+              <button type="submit" class="w-75 font-weight-bold btn-danger border-0  mb-5 rounded-11 py-2 w-lg-75 add-product-btn add_append" @if(Auth::user()->store) data-store="{{ Auth::user()->store->slug }}"@endif> Добавить </button>
             </div>
             <div id="color_attr"></div>
           </form>
