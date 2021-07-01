@@ -303,12 +303,14 @@ class OrderController extends Controller
                 }
                 $phone = Auth::user()->phone; //номер телефона
                 $store_phone = $product->store->user->phone;
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment. "\nСпасибо за покупку.";
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони". "\nСпасибо что выбрали нас.";
+                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
+                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони";
                 if($attributes){
                     $message .= "\nАттрибуты: ".$attributes;
                     $store_message .= "\nАттрибуты: ".$attributes;
                 }
+                $message .= "\nСпасибо за покупку.";
+                $store_message .= "\nСпасибо что выбрали нас.";
                 $result = $this->sendSMS($phone, $message, $config);
                 $store_result = $this->sendSMS($store_phone, $store_message, $config);
             }
