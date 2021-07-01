@@ -295,7 +295,7 @@ class OrderController extends Controller
                     foreach($attributes_values as $index => $attributes_value){
                         $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
                         if ($index === count($attributes_values)-1) {
-                            $attributes .= '.';
+                            $attributes .= '';
                         } else {
                             $attributes .= ', ';
                         }
