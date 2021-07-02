@@ -272,6 +272,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $class = 'success';
+        $message = 'Категория успешно удалена!';
         $isActive = $category->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $category->parent_id != 0  ? Category::where('id', $category->parent_id)->first()->name : 'Родительская';
@@ -280,14 +282,19 @@ class CategoryController extends Controller
                 $attributes =  $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';
             }
         }
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 3,
-            'table'  => 'Категории',
-            'description' => 'Название: ' . $category->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
-        ]);
-        $category->delete();
-        return redirect(route('categories.index'))->with('success', 'Категория успешно удалена!');
+        if($category->products_no_scope->isEmpty()){
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 3,
+                'table'  => 'Категории',
+                'description' => 'Название: ' . $category->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive
+            ]);
+            $category->delete();
+        } else {
+            $class = 'danger';
+            $message = 'Невозможно удалить категорию, так как есть товар с такой категорией.';
+        }
+        return redirect(route('categories.index'))->with(['class' => $class, 'message' => $message]);
     }
 
     public function getSubCategories(Request $request)

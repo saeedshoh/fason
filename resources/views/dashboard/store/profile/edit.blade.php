@@ -155,6 +155,7 @@
                   <label for="name">Выберите фон</label>
 
                   <input type="file" class="form-control" id="cover" name="cover" value="{{ $store->cover }}">
+                  <small class="text-muted">Внимание размер: 840px * 215px</small>
                   <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image d-none" id="cover-poster-mobile" height="216">
 
                 </div>
@@ -162,6 +163,7 @@
                   <label for="name">Выберите аватарку</label>
 
                   <input type="file" class="form-control" id="avatar" name="avatar" value="{{ $store->avatar }}">
+                  <small class="text-muted">Внимание размер: 270px * 215px</small>
                   <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" class="w-100 rounded d-none" id="avatar-poster" height="216">
                 </div>
               </div>

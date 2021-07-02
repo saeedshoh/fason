@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
 
-                                <div id="attributes" class="row"></div>
+                                <div id="attributes" class="d-flex justify-content-between"></div>
 
                                 <!-- Button -->
                                 <input type="hidden" name="product_status_id" value="2">

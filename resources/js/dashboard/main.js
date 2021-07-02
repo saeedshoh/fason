@@ -419,10 +419,10 @@ $('body').on('change', '#cat_parent', function() {
                 $('#cat_child').empty().append(`
                     <label for="cat_child">Под-категория</label>
                     <select class="form-control" id="cat_child_value" name="category_id" >
-                        <option disabled value>Выберите подкатегорию</option>
+                        <option disabled selected>Выберите подкатегорию</option>
                     </select>
                 `)
-                $('#child_div').remove()
+                $('#child_div').empty()
                 data.forEach(element => {
                     $('#cat_child_value').append(`
                         <option value="${element['id']}">${element['name']}</option>
@@ -430,6 +430,26 @@ $('body').on('change', '#cat_parent', function() {
                 })
             } else {
                 $('#cat_child').empty();
+                $('#child_div').remove()
+                $.ajax({
+                    url: '/getAttributes',
+                    data: {
+                        category_id: id
+                    },
+                    method: "GET",
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#attributes').empty();
+                        data.forEach(element => {
+                            $('#attributes').append(`
+                                <div class="form-check form-check">
+                                    <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                                    <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                                </div>
+                            `);
+                        })
+                    }
+                });
             }
         }
     })
@@ -443,7 +463,7 @@ $('body').on('change', '#cat_child_value', function() {
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            if (data.hasOwnProperty('0')) {
+            if (data.length > 0) {
                 $('#cat_child_value').attr('name', 'subcategory')
                 $('#child_div').remove()
                 $('#subCategories').append(`
@@ -451,7 +471,7 @@ $('body').on('change', '#cat_child_value', function() {
                         <label class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                         <div class="input_placeholder_style">
                         <select class="input_placeholder_style form-control position-relative" id="grandchildren" name="category_id">
-                            <option disabled value>Выберите категорию</option>
+                            <option disabled selected>Выберите категорию</option>
                         </select>
                         </div>
                     </div>
@@ -464,20 +484,32 @@ $('body').on('change', '#cat_child_value', function() {
             } else {
                 $('#cat_child').attr('name', 'category_id')
                 $('#child_div').remove()
+                $.ajax({
+                    url: '/getAttributes',
+                    data: {
+                        category_id: id
+                    },
+                    method: "GET",
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#attributes').empty();
+                        data.forEach(element => {
+                            $('#attributes').append(`
+                                <div class="form-check form-check">
+                                    <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                                    <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                                </div>
+                            `);
+                        })
+                    }
+                });
             }
         }
     })
 })
 
-$(function($) {
-    $(".action-print").click(function() {
-        window.print();
-        return false;
-    });
-});
-
-$(document).on('change', '[name="category_id"]', function() {
-    const id = $('[name="category_id"] option:selected').val();
+$('body').on('change', '#grandchildren', function() {
+    const id = $('#grandchildren option:selected').val()
     $.ajax({
         url: '/getAttributes',
         data: {
@@ -498,6 +530,58 @@ $(document).on('change', '[name="category_id"]', function() {
         }
     });
 })
+
+$(function($) {
+    $(".action-print").click(function() {
+        window.print();
+        return false;
+    });
+});
+
+// attributes = (id) => {
+//     $.ajax({
+//         url: '/getAttributes',
+//         data: {
+//             category_id: id
+//         },
+//         method: "GET",
+//         dataType: 'json',
+//         success: function(data) {
+//             $('#attributes').empty();
+//             data.forEach(element => {
+//                 $('#attributes').append(`
+//                     <div class="form-check form-check">
+//                         <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+//                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+//                     </div>
+//                 `);
+//             })
+//         }
+//     });
+// }
+
+// $(document).on('change', '[name="category_id"]', function() {
+//     const id = $('[name="category_id"] option:selected').val();
+//     $.ajax({
+//         url: '/getAttributes',
+//         data: {
+//             category_id: id
+//         },
+//         method: "GET",
+//         dataType: 'json',
+//         success: function(data) {
+//             $('#attributes').empty();
+//             data.forEach(element => {
+//                 $('#attributes').append(`
+//                     <div class="form-check form-check">
+//                         <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+//                         <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+//                     </div>
+//                 `);
+//             })
+//         }
+//     });
+// })
 
 $(document).on('change', '.js-attribute', function() {
     const _this = $(this);

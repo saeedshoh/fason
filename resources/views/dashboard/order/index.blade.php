@@ -71,7 +71,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-list='{"valueNames": ["orders-order", "orders-client", "orders-client-info", "orders-product", "orders-date", "orders-total", "orders-margin", "orders-status", "orders-store", "orders-store-info"]}'>
+        <div class="card" data-list='{"valueNames": ["orders-order", "orders-client", "orders-client-info", "orders-product", "orders-date", "orders-total", "orders-margin", "orders-grand-total", "orders-status", "orders-store", "orders-store-info"]}'>
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col">
@@ -307,6 +307,11 @@
                                 </a>
                             </th>
                             <th>
+                                <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-grand-total">
+                                Итого
+                                </a>
+                            </th>
+                            <th>
                                 <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-status">
                                 Статус
                                 </a>
@@ -346,6 +351,9 @@
                             </td>
                             <td class="orders-margin">
                                 {{ $order->margin}} Сомони
+                            </td>
+                            <td class="orders-margin">
+                                {{ $order->total + $order->margin}} Сомони
                             </td>
                             <td class="orders-status">
                                 <!-- Badge -->
