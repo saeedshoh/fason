@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                   Все категории  <span class="badge badge-pill badge-soft-secondary"> {{ $categories->total() }}</span>
+                   Все категории  <span class="badge badge-pill badge-soft-secondary"> {{ $allCategories->count() }}</span>
                 </h1>
 
               </div>
@@ -38,9 +38,9 @@
             </div> <!-- / .row -->
           </div>
         </div>
-        @if (session()->get('success'))
-        <div class="alert alert-success">
-            {{session()->get('success')}}
+        @if (session())
+        <div class="alert alert-{{ session()->get('class') }}">
+            {{session()->get('message')}}
         </div>
         @endif
 

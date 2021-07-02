@@ -33,6 +33,9 @@ class Category extends Model
     public function products() {
         return $this->hasMany('App\Models\Product');
     }
+    public function products_no_scope() {
+        return $this->hasMany('App\Models\Product')->withoutGlobalScopes();
+    }
     public function getSlugOptions() : SlugOptions   {
         return SlugOptions::create()
         ->generateSlugsFrom('name')
