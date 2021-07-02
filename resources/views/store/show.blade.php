@@ -201,7 +201,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -235,7 +235,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                  <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -262,7 +262,7 @@
                 </div>
               </div>
               @empty
-                <span class="mb-4">Извените ничего не найдено</span>
+                <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -289,7 +289,7 @@
                 </div>
               </div>
               @empty
-                <span class="mb-4">Извените ничего не найдено</span>
+                <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -316,7 +316,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                  <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -343,7 +343,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                  <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>
@@ -374,7 +374,7 @@
                 </div>
               </div>
               @empty
-                  <span class="mb-4">Извените ничего не найдено</span>
+                  <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse
             </div>
         </div>

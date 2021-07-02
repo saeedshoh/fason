@@ -246,7 +246,7 @@
                     </small>
                     </div>
                 </div>
-                <div class="append-div w-75 ml-auto mb-3 d-flex flex-column flex-wrap"></div>
+                <div class="append-div w-75 ml-auto mb-3 d-flex flex-column flex-wrap input_caption"></div>
                 <div id="attributes" class="form-group  d-flex flex-column mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-end my-3">
                     @foreach ($attributes as $index => $attribute)
                         <div class="form-check form-check w-75 p-0 attr__checkboxes mb-2">

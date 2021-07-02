@@ -1002,7 +1002,7 @@ $('.favorite').on('click', function() {
     if ($(this).hasClass('active')) {
         $('.activeSaved').find('.text-sucsess').text("Вы убрали товар из избранного !");
     } else {
-        $('.activeSaved').find('.text-sucsess').text("Вы добавли товар в избранное !");
+        $('.activeSaved').find('.text-sucsess').text("Вы добавили товар в избранное !");
     }
     setTimeout(() => {
         $('.activeSaved').modal('hide')
