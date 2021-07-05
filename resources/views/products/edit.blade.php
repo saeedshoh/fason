@@ -96,7 +96,7 @@
                                         <div class="input-group-prepend position-relative">
                                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
+                                        <select class="input_placeholder_style custom-select position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
                                             <option disabled>Выберите категорию</option>
                                             @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
                                                 <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -110,12 +110,12 @@
                                     </div>
                                 </div>
                                 <div id="child_div" class="form-group  d-flex flex-column flex-md-row mb-2 justify-content-start justify-content-md-end align-items-start align-items-md-center">
-                                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <label for="grandchildren" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                                     <div class="w-sm-100 w-75 input_placeholder_style position-relative input-group w-md-100">
                                         <div class="input-group-prepend position-relative">
                                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                        <select class="input_placeholder_style custom-select position-relative @error('category_id') is-invalid @enderror" id="grandchildren" name="category_id">
                                             <option disabled>Выберите категорию</option>
                                             @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
                                                 <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -150,7 +150,7 @@
                                         <div class="input-group-prepend position-relative">
                                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                        <select class="input_placeholder_style custom-select position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
                                             <option disabled>Выберите категорию</option>
                                             @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
                                                 <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -185,7 +185,7 @@
                                         <div class="input-group-prepend position-relative">
                                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                                         </div>
-                                        <select class="input_placeholder_style form-control position-relative border-left-0 @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                        <select class="input_placeholder_style custom-select position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
                                             <option disabled>Выберите категорию</option>
                                         </select>
                                         <small class="invalid-feedback">

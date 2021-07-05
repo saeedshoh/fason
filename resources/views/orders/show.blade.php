@@ -103,8 +103,8 @@
               <nav class="text-muted">
                 Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted text-decoration-none"> {{ $product->store->name }}     </a>
               </nav>
-              <div class="my-3 px-0">
-                <div class="d-flex mt-3 gap-3 att-show-row flex-column">
+              <div class="my-3 px-0 d-flex flex-column">
+                <!-- <div class="d-flex mt-3 gap-3 att-show-row flex-column">
                   @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row px-3 flex-wrap desktopAttrs">
                     <span class="pr-2">{{ $item->first()->attribute->name }}:</span>
@@ -119,9 +119,15 @@
                     @endforeach
                     </div>
                   @endforeach
-                </div>
+                </div> -->
+                <span>
+                  Количество: {{ $order->quantity }}
+                </span>
+                @foreach ($order->attribute_values as $attribute_value)
+                <span>
+                  {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}@if(!$loop->last), @endif</span>
+                @endforeach
               </div>
-
             </div>
           </div>
           <div class="row align-items-center mt-lg-3 prod-controls">
