@@ -69,10 +69,6 @@
                                 </div>
                                 <div class="form-row" id="subCategories">
                                     <div class="col-12 col-md-12 mb-3" id="cat_child">
-                                <!--        <label for="cat_child">Под-категория</label>-->
-                                <!--        <select class="form-control" id="cat_child" name="category_id" >-->
-                                <!--            <option disabled>Выберите подкатегорию</option>-->
-                                <!--        </select>-->
                                     </div>
                                 </div>
                                 <div class="form-row">
