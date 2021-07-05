@@ -56,7 +56,7 @@
 
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="name">Название</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $product->name }}" required="">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $product->name }}" autocomplete="off" required="">
                                         <small class="invalid-feedback">
                                             Введите название товара
                                         </small>
@@ -164,14 +164,14 @@
 
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="quantity">Кол/во товаров</label>
-                                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Введите кол/во товаров" name="quantity" value="{{ old('quantity') ?? $product->quantity }}" required="">
+                                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Введите кол/во товаров" name="quantity" value="{{ old('quantity') ?? $product->quantity }}"  autocomplete="off" required="">
                                         <small class="invalid-feedback">
                                             Введите кол/во товара
                                         </small>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="price">Цена</label>
-                                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" placeholder="Введите цену" name="price" value="{{ old('price') ?? $product->price }}" required="">
+                                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" placeholder="Введите цену" name="price" value="{{ old('price') ?? $product->price }}" autocomplete="off" required="">
                                         <small class="invalid-feedback">
                                             Введите цену товара
                                         </small>
@@ -179,7 +179,7 @@
 
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="description">Описание</label>
-                                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" cols="30" rows="5"> {{ old('description') ?? $product->description }}</textarea>
+                                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" cols="30" rows="5" autocomplete="off"> {{ old('description') ?? $product->description }}</textarea>
                                         <small class="invalid-feedback">
                                             Введите описание товара
                                         </small>

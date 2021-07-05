@@ -104,7 +104,7 @@
                                         <span class="fe fe-check text-success my-auto"></span>
                                     </a>
                                     <small>
-                                        <input type="text" name="address" id="address" class="border-0 bg-transparent text-right" value="{{ $order->address }}">
+                                        <input type="text" name="address" id="address" class="border-0 bg-transparent text-right" value="{{ $order->address }}" autocomplete="off">
                                     </small>
                                 </div>
                             </li>

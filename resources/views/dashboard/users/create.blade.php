@@ -102,7 +102,7 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control @error('name')is-invalid @enderror" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control @error('name')is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="off">
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -191,7 +191,7 @@
                     </label>
 
                     <!-- Input -->
-                    <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') }}">
+                    <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="off">
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

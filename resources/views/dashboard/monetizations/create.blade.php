@@ -97,7 +97,7 @@
                                 <div class="row mb-5">
                                     <div class="col-md-6">
                                         <label for="min">Сумма от</label>
-                                        <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите сумму от" name="min" value="{{ old('min') }}" required="">
+                                        <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" placeholder="Введите сумму от" name="min" value="{{ old('min') }}" autocomplete="off" required="">
                                         @error('min')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="max">Сумма до</label>
-                                        <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите сумму до" name="max" value="{{ old('max') }}" required="">
+                                        <input type="number" class="form-control @error('max') is-invalid @enderror" id="max" placeholder="Введите сумму до" name="max" value="{{ old('max') }}" autocomplete="off" required="">
                                         @error('max')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="margin">Процентная ставка</label>
-                                        <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите процентную ставку" name="margin" value="{{ old('margin') }}" required="">
+                                        <input type="number" class="form-control @error('margin') is-invalid @enderror" id="margin" placeholder="Введите процентную ставку" name="margin" value="{{ old('margin') }}" autocomplete="off" required="">
                                         @error('margin')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -124,7 +124,7 @@
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="added_val">Добавочная стоимость</label>
-                                        <input type="number" class="form-control @error('added_val') is-invalid @enderror" id="added_val" placeholder="Введите добавочную стоимость" name="added_val" value="{{ old('added_val') }}" required="">
+                                        <input type="number" class="form-control @error('added_val') is-invalid @enderror" id="added_val" placeholder="Введите добавочную стоимость" name="added_val" value="{{ old('added_val') }}" autocomplete="off" required="">
                                         @error('added_val')
                                         <div class="invalid-feedback">
                                             {{ $message }}

@@ -69,7 +69,7 @@
                 <div class="input-group-prepend position-relative">
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
-                <input type="text" class="input_placeholder_style form-control position-relative border-left-0" id="name" name="name" value="{{ old('name') }}" required>
+                <input type="text" class="input_placeholder_style form-control position-relative border-left-0" id="name" name="name" value="{{ old('name') }}" autocomplete="off" required>
                 <small class="invalid-feedback">
                   Введите название товара
                 </small>
@@ -81,7 +81,7 @@
                 <div class="input-group-prepend position-relative">
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
-                <textarea class="input_placeholder_style form-control position-relative border-left-0" maxlength="1000" id="description" rows="5" name="description" required style="resize: vertical">{{ old('description') }}</textarea>
+                <textarea class="input_placeholder_style form-control position-relative border-left-0" maxlength="1000" id="description" rows="5" name="description" required style="resize: vertical" autocomplete="off">{{ old('description') }}</textarea>
                 <small class="invalid-feedback">
                   Введите описание товара
                 </small>
@@ -93,7 +93,7 @@
                 <div class="input-group-prepend position-relative">
                   <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                 </div>
-                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
+                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0" id="quantity" name="quantity" value="{{ old('quantity') }}" autocomplete="off" required>
                 <small class="invalid-feedback">
                 Введите кол/во товара
                 </small>
@@ -106,7 +106,7 @@
                 <div class="input-group-prepend position-relative">
                   <div class="input-group-text px-1  btn-custom-fs bg-white"></div>
                 </div>
-                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" required>
+                <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control border-left-0" name="price" id="price" value="{{ old('price') }}" autocomplete="off" required>
                 <small class="invalid-feedback">
                 Введите цену товара
                 </small>

@@ -37,15 +37,15 @@
                 @method('put')
                 <div class="form-group">
                   <label for="name">Введите название</label>
-                  <input type="text" class="form-control" id="name" placeholder="Введите название" name="name" value="{{ $role->name }}">
+                  <input type="text" class="form-control" id="name" placeholder="Введите название" name="name" value="{{ $role->name }}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="display_name">Введите отображаемое название</label>
-                    <input type="text" class="form-control" id="display_name" placeholder="Введите название" name="display_name" value="{{ $role->display_name }}">
+                    <input type="text" class="form-control" id="display_name" placeholder="Введите название" name="display_name" value="{{ $role->display_name }}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="description">Введите описание</label>
-                    <textarea class="form-control" id="description" placeholder="Введите название" name="description"> {{ $role->description }}
+                    <textarea class="form-control" id="description" placeholder="Введите название" name="description" autocomplete="off"> {{ $role->description }}
                     </textarea>
                 </div>
                 <div class="header mt-md-2 mb-1">

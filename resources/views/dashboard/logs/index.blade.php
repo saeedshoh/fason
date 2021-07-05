@@ -40,7 +40,7 @@
                         <i class="fe fe-search"></i>
                     </span>
                     </div>
-                    <input class="form-control" type="search" placeholder="Поиск" data-item="logs" id="search" value="{{ request()->search }}">
+                    <input class="form-control" type="search" placeholder="Поиск" data-item="logs" id="search" value="{{ request()->search }}" autocomplete="off">
                 </div>
                 </form>
 

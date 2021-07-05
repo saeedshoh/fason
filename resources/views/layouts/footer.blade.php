@@ -26,13 +26,13 @@
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none position-relative">+992</div>
                     </div>
-                    <input autocomplete="off" inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
+                    <input autocomplete="off" inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" autocomplete="off" required>
                   </div>
                   <p class="text-danger wrong-phone-number text-left font-weight-bold mt-2" style="display: none;">Такого номера не существует !</p>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
                   <div class="enter-code my-3" style="display: none">
                     <div class="form-group text-center">
-                      <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
+                      <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="code" id="code" class="form-control" autocomplete="off" id="code" placeholder="Введите код">
                       <p class="text-danger wrong-code text-left mt-1" style="display: none;">Введен не правильный код</p>
                     </div>
                       <h2 id="count-down" class="my-3">01:00</h2>
@@ -84,7 +84,7 @@
             <div class="input-group-prepend position-relative">
               <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
             </div>
-            <input type="text" class="form-control" placeholder="Имя.." name="name" required>
+            <input type="text" class="form-control" placeholder="Имя.." name="name" autocomplete="off" required>
             <div class="invalid-feedback">
               Введите ваше имя
             </div>
@@ -93,7 +93,7 @@
             <div class="input-group-prepend position-relative">
               <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
             </div>
-            <input type="text" class="form-control" placeholder="Адрес дома..." name="address" required>
+            <input type="text" class="form-control" placeholder="Адрес дома..." name="address" autocomplete="off" required>
             <div class="invalid-feedback">
               Введите ваш адрес
             </div>
