@@ -695,9 +695,14 @@ $('.sizes .product-size').on('click', function() {
         $(this).addClass('text-danger')
     })
 // search
-$('.main-search').on('keyup keypress keydown change', function() {
+$('.main-search').on('keyup keypress change', function() {
     let value = $(this).val()
-    if (value.length >= 3) {
+    if(value.length > 0){
+        $('.clean__input').removeClass('d-none')
+    }else{
+        $('.clean__input').addClass('d-none')
+    }
+    if (value.length >= 3 && $('.main-search').is(":focus")) {
         $.ajax({
             url: '/livesearch',
             type: 'get',
@@ -708,15 +713,24 @@ $('.main-search').on('keyup keypress keydown change', function() {
                 value
             },
             success: data => {
-                $('.search-result').show()
-                $('.search-result').html(data)
+                if($('.main-search')[0].value != ''|| $('.main-search')[0].value == null){
+                    $('.search-result').show()
+                    $('.search-result').html(data)
+                }
             },
             error: function(xhr, status, error) {}
         })
-    } else {
+    } else{
         $('.search-result').hide()
     }
 })
+
+$('.clean__input').on('click',function(){
+    $('.main-search')[0].value = null;
+    $('.search-result').hide()
+    $(this).addClass('d-none')
+})
+
 /**
  * Search items
  */

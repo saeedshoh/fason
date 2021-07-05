@@ -148,8 +148,8 @@
           <div class="card rounded shadow border-0 h-100 w-100">
             <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
             <div class="container">
-              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
-              <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
+              <h4 class="product-name shop-subject mt-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
+              <div class="price-place d-flex justify-content-between align-items-center my-3 text-danger">
                 <span class="font-weight-bold">
                   {{ $product->price_after_margin }} сомони
                 </span>
@@ -160,7 +160,7 @@
         </div>
         @empty
       </div>
-      <div class="text-center text-center text-md-left">
+      <div class="text-center text-md-left">
           Извените ничего не найдено
         @endforelse
       </div>
@@ -176,8 +176,8 @@
             <div class="card rounded shadow border-0 h-100 w-100">
               <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
               <div class="container">
-                <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
-                <div class="price-place d-flex justify-content-between align-items-center mb-3  text-danger">
+                <h4 class="product-name shop-subject mt-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
+                <div class="price-place d-flex justify-content-between align-items-center my-3  text-danger">
                   <span class="font-weight-bold">
                     {{ $product->price_after_margin }} сомони
                   </span>

@@ -4,7 +4,7 @@
             <div class="card rounded shadow border-0 h-100 w-100">
                 <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
                 <div class="container d-flex flex-column justify-space-between flex-wrap">
-                    <h4 class="product-name shop-subject mt-3" style="height: 2rem;" >{{ Str::limit($product->name, 26) }}</h4>
+                    <h4 class="product-name shop-subject my-3" style="height: 2rem;" >{{ Str::limit($product->name, 26) }}</h4>
                     <div class="discription d-none">
                         <p>
                             {{ Str::limit($product->description, 20) }}
@@ -26,7 +26,7 @@
         <div class="card rounded shadow border-0 h-100 w-100 flex-row">
             <img class="img-fluid rounded w-50" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
             <div class="container d-flex flex-column justify-space-between flex-wrap">
-                <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 26) }}</h4>
+                <h4 class="product-name shop-subject my-3" >{{ Str::limit($product->name, 26) }}</h4>
                 <div class="discription">
                     <p>
                         {{ Str::limit($product->description, 20) }}
