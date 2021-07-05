@@ -82,7 +82,7 @@
                             <i class="fe fe-search"></i>
                         </span>
                         </div>
-                        <input class="form-control list-search" type="search" placeholder="Поиск">
+                        <input class="form-control list-search" type="search" placeholder="Поиск" autocomplete="off">
                     </div>
                 </form>
             </div>
@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Input -->
-                                        <input type="number" name="total_from" class="form-control custom-date" value="{{ request()->total_from ?? '' }}">
+                                        <input type="number" name="total_from" class="form-control custom-date" value="{{ request()->total_from ?? '' }}" autocomplete="off">
                                     </div>
                                 </div> <!-- / .row -->
                             </div>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Input -->
-                                        <input type="number" name="total_to" class="form-control custom-date" value="{{ request()->total_to ?? '' }}">
+                                        <input type="number" name="total_to" class="form-control custom-date" value="{{ request()->total_to ?? '' }}" autocomplete="off">
                                     </div>
                                 </div> <!-- / .row -->
                             </div>
@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Input -->
-                                        <input type="number" name="margin_from" class="form-control custom-date" value="{{ request()->margin_from ?? '' }}">
+                                        <input type="number" name="margin_from" class="form-control custom-date" value="{{ request()->margin_from ?? '' }}" autocomplete="off">
                                     </div>
                                 </div> <!-- / .row -->
                             </div>
@@ -240,7 +240,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Input -->
-                                        <input type="number" name="margin_to" class="form-control custom-date" value="{{ request()->margin_to ?? '' }}">
+                                        <input type="number" name="margin_to" class="form-control custom-date" value="{{ request()->margin_to ?? '' }}" autocomplete="off">
                                     </div>
                                 </div> <!-- / .row -->
                             </div>

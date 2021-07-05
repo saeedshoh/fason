@@ -178,7 +178,7 @@
                     <i class="fe fe-search"></i>
                   </span>
                 </div>
-                <input class="form-control list-search" type="search" placeholder="Поиск">
+                <input class="form-control list-search" type="search" placeholder="Поиск" autocomplete="off">
               </div>
             </form>
 

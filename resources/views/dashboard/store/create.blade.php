@@ -44,7 +44,7 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" autocomplete="off">
 
               </div>
 

@@ -54,7 +54,7 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Название</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $attribute->name }}" required="">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $attribute->name }}" autocomplete="off" required="">
                                     @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -85,13 +85,13 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="att_name">Название значения атрибута</label>
-                                        <input type="text" class="form-control" id="att_name" placeholder="Введите название значения атрибута" name="name" value="{{ old('name') ? old('name') : $attributeValue->name }}" required="">
+                                        <input type="text" class="form-control" id="att_name" placeholder="Введите название значения атрибута" name="name" value="{{ old('name') ? old('name') : $attributeValue->name }}" autocomplete="off" required="">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="att_value">Добавленная стоимость значения атрибута</label>
-                                        <input type="text" class="form-control" id="att_value" placeholder="Введите доб. стоимость значения атрибута" name="value" value="{{ old('value') ? old('value') : $attributeValue->value }}" required="">
+                                        <input type="text" class="form-control" id="att_value" placeholder="Введите доб. стоимость значения атрибута" name="value" value="{{ old('value') ? old('value') : $attributeValue->value }}" autocomplete="off" required="">
                                     </div>
                                 </div>
                             <!-- Button -->

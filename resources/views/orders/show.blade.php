@@ -53,7 +53,7 @@
         <div>
         </div>
         <div class="col-12 d-block d-lg-none order-2">
-          <div class="my-3 ">
+          <!-- <div class="my-3">
             <div class="d-flex mt-3 gap-3 att-show-row flex-wrap flex-column px-0">
               @foreach ($product->attribute_variation->groupBy('attribute_id') as $key => $item)
                   <div class="row px-3 flex-wrap mobAttrs">
@@ -70,12 +70,20 @@
                   </div>
               @endforeach
             </div>
-          </div>
+          </div> -->
 
           <nav>
             Магазин: <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted font-weight-bold text-decoration-none"> {{ $product->store->name }}     </a>
           </nav>
-
+          <div class="d-flex flex-column">
+            <span>
+              Количество: {{ $order->quantity }}
+            </span>
+            @foreach ($order->attribute_values as $attribute_value)
+            <span>
+              {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}@if(!$loop->last), @endif</span>
+            @endforeach
+          </div>
         </div>
         <div class="col-12 col-lg-6 order-lg-2  order-2">
 

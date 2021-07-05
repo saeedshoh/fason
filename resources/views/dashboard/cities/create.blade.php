@@ -55,7 +55,7 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Название</label>
 
-                                    <input type="text" class="form-control" id="name" placeholder="Введите название города" name="name" value="{{ old('name') }}" required="">
+                                    <input type="text" class="form-control" id="name" placeholder="Введите название города" name="name" value="{{ old('name') }}" autocomplete="off" required="">
                                     <div class="valid-feedback">
                                     Looks good!
                                     </div>

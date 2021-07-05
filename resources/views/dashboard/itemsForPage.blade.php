@@ -35,7 +35,7 @@
                 @method('PUT')
                 @csrf
                 <div class="col-md-6">
-                    <input class="form-control" name="qty" type="number" value="{{ old('qty') ?? $itemsForPage->qty }}">
+                    <input class="form-control" name="qty" type="number" value="{{ old('qty') ?? $itemsForPage->qty }}" autocomplete="off">
                     <button class="btn btn-success mt-3 float-right">Сохранить</button>
                 </div>
             </form>

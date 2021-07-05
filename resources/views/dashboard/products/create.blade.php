@@ -48,7 +48,7 @@
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="name">Название</label>
 
-                                        <input type="text" class="form-control" placeholder="Введите название товара" id="name" name="name" value="{{ old('name') }}" required>
+                                        <input type="text" class="form-control" placeholder="Введите название товара" id="name" name="name" value="{{ old('name') }}" autocomplete="off" required>
                                         <small class="invalid-feedback">
                                         Введите название товара
                                         </small>
@@ -78,14 +78,14 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="price">Цена</label>
-                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" name="price" placeholder="Введите название категори" id="price" value="{{ old('price') }}" required>
+                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" name="price" placeholder="Введите название категори" id="price" value="{{ old('price') }}" autocomplete="off" required>
                                         <small class="invalid-feedback">
                                             Введите цену товара
                                         </small>
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="quantity">Количество</label>
-                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" id="quantity" placeholder="Введите название категори"  name="quantity" value="{{ old('quantity') }}" required>
+                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" id="quantity" placeholder="Введите название категори"  name="quantity" value="{{ old('quantity') }}" autocomplete="off" required>
                                         <small class="invalid-feedback">
                                             Введите кол/во товара
                                         </small>
@@ -95,7 +95,7 @@
                                 <div class="form-row">
                                     <div class="col-12 mb-3">
                                         <label for="description">Описание</label>
-                                        <textarea class="form-control" maxlength="1000" id="description" rows="3" name="description" required style="resize: vertical" placeholder="Введите описание">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" maxlength="1000" id="description" rows="3" name="description" required style="resize: vertical" placeholder="Введите описание" autocomplete="off">{{ old('description') }}</textarea>
                                         <small class="invalid-feedback">
                                             Введите описание товара
                                         </small>

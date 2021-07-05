@@ -203,7 +203,7 @@
                     <div class="input-group-prepend position-relative">
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
-                    <input type="text" class="input_placeholder_style form-control position-relative border-left-0 @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}">
+                    <input type="text" class="input_placeholder_style form-control position-relative border-left-0 @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $product->name }}" autocomplete="off">
                     <small class="invalid-feedback">
                         Введите название товара
                     </small>
@@ -215,7 +215,7 @@
                     <div class="input-group-prepend position-relative">
                         <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                     </div>
-                    <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" maxlength="1000" id="description" rows="5" name="description" style="resize: vertical">{{ old('description') ?? $product->description }}</textarea>
+                    <textarea class="input_placeholder_style form-control position-relative border-left-0 @error('description') is-invalid @enderror" maxlength="1000" id="description" rows="5" name="description" style="resize: vertical" autocomplete="off">{{ old('description') ?? $product->description }}</textarea>
                     <small class="invalid-feedback">
                         Введите описание товара
                     </small>
@@ -228,7 +228,7 @@
                         <div class="input-group-prepend position-relative">
                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                         </div>
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}">
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}" autocomplete="off">
                     <small class="invalid-feedback">
                         Введите кол/во товара
                     </small>
@@ -240,7 +240,7 @@
                         <div class="input-group-prepend position-relative">
                             <div class="input-group-text px-1  btn-custom-fs bg-white "></div>
                         </div>
-                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}">
+                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="numeric input_placeholder_style form-control position-relative border-left-0 @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') ?? $product->price }}" autocomplete="off">
                     <small class="invalid-feedback">
                         Введите цену товара
                     </small>

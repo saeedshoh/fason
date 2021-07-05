@@ -48,7 +48,7 @@
                             <i class="fe fe-search"></i>
                           </span>
                         </div>
-                        <input class="list-search form-control" type="search" placeholder="Поиск">
+                        <input class="list-search form-control" type="search" placeholder="Поиск" autocomplete="off">
                       </div>
                     </form>
 
