@@ -1864,7 +1864,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     }
     @media only screen and (max-width: 375px){
         width: 100% !important;
-        height: 2rem !important;
+        height: 3.2rem !important;
     }
 }
 
@@ -2107,6 +2107,15 @@ input[type="number"]:hover::-webkit-outer-spin-button {
             top: 0;
           }
     }
+}
+
+.clean__input{
+    color: #FF0055;
+    position: absolute;
+    right: 0.5rem;
+    background: transparent;
+    border: 0;
+    top: 0.5rem;
 }
 
 .allStore__title{

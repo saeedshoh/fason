@@ -26,7 +26,7 @@
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none position-relative">+992</div>
                     </div>
-                    <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
+                    <input autocomplete="off" inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
                   <p class="text-danger wrong-phone-number text-left font-weight-bold mt-2" style="display: none;">Такого номера не существует !</p>
                   <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>

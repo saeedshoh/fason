@@ -216,7 +216,7 @@
                 <form action="{{ route('ft-category.category', $slug) }}" method="get">
                   <div class="col-12 col-lg-12 line-test__category fix_modal-line mt-5">
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                      <h5 class="captions-of__modal ">Сортировать </h5>
+                      <h5 class="captions-of__modal mt-3">Сортировать </h5>
                     </div>
                     <div class="form-check mt-3">
                       <input {{ (request()->sort != 'new' || request()->sort != 'cheap' || request()->sort != 'expensive') || request()->sort == 'new' ? 'checked' : '' }} class="form-check-input sort" id="new" type="radio" name="sort" value="new">
@@ -269,10 +269,10 @@
 
             @forelse ($products as $product)
             <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-              <div class="card rounded shadow border-0 w-100">
+              <div class="card rounded shadow border-0 w-100 h-100">
                 <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
                 <div class="container d-flex flex-column justify-space-between flex-wrap">
-                  <h4 class="product-name shop-subject mt-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
+                  <h4 class="product-name shop-subject my-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
                   <div class="discription d-none">
                     <p>
                       {{ Str::limit($product->description, 20) }}

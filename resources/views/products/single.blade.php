@@ -93,7 +93,7 @@
           </nav>
 
         </div>
-        <div class="col-12 order-lg-2  order-2">
+        <div class="col-12 order-lg-2  order-2 px-md-0">
 
           <div class="my-3">
             <h4 class="font-weight-bold">Описание товара:</h4>
@@ -187,7 +187,7 @@
 
             </div>
           </div>
-          <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px:md-0">
+          <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px-md-0">
             <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap w-40"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
             <div class="d-flex align-items-center justify-content-center w-40">
               <div class="position-relative d-flex align-items-center number justify-content-center">
