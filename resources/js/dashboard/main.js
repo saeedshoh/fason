@@ -416,6 +416,7 @@ $('body').on('change', '#cat_parent', function() {
         dataType: 'json',
         success: function(data) {
             if(data.length > 0) {
+                $('#attributes').empty();
                 $('#cat_child').empty().append(`
                     <label for="cat_child">Под-категория</label>
                     <select class="form-control" id="cat_child_value" name="category_id" >
@@ -440,14 +441,18 @@ $('body').on('change', '#cat_parent', function() {
                     dataType: 'json',
                     success: function(data) {
                         $('#attributes').empty();
-                        data.forEach(element => {
-                            $('#attributes').append(`
-                                <div class="form-check form-check">
-                                    <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
-                                    <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
-                                </div>
-                            `);
-                        })
+                        if(data.length > 0){
+                            if(data[0].at_id){
+                                data.forEach(element => {
+                                    $('#attributes').append(`
+                                        <div class="form-check form-check">
+                                            <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                                            <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                                        </div>
+                                    `);
+                                })
+                            }
+                        }
                     }
                 });
             }
@@ -464,6 +469,7 @@ $('body').on('change', '#cat_child_value', function() {
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
+                $('#attributes').empty();
                 $('#cat_child_value').attr('name', 'subcategory')
                 $('#child_div').remove()
                 $('#subCategories').append(`
@@ -493,14 +499,18 @@ $('body').on('change', '#cat_child_value', function() {
                     dataType: 'json',
                     success: function(data) {
                         $('#attributes').empty();
-                        data.forEach(element => {
-                            $('#attributes').append(`
-                                <div class="form-check form-check">
-                                    <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
-                                    <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
-                                </div>
-                            `);
-                        })
+                        if(data.length > 0){
+                            if(data[0].at_id){
+                                data.forEach(element => {
+                                    $('#attributes').append(`
+                                        <div class="form-check form-check">
+                                            <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                                            <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                                        </div>
+                                    `);
+                                })
+                            }
+                        }
                     }
                 });
             }
@@ -519,14 +529,18 @@ $('body').on('change', '#grandchildren', function() {
         dataType: 'json',
         success: function(data) {
             $('#attributes').empty();
-            data.forEach(element => {
-                $('#attributes').append(`
-                    <div class="form-check form-check">
-                        <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
-                        <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
-                    </div>
-                `);
-            })
+            if(data.length > 0){
+                if(data[0].at_id){
+                    data.forEach(element => {
+                        $('#attributes').append(`
+                            <div class="form-check form-check">
+                                <input class="form-check-input js-attribute" name="attribute[${element['at_slug']}][id]" type="checkbox" id="${element['at_slug']}Checkbox${element['at_id']}" value="${element['at_id']}">
+                                <label class="form-check-label" for="${element['at_slug']}Checkbox${element['at_id']}">${element['at_name']}</label>
+                            </div>
+                        `);
+                    })
+                }
+            }
         }
     });
 })

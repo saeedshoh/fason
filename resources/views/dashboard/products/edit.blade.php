@@ -78,10 +78,10 @@
                                     </div>
                                 </div>
                                 <div class="form-row" id="subCategories">
-                                    <div class="form-group col-12 col-md-12 mb-3">
-                                        <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <div class="form-group col-12 col-md-12 mb-3" id="cat_child">
+                                        <label for="cat_child_value" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
                                         <div class="input_placeholder_style">
-                                        <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child" name="subcategory">
+                                        <select class="input_placeholder_style form-control position-relative @error('category_id') is-invalid @enderror" id="cat_child_value" name="subcategory">
                                             <option disabled value="">Выберите категорию</option>
                                             @forelse ($allCategories->where('parent_id', $grandParent->id) as $cat)
                                                 <option value="{{ $cat->id }}" {{ $cat->id == $parent->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -124,10 +124,10 @@
                             </div>
                         </div>
                         <div class="form-row" id="subCategories">
-                            <div class="form-group col-12 col-md-12 mb-3">
+                            <div class="form-group col-12 col-md-12 mb-3" id="cat_child">
                                 @if(count($allCategories->where('parent_id', $category->parent_id)) > 0)
-                                    <label for="cat_child" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
-                                    <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child" name="category_id">
+                                    <label for="cat_child_value" class="input_caption mr-2 text-left text-md-right">Под-категории:</label>
+                                    <select class="custom-select @error('category_id') is-invalid @enderror" id="cat_child_value" name="category_id">
                                         <option disabled>Выберите категорию</option>
                                         @forelse ($allCategories->where('parent_id', $category->parent_id) as $cat)
                                             <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -156,12 +156,11 @@
                             </div>
                         </div>
                         <div class="form-row" id="subCategories">
-                            <div class="form-group col-12 col-md-12 mb-3" id="cat_child">
+                            <div class="col-12 col-md-12 mb-3" id="cat_child">
                             </div>
                         </div>
                             @endif
                                 <div class="form-row">
-
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="quantity">Кол/во товаров</label>
                                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Введите кол/во товаров" name="quantity" value="{{ old('quantity') ?? $product->quantity }}"  autocomplete="off" required="">
@@ -184,22 +183,22 @@
                                             Введите описание товара
                                         </small>
                                     </div>
-                                    <div id="attributes" class="row">
-                                        @foreach ($attributes as $index => $attribute)
-                                        <div class="form-check form-check">
-                                            <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
-                                            <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
-                                            @if ($attribute->is_checked)
-                                            <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
-                                                <option disabled="">Выберите значение</option>
-                                                @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
-                                                    <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @endif
-                                        </div>
-                                        @endforeach
+                                </div>
+                                <div id="attributes" class="d-flex justify-content-between">
+                                    @foreach ($attributes as $index => $attribute)
+                                    <div class="form-check form-check">
+                                        <input class="form-check-input js-attribute"  {{ $attribute->is_checked ? 'checked' : 'data-check=true' }} name="attribute[{{ $attribute->slug }}][id]" type="checkbox" id="{{ $attribute->slug.'Checkbox'.$index}}" value="{{ $attribute->id }}">
+                                        <label class="form-check-label" for="{{ $attribute->slug.'Checkbox'.$index}}">{{ $attribute->name }}</label>
+                                        @if ($attribute->is_checked)
+                                        <select class="input_placeholder_style form-control" name="attribute[{{ $attribute->slug }}][value][]" multiple="">
+                                            <option disabled="">Выберите значение</option>
+                                            @foreach ($attrValues->where('attribute_id', $attribute->id) as $attrValue)
+                                                <option {{ $attrValue->is_checked ? 'selected' : '' }} value="{{ $attrValue->id }}">{{ $attrValue->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @endif
                                     </div>
+                                    @endforeach
                                 </div>
                                 <!-- Button -->
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
