@@ -189,22 +189,39 @@
           </div>
           <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px-md-0">
             <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap w-40"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
-            <div class="d-flex align-items-center justify-content-center w-40">
-              <div class="position-relative d-flex align-items-center number justify-content-center">
-                <form id="number-spinner-horizontal" class="t-neutral">
-                  <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
-                     <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
-                     <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
-                     <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
-                   </fieldset>
-                 </form>
+              @if(Auth::check())
+              @if (Auth::user()->store && $product->store_id != Auth::user()->store->id)
+              <div class="d-flex align-items-center justify-content-center w-40">
+                <div class="position-relative d-flex align-items-center number justify-content-center">
+                  <form id="number-spinner-horizontal" class="t-neutral">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                    </fieldset>
+                  </form>
+                </div>
               </div>
-            </div>
+              @endif
+              @endif
+              @guest
+              <div class="d-flex align-items-center justify-content-center w-40">
+                <div class="position-relative d-flex align-items-center number justify-content-center">
+                  <form id="number-spinner-horizontal" class="t-neutral">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+              @endguest
             <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                   @if($product->deleted_at == null)
-                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-danger custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
+                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-success custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
                   @endif
                 @else
                   <!-- Button trigger modal -->
@@ -221,110 +238,6 @@
                 Купить
               </button>
               @endguest
-            </div>
-            <div class="">
-              <div class="text-center text-md-right">
-                <!-- Modal 1-->
-                <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered buy-modal px-2">
-                    <div class="modal-content mb-5">
-                      <div class="modal-header border-0 pb-0">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <img src="/storage/theme/icons/close-modal.svg" alt="">
-                        </button>
-                      </div>
-                      <div class="modal-body py-0">
-                        <div class="container text-dark px-0">
-                          <div class="row modal-item position-relative">
-                            <div class="col-12 col-lg-5">
-                                <div class="title mb-3"><span class="small-title">Оформление заказа</span></div>
-                                <div class="row">
-                                    <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
-                                    <div class="col-8 col-lg-6 text-truncate">
-                                        <h6 class="h6 font-weight-bold checkout-id text-dark" data-id="{{ $product->id }}">{{ $product->name }}</h6>
-                                        <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
-                                        <div class="selectedAttrs text-dark"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2 d-none d-lg-block text-dark">
-                                <div class="title mb-3 title-capitalize font-weight-600">Цена:</div>
-                                <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
-                            </div>
-                            <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
-                                <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
-                                    <div class="title mb-sm-1  mb-md-3 title-capitalize font-weight-600">Количество:</div>
-                                    <span class="text-secondary text-semi-bold text-pinky font-weight-600">
-                                      <span class="quantity-product">1</span>
-                                      шт
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-2 mt-1 mt-lg-0">
-                                <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
-                                    <div class="title mb-3 title-capitalize font-weight-600">Сумма:</div>
-                                    <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="mt-1 mt-md-3">
-                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу">
-                          </div>
-                          <div class="mt-3">
-                            <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
-                            <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer border-0 info-product_footer">
-                        <div class="d-flex flex-column flex-sm-row justify-content-between w-100  flex-wrap">
-                          <div class="btn btn-outline-danger change-address custom-radius mb-2 mb-sm-0 mb-md-0 font-weight-bold"> <i class="fas fa-map-marked-alt pr-2 pr-sm-0 pr-md-0"></i> Поменять адрес</div>
-                          <button type="button" class="btn btn-danger custom-radius checkout-product font-weight-bold arrange" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
-                            Оформить
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Modal 1 end-->
-
-                <!--Modal-2-->
-                <div class="modal fade text-left" id="thanks" tabindex="-1" aria-labelledby="thanks"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered buy-modal">
-                  <div class="modal-content">
-                    <div class="modal-header border-0">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <img src="/storage/theme/icons/close-modal.svg" alt=""></span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="container text-center">
-                        <div class="text-secondary">Ваш заказ принят. В ближайшее время Вам позвонят наши операторы!</div>
-                        <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
-                        <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-                        {{-- <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div> --}}
-                      </div>
-                    </div>
-                    <div class="modal-footer border-0">
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-                <!--Modal-2 end-->
-                 <!--Modal-3-->
-                 <div class="modal fade activeSaved" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content py-3 text-center">
-                          <div class="text-pinky text-sucsess"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Modal-3 end-->
-              </div>
             </div>
           </div>
           <div class="mt-3 mt-sm-5 d-lg-flex justify-content-end info-product_footer d-none order-1">
@@ -530,4 +443,108 @@ aria-hidden="true">
 </div>
 </div>
 <!--Modal-2 end-->
+<div class="">
+  <div class="text-center text-md-right">
+    <!-- Modal 1-->
+    <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered buy-modal px-2">
+        <div class="modal-content mb-5">
+          <div class="modal-header border-0 pb-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <img src="/storage/theme/icons/close-modal.svg" alt="">
+            </button>
+          </div>
+          <div class="modal-body py-0">
+            <div class="container text-dark px-0">
+              <div class="row modal-item position-relative">
+                <div class="col-12 col-lg-5">
+                    <div class="title mb-3"><span class="small-title">Оформление заказа</span></div>
+                    <div class="row">
+                        <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
+                        <div class="col-8 col-lg-6 text-truncate">
+                            <h6 class="h6 font-weight-bold checkout-id text-dark" data-id="{{ $product->id }}">{{ $product->name }}</h6>
+                            <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
+                            <div class="selectedAttrs text-dark"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 d-none d-lg-block text-dark">
+                    <div class="title mb-3 title-capitalize font-weight-600">Цена:</div>
+                    <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
+                </div>
+                <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
+                    <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
+                        <div class="title mb-sm-1  mb-md-3 title-capitalize font-weight-600">Количество:</div>
+                        <span class="text-secondary text-semi-bold text-pinky font-weight-600">
+                          <span class="quantity-product">1</span>
+                          шт
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-2 mt-1 mt-lg-0">
+                    <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
+                        <div class="title mb-3 title-capitalize font-weight-600">Сумма:</div>
+                        <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
+                    </div>
+                </div>
+              </div>
+              <div class="mt-1 mt-md-3">
+                <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу">
+              </div>
+              <div class="mt-3">
+                <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
+                <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0 info-product_footer">
+            <div class="d-flex flex-column flex-sm-row justify-content-between w-100  flex-wrap">
+              <div class="btn btn-outline-danger change-address custom-radius mb-2 mb-sm-0 mb-md-0 font-weight-bold"> <i class="fas fa-map-marked-alt pr-2 pr-sm-0 pr-md-0"></i> Поменять адрес</div>
+              <button type="button" class="btn btn-danger custom-radius checkout-product font-weight-bold arrange" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
+                Оформить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal 1 end-->
+
+    <!--Modal-2-->
+    <div class="modal fade text-left" id="thanks" tabindex="-1" aria-labelledby="thanks"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered buy-modal">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <img src="/storage/theme/icons/close-modal.svg" alt=""></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container text-center">
+            <div class="text-secondary">Ваш заказ принят. В ближайшее время Вам позвонят наши операторы!</div>
+            <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
+            <h2 class="text-danger font-weight-bold">Спасибо!</h2>
+            {{-- <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div> --}}
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+
+        </div>
+      </div>
+    </div>
+  </div>
+    <!--Modal-2 end-->
+      <!--Modal-3-->
+      <div class="modal fade activeSaved" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content py-3 text-center">
+              <div class="text-pinky text-sucsess"></div>
+            </div>
+          </div>
+        </div>
+        <!--Modal-3 end-->
+  </div>
+</div>
 @endsection

@@ -15,6 +15,7 @@ body {
     background: #F2F2F2;
     user-select: none;
     // padding-bottom: 50px;
+    -webkit-touch-callout: none !important;
 }
 
 .text-pinky {
@@ -1927,7 +1928,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     width: 100%;
     top: 0;
     height: 100%;
-    z-index: 9999;
+    z-index: 999999;
     background: rgb(0 0 0 / 35%);
 }
 
@@ -2204,4 +2205,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
   .add__attr-icon{
     z-index: 100;
     position: relative;
+  }
+
+  .add__attr-icon{
+    -webkit-user-select: none !important;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
