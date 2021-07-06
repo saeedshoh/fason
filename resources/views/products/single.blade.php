@@ -133,23 +133,6 @@
                       </button>
                   </form>
 
-                @elseif(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null && $product->product_status_id != 6)
-                <form action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
-                  @csrf
-                  @method('POST')
-                  <button type="button" class="rounded-11 btn btn-success restore-product ml-md-2 my-1 px-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="15px" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 507.289 507.289" fill="#fff" style="enable-background:new 0 0 507.289 507.289; vertical-align: middle; fill: #fff !important;" xml:space="preserve" >
-                        <g>
-                          <path d="M153.712,375.691l-24,21.248c7.642,8.598,15.944,16.585,24.832,23.888l20.288-24.8     C167.265,389.818,160.203,383.018,153.712,375.691z"/>
-                          <path d="M122.176,326.187l-29.408,12.624c4.547,10.596,9.946,20.805,16.144,30.528l26.992-17.152     C130.64,343.901,126.049,335.207,122.176,326.187z"/>
-                          <path d="M399.595,66.763c-32.9-19.075-70.253-29.126-108.283-29.136C183.147,37.801,91.764,117.904,77.424,225.115l-54.8-54.8     L0,192.939l91.312,91.312l91.312-91.312L160,170.315l-49.488,49.424c18.803-99.758,114.916-165.384,214.674-146.581     S490.57,188.074,471.767,287.831S356.851,453.216,257.093,434.412c-20.449-3.854-40.095-11.153-58.101-21.586l-16.08,27.664     c103.202,59.835,235.37,24.679,295.205-78.523C537.953,258.766,502.797,126.598,399.595,66.763z"/>
-                          <polygon points="267.312,109.627 267.312,285.627 337.712,338.427 356.912,312.827 299.312,269.627 299.312,109.627    "/>
-                        </g>
-                      </svg>
-                      Восстановить
-                  </button>
-                </form>
-
                 @endif
             @endif
           </div>
@@ -190,19 +173,50 @@
           <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px-md-0">
             <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap w-40"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
               @if(Auth::check())
-              @if (Auth::user()->store && $product->store_id != Auth::user()->store->id)
-              <div class="d-flex align-items-center justify-content-center w-40">
-                <div class="position-relative d-flex align-items-center number justify-content-center">
-                  <form id="number-spinner-horizontal" class="t-neutral">
-                    <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
-                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
-                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
-                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
-                    </fieldset>
-                  </form>
+                @if (Auth::user()->store && $product->store_id != Auth::user()->store->id)
+                <div class="d-flex align-items-center justify-content-center w-40">
+                  <div class="position-relative d-flex align-items-center number justify-content-center">
+                    <form id="number-spinner-horizontal" class="t-neutral">
+                      <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+                        <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                        <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                        <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                      </fieldset>
+                    </form>
+                  </div>
                 </div>
-              </div>
+                @else
+                <div class="align-items-center justify-content-center w-40 d-none">
+                  <div class="position-relative d-flex align-items-center number justify-content-center">
+                    <form id="number-spinner-horizontal" class="t-neutral">
+                      <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+                        <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                        <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                        <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+                @endif
               @endif
+              @if(Auth::check())
+                @if(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null && $product->product_status_id != 6)
+                  <form class="d-block d-lg-none" action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button type="button" class="rounded-11 btn btn-success restore-product ml-md-2 my-1 px-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="15px" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 507.289 507.289" fill="#fff" style="enable-background:new 0 0 507.289 507.289; vertical-align: middle; fill: #fff !important;" xml:space="preserve" >
+                          <g>
+                            <path d="M153.712,375.691l-24,21.248c7.642,8.598,15.944,16.585,24.832,23.888l20.288-24.8     C167.265,389.818,160.203,383.018,153.712,375.691z"/>
+                            <path d="M122.176,326.187l-29.408,12.624c4.547,10.596,9.946,20.805,16.144,30.528l26.992-17.152     C130.64,343.901,126.049,335.207,122.176,326.187z"/>
+                            <path d="M399.595,66.763c-32.9-19.075-70.253-29.126-108.283-29.136C183.147,37.801,91.764,117.904,77.424,225.115l-54.8-54.8     L0,192.939l91.312,91.312l91.312-91.312L160,170.315l-49.488,49.424c18.803-99.758,114.916-165.384,214.674-146.581     S490.57,188.074,471.767,287.831S356.851,453.216,257.093,434.412c-20.449-3.854-40.095-11.153-58.101-21.586l-16.08,27.664     c103.202,59.835,235.37,24.679,295.205-78.523C537.953,258.766,502.797,126.598,399.595,66.763z"/>
+                            <polygon points="267.312,109.627 267.312,285.627 337.712,338.427 356.912,312.827 299.312,269.627 299.312,109.627    "/>
+                          </g>
+                        </svg>
+                        Восстановить
+                    </button>
+                  </form>
+                @endif 
               @endif
               @guest
               <div class="d-flex align-items-center justify-content-center w-40">
@@ -217,11 +231,13 @@
                 </div>
               </div>
               @endguest
-            <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+            
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                   @if($product->deleted_at == null)
-                      <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-success custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
+                  <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+                    <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-success custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
+                  </div>
                   @endif
                 @else
                   <!-- Button trigger modal -->
@@ -234,11 +250,13 @@
                 @endif
               @endif
               @guest
-              <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
-                Купить
-              </button>
+              <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+                <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
+                  Купить
+                </button>
+              </div>
               @endguest
-            </div>
+            
           </div>
           <div class="mt-3 mt-sm-5 d-lg-flex justify-content-end info-product_footer d-none order-1">
             <div class="my-3 text-center d-flex justify-content-between flex-wrap w-100">

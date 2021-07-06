@@ -1303,7 +1303,7 @@ $(document).ready(function () {
         $('.pic-main').attr('src', imgSrc)
         $('.add-product-secondary .pic-item').removeClass('pic-item-active')
         $(this).addClass('pic-item-active')
-
+        
     })
 
     $('body').on('click', '.delete-product', function(event) {
