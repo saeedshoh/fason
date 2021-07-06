@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/dashboard/theme.scss', 'public/css/dashboard')
     .sass('resources/sass/app.scss', 'public/css/dashboard')
     .sass('resources/sass/main.scss', 'public/css')
+    .sass('resources/sass/dashboard/main.scss', 'public/css/dashboard')
     // .sourceMaps()
     // .purgeCss()
     // .postCss('resources/css/app.css', 'public/css', [

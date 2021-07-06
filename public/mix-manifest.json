@@ -3,6 +3,7 @@
     "/css/dashboard/theme.css": "/css/dashboard/theme.css",
     "/css/dashboard/app.css": "/css/dashboard/app.css",
     "/css/main.css": "/css/main.css",
+    "/css/dashboard/main.css": "/css/dashboard/main.css",
     "/js/dashboard/app.js": "/js/dashboard/app.js",
     "/js/main.js": "/js/main.js"
 }

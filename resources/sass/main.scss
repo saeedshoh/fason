@@ -1399,7 +1399,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .deleteImage {
     padding: 0 10px;
     position: absolute;
-    right: 0.3rem;
+    right: -0.3em;
     top: -10px;
     display: block;
     border-radius: 50%;
@@ -1407,6 +1407,9 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
+    @media only screen and (max-width: 600px){
+        right: 0.3em;
+    }
 }
 
 .deleteImage a {
