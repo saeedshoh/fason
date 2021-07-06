@@ -86,7 +86,7 @@ class Product extends Model
 
         if ($category->is_monetized) {
             foreach ($category->monetizations as $monetization) {
-                if ($this->price >= $monetization->min && $this->price <= $monetization->max) {
+                if (($this->price >= $monetization->min && $this->price < $monetization->max) || ($this->price > $monetization->min && $this->price <= $monetization->max)) {
                     $category_monetization = $this->price * ($monetization->margin / 100) + $monetization->added_val;
                 }
             }
@@ -95,7 +95,7 @@ class Product extends Model
         if ($store->is_monetized) {
             if ($store->monetizations->first()) {
                 foreach ($store->monetizations as $monetization) {
-                    if ($this->price >= $monetization->min && $this->price <= $monetization->max) {
+                    if (($this->price >= $monetization->min && $this->price < $monetization->max) || ($this->price > $monetization->min && $this->price <= $monetization->max)) {
                         $store_monetization = $this->price * ($monetization->margin / 100) + $monetization->added_val;
                     }
                 }
@@ -105,7 +105,7 @@ class Product extends Model
         $monetizations = Monetization::doesntHave('stores')->doesntHave('categories')->get();
         if ($monetizations->isNotEmpty()) {
             foreach ($monetizations as $monetization) {
-                if ($this->price >= $monetization->min && $this->price <= $monetization->max) {
+                if (($this->price >= $monetization->min && $this->price < $monetization->max) || ($this->price > $monetization->min && $this->price <= $monetization->max)) {
                     $common_monetization = $this->price * ($monetization->margin / 100) + $monetization->added_val;
                 }
             }

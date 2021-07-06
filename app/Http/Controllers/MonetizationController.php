@@ -210,7 +210,7 @@ class MonetizationController extends Controller
 
         if ($category->is_monetized) {
             foreach ($category->monetizations as $monetization) {
-                if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                if (($request->price >= $monetization->min && $request->price < $monetization->max) || ($request->price > $monetization->min && $request->price <= $monetization->max)) {
                     $category_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
                 }
             }
@@ -219,7 +219,7 @@ class MonetizationController extends Controller
         if ($store->is_monetized) {
             if ($store->monetizations->first()) {
                 foreach ($store->monetizations as $monetization) {
-                    if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                    if (($request->price >= $monetization->min && $request->price < $monetization->max) || ($request->price > $monetization->min && $request->price <= $monetization->max)) {
                         $store_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
                     }
                 }
@@ -229,7 +229,7 @@ class MonetizationController extends Controller
         $monetizations = Monetization::doesntHave('stores')->doesntHave('categories')->get();
         if ($monetizations->isNotEmpty()) {
             foreach ($monetizations as $monetization) {
-                if ($request->price >= $monetization->min && $request->price < $monetization->max) {
+                if (($request->price >= $monetization->min && $request->price < $monetization->max) || ($request->price > $monetization->min && $request->price <= $monetization->max)) {
                     $common_monetization = $request->price * ($monetization->margin / 100) + $monetization->added_val;
                 }
             }
