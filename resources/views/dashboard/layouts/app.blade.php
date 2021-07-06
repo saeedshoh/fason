@@ -8,6 +8,7 @@
     <link rel="icon" type="image/jpg"  href="/storage/favicon.jpg">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('css/dashboard/theme.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/dashboard/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('fonts/feather/feather.css') }}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
