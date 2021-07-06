@@ -2212,3 +2212,12 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     -moz-user-select: none;
     -ms-user-select: none;
   }
+
+  .slick-list .item a{
+    outline : none;
+  }
+  
+  .slick-list .item img{
+    outline : none !important;
+    border : 0 !important;
+  }
