@@ -30,7 +30,7 @@
                 @foreach(json_decode($product->gallery) as $gallery)
                     <div class="preview-image col-3 col-lg-4 col-xl-3">
                         <div class="position-relative">
-                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="mw-100 pic-item rounded shadow" alt="{{ $product->name }}">
+                            <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="mw-100 pic-item rounded shadow preview-element-image" alt="{{ $product->name }}">
                             <div class="deleteImage text-white" data-name="{{ $gallery }}">&times;</div>
                         </div>
                     </div>
