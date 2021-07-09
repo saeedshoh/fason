@@ -17,7 +17,7 @@
         <h6 class="text-secondary d-md-none mb-0">Сохраненные:</h6>
       </div>
       <h4 class="text-secondary py-3 d-none d-md-block text-center">Сохраненные:</h4>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3 active-product">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 mb-5 active-product">
         @forelse ($favorites as $favorite)
             @foreach ($favorite->products as $product)
                 <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">

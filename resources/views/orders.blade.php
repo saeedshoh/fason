@@ -55,13 +55,15 @@
                                             <div class="">
                                                 <div>
                                                     <small class="text-secondary w-100 mr-2">
-                                                        <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
-
-                                                        {{ $order->created_at->format('G:i:s') }}</small>
-                                                    <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
 
-                                                        {{ $order->created_at->format('d.m.Y') }}</small>
+                                                        {{ $order->created_at->format('d.m.Y') }}
+                                                    </small>
+                                                    <small class="text-secondary w-100 mr-2">
+                                                        <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+
+                                                        {{ $order->created_at->format('G:i:s') }}
+                                                    </small>
                                                     <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
 
@@ -132,12 +134,12 @@
                                                 <div class="">
                                                     <div>
                                                         <small class="text-secondary w-100">
-                                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
-                                                            {{ $sale->created_at->format('G:i:s') }}
-                                                        </small>
-                                                        <small class="text-secondary w-100">
                                                             <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
                                                             {{ $sale->created_at->format('d.m.Y') }}
+                                                        </small>
+                                                        <small class="text-secondary w-100">
+                                                            <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
+                                                            {{ $sale->created_at->format('G:i:s') }}
                                                         </small>
                                                             <small class="text-secondary w-100">
                                                                 <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
