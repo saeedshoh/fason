@@ -60,4 +60,6 @@ class Category extends Model
             $model->order_no = $model->max('order_no') + 1;
         });
     }
+
+
 }

@@ -164,6 +164,7 @@
         <div class="all-product container px-md-2 mt-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 my-3">
               @forelse ($products as $product)
+              @if(\Carbon\Carbon::parse($product->deleted_at)->diffInDays(\Carbon\Carbon::now()) <= 14)
               <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
                 <div class="card rounded shadow border-0 h-100 w-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
@@ -200,6 +201,7 @@
                   </div>
                 </div>
               </div>
+              @endif
               @empty
                 <span class="mb-5 mt-3 col-12">Извените ничего не найдено</span>
               @endforelse

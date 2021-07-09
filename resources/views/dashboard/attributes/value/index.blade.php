@@ -8,7 +8,7 @@
       <div class="col-12">
 
         <!-- Header -->
-        <div class="header">
+        <div class="header mb-0">
           <div class="header-body">
             <div class="row align-items-center">
               <div class="col">
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        @if (session())
+        @if (session('message'))
         <div class="alert alert-{{ session()->get('class') }}">
             {{session()->get('message')}}
         </div>
@@ -58,6 +58,22 @@
         <div class="tab-content">
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
+            <div class="row p-2 mb-0">
+                <div class="col-12">
+                    <p class="text-right mt-3 mb-3">Связанные категории</p>
+                </div>
+                @forelse ($parent->categories as $category)
+                <div class="col-2">
+
+                    <a href="{{ route('categories.show', $category) }}"  class="btn btn-outline-primary mb-2 w-100">{{ $category->name }}</a>
+                </div>
+                @empty
+                <div class="col-12">
+                    <p class="text-center mt-3 mb-3">Не относится ни к одной категории</p>
+                </div>
+                @endforelse
+            </div>
+            <hr class="mt-0">
             <!-- Card -->
             <div class="card" data-list='{"valueNames": ["item-name", "item-value", "item-order"]}' id="contactsList">
                 <div class="card-header">
