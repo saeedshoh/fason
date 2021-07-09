@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Category;
 use Spatie\Sluggable\HasSlug;
 use App\Models\AttributeValue;
 use Spatie\Sluggable\SlugOptions;
@@ -39,5 +40,11 @@ class Attribute extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_attributes', 'attribute_id', 'product_id');
+    }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_attributes');
     }
 }

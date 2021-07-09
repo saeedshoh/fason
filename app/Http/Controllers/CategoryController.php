@@ -132,6 +132,46 @@ class CategoryController extends Controller
         return view('dashboard.category.index', compact('categories', 'allCategories'));
     }
 
+    public function inactive(Request $request)
+    {
+        $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
+        $categories = Category::where('is_active', 0)->orderBy('order_no')->paginate(30)->withQueryString();
+        if ($request->ajax()) {
+            if($request->search != '') {
+                $categories = Category::where('name', 'like', '%' . $request->search . '%')->where('is_active', 0)->orderBy('order_no')->paginate(30)->withQueryString();
+            } else {
+                $categories = Category::orderBy('order_no')->where('is_active', 0)->paginate(30)->withQueryString();
+            }
+            return response()->json(
+                view(
+                    'dashboard.ajax.inactive',
+                    compact('categories', 'allCategories')
+                )->render()
+            );
+        }
+        return view('dashboard.category.incative', compact('categories', 'allCategories'));
+    }
+
+    public function active(Request $request)
+    {
+        $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
+        $categories = Category::where('is_active', 1)->orderBy('order_no')->paginate(30)->withQueryString();
+        if ($request->ajax()) {
+            if($request->search != '') {
+                $categories = Category::where('name', 'like', '%' . $request->search . '%')->where('is_active', 1)->orderBy('order_no')->paginate(30)->withQueryString();
+            } else {
+                $categories = Category::orderBy('order_no')->where('is_active', 1)->paginate(30)->withQueryString();
+            }
+            return response()->json(
+                view(
+                    'dashboard.ajax.inactive',
+                    compact('categories', 'allCategories')
+                )->render()
+            );
+        }
+        return view('dashboard.category.acative', compact('categories', 'allCategories'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -253,7 +293,6 @@ class CategoryController extends Controller
                 $category->attributes()->sync($request->attribute);
             }
             $category->update($request->validated());
-
             Log::create([
                 'user_id' => Auth::user()->id,
                 'action' => 2,

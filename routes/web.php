@@ -18,6 +18,7 @@ use App\Http\Controllers\ItemsForPageController;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\SmsConfirmedController;
 use App\Http\Controllers\AttributeValueController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,8 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::patch('store/star/{id}', [StoreController::class, 'star'])->name('ft-store.star');
 
     Route::get('/ordersStatistic', [OrderController::class, 'statistics'])->name('ordersStatistic');
-
+    Route::get('inactive', [CategoryController::class, 'inactive'])->name('categories.inactive');
+    Route::get('active', [CategoryController::class, 'active'])->name('categories.active');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
