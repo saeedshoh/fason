@@ -296,15 +296,14 @@ class StoreController extends Controller
 
         Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
         Product::withoutGlobalScopes()->where('quantity', 0)->update(['product_status_id' => 5]);
-
+        $to = Carbon::now()->subDays(14);
         $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->latest('updated_at')->get();
         $acceptedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->accepted()->get();
         $onCheckProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->onCheck()->get();
         $hiddenProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->hidden()->get();
         $canceledProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->canceled()->get();
         $notInStock = Product::withoutGlobalScopes()->where('store_id', $store->id)->notInStock()->get();
-        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->deleted()->get();
-        // ddd($deletedProducts);
+        $deletedProducts = Product::withoutGlobalScopes()->where('store_id', $store->id)->whereDate('deleted_at', '>=', $to)->get();
         return view('store.show', compact('store', 'products', 'acceptedProducts', 'onCheckProducts', 'hiddenProducts', 'canceledProducts', 'notInStock', 'deletedProducts'));
     }
 
