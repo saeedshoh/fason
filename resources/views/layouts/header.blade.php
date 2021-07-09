@@ -62,7 +62,7 @@
               <img class="rounded-circle mr-1 object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" alt="" width="32" height="32">
               <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownProfileLink">
+            <div class="dropdown-menu" aria-labelledby="dropdownProfileLink" style="z-index: 1001;">
               <a class="dropdown-item" href="{{ route('profile') }}">Профиль</a>
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">

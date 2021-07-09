@@ -21,7 +21,7 @@
           <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
               <div class="card rounded shadow border-0 h-100">
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
-                  <div class="container d-flex flex-column justify-space-between flex-wrap">
+                  <div class="container d-flex flex-column justify-content-between flex-wrap">
                       <h4 class="product-name shop-subject my-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
                       <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
                           <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
