@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Select -->
-                                        <select class="custom-select custom-select-sm" name="user_id">
+                                        <select class="custom-select custom-select-sm chosen-select" name="user_id">
                                             <option value="">Все</option>
                                             @isset($users)
                                                 @foreach ($users as $user)
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Select -->
-                                        <select class="custom-select custom-select-sm" name="product_id">
+                                        <select class="custom-select custom-select-sm chosen-select" name="product_id">
                                             <option value="">Все</option>
                                             @isset($products)
                                                 @foreach ($products as $product)
@@ -159,7 +159,7 @@
                                     </div>
                                     <div class="col-8">
                                         <!-- Select -->
-                                        <select class="custom-select custom-select-sm" name="store_id">
+                                        <select class="custom-select custom-select-sm chosen-select" name="store_id">
                                             <option value="">Все</option>
                                             @isset($stores)
                                                 @foreach ($stores as $store)

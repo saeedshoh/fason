@@ -19,3 +19,12 @@ select {
   appearance: none;
 }
 
+.chosen-container-single {
+  width: 100% !important;
+}
+
+.chosen-container-single .chosen-single {
+  background: white !important;
+  border: 1px solid #D2DDEC !important;
+}
+

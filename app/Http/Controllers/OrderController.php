@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Store;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Filters\OrderFilters;
 use App\Models\AttributeValue;
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Store;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -21,8 +21,8 @@ class OrderController extends Controller
         if (Auth::check()) {
             $is_store = Store::where('user_id', Auth::id())->first();
         }
-        if($is_store) {
-            $sales = Order::whereHas('no_scope_product', function ($no_scope_product){
+        if ($is_store) {
+            $sales = Order::whereHas('no_scope_product', function ($no_scope_product) {
                 $no_scope_product->where('store_id', auth()->user()->store->id);
             })->latest()->get();
         }
@@ -42,29 +42,29 @@ class OrderController extends Controller
         $orders = Order::filter($filters)
             ->latest('order_status_id')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(60)
             ->withQueryString();
+
 
         $rdrs = Order::filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
                 ->has('orders')
-                ->get();
-
+                ->get(['id', 'name']);
             $products = Product::withoutGlobalScopes()
                 ->has('orders')
-                ->get();
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
                 ->has('orders')
-                ->get();
+                ->get(['id', 'name']);
         }
 
         $orders_stats = Order::withoutGlobalScopes()->orderBy('order_status_id')->get();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response()->json(
-                    view('dashboard.ajax.orders', compact('orders', 'orders_stats', 'users', 'products', 'stores')
+                view('dashboard.ajax.orders', compact('orders', 'orders_stats', 'users', 'products', 'stores')
                 )->render());
         }
         return view('dashboard.order.index', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
@@ -84,21 +84,21 @@ class OrderController extends Controller
 
         $rdrs = Order::where('order_status_id', 3)->filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 3); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 3);})
+                ->get(['id', 'name']);
 
             $products = Product::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 3); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 3);})
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 3); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 3);})
+                ->get(['id', 'name']);
         }
         return view('dashboard.order.statuses.accepted', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
@@ -117,21 +117,21 @@ class OrderController extends Controller
 
         $rdrs = Order::where('order_status_id', 4)->filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 4); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 4);})
+                ->get(['id', 'name']);
 
             $products = Product::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 4); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 4);})
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 4); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 4);})
+                ->get(['id', 'name']);
         }
         return view('dashboard.order.statuses.onTheWay', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
@@ -150,21 +150,21 @@ class OrderController extends Controller
 
         $rdrs = Order::where('order_status_id', 1)->filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 1); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 1);})
+                ->get(['id', 'name']);
 
             $products = Product::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 1); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 1);})
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 1); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 1);})
+                ->get(['id', 'name']);
         }
         return view('dashboard.order.statuses.onCheck', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
@@ -183,21 +183,21 @@ class OrderController extends Controller
 
         $rdrs = Order::where('order_status_id', 2)->filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 2); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 2);})
+                ->get(['id', 'name']);
 
             $products = Product::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 2); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 2);})
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 2); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 2);})
+                ->get(['id', 'name']);
         }
         return view('dashboard.order.statuses.canceled', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
@@ -216,21 +216,21 @@ class OrderController extends Controller
 
         $rdrs = Order::where('order_status_id', 5)->filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
-        if($rdrs->isNotEmpty()) {
+        if ($rdrs->isNotEmpty()) {
             $users = User::where('status', 2)
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 5); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 5);})
+                ->get(['id', 'name']);
 
             $products = Product::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 5); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 5);})
+                ->get(['id', 'name']);
 
             $stores = Store::withoutGlobalScopes()
-                ->whereHas('orders', function($orders){
-                    $orders->where('orders.order_status_id', 5); })
-                ->get();
+                ->whereHas('orders', function ($orders) {
+                    $orders->where('orders.order_status_id', 5);})
+                ->get(['id', 'name']);
         }
         return view('dashboard.order.statuses.returns', compact('orders', 'orders_stats', 'users', 'products', 'stores'));
     }
@@ -245,56 +245,55 @@ class OrderController extends Controller
     {
         if ($request->ajax()) {
             $product = Product::find($request->product_id);
-            if($request->input('attributes')){
+            if ($request->input('attributes')) {
                 $order = Order::create([
                     'product_id' => $request->product_id,
                     'user_id' => Auth::id(),
                     'total' => $product->price,
-                    'margin' => $request->total_price-$product->price,
+                    'margin' => $request->total_price - $product->price,
                     'address' => $request->address,
                     'quantity' => $request->quantity,
                     'attributes' => $request->attributes ? json_encode($request->input('attributes')) : null,
                     'comment' => $request->comment,
-                    'order_status_id' => '1'
+                    'order_status_id' => '1',
                 ]);
-                foreach($request->input('attributes') as $attribute_value) {
+                foreach ($request->input('attributes') as $attribute_value) {
                     $order->attribute_values()->attach($attribute_value);
                 }
-            }
-            else{
+            } else {
                 $order = Order::create([
                     'product_id' => $request->product_id,
                     'user_id' => Auth::id(),
                     'total' => $product->price,
-                    'margin' => $request->total_price-$product->price,
+                    'margin' => $request->total_price - $product->price,
                     'address' => $request->address,
                     'quantity' => $request->quantity,
                     'comment' => $request->comment,
-                    'order_status_id' => '1'
+                    'order_status_id' => '1',
                 ]);
             }
             $product->decrement('quantity', $request->quantity);
             $product->save();
-            if($product->quantity == 0) {
+            if ($product->quantity == 0) {
                 $product->update(['product_status_id' => 5]);
             }
-            if($order) {
+            if ($order) {
                 $comment = '';
-                if ( !empty ( $order->comment ) ) {
-                    $comment = "\nПримичание к заказу: " .$order->comment;
+                if (!empty($order->comment)) {
+                    $comment = "\nПримичание к заказу: " . $order->comment;
                 }
                 $config = array(
-                    'login' => 'fasontj',  // Ваш логин, который выдается администратором OsonSMS
-                    'hash' => '9c1891437739e62b0cd45d7c8e232739',  // Ваш хэш, который выдается администратором OsonSMS
+                    'login' => 'fasontj', // Ваш логин, который выдается администратором OsonSMS
+                    'hash' => '9c1891437739e62b0cd45d7c8e232739', // Ваш хэш, который выдается администратором OsonSMS
                     'sender' => 'fason.tj', // 'Альфанумерик, СМС отправитель'
-                    'server' => 'http://api.osonsms.com/sendsms_v1.php' // 'Адрес сервера'
+                    'server' => 'http://api.osonsms.com/sendsms_v1.php', // 'Адрес сервера'
                 );
                 $attributes = null;
-                if(json_decode($order->attributes)) {
+                if (json_decode($order->attributes)) {
                     $attributes_values = AttributeValue::whereIn('id', json_decode($order->attributes))->with('attribute')->get();
-                    foreach($attributes_values as $index => $attributes_value){
-                        $attributes .= $attributes_value->attribute->name.'-'.$attributes_value->name;
-                        if ($index === count($attributes_values)-1) {
+                    foreach ($attributes_values as $index => $attributes_value) {
+                        $attributes .= $attributes_value->attribute->name . '-' . $attributes_value->name;
+                        if ($index === count($attributes_values) - 1) {
                             $attributes .= '';
                         } else {
                             $attributes .= ', ';
@@ -303,11 +302,11 @@ class OrderController extends Controller
                 }
                 $phone = Auth::user()->phone; //номер телефона
                 $store_phone = $product->store->user->phone;
-                $message = "Ваш заказ: #" .$order->id. "\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .($order->total + $order->margin)." сомони". "\nАдрес доставки: " .$order->address . $comment;
-                $store_message = "У Вас заказали\nНазвание товара: " .$product->name. "\nКоличество: " .$order->quantity. "\nСумма: " .$order->total." сомони";
-                if($attributes){
-                    $message .= "\nАттрибуты: ".$attributes;
-                    $store_message .= "\nАттрибуты: ".$attributes;
+                $message = "Ваш заказ: #" . $order->id . "\nНазвание товара: " . $product->name . "\nКоличество: " . $order->quantity . "\nСумма: " . ($order->total + $order->margin) . " сомони" . "\nАдрес доставки: " . $order->address . $comment;
+                $store_message = "У Вас заказали\nНазвание товара: " . $product->name . "\nКоличество: " . $order->quantity . "\nСумма: " . $order->total . " сомони";
+                if ($attributes) {
+                    $message .= "\nАттрибуты: " . $attributes;
+                    $store_message .= "\nАттрибуты: " . $attributes;
                 }
                 $message .= "\nСпасибо за покупку.";
                 $store_message .= "\nСпасибо что выбрали нас.";
@@ -315,10 +314,10 @@ class OrderController extends Controller
                 $store_result = $this->sendSMS($store_phone, $store_message, $config);
             }
             return response()->json([
-                "order"   => $order,
+                "order" => $order,
                 "product" => $product,
                 "message" => $message,
-                "result"  => $result,
+                "result" => $result,
                 "store_result" => $store_result,
             ]);
         }
@@ -333,9 +332,9 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $attributes = null;
-        if($order->attributes){
+        if ($order->attributes) {
             $attributes = collect();
-            for ($i=0; $i < count(json_decode($order->attributes)); $i++) {
+            for ($i = 0; $i < count(json_decode($order->attributes)); $i++) {
                 $attributes->push(AttributeValue::where('id', json_decode($order->attributes)[$i])->first());
             }
         }
@@ -375,7 +374,7 @@ class OrderController extends Controller
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method
+            CURLOPT_CUSTOMREQUEST => $method,
         ));
 
         $response = curl_exec($curl);
@@ -426,9 +425,9 @@ class OrderController extends Controller
     public function statistics()
     {
         $invoices = Order::select(
-                DB::raw('format(updated_at, "MM") as month'),
-                DB::raw('SUM(total) as sum')
-            )
+            DB::raw('format(updated_at, "MM") as month'),
+            DB::raw('SUM(total) as sum')
+        )
             ->whereYear('updated_at', '=', Carbon::now()->year)
             ->orWhereYear('updated_at', '=', Carbon::now()->subYear()->year)
             ->groupBy('month')
