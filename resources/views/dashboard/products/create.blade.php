@@ -12,23 +12,23 @@
                     <div class="row align-items-center">
                         <div class="col">
 
-                        <!-- Pretitle -->
-                        <h6 class="header-pretitle">
-                            Добавление товара
-                        </h6>
+                            <!-- Pretitle -->
+                            <h6 class="header-pretitle">
+                                Добавление товара
+                            </h6>
 
-                        <!-- Title -->
-                        <h1 class="header-title text-truncate">
-                            Добавление
-                        </h1>
+                            <!-- Title -->
+                            <h1 class="header-title text-truncate">
+                                Добавление
+                            </h1>
 
                         </div>
                         <div class="col-auto">
 
-                        <!-- Buttons -->
-                        <a href="{{ route('products.index')}}" class="btn btn-primary ml-2">
-                            Все товары
-                        </a>
+                            <!-- Buttons -->
+                            <a href="{{ route('products.index')}}" class="btn btn-primary ml-2">
+                                Все товары
+                            </a>
 
                         </div>
                     </div>
@@ -43,14 +43,14 @@
                         <div class="card">
                             <div class="card-body">
 
-                            <!-- Form -->
+                                <!-- Form -->
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="name">Название</label>
 
                                         <input type="text" class="form-control" placeholder="Введите название товара" id="name" name="name" value="{{ old('name') }}" autocomplete="off" required>
                                         <small class="invalid-feedback">
-                                        Введите название товара
+                                            Введите название товара
                                         </small>
 
                                     </div>
@@ -59,7 +59,7 @@
                                         <select class="form-control" id="cat_parent" name="category_id" required>
                                             <option value="" disabled selected>Выберите категорию</option>
                                             @foreach($categories->where('parent_id', 0) as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                         <small class="invalid-feedback">
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="quantity">Количество</label>
-                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" id="quantity" placeholder="Введите название категори"  name="quantity" value="{{ old('quantity') }}" autocomplete="off" required>
+                                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control" id="quantity" placeholder="Введите название категори" name="quantity" value="{{ old('quantity') }}" autocomplete="off" required>
                                         <small class="invalid-feedback">
                                             Введите кол/во товара
                                         </small>
@@ -113,13 +113,13 @@
                                 <div class="form-row">
                                     <div class="col-12 mb-3">
                                         <label for="store_id">Магазин</label>
-                                        <select class="custom-select" data-toggle="select" name="store_id" required>
+                                        <select class="custom-select chosen-select-store" data-toggle="select" name="store_id" required>
                                             @foreach($stores as $store)
-                                                <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                            <option value="{{ $store->id }}">{{ $store->name }}</option>
                                             @endforeach
                                         </select>
                                         <small class="invalid-feedback">
-                                                Выберите магазин
+                                            Выберите магазин
                                         </small>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
 
                                         <div class="add-product-secondary" id="preview-product-secondary">
                                             <div id="db-preview-image">
-                                            <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
+                                                <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +162,18 @@
 
 <style>
     body {
-      position: relative;
+        position: relative;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 40px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        color: #12263F
+    }
+
+    .chosen-single div {
+        padding-top: 7px;
     }
 </style>
 

@@ -5,20 +5,22 @@ namespace App\Models;
 use App\Models\Monetization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
     use HasSlug, SoftDeletes, HasFactory;
 
-    protected $fillable = [ 'name', 'icon', 'is_active', 'parent_id', 'is_monetized', 'order_no'];
+    protected $fillable = ['name', 'icon', 'is_active', 'parent_id', 'is_monetized', 'order_no'];
 
-    public function parent()   {
+    public function parent()
+    {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
-    public function childrens(){
+    public function childrens()
+    {
         return $this->hasMany(Category::class, 'parent_id');
     }
 
@@ -27,19 +29,23 @@ class Category extends Model
         return $this->belongsToMany('App\Models\Attribute', 'category_attributes');
     }
 
-    public function grandchildren() {
-        return $this->childrens()->with('childrens');
+    public function grandchildren()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('childrens');
     }
-    public function products() {
+    public function products()
+    {
         return $this->hasMany('App\Models\Product');
     }
-    public function products_no_scope() {
+    public function products_no_scope()
+    {
         return $this->hasMany('App\Models\Product')->withoutGlobalScopes();
     }
-    public function getSlugOptions() : SlugOptions   {
+    public function getSlugOptions(): SlugOptions
+    {
         return SlugOptions::create()
-        ->generateSlugsFrom('name')
-        ->saveSlugsTo('slug');
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 
     /**
@@ -60,6 +66,5 @@ class Category extends Model
             $model->order_no = $model->max('order_no') + 1;
         });
     }
-
 
 }

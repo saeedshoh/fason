@@ -60,7 +60,7 @@
                 </div>
             </div>
             @if (session())
-            <div class="alert alert-{{ session()->get('class') }}">
+            <div class="alert alert-{{ session()->get('class') }} mt-4">
                 {{session()->get('message')}}
             </div>
             @endif

@@ -74,5 +74,21 @@ class ProductSeeder extends Seeder
             'product_status_id' => '1',
             'store_id' => '1',
         ]);
+
+
+        for ($i=0; $i < 10000; $i++) {
+            Product::create([
+                'name' => 'Iphone XS MAX 512_'.$i,
+                'slug' => 'iphone-xs-max-512_'.$i,
+                'description' => 'Lorem Ipsum is simply dummy text of the printing a...',
+                'image' => '/2020/12/5fd47be2396d0480x480.jpg',
+                'gallery' => '["2020/12/5fd47be2396d0480x480.jpg","2020/12/5fd47be2396d0480x480.jpg","2020/12/5fd47be2396d0480x480.jpg","2020/12/5fd47be2396d0480x480.jpg"]',
+                'category_id' => '1',
+                'quantity' => '50',
+                'price' => '500',
+                'product_status_id' => '1',
+                'store_id' => '1',
+            ]);
+        }
     }
 }

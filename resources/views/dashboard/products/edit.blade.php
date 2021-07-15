@@ -213,7 +213,7 @@
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
                                         <label>Магазин</label>
-                                        <select class="custom-select" data-toggle="select" name="store_id" required>
+                                        <select class="custom-select chosen-select-store" data-toggle="select" name="store_id" required>
                                             @foreach($stores as $store)
                                                 <option value="{{ $store->id }} " {{ $product->store_id == $store->id ? 'selected' : ''}}>{{ $store->name }}</option>
                                             @endforeach
@@ -294,6 +294,17 @@
 <style>
     body {
       position: relative;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 40px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        color: #12263F
+    }
+
+    .chosen-single div {
+        padding-top: 7px;
     }
 </style>
 @endsection

@@ -1,17 +1,8 @@
 require('sweetalert2')
 require('./bootstrap');
-// require('./components/navbar');
-// require('./components/dropdowns');
 require('./components/charts');
 require('./components/Chart.extension');
-// require('./components/highlight');
-// require('./components/tooltip');
-// require('./components/dropzone');
-require('./components/select2');
 require('./components/wizard');
-// require('./components/quill.js');
-// require('./main.js');
-
 import Swal from 'sweetalert2'
 
 $('body').on('click', '.delete-confirm', function(event) {

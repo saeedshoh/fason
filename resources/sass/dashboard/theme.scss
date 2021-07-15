@@ -22,11 +22,14 @@
 
 // Custom core
 @import 'user';
-
 // Sweetalert2
 @import "../../../node_modules/sweetalert2/dist/sweetalert2.min.css";
+@import "../../../node_modules/select2/dist/css/select2.css";
+@import "../../../node_modules/chosen-js/chosen.min.css";
 
 .custom-date {
     height: fit-content;
     padding: 0.125rem 0.125rem 0rem 0.5rem;
 }
+
+

@@ -247,7 +247,7 @@ class ProductController extends Controller
         if(!session('previous_product')){
             session(['previous_product' => url()->previous()]);
         }
-        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get();
+        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get(['id', 'name']);
         $categories = $this->categories;
         return view('dashboard.products.create', compact('categories', 'stores'));
     }
@@ -291,6 +291,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        dd($request->all());
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'gallery' => 'sometimes'
@@ -365,7 +366,7 @@ class ProductController extends Controller
             }
         }
         $categories = $this->categories;
-        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get();
+        $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get(['id', 'name']);
         return view('dashboard.products.edit', compact('stores', 'product', 'allCategories', 'parent', 'grandParent', 'category', 'attributes', 'attrValues'));
     }
 

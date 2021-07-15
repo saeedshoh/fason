@@ -39,6 +39,7 @@ const Toast = Swal.mixin({
     }
 })
 
+
 $('#listView').on('click', function() {
     $('#catProducts').find('.card').addClass('active');
     $('#catProducts .endless-pagination')
