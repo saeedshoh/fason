@@ -16,6 +16,8 @@ use App\Http\Traits\ImageInvTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
@@ -313,5 +315,30 @@ class UserController extends Controller
                 return Store::where('id', $request->id)->pluck('address')->first();
             }
         }
+    }
+
+    public function save(Request $request, $file_input_name)
+    {
+        $request->validate([
+			$file_input_name 	=> 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp'
+		]);
+
+        $yearFolder = '/storage/' .now()->year. '/' .sprintf("%02d", now()->month);
+        $folder = now()->year. '/' .sprintf("%02d", now()->month);
+
+        $img = Image::make($request->file($file_input_name));
+        $filename = '/'.uniqid() . '500x500.'.$request->file($file_input_name)->extension();
+
+        $image = $yearFolder.$filename;
+
+        $img_name = $folder.$filename;
+
+        if (!file_exists(public_path($image))) {
+            Storage::makeDirectory($folder);
+        }
+
+        $img->save(public_path($image));
+
+        return $img_name;
     }
 }
