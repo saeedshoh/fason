@@ -8,7 +8,7 @@
 @extends('layouts.footer')
 @section('content')
  <!--Header-end-->
-  <section class="content profile mt-0 mt-md-5">
+  <section class="content profile mt-0 mt-md-4">
     <div class="container px-md-2">
       <div class="row">
         @if($stores->is_moderation)

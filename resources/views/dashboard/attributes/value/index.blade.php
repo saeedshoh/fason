@@ -63,7 +63,7 @@
                     <p class="text-right mt-3 mb-3">Связанные категории</p>
                 </div>
                 @forelse ($parent->categories as $category)
-                <div class="col-2">
+                <div class="col-6 col-lg-2">
 
                     <a href="{{ route('categories.show', $category) }}"  class="btn btn-outline-primary mb-2 w-100">{{ $category->name }}</a>
                 </div>
