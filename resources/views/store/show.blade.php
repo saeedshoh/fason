@@ -12,7 +12,7 @@
 @extends('layouts.footer')
 @section('content')
  <!--Header-end-->
-  <section class="content profile mt-0 mt-md-5">
+  <section class="content profile mt-0 mt-md-4">
     <div class="container px-md-2">
       <div class="row">
         @if($store->is_moderation)
@@ -183,6 +183,7 @@
                       @elseif ($product->product_status->id == 6)
                         Товар удалён модератором
                       @else
+                        <div class="public_card_custom">Опубликовано</div>
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                         @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
                           {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
@@ -219,6 +220,7 @@
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container mt-3">
                     <span class="text-secondary">
+                        <div class="public_card_custom">Опубликовано</div>
                       <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
                       @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
                         {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день

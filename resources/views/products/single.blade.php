@@ -216,7 +216,7 @@
                         Восстановить
                     </button>
                   </form>
-                @endif 
+                @endif
               @endif
               @guest
               <div class="d-flex align-items-center justify-content-center w-40">
@@ -231,7 +231,7 @@
                 </div>
               </div>
               @endguest
-            
+
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                   @if($product->deleted_at == null)
@@ -256,7 +256,7 @@
                 </button>
               </div>
               @endguest
-            
+
           </div>
           <div class="mt-3 mt-sm-5 d-lg-flex justify-content-end info-product_footer d-none order-1">
             <div class="my-3 text-center d-flex justify-content-between flex-wrap w-100">
@@ -379,7 +379,7 @@
       </div>
   </section>
   <!-- Modal 1-->
-  <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
+  {{-- <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered buy-modal">
     <div class="modal-content">
@@ -434,10 +434,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 <!-- Modal 1 end-->
 <!--Modal-2-->
-<div class="modal fade text-left" id="thanks" tabindex="-1" aria-labelledby="thanks"
+{{-- <div class="modal fade text-left" id="thanks" tabindex="-1" aria-labelledby="thanks"
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered buy-modal">
   <div class="modal-content">
@@ -459,7 +459,7 @@ aria-hidden="true">
     </div>
   </div>
 </div>
-</div>
+</div> --}}
 <!--Modal-2 end-->
 <div class="">
   <div class="text-center text-md-right">

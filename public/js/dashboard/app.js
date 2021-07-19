@@ -89950,15 +89950,15 @@ function upload(selector) {
             preview.insertAdjacentHTML('beforeend', "\n                        <div class=\"preview-image col-3 col-lg-4 col-xl-3\">\n                            <div class=\"profile-pic h-100\">\n                                <img src=\"".concat(src, "\" alt=\"").concat(result.name, "\" class=\"preview-element-image border-gray rounded shadow\"/>\n                                <div class=\"deleteImage text-white\" data-name=\"").concat(result.name, "\">&times;</div>\n                            </div>\n                        </div>"));
             var imageList = document.querySelectorAll('.preview-image');
             imageList.forEach(function (el, index) {
-              return index > 6 ? el.remove() : '';
+              return index > 7 ? el.remove() : '';
             });
 
-            if (document.querySelectorAll('.preview-image').length <= 6) {
+            if (document.querySelectorAll('.preview-image').length <= 7) {
               preview.insertAdjacentElement('beforeend', opendiv);
               open.classList.add('trigger-insert');
             } else {
               open.remove();
-              document.querySelectorAll('.preview-image')[5].remove();
+              document.querySelectorAll('.preview-image')[6].remove();
             }
           };
 

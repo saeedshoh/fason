@@ -17,8 +17,20 @@ body {
     user-select: none;
     // padding-bottom: 50px;
     -webkit-touch-callout: none !important;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
 }
-
+.photo_describe_size{
+    font-size: 10px;
+}
+.public_card_custom{
+    background-color: #04a004;
+    color: white !important;
+    padding: 4px;
+    border-radius: 3px;
+    text-align: center;
+    margin-bottom: 9px;
+}
 .text-pinky {
     color: #FF0055 !important;
 }

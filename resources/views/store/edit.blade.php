@@ -35,6 +35,11 @@
               </label>
             </div>
           </div>
+          <div class="d-none d-md-block">
+            <div class="photo_describe_size">
+                <span class="text-muted">Фотография профиля размером 270х215</span>
+              </div>
+          </div>
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
           <label for="cover">
@@ -46,8 +51,15 @@
               <input type="file" accept="image/*"  class="d-none" id="cover" name="cover">
             </label>
           </div>
+           <div class="d-block d-md-none mb-3 px-3">
+                <h5 class="text-secondary font-weight-bold">Добавить фотографию обложки</h5>
+                <span class="text-primary">Фотография профиля размером 840х215</span>
+              </div>
+          <div class="d-none d-md-block photo_describe_size">
+            <span class="text-muted">Фотография профиля размером 840х215</span>
+          </div>
         </div>
-        <div class="col-12 d-block d-md-none mt-5">
+        <div class="col-12 d-block d-md-none mt-3">
           <h2>Магазин</h2>
           <div class="row">
             <div class="col-4 text-center justify-items-center align-self-center">
@@ -68,8 +80,13 @@
       </div>
       <!--Edit logo and banner end-->
       <!--store info start-->
-
-      <div class="row mt-5">
+    <div class="row mt-5">
+        <div class="my-3 d-block d-md-none px-3">
+            <h5 class="text-secondary font-weight-bold">Добавить фотографию профиля</h5>
+            <span class="text-primary">Фотография профиля размером 270х215</span>
+          </div>
+    </div>
+      <div class="row mt-3">
         <div class="col-12 col-lg-9">
           <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label text-muted font-weight-bold">Название магазина</label>

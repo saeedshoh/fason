@@ -129,6 +129,11 @@ $(document).ready(function() {
             $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test')
         }
     })
+
+    var prev_imgPlus = $('.preview-image');
+    if(prev_imgPlus.length == 8){
+        $('.preview-image').children().last().remove();;
+    }
 })
 
 function throttle(f, delay) {

@@ -104,13 +104,13 @@ export function upload(selector, options = {}) {
                         );
                         let imageList = document.querySelectorAll('.preview-image');
 
-                        imageList.forEach((el, index) => index > 6 ? el.remove() : '');
-                        if(document.querySelectorAll('.preview-image').length <= 6) {
+                        imageList.forEach((el, index) => index > 7 ? el.remove() : '');
+                        if(document.querySelectorAll('.preview-image').length <= 7) {
                             preview.insertAdjacentElement('beforeend', opendiv);
                             open.classList.add('trigger-insert');
                         } else {
                             open.remove();
-                            document.querySelectorAll('.preview-image')[5].remove()
+                            document.querySelectorAll('.preview-image')[6].remove()
                         }
                     };
                     reader.readAsDataURL(result);

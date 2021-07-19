@@ -157,9 +157,8 @@
                   <input type="file" class="form-control" id="cover" name="cover" value="{{ $store->cover }}">
                   <small class="text-muted">Внимание размер: 840px * 215px</small>
                   <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image d-none" id="cover-poster-mobile" height="216">
-
                 </div>
-                <div class="col-12 col-md-12 mb-3">
+                <div class="col-12 col-md-12 mb-3 d-block">
                   <label for="name">Выберите аватарку</label>
 
                   <input type="file" class="form-control" id="avatar" name="avatar" value="{{ $store->avatar }}">
