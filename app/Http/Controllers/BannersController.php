@@ -46,7 +46,9 @@ class BannersController extends Controller
     public function create()
     {
         $back = url()->previous();
-        return view('dashboard.banners.create', compact('back'));
+        $sliders_position = Banners::where('type', 1)->pluck('position')->toArray();
+        $banners_position = Banners::where('type', 2)->pluck('position')->toArray();
+        return view('dashboard.banners.create', compact('back', 'sliders_position', 'banners_position'));
     }
 
     /**
@@ -71,9 +73,10 @@ class BannersController extends Controller
             'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $image
         ]);
         if ($request->type == 1) {
-            return redirect()->route('banners.sliders')->with('success', 'Слайдер успешно добавлен!');
+            return redirect()->route('banners.sliders')->with(['class' => 'success', 'message' => 'Слайдер успешно добавлен!']);
+
         } else {
-            return redirect()->route('banners.index')->with('success', 'Баннер успешно добавлен!');
+            return redirect()->route('banners.index')->with(['class' => 'success', 'message' => 'Баннер успешно добавлен!']);
         }
     }
 
@@ -86,7 +89,9 @@ class BannersController extends Controller
     public function edit(Banners $banner)
     {
         $back = url()->previous();
-        return view('dashboard.banners.edit', compact('banner', 'back'));
+        $sliders_position = Banners::where('type', 1)->pluck('position')->toArray();
+        $banners_position = Banners::where('type', 2)->pluck('position')->toArray();
+        return view('dashboard.banners.edit', compact('banner', 'back', 'sliders_position', 'banners_position'));
     }
 
     /**
@@ -127,9 +132,10 @@ class BannersController extends Controller
             'description' => 'Позиция: ' . $request->position . ', Ссылка: ' . $request->url . ', Тип: ' . $type . ', Изображение: ' . $myImage
         ]);
         if ($request->type == 1) {
-            return redirect(route('banners.sliders').$page)->with('success', 'Слайдер успешно обновлен!');
+            return redirect()->route('banners.sliders')->with(['class' => 'primary', 'message' => 'Слайдер успешно обновлен!']);
+
         } else {
-            return redirect(route('banners.index').$page)->with('success', 'Баннер успешно обновлен!');
+            return redirect()->route('banners.index')->with(['class' => 'primary', 'message' => 'Баннер успешно обновлен!']);
         }
     }
 
@@ -149,6 +155,12 @@ class BannersController extends Controller
             'description' => 'Позиция: ' . $banner->position . ' Ссылка: ' . $banner->url . ' Тип: ' . $type . ' Изображение: ' . $banner->image
         ]);
         $banner->delete();
-        return redirect(route('banners.index'))->with('success', 'Успешно удалена!');
+
+        if ($banner->type == 1) {
+            return redirect()->route('banners.sliders')->with(['class' => 'danger', 'message' => 'Слайдер успешно удален!']);
+
+        } else {
+            return redirect()->route('banners.index')->with(['class' => 'danger', 'message' => 'Баннер успешно удален!']);
+        }
     }
 }

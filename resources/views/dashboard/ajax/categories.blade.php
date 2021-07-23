@@ -22,7 +22,7 @@
     <tbody class="list font-size-base">
 
         @forelse ($categories as $key => $category)
-            <tr>
+            <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                 <td>
                     {{ $loop->iteration + $categories->firstItem() - 1 }}
                 </td>
@@ -79,7 +79,7 @@
             </tr>
             @isset($category->childrens)
                 @foreach($category->childrens as $category)
-                <tr>
+                <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                     <td>
                         {{ $loop->iteration + $categories->firstItem() - 1 }}
                     </td>
@@ -119,7 +119,7 @@
                 </tr>
                 @isset($category->grandchildren)
                     @foreach($category->grandchildren as $category)
-                    <tr>
+                    <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                         <td>
                             {{ $loop->iteration + $categories->firstItem() - 1 }}
                         </td>

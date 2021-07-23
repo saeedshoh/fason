@@ -170,4 +170,8 @@
       </div>
     </div>
   </footer>
+
+  <div class="success-preloader d-none" style="height: 100vh;">
+    <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+  </div>
 @endsection

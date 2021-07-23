@@ -89066,7 +89066,7 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $('.chosen-select').chosen({
+  $('.chosen-select-store').chosen({
     no_results_text: "Ой, ничего не найдено!"
   });
 });

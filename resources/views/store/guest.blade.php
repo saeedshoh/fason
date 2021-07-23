@@ -34,7 +34,7 @@
             <div class="col-8 col-md-9 order-0 order-lg-1 mt-0 mt-sm-3">
               <div class="d-flex flex-column flex-md-row justify-content-between">
                 <h3 class="font-weight-bold">{{ $store->name }}</h3>
-                <span class="text-monospace">г.{{ $store->city->name }}</span>
+                <span class="text-monospace">г.{{ $store->city->name ?? ''}}</span>
               </div>
             </div>
           </div>

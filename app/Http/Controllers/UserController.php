@@ -173,8 +173,8 @@ class UserController extends Controller
             'table'  => 'Пользователи',
             'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
+        return redirect(route('users.index'))->with(['class' => 'success', 'message' => 'Сотрудник   «'.$user->name.'»  успешно добавлен!']);
 
-        return redirect()->route('users.index');
     }
 
     /**
@@ -228,7 +228,8 @@ class UserController extends Controller
             'table'  => $user->status == 1 ? 'Пользователи' : 'Клиенты',
             'description' => 'Имя: ' . $request->name . ',    Эл. почта: ' . $request->email . ', Телефон: ' . str_replace(' ', '', $request->phone)
         ]);
-        return redirect(session('previous_user'));
+        return redirect(session('previous_user'))->with(['class' => 'primary', 'message' => 'Сотрудник   «'.$user->name.'»  успешно изменен!']);
+
     }
 
     /**
@@ -245,7 +246,7 @@ class UserController extends Controller
         if($user->orders->isEmpty() && !$user->store || $name == 'users.index') {
             if(Log::where('user_id', $user->id)->exists())
                 Log::where('user_id', $user->id)->update(['user_id' => null]);
-            $name == 'users.index' ? $message = 'Сотрудник успешно удален!' : $message = 'Клиент успешно удален!';
+            $name == 'users.index' ? $message = 'Сотрудник   «'.$user->name.'»  успешно удален!' : 'Клиент   «'.$user->name.'»  успешно удален!';
             $deleted = $user->delete();
         }
         if($deleted) {
@@ -256,7 +257,12 @@ class UserController extends Controller
                 'description' => 'Имя: ' . $user->name . ',    Эл. почта: ' . $user->email . ', Телефон: ' . str_replace(' ', '', $user->phone)
             ]);
         }
-        return redirect(route($name))->with('success', $message);
+        if ($user->status == 2 )
+        {
+            return redirect(route('clients.index'))->with(['class' => 'danger', 'message' => $message]);
+        }
+        return redirect(route('users.index'))->with(['class' => 'danger', 'message' => $message]);
+
     }
 
     /**

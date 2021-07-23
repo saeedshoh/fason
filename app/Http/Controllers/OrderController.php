@@ -302,7 +302,7 @@ class OrderController extends Controller
                 }
                 $phone = Auth::user()->phone; //номер телефона
                 $store_phone = $product->store->user->phone;
-                $message = "Ваш заказ: #" . $order->id . "\nНазвание товара: " . $product->name . "\nКоличество: " . $order->quantity . "\nСумма: " . ($order->total + $order->margin) . " сомони" . "\nАдрес доставки: " . $order->address . $comment;
+                $message = "Ваш заказ: #" . $order->id . "\nНазвание товара: " . $product->name . "\nКоличество: " . $order->quantity . "\nСумма: " . ($order->total + $order->margin) . " сомони" ."\nГород: " . ($product->store->city->name). "\nАдрес доставки: " . $order->address . $comment;
                 $store_message = "У Вас заказали\nНазвание товара: " . $product->name . "\nКоличество: " . $order->quantity . "\nСумма: " . $order->total . " сомони";
                 if ($attributes) {
                     $message .= "\nАттрибуты: " . $attributes;

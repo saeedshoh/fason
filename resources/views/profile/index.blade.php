@@ -11,7 +11,7 @@
             <div class="row d-flex justify-content-center mb-3 my-md-4">
                 <h3>Мой профиль</h3>
             </div>
-            <form action="{{ route('ft_profile.update') }}" enctype="multipart/form-data" method="POST">
+            <form action="{{ route('ft_profile.update') }}" enctype="multipart/form-data" method="POST" id="editProfile">
                 @csrf
                 @method('POST')
                 <div class="row">
@@ -93,4 +93,7 @@
         </div>
     </div>
 </section>
+<div class="success-preloader d-none" style="height: 100vh;">
+    <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+  </div>
 @endsection

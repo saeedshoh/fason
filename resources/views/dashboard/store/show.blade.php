@@ -110,7 +110,7 @@
                 <small>Адрес</small> <small>{{ $store->address }}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Город</small> <small>{{ $store->city->name }}</small>
+                <small>Город</small> <small>{{ $store->city->name ?? ''}}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                 <small>Аватарка</small> <i class="fe {{ $store->avatar ? 'fe-check-circle text-success' : 'fe-alert-triangle text-danger'}}"></i>

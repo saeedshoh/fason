@@ -60,6 +60,7 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="name">Название</label>
+                                    <input type="hidden" value="{{ $previous }}">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $category->name }}" autocomplete="off" required="">
                                     @error('name')
                                     <div class="invalid-feedback">

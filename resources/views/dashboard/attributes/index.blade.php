@@ -37,11 +37,11 @@
             </div> <!-- / .row -->
           </div>
         </div>
-        @if (session())
-        <div class="alert alert-{{ session()->get('class') }}">
-            {{session()->get('message')}}
-        </div>
-        @endif
+        @if (session('class'))
+            <div class="alert alert-{{ session('class') }} mt-4">
+                {{session()->get('message')}}
+            </div>
+            @endif
         <!-- Tab content -->
         <div class="tab-content">
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">

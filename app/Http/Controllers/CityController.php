@@ -48,14 +48,14 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        City::create($request->all());
+        $city = City::create($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 1,
             'table'  => ' Города',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('cities.index'))->with('success', 'Город успешно добавлен!');
+        return redirect(route('cities.index'))->with(['class' => 'success', 'message' => 'Город  «'.$city->name.'»  успешно добавлен!']);
     }
 
     /**
@@ -89,7 +89,8 @@ class CityController extends Controller
             'table'  => ' Города',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('cities.index').$page)->with('success', 'Город успешно изменена!');
+        return redirect(route('cities.index'))->with(['class' => 'primary', 'message' => 'Город  «'.$city->name.'»  успешно изменена!']);
+
     }
 
     /**
@@ -107,6 +108,7 @@ class CityController extends Controller
             'table'  => ' Города',
             'description' => 'Название: ' . $city->name
         ]);
-        return redirect(route('cities.index'))->with('success', 'Город успешно удален!');
+        return redirect(route('cities.index'))->with(['class' => 'danger', 'message' => 'Город  «'.$city->name.'»  успешно удален!']);
+
     }
 }

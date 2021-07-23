@@ -35,7 +35,7 @@ class CategoryController extends Controller
         $name = Category::where('slug', $slug)->first();
         $categories = Category::where('parent_id', $cat_id)->orderBy('order_no')->get();
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $cat_id)
-                ->value('id'))
+            ->value('id'))
             ->pluck('id')
             ->push($parentId)
             ->all();
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     public function countProducts(Request $request)
     {
         $categoryIds = Category::where('parent_id', $parentId = Category::where('id', $request->category)
-                ->value('id'))
+            ->value('id'))
             ->pluck('id')
             ->push($parentId)
             ->all();
@@ -102,7 +102,7 @@ class CategoryController extends Controller
         $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
         $categories = Category::where('parent_id', 0)
             ->orderBy('order_no')
-            ->paginate(30)
+            ->paginate(10)
             ->withQueryString();
         if ($request->ajax()) {
             if ($request->search != '') {
@@ -115,12 +115,12 @@ class CategoryController extends Controller
                         $grandchildren->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
                     })
                     ->orderBy('order_no')
-                    ->paginate(30)
+                    ->paginate(10)
                     ->withQueryString();
             } else {
                 $categories = Category::where('parent_id', 0)
                     ->orderBy('order_no')
-                    ->paginate(30)
+                    ->paginate(10)
                     ->withQueryString();
             }
             return response()->json(
@@ -219,7 +219,8 @@ class CategoryController extends Controller
             'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Категория успешно добавлена!');
+        return redirect()->route('categories.index')->with( ['class' => 'success', 'message' => 'Категория  «'.$category->name.'»  успешно добавлен!']);
+
     }
 
     /**
@@ -241,9 +242,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $previous = url()->previous();
         $attributes = Attribute::get();
         $categories = Category::get();
-        return view('dashboard.category.edit', compact('categories', 'category', 'attributes'));
+        return view('dashboard.category.edit', compact('categories', 'category', 'attributes', 'previous'));
     }
 
     /**
@@ -302,7 +304,7 @@ class CategoryController extends Controller
                 'table' => 'Категории',
                 'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive,
             ]);
-            return redirect(route('categories.index') . $page)->with('success', 'Категория успешно обновлена!');
+            return redirect(url($request->previous))->with(['class' => 'primary', 'message' => 'Категория  «'.$category->name.'»  успешно обновлена!']);
         }
     }
 
@@ -314,8 +316,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $class = 'success';
-        $message = 'Категория успешно удалена!';
+        $class = 'danger';
+        $message = 'Категория  «'.$category->name.'»  успешно удалена!';
         $isActive = $category->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $category->parent_id != 0 ? Category::where('id', $category->parent_id)->first()->name : 'Родительская';
@@ -334,10 +336,10 @@ class CategoryController extends Controller
             $category->delete();
         } else {
             if ($category->is_monetized) {
-                $class = 'danger';
+                $class = 'warning';
                 $message = 'Невозможно удалить категорию, так как установлен монетизация на этом категории.';
             } else {
-                $class = 'danger';
+                $class = 'warning';
                 $message = 'Невозможно удалить категорию, так как есть товар с такой категорией.';
             }
         }
