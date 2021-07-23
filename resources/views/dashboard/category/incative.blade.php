@@ -50,7 +50,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('categories.inactive') }}" class="nav-link text-nowrap active">
-                                        Неактивние <span class="badge badge-pill badge-soft-warning">{{ count($allCategories->where('is_active', 0)) }}</span>
+                                        Неактивние <span class="badge badge-pill badge-soft-danger">{{ count($allCategories->where('is_active', 0)) }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -113,7 +113,7 @@
                                     <tbody class="list font-size-base">
 
                                         @forelse ($categories as $key => $category)
-                                        <tr>
+                                        <tr class="table-danger">
                                             <td>
                                                 {{ $loop->iteration + $categories->firstItem() - 1 }}
                                             </td>

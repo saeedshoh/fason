@@ -28,7 +28,6 @@ class StoreController extends Controller
         $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         if($store == Store::where('user_id', auth()->id())->first()){
             $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
-
             Product::withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
 
             $products = Product::withoutGlobalScopes()->where('store_id', $store->id)->latest('updated_at')->get();
@@ -293,6 +292,7 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
+        $store->small_cover = getMobiCover($store->cover);
         $product = new Product();
         $product->timestamps = false;
         $product->withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);

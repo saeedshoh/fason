@@ -18,8 +18,9 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.chosen-select').chosen({no_results_text: "Ой, ничего не найдено!"});
+    $('.chosen-select-store').chosen({no_results_text: "Ой, ничего не найдено!"});
 });
+
 
 
 $.get("/dashboard/ordersStatistic", function (statistic) {

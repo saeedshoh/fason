@@ -55,14 +55,14 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        Attribute::create($request->all());
+        $attr = Attribute::create($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 1,
             'table'  => ' Атрибуты',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('attributes.index'))->with('success', 'Аттрибут успешно добавлен!');
+        return redirect(route('attributes.index'))->with(['class' => 'success', 'message' => 'Аттрибут  «'.$attr->name.'»  успешно добавлен!']);
     }
 
     /**
@@ -108,7 +108,7 @@ class AttributeController extends Controller
             'table'  => ' Атрибуты',
             'description' => 'Название: ' . $request->name
         ]);
-        return redirect(route('attributes.index').$page)->with('success', 'Аттрибут успешно изменена!');
+        return redirect(route('attributes.index').$page)->with(['class' => 'primary', 'message' => 'Аттрибут  «'.$attribute->name.'»  успешно изменена!']);
     }
 
     /**
@@ -119,8 +119,8 @@ class AttributeController extends Controller
      */
     public function destroy(Attribute $attribute)
     {
-        $message = 'Аттрибут успешно удалена!';
-        $class = 'success';
+        $message = 'Аттрибут «'.$attribute->name.'» успешно удалена!';
+        $class = 'danger';
         if($attribute->products->isEmpty()){
             Log::create([
                 'user_id' => Auth::user()->id,

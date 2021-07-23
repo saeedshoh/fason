@@ -50,7 +50,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('categories.inactive') }}" class="nav-link text-nowrap">
-                                        Неактивние <span class="badge badge-pill badge-soft-warning">{{ count($allCategories->where('is_active', 0)) }}</span>
+                                        Неактивние <span class="badge badge-pill badge-soft-danger">{{ count($allCategories->where('is_active', 0)) }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -59,8 +59,8 @@
                     </div>
                 </div>
             </div>
-            @if (session())
-            <div class="alert alert-{{ session()->get('class') }} mt-4">
+            @if (session('class'))
+            <div class="alert alert-{{ session('class') }} mt-4">
                 {{session()->get('message')}}
             </div>
             @endif
@@ -113,7 +113,7 @@
                                     <tbody class="list font-size-base">
 
                                         @forelse ($categories as $key => $category)
-                                        <tr>
+                                        <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                                             <td>
                                                 {{ $loop->iteration + $categories->firstItem() - 1 }}
                                             </td>
@@ -121,7 +121,7 @@
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-xs align-middle mr-2">
                                                     @if($category->parent_id == '0')
-                                                    <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
+                                                    <img class="avatar-img" src="/storage/{{ $category->icon ?? 'camera.svg'}}">
                                                     @endif
                                                 </div>
                                                 <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
@@ -170,7 +170,7 @@
                                         </tr>
                                         @isset($category->childrens)
                                         @foreach($category->childrens as $category)
-                                        <tr>
+                                        <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                                             <td>
                                                 {{ $loop->iteration + $categories->firstItem() - 1 }}
                                             </td>
@@ -178,7 +178,7 @@
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-xs align-middle ml-5 mr-2">
                                                     @if($category->parent_id == '0')
-                                                    <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
+                                                    <img class="" >
                                                     @endif
                                                 </div>
                                                 <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">&emsp;{{ $category->name }}</a>
@@ -210,7 +210,7 @@
                                         </tr>
                                         @isset($category->grandchildren)
                                         @foreach($category->grandchildren as $category)
-                                        <tr>
+                                        <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                                             <td>
                                                 {{ $loop->iteration + $categories->firstItem() - 1 }}
                                             </td>

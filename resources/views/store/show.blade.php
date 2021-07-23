@@ -57,6 +57,7 @@
           <div class="position-relative d-inline-block w-100">
             <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
             <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
+
             <div class="mobile-avatar position-absolute w-lg-100">
               <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
             </div>

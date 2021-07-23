@@ -69,13 +69,13 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="position">Позиция</label>
                                     <select class="form-control" name="position" id="position">
-                                        @if(Str::contains($back, 'banners'))1, 2
+                                        @if(Str::contains($back, 'banners'))
                                             @for ($i = 1; $i < 3; $i++)
-                                                <option @if($i== $banner->position) selected @endif value="{{ $i }}">{{ $i }}</option>
+                                                <option @if (in_array($i, $sliders_position) && $i != $banner->position) disabled @endif @if($i== $banner->position) selected @endif value="{{ $i }}">{{ $i }} @if (in_array($i, $sliders_position) && $i != $banner->position) {{ '- занят' }} @endif</option>
                                             @endfor
                                         @else
                                             @for ($i = 1; $i < 11; $i++)
-                                                <option @if($i== $banner->position) selected @endif value="{{ $i }}">{{ $i }}</option>
+                                                <option  @if (in_array($i, $sliders_position) && $i != $banner->position) disabled @endif  @if($i== $banner->position) selected @endif value="{{ $i }}">{{ $i }} @if (in_array($i, $sliders_position) && $i != $banner->position) {{ '- занят' }} @endif</option>
                                             @endfor
                                         @endif
                                     </select>
@@ -124,10 +124,10 @@
                                 </div>
 
                             </div>
-                            </div>
-                            <!-- Button -->
                             <button class="btn btn-primary mt-4 px-5" type="submit">Изменить</button>
                             <input type="hidden" name="previous" value="{{ url()->previous() }}">
+                            </div>
+                            <!-- Button -->
                         </div>
                     </div>
                 </div>

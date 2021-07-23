@@ -37,10 +37,10 @@
             </div> <!-- / .row -->
           </div>
         </div>
-        @if (session()->get('success'))
-        <div class="alert alert-success">
-            {{session()->get('success')}}
-        </div>
+        @if (session('class'))
+            <div class="alert alert-{{ session('class') }} mt-4">
+                {{session()->get('message')}}
+            </div>
         @endif
         <!-- Tab content -->
         <div class="tab-content">

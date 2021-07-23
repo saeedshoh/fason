@@ -155,7 +155,7 @@
                                         {{ $store->address }}
                                     </td>
                                     <td class="item-location">
-                                        {{ $store->city->name }}
+                                        {{ $store->city->name  ?? ''}}
                                     </td>
                                     <td class="item-created">
                                         <time datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>

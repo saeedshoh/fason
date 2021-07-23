@@ -98,6 +98,9 @@
                                 <small>Телефон: </small> <small>{{ $order->user->phone }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                <small>Город: </small> <small>{{ $order->user->city->name ?? '' }}</small>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Адрес: </small>
                                 <div id="address-input">
                                     <a href="javascript:void();" class="ml-auto mr-1 d-none" id="save-changes" data-id="{{ $order->id }}">
@@ -174,6 +177,10 @@
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Телефон Продавца: </small> <small>{{ $order->no_scope_product->store->user->phone }}</small>
+                            </li>
+
+                            <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                                <small>Город Продавца: </small> <small>{{ $order->no_scope_product->store->city->name ?? '' }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <small>Адрес продавца: </small>

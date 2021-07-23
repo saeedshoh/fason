@@ -37407,6 +37407,14 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.jQuery = window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+$("#editProfile").submit(function (event) {
+  $('.success-preloader').removeClass('d-none');
+});
+$("#add_address").submit(function (event) {
+  $('.success-preloader').removeClass('d-none');
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

@@ -22,7 +22,7 @@
         <tbody class="list font-size-base">
 
             @forelse ($categories as $key => $category)
-            <tr>
+            <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                 <td>
                     {{ $loop->iteration + $categories->firstItem() - 1 }}
                 </td>

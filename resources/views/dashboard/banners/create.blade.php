@@ -73,13 +73,13 @@
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="position">Позиция</label>
                                     <select class="form-control" name="position" id="position">
-                                    @if(Str::contains($back, 'banners'))1, 2
+                                    @if(Str::contains($back, 'banners'))
                                         @for ($i = 1; $i < 3; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            <option value="{{ $i }}" {{ in_array($i, $banners_position) ? 'disabled' : '' }}>{{ $i }}  {{ in_array($i, $banners_position) ? " - занят" : '' }}</option>
                                         @endfor
                                     @else
                                         @for ($i = 1; $i < 11; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            <option value="{{ $i }}" {{ in_array($i, $sliders_position) ? 'disabled' : '' }}>{{ $i }} {{ in_array($i, $sliders_position) ? '- занят' : '' }}</option>
                                         @endfor
                                     @endif
                                     </select>

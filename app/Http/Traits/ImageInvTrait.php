@@ -191,8 +191,13 @@ trait ImageInvTrait {
             $constraint->aspectRatio();
         });
         $back = Image::canvas('850', '220')->insert($img, 'center');
-        $path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid().'.jpg';
+        $mobi_back = Image::canvas('450', '220')->insert($img, 'center');
+        $uniqid = uniqid().'.jpg';
+        $path = now()->year . '/' . sprintf("%02d", now()->month).'/' .$uniqid ;
+        $mobi_path = now()->year . '/' . sprintf("%02d", now()->month) . '/450x220-' . $uniqid;
+
         $back->save(public_path('/storage/'.$path));
+        $mobi_back->save(public_path('/storage/'.$mobi_path));
 
         unlink(public_path('/storage/'.$image));
         return $path;
