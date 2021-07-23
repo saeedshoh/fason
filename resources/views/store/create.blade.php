@@ -34,6 +34,11 @@
               </label>
             </div>
           </div>
+          <div class="d-none d-md-block">
+            <div class="photo_describe_size">
+                <span class="text-muted">Фотография профиля размером 270х215</span>
+              </div>
+          </div>
         </div>
         <div class="col-md-9 px-md-2 position-relative">
           <div class="d-block d-md-none mb-3">
@@ -62,6 +67,9 @@
             <div class="col my-3">
               <button type="submit" class="col-12 btn rounded-11 px-3 btn-danger font-weight-bold storeSubmit" id="storeSubmit">Создать магазин</button>
             </div>
+          </div>
+          <div class="d-none d-md-block photo_describe_size">
+            <span class="text-muted">Фотография профиля размером 840х215</span>
           </div>
         </div>
         <div class="col-12 d-block d-md-none mt-5">
