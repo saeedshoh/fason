@@ -15,13 +15,13 @@
                 @csrf
                 @method('POST')
                 <div class="row">
-                    <div class="col-lg-3 px-0 px-md-2 position-relative">
-                        <div class="text-center position-relative fs__icon-show">
+                    <div class="col-lg-3 px-0 px-md-2 position-relative text-center">
+                        <div class="position-relative fs__icon-show">
                             @if($user->profile_photo_path == '')
                                 <label for="avatar" class="cursor-pointer d-block user_avatar">
-                                        <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="rounded-pill" height="90" width="90" style="object-fit: cover;">
-                                        <h6 class="mt-3 font-weight-bold">Добавить аватар</h6>
-                                        <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
+                                    <img id="avatar-poster" src="/storage/theme/no-photo.svg" alt="avatar" class="rounded-pill" height="90" width="90" style="object-fit: cover;">
+                                    <h6 class="mt-3 font-weight-bold">Добавить аватар</h6>
+                                    <input type="file" accept="image/*"  class="d-none" id="avatar" name="profile_photo_path">
                                 </label>
 
                             @else
@@ -40,6 +40,7 @@
                                 </label>
                             </div> --}}
                         </div>
+                        <small>Рекомендуемый<br> размер: <span class="badge badge-danger">90х90</span></small>
                     </div>
                     {{-- <div class="text-center d-none d-md-block">
                         <img src="/storage/{{ $user->profile_photo_path }}" class="w-100 rounded" id="avatar-poster" height="216">

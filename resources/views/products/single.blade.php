@@ -171,31 +171,37 @@
             </div>
           </div>
           <div class="d-flex justify-content-between py-3 mt-lg-3 prod-controls px-2 px-md-0">
-            <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap w-40"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
+            <h5 class="mb-0 d-flex align-items-center flex-column flex-md-row flex-wrap"><span class="text-danger price mb-price mr-1" id="price">{{ $product->price_after_margin }}</span> <span class="mb-currency">Сомони</span></h5>
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id != Auth::user()->store->id)
-                <div class="d-flex align-items-center justify-content-center w-40">
-                  <div class="position-relative d-flex align-items-center number justify-content-center">
-                    <form id="number-spinner-horizontal" class="t-neutral">
-                      <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
-                        <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
-                        <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
-                        <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
-                      </fieldset>
-                    </form>
-                  </div>
+                <div class="number d-flex align-items-center">
+                  <form id="number-spinner-horizontal" class="t-neutral w-100">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium w-100">
+                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                    </fieldset>
+                  </form>
+                </div>
+                @elseif (!Auth::user()->store|| Auth::guest())
+                <div class="number d-flex align-items-center">
+                  <form id="number-spinner-horizontal" class="t-neutral w-100">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium  w-100">
+                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                    </fieldset>
+                  </form>
                 </div>
                 @else
-                <div class="align-items-center justify-content-center w-40 d-none">
-                  <div class="position-relative d-flex align-items-center number justify-content-center">
-                    <form id="number-spinner-horizontal" class="t-neutral">
-                      <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
-                        <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
-                        <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
-                        <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
-                      </fieldset>
-                    </form>
-                  </div>
+                <div class="number d-none">
+                  <form id="number-spinner-horizontal w-100" class="t-neutral">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium">
+                      <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                      <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                      <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                    </fieldset>
+                  </form>
                 </div>
                 @endif
               @endif
@@ -219,17 +225,15 @@
                 @endif
               @endif
               @guest
-              <div class="d-flex align-items-center justify-content-center w-40">
-                <div class="position-relative d-flex align-items-center number justify-content-center">
-                  <form id="number-spinner-horizontal" class="t-neutral">
-                    <fieldset class="spinner spinner--horizontal l-contain--medium flex-row flex-nowrap">
+              <div class="number d-none">
+                  <form id="number-spinner-horizontal w-100" class="t-neutral">
+                    <fieldset class="spinner spinner--horizontal l-contain--medium">
                       <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
                       <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
                       <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
                     </fieldset>
                   </form>
                 </div>
-              </div>
               @endguest
 
               @if(Auth::check())
@@ -514,6 +518,12 @@ aria-hidden="true">
                 <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
                 <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}">
               </div>
+              @if (!Auth::guest())
+                <div class="d-flex justify-content-between mt-3">
+                  <span class="text-dark font-weight-600">Ваш город</span>
+                  <span>{{ Auth::user()->city->name }}</span>
+                </div>
+              @endif
             </div>
           </div>
           <div class="modal-footer border-0 info-product_footer">

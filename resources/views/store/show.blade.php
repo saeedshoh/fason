@@ -59,7 +59,7 @@
             <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
 
             <div class="mobile-avatar position-absolute w-lg-100">
-              <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="shadow store-image d-block d-md-none rounded-circle" width="90" height="90" alt="">
+              <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="store-image d-block d-md-none rounded-circle bordered-white" width="90" height="90" alt="">
             </div>
           </div>
           </div>
