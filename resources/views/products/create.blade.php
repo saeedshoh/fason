@@ -17,14 +17,25 @@
           <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none" > <img src="/storage/theme/icons/back.svg" alt=""> Назад</a>
           <h5 class="text-secondary mt-5 mb-4 d-flex d-lg-none" >Добавить Товар</h5>
           </div>
-          <div class="my-3">
+          <div class="my-3 position-relative">
             <label for="image">
               <img src="/storage/theme/icons/add_product_plus.svg" onContextMenu="return false;" class="p-0 btn mw-100 w-100 rounded @error('image') border-danger @enderror" id="main-poster" style="object-fit: cover;">
               <small class="text-danger mt-2 font-weight-bold image-validate d-none">
                 Выберите изображение
               </small>
+              <svg class="position-absolute" style="top: 0;right: 0;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 40" fill="none">
+                <rect width="48" height="40" fill="black" fill-opacity="0.17"/>
+                <g clip-path="url(#clip0)">
+                <path d="M7 29.7078V37.0004H14.2927L35.8109 15.4821L28.5182 8.18945L7 29.7078Z" fill="white"/>
+                <path d="M41.4312 7.1097L36.8902 2.56883C36.1318 1.81039 34.8969 1.81039 34.1384 2.56883L30.5796 6.12765L37.8723 13.4203L41.4311 9.8615C42.1896 9.10306 42.1896 7.86814 41.4312 7.1097Z" fill="white"/>
+                </g>
+                <defs>
+                <clipPath id="clip0">
+                <rect width="35" height="35" fill="white" transform="translate(7 2)"/>
+                </clipPath>
+                </defs>
+              </svg>
             </label>
-
           </div>
           <div class="add-product-secondary" id="preview-product-secondary">
             <div id="db-preview-image">

@@ -1135,7 +1135,7 @@ input[type=number] {
         width: 100% !important;
     }
     .t-neutral .spinner__button {
-        padding: 0 5px !important;
+        // padding: 0 5px !important;
         color: #fff !important;
     }
     .spinner {
@@ -1227,7 +1227,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .spinner {
     display: flex;
-    border: 1.5px solid #B8B8B8;
+    // border: 1.5px solid #B8B8B8;
     border-radius: 25px;
 }
 
@@ -1245,7 +1245,8 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     border: 0;
     padding: 0;
     flex: 1 1 25%;
-    padding: 7px 16px;
+    // padding: 7px 16px;
+    position: absolute;
 }
 
 .spinner:after {
@@ -1274,11 +1275,15 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 .spinner__button--left {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
+    top: 3px;
+    left: 11%;
 }
 
 .spinner__button--right {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
+    top: 4px;
+    right: 8%;
 }
 
 .spinner__button--top {
@@ -2062,6 +2067,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 #avatar-poster{
     object-fit: cover;
+    border: 2px solid #fff;
 }
 
 .cs_list li{
@@ -2236,6 +2242,18 @@ input[type="number"]:hover::-webkit-outer-spin-button {
   .slick-list .item img{
     outline : none !important;
     border : 0 !important;
+  }
+
+  .number{
+      width: 6rem;
+      height: 2.5rem;
+      position: relative;
+      border: 1.5px solid #B8B8B8;
+      border-radius: 25px;
+  }
+
+  .bordered-white{
+      border: 2px solid white;
   }
 
   .carousel{
