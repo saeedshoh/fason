@@ -9,7 +9,7 @@
   <div class="header">
 
     <!-- Image -->
-    <img src="{{ Storage::url($store->cover) }}" class="header-img-top object-cover" alt="...">
+    <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="header-img-top object-cover" alt="...">
 
     <div class="container-fluid">
 
@@ -20,7 +20,7 @@
 
             <!-- Avatar -->
             <div class="avatar avatar-xxl header-avatar-top">
-              <img src="{{ Storage::url($store->avatar) }}" alt="..." class="avatar-img rounded-circle border-4 border-body">
+              <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="..." class="avatar-img rounded-circle border-4 border-body">
             </div>
 
           </div>
