@@ -148,7 +148,7 @@
                                     </td>
                                     <td class="item-name">
                                         <div class="avatar avatar-xs align-middle mr-2">
-                                        <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
+                                        <img class="avatar-img rounded-circle"  src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="...">
                                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
                                     </td>
                                     <td class="item-address">
