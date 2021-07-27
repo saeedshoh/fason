@@ -29,11 +29,11 @@
           <th></th>
         </tr>
       </thead>
-      <tbody class="list font-size-base">
+      <tbody class="list">
         @forelse ($products as $key => $product)
         <tr class="table-@if($product->updated_at < now()->subWeek())info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->quantity < 1)info @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
           <td class="item-order">
-            {{ ++$key }}
+            {{ $product->id }}
           </td>
           <td class="item-name">
             <span class="item-name text-reset">{{ $product->name }}</span>

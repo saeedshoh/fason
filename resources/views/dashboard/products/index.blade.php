@@ -151,33 +151,33 @@
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody class="list font-size-base">
+                    <tbody class="list">
                       @forelse ($products as $key => $product)
                       <tr class="table-@if($product->product_status->id == 4)info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 5)primary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
-                        <td class="item-order">
-                          {{ ++$key }}
+                        <td class="item-order p-0">
+                            {{ $product->id }}
                         </td>
-                        <td class="item-name">
+                        <td class="item-name p-0">
                           <span class="item-name text-reset">{{ $product->name }}</span>
                         </td>
-                        <td class="item-total">
+                        <td class="item-total p-0">
                           {{ $product->price }}
                         </td>
-                        <td class="item-category">
+                        <td class="item-category p-0">
                           <span class="item-name text-reset">{{ $product->category->name }}</span>
                         </td>
-                        <td class="item-date">
+                        <td class="item-date p-0">
                           <!-- Time -->
                           <time datetime="2018-07-30">{{ $product->created_at->format('d/m/Y') }}</time>
                         </td>
-                        <td class="item-quantity">
+                        <td class="item-quantity p-0">
                           <!-- Badge -->
                           {{ $product->quantity }}
                         </td>
-                        <td class="item-company">
+                        <td class="item-company p-0">
                           <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->no_scope_store->id) }}">{{ $product->no_scope_store->name }}</a>
                         </td>
-                        <td class="item-status">
+                        <td class="item-status p-0">
                           <!-- Badge -->
                           <div class="badge badge-primary">
                               @if($product->store->is_active == 0)
@@ -193,7 +193,7 @@
                               @endif
                           </div>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right p-0">
 
                             @permission('update-products')
                               @if($product->store)
