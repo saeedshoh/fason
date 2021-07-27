@@ -20,9 +20,7 @@ body {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
 }
-.photo_describe_size{
-    font-size: 10px;
-}
+
 .public_card_custom{
     background-color: #04a004;
     color: white !important;
@@ -2180,6 +2178,9 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .w-40{
     width: 40%;
+}
+.photo_describe_size{
+    font-size: 12px;
 }
 
 .fs__icon-show{

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @section('title')
-    Добавление нового магазина
+  Добавление нового магазина
 @endsection
 @extends('layouts.footer')
 @section('content')
@@ -36,14 +36,13 @@
           </div>
           <div class="d-none d-md-block">
             <div class="photo_describe_size">
-                <span class="text-muted">Фотография профиля размером 270х215</span>
-              </div>
+              <span class="text-muted">Фотография профиля <span class="badge badge-danger">размером 270х215</span></span>
+            </div>
           </div>
         </div>
         <div class="col-md-9 px-md-2 position-relative">
-          <div class="d-block d-md-none mb-3">
-            <h5 class="text-secondary font-weight-bold">Добавить фотографию обложки</h5>
-            <span class="text-primary">Фотография профиля размером 840х215</span>
+          <div class="d-block d-md-none mb-3 mt-3">
+            <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 8840х215</span></span>
           </div>
           <label for="cover" class="cursor-pointer w-100">
             <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
@@ -57,7 +56,7 @@
           <div class="d-md-none">
             <div class="my-3">
               <h5 class="text-secondary font-weight-bold">Добавить фотографию профиля</h5>
-              <span class="text-primary">Фотография профиля размером 270х215</span>
+              <span class="text-muted">Фотография профиля <span class="badge badge-danger">размером 270х215</span></span>
             </div>
             <label for="avatar" class="cursor-pointer text-center w-100">
               <img src="/storage/theme/avatar_store.svg" class="store-image" width="120" height="120" id="avatar-poster-mobile">

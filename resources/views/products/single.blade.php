@@ -183,7 +183,7 @@
                     </fieldset>
                   </form>
                 </div>
-                @elseif (!Auth::user()->store|| Auth::guest())
+                @elseif (!Auth::user()->store)
                 <div class="number d-flex align-items-center">
                   <form id="number-spinner-horizontal" class="t-neutral w-100">
                     <fieldset class="spinner spinner--horizontal l-contain--medium  w-100">
@@ -205,6 +205,17 @@
                 </div>
                 @endif
               @endif
+              @guest
+              <div class="number d-flex align-items-center">
+                <form id="number-spinner-horizontal" class="t-neutral w-100">
+                  <fieldset class="spinner spinner--horizontal l-contain--medium  w-100">
+                    <button class="spinner__button spinner__button--left js-spinner-horizontal-subtract" data-type="subtract" title="Subtract 1" aria-controls="spinner-input">- </button>
+                    <input type="number" class="spinner__input js-spinner-input-horizontal" id="spinner-input" disabled value="1" min="1" max="{{ $product->quantity  }}" step="1" pattern="[0-9]*" role="alert" aria-live="assertlive" />
+                    <button data-type="add" class="spinner__button spinner__button--right js-spinner-horizontal-add" title="Add 1" aria-controls="spinner-input">+ </button>
+                  </fieldset>
+                </form>
+              </div>
+              @endguest
               @if(Auth::check())
                 @if(Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at != null && $product->product_status_id != 6)
                   <form class="d-block d-lg-none" action="{{ route('ft_product.cancelDestroy', $product->slug) }}" method="POST">
