@@ -292,7 +292,7 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
-        $store->small_cover = getMobiCover($store->cover);
+        // $store->small_cover = getMobiCover($store->cover);
         $product = new Product();
         $product->timestamps = false;
         $product->withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
