@@ -250,7 +250,7 @@
               @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id)
                   @if($product->deleted_at == null)
-                  <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+                  <div class="d-flex align-items-center justify-content-center justify-content-md-end">
                     <a href="{{ route('ft-products.edit', $product->slug) }}" class="btn btn-success custom-radius">@if($product->product_status_id == 4 || $product->product_status_id == 5)Обновить @else()Изменить@endif</a>
                   </div>
                   @endif
@@ -265,7 +265,7 @@
                 @endif
               @endif
               @guest
-              <div class="d-flex align-items-center justify-content-center justify-content-md-end w-40">
+              <div class="d-flex align-items-center justify-content-center justify-content-md-end">
                 <button type="button" class=" btn btn-danger custom-radius" data-toggle="modal" data-target="#enter_site">
                   Купить
                 </button>
@@ -393,88 +393,6 @@
 
       </div>
   </section>
-  <!-- Modal 1-->
-  {{-- <div class="modal fade text-left" id="buyProduct" tabindex="-1" aria-labelledby="buyProduct"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered buy-modal">
-    <div class="modal-content">
-      <div class="modal-header border-0">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <img src="/storage/theme/icons/close-modal.svg" alt="">
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-          <div class="row modal-item position-relative">
-            <div class="col-12 col-lg-5">
-              <div class="title mb-3">Товар:</div>
-              <div class="row">
-                <div class="col-4 col-lg-6"><img src="{{ Storage::url($product->image) }}" class="img-fluid rounded" height="48" width="48" alt="" ></div>
-                <div class="col-8 col-lg-6">
-                 <h6 class="h6 font-weight-bold checkout-id" data-id="{{ $product->id }}">{{ $product->name }}</h6>
-                  <span class="text-secondary text-semi-bold">{{ $product->store->name }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-2 d-none d-lg-block">
-              <div class="title mb-3">Цена:</div>
-              <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
-            </div>
-            <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
-              <div class="d-flex flex-row flex-lg-column justify-content-between">
-                <div class="title mb-3">Количество:</div>
-                <span class="text-secondary text-semi-bold quantity-product">1</span>
-              </div>
-            </div>
-            <div class="col-12 col-lg-2 mt-3 mt-lg-0">
-              <div class="d-flex flex-row flex-lg-column justify-content-between">
-                <div class="title mb-3">Сумма:</div>
-                <div class="text-semi-bold"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-3">
-            <div class="border-bottom text-secondary mb-2">Ваш адрес</div>
-            <input class="font-weight-bold checkout-address w-100 border-0" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}" disabled="true">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer border-0 info-product_footer">
-        <div class="d-flex flex-column flex-sm-row justify-content-between w-100  flex-wrap">
-          <div class="btn btn-outline-danger change-address custom-radius my-1"> <i class="fas fa-map-marked-alt"></i> Поменять адрес</div>
-          <button type="button" class="btn btn-danger custom-radius checkout-product" data-toggle="modal" data-target="#thanks"  data-dismiss="modal" aria-label="Close">
-            Оформить
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> --}}
-<!-- Modal 1 end-->
-<!--Modal-2-->
-{{-- <div class="modal fade text-left" id="thanks" tabindex="-1" aria-labelledby="thanks"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered buy-modal">
-  <div class="modal-content">
-    <div class="modal-header border-0">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <img src="/storage/theme/icons/close-modal.svg" alt=""></span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="container text-center">
-        <div class="text-secondary">Ваш заказ принят. В ближайшее время Вам позвонят наши операторы!</div>
-        <img src="/storage/theme/icons/thanks.svg" class="img-fluid my-3" alt="">
-        <h2 class="text-danger font-weight-bold">Спасибо!</h2>
-        <div class="text-secondary">Номер вашего заказа <span class="order-number"></span></div>
-      </div>
-    </div>
-    <div class="modal-footer border-0">
-
-    </div>
-  </div>
-</div>
-</div> --}}
 <!--Modal-2 end-->
 <div class="">
   <div class="text-center text-md-right">
