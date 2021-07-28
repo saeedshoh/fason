@@ -36,7 +36,7 @@
 
               @permission('read-categories')
                 <li class="nav-item">
-                  <a class="nav-link {{ request()->is('dashboard/categories*') ? ' active' : '' }}" href="{{ route('categories.index') }}">
+                  <a class="nav-link {{ request()->is('dashboard/categories*') || request()->is('dashboard/categories/actives*') || request()->is('dashboard/categories/inactives*') ? ' active' : '' }}" href="{{ route('categories.index') }}">
                     <i class="fe fe-layers"></i> Категории
                   </a>
                 </li>
