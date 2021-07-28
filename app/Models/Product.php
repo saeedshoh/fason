@@ -138,8 +138,7 @@ class Product extends Model
             })
             ->orWhereHas('category', function ($category) use ($request) {
                 $category->where('name',  'like', '%' . $request->search . '%');
-            })
-            ->latest('updated_at');
+            });
     }
 
     public function scopeAccepted($query, $request = null)
@@ -196,6 +195,6 @@ class Product extends Model
                 ->orWhereHas('category', function ($category) use ($request) {
                     $category->where('name',  'like', '%' . $request->search . '%');
                 });
-        })->latest('updated_at');
+        });
     }
 }

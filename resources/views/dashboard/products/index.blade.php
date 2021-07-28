@@ -91,16 +91,16 @@
           </div>
         </div>
         @if (session('class'))
-        <div class="alert alert-{{ session('class') }} mt-4">
-            {{session()->get('message')}}
-        </div>
+          <div class="alert alert-{{ session('class') }} mt-4">
+              {{session()->get('message')}}
+          </div>
         @endif
         <!-- Tab content -->
         <div class="tab-content">
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-total", "item-category", "item-date", "item-quantity", "item-company", "item-status"]}' id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-total", "item-category", "item-city", "item-date", "item-quantity", "item-company", "item-status"]}' id="contactsList">
                 <div class="card-header">
                     <div class="row align-items-center">
                     <div class="col">
@@ -134,7 +134,13 @@
                           <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-total">Цена</a>
                         </th>
                         <th>
+                          <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-total">Маржа</a>
+                        </th>
+                        <th>
                           <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-category">Категория</a>
+                        </th>
+                        <th>
+                          <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-city">Город</a>
                         </th>
                         <th>
                           <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-date">Дата</a>
@@ -154,30 +160,36 @@
                     <tbody class="list">
                       @forelse ($products as $key => $product)
                       <tr class="table-@if($product->product_status->id == 4)info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 5)primary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
-                        <td class="item-order p-0">
+                        <td class="item-order py-0">
                             {{ $product->id }}
                         </td>
-                        <td class="item-name p-0">
+                        <td class="item-name py-0">
                           <span class="item-name text-reset">{{ $product->name }}</span>
                         </td>
-                        <td class="item-total p-0">
+                        <td class="item-total py-0">
                           {{ $product->price }}
                         </td>
-                        <td class="item-category p-0">
+                        <td class="item-category py-0">
+                          <span class="item-name text-reset">{{ $product->price_after_margin}}</span>
+                        </td>
+                        <td class="item-category py-0">
                           <span class="item-name text-reset">{{ $product->category->name }}</span>
                         </td>
-                        <td class="item-date p-0">
+                        <td class="item-city py-0">
+                          <span class="item-name text-reset">г. {{ $product->store->city->name }}</span>
+                        </td>
+                        <td class="item-date py-0">
                           <!-- Time -->
                           <time datetime="2018-07-30">{{ $product->created_at->format('d/m/Y') }}</time>
                         </td>
-                        <td class="item-quantity p-0">
+                        <td class="item-quantity py-0">
                           <!-- Badge -->
                           {{ $product->quantity }}
                         </td>
-                        <td class="item-company p-0">
+                        <td class="item-company py-0">
                           <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->no_scope_store->id) }}">{{ $product->no_scope_store->name }}</a>
                         </td>
-                        <td class="item-status p-0">
+                        <td class="item-status py-0">
                           <!-- Badge -->
                           <div class="badge badge-primary">
                               @if($product->store->is_active == 0)
@@ -193,7 +205,7 @@
                               @endif
                           </div>
                         </td>
-                        <td class="text-right p-0">
+                        <td class="text-right py-0">
 
                             @permission('update-products')
                               @if($product->store)
