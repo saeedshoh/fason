@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Родительская категории</label>
-                                    <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
+                                    <select class="custom-select chosen-select @error('parent_id') is-invalid @enderror" data-toggle="select" name="parent_id" required>
                                         <option value="0" selected>Родительская</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -80,7 +80,7 @@
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label for="attribute">Аттрибут для категори</label>
+                                    <label for="attribute">Аттрибут для категорий</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
                                         <option disabled selected value="">Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
@@ -145,4 +145,20 @@
         </div>
     </div>
 </div>
+<style>
+    body {
+        position: relative;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 40px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        color: #12263F
+    }
+
+    .chosen-single div {
+        padding-top: 7px;
+    }
+</style>
 @endsection

@@ -246,7 +246,7 @@
                                             <input class="d-none" id="gallery" type="file" name="gallery" form="add_product">
                                             @if(!empty($product->gallery))
                                             <div class="preview row">
-                                                @foreach(json_decode($product->gallery) as $gallery)
+                                                @foreach(array_reverse(json_decode($product->gallery)) as $gallery)
                                                     <div class="preview-image col-3">
                                                         <div class="profile-pic">
                                                             <img src="{{ Storage::url($gallery) }}" data-image-src="{{ $gallery }}" class="preview-element-image  pic-item" alt="{{ $product->name }}" width="89" height="100" style="object-fit: contain;">

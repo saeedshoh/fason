@@ -55,14 +55,14 @@ class AttributeValueController extends Controller
      */
     public function store(Request $request)
     {
-        AttributeValue::create($request->all());
+        $value = AttributeValue::create($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 1,
             'table'  => ' Значение атрибутов',
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
-        return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with('success', 'Значение для аттрибута успешно добавлена!');
+        return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with(['class' => 'success', 'message' => 'Значение  «'.$value->name.'»  успешно добавлен!']);
     }
 
     /**
@@ -87,18 +87,19 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, AttributeValue $attributeValue, $id, $val_id)
     {
+
         $page = '';
         if(strrpos($request->previous,'?')){
             $page = substr($request->previous, strrpos($request->previous,'?'));
         }
-        $attributeValue->find($val_id)->update($request->all());
+        $value = $attributeValue->find($val_id)->update($request->all());
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 2,
             'table'  => ' Значение атрибутов',
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
-        return redirect(route('attr_val.index', ['id' => $id]).$page)->with('success', 'Значение для аттрибута успешно добавлена!');
+        return redirect(route('attr_val.index', ['id' => $id]).$page)->with(['class' => 'primary', 'message' => 'Значение  «'.$request->name.'»  успешно обновлен!']);
     }
 
     /**
@@ -111,6 +112,7 @@ class AttributeValueController extends Controller
     {
         $message = 'Аттрибут успешно удалена!';
         $class = 'success';
+        $value = AttributeValue::find($val_id);
         if($attributeValue->find($val_id)->products->isEmpty()){
             Log::create([
                 'user_id' => Auth::user()->id,
@@ -119,10 +121,9 @@ class AttributeValueController extends Controller
                 'description' => 'Название: ' . $attributeValue->name . ', Значение: ' . $attributeValue->value
             ]);
             $attributeValue->find($val_id)->delete();
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'Значение  «'.$value->name.'»  успешно удален!']);
         } else {
-            $class = 'danger';
-            $message = 'Невозможно удалить атрибут, так как есть товар с таким атрибутом.';
+            return redirect()->back()->with(['class' => 'warning', 'message' => 'Невозможно удалить значение   «'.$value->name.'»  так как есть товар с таким значением!']);
         }
-        return redirect()->back()->with(['class' => $class, 'message' => $message]);
     }
 }

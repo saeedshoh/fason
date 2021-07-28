@@ -77,12 +77,12 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Категории</label>
-                                    <select class="custom-select @error('parent_id') is-invalid @enderror" name="parent_id">
-                                        <option value="0">Сделать родительской</option>
+                                    <select class="custom-select chosen-select @error('parent_id') is-invalid @enderror" data-toggle="select" name="parent_id" required>
+                                        <option value="0">Родительская</option>
                                         @foreach($categories as $item)
-                                            <option value="{{ $item->id }}" {{ $category->parent_id == $item->id ? 'selected' : '' }} class="font-weight-bold" {{ $category->id == $item->id ? 'disabled' : '' }}>
+                                        <option value="{{ $item->id }}" {{ $category->parent_id == $item->id ? 'selected' : '' }} {{ $category->id == $item->id ? 'disabled' : '' }}>
                                             {{ $item->name }}
-                                            </option>
+                                        </option>
                                         @endforeach
                                     </select>
                                     @error('parent_id')
@@ -95,7 +95,7 @@
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label for="attribute">Аттрибут для категори</label>
+                                    <label for="attribute">Аттрибут для категорий</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
                                         <option value="0" @if($category->attributes->count() == 0) selected @endif>Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
@@ -160,4 +160,20 @@
         </div>
     </div>
 </div>
+<style>
+    body {
+        position: relative;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 40px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        color: #12263F
+    }
+
+    .chosen-single div {
+        padding-top: 7px;
+    }
+</style>
 @endsection

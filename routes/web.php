@@ -55,6 +55,7 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::get('sliders', [BannersController::class, 'sliders'])->name('banners.sliders');
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::resource('products', ProductController::class)->except('store');
+
     Route::get('attribute/{id}/value', [AttributeValueController::class, 'index'])->name('attr_val.index');
     Route::get('attribute/{id}/value/create', [AttributeValueController::class, 'create'])->name('attr_val.create');
     Route::post('attribute/{id}/value/store', [AttributeValueController::class, 'store'])->name('attr_val.store');
@@ -80,8 +81,8 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::patch('store/star/{id}', [StoreController::class, 'star'])->name('ft-store.star');
 
     Route::get('/ordersStatistic', [OrderController::class, 'statistics'])->name('ordersStatistic');
-    Route::get('inactive', [CategoryController::class, 'inactive'])->name('categories.inactive');
-    Route::get('active', [CategoryController::class, 'active'])->name('categories.active');
+    Route::get('categories/inactives', [CategoryController::class, 'inactive'])->name('categories.inactive');
+    Route::get('categories/actives', [CategoryController::class, 'active'])->name('categories.active');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,

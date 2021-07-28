@@ -102,7 +102,7 @@ class CategoryController extends Controller
         $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
         $categories = Category::where('parent_id', 0)
             ->orderBy('order_no')
-            ->paginate(10)
+            ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
             if ($request->search != '') {
@@ -115,12 +115,12 @@ class CategoryController extends Controller
                         $grandchildren->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
                     })
                     ->orderBy('order_no')
-                    ->paginate(10)
+                    ->paginate(30)
                     ->withQueryString();
             } else {
                 $categories = Category::where('parent_id', 0)
                     ->orderBy('order_no')
-                    ->paginate(10)
+                    ->paginate(30)
                     ->withQueryString();
             }
             return response()->json(
@@ -150,7 +150,7 @@ class CategoryController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.category.incative', compact('categories', 'allCategories'));
+        return view('dashboard.category.inactive', compact('categories', 'allCategories'));
     }
 
     public function active(Request $request)
@@ -170,7 +170,7 @@ class CategoryController extends Controller
                 )->render()
             );
         }
-        return view('dashboard.category.acative', compact('categories', 'allCategories'));
+        return view('dashboard.category.active', compact('categories', 'allCategories'));
     }
 
     /**
@@ -257,9 +257,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $page = '';
         if (strrpos($request->previous, '?')) {
-            $page = substr($request->previous, strrpos($request->previous, '?'));
+            substr($request->previous, strrpos($request->previous, '?'));
         }
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
@@ -290,21 +289,34 @@ class CategoryController extends Controller
             array_push($attr, $attribute->id);
         }
         if ($attr != $request->attribute && Product::withoutGlobalScopes()->where('category_id', $category->id)->whereHas('attribute_variation', function ($attributes) use ($category) {
-            $attributes->whereIn('attribute_id', $category->attributes);
+            $attributes->whereIn('attribute_id', $category->attributes->pluck('id'));
         })->exists()) {
-            return back()->with(['class' => 'danger', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
+            return back()->with(['class' => 'warning', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
         } else {
             if ($request->attribute != 0) {
                 $category->attributes()->sync($request->attribute);
             }
-            $category->update($request->validated());
+
+            $class = 'primary';
+            $message = 'Категория «'.$category->name.'»  успешно обновлена!';
+
+            //IF category is parent OR category is not parent AND its parent is active, update category and toggle is_active column of children categories
+            if($category->isParent() || (!$category->isParent() && $category->parent->is_active === 1)){
+                $category->update($request->validated());
+                $category->toggleIsActive($category, $request->is_active);
+            } else {
+                $category->update($request->except('is_active'));
+                $class = 'warning';
+                $message = 'Категория  «'.$category->name.'»  успешно обновлена, НО не активирована, поскольку ее родительская категория неактивна.';
+            }
+
             Log::create([
                 'user_id' => Auth::user()->id,
                 'action' => 2,
                 'table' => 'Категории',
                 'description' => 'Название: ' . $request->name . ', Родителькая категория: ' . $parent_cat . ', Атрибуты: ' . $attributes . ', Активность: ' . $isActive,
             ]);
-            return redirect(url($request->previous))->with(['class' => 'primary', 'message' => 'Категория  «'.$category->name.'»  успешно обновлена!']);
+            return redirect(url($request->previous))->with(['class' => $class, 'message' => $message]);
         }
     }
 
@@ -326,7 +338,7 @@ class CategoryController extends Controller
                 $attributes = $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';
             }
         }
-        if ($category->products_no_scope->isEmpty() and $this->getChildrenProducts($category) == 0 and $this->getGrandCildrenProdects($category) == 0 and $category->is_monetized == 0) {
+        if ($category->products_no_scope->isEmpty() and $this->getChildrenProducts($category) == 0 and $this->getGrandChildrenProducts($category) == 0 and $category->is_monetized == 0) {
             Log::create([
                 'user_id' => Auth::user()->id,
                 'action' => 3,
@@ -412,7 +424,7 @@ class CategoryController extends Controller
         return DB::table('products')->whereIn('category_id', $ids)->count();
     }
 
-    private function getGrandCildrenProdects(Category $category)
+    private function getGrandChildrenProducts(Category $category)
     {
         $ids = $category->grandchildren->pluck('id')->toArray();
         $categories = DB::table('categories')->wherein('parent_id', $ids)->pluck('id')->toArray();

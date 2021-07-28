@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-sm table-hover table-nowrap card-table">
+    <table class="table table-sm table-hover table-nowrap card-table cs__table">
         <thead>
             <tr>
                 <th style="width: 50px;">
@@ -19,12 +19,12 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="list font-size-base">
+        <tbody class="list">
 
-            @forelse ($categories as $key => $category)
+            @forelse ($categories as $category)
             <tr class="{{ $category->is_active ? 'table-success ' : 'table-danger' }}">
                 <td>
-                    {{ $loop->iteration + $categories->firstItem() - 1 }}
+                    #{{ $category->id }}
                 </td>
                 <td>
                     <!-- Avatar -->
@@ -57,7 +57,7 @@
                 </td>
                 @endif
 
-                <td class="text-right">
+                <td class="d-flex justify-content-end">
                     @permission('delete-categories')
                     <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                         @csrf

@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->categories = Category::get();
+        $this->categories = Category::where('is_active', 1)->get();
 
         $this->middleware('permission:create-products', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-products', ['only' => ['edit', 'update']]);
@@ -45,6 +45,10 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $product->name . ', Статус: Отклонен'
         ]);
+
+        session()->flash('class', 'warning');
+        session()->flash('message', 'Товар  «'.$product->name.'» откланен!');
+
         return redirect()->route('products.index');
     }
 
@@ -60,6 +64,10 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $product->name . ', Статус: Активный'
         ]);
+
+        session()->flash('class', 'success');
+        session()->flash('message', 'Товар  «'.$product->name.'» успешно опубликован!');
+
         return redirect()->route('products.index');
     }
 
@@ -75,8 +83,10 @@ class ProductController extends Controller
         session()->forget('previous_product');
         $products_stats = Product::withoutGlobalScopes()->get();
 
-        $products = Product::withoutGlobalScopes()
+        $products = Product::with('store.city')
+            ->withoutGlobalScopes()
             ->full($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -90,7 +100,7 @@ class ProductController extends Controller
         return view('dashboard.products.index', compact('products', 'products_stats'));
     }
 
-    // !Разбивка статусов на странички
+    // Разбивка статусов на странички
     public function accepted(Request $request)
     {
         session()->forget('previous_product');
@@ -98,6 +108,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->accepted($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -118,6 +129,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->notInStock($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -138,6 +150,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->canceled($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -158,6 +171,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->hidden($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
 
@@ -179,6 +193,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->onCheck($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -199,6 +214,7 @@ class ProductController extends Controller
 
         $products = Product::withoutGlobalScopes()
             ->deleted($request)
+            ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -328,7 +344,7 @@ class ProductController extends Controller
             'table'     => 'Продукты',
             'description' => 'Название: ' . $request->name . ', Категория: ' . $category . ', Цена: ' . $request->price . ', Количество: ' . $request->quantity . ', Описание: ' . $request->description . ', Магазин: ' . $store
         ]);
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with(['class' => 'success', 'message' => 'Товар  «'.$product->name.'»  успешно изменен!']);
     }
 
     /**
@@ -365,6 +381,7 @@ class ProductController extends Controller
         }
         $categories = $this->categories;
         $stores = Store::withoutGlobalScopes()->where('is_active', 1)->get(['id', 'name']);
+
         return view('dashboard.products.edit', compact('stores', 'product', 'allCategories', 'parent', 'grandParent', 'category', 'attributes', 'attrValues'));
     }
 
@@ -457,6 +474,10 @@ class ProductController extends Controller
         ]);
         $product->update(['product_status_id' => 6]);
         $product->delete();
+
+        session()->flash('class', 'danger');
+        session()->flash('message', 'Товар  «'.$product->name.'» удален!');
+
         return redirect()->route('products.index');
     }
 
@@ -496,6 +517,8 @@ class ProductController extends Controller
 
     public function test_store(Request $request)
     {
+        $product = '';
+
         if ($request->ajax()) {
             $base64_images = json_decode($request->gallery);
             $main_image_json = $request->image;
@@ -548,11 +571,15 @@ class ProductController extends Controller
                 }
             }
         }
+
+        session()->flash('class', 'success');
+        session()->flash('message', 'Товар  «'.$product->name.'»  успешно добавлен!');
     }
 
     public function test_update(Request $request, $product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
+
         if ($request->ajax()) {
             $base64_images = json_decode($request->gallery);
 
@@ -625,5 +652,8 @@ class ProductController extends Controller
                 }
             }
         }
+
+        session()->flash('class', 'success');
+        session()->flash('message', 'Товар  «'.$product->name.'»  успешно изменен!');
     }
 }
