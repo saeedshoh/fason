@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="header mb-0">
+            <div class="header">
                 <div class="header-body">
                     <div class="row align-items-center">
                         <div class="col">
@@ -44,13 +44,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('categories.active') }}" class="nav-link text-nowrap">
-                                        Активние <span class="badge badge-pill badge-soft-success">{{ count($allCategories->where('is_active', 1)) }}</span>
+                                    <a href="{{ route('categories.active') }}" class="nav-link text-nowrap active">
+                                        Активные <span class="badge badge-pill badge-soft-success">{{ count($allCategories->where('is_active', 1)) }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('categories.inactive') }}" class="nav-link text-nowrap active">
-                                        Неактивние <span class="badge badge-pill badge-soft-danger">{{ count($allCategories->where('is_active', 0)) }}</span>
+                                    <a href="{{ route('categories.inactive') }}" class="nav-link text-nowrap">
+                                        Неактивные <span class="badge badge-pill badge-soft-danger">{{ count($allCategories->where('is_active', 0)) }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            @if (session())
+            @if (session('class'))
             <div class="alert alert-{{ session()->get('class') }}">
                 {{session()->get('message')}}
             </div>
@@ -82,15 +82,15 @@
                                                 <i class="fe fe-search"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control" type="text" placeholder="Поиск" data-item="inactive" id="search" value="{{ request()->search }}" autocomplete="off">
+                                        <input class="form-control" type="text" placeholder="Поиск" data-item="categories/actives" id="search" value="{{ request()->search }}" autocomplete="off">
                                     </div>
 
                                 </div>
                             </div> <!-- / .row -->
                         </div>
-                        <div id="inacives">
-                            <div class="table-responsive" id="inactive">
-                                <table class="table table-sm table-hover table-nowrap card-table">
+                        <div id="categories_actives">
+                            <div class="table-responsive" id="active">
+                                <table class="table table-sm table-hover table-nowrap card-table cs__table">
                                     <thead>
                                         <tr>
                                             <th style="width: 50px;">
@@ -110,12 +110,12 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="list font-size-base">
+                                    <tbody class="list">
 
-                                        @forelse ($categories as $key => $category)
-                                        <tr class="table-danger">
+                                        @forelse ($categories as $category)
+                                        <tr class="table-success">
                                             <td>
-                                                {{ $loop->iteration + $categories->firstItem() - 1 }}
+                                                #{{ $category->id }}
                                             </td>
                                             <td>
                                                 <!-- Avatar -->
@@ -148,7 +148,7 @@
                                             </td>
                                             @endif
 
-                                            <td class="text-right">
+                                            <td class="d-flex justify-content-end">
                                                 @permission('delete-categories')
                                                 <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                                                     @csrf

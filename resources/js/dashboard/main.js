@@ -140,6 +140,12 @@ $('body').on('keyup', '#search', function () {
         else if (item.indexOf('stores/starred') != -1) {
             $('#stores_starred').empty().html(data);
         }
+        else if (item.indexOf('categories/actives') != -1) {
+            $('#categories_actives').empty().html(data);
+        }
+        else if (item.indexOf('categories/inactives') != -1) {
+            $('#categories_inactives').empty().html(data);
+        }
         else {
             $('#' + item).empty().html(data);
         }

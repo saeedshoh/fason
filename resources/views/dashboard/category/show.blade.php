@@ -40,7 +40,7 @@
                         <div class="col-auto">
                             <!-- Avatar -->
                             <div class="avatar">
-                                <img src="{{ '/storage/'.$category->icon }}" alt="..." class="avatar-img rounded">
+                                <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" alt="..." class="avatar-img rounded">
                             </div>
                         </div>
                         <div class="col ml-n2">
@@ -51,7 +51,7 @@
                             <p class="text-body text-focus mb-1 name">
                                 <span class="font-weight-bold">Аттрибуты:</span>
                                 @forelse ($category->attributes as $attribute)
-                                    <span>{{ $attribute->name }},</span>
+                                    <span>{{ $attribute->name }}@if(!$loop->last),@endif</span>
                                 @empty
                                     <span>Пусто</span>
                                 @endforelse

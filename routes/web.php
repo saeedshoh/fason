@@ -80,8 +80,8 @@ Route::group(['middleware' => 'checkAdmin', 'prefix' => 'dashboard',], function 
     Route::patch('store/star/{id}', [StoreController::class, 'star'])->name('ft-store.star');
 
     Route::get('/ordersStatistic', [OrderController::class, 'statistics'])->name('ordersStatistic');
-    Route::get('inactive', [CategoryController::class, 'inactive'])->name('categories.inactive');
-    Route::get('active', [CategoryController::class, 'active'])->name('categories.active');
+    Route::get('categories/inactives', [CategoryController::class, 'inactive'])->name('categories.inactive');
+    Route::get('categories/actives', [CategoryController::class, 'active'])->name('categories.active');
     Route::resources([
         'orders' => OrderController::class,
         'users' => UserController::class,
