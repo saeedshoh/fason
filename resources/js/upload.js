@@ -35,6 +35,9 @@ export function upload(selector, options = {}) {
         const els = document.querySelectorAll('.preview-image');
         preview.insertAdjacentElement('afterbegin', opendiv);
         els.forEach(el => preview.insertAdjacentElement('afterbegin', el));
+        if(els.length >= 7){
+            els[7].remove
+        }
     }
 
     if (options.multi) {
@@ -210,7 +213,6 @@ $(document).on('click', '.add-product-btn', function() {
                 }
                 attributes.push(item)
             })
-            // console.log(attributes);
         }
         const image = $('#main-poster').attr('src');
         const query_url =

@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            @if (session())
+            <!-- @if (session())
             <div class="alert alert-{{ session('class') }}">
                 {{session()->get('message')}}
             </div>
@@ -46,7 +46,10 @@
                     <span>{{ $error }}</span>
                 @endforeach
             </div>
-            @endif
+            @endif -->
+            <div class="alert alert-danger d-none">
+                <span>Введите название</span>
+            </div>
             <div class="row">
 
                 <div class="col-lg-6">
@@ -54,7 +57,7 @@
                         <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('categories.update', $category) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
+                        <form id="editForm" action="{{ route('categories.update', $category) }}" method="POST" class="mb-4" enctype="multipart/form-data" accept-charset="utf-8" novalidate id="create_category">
                             @csrf
                             @method('put')
                             <div class="form-row">
@@ -62,11 +65,15 @@
                                     <label for="name">Название</label>
                                     <input type="hidden" value="{{ $previous }}">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Введите название категори" name="name" value="{{ old('name') ?? $category->name }}" autocomplete="off" required="">
-                                    @error('name')
+                                    <div class="invalid-feedback" id="nameFeedback">
+                                        Введите название
+                                    </div>
+                                    <!-- @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
+                                        Введите название
                                     </div>
-                                    @enderror
+                                    @enderror -->
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Категории</label>
@@ -106,7 +113,7 @@
                                 </div>
                             </div>
                             <!-- Button -->
-                            <button class="btn btn-primary mt-4" type="submit">Изменить</button>
+                            <button class="btn btn-primary mt-4" id="submitEdit" type="button">Изменить</button>
                             <input type="hidden" name="previous" value="{{ url()->previous() }}">
                         </form>
                         </div>
