@@ -125,6 +125,9 @@ $('body').on('keyup', '#search', function () {
         else if (item.indexOf('products/statuses/notInStock') != -1) {
             $('#products_notinstock').empty().html(data);
         }
+        else if (item.indexOf('products/statuses/deleted') != -1) {
+            $('#products_deleted').empty().html(data);
+        }
         else if (item.indexOf('stores/accepted') != -1) {
             $('#stores_accepted').empty().html(data);
         }

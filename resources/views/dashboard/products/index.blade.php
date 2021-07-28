@@ -100,7 +100,7 @@
           <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel" aria-labelledby="contactsListTab">
 
             <!-- Card -->
-            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-total", "item-category", "item-city", "item-date", "item-quantity", "item-company", "item-status"]}' id="contactsList">
+            <div class="card" data-list='{"valueNames": ["item-name", "item-order", "item-total", "item-margin", "item-category", "item-city", "item-date", "item-quantity", "item-company", "item-status"]}' id="contactsList">
                 <div class="card-header">
                     <div class="row align-items-center">
                     <div class="col">
@@ -134,7 +134,7 @@
                           <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-total">Цена</a>
                         </th>
                         <th>
-                          <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-total">Маржа</a>
+                          <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-margin">Маржа</a>
                         </th>
                         <th>
                           <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-category">Категория</a>
