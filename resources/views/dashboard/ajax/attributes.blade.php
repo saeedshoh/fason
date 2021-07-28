@@ -5,7 +5,7 @@
         <th style="width: 50px;">
 
             <!-- Checkbox -->
-            №
+            ID
 
         </th>
         <th>
@@ -22,7 +22,7 @@
         <td>
 
             <!-- Checkbox -->
-            {{ ++$key }}
+            {{ $item->id }}
 
         </td>
         <td>
@@ -38,6 +38,9 @@
             </form>
             <a href="{{ route('attributes.edit', $item) }}" class="btn btn-primary m-1 pull-right">
                 <i class="fe fe-edit"> </i>
+            </a>
+            <a href="{{ route('attr_val.index', ['id'=> $item->id]) }}" class="btn btn-success m-1 pull-right">
+                <i class="fe fe-eye"> </i>
             </a>
         </td>
         </tr>

@@ -70,7 +70,7 @@
                                 <tr>
                                 <th style="width: 50px;">
                                     <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">
-                                        №
+                                        ID
                                     </a>
                                 </th>
                                 <th>
@@ -87,7 +87,7 @@
                                 @forelse ($cities as $key => $item)
                                 <tr>
                                 <td class="item-order">
-                                    {{ ++$key }}
+                                    {{ $item->id }}
                                 </td>
                                 <td class="item-name">
                                     <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
