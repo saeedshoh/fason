@@ -289,7 +289,7 @@ class CategoryController extends Controller
             array_push($attr, $attribute->id);
         }
         if ($attr != $request->attribute && Product::withoutGlobalScopes()->where('category_id', $category->id)->whereHas('attribute_variation', function ($attributes) use ($category) {
-            $attributes->whereIn('attribute_id', $category->attributes);
+            $attributes->whereIn('attribute_id', $category->attributes->pluck('id'));
         })->exists()) {
             return back()->with(['class' => 'warning', 'message' => 'Невозможно обновить категорию, поскольку существуют товары с такими атрибутами.']);
         } else {

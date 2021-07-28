@@ -80,7 +80,7 @@
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label for="attribute">Аттрибут для категори</label>
+                                    <label for="attribute">Аттрибут для категорий</label>
                                     <select class="custom-select @error('attribute') is-invalid @enderror" id="attribute" name="attribute[]" multiple>
                                         <option disabled selected value="">Выберите аттрибут</option>
                                         @foreach($attributes as $attribute)
