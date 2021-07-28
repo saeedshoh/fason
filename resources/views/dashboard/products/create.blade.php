@@ -102,7 +102,6 @@
 
                                 <!-- Button -->
                                 <input type="hidden" name="product_status_id" value="2">
-
                                 <button data-previous="{{ session('previous_product') }}" class="btn btn-primary mt-4 add-product-btn" type="submit">Добавить</button>
                             </div>
                         </div>
@@ -111,7 +110,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-row">
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 mb-3 form-controll">
                                         <label for="store_id">Магазин</label>
                                         <select class="custom-select chosen-select-store" data-toggle="select" name="store_id" required>
                                             @foreach($stores as $store)
@@ -133,7 +132,7 @@
                                         <label for="image">Выберите</label>
                                         <div class="custom-file">
                                             <label class="custom-file-label" for="image">Выберите файл</label>
-                                            <input type="file" accept="image/*" name="image" form="add_product" id="image" class="custom-file-input @error('image')is-invalid @enderror" lang="ru">
+                                            <input type="file" accept="image/*" name="image" form="add_product" id="image" class="form-controll custom-file-input @error('image')is-invalid @enderror" lang="ru">
                                             <small class="text-muted">Размер > 480px * 480px</small>
                                             <div class="invalid-feedback">
                                                 Выберите изображение
@@ -149,6 +148,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="invalid-feedback">
+                                        Выберите изображение
+                                    </div>
                                 </div>
                             </div>
 
@@ -159,7 +161,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    
+</script>
 <style>
     body {
         position: relative;

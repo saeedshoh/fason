@@ -233,7 +233,6 @@ class ProductController extends Controller
                 $join->on('products.id', '=', 'countProd.product_id');
             })->orderByDesc('countProd')->paginate(15);
         $attributes = $product->attribute_variation;
-        // dd(Auth::user()->store);
         return view('products.single', compact('product', 'similars', 'attributes', 'topProducts'));
     }
 
