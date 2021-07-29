@@ -653,7 +653,7 @@ class ProductController extends Controller
             }
         }
 
-        session()->flash('class', 'success');
+        session()->flash('class', 'primary');
         session()->flash('message', 'Товар  «'.$product->name.'»  успешно изменен!');
     }
 }

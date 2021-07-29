@@ -40,11 +40,11 @@ class OrderController extends Controller
     public function index(Request $request, OrderFilters $filters)
     {
         $orders = Order::filter($filters)
-            ->latest('order_status_id')
+        ->orderByRaw('FIELD(order_status_id, "1", "4", "5", "3", "2")')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(60)
             ->withQueryString();
-
 
         $rdrs = Order::filter($filters)->get()->pluck('id');
         $users = $products = $stores = null;
@@ -77,7 +77,7 @@ class OrderController extends Controller
         $orders = Order::withoutGlobalScopes()
             ->where('order_status_id', 3)
             ->filter($filters)
-            ->latest('order_status_id')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(30)
             ->withQueryString();
@@ -110,7 +110,7 @@ class OrderController extends Controller
         $orders = Order::withoutGlobalScopes()
             ->where('order_status_id', 4)
             ->filter($filters)
-            ->latest('order_status_id')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(30)
             ->withQueryString();
@@ -143,7 +143,7 @@ class OrderController extends Controller
         $orders = Order::withoutGlobalScopes()
             ->where('order_status_id', 1)
             ->filter($filters)
-            ->latest('order_status_id')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(30)
             ->withQueryString();
@@ -176,7 +176,7 @@ class OrderController extends Controller
         $orders = Order::withoutGlobalScopes()
             ->where('order_status_id', 2)
             ->filter($filters)
-            ->latest('order_status_id')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(30)
             ->withQueryString();
@@ -209,7 +209,7 @@ class OrderController extends Controller
         $orders = Order::withoutGlobalScopes()
             ->where('order_status_id', 5)
             ->filter($filters)
-            ->latest('order_status_id')
+            ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(30)
             ->withQueryString();
@@ -249,6 +249,7 @@ class OrderController extends Controller
                 $order = Order::create([
                     'product_id' => $request->product_id,
                     'user_id' => Auth::id(),
+                    'store_id' => $product->store->id,
                     'total' => $product->price,
                     'margin' => $request->total_price - $product->price,
                     'address' => $request->address,
@@ -264,6 +265,7 @@ class OrderController extends Controller
                 $order = Order::create([
                     'product_id' => $request->product_id,
                     'user_id' => Auth::id(),
+                    'store_id' => $product->store->id,
                     'total' => $product->price,
                     'margin' => $request->total_price - $product->price,
                     'address' => $request->address,

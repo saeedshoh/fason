@@ -317,6 +317,10 @@
                                         </a>
                                     </th>
 
+                                    <th>
+
+                                    </th>
+
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -331,7 +335,7 @@
                                         </a>
                                     </td>
                                     <td class="orders-client-info">
-                                        {{ 'Тел: '.$order->user->phone.', Адрес:'.$order->user->address}}
+                                        {{ 'Тел: '.$order->user->phone.', Город: '.$order->user->city->name.', Адрес:'.$order->user->address}}
                                     </td>
                                     <td class="orders-product">
                                         {{ $order->no_scope_product->name}}
@@ -340,7 +344,7 @@
                                         {{ $order->no_scope_product->no_scope_store->name}}
                                     </td>
                                     <td class="orders-store-info">
-                                        {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
+                                        {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Город: '.$order->no_scope_product->no_scope_store->city->name.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
                                     </td>
                                     <td class="orders-date">
                                         <!-- Time -->
@@ -361,6 +365,12 @@
                                             {{ $order->order_status->name }}
                                         </div>
                                     </td>
+
+                                    <td class="text-right py-0">
+                                            <a href="{{ route('orders.show', $order) }}" class="btn btn-primary m-1 pull-right">
+                                                <i class="fe fe-edit"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -370,6 +380,8 @@
 
                             </tbody>
                         </table>
+
+                        <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список заказов пуст</div>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
                         <nav>
