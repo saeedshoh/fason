@@ -5,7 +5,7 @@
         <th style="width: 50px;">
 
             <!-- Checkbox -->
-            ID
+            №
 
         </th>
         <th>
@@ -22,7 +22,7 @@
         <td>
 
             <!-- Checkbox -->
-            {{ $item->id }}
+            #{{ $item->id }}
 
         </td>
         <td>

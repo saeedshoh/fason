@@ -176,7 +176,7 @@
                           <span class="item-name text-reset">{{ $product->category->name }}</span>
                         </td>
                         <td class="item-city py-0">
-                          <span class="item-name text-reset">г. {{ $product->store->city->name }}</span>
+                          <span class="item-name text-reset">г. {{ $product->store->city->name ?? '' }}</span>
                         </td>
                         <td class="item-date py-0">
                           <!-- Time -->

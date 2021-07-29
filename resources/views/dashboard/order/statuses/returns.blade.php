@@ -304,11 +304,16 @@
                     </a>
                   </th>
                   <th>
+                    <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-grand-total">
+                        Итого
+                    </a>
+                </th>
+                  <th>
                     <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-status">
                       Статус
                     </a>
                   </th>
-
+                  <th></th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -323,8 +328,8 @@
                     </a>
                   </td>
                   <td class="orders-client-info">
-                    {{ 'Тел: '.$order->user->phone.', Адрес:'.$order->user->address}}
-                  </td>
+                    {{ 'Тел: '.$order->user->phone.', Город: '.$order->user->city->name.', Адрес:'.$order->user->address}}
+                </td>
                   <td class="orders-product">
                     {{ $order->no_scope_product->name}}
                   </td>
@@ -332,8 +337,8 @@
                     {{ $order->no_scope_product->no_scope_store->name}}
                   </td>
                   <td class="orders-store-info">
-                    {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
-                  </td>
+                    {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Город: '.$order->no_scope_product->no_scope_store->city->name.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
+                </td>
                   <td class="orders-date">
                     <!-- Time -->
                     <time datetime="{{ $order->created_at->format('d/m/Y') }}">{{ $order->created_at->format('d-m-Y') }}</time>
@@ -344,12 +349,20 @@
                   <td class="orders-margin">
                     {{ $order->margin}} Сомони
                   </td>
+                  <td class="orders-margin">
+                    {{ $order->total + $order->margin}} Сомони
+                </td>
                   <td class="orders-status">
                     <!-- Badge -->
                     <div class="badge badge-primary">
                       {{ $order->order_status->name }}
                     </div>
                   </td>
+                  <td class="text-right py-0">
+                    <a href="{{ route('orders.show', $order) }}" class="btn btn-primary m-1 pull-right">
+                        <i class="fe fe-edit"></i>
+                    </a>
+                    </td>
                 </tr>
                 @empty
                     <tr>
@@ -359,6 +372,9 @@
 
               </tbody>
             </table>
+
+            <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список заказов пуст</div>
+
           </div>
           <div class="card-footer d-flex justify-content-center">
             <nav>

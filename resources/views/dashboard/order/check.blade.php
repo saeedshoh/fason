@@ -112,7 +112,7 @@
                                 </div>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                                <small>Коментарии: </small> <small>{{ $order->comment }}</small>
+                                <small>Примичание к заказу: </small> <small>{{ $order->comment }}</small>
                             </li>
                             <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                                 <strong>Итог c учётом НДС: </strong> <strong>{{ $order->total + $order->margin }} Сомони</strong>

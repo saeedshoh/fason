@@ -13,6 +13,7 @@ class Order extends Model
     protected $fillable = [
         'product_id',
         'user_id',
+        'store_id',
         'address',
         'total',
         'margin',
@@ -25,6 +26,7 @@ class Order extends Model
     protected $casts = [
         'attributes' => 'array'
     ];
+
 
     public function product() {
         return $this->belongsTo('App\Models\Product')->withTrashed();

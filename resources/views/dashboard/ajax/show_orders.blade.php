@@ -88,7 +88,9 @@
             </td>
         </tr>
         @empty
-
+        <tr>
+            <td class="text-muted h4" colspan="12">Список заказов пуст</td>
+        </tr>
         @endforelse
 
     </tbody>

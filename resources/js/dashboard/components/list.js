@@ -28,6 +28,14 @@
     // Init
     var listObj = new List(list, options);
 
+    listObj.on('updated', function(list) {
+        if (list.matchingItems.length > 0) {
+          $('.no-result').hide()
+        } else {
+          $('.no-result').show()
+        }
+      })
+
     // Pagination (next)
     if (listPaginationNext) {
       listPaginationNext.addEventListener('click', function(e) {
@@ -40,7 +48,6 @@
         }
       });
     }
-
     // Pagination (prev)
     if (listPaginationPrev) {
       listPaginationPrev.addEventListener('click', function(e) {
