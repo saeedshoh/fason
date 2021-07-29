@@ -73,11 +73,10 @@
                 </li>
               @endpermission
 
-
               @permission('read-employee')
                 <li class="nav-item">
                   <a class="nav-link {{ request()->is('dashboard/users*') && (isset($user) && $user->status == 1) ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <i class="fe fe-users"></i> Пользователи
+                    <i class="fe fe-users"></i> Сотрудники
                   </a>
                 </li>
               @endpermission
