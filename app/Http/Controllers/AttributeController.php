@@ -130,7 +130,7 @@ class AttributeController extends Controller
             ]);
             $attribute->delete();
         } else {
-            $class = 'danger';
+            $class = 'warning';
             $message = 'Невозможно удалить атрибут, так как есть товар с таким атрибутом.';
         }
         return redirect(route('attributes.index'))->with(['class' => $class, 'message' => $message]);

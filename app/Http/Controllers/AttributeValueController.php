@@ -62,7 +62,7 @@ class AttributeValueController extends Controller
             'table'  => ' Значение атрибутов',
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
-        return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with(['class' => 'success', 'message' => 'Значение  «'.$value->name.'»  успешно добавлен!']);
+        return redirect(route('attr_val.index', ['id' => $request->attribute_id]))->with(['class' => 'success', 'message' => 'Значение  «'.$value->name.'»  успешно добавлено!']);
     }
 
     /**
@@ -99,7 +99,7 @@ class AttributeValueController extends Controller
             'table'  => ' Значение атрибутов',
             'description' => 'Название: ' . $request->name . ', Значение: ' . $request->value
         ]);
-        return redirect(route('attr_val.index', ['id' => $id]).$page)->with(['class' => 'primary', 'message' => 'Значение  «'.$request->name.'»  успешно обновлен!']);
+        return redirect(route('attr_val.index', ['id' => $id]).$page)->with(['class' => 'primary', 'message' => 'Значение  «'.$request->name.'»  успешно обновлено!']);
     }
 
     /**
@@ -121,7 +121,7 @@ class AttributeValueController extends Controller
                 'description' => 'Название: ' . $attributeValue->name . ', Значение: ' . $attributeValue->value
             ]);
             $attributeValue->find($val_id)->delete();
-            return redirect()->back()->with(['class' => 'danger', 'message' => 'Значение  «'.$value->name.'»  успешно удален!']);
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'Значение  «'.$value->name.'»  успешно удалено!']);
         } else {
             return redirect()->back()->with(['class' => 'warning', 'message' => 'Невозможно удалить значение   «'.$value->name.'»  так как есть товар с таким значением!']);
         }

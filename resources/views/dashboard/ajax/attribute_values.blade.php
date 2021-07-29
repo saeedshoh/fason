@@ -4,7 +4,7 @@
             <tr>
             <th style="width: 50px;">
                 <!-- Checkbox -->
-                ID
+                №
             </th>
             <th>
                 <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
@@ -22,7 +22,7 @@
             <tr>
             <td>
                 <!-- Checkbox -->
-                {{ $item->id }}
+                #{{ $item->id }}
             </td>
             <td>
                 <a class="item-name text-reset" href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">{{ $item->name }}</a>

@@ -74,7 +74,7 @@
                             <tr>
                             <th style="width: 50px;">
                                 <!-- Checkbox -->
-                                <a class="list-sort text-muted" data-sort="item-order" href="#">ID</a>
+                                <a class="list-sort text-muted" data-sort="item-order" href="#">№</a>
                             </th>
                             <th>
                                 <a class="list-sort text-muted" data-sort="item-name" href="#">Название</a>
@@ -89,7 +89,7 @@
                             <tr>
                             <td class="item-order">
                                 <!-- Checkbox -->
-                                {{ $item->id }}
+                                #{{ $item->id }}
                             </td>
                             <td>
                                 <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
