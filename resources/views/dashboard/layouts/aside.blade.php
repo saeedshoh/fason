@@ -153,27 +153,26 @@
             <!-- User (md) -->
             <div class="navbar-user d-none d-md-flex" id="sidebarUser">
 
-              <!-- Dropup -->
-              <div class="dropup">
-
-                <!-- Toggle -->
-                <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <div class="avatar avatar-sm avatar-online">
-                    <img src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" class="avatar-img rounded-circle" alt="...">
-                  </div>
-                </a>
-
-                <!-- Menu -->
-                <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                  <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
-                    @csrf
-                    <button type="submit" class="dropdown-item border-0 px-0">
-                      Выход
-                    </button>
-                  </form>
+                <div>
+                    {{ Auth::user()->name }}
                 </div>
 
-              </div>
+                <!-- Dropup -->
+                <div class="dropup">
+
+                    <!-- Toggle -->
+                    <div class="avatar avatar-sm avatar-online">
+                        <img src="/storage/{{ Auth::user()->profile_photo_path ?? 'theme/no-photo.svg' }}" class="avatar-img rounded-circle" alt="...">
+                    </div>
+
+                </div>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item border-0 px-0">
+                        Выход
+                    </button>
+                </form>
 
             </div>
 
