@@ -87,7 +87,7 @@ class UserController extends Controller
                         $store->where('name',  'like', '%' . $request->search . '%');
                     });
             })
-            ->latest()
+            ->orderBy('id', 'desc')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function clients(Request $request)
     {
-        $users = User::where('status', 2)
+        $users = User::with('city')->where('status', 2)
             ->where(function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%')
                     ->orWhere('phone', 'like', '%' . $request->search . '%')
@@ -112,7 +112,7 @@ class UserController extends Controller
                         $store->where('name',  'like', '%' . $request->search . '%');
                     });
             })
-            ->latest()
+            ->orderBy('id', 'desc')
             ->paginate(30)
             ->withQueryString();
         if ($request->ajax()) {
@@ -259,9 +259,9 @@ class UserController extends Controller
         }
         if ($user->status == 2 )
         {
-            return redirect(route('clients.index'))->with(['class' => 'danger', 'message' => $message]);
+            return redirect(route('clients.index'))->with(['class' => 'warning', 'message' => $message]);
         }
-        return redirect(route('users.index'))->with(['class' => 'danger', 'message' => $message]);
+        return redirect(route('users.index'))->with(['class' => 'warning', 'message' => $message]);
 
     }
 
