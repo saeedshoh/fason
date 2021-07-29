@@ -123,15 +123,15 @@
                             <tbody class="list font-size-base">
                                 @forelse ($stores as $key => $store)
                                 <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @else table-success @endif">
-                                    <td class="item-order">
-                                        {{ $current = $stores->perPage()*($stores->currentPage()-1)+$loop->iteration }}
+                                    <td class="item-order py-0">
+                                        #{{ $store->id }}
                                     </td>
-                                    <td>
+                                    <td class="py-0">
                                         <div class="d-flex align-items-start flex-column" style="width:fit-content;">
                                             @if($loop->iteration == 1 && $stores->currentPage() == 1)
                                             @else
                                             <div class="mb-1">
-                                                <a class="btn btn-outline-info change-order" data-id="{{ $store->id  }}" data-type="0" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                                <a class="btn btn-sm btn-outline-info change-order" data-id="{{ $store->id  }}" data-type="0" data-table="stores" data-order_number="{{ $store->order_number }}">
                                                     <i class="fe fe-arrow-up"></i>
                                                 </a>
                                             </div>
@@ -139,28 +139,28 @@
 
                                             @if($stores->perPage()*($stores->currentPage()-1)+$loop->iteration != $stores->total())
                                             <div class="mt-1">
-                                                <a class="btn btn-outline-info change-order" data-id="{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                                <a class="btn btn-sm btn-outline-info change-order" data-id="#{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
                                                     <i class="fe fe-arrow-down"></i>
                                                 </a>
                                             </div>
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="item-name">
+                                    <td class="item-name py-0">
                                         <div class="avatar avatar-xs align-middle mr-2">
                                         <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
                                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
                                     </td>
-                                    <td class="item-address">
+                                    <td class="item-address py-0">
                                         {{ $store->address }}
                                     </td>
-                                    <td class="item-location">
+                                    <td class="item-location py-0">
                                         {{ $store->city->name ?? '' }}
                                     </td>
-                                    <td class="item-created">
+                                    <td class="item-created py-0">
                                         <time datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>
                                     </td>
-                                    <td class="item-status">
+                                    <td class="item-status py-0">
                                         <!-- Badge -->
                                         <div class="badge badge-primary">
                                             @if($store->is_moderation)
@@ -172,7 +172,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-right py-0">
                                         <form class="d-inline" action="{{ route('ft-store.star', $store->store_id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
