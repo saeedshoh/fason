@@ -13,6 +13,11 @@ if ($('#gallery').attr('form') == 'add_product') {
     })
 }
 
+$('.my').change(function () {
+    var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+    $('.your').text(filename);
+  });
+
 $(document).ready(function() {
     $('.chosen-select').chosen({no_results_text: "Ой, ничего не найдено!"});
 });
@@ -790,11 +795,11 @@ document.addEventListener("DOMContentLoaded", () => {
     validateInputImage.addEventListener("change",function(){
         validateMe(validateInputImage,doc,imageWarn)
     })
-    
+
     validateGallery.addEventListener("change",function(){
         validateMe(validateGallery,galleryMain,galleryWarn)
     })
-    
+
     function validateMe(inp,img,warn){
         if(hasToggle){
             if(inp.value == '/storage/theme/icons/add_product_plus.svg' || inp.files.length == 0){

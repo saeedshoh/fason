@@ -89067,6 +89067,10 @@ if ($('#gallery').attr('form') == 'add_product') {
   });
 }
 
+$('.my').change(function () {
+  var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+  $('.your').text(filename);
+});
 $(document).ready(function () {
   $('.chosen-select').chosen({
     no_results_text: "Ой, ничего не найдено!"

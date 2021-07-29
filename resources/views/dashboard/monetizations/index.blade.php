@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title">
-                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() }}</span>
+                  Все монетизации <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->total()}}</span>
                 </h1>
 
               </div>
@@ -42,12 +42,12 @@
                   <ul class="nav nav-tabs nav-overflow header-tabs">
                     <li class="nav-item">
                       <a href="{{ route('monetizations.index') }}" class="nav-link text-nowrap active">
-                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->count() - $personalisations_count - $monetizations_categories_count }}</span>
+                        Обшие <span class="badge badge-pill badge-soft-secondary">{{ $monetizations->total() - $personalisations_count - $monetizations_categories_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
+                        По магазинам <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -118,7 +118,7 @@
                 @if($monetization->stores->isEmpty() && $monetization->categories->isEmpty())
                 <tr>
                   <td class="monetizations-order">
-                    #{{ ++$key}}
+                    #{{ $monetization->id }}
                   </td>
                   <td class="monetizations-min">
                     {{ $monetization->min}}
@@ -133,7 +133,7 @@
                     {{ $monetization->added_val ?? '0'}}
                   </td>
                   <td class="text-right">
-                  
+
                     @permission('delete-monitization')
                       <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
                           @csrf
@@ -160,13 +160,11 @@
 
               </tbody>
             </table>
+            <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список монетизаций пуст</div>
           </div>
           <div class="card-footer d-flex justify-content-center">
             <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                    </li>
-                </ul>
+                {{ $monetizations->links() }}
             </nav>
           </div>
         </div>

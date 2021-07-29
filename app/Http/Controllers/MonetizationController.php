@@ -24,7 +24,7 @@ class MonetizationController extends Controller
 
     public function index(Request $request)
     {
-        $monetizations = Monetization::get();
+        $monetizations = Monetization::paginate(30);
         $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();
         $monetizations_categories_count = DB::table('category_monetization')->count();
         $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->get();
