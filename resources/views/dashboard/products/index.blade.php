@@ -161,7 +161,7 @@
                       @forelse ($products as $key => $product)
                       <tr class="table-@if($product->product_status->id == 4)info @elseif(!$product->store)secondary @elseif($product->deleted_at)danger @elseif($product->product_status->id == 5)primary @elseif($product->product_status->id == 1)warning @elseif($product->product_status->id == 2)success @elseif($product->product_status->id == 3)light @endif">
                         <td class="item-order py-0">
-                            {{ $product->id }}
+                            #{{ $product->id }}
                         </td>
                         <td class="item-name py-0">
                           <span class="item-name text-reset">{{ $product->name }}</span>
@@ -170,7 +170,7 @@
                           {{ $product->price }}
                         </td>
                         <td class="item-category py-0">
-                          <span class="item-name text-reset">{{ $product->price_after_margin}}</span>
+                          <span class="item-name text-reset">{{ $product->price_after_margin - $product->price }}</span>
                         </td>
                         <td class="item-category py-0">
                           <span class="item-name text-reset">{{ $product->category->name }}</span>
