@@ -30,7 +30,7 @@
           <div class="d-flex align-items-baseline mb-3 justify-content-between">
             <a href="javascript:history.back()" class="text-pinky font-weight-bold text-decoration-none">
               <img src="/storage/theme/icons/back.svg" alt="">
-              назад</a>
+              Назад</a>
               <h6 class="d-block d-lg-none text-secondary">Информация о товаре</h6>
           </div>
           @if($product->product_status_id == 6 && $product->deleted_at != null)

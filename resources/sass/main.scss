@@ -667,6 +667,9 @@ input[type="radio"] {
     bottom: 0;
     z-index: 888888;
     height: 56px;
+    a:focus{
+        outline: none !important;
+    }
 }
 
 .mobile-nav theme {
@@ -2254,7 +2257,7 @@ input[type="number"]:hover::-webkit-outer-spin-button {
   }
 
   .bordered-white{
-      border: 2px solid white;
+    border: 2px solid white;
   }
 
   .carousel{

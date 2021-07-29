@@ -41,19 +41,19 @@
                         <!--success order-->
                         @forelse ($orders as $order)
 
-                            <div class="@if ($order->order_status_id == 3)success-card @elseif($order->order_status_id == 1)in-road-card @elseif($order->order_status_id == 4)on-way @elseif($order->order_status_id == 5)secondary-card @else()declined-card @endif">
+                            <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-primary @elseif($order->order_status_id == 4)border-warning @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
                                 <div class="text-right d-block d-lg-none mt-3">
-                                    <h6 class="@if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
+                                    <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                                 </div>
-                                <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-start position-relative">
+                                <div class="row mx-0 my-2 align-items-start position-relative">
                                     <div class="col-12 col-lg-6 px-2 px-sm-3">
                                         <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                         <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="90" height="90">
                                         <div class="d-flex flex-column align-self-center w-100">
 
                                             <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
-                                            <div class="">
-                                                <div>
+                                            <div>
+                                                <div class="d-lg-none d-flex flex-column mb-2">
                                                     <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
 
@@ -64,12 +64,12 @@
 
                                                         {{ $order->created_at->format('G:i:s') }}
                                                     </small>
-                                                    <small class="text-secondary w-100 mr-2">
+                                                    <!-- <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
 
-                                                        {{ $order->quantity }}</small>
+                                                        {{ $order->quantity }}</small> -->
                                                 </div>
-                                                @if (count($order->attribute_values)>0)
+                                                <!-- @if (count($order->attribute_values)>0)
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="12px" width="12px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 476.241 476.241" style="enable-background:new 0 0 476.241 476.241;" xml:space="preserve">
                                                     <g>
                                                         <g>
@@ -81,7 +81,7 @@
                                                 @foreach ($order->attribute_values as $attribute_value)
                                                 <small class="text-secondary w-100">
                                                     {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}@if(!$loop->last), @endif</small>
-                                                @endforeach
+                                                @endforeach -->
                                                 <h6 class="h6 text-secondary d-block d-lg-none">
                                                     <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
                                                 </h6>
@@ -121,18 +121,18 @@
 
                     <div class="tab-pane fade @if($sales) @if(count($sales->where('order_status_id', 1)) > 0)show active @endif @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                         @forelse ($sales as $sale)
-                            <div class="@if ($sale->order_status_id == 3)success-card @elseif($sale->order_status_id == 4)on-way @elseif($sale->order_status_id == 5)secondary-card @elseif($sale->order_status_id == 1)in-road-card @else()declined-card @endif">
+                            <div class="border rounded my-3 @if ($sale->order_status_id == 3)border-success @elseif($sale->order_status_id == 4)border-primary @elseif($sale->order_status_id == 5)border-secondary @elseif($sale->order_status_id == 1)border-warning @else()border-danger @endif">
                                 <div class="text-right d-block d-lg-none mt-3">
-                                    <h6 class="@if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 5)text-secondary @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
+                                    <h6 class="pr-2 @if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 5)text-secondary @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
                                 </div>
-                                <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-start position-relative">
+                                <div class="row mx-0 my-2 align-items-start position-relative">
                                     <div class="col-12 col-lg-6">
                                         <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                         <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="90" height="90">
                                             <div class="d-flex flex-column align-self-center w-100">
                                                 <h5 class="h5 text-truncate order-title">{{ $sale->no_scope_product->name}}</h5>
-                                                <div class="">
-                                                    <div>
+                                                <div>
+                                                    <div class="d-lg-none d-flex flex-column mb-2">
                                                         <small class="text-secondary w-100">
                                                             <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
                                                             {{ $sale->created_at->format('d.m.Y') }}
@@ -146,7 +146,7 @@
                                                                 {{ $sale->quantity }}
                                                             </small>
                                                     </div>
-                                                    @if (count($sale->attribute_values)>0)
+                                                    <!-- @if (count($sale->attribute_values)>0)
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="12px" width="12px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 476.241 476.241" style="enable-background:new 0 0 476.241 476.241;" xml:space="preserve">
                                                         <g>
                                                             <g>
@@ -158,7 +158,7 @@
                                                     @foreach ($sale->attribute_values as $attribute_value)
                                                     <small class="text-secondary w-100">
                                                         {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }} @if(!$loop->last), @endif</small>
-                                                        @endforeach
+                                                        @endforeach -->
                                                     <h6 class="h6 text-secondary d-block d-lg-none">
                                                         <span class="text-uppercase">Цена</span>: <span class=" @if ($sale->order_status_id == 1) text-warning @elseif($sale->order_status_id == 2) text-danger @elseif($sale->order_status_id == 4) text-skyblue @elseif($sale->order_status_id == 5)text-secondary @else text-success @endif "> {{ $sale->total }} Сомони</span>
                                                     </h6>

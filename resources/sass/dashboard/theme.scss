@@ -32,10 +32,16 @@
     padding: 0.125rem 0.125rem 0rem 0.5rem;
 }
 
-.cs__table td{
-    padding: 2.3px 1rem 2.3px 1rem !important;
-    font-size: 13px !important;
-    select{
-        height: 2.3rem !important;
+.cs__table{
+    td{
+        padding: 0.4rem 1rem !important;
+        font-size: 13px !important;
+        select{
+            height: 2.3rem !important;
+        }
+    }
+    
+    tbody tr td:last-child{
+        padding-bottom: 0 !important;
     }
 }

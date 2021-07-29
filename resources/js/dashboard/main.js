@@ -771,40 +771,69 @@ $('#cover').change(function () {
     cover(this)
 })
 
+
+///add and edit product validation image
 document.addEventListener("DOMContentLoaded", () => {
-    let doc = document.getElementById('main-poster')
-    let validateMainImg = document.querySelector('.add-product-btn')
-    let validateInputImage = document.getElementById('image')
-    let validateGallery = document.getElementById("gallery")
-    let galleryMain = document.querySelector('.preview-image').getElementsByTagName('img')[0]
-    let galleryWarn = document.querySelectorAll('.invalid-feedback')[7]
-    let imageWarn = document.querySelectorAll('.invalid-feedback')[6]
-    let hasToggle = false
+    if(document.getElementById('main-poster')){
+        let doc = document.getElementById('main-poster')
+        let validateInputImage = document.getElementById('image')
+        let validateGallery = document.getElementById("gallery")
+        let galleryMain = document.querySelector('.preview-image').getElementsByTagName('img')[0]
+        let galleryWarn = document.querySelectorAll('.invalid-feedback')[7]
+        let imageWarn = document.querySelectorAll('.invalid-feedback')[6]
+        let hasToggle = false
+        
+        validateInputImage.addEventListener("change",function(){
+            let target = event.target || event.srcElement;
+            if(target.files.length == 0){
+                doc.setAttribute('src','/storage/theme/icons/add_product_plus.svg')
+            }
+            validateMe(validateInputImage,doc,imageWarn)
+        })
 
-    validateMainImg.addEventListener("click", function(){
-        hasToggle = true
-        validateMe(validateInputImage,doc,imageWarn)
-        validateMe(validateGallery,galleryMain,galleryWarn)
-    })
+        validateGallery.addEventListener("change",function(){
+            validateMe(validateGallery,galleryMain,galleryWarn)
+        })
 
-    validateInputImage.addEventListener("change",function(){
-        validateMe(validateInputImage,doc,imageWarn)
-    })
-    
-    validateGallery.addEventListener("change",function(){
-        validateMe(validateGallery,galleryMain,galleryWarn)
-    })
-    
-    function validateMe(inp,img,warn){
-        if(hasToggle){
-            if(inp.value == '/storage/theme/icons/add_product_plus.svg' || inp.files.length == 0){
-                img.classList.add("border")
-                img.classList.add("border-danger")
-                warn.classList.add('d-block')
-            }else{
-                img.classList.remove("border")
-                img.classList.remove("border-danger")
-                warn.classList.remove('d-block')
+        $('body').on('click','.add-product-btn',function(){
+            hasToggle = true
+            validateMe(validateInputImage,doc,imageWarn)
+            validateMe(validateGallery,galleryMain,galleryWarn)
+            let gallery = $('.preview-image')
+            if($('.preview-image').length == 1){
+                $('.preview-image').removeClass('border border-danger')
+                gallery.find('img').addClass('border border-danger')
+                galleryWarn.classList.add('d-block')
+            }
+        })
+
+        $('body').on('click','.deleteImage',function(){
+            let gallery = $('.preview-image')
+            if(gallery.length < 3){
+                gallery.find('img').addClass('border border-danger')
+                galleryWarn.classList.add('d-block')
+            }
+        })
+        $('body').on('click','.preview-image',function(){
+            // console.log($('.preview-image'))
+            if($('.preview-image').length == 1){
+                $('.preview-image').removeClass('border border-danger')
+                galleryWarn.classList.remove('d-block')
+            }
+        })
+        
+        function validateMe(inp,img,warn){
+            console.log(inp.files)
+            if(hasToggle){
+                if(inp.value == '/storage/theme/icons/add_product_plus.svg' || inp.files.length == 0){
+                    img.classList.add("border")
+                    img.classList.add("border-danger")
+                    warn.classList.add('d-block')
+                }else{
+                    img.classList.remove("border")
+                    img.classList.remove("border-danger")
+                    warn.classList.remove('d-block')
+                }
             }
         }
     }
@@ -815,7 +844,9 @@ if(previews.length >= 7){
     previews[7].remove()
 }
 
-let form = document.getElementById('editForm')
+///Category validate form
+if(document.getElementById('editForm')){
+    let form = document.getElementById('editForm')
     let editBtn = document.getElementById('submitEdit')
     let categoryName = document.getElementById('name')
     let alert = document.querySelector('.alert')
@@ -833,3 +864,4 @@ let form = document.getElementById('editForm')
             categoryName.classList.add('border-danger')
         }
     })
+}
