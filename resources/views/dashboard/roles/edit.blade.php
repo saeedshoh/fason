@@ -59,20 +59,27 @@
                     </div>
                   </div>
                 <div class="checklist row px-3" tabindex="0">
-
-                    @foreach ($permissions as $chunk)
-                        @foreach ($chunk as $permission)
-                            <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
-                                <input class="custom-control-input" @foreach ($role->permissions as $perm) @if($permission->id == $perm->id)checked @endif @endforeach id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
-                                <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
-                                <span class="custom-control-caption">
-                                    {{ $permission->display_name }}
-                                </span>
-                            </div>
-                        @endforeach
-                        <div class="w-100 my-4"></div>
+                    @php
+                        $current = $permissions[0]->table;
+                    @endphp
+                    @foreach ($permissions as $permission)
+                    @php
+                        if(!$loop->first && $current !== $permissions[$loop->index-1]->table) {
+                            $current = $permission->table;
+                        }
+                    @endphp
+                        @if($loop->first || $current === $permissions[$loop->index]->table) @else
+                            <div class="w-100"><hr></div>
+                        @endif
+                        <div class="custom-control custom-checkbox checklist-control col-4 mt-3" tabindex="0">
+                            <input class="custom-control-input" @foreach ($role->permissions as $perm) @if($permission->id == $perm->id)checked @endif @endforeach id="checklist-{{ $permission->id }}" type="checkbox" name="permission[]" value="{{ $permission->id }}">
+                            <label class="custom-control-label" for="checklist-{{ $permission->id }}"></label>
+                            <span>
+                                {{ $permission->display_name }}
+                            </span>
+                        </div>
                     @endforeach
-
+                    <div class="w-100"><hr></div>
                   </div>
                 <!-- Button -->
                 <button type="submit" class="btn btn-primary mt-5 float-right">Изменить</button>
