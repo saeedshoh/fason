@@ -154,7 +154,7 @@
                                         </td>
                                         <td class="item-city py-0">
                                             <!-- City -->
-                                            {{ $user->city->name }}
+                                            {{ $user->city->name ?? '' }}
                                         </td>
                                         <td class="item-city py-0">
                                             <!-- Role -->

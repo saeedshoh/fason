@@ -90,7 +90,7 @@
                         </div>
                         <div id="categories_inactives">
                             <div class="table-responsive" id="inactive">
-                                <table class="table table-sm table-hover table-nowrap card-table cs__table">
+                                <table class="table table-sm table-hover table-nowrap card-table">
                                     <thead>
                                         <tr>
                                             <th style="width: 50px;">
@@ -114,10 +114,10 @@
 
                                         @forelse ($categories as $category)
                                         <tr class="table-danger">
-                                            <td>
+                                            <td class="py-0">
                                                 #{{ $category->id }}
                                             </td>
-                                            <td>
+                                            <td class="py-0">
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-xs align-middle mr-2">
                                                     @if($category->parent_id == '0')
@@ -126,7 +126,7 @@
                                                 </div>
                                                 <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
                                             </td>
-                                            <td>
+                                            <td class="py-0">
                                                 <select data-id="{{ $category->id }}" class="item-order text-reset form-control order_no" name="order_no" id="order_no">
                                                     @foreach ($allCategories->where('parent_id', $category->parent_id)->sortBy('order_no') as $sibling)
                                                     <option {{ $sibling->order_no == $category->order_no ? 'selected' : '' }} value="{{ $sibling->order_no }}">{{ $loop->iteration }}</option>
@@ -134,7 +134,7 @@
                                                 </select>
                                             </td>
                                             @if ($category->parent_id != null)
-                                            <td>
+                                            <td class="py-0">
                                                 <div class="avatar avatar-xs align-middle mr-2">
                                                     @if(!@isset($category->parent->parent->id))
                                                     <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent ? $category->parent->icon : '' }}">
@@ -143,12 +143,12 @@
                                                 <a class="item-parent text-reset" href="{{ route('categories.show', $category) }}">{{ $category->parent ? $category->parent->name : '' }}</a>
                                             </td>
                                             @else
-                                            <td>
+                                            <td class="py-0">
 
                                             </td>
                                             @endif
 
-                                            <td class="d-flex justify-content-end">
+                                            <td class="d-flex justify-content-end py-0">
                                                 <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1">
                                                     <i class="fe fe-eye" aria-hidden="true"></i>
                                                 </a>
