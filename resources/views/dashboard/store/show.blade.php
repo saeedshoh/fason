@@ -107,10 +107,13 @@
                 <small>Владелец</small> <small>{{ $store->user->name }}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Адрес</small> <small>{{ $store->address }}</small>
+                <small>Телефон</small> <small><a href="tel:+992{{ $store->user->phone }}" class="text-body">{{ $store->user->phone }}</a></small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Город</small> <small>{{ $store->city->name ?? ''}}</small>
+                <small>Город</small> <small>г. {{ $store->city->name ?? ''}}</small>
+              </li>
+              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                <small>Адрес</small> <small>{{ $store->address }}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                 <small>Аватарка</small> <i class="fe {{ $store->avatar ? 'fe-check-circle text-success' : 'fe-alert-triangle text-danger'}}"></i>
@@ -164,123 +167,6 @@
           </div>
         </div>
         @endif
-      </div>
-
-      <div class="col-12">
-        <div class="card" data-list="{&quot;valueNames&quot;: [&quot;orders-order&quot;, &quot;orders-product&quot;, &quot;orders-date&quot;, &quot;orders-total&quot;, &quot;orders-status&quot;, &quot;orders-method&quot;]}">
-          <div class="card-header">
-
-            <!-- Search -->
-            <form>
-              <div class="input-group input-group-flush">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fe fe-search"></i>
-                  </span>
-                </div>
-                <input class="form-control list-search" type="search" placeholder="Поиск" autocomplete="off">
-              </div>
-            </form>
-
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-sm table-nowrap card-table">
-              <thead>
-                <tr>
-                  <th>
-
-                    <!-- Checkbox -->
-                    <div class="custom-control custom-checkbox table-checkbox">
-                      <input type="checkbox" class="list-checkbox-all custom-control-input" name="ordersSelect" id="ordersSelectAll">
-                      <label class="custom-control-label" for="ordersSelectAll">&nbsp;</label>
-                    </div>
-
-                  </th>
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-order">
-                      Номер заказа
-                    </a>
-                  </th>
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-product">
-                      Товар
-                    </a>
-                  </th>
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-date">
-                      Дата
-                    </a>
-                  </th>
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-total">
-                      Сумма
-                    </a>
-                  </th>
-
-                  <th>
-                    <a href="#" class="text-muted list-sort" data-sort="orders-method">
-                      Кол/во
-                    </a>
-                  </th>
-                  <th colspan="2">
-                    <a href="#" class="text-muted list-sort" data-sort="orders-status">
-                      Статус
-                    </a>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="list">
-                @forelse ($orders as $order)
-                  <tr>
-                    <td>
-
-                      <!-- Checkbox -->
-                      <div class="custom-control custom-checkbox table-checkbox">
-                        <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
-                        <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
-                      </div>
-
-                    </td>
-                    <td class="orders-order">
-                      #{{ $order->id }}
-                    </td>
-                    <td class="orders-product">
-                       {{ $order->name }}
-                    </td>
-                    <td class="orders-date">
-
-                      <!-- Time -->
-
-                      <time datetime="{{ $order->updated_at->format('d-m-y') }}">{{ $order->updated_at->format('d/m/y') }}</time>
-
-                    </td>
-                    <td class="orders-total">
-                      {{ $order->total }} TJS
-                    </td>
-
-                    <td class="orders-method">
-                      {{ $order->quantity }} шт
-                    </td>
-                    <td class="orders-status">
-                      <!-- Badge -->
-                      <div class="badge @if($order->order_status_id == 1) badge-soft-warning @elseif($order->order_status_id == 2) badge-soft-success @else badge-soft-danger @endif">
-                        {{ $order->order_status->name }}
-                      </div>
-
-                    </td>
-                    <td class="text-right">
-
-                    </td>
-                  </tr>
-                @empty
-
-                @endforelse
-
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
 
     </div> <!-- / .row -->

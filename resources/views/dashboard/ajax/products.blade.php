@@ -48,7 +48,7 @@
           {{ $product->price }}
         </td>
         <td class="item-category py-0">
-          <span class="item-name text-reset">{{ $product->price_after_margin}}</span>
+          <span class="item-name text-reset">{{ $product->price_after_margin - $product->price}}</span>
         </td>
         <td class="item-category py-0">
           <span class="item-name text-reset">{{ $product->category->name }}</span>

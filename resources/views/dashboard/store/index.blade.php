@@ -106,10 +106,10 @@
                                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
                                     </th>
                                     <th>
-                                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
+                                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Город</a>
                                     </th>
                                     <th>
-                                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Город</a>
+                                        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-location">Адрес</a>
                                     </th>
                                     <th>
                                         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-owner">Дата</a>
@@ -123,8 +123,8 @@
                             <tbody class="list font-size-base">
                                 @forelse ($stores as $key => $store)
                                 <tr class="@if($store->is_moderation) table-warning @elseif($store->is_active == 0) table-danger @elseif($store->is_active == 2) table-info @else table-success @endif">
-                                    <td class="item-order py-0">
-                                        {{ $store->id }}
+                                    <td class="item-order py-0" data-id="{{ $store->id }}">
+                                        #{{ $store->id }}
                                     </td>
                                     <td class="py-0">
                                         <div class="d-flex align-items-start flex-column" style="width:fit-content;">
@@ -139,7 +139,7 @@
 
                                             @if($stores->perPage()*($stores->currentPage()-1)+$loop->iteration != $stores->total())
                                             <div class="mt-1">
-                                                <a class="btn btn-sm btn-outline-info change-order" data-id="{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                                <a class="btn btn-sm btn-outline-info change-order" data-id="#{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
                                                     <i class="fe fe-arrow-down"></i>
                                                 </a>
                                             </div>
@@ -148,14 +148,14 @@
                                     </td>
                                     <td class="item-name py-0">
                                         <div class="avatar avatar-xs align-middle mr-2">
-                                        <img class="avatar-img rounded-circle"  src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="...">
+                                        <img class="avatar-img rounded-circle" src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="...">
                                         </div><a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
+                                    </td>
+                                    <td class="item-location py-0">
+                                        г. {{ $store->city->name ?? '' }}
                                     </td>
                                     <td class="item-address py-0">
                                         {{ $store->address }}
-                                    </td>
-                                    <td class="item-location py-0">
-                                        {{ $store->city->name ?? '' }}
                                     </td>
                                     <td class="item-created py-0">
                                         <time datetime="2020-01-14">{{ $store->created_at->format('d/m/Y') }}</time>
