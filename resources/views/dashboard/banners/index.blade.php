@@ -132,6 +132,8 @@
                     @endforelse
                   </tbody>
                 </table>
+
+                <div class="text-muted h4 no-result p-3 m-1" style="display: none">Данные отсутствуют</div>
               </div>
               <div class="card-footer d-flex justify-content-center">
                 <nav>

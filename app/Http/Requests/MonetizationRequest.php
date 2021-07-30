@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MonetizationRequest extends FormRequest
 {
+    protected $redirectRoute = 'monetizations.create';
     /**
      * Determine if the user is authorized to make this request.
      *

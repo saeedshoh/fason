@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
+                        По магазинам <span class="badge badge-pill badge-soft-secondary">{{ $personalisations_count }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -57,6 +57,12 @@
               </div>
           </div>
         </div>
+
+        @if (session('class'))
+        <div class="alert alert-{{ session('class') }} mt-4">
+            {{session()->get('message')}}
+        </div>
+        @endif
 
         <!-- Card -->
         <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-min", "item-max", "item-margin", "item-added_val"]}'>
@@ -93,7 +99,7 @@
                     @if ($monetizationCategory->monetizations_count !== 0)
                     <tr>
                         <td class="item-order">
-                            {{ ++$key }}
+                            #{{ $monetizationCategory->id }}
                         </td>
                         <td class="item-name">
                             <span class="text-reset">{{ $monetizationCategory->name }}</span>
@@ -105,9 +111,6 @@
                         </td>
                     </tr>
                     @else
-                    <tr>
-                        <td class="text-muted h4" colspan="12">Список монетизаций пуст</td>
-                    </tr>
                     @endif
                 @empty
                     <tr>
@@ -116,14 +119,12 @@
                 @endforelse
               </tbody>
             </table>
+
+            <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список монетизаций пуст</div>
+
           </div>
           <div class="card-footer d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                    </li>
-                </ul>
-            </nav>
+            {{ $monetizationsCategories->links() }}
           </div>
         </div>
 

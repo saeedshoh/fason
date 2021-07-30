@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BannersRequest;
-use App\Models\Banners;
 use App\Models\Log;
+use App\Models\Banners;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BannersRequest;
 use Illuminate\Support\Facades\Storage;
 
 class BannersController extends Controller
@@ -46,6 +47,18 @@ class BannersController extends Controller
     public function create()
     {
         $back = url()->previous();
+        if(Str::contains($back, 'banners')) {
+            if (Banners::where('type', 2)->count() == 2)
+            {
+                return redirect()->route('banners.index')->with(['class' => 'warning', 'message' => 'Вы не можете вставить новый баннер, потому что все позиции заняты.']);
+            }
+        }
+        else {
+            if(Banners::where('type', 1)->count() == 7 )
+            {
+                return redirect()->route('banners.sliders')->with(['class' => 'warning', 'message' => 'Вы не можете вставить новый слайд, потому что все позиции заняты']);
+            }
+        }
         $sliders_position = Banners::where('type', 1)->pluck('position')->toArray();
         $banners_position = Banners::where('type', 2)->pluck('position')->toArray();
         return view('dashboard.banners.create', compact('back', 'sliders_position', 'banners_position'));
@@ -114,8 +127,11 @@ class BannersController extends Controller
             ]);
             if ($request->image != $banner->image) {
                 if (Storage::exists($banner->image))
+                {
                     Storage::delete($banner->image);
-                $image = $request->file('image')->store(now()->year . '/' . sprintf("%02d", now()->month));
+                }
+
+                $image = $request->file('image')->store('public/' . now()->year . '/' . sprintf("%02d", now()->month));
             }
             $banner->update([
                 'image' => $image,
@@ -163,4 +179,5 @@ class BannersController extends Controller
             return redirect()->route('banners.index')->with(['class' => 'danger', 'message' => 'Баннер успешно удален!']);
         }
     }
+
 }

@@ -88,6 +88,7 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <input type="hidden" name="previous" value="{{ $previous }}">
                             </div>
                             <!-- Button -->
                             <button class="btn btn-primary mt-4" type="submit">Изменить</button>

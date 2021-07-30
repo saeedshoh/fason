@@ -56,7 +56,7 @@
                                 <div class="row mb-5">
                                     <div class="col">
                                         <label for="store_id">Магазин</label>
-                                        <select class="custom-select @error('store_id') is-invalid @enderror" name="store_id">
+                                        <select class="chosen-select-store custom-select @error('store_id') is-invalid @enderror" name="store_id">
                                             <option disabled selected>Выберите магазин</option>
                                             @foreach($stores as $store)
                                                 <option value="{{ $store->id }}">{{ $store->name }}</option>
@@ -139,6 +139,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="previous" value="{{ $previous }}">
                         </form>
                         </div>
                     </div>
@@ -147,4 +148,16 @@
         </div>
     </div>
 </div>
+<style>
+     .chosen-container-single .chosen-single {
+        height: 40px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        color: #12263F
+    }
+
+    .chosen-single div {
+        padding-top: 7px;
+    }
+</style>
 @endsection

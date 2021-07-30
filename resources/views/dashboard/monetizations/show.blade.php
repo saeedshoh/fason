@@ -37,7 +37,7 @@
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('personalisations.index') }}" class="nav-link text-nowrap">
-                        Персонализированные <span class="badge badge-pill badge-soft-secondary">{{ $personalisationsCount }}</span>
+                        По магазинам <span class="badge badge-pill badge-soft-secondary">{{ $personalisationsCount }}</span>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -51,7 +51,11 @@
               </div>
           </div>
         </div>
-
+        @if (session('class'))
+        <div class="alert alert-{{ session('class') }} mt-4">
+            {{session()->get('message')}}
+        </div>
+        @endif
         <!-- Card -->
         <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-added_val"]}'>
           <div class="card-header">
@@ -107,7 +111,7 @@
                 @forelse ($monetizations as $key => $monetization)
                 <tr>
                   <td class="monetizations-order">
-                    #{{ ++$key}}
+                    #{{ $monetization->id }}
                   </td>
                   <td class="monetizations-min">
                     {{ $monetization->min}}
@@ -141,6 +145,7 @@
 
               </tbody>
             </table>
+            <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список монетизаций пуст</div>
           </div>
           <div class="card-footer d-flex justify-content-center">
             <nav aria-label="Page navigation example">
