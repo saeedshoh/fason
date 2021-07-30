@@ -133,7 +133,7 @@
 
                               @if($stores->perPage()*($stores->currentPage()-1)+$loop->iteration != $stores->total())
                               <div class="mt-1">
-                                <a class="btn btn-sm btn-outline-info change-order" data-id="#{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
+                                <a class="btn btn-sm btn-outline-info change-order" data-id="##{{ $store->id }}" data-type="1" data-table="stores" data-order_number="{{ $store->order_number }}">
                                   <i class="fe fe-arrow-down"></i>
                                 </a>
                               </div>
@@ -142,7 +142,7 @@
                           </td>
                           <td class="item-name py-0">
                             <div class="avatar avatar-xs align-middle mr-2">
-                              <img class="avatar-img rounded-circle" src="{{ Storage::url($store->avatar) }}" alt="...">
+                            <img class="avatar-img rounded-circle" src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="...">
                             </div>
                             <a class="text-reset" href="{{ route('showStoreInfo', $store->id) }}">{{ $store->name }}</a>
                           </td>

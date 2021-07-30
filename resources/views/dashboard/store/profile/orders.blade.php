@@ -9,7 +9,7 @@
   <div class="header">
 
     <!-- Image -->
-    <img src="{{ Storage::url($store->cover) }}" class="header-img-top object-cover" alt="...">
+    <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="header-img-top object-cover" alt="...">
 
     <div class="container-fluid">
 
@@ -20,7 +20,7 @@
 
             <!-- Avatar -->
             <div class="avatar avatar-xxl header-avatar-top">
-              <img src="{{ Storage::url($store->avatar) }}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+            <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
             </div>
 
           </div>
@@ -71,7 +71,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('store.profile_products', $store->id) }}" class="nav-link">
-                  Продукты
+                  Товары
                 </a>
               </li>
             </ul>
@@ -104,112 +104,137 @@
 
             </div>
             <div id="show_orders">
-                <div class="table-responsive">
-                    <table class="table table-sm table-nowrap card-table">
-                    <thead>
-                        <tr>
-                        <th>
+            <div class="table-responsive">
+              <table class="table table-sm table-nowrap card-table">
+                  <thead>
+                      <tr>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-order">
+                                  №
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client">
+                                  Клиент
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client-info">
+                                  Контакты клиента
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-product">
+                                  Товар
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store">
+                                  Магазин
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store-info">
+                                  Контакты магазина
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-date">
+                                  Дата заказа
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-total">
+                                  Цена
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-margin">
+                                  Маржа
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-grand-total">
+                                  Итого
+                              </a>
+                          </th>
+                          <th>
+                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-status">
+                                  Статус
+                              </a>
+                          </th>
 
-                            <!-- Checkbox -->
-                            <div class="custom-control custom-checkbox table-checkbox">
-                            <input type="checkbox" class="list-checkbox-all custom-control-input" name="ordersSelect" id="ordersSelectAll">
-                            <label class="custom-control-label" for="ordersSelectAll">&nbsp;</label>
-                            </div>
+                          <th>
 
-                        </th>
-                        <th>
-                            <a href="#" class="text-muted list-sort" data-sort="orders-order">
-                            Номер заказа
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" class="text-muted list-sort" data-sort="orders-product">
-                            Товар
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" class="text-muted list-sort" data-sort="orders-date">
-                            Дата
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" class="text-muted list-sort" data-sort="orders-total">
-                            Сумма
-                            </a>
-                        </th>
+                          </th>
 
-                        <th>
-                            <a href="#" class="text-muted list-sort" data-sort="orders-method">
-                            Кол/во
-                            </a>
-                        </th>
-                        <th colspan="2">
-                            <a href="#" class="text-muted list-sort" data-sort="orders-status">
-                            Статус
-                            </a>
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody class="list">
-                        @forelse ($orders as $order)
-                        <tr>
-                            <td>
+                      </tr>
+                  </thead>
+                  <tbody class="list">
+                      @forelse ($orders as $key => $order)
+                      <tr class="table-@if($order->order_status->id == 1)warning @elseif($order->order_status->id == 2)danger @elseif($order->order_status->id == 4)primary @elseif($order->order_status->id == 5)secondary @else()success @endif">
+                          <td class="orders-order">
+                              #{{ $order->id}}
+                          </td>
+                          <td class="orders-client">
+                              <a href="{{ route('orders.show', $order) }}">
+                                  {{ $order->user->name ?? $order->user->phone}}
+                              </a>
+                          </td>
+                          <td class="orders-client-info">
+                              {{ 'Тел: '.$order->user->phone.', Город: '.$order->user->city->name.', Адрес:'.$order->user->address}}
+                          </td>
+                          <td class="orders-product">
+                              {{ $order->no_scope_product->name}}
+                          </td>
+                          <td class="orders-store">
+                              {{ $order->no_scope_product->no_scope_store->name}}
+                          </td>
+                          <td class="orders-store-info">
+                              {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Город: '.$order->no_scope_product->no_scope_store->city->name.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
+                          </td>
+                          <td class="orders-date">
+                              <!-- Time -->
+                              <time datetime="{{ $order->created_at->format('d/m/Y') }}">{{ $order->created_at->format('d-m-Y') }}</time>
+                          </td>
+                          <td class="orders-total">
+                              {{ $order->total}} Сомони
+                          </td>
+                          <td class="orders-margin">
+                              {{ $order->margin}} Сомони
+                          </td>
+                          <td class="orders-margin">
+                              {{ $order->total + $order->margin}} Сомони
+                          </td>
+                          <td class="orders-status">
+                              <!-- Badge -->
+                              <div class="badge badge-primary">
+                                  {{ $order->order_status->name }}
+                              </div>
+                          </td>
 
-                            <!-- Checkbox -->
-                            <div class="custom-control custom-checkbox table-checkbox">
-                                <input type="checkbox" class="list-checkbox custom-control-input" name="ordersSelect" id="ordersSelectOne">
-                                <label class="custom-control-label" for="ordersSelectOne">&nbsp;</label>
-                            </div>
+                          <td class="text-right py-0">
+                                  <a href="{{ route('orders.show', $order) }}" class="btn btn-primary m-1 pull-right">
+                                      <i class="fe fe-edit"></i>
+                              </a>
+                          </td>
+                      </tr>
+                      @empty
+                      <tr>
+                          <td class="text-muted h4" colspan="12">Список заказов пуст</td>
+                      </tr>
+                      @endforelse
 
-                            </td>
-                            <td class="orders-order">
-                            #{{ $order->id }}
-                            </td>
-                            <td class="orders-product">
-                            {{ $order->name }}
-                            </td>
-                            <td class="orders-date">
+                  </tbody>
+              </table>
 
-                            <!-- Time -->
-
-                            <time datetime="{{ $order->updated_at->format('d-m-y') }}">{{ $order->updated_at->format('d/m/y') }}</time>
-
-                            </td>
-                            <td class="orders-total">
-                            {{ $order->total }} TJS
-                            </td>
-
-                            <td class="orders-method">
-                            {{ $order->quantity }} шт
-                            </td>
-                            <td class="orders-status">
-                            <!-- Badge -->
-                            <div class="badge @if($order->order_status_id == 1) badge-soft-warning @elseif($order->order_status_id == 2) badge-soft-success @else badge-soft-danger @endif">
-                                {{ $order->order_status->name }}
-                            </div>
-
-                            </td>
-                            <td class="text-right">
-
-                            </td>
-                        </tr>
-                        @empty
-
-                        @endforelse
-
-                    </tbody>
-                    </table>
-                </div>
-                <div class="card-footer d-flex justify-content-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-lg">
-                            <li class="page-item">
-                            {{ $orders->links() }}
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+              <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список заказов пуст</div>
+          </div>
+          <div class="card-footer d-flex justify-content-center">
+              <nav>
+                  {{ $orders->links() }}
+              </nav>
+          </div>
         </div>
       </div>
 

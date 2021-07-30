@@ -89,6 +89,7 @@ class ProductController extends Controller
             ->orderBy('id', 'DESC')
             ->paginate(30)
             ->withQueryString();
+
         if ($request->ajax()) {
             return response()->json(
                 view(

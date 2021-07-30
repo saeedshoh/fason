@@ -20,7 +20,7 @@
 
             <!-- Avatar -->
             <div class="avatar avatar-xxl header-avatar-top">
-              <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="..." class="avatar-img rounded-circle border-4 border-body">
+            <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
             </div>
 
           </div>
@@ -70,7 +70,7 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('store.profile_products', $store->id) }}" class="nav-link">
-                  Продукты
+                  Товары
                 </a>
               </li>
             </ul>
@@ -141,7 +141,7 @@
                   </div>
                 </div>
                 <!-- Button -->
-                <button class="btn btn-primary mt-2" data-id="{{ $store->id }}" type="submit" id="storeEditSubmit">Изменить</button>
+                <button class="btn btn-primary mt-2" data-id="#{{ $store->id }}" type="submit" id="storeEditSubmit">Изменить</button>
 
             </div>
           </div>
