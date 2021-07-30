@@ -41,7 +41,7 @@
                         <!--success order-->
                         @forelse ($orders as $order)
 
-                            <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-primary @elseif($order->order_status_id == 4)border-warning @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+                            <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
                                 <div class="text-right d-block d-lg-none mt-3">
                                     <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                                 </div>
@@ -141,10 +141,10 @@
                                                             <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
                                                             {{ $sale->created_at->format('G:i:s') }}
                                                         </small>
-                                                            <small class="text-secondary w-100">
+                                                            <!-- <small class="text-secondary w-100">
                                                                 <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
                                                                 {{ $sale->quantity }}
-                                                            </small>
+                                                            </small> -->
                                                     </div>
                                                     <!-- @if (count($sale->attribute_values)>0)
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="12px" width="12px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 476.241 476.241" style="enable-background:new 0 0 476.241 476.241;" xml:space="preserve">
