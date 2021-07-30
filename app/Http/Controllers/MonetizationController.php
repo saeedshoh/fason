@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use App\Models\Store;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\Monetization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +26,9 @@ class MonetizationController extends Controller
     public function index(Request $request)
     {
         $monetizations = Monetization::paginate(30);
-        $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();
-        $monetizations_categories_count = DB::table('category_monetization')->count();
-        $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->get();
-        $personalisations_count = DB::table('monetization_store')->count();
-        return view('dashboard.monetizations.index', compact('monetizations', 'personalisations', 'monetizationsCategories', 'monetizations_categories_count', 'personalisations_count'));
+        $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
+        $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
+        return view('dashboard.monetizations.index', compact('monetizations', 'monetizations_categories_count', 'personalisations_count'));
     }
 
     /**
@@ -41,9 +40,9 @@ class MonetizationController extends Controller
     {
         $monetizations = Monetization::get();
         $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();
-        $monetizations_categories_count = DB::table('category_monetization')->count();
-        $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->get();
-        $personalisations_count = DB::table('monetization_store')->count();
+        $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
+        $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->paginate(30);
+        $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
         return view('dashboard.monetizations.personalisations.index', compact('monetizations', 'personalisations', 'monetizationsCategories', 'monetizations_categories_count', 'personalisations_count'));
     }
 
@@ -55,10 +54,10 @@ class MonetizationController extends Controller
     public function categoryMonetizationsIndex()
     {
         $monetizations = Monetization::get();
-        $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();
-        $monetizations_categories_count = DB::table('category_monetization')->count();
+        $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->paginate(30);
+        $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
         $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->get();
-        $personalisations_count = DB::table('monetization_store')->count();
+        $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
         return view('dashboard.monetizations.categories.index', compact('monetizations', 'personalisations', 'monetizationsCategories', 'monetizations_categories_count', 'personalisations_count'));
     }
 
@@ -100,7 +99,7 @@ class MonetizationController extends Controller
             'table'  => 'Монетизация',
             'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
         ]);
-        return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно добавлена!');
+        return redirect(url($request->previous))->with(['class' => 'success', 'message' => ' Монетизация   «#'.$monetization->id.'»  успешно добавлена!']);
     }
 
     /**
@@ -112,10 +111,10 @@ class MonetizationController extends Controller
     public function show(Monetization $monetization)
     {
         $monetizationsCount = Monetization::count();
-        $personalisationsCount = DB::table('monetization_store')->count();
-        $categoriesCount = DB::table('category_monetization')->count();
+        $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
+        $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Store::find($monetization->id);
-        $monetizations = $monetized->monetizations;
+        $monetizations = $monetized->monetizations->paginate(30);
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }
 
@@ -128,8 +127,8 @@ class MonetizationController extends Controller
     public function showCategoryMonetization($id)
     {
         $monetizationsCount = Monetization::count();
-        $personalisationsCount = DB::table('monetization_store')->count();
-        $categoriesCount = DB::table('category_monetization')->count();
+        $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
+        $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Category::where('id', $id)->first();
         $monetizations = $monetized->monetizations;
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
@@ -144,8 +143,8 @@ class MonetizationController extends Controller
     public function showStoreMonetization($id)
     {
         $monetizationsCount = Monetization::count();
-        $personalisationsCount = DB::table('monetization_store')->count();
-        $categoriesCount = DB::table('category_monetization')->count();
+        $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
+        $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Store::where('id', $id)->first();
         $monetizations = $monetized->monetizations;
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
@@ -159,7 +158,8 @@ class MonetizationController extends Controller
      */
     public function edit(Monetization $monetization)
     {
-        return view('dashboard.monetizations.edit', compact('monetization'));
+        $previous = url()->previous();
+        return view('dashboard.monetizations.edit', compact('monetization', 'previous'));
     }
 
     /**
@@ -178,7 +178,13 @@ class MonetizationController extends Controller
             'table'  => 'Монетизация',
             'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
         ]);
-        return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно изменена!');
+
+        if(Str::contains($request->previous, 'dashboard/monetizations')) {
+            return redirect()->route('monetizations.index')->with(['class' => 'primary', 'message' => 'Монетизация «#'.$monetization->id.'» успешно обновлена.']);
+        }
+        else {
+            return redirect(url($request->previous))->with(['class' => 'primary', 'message' => 'Монетизация «#'.$monetization->id.'» успешно обновлена.']);
+        }
     }
 
     /**
@@ -196,7 +202,7 @@ class MonetizationController extends Controller
             'description' => 'Сумма от: ' . $monetization->min . ', Сумма до: ' . $monetization->max . ', Процентная ставка: ' . $monetization->margin
         ]);
         $monetization->delete();
-        return redirect(route('monetizations.index'))->with('success', 'Монетизация успешно удалена!');
+        return redirect()->back()->with(['class' => 'danger', 'message' => 'Монетизация «#'.$monetization->id.'» успешно удалена.']);
     }
 
     public function price(Request $request)

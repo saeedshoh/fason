@@ -139,6 +139,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="previous" value="{{ $previous }}">
                         </form>
                         </div>
                     </div>

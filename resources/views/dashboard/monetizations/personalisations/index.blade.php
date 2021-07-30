@@ -58,6 +58,11 @@
           </div>
         </div>
 
+        @if (session('class'))
+        <div class="alert alert-{{ session('class') }} mt-4">
+            {{session()->get('message')}}
+        </div>
+        @endif
         <!-- Card -->
         <div class="card" data-list='{"valueNames": ["item-order", "item-name", "item-phone", "item-location"]}'>
           <div class="card-header">

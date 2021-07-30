@@ -62,6 +62,12 @@
           </div>
         </div>
 
+        @if (session('class'))
+            <div class="alert alert-{{ session('class') }} mt-4">
+                {{session()->get('message')}}
+            </div>
+        @endif
+
         <!-- Card -->
         <div class="card" data-list='{"valueNames": ["monetizations-order", "monetizations-min", "monetizations-max", "monetizations-margin", "monetizations-status", "monetizations-added_val"]}'>
           <div class="card-header">
