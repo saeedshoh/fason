@@ -79,10 +79,13 @@
                                     <label for="parent_id">Категории</label>
                                     <select class="custom-select chosen-select @error('parent_id') is-invalid @enderror" data-toggle="select" name="parent_id" required>
                                         <option value="0">Родительская</option>
-                                        @foreach($categories as $item)
-                                        <option value="{{ $item->id }}" {{ $category->parent_id == $item->id ? 'selected' : '' }} {{ $category->id == $item->id ? 'disabled' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
+                                        @foreach($categories as $cat)
+                                            <option value="{{ $cat->id }}" {{ $category->id == $cat->id ? 'selected' : '' }} {{ $category->id == $cat->id ? 'disabled' : '' }}>{{ $cat->name }}</option>
+                                            @if(isset($cat->childrens))
+                                                @foreach($cat->childrens as $child)
+                                                    <option value="{{ $child->id }}" {{ $category->id == $child->id ? 'selected' : '' }} {{ $category->id == $child->id ? 'disabled' : '' }}>- {{ $child->name }}</option>
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('parent_id')
@@ -125,7 +128,7 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label for="name">Активность категории</label>
-                                    <select class="custom-select  @error('is_active') is-invalid @enderror" name="is_active" id="is_active" form="create_category">
+                                    <select class="custom-select @error('is_active') is-invalid @enderror" name="is_active" id="is_active" form="editForm">
                                         <option value="1" {{ old('is_active') ?? $category->is_active == '1' ? 'selected' : ''}}>Активен</option>
                                         <option value="0" {{ old('is_active') ?? $category->is_active == '0' ? 'selected' : ''}}>Неактивен</option>
                                     </select>
@@ -142,7 +145,7 @@
                                     <label for="icon">Иконка</label>
                                     <div class="custom-file">
                                         <label class="custom-file-label" for="icon">Выберите файл</label>
-                                        <input value="{{ old('icon') ?? $category->icon}} " type="file" accept="image/*"  name="icon" form="create_category" id="icon" class="custom-file-input @error('icon')is-invalid @enderror" lang="ru" required>
+                                        <input value="{{ old('icon') ?? $category->icon}} " type="file" accept="image/*"  name="icon" form="editForm" id="icon" class="custom-file-input @error('icon')is-invalid @enderror" lang="ru" required>
                                     </div>
                                     @error('icon')
                                     <div class="invalid-feedback">

@@ -134,7 +134,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        return view('dashboard.users.create', compact('roles'));
+        $cities = City::get();
+        return view('dashboard.users.create', compact('roles', 'cities'));
     }
 
     /**
@@ -149,8 +150,16 @@ class UserController extends Controller
         if (!File::isDirectory($month)) {
             File::makeDirectory($month, 0777, true);
         }
+        if($request->has('phone')){
+            $request->merge(['phone' => preg_replace('/[^0-9]/', '', $request->phone)]);
+        }
         $request->validate([
             'profile_photo_path' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+            'name' => 'required',
+            'phone' => 'required|digits:9',
+            'email' =>  'required|email',
+            'city_id' => 'required',
+            'password' => 'required|confirmed|min:8'
         ]);
         if($request->profile_photo_path) {
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
@@ -198,8 +207,9 @@ class UserController extends Controller
     {
         session(['previous_user' => url()->previous()]);
         $cities = City::get();
+        $roles = Role::get();
         view('dashboard.layouts.aside', compact('user'));
-        return view('dashboard.users.edit', compact('user', 'cities'));
+        return view('dashboard.users.edit', compact('user', 'cities', 'roles'));
     }
 
     /**

@@ -43,7 +43,7 @@
         </div>
 
         <!-- Form -->
-        <form  method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+        <form  method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data" novalidate>
         @csrf
 
           <div class="row justify-content-between align-items-center">
@@ -113,7 +113,7 @@
 
             </div>
 
-            <div class="col-12  col-md-6">
+            <div class="col-12 col-md-6">
 
               <!-- Phone -->
               <div class="form-group">
@@ -124,7 +124,7 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control mb-3 @error('phone')is-invalid @enderror" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') }}">
+                <input type="text" class="form-control mb-3 @error('phone')is-invalid @enderror" placeholder="(___)__-__-__" data-mask="(000) 00-00-00" autocomplete="off" maxlength="13"  name="phone" value="{{ old('phone') }}">
                 @error('phone')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -136,12 +136,79 @@
             </div>
             <div class="col-12 col-md-6">
 
+                <!-- Email address -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label>
+                        E-mail
+                    </label>
+
+                    <!-- Input -->
+                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                </div>
+
+            </div>
+            {{-- <div class="col-12 col-md-3">
+
+                <!-- Address -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label>
+                        Адрес
+                    </label>
+
+                    <!-- Input -->
+                    <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="off">
+                    @error('address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                </div>
+
+            </div> --}}
+            <div class="col-12 col-md-6">
+
+                <!-- Address -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label>
+                        Город
+                    </label>
+
+                    <!-- Input -->
+                    <select class="custom-select @error('city_id')is-invalid @enderror" data-toggle="select" name="city_id">
+                        @foreach ($cities as $city)
+                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('city_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+
                 <!-- Phone -->
                 <div class="form-group">
 
                     <!-- Label -->
                     <label>
-                        Должность
+                        Роль
                     </label>
 
                     <!-- Input -->
@@ -158,49 +225,8 @@
 
                 </div>
 
-              </div>
-              <div class="col-6">
+            </div>
 
-                <!-- Email address -->
-                <div class="form-group">
-
-                    <!-- Label -->
-                    <label class="mb-1">
-                        E-mail
-                    </label>
-
-                    <!-- Input -->
-                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email') }}">
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-                </div>
-
-              </div>
-              <div class="col-6">
-
-                <!-- Address -->
-                <div class="form-group">
-
-                    <!-- Label -->
-                    <label class="mb-1">
-                        Адрес
-                    </label>
-
-                    <!-- Input -->
-                    <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="off">
-                    @error('address')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-                </div>
-
-              </div>
             <div class="col-12 col-md-6">
 
               <!-- Birthday -->
@@ -212,7 +238,12 @@
                 </label>
 
                 <!-- Input -->
-                <input class="form-control flatpickr-input"  type="password" name="password" required autocomplete="new-password">
+                <input class="form-control flatpickr-input @error('password')is-invalid @enderror" type="password" name="password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
 
               </div>
 
@@ -222,24 +253,28 @@
                 <!-- Birthday -->
                 <div class="form-group">
 
-                  <!-- Label -->
-                  <label>
-                    Подтвердить пароль
-                  </label>
+                    <!-- Label -->
+                    <label>
+                        Подтвердить пароль
+                    </label>
 
-                  <!-- Input -->
-                  <input class="form-control flatpickr-input"  type="password" name="password_confirmation" required autocomplete="new-password">
+                    <!-- Input -->
+                    <input class="form-control flatpickr-input @error('password')is-invalid @enderror" type="password" name="password_confirmation">
+                    @error('password_confirmation')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
 
                 </div>
 
-              </div>
+            </div>
           </div> <!-- / .row -->
 
           <!-- Button -->
           <button class="btn btn-primary">
             Сохранить
           </button>
-
 
         </form>
 

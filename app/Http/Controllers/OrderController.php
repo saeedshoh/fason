@@ -40,7 +40,7 @@ class OrderController extends Controller
     public function index(Request $request, OrderFilters $filters)
     {
         $orders = Order::filter($filters)
-        ->orderByRaw('FIELD(order_status_id, "1", "4", "5", "3", "2")')
+            ->orderByRaw('FIELD(order_status_id, "1", "4", "5", "3", "2")')
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
             ->paginate(60)

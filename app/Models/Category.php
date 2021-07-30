@@ -69,14 +69,18 @@ class Category extends Model
 
     public function toggleIsActive($category, $is_active)
     {
-        foreach ($category->grandchildren as $grandchild) {
-            $grandchild->update([
-                'is_active' => $is_active
-            ]);
-            foreach ($grandchild->childrens as $child) {
+        if(isset($category->childrens)){
+            foreach ($category->childrens as $child) {
                 $child->update([
                     'is_active' => $is_active
                 ]);
+                if(isset($child->grandchildren)){
+                    foreach ($child->grandchildren as $grandchild) {
+                        $grandchild->update([
+                            'is_active' => $is_active
+                        ]);
+                    }
+                }
             }
         }
     }

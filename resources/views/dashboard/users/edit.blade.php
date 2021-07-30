@@ -71,14 +71,14 @@
           <hr class="my-5">
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
 
               <!-- First name -->
               <div class="form-group">
 
                 <!-- Label -->
                 <label>
-                    Имя
+                  Ф.И.О
                 </label>
 
                 <!-- Input -->
@@ -92,7 +92,7 @@
               </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-12 col-md-6">
 
                 <!-- First name -->
                 <div class="form-group">
@@ -113,6 +113,29 @@
                 </div>
 
             </div>
+            @if($user->status == 1)
+            <div class="col-12 col-md-6">
+
+                <!-- Email address -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label>
+                        E-mail
+                    </label>
+
+                    <!-- Input -->
+                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                </div>
+
+            </div>
+            @endif
             <div class="col-md-6">
 
                 <!-- Address -->
@@ -134,6 +157,7 @@
                 </div>
 
             </div>
+            @if($user->status != 1)
             <div class="col-md-6">
 
                 <!-- First name -->
@@ -157,7 +181,33 @@
                 @enderror
                 </div>
             </div>
+            @endif
             @if($user->status == 1)
+            <div class="col-12 col-md-6">
+
+                <!-- Phone -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label>
+                        Роль
+                    </label>
+
+                    <!-- Input -->
+                    <select class="custom-select @error('role')is-invalid @enderror" data-toggle="select" name="role">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                </div>
+
+            </div>
             <div class="col-12 col-md-6">
 
                 <!-- Birthday -->
