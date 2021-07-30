@@ -135,23 +135,23 @@
                                                 <td></td>
 
                                                 <td class="d-flex justify-content-end">
+                                                    <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1">
+                                                        <i class="fe fe-eye" aria-hidden="true"></i>
+                                                    </a>
+                                                    @permission('update-categories')
+                                                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1">
+                                                        <i class="fe fe-edit"></i>
+                                                    </a>
+                                                    @endpermission
                                                     @permission('delete-categories')
                                                     <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
                                                         @csrf
-                                                        <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 pull-right delete-confirm">
+                                                        <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 delete-confirm">
                                                             <i class="fe fe-trash"></i>
                                                         </button>
                                                         @method('DELETE')
                                                     </form>
                                                     @endpermission
-                                                    @permission('update-categories')
-                                                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
-                                                        <i class="fe fe-edit"></i>
-                                                    </a>
-                                                    @endpermission
-                                                    <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
-                                                        <i class="fe fe-eye" aria-hidden="true"></i>
-                                                    </a>
                                                 </td>
                                             </tr>
                                             @isset($category->childrens)
@@ -180,18 +180,23 @@
                                                             <a class="item-parent text-reset" href="{{ route('categories.show', $category) }}">{{ $category->parent->name }}</a>
                                                         </td>
                                                         <td class="d-flex justify-content-end">
-                                                            <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
-                                                                @csrf
-                                                                <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 pull-right delete-confirm">
-                                                                    <i class="fe fe-trash"></i></button>
-                                                                @method('DELETE')
-                                                            </form>
-                                                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
-                                                                <i class="fe fe-edit"></i>
-                                                            </a>
-                                                            <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
+                                                            <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1">
                                                                 <i class="fe fe-eye" aria-hidden="true"></i>
                                                             </a>
+                                                            @permission('update-categories')
+                                                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1">
+                                                                <i class="fe fe-edit"></i>
+                                                            </a>
+                                                            @endpermission
+                                                            @permission('delete-categories')
+                                                            <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 delete-confirm">
+                                                                    <i class="fe fe-trash"></i>
+                                                                </button>
+                                                                @method('DELETE')
+                                                            </form>
+                                                            @endpermission
                                                         </td>
                                                     </tr>
                                                     @isset($category->grandchildren)
@@ -217,18 +222,23 @@
                                                                 {{ $category->parent->name }}
                                                             </td>
                                                             <td class="d-flex justify-content-end">
-                                                                <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
-                                                                    @csrf
-                                                                    <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 pull-right delete-confirm">
-                                                                        <i class="fe fe-trash"></i></button>
-                                                                    @method('DELETE')
-                                                                </form>
-                                                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1 pull-right">
-                                                                    <i class="fe fe-edit"></i>
-                                                                </a>
-                                                                <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1 fa-pull-right">
+                                                                <a href="{{ route('categories.show', $category) }}" class="btn btn-warning m-1">
                                                                     <i class="fe fe-eye" aria-hidden="true"></i>
                                                                 </a>
+                                                                @permission('update-categories')
+                                                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary m-1">
+                                                                    <i class="fe fe-edit"></i>
+                                                                </a>
+                                                                @endpermission
+                                                                @permission('delete-categories')
+                                                                <form class="d-inline" action="{{ route('categories.destroy', $category) }}" method="POST">
+                                                                    @csrf
+                                                                    <button type="submit" href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger m-1 delete-confirm">
+                                                                        <i class="fe fe-trash"></i>
+                                                                    </button>
+                                                                    @method('DELETE')
+                                                                </form>
+                                                                @endpermission
                                                             </td>
                                                         </tr>
                                                         @endforeach

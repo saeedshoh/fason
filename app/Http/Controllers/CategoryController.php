@@ -180,7 +180,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::where('parent_id', 0)->where('is_active', 1)->with('childrens', function($children){
+            $children->where('is_active', 1);
+        })->get();
         $attributes = Attribute::get();
         return view('dashboard.category.create', compact('categories', 'attributes'));
     }
@@ -244,7 +246,7 @@ class CategoryController extends Controller
     {
         $previous = url()->previous();
         $attributes = Attribute::get();
-        $categories = Category::get();
+        $categories = Category::where('parent_id', 0)->with('childrens')->get();
         return view('dashboard.category.edit', compact('categories', 'category', 'attributes', 'previous'));
     }
 

@@ -75,7 +75,7 @@
 
               @permission('read-employee')
                 <li class="nav-item">
-                  <a class="nav-link {{ request()->is('dashboard/users*') && (isset($user) && $user->status == 1) ? 'active' : '' }}" href="{{ route('users.index') }}">
+                  <a class="nav-link {{ (request()->is('dashboard/users*') && (isset($user) && $user->status == 1)) || request()->is('dashboard/users/create') ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <i class="fe fe-users"></i> Сотрудники
                   </a>
                 </li>
