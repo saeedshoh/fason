@@ -68,6 +68,11 @@
                                         <option value="0" selected>Родительская</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @if(isset($category->childrens))
+                                                @foreach($category->childrens as $child)
+                                                    <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('parent_id')

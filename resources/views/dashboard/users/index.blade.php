@@ -83,20 +83,26 @@
                                 @if(request()->is('dashboard/users*'))
 
                                 <th>
+                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">
+                                    Телефон
+                                    </a>
+                                </th>
+                                <th>
                                     <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-email">
                                     E-mail
                                     </a>
                                 </th>
                                 <th>
-                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-phone">
-                                    Телефон
+                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-city">
+                                    Город
                                     </a>
                                 </th>
-                                <th colspan="2">
-                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-company">
-                                    Магазин
+                                <th>
+                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-role">
+                                    Роль
                                     </a>
                                 </th>
+                                <th></th>
 
                                 @else
 
@@ -124,7 +130,7 @@
                                 @endif
                                 </tr>
                             </thead>
-                            <tbody class="list font-size-base">
+                            <tbody class="list">
                                 @if(request()->is('dashboard/users*'))
                                     @forelse($users as $key => $user)
                                     <tr>
@@ -138,31 +144,39 @@
                                             </div>
                                             <a class="text-reset" href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
                                         </td>
-                                        <td class="item-email py-0">
-                                            <!-- Email -->
-                                            <a class="text-reset" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
-                                        </td>
                                         <td class="item-phone py-0">
                                             <!-- Phone -->
                                             <a class="text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
                                         </td>
-                                        <td class="item-company py-0">
-                                            <!-- Link -->
-                                            <a class="text-reset" href="{{ isset($user->store->name) ? route('showStoreInfo', $user->store->id) : 'javascrip:void();' }}">{{ $user->store->name ?? '' }}</a>
+                                        <td class="item-email py-0">
+                                            <!-- Email -->
+                                            <a class="text-reset" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                         </td>
-                                        <td class="text-right py-0">
-                                            @permission('delete-employee')
-                                                <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" href="{{ route('users.destroy', $user->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
-                                                    <i class="fe fe-trash"> </i></button>
-                                                    @method('DELETE')
-                                                </form>
-                                            @endpermission
+                                        <td class="item-city py-0">
+                                            <!-- City -->
+                                            {{ $user->city->name }}
+                                        </td>
+                                        <td class="item-city py-0">
+                                            <!-- Role -->
+                                            @foreach ($user->roles as $role)
+                                                {{ $role->name }} @if(!$loop->last),@endif
+                                            @endforeach
+                                        </td>
+                                        <td class="d-flex justify-content-end py-0">
                                             @permission('update-employee')
-                                                <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1 pull-right">
+                                                <a href="{{ route('users.edit', $user) }}" class="btn btn-primary m-1">
                                                     <i class="fe fe-edit"> </i>
                                                 </a>
+                                            @endpermission
+                                            @permission('delete-employee')
+                                            @if($user->id !== auth()->user()->id)
+                                            <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 delete-confirm">
+                                                <i class="fe fe-trash"> </i></button>
+                                                @method('DELETE')
+                                            </form>
+                                            @endif
                                             @endpermission
                                         </td>
                                     </tr>
@@ -187,7 +201,7 @@
                                             <a class="text-reset" href="{{ route('clients.show', $user) }}">{{ $user->name }}</a>
                                         </td>
                                         <td class="item-address py-0 text-break" style="max-width: 300px;">
-                                            г. {{ $user->city->name }}, {{ $user->address ?? '' }}
+                                            г. {{ $user->city->name ?? '' }}, {{ $user->address ?? '' }}
                                         </td>
                                         <td class="item-phone py-0">
                                             <!-- Phone -->
@@ -200,7 +214,7 @@
                                         <td class="item-registration-date py-0">
                                         {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
                                         </td>
-                                        <td class="text-right py-0">
+                                        <td class="d-flex justify-content-end py-0">
                                             <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1">
                                                 <i class="fe fe-shopping-cart" aria-hidden="true"></i>
                                             </a>
@@ -212,7 +226,7 @@
                                             @permission('delete-employee')
                                             <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 pull-right delete-confirm">
+                                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 delete-confirm">
                                                 <i class="fe fe-trash"> </i></button>
                                                 @method('DELETE')
                                             </form>

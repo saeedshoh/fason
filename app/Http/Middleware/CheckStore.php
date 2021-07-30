@@ -26,8 +26,5 @@ class CheckStore
             abort(404);
         }
         abort(404);
-
-        
-        // return $next($request);
     }
 }
