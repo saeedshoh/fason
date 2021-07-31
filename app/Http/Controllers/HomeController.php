@@ -105,7 +105,7 @@ class HomeController extends Controller
             ->leftJoinSub($countProd, 'countProd', function ($join) {
                 $join->on('products.id', '=', 'countProd.product_id');
             })->orderByDesc('countProd')->take($itemsForPage)->get();
-        $newProducts = Product::where('product_status_id', 2)->orderByDesc('updated_at')->take($itemsForPage)->get();
+        $newProducts = Product::where('product_status_id', 2)->orderByDesc('created_at')->take($itemsForPage)->get();
         return view('home', compact('stores', 'categories', 'sliders', 'middle_banner', 'topProducts', 'newProducts', 'monetizations'));
     }
 
