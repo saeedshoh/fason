@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <!-- @if (session())
+            @if (session())
             <div class="alert alert-{{ session('class') }}">
                 {{session()->get('message')}}
             </div>
@@ -46,7 +46,7 @@
                     <span>{{ $error }}</span>
                 @endforeach
             </div>
-            @endif -->
+            @endif
             <div class="alert alert-danger d-none">
                 <span>Введите название</span>
             </div>
