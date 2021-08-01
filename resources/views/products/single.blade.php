@@ -441,7 +441,7 @@
                 </div>
               </div>
               <div class="mt-1 mt-md-3">
-                <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу">
+                <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="comment" id="comment" placeholder="Примичание к заказу" autocomplete="off">
               </div>
               <div class="mt-3">
                 <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
