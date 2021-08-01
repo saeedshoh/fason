@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Store;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\HomeController;
@@ -18,7 +17,6 @@ use App\Http\Controllers\ItemsForPageController;
 use App\Http\Controllers\MonetizationController;
 use App\Http\Controllers\SmsConfirmedController;
 use App\Http\Controllers\AttributeValueController;
-use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
