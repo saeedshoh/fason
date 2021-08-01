@@ -80,7 +80,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        if(auth()->check() && auth()->user()->status !== 0){
+        if(auth()->check() && auth()->user()->status !== 2){
             auth()->logout();
         }
         $stores = null;
