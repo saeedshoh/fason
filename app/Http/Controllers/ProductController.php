@@ -31,7 +31,7 @@ class ProductController extends Controller
 
         $this->middleware('permission:create-products', ['only' => ['create', 'store']]);
         $this->middleware('permission:update-products', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete-products', ['only' => ['destroy']]);
+        // $this->middleware('permission:delete-products', ['only' => ['destroy']]);
         $this->middleware('permission:read-products', ['only' => ['index', 'show']]);
     }
 
@@ -235,7 +235,7 @@ class ProductController extends Controller
         $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
         if (Auth::check()) {
             if ($product->store->user_id != Auth::user()->id) {
-                $product = Product::where('slug', $slug)->first();
+                $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
             }
         }
         if (!$product) abort(404);
