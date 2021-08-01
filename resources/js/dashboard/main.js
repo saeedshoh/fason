@@ -863,7 +863,6 @@ if (document.getElementById('editForm')) {
     let alert = document.querySelector('.alert')
     let feedBack = document.getElementById('nameFeedback')
     editBtn.addEventListener('click', () => {
-        console.log(categoryName)
         if (categoryName.value !== '') {
             form.submit()
             alert.classList.add('d-none')
