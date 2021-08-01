@@ -272,7 +272,7 @@
           </div> <!-- / .row -->
 
           <!-- Button -->
-          <button class="btn btn-primary">
+          <button class="client-save btn btn-primary">
             Сохранить
           </button>
 
@@ -286,7 +286,7 @@
 @endsection
 @section('script')
 <script>
-    $('.btn-primary').click(function(){
+    $('.client-save').click(function(){
         $('.success-preloader').removeClass('d-none');
     })
 </script>

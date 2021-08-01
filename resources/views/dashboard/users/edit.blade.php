@@ -252,7 +252,7 @@
             </div>
             @endif
             </div> <!-- / .row -->
-          <button class="btn btn-primary mt-4 float-right" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
+          <button class="btn btn-primary mt-4 float-right client-save" type="submit"><i class="fe fe-edit"> </i> Изменить</button>
 
         </form>
 
@@ -262,7 +262,7 @@
 @endsection
 @section('script')
 <script>
-    $('.btn-primary').click(function(){
+    $('.client-save').click(function(){
         $('.success-preloader').removeClass('d-none');
     })
 </script>
