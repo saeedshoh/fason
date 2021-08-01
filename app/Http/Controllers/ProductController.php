@@ -233,10 +233,8 @@ class ProductController extends Controller
     public function single($slug)
     {
         $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
-        if (Auth::check()) {
-            if ($product->store->user_id != Auth::user()->id) {
-                $product = Product::withoutGlobalScopes()->withTrashed()->where('slug', $slug)->first();
-            }
+        if (Auth::check() && $product->store->user_id != Auth::user()->id) {
+            $product = Product::where('slug', $slug)->first();
         }
         if (!$product) abort(404);
         $similars = Product::where('store_id', $product->store_id)->where('product_status_id', 2)->latest()->take(10)->get();
