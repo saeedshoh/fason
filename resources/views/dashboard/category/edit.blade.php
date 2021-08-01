@@ -78,12 +78,12 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="parent_id">Категории</label>
                                     <select class="custom-select chosen-select @error('parent_id') is-invalid @enderror" data-toggle="select" name="parent_id" required>
-                                        <option value="0">Родительская</option>
+                                        <option value="0" @if(isset($category->parent) && $category->parent->id === 0)selected @endif>Родительская</option>
                                         @foreach($categories as $cat)
-                                            <option value="{{ $cat->id }}" {{ $category->id == $cat->id ? 'selected' : '' }} {{ $category->id == $cat->id ? 'disabled' : '' }}>{{ $cat->name }}</option>
+                                            <option value="{{ $cat->id }}" @if(isset($category->parent) && $category->parent->id === $cat->id)selected @endif {{ $category->id === $cat->id ? 'disabled' : '' }}>{{ $cat->name }}</option>
                                             @if(isset($cat->childrens))
                                                 @foreach($cat->childrens as $child)
-                                                    <option value="{{ $child->id }}" {{ $category->id == $child->id ? 'selected' : '' }} {{ $category->id == $child->id ? 'disabled' : '' }}>- {{ $child->name }}</option>
+                                                    <option value="{{ $child->id }}" @if(isset($category->parent) && $category->parent->id === $child->id)selected @endif {{ $category->id === $child->id ? 'disabled' : '' }}>- {{ $child->name }}</option>
                                                 @endforeach
                                             @endif
                                         @endforeach
