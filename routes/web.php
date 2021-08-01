@@ -116,7 +116,7 @@ Route::get('/getParentcategories', [CategoryController::class, 'getParentcategor
 Route::get('/countProducts', [CategoryController::class, 'countProducts'])->name('countProducts');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('client')->group(function () {
 
     Route::middleware(['checkStore'])->group(function () {
         Route::get('store/{slug}/show', [StoreController::class, 'show'])->name('ft-store.show');
