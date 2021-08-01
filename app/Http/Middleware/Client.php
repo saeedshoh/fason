@@ -19,7 +19,7 @@ class Client
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        if (auth()->user()->status !== 0) {
+        if (auth()->user()->status !== 2) {
             abort(404);
         }
         return $next($request);
