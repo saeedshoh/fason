@@ -284,3 +284,10 @@
     </div> <!-- / .row -->
   </div>
 @endsection
+@section('script')
+<script>
+    $('.btn-primary').click(function(){
+        $('.success-preloader').removeClass('d-none');
+    })
+</script>
+@endsection

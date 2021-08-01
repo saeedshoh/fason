@@ -142,7 +142,7 @@
                                             <div class="avatar avatar-xs align-middle mr-2">
                                                 <img class="avatar-img rounded-circle" src="/storage/{{ empty($user->profile_photo_path)  ? 'theme/no-photo.svg' :  $user->profile_photo_path}}" alt="...">
                                             </div>
-                                            <a class="text-reset" href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
+                                            {{ $user->name }}
                                         </td>
                                         <td class="item-phone py-0">
                                             <!-- Phone -->
