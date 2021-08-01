@@ -103,7 +103,7 @@
                 </label>
 
                 <!-- Input -->
-                <input type="text" class="form-control mb-3 @if($user->status == 2)text-muted @endif @error('phone')is-invalid @enderror" placeholder="(___)___-____" data-mask="(000) 000-0000" autocomplete="off" maxlength="14"  name="phone" value="{{ old('phone') ?? $user->phone }}" @if($user->status == 2) disabled @endif>
+                <input type="text" class="form-control mb-3 @if($user->status == 2)text-muted @endif @error('phone')is-invalid @enderror" placeholder="(___)__-__-__" data-mask="(000) 00-00-00" autocomplete="off" maxlength="13"  name="phone" value="{{ old('phone') ?? $user->phone }}" @if($user->status == 2) disabled @endif>
                 @error('phone')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -138,28 +138,6 @@
             @endif
             <div class="col-md-6">
 
-                <!-- Address -->
-                <div class="form-group">
-
-                <!-- Label -->
-                <label>
-                  Адрес
-                </label>
-
-                <!-- Input -->
-                <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') ?? $user->address }}" autocomplete="off">
-                @error('address')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-
-                </div>
-
-            </div>
-            @if($user->status != 1)
-            <div class="col-md-6">
-
                 <!-- First name -->
                 <div class="form-group">
 
@@ -180,6 +158,28 @@
                 </span>
                 @enderror
                 </div>
+            </div>
+            @if($user->status != 1)
+            <div class="@if($user->status == 1)col-md-6 @else()col-12 @endif">
+
+                <!-- Address -->
+                <div class="form-group">
+
+                <!-- Label -->
+                <label>
+                  Адрес
+                </label>
+
+                <!-- Input -->
+                <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{ old('address') ?? $user->address }}" autocomplete="off">
+                @error('address')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+
+                </div>
+
             </div>
             @endif
             @if($user->status == 1)
@@ -240,7 +240,7 @@
                     </label>
 
                     <!-- Input -->
-                    <input class="form-control flatpickr-input @error('password_confirmation')is-invalid @enderror"  type="password" name="password_confirmation" autocomplete="new-password">
+                    <input class="form-control flatpickr-input @error('password')is-invalid @enderror"  type="password" name="password_confirmation" autocomplete="new-password">
                     @error('password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -259,6 +259,7 @@
       </div>
     </div> <!-- / .row -->
   </div>
+</div>
 @endsection
 @section('script')
 <script>

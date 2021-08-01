@@ -208,7 +208,6 @@ class UserController extends Controller
         session(['previous_user' => url()->previous()]);
         $cities = City::get();
         $roles = Role::get();
-        view('dashboard.layouts.aside', compact('user'));
         return view('dashboard.users.edit', compact('user', 'cities', 'roles'));
     }
 
@@ -219,7 +218,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
         if (!File::isDirectory($month)) {
@@ -231,7 +230,20 @@ class UserController extends Controller
             ]);
             $image = $request->file('profile_photo_path')->store(now()->year . '/' . sprintf("%02d", now()->month));
         }
-        $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+        if($user->status === 1){
+            if($request->has('phone')){
+                $request->merge(['phone' => preg_replace('/[^0-9]/', '', $request->phone)]);
+            }
+            $request->validate([
+                'profile_photo_path' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+                'name' => 'required',
+                'phone' => 'required|digits:9',
+                'email' =>  'required|email',
+                'city_id' => 'required',
+                'password' => 'required|confirmed|min:8'
+            ]);
+        }
+        $user->update($request->all() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
         Log::create([
             'user_id' => Auth::user()->id,
             'action' => 2,
