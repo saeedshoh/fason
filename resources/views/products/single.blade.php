@@ -349,15 +349,15 @@
         <h2 class="my-2 my-md-5"> <a href="{{ route('ft-store.guest', $product->store->slug) }}" class="text-muted mb-other-product text-decoration-none">Другие товары продавца</a></h2>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined">
-        @forelse ($similars as $product)
+        @forelse ($similars as $similar)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0  h-100 w-100">
-            <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+            <img class="img-fluid rounded" src="{{ Storage::url($similar->image) }}" alt="">
             <div class="container">
-              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
+              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($similar->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
-                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                <span class="font-weight-bold">{{ $similar->price_after_margin }} сомони</span>
+                <a href="{{ route('ft-products.single', $similar->slug) }}" class="stretched-link"></a>
               </div>
             </div>
           </div>
@@ -374,15 +374,15 @@
         <h2 class="mb-4 mt-2 my-md-5 text-muted mb-other-product">Топ продаж</h2>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 mb-5 px-2 px-md-0 custom-lined">
-        @forelse ($topProducts as $product)
+        @forelse ($topProducts as $topProduct)
         <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
           <div class="card rounded shadow border-0  h-100 w-100">
-            <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
+            <img class="img-fluid rounded" src="{{ Storage::url($topProduct->image) }}" alt="">
             <div class="container">
-              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($product->name, 30) }}</h4>
+              <h4 class="product-name shop-subject mt-3" >{{ Str::limit($topProduct->name, 30) }}</h4>
               <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
-                <span class="font-weight-bold">{{ $product->price_after_margin }} сомони</span>
-                <a href="{{ route('ft-products.single', $product->slug) }}" class="stretched-link"></a>
+                <span class="font-weight-bold">{{ $topProduct->price_after_margin }} сомони</span>
+                <a href="{{ route('ft-products.single', $topProduct->slug) }}" class="stretched-link"></a>
               </div>
             </div>
           </div>

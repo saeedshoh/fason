@@ -194,12 +194,12 @@
                       @else
                         <div class="public_card_custom">Опубликовано</div>
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                        @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
-                        @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
+                        @if($product->updated_at->diffInDays(now()) === 1)
+                          {{ $product->updated_at->diffInDays(now()) }} день
+                        @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
+                          {{ $product->updated_at->diffInDays(now()) }} дня
                         @else
-                          {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
+                          {{ $product->updated_at->diffInDays(now()) }} дней
                         @endif
                       @endif
                     </span>
@@ -230,14 +230,14 @@
                   <div class="container mt-3">
                     <span class="text-secondary">
                         <div class="public_card_custom">Опубликовано</div>
-                      <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                      @if(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1) == 1)
-                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} день
-                      @elseif(in_array(substr(($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d'), -1), ['2','3','4']))
-                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дня
-                      @else
-                        {{ ($product->updated_at->format('d')+7) - \Carbon\Carbon::now()->format('d') }} дней
-                      @endif
+                        <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
+                        @if($product->updated_at->diffInDays(now()) === 1)
+                            {{ $product->updated_at->diffInDays(now()) }} день
+                        @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
+                            {{ $product->updated_at->diffInDays(now()) }} дня
+                        @else
+                            {{ $product->updated_at->diffInDays(now()) }} дней
+                        @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>
                     <div class="price-place d-flex justify-content-between align-items-center mb-3 text-danger">
