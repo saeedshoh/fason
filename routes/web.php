@@ -126,13 +126,13 @@ Route::middleware('client')->group(function () {
     });
 
     Route::patch('store/toggle/{store}', [StoreController::class, 'toggleUser'])->name('ft-store.toggleUser');
-    Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+    Route::patch('store/update/{store}', [StoreController::class, 'update']);
     Route::post('store/store', [StoreController::class, 'store'])->name('ft-store.store');
     Route::get('store/create', [StoreController::class, 'create'])->name('ft-store.create');
     Route::get('store/exist/{name}', [StoreController::class, 'exist'])->name('ft-store.exist');
 
-    Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
-    Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
+    Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update']);
+    Route::post('/product/store/test', [ProductController::class, 'test_store']);
     Route::get('products/add', [ProductController::class, 'add_product'])->name('ft_product.add_product');
     Route::post('/products/cancelDestroy/{product}', [ProductController::class, 'cancelDestroy'])->name('ft_product.cancelDestroy');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('ft_product.destroy');
@@ -149,9 +149,9 @@ Route::middleware('client')->group(function () {
 });
 
 Route::middleware('checkAdmin')->group(function() {
-    Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
-    Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
-    Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
+    Route::put('/dashboard/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
+    Route::post('/dashboard/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
+    Route::patch('/dashboard/store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
 });
 
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');

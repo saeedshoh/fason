@@ -214,9 +214,10 @@ $(document).on('click', '.add-product-btn', function() {
                 attributes.push(item)
             })
         }
+        const dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
         const image = $('#main-poster').attr('src');
         const query_url =
-            check_page == 'true' ? `/products/edit/test/${product_id}` : '/product/store/test';
+            check_page == 'true' ? (dashboard ? `dashboard` : ``) + `/products/edit/test/${product_id}` : (dashboard ? `dashboard` : ``) + '/product/store/test';
         let gallery = $('.preview-element-image');
         let galleries = [];
         let itemsProcessed = 0;
@@ -475,6 +476,7 @@ $(document).on('click', '#storeEditSubmit', function(e){
         const city_id = $('input[name="city_id"]:checked').val();
         const avatar = $('#avatar-poster').attr('src');
         const cover = $('#cover-poster-mobile').attr('src');
+        const dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
 
         formData.append('_token', $('meta[name=csrf-token]').attr('content'));
         formData.append('_method', $('input[name=_method]').val());
@@ -485,7 +487,7 @@ $(document).on('click', '#storeEditSubmit', function(e){
         formData.append('avatar', avatar);
         formData.append('cover', cover);
         $.ajax({
-            url: `/store/update/${id}`,
+            url: (dashboard ? `/dashboard` : ``) + `/store/update/${id}`,
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
