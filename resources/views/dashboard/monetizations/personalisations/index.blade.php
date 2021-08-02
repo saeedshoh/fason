@@ -103,22 +103,22 @@
                 @forelse ($personalisations as $key => $personalisation)
                     @if ($personalisation->monetizations_count !== 0)
                     <tr>
-                        <td class="item-order">
+                        <td class="item-order py-0">
                             #{{ $personalisation->id }}
                         </td>
-                        <td class="item-name">
+                        <td class="item-name py-0">
                             <div class="avatar avatar-xs align-middle mr-2">
                                 <img class="avatar-img rounded-circle" src="{{ Storage::url($personalisation->avatar) }}" alt="...">
                             </div>
-                            <a class="text-reset" href="{{ route('showStoreMonetization', $personalisation) }}">{{ $personalisation->name }}</a>
+                            <a class="text-reset " href="{{ route('showStoreMonetization', $personalisation) }}">{{ $personalisation->name }}</a>
                         </td>
-                        <td class="item-phone">
+                        <td class="item-phone  py-0">
                             <span class="text-reset">{{ $personalisation->user->phone }}</span>
                         </td>
-                        <td class="item-location">
+                        <td class="item-location py-0">
                             {{ $personalisation->city->name }}
                         </td>
-                    <td class="text-right">
+                    <td class="text-right py-0">
                         <a href="{{ route('showStoreMonetization', $personalisation) }}" class="btn btn-warning m-1 fa-pull-right">
                             <i class="fe fe-eye" aria-hidden="true"></i>
                         </a>
