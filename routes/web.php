@@ -151,6 +151,7 @@ Route::middleware('client')->group(function () {
 Route::middleware('checkAdmin')->group(function() {
     Route::put('/products/edit/test/{product}', [ProductController::class, 'test_update'])->name('test_update');
     Route::post('/product/store/test', [ProductController::class, 'test_store'])->name('test_store');
+    Route::patch('store/update/{store}', [StoreController::class, 'update'])->name('ft-store.update');
 });
 
 Route::get('store/{slug}/guest', [StoreController::class, 'guest'])->name('ft-store.guest');
