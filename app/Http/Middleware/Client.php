@@ -16,10 +16,7 @@ class Client
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-        if (auth()->user()->status !== 2) {
+        if (auth()->check() && auth()->user()->status !== 2) {
             abort(404);
         }
         return $next($request);
