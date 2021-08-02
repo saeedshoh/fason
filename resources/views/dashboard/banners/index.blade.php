@@ -89,11 +89,11 @@
 
                     @forelse ($banners as $key => $banner)
                     <tr>
-                      <td>
+                      <td class="py-0">
                         {{ ++$key }}
                       </td>
 
-                        <td>
+                        <td class="py-0">
                       @permission('update-banners')
                           <!-- Avatar -->
                           <div class="avatar avatar-xs align-middle mr-2">
@@ -102,11 +102,11 @@
                       @endpermission
                         </td>
 
-                      <td class="item-position">
+                      <td class="item-position py-0">
                         {{ $banner->position }}
                       </td>
 
-                      <td class="text-right">
+                      <td class="text-right py-0">
 
                         @permission('delete-banners')
                           <form class="d-inline" action="{{ route('banners.destroy', $banner) }}" method="POST">
