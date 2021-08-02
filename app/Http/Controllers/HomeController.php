@@ -80,8 +80,11 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        if(auth()->check() && auth()->user()->status !== 2){
-            auth()->logout();
+        if(!auth()->guest() && auth()->user()->status !== 2){
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect(route('home'));
         }
         $stores = null;
         $starred_stores = Store::starred()->latest('order_number')->take(10)->get();
