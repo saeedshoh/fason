@@ -127,15 +127,15 @@
                                         <tbody class="list font-size-base">
                                             @forelse ($attributes as $key => $item)
                                                 <tr>
-                                                    <td class="item-order">
+                                                    <td class="item-order py-0">
                                                         <!-- Checkbox -->
                                                         #{{ $item->id }}
                                                     </td>
                                                     <td>
-                                                        <a class="item-name text-reset"
+                                                        <a class="item-name text-reset py-0"
                                                             href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">{{ $item->name }}</a>
                                                     </td>
-                                                    <td>
+                                                    <td class="py-0">
                                                         <a class="item-name text-reset"
                                                             href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">
                                                             @if ($parent->name == 'Цвет')
@@ -149,7 +149,7 @@
                                                         </a>
                                                     </td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right py-0">
                                                         <form class="d-inline"
                                                             action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}"
                                                             method="POST">
@@ -167,7 +167,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td class="text-muted h4" colspan="7">
+                                                    <td class="text-muted h4 py-0" colspan="7">
                                                         <span class="text-muted">Данные отсутствуют </span>
                                                     </td>
                                                 </tr>

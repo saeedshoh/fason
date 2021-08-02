@@ -19,17 +19,17 @@
     <tbody class="list font-size-base">
         @forelse ($attributes as $key => $item)
         <tr>
-        <td>
+        <td class="py-0">
 
             <!-- Checkbox -->
             #{{ $item->id }}
 
         </td>
-        <td>
+        <td class="py-0">
             <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
         </td>
 
-        <td class="text-right">
+        <td class="text-right py-0">
             <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
                 @csrf
                 <button type="submit" href="{{ route('attributes.destroy', $item->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">
