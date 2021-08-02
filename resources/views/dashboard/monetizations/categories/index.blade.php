@@ -98,13 +98,13 @@
                 @forelse ($monetizationsCategories as $key => $monetizationCategory)
                     @if ($monetizationCategory->monetizations_count !== 0)
                     <tr>
-                        <td class="item-order">
+                        <td class="item-order py-0">
                             #{{ $monetizationCategory->id }}
                         </td>
-                        <td class="item-name">
-                            <span class="text-reset">{{ $monetizationCategory->name }}</span>
+                        <td class="item-name py-0">
+                            <span class="text-reset ">{{ $monetizationCategory->name }}</span>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right py-0">
                             <a href="{{ route('showCategoryMonetization', $monetizationCategory) }}" class="btn btn-warning m-1 fa-pull-right">
                                 <i class="fe fe-eye" aria-hidden="true"></i>
                             </a>
@@ -120,7 +120,7 @@
               </tbody>
             </table>
 
-            <div class="text-muted h4 no-result p-3 m-1" style="display: none">Список монетизаций пуст</div>
+            <div class="text-muted h4 no-result p-3 m-1 py-0" style="display: none">Список монетизаций пуст</div>
 
           </div>
           <div class="card-footer d-flex justify-content-center">

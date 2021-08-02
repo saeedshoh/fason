@@ -123,22 +123,22 @@
                 @forelse ($monetizations as $key => $monetization)
                 @if($monetization->stores->isEmpty() && $monetization->categories->isEmpty())
                 <tr>
-                  <td class="monetizations-order">
+                  <td class="monetizations-order py-0">
                     #{{ $monetization->id }}
                   </td>
-                  <td class="monetizations-min">
+                  <td class="monetizations-min py-0">
                     {{ $monetization->min}}
                   </td>
-                  <td class="monetizations-max">
+                  <td class="monetizations-max py-0">
                     {{ $monetization->max}}
                   </td>
-                  <td class="monetizations-margin">
+                  <td class="monetizations-margin py-0">
                     {{ $monetization->margin ?? '0'}}%
                   </td>
-                  <td class="monetizations-added_val">
+                  <td class="monetizations-added_val py-0">
                     {{ $monetization->added_val ?? '0'}}
                   </td>
-                  <td class="text-right">
+                  <td class="text-right py-0">
 
                     @permission('delete-monitization')
                       <form class="d-inline" action="{{ route('monetizations.destroy', $monetization) }}" method="POST">
