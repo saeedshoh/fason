@@ -141,7 +141,7 @@
                   </div>
                 </div>
                 <!-- Button -->
-                <button class="btn btn-primary mt-2" data-id="#{{ $store->id }}" type="submit" id="storeEditSubmit">Изменить</button>
+                <button class="btn btn-primary mt-2" data-id="{{ $store->id }}" type="submit" id="storeEditSubmit">Изменить</button>
 
             </div>
           </div>
