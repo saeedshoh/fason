@@ -87,15 +87,15 @@
                         <tbody class="list font-size-base">
                             @forelse ($attributes as $key => $item)
                             <tr>
-                            <td class="item-order">
+                            <td class="item-order py-0">
                                 <!-- Checkbox -->
                                 #{{ $item->id }}
                             </td>
-                            <td>
+                            <td class="py-0">
                                 <a class="item-name text-reset" href="{{ route('attr_val.index', ['id'=> $item->id]) }}">{{ $item->name }}</a>
                             </td>
 
-                            <td class="text-right">
+                            <td class="text-right py-0">
                                  @permission('delete-attributes')
                                   <form class="d-inline" action="{{ route('attributes.destroy', $item) }}" method="POST">
                                       @csrf
@@ -119,7 +119,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="text-muted h4" colspan="7">
+                                <td class="text-muted h4 py-0" colspan="7">
                                     <span>Данные отсутствуют </span>
                                 </td>
                             </tr>

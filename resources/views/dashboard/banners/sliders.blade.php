@@ -87,20 +87,20 @@
 
                     @forelse ($sliders as $key => $slider)
                     <tr>
-                      <td>
+                      <td class="py-0">
                         {{ ++$key }}
                       </td>
 
-                      <td>
+                      <td class="py-0">
                         <!-- Avatar -->
                         <div class="avatar avatar-xs align-middle mr-2">
                           <img class="avatar-img rounded-circle" src="/storage/{{ $slider->image }}">
                         </div> <a class="item-name text-reset" href="{{ route('banners.edit', $slider) }}">Слайдер {{ ++$key }}</a>
                       </td>
-                      <td class="item-position">
+                      <td class="item-position py-0">
                         {{ $slider->position }}
                       </td>
-                      <td class="text-right">
+                      <td class="text-right py-0">
                         <form class="d-inline" action="{{ route('banners.destroy', $slider) }}" method="POST">
                             @csrf
                             <button type="submit" href="{{ route('banners.destroy', $slider->id) }}"  class="btn btn-danger m-1 pull-right delete-confirm">

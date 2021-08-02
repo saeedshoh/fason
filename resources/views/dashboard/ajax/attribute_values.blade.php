@@ -20,14 +20,14 @@
         <tbody class="list font-size-base">
             @forelse ($attributes as $key => $item)
             <tr>
-            <td>
+            <td class="py-0">
                 <!-- Checkbox -->
                 #{{ $item->id }}
             </td>
-            <td>
+            <td class="py-0">
                 <a class="item-name text-reset" href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">{{ $item->name }}</a>
             </td>
-            <td>
+            <td class="py-0">
                 <a class="item-name text-reset" href="{{ route('attr_val.edit', ['id' => $parent->id, 'val_id' => $item]) }}">
 
                     @if ($parent->name == 'Цвет')
@@ -41,7 +41,7 @@
                 </a>
             </td>
 
-            <td class="text-right">
+            <td class="text-right py-0">
                 <form class="d-inline" action="{{ route('attr_val.destroy', ['id' => $parent->id, 'val_id' => $item]) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger m-1 pull-right delete-confirm">

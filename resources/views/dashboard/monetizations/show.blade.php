@@ -110,22 +110,22 @@
               <tbody class="list">
                 @forelse ($monetizations as $key => $monetization)
                 <tr>
-                  <td class="monetizations-order">
+                  <td class="monetizations-order py-0">
                     #{{ $monetization->id }}
                   </td>
-                  <td class="monetizations-min">
+                  <td class="monetizations-min py-0">
                     {{ $monetization->min}}
                   </td>
-                  <td class="monetizations-max">
+                  <td class="monetizations-max py-0">
                     {{ $monetization->max}}
                   </td>
-                  <td class="monetizations-margin">
+                  <td class="monetizations-margin py-0">
                     {{ $monetization->margin ?? '0'}}%
                   </td>
-                  <td class="monetizations-added_val">
+                  <td class="monetizations-added_val py-0">
                     {{ $monetization->added_val ?? '0'}}
                   </td>
-                  <td class="text-right">
+                  <td class="text-right py-0">
                     <a href="{{ route('monetizations.edit', $monetization) }}" class="btn btn-primary m-1 pull-right">
                       <i class="fe fe-edit"> </i>
                     </a>
@@ -149,10 +149,7 @@
           </div>
           <div class="card-footer d-flex justify-content-center">
             <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                    </li>
-                </ul>
+
             </nav>
           </div>
         </div>
