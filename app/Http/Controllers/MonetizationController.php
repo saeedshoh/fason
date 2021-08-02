@@ -25,7 +25,7 @@ class MonetizationController extends Controller
 
     public function index(Request $request)
     {
-        $monetizations = Monetization::paginate(30);
+        $monetizations = Monetization::orderBy('id', 'DESC')->paginate(30);
         $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
         $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
         return view('dashboard.monetizations.index', compact('monetizations', 'monetizations_categories_count', 'personalisations_count'));
@@ -41,7 +41,7 @@ class MonetizationController extends Controller
         $monetizations = Monetization::get();
         $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->get();
         $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
-        $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->paginate(30);
+        $personalisations = Store::where('is_monetized', true)->orderBy('id', 'DESC')->withCount('monetizations')->paginate(30);
         $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
         return view('dashboard.monetizations.personalisations.index', compact('monetizations', 'personalisations', 'monetizationsCategories', 'monetizations_categories_count', 'personalisations_count'));
     }
@@ -54,7 +54,7 @@ class MonetizationController extends Controller
     public function categoryMonetizationsIndex()
     {
         $monetizations = Monetization::get();
-        $monetizationsCategories = Category::where('is_monetized', true)->withCount('monetizations')->paginate(30);
+        $monetizationsCategories = Category::where('is_monetized', true)->orderBy('id', 'DESC')->withCount('monetizations')->paginate(30);
         $monetizations_categories_count = DB::table('category_monetization')->distinct('category_id')->count();
         $personalisations = Store::where('is_monetized', true)->withCount('monetizations')->get();
         $personalisations_count = DB::table('monetization_store')->distinct('store_id')->count();
@@ -114,7 +114,7 @@ class MonetizationController extends Controller
         $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
         $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Store::find($monetization->id);
-        $monetizations = $monetized->monetizations->paginate(30);
+        $monetizations = $monetized->monetizations->sortByDesc('id');
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }
 
@@ -130,7 +130,7 @@ class MonetizationController extends Controller
         $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
         $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Category::where('id', $id)->first();
-        $monetizations = $monetized->monetizations;
+        $monetizations = $monetized->monetizations->sortByDesc('id');
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }
 
@@ -146,7 +146,7 @@ class MonetizationController extends Controller
         $personalisationsCount = DB::table('monetization_store')->distinct('store_id')->count();
         $categoriesCount = DB::table('category_monetization')->distinct('category_id')->count();
         $monetized = Store::where('id', $id)->first();
-        $monetizations = $monetized->monetizations;
+        $monetizations = $monetized->monetizations->sortByDesc('id');
         return view('dashboard.monetizations.show', compact('monetizationsCount', 'personalisationsCount', 'categoriesCount', 'monetized', 'monetizations'));
     }
 
