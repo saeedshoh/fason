@@ -43,7 +43,7 @@
         </div>
         <div class="col-md-9 px-0 px-md-2 position-relative">
           <label for="cover">
-            <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image" id="cover-poster-mobile" height="216">
+            <img src="/storage/{{ $store->cover ?? 'theme/banner_store.svg' }}" class="w-100 rounded store-image object-contain" id="cover-poster-mobile" height="216">
           </label>
           <div class="change-banner position-absolute">
             <label for="cover" class="btn btn-edit rounded-pill">
