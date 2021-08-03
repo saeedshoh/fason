@@ -1,8 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
-
 if (! function_exists('getMobiCover')) {
     function getMobiCover($path)
     {
