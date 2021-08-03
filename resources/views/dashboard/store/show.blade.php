@@ -152,10 +152,13 @@
                 <small>Владелец</small> <small>{{ $store->user->name }}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Адрес</small> <small>{{ $store_edit->address }}</small>
+                <small>Телефон</small> <small><a href="tel:+992{{ $store->user->phone }}" class="text-body">{{ $store->user->phone }}</a></small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                 <small>Город</small> <small>{{ $store_edit->city->name }}</small>
+              </li>
+              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+                <small>Адрес</small> <small>{{ $store_edit->address }}</small>
               </li>
               <li class="list-group-item d-flex align-items-center justify-content-between px-0">
                 <small>Аватарка</small> <i class="fe {{ $store_edit->avatar ? 'fe-check-circle text-success' : 'fe-alert-triangle text-danger'}}"></i>
