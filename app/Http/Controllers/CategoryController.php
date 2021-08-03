@@ -99,27 +99,36 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        // $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
+        // $categories = Category::where('parent_id', 0)
+        //     ->orderBy('order_no')
+        //     ->paginate(30)
+        //     ->withQueryString();
         $allCategories = Category::where('name', 'like', '%' . $request->search . '%')->get();
-        $categories = Category::where('parent_id', 0)
-            ->orderBy('order_no')
-            ->paginate(30)
-            ->withQueryString();
+        $categories = Category::orderBy('order_no')->paginate(30)->withQueryString();
         if ($request->ajax()) {
             if ($request->search != '') {
-                $categories = Category::where('parent_id', 0)
-                    ->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('childrens', function ($children) use ($request) {
-                        $children->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
-                    })
-                    ->orWhereHas('grandchildren', function ($grandchildren) use ($request) {
-                        $grandchildren->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
-                    })
+                // $categories = Category::where('parent_id', 0)
+                //     ->where('name', 'like', '%' . $request->search . '%')
+                //     ->orWhereHas('childrens', function ($children) use ($request) {
+                //         $children->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
+                //     })
+                //     ->orWhereHas('grandchildren', function ($grandchildren) use ($request) {
+                //         $grandchildren->where('name', 'like', '%' . $request->search . '%')->orderBy('order_no');
+                //     })
+                //     ->orderBy('order_no')
+                //     ->paginate(30)
+                //     ->withQueryString();
+                $categories = Category::where('name', 'like', '%' . $request->search . '%')
                     ->orderBy('order_no')
                     ->paginate(30)
                     ->withQueryString();
             } else {
-                $categories = Category::where('parent_id', 0)
-                    ->orderBy('order_no')
+                // $categories = Category::where('parent_id', 0)
+                //     ->orderBy('order_no')
+                //     ->paginate(30)
+                //     ->withQueryString();
+                $categories = Category::orderBy('order_no')
                     ->paginate(30)
                     ->withQueryString();
             }
