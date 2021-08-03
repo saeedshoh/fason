@@ -25,7 +25,6 @@ class StoreController extends Controller
     public function guest($slug)
     {
         $store = Store::where('slug', $slug)->first();
-        $store->mobile_cover = $this->getMobiCover($store->cover);
         $products = Product::where('store_id', $store->id)->where('product_status_id', 2)->get();
         if($store == Store::where('user_id', auth()->id())->first()){
             $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
@@ -293,7 +292,6 @@ class StoreController extends Controller
     public function show($slug)
     {
         $store = Store::where('slug', $slug)->withoutGlobalScopes()->first();
-        $store->mobile_cover = $this->getMobiCover($store->cover);
         $product = new Product();
         $product->timestamps = false;
         $product->withoutGlobalScopes()->where('updated_at', '<', now()->subWeek())->update(['product_status_id' => 4]);
@@ -340,7 +338,6 @@ class StoreController extends Controller
     public function edit($slug)
     {
         $store = Store::withoutGlobalScopes()->where('slug', $slug)->first();
-        $store->mobile_cover = $this->getMobiCover($store->cover);
         $cities = City::get();
         return view('store.edit', compact('store', 'cities'));
     }
