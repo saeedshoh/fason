@@ -1037,6 +1037,9 @@ input[type=number] {
     object-fit: cover;
 }
 
+.object-contain{
+    object-fit: contain !important;
+}
 
 /* product-single*/
 

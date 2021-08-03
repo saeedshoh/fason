@@ -22,7 +22,7 @@
            </div>
          </div>
          <div class="col-md-9 px-0 px-md-2 position-relative">
-          <img src="/storage/{{$store->cover ?? '/theme/banner_store.svg' }}" class="w-100 rounded store-banner" height="215">
+          <img src="/storage/{{$store->cover ?? '/theme/banner_store.svg' }}" class="w-100 rounded store-banner object-contain" height="215">
          </div>
          <div class="col-12 d-block my-4">
           <div class="row align-items-center">
