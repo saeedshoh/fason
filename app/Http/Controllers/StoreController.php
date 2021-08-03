@@ -511,7 +511,7 @@ class StoreController extends Controller
         }
         $previous = session('previous');
         $store = Store::withoutGlobalScopes()->find($store);
-        $store_edit = StoreEdit::where('store_id', $store)->where('is_moderation', '=', 1)->first();
+        $store_edit = StoreEdit::withoutGlobalScopes()->where('store_id', $store->id)->where('is_moderation', 1)->first();
 
         return view('dashboard.store.show', compact('store', 'store_edit', 'previous'));
     }
