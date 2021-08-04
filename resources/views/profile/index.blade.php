@@ -11,7 +11,7 @@
             <div class="row d-flex justify-content-center mb-3 my-md-4">
                 <h3>Мой профиль</h3>
             </div>
-            <form action="{{ route('ft_profile.update') }}" enctype="multipart/form-data" method="POST" id="editProfile">
+            <form action="{{ route('ft_profile.update') }}" enctype="multipart/form-data" method="POST" id="editProfile" onsubmit="return false">
                 @csrf
                 @method('POST')
                 <div class="row">
