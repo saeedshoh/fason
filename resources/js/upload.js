@@ -516,3 +516,47 @@ $(document).on('click', '#storeEditSubmit', function(e){
         $('#update-store').addClass('was-validated')
     }
 })
+
+$(document).on('click', '#profileUpdate', function(e){
+    e.preventDefault();
+    var id = $(this).data('id')
+    if($('input[name="city_id').val() != '' && $('input[name="name"]').val() != '' && $('input[name="address"]').val() != '') {
+        var formData = new FormData();
+        const avatar = $('#avatar-poster').attr('src');
+        const city_id = $('input[name="city_id"]:checked').val();
+        const name = $('input[name="name"]').val();
+        const address = $('input[name="address"]').val();
+
+        formData.append('_token', $('meta[name=csrf-token]').attr('content'));
+        formData.append('_method', $('input[name=_method]').val());
+        formData.append('avatar', avatar);
+        formData.append('city_id', city_id);
+        formData.append('name', name);
+        formData.append('address', address);
+
+        $.ajax({
+            url: `/profile/update`,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            data: formData,
+            beforeSend: function() {
+                $('.success-preloader').removeClass('d-none');
+            },
+            success: () => {
+                location.reload();
+            },
+            error: function(status) {
+                console.log(status);
+            },
+            complete: function() {
+                $('.success-preloader').remove();
+            }
+        });
+    } else {
+        $('#editProfile').addClass('was-validated')
+    }
+})

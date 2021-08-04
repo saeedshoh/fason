@@ -86,7 +86,7 @@
                         </div>
 
                           <div class="my-5 text-center">
-                            <button type="submit" class="btn mb-5 btn-danger px-5 rounded-11">Сохранить</button>
+                            <button type="submit" class="btn mb-5 btn-danger px-5 rounded-11" id="profileUpdate">Сохранить</button>
                           </div>
                     </div>
                 </div>

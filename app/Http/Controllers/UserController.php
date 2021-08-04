@@ -312,23 +312,37 @@ class UserController extends Controller
      */
     public function ft_update(UserRequest $request)
     {
-        if (Auth::user()) {
-            $user = User::find(Auth::user()->id);
-            $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
-            if (!File::isDirectory($month)) {
-                File::makeDirectory($month, 0777, true);
-            }
-            if ($request->file('profile_photo_path')) {
-                $request->validate([
-                    'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
-                ]);
-                $image = $this->save($request, 'profile_photo_path');
-            }
-            $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
-            return redirect()->route('profile');
-        }
+        // if (Auth::user()) {
+        //     $user = User::find(Auth::user()->id);
+        //     $month = public_path('/storage/') . now()->year . '/' . sprintf("%02d", now()->month);
+        //     if (!File::isDirectory($month)) {
+        //         File::makeDirectory($month, 0777, true);
+        //     }
+        //     if ($request->file('profile_photo_path')) {
+        //         $request->validate([
+        //             'profile_photo_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
+        //         ]);
+        //         $image = $this->save($request, 'profile_photo_path');
+        //     }
+        //     $user->update($request->validated() + ['profile_photo_path' => $request->file('profile_photo_path') ? $image : $user->profile_photo_path]);
+        //     return redirect()->route('profile');
+        // }
 
-        return redirect()->route('profile');
+        // return redirect()->route('profile');
+
+        if ($request->ajax() && Auth::user()) {
+            $data = $request->validated();
+            $user = User::find(Auth::user()->id);
+            $avatar_json = $request->avatar;
+            $avatar_path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid() . '.jpg';
+            if (preg_match('/^data:image\/(\w+);base64,/', $avatar_json)) {
+                $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
+                $vtr = base64_decode($vtr);
+                Storage::disk('public')->put($avatar_path, $vtr);
+                $data['profile_photo_path'] = $this->saveAvatar($avatar_path);
+            }
+            $user->update($data);
+        }
     }
 
     public function changeAddress(Request $request)
