@@ -517,9 +517,7 @@ $(document).on('click', '#storeEditSubmit', function(e){
     }
 })
 
-$(document).on('click', '#profileUpdate', function(e){
-    e.preventDefault();
-    var id = $(this).data('id')
+$(document).on('click', '#profileUpdate', function(){
     if($('input[name="city_id').val() != '' && $('input[name="name"]').val() != '' && $('input[name="address"]').val() != '') {
         var formData = new FormData();
         const avatar = $('#avatar-poster').attr('src');
@@ -535,7 +533,7 @@ $(document).on('click', '#profileUpdate', function(e){
         formData.append('address', address);
 
         $.ajax({
-            url: `/profile/update`,
+            url: '/profile/update',
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

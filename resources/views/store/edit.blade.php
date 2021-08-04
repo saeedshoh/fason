@@ -37,7 +37,7 @@
           </div>
           <div class="d-none d-md-block">
             <div class="photo_describe_size">
-                <span class="text-muted">Фотография профиля <span class="badge badge-danger">размером 8270х215</span></span>
+                <span class="text-muted">Фотография профиля <span class="badge badge-danger">размером 270х215</span></span>
               </div>
           </div>
         </div>
@@ -52,10 +52,10 @@
             </label>
           </div>
            <div class="d-block d-md-none mb-3 mt-3 px-3">
-              <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 8840х215</span></span>
+              <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 840х215</span></span>
             </div>
           <div class="d-none d-md-block photo_describe_size">
-            <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 840х215Б</span></span>
+            <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 840х215</span></span>
           </div>
         </div>
         <div class="col-12 d-block d-md-none mt-3">

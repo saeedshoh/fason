@@ -654,8 +654,6 @@ $(document).on('click', '#btn-add_address', function() {
     var formData = new FormData()
     formData.append('_token', $('meta[name=csrf-token]').attr('content'))
 
-    // var formData = new FormData($('#add_address'));
-
     let phone = $('#phone').val()
     let name = $(this)
         .closest('form')
@@ -687,6 +685,9 @@ $(document).on('click', '#btn-add_address', function() {
             contentType: false,
             processData: false,
             data: formData,
+            beforeSend: function() {
+                $('.success-preloader').removeClass('d-none');
+            },
             success: data => {
                 location.reload(true)
             },
