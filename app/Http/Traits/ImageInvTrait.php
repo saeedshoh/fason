@@ -173,7 +173,8 @@ trait ImageInvTrait {
                 $constraint->aspectRatio();
             });
         }
-        $back = Image::canvas('275', '220')->insert($img, 'center');
+        $manager = new ImageManager(array('driver' => 'gd'));
+        $back = $manager->canvas('275', '220')->insert($img, 'center');
         $path = now()->year . '/' . sprintf("%02d", now()->month) . '/' . uniqid().'.jpg';
         $back->save(public_path('/storage/'.$path));
 
@@ -190,7 +191,9 @@ trait ImageInvTrait {
         $img = Image::make(public_path('/storage/'.$image))->resize(850, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $back = Image::canvas('850', '220')->insert($img, 'center');
+
+        $manager = new ImageManager(array('driver' => 'gd'));
+        $back = $manager->canvas('850', '220')->insert($img, 'center');
         $mobi_back = Image::canvas('450', '220')->insert($img, 'center');
         $uniqid = uniqid().'.jpg';
         $path = now()->year . '/' . sprintf("%02d", now()->month).'/' .$uniqid ;
