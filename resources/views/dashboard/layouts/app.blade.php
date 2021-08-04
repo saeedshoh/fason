@@ -35,7 +35,7 @@
     @yield('script')
 
   </body>
-  <div class="success-preloader d-none" style="height: 100vh;">
+  <div class="success-preloader d-none">
     <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
   </div>
 </html>
