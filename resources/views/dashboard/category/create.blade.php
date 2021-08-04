@@ -41,6 +41,11 @@
                 @endforeach
             </div>
             @endif
+            @if (session('class'))
+            <div class="alert alert-{{ session('class') }} mt-4">
+                {{session()->get('message')}}
+            </div>
+            @endif
             <div class="row">
 
                 <div class="col-lg-6">
