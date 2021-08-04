@@ -91,7 +91,7 @@
 
                                     <div class="col-12 col-md-12 mb-4">
                                         <label for="url">Ссылка на баннер</label>
-                                        <input value="{{old('icon')}}" type="text" name="url" id="url" class="form-control @error('url') is-invalid @enderror">
+                                        <input value="{{ old('url') ?? $banner->url }}" type="text" name="url" id="url" class="form-control @error('url') is-invalid @enderror">
 
                                         @error('url')
                                         <div class="invalid-feedback">
