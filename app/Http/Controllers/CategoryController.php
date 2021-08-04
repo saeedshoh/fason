@@ -204,6 +204,10 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+        $ctgry = Category::select('parent_id', 'name')->where('name', $request->name)->with('parent')->first();
+        if($ctgry->parent_id == $request->parent_id) {
+            return redirect()->back()->with(['class' => 'warning', 'message' => 'Подкатегория с таким названием уже существует в категории «'.$ctgry->parent->name.'»']);
+        }
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $request->parent_id != 0 ? Category::where('id', $request->parent_id)->first()->name : 'Родительская';
@@ -231,7 +235,6 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->route('categories.index')->with( ['class' => 'success', 'message' => 'Категория  «'.$category->name.'»  успешно добавлен!']);
-
     }
 
     /**
@@ -268,6 +271,11 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+        $ctgry = Category::select('parent_id', 'name')->where('name', $request->name)->with('parent')->first();
+        if($request->name != $category->name && $ctgry->parent_id == $request->parent_id) {
+            return redirect()->back()->with(['class' => 'warning', 'message' => 'Подкатегория с таким названием уже существует в категории «'.$ctgry->parent->name.'»']);
+        }
+
         if (strrpos($request->previous, '?')) {
             substr($request->previous, strrpos($request->previous, '?'));
         }
