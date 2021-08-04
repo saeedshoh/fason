@@ -194,7 +194,7 @@
                     <!-- Avatar -->
                     <div class="avatar avatar-xs align-middle mr-2">
                         @if($category->parent_id == '0')
-                        <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon }}">
+                        <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon ?? 'camera.svg' }}">
                         @endif
                     </div>
                     <a class="item-name text-reset" href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
