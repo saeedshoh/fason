@@ -342,6 +342,7 @@ class UserController extends Controller
                 $data['profile_photo_path'] = $this->saveImage($avatar_path);
             }
             $user->update($data);
+            return $request;
         }
     }
 
