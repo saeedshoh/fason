@@ -545,7 +545,7 @@ $(document).on('click', '#profileUpdate', function(){
                 $('.success-preloader').removeClass('d-none');
             },
             success: () => {
-                location.reload();
+                location.reload(true)
             },
             error: function(status) {
                 console.log(status);
