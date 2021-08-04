@@ -338,6 +338,7 @@ class UserController extends Controller
             if (preg_match('/^data:image\/(\w+);base64,/', $avatar_json)) {
                 $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
                 $vtr = base64_decode($vtr);
+                Storage::disk('public')->put($avatar_path, $vtr);
                 $data['avatar'] = $this->saveAvatar($avatar_path);
             }
             $user->update($data);
