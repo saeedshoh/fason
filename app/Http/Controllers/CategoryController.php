@@ -367,7 +367,7 @@ class CategoryController extends Controller
             }
         }
 
-        return redirect(route('categories.index'))->with(['class' => $class, 'message' => $message]);
+        return redirect()->back()->with(['class' => $class, 'message' => $message]);
     }
 
     public function getSubCategories(Request $request)
