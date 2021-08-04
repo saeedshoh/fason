@@ -2,6 +2,7 @@ require('./jquery.inputmask.bundle.js')
 require('sweetalert2')
 import { upload } from './upload.js'
 import Swal from 'sweetalert2'
+import Compressor from 'compressorjs';
 
 let allAttrs = [];
 
@@ -1039,11 +1040,10 @@ $('.favorite').on('click', function() {
         })
 })
 
-// sms-congirm
+// sms-confirm
 $('#btn-login').on('click', function() {
     const phone = $('#phone').val()
     const code = $('#code').val()
-        // console.log(code);
     $('.wrong-code').hide()
     $.ajax({
         url: '/sms-confirmed',
@@ -1166,7 +1166,29 @@ function avatar(input) {
         var reader = new FileReader()
 
         reader.onload = function(e) {
-            $('#avatar-poster').attr('src', e.target.result)
+            if (input.files && input.files[0]) {
+                new Compressor(input.files[0], {
+                    quality: 0.8,
+                    maxWidth: 700,
+                    maxHeight: 700,
+                    minWidth: 700,
+                    minHeight: 700,
+                    height: 700,
+                    width: 700,
+                    success(result) {
+                        const reader = new FileReader();
+
+                        reader.onload = ev => {
+                            const src = ev.target.result;
+                            $('#avatar-poster').attr('src', src);
+                        };
+                        reader.readAsDataURL(result);
+                    },
+                    error(err) {
+                        console.log(err.message);
+                    }
+                });
+            }
             $('#avatar-poster-mobile').attr('src', e.target.result)
         }
 
@@ -1176,14 +1198,37 @@ function avatar(input) {
 
 function cover(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader()
+        new Compressor(input.files[0], {
+            quality: 0.8,
+            maxWidth: 700,
+            maxHeight: 700,
+            minWidth: 700,
+            minHeight: 700,
+            height: 700,
+            width: 700,
+            success(result) {
+                const reader = new FileReader();
 
-        reader.onload = function(e) {
-            $('#cover-poster-mobile').attr('src', e.target.result)
-        }
-
-        reader.readAsDataURL(input.files[0])
+                reader.onload = ev => {
+                    const src = ev.target.result;
+                    $('#cover-poster-mobile').attr('src', src);
+                };
+                reader.readAsDataURL(result);
+            },
+            error(err) {
+                console.log(err.message);
+            }
+        });
     }
+    // if (input.files && input.files[0]) {
+    //     var reader = new FileReader()
+
+    //     reader.onload = function(e) {
+    //         $('#cover-poster-mobile').attr('src', e.target.result)
+    //     }
+
+    //     reader.readAsDataURL(input.files[0])
+    // }
 }
 $('#image').change(function() {
     if ($(this).val() != '') {
