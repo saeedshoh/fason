@@ -339,7 +339,7 @@ class UserController extends Controller
                 $vtr = substr($avatar_json, strpos($avatar_json, ',') + 1);
                 $vtr = base64_decode($vtr);
                 Storage::disk('public')->put($avatar_path, $vtr);
-                $data['profile_photo_path'] = $this->saveAvatar($avatar_path);
+                $data['profile_photo_path'] = $this->saveImage($avatar_path);
             }
             $user->update($data);
         }
