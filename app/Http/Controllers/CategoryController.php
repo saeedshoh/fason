@@ -207,7 +207,7 @@ class CategoryController extends Controller
         $ctgry = Category::select('parent_id', 'name')->where('name', $request->name)->with('parent')->first();
         if($ctgry && $ctgry->parent_id == $request->parent_id) {
             $parent = 'Родительская';
-            if($ctgry->parent) $ctgry->parent->name;
+            if($ctgry->parent) $parent = $ctgry->parent->name;
             return redirect()->back()->with(['class' => 'warning', 'message' => 'Подкатегория с таким названием уже существует в категории «'.$parent.'»']);
         }
         $isActive = $request->is_active == 1 ? 'Активен' : 'Неактивен';
@@ -274,9 +274,9 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $ctgry = Category::select('parent_id', 'name')->where('name', $request->name)->with('parent')->first();
-        if($ctgry && $request->name != $category->name && $ctgry->parent_id == $request->parent_id) {
+        if($ctgry && ($request->name != $category->name && $request->name == $ctgry->name && $request->parent_id == $ctgry->parent_id) || ($request->name == $category->name && $request->name == $ctgry->name && $request->parent_id == $ctgry->parent_id && $request->parent_id != $category->parent_id)) {
             $parent = 'Родительская';
-            if($ctgry->parent) $ctgry->parent->name;
+            if($ctgry->parent) $parent = $ctgry->parent->name;
             return redirect()->back()->with(['class' => 'warning', 'message' => 'Подкатегория с таким названием уже существует в категории «'.$parent.'»']);
         }
 
