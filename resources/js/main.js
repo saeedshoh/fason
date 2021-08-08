@@ -215,7 +215,7 @@ $(document).ready(function() {
             //     'scrollCheck',
                 setTimeout(function() {
                     // $('#scroll-spinner').removeClass('d-none')
-                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 500
+                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop()
                     if (scroll_position_for_posts_load >= $(document).height()) {
                         var style = $('#catProducts .row').attr('data-style')
                         if(old_page != page){
