@@ -30,38 +30,3 @@
     <div id="noneStore"></div>
 </div>
 @endsection
-@section('script')
-<script>
-    $(window).scroll(fetchPosts)
-
-    var old_page = '';
-    function fetchPosts() {
-        // var url = $(location).attr('href')
-        var page = $('.endless-pagination').data('next-page')
-        if (page !== null && page !== '' && !page.substring(0, 5).includes('null&')) {
-            clearTimeout($.data(this, 'scrollCheck'))
-
-            $.data(
-                this,
-                'scrollCheck',
-                setTimeout(function() {
-                    $('#scroll-spinner').removeClass('d-none')
-
-                    var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop() + 500
-                    if (scroll_position_for_posts_load >= $(document).height()) {
-                        var style = $('#catProducts .row').attr('data-style')
-                        if(old_page != page){
-                            $.get(page, { style: style }, function(data) {
-                                $('.endless-pagination').append(data.posts)
-                                $('.endless-pagination').data('next-page', data.next_page)
-                                $('#scroll-spinner').addClass('d-none')
-                            })
-                            old_page = page;
-                        }
-                    }
-                }, 200)
-            )
-        }
-    }
-</script>
-@endsection
