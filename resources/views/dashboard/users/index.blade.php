@@ -20,7 +20,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-truncate">
-                  Все {{ request()->is('dashboard/users*') ? 'сотрудников' : 'клиентов' }} <span class="badge badge-pill badge-soft-secondary">{{ $users->total() }}</span>
+                  Все {{ request()->is('dashboard/users*') ? 'сотрудники' : 'клиенты' }} <span class="badge badge-pill badge-soft-secondary">{{ $users->total() }}</span>
                 </h1>
 
               </div>

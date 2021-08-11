@@ -279,11 +279,10 @@ class UserController extends Controller
                 'description' => 'Имя: ' . $user->name . ',    Эл. почта: ' . $user->email . ', Телефон: ' . str_replace(' ', '', $user->phone)
             ]);
         }
-        if ($user->status == 2 )
-        {
+        if ($user->status == 2 ) {
             return redirect(route('clients.index'))->with(['class' => 'warning', 'message' => $message]);
         }
-        return redirect(route('users.index'))->with(['class' => 'warning', 'message' => $message]);
+        return redirect(route('users.index'))->with(['class' => 'danger', 'message' => $message]);
 
     }
 
