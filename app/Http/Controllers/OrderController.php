@@ -282,7 +282,7 @@ class OrderController extends Controller
             if ($order) {
                 $comment = '';
                 if (!empty($order->comment)) {
-                    $comment = "\nПримичание к заказу: " . $order->comment;
+                    $comment = "\nПримечание к заказу: " . $order->comment;
                 }
                 $config = array(
                     'login' => 'fasontj', // Ваш логин, который выдается администратором OsonSMS
