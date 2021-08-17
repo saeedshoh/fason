@@ -91,7 +91,7 @@
 
                                     <div class="col-12 col-md-12 mb-4">
                                         <label for="url">Ссылка на баннер</label>
-                                        <input value="{{ old('url') ?? $banner->url }}" type="text" name="url" id="url" class="form-control @error('url') is-invalid @enderror">
+                                        <input value="{{ old('url') ?? $banner->url }}" type="text" autocomplete="off" name="url" id="url" class="form-control @error('url') is-invalid @enderror">
 
                                         @error('url')
                                         <div class="invalid-feedback">
@@ -114,7 +114,7 @@
                                             <img src="{{ Storage::url($banner->image) }}" alt="..." class="img-fluid rounded" id="main-poster" style="max-width: 120px;">
                                     </div> --}}
                                     <label for="image">Изображения</label> <span id="bannerSize" class="badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else @if($banner->position == 1) 1600x80 @else 1140x136 @endif @endif</span>
-                                    <label class="custom-file-label" for="image">Выберите файл</label>
+                                    <label class="custom-file-label position-relative d-block" for="image">Выберите файл</label>
                                     <input type="file" accept="image/*" name="image" id="image" class="custom-file-input " lang="ru" value="{{ $banner->image }}">
                                     @error('image')
                                     <div class="invalid-feedback">

@@ -273,9 +273,20 @@
                                     </th>
                                     <th>
                                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client-info">
-                                            Контакты клиента
+                                            Тел
                                         </a>
                                     </th>
+                                    <th>
+                                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client-info">
+                                            Город
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-client-info">
+                                            Адрес
+                                        </a>
+                                    </th>
+
                                     <th>
                                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-product">
                                             Товар
@@ -288,7 +299,17 @@
                                     </th>
                                     <th>
                                         <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store-info">
-                                            Контакты магазина
+                                            Тел
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store-info">
+                                            Город
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:void(0);" class="text-muted list-sort" data-sort="orders-store-info">
+                                            Адрес
                                         </a>
                                     </th>
                                     <th>
@@ -335,8 +356,15 @@
                                         </a>
                                     </td>
                                     <td class="orders-client-info">
-                                        {{ 'Тел: '.$order->user->phone.', Город: '.$order->user->city->name.', Адрес:'.$order->user->address}}
+                                        {{ 'Тел: '.$order->user->phone }}
                                     </td>
+                                    <td class="orders-client-info">
+                                        {{ 'Город: '.$order->user->city->name }}
+                                    </td>
+                                    <td class="orders-client-info">
+                                        {{ 'Адрес:'.$order->user->address }}
+                                    </td>
+
                                     <td class="orders-product">
                                         {{ $order->no_scope_product->name}}
                                     </td>
@@ -344,7 +372,13 @@
                                         {{ $order->no_scope_product->no_scope_store->name}}
                                     </td>
                                     <td class="orders-store-info">
-                                        {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone.', Город: '.$order->no_scope_product->no_scope_store->city->name.', Адрес: '.$order->no_scope_product->no_scope_store->address }}
+                                        {{ 'Тел: '.$order->no_scope_product->no_scope_store->user->phone }}
+                                    </td>
+                                    <td class="orders-store-info">
+                                        {{ 'Город: '.$order->no_scope_product->no_scope_store->city->name }}
+                                    </td>
+                                    <td class="orders-store-info">
+                                        {{ 'Адрес: '.$order->no_scope_product->no_scope_store->address }}
                                     </td>
                                     <td class="orders-date">
                                         <!-- Time -->
