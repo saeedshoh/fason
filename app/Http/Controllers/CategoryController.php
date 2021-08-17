@@ -356,6 +356,14 @@ class CategoryController extends Controller
         $isActive = $category->is_active == 1 ? 'Активен' : 'Неактивен';
         $attributes = '';
         $parent_cat = $category->parent_id != 0 ? Category::where('id', $category->parent_id)->first()->name : 'Родительская';
+
+        if($parent_cat == 'Родительская') {
+            $class = 'warning';
+            $message = 'Невозможно удалить категорию, так как у категории есть под-категории.';
+
+            return redirect()->back()->with(['class' => $class, 'message' => $message]);
+        }
+
         if ($category->attribute != null) {
             for ($i = 0; $i < count($category->attribute); $i++) {
                 $attributes = $attributes . Attribute::where('id', $category->attribute[$i])->first()->name . ', ';

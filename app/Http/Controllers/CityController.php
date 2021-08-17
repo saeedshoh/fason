@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\City;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -101,14 +102,20 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        $city->delete();
-        Log::create([
-            'user_id' => Auth::user()->id,
-            'action' => 3,
-            'table'  => ' Города',
-            'description' => 'Название: ' . $city->name
-        ]);
-        return redirect(route('cities.index'))->with(['class' => 'danger', 'message' => 'Город  «'.$city->name.'»  успешно удален!']);
+        $user = User::where('city_id', $city->id)->exists();
 
+        if (!$user) {
+            $city->delete();
+
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'action' => 3,
+                'table'  => ' Города',
+                'description' => 'Название: ' . $city->name
+            ]);
+            return redirect(route('cities.index'))->with(['class' => 'danger', 'message' => 'Город  «'.$city->name.'»  успешно удален!']);
+        }
+
+        return redirect(route('cities.index'))->with(['class' => 'warning', 'message' => 'Город  «'.$city->name.'» нельзя удалить, у города имеется данные!']);
     }
 }
