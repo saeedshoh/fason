@@ -286,7 +286,7 @@
                                             <td class="py-0">
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-xs align-middle mr-2">
-                                                    @if($category->parent_id == '0')
+                                                    @if($category->parent_id == '0'|| $category->parent_id =='1')
                                                     <img class="avatar-img rounded-circle" src="/storage/{{ $category->icon ?? 'camera.svg' }}">
                                                     @endif
                                                 </div>
