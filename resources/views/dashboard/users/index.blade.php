@@ -108,6 +108,11 @@
 
                                 <th>
                                     <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-address">
+                                    Город
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-address">
                                     Адрес
                                     </a>
                                 </th>
@@ -189,50 +194,52 @@
                                     @endforelse
 
                                 @else
-
                                     @forelse($users as $key => $user)
-                                    <tr>
-                                        <td class="item-order py-0">#{{ $user->id }}</td>
-                                        <td class="item-name py-0">
-                                        <!-- Avatar -->
-                                            <div class="avatar avatar-xs align-middle mr-2">
-                                                <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path == ''? 'theme/no-photo.svg' : $user->profile_photo_path }}" alt="...">
-                                            </div>
-                                            <a class="text-reset" href="{{ route('clients.show', $user) }}">{{ $user->name }}</a>
-                                        </td>
-                                        <td class="item-address py-0 text-break" style="max-width: 300px;">
-                                            г. {{ $user->city->name ?? '' }}, {{ $user->address ?? '' }}
-                                        </td>
-                                        <td class="item-phone py-0">
-                                            <!-- Phone -->
-                                            <a class="text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
-                                        </td>
-                                        <td class="item-company py-0">
-                                            <!-- Link -->
-                                            <a class="text-reset" href="{{ isset($user->store->name) ? route('showStoreInfo', $user->store->id) : 'javascrip:void();' }}">{{ $user->store->name ?? '' }}</a>
-                                        </td>
-                                        <td class="item-registration-date py-0">
-                                        {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
-                                        </td>
-                                        <td class="d-flex justify-content-end py-0">
-                                            <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1">
-                                                <i class="fe fe-shopping-cart" aria-hidden="true"></i>
-                                            </a>
-                                            @permission('update-employee')
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1">
-                                                <i class="fe fe-edit"></i>
-                                            </a>
-                                            @endpermission
-                                            @permission('delete-employee')
-                                            <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 delete-confirm">
-                                                <i class="fe fe-trash"> </i></button>
-                                                @method('DELETE')
-                                            </form>
-                                            @endpermission
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="item-order py-0">#{{ $user->id }}</td>
+                                            <td class="item-name py-0">
+                                            <!-- Avatar -->
+                                                <div class="avatar avatar-xs align-middle mr-2">
+                                                    <img class="avatar-img rounded-circle" src="/storage/{{ $user->profile_photo_path == ''? 'theme/no-photo.svg' : $user->profile_photo_path }}" alt="...">
+                                                </div>
+                                                <a class="text-reset" href="{{ route('clients.show', $user) }}">{{ $user->name }}</a>
+                                            </td>
+                                            <td class="item-address py-0 text-break" style="max-width: 300px;">
+                                                г. {{ $user->city->name ?? '' }}
+                                            </td>
+                                            <td class="item-address py-0 text-break" style="max-width: 300px;">
+                                                {{ $user->address ?? '' }}
+                                            </td>
+                                            <td class="item-phone py-0">
+                                                <!-- Phone -->
+                                                <a class="text-reset" href="tel:{{ $user->phone }}">{{ $user->phone }}</a>
+                                            </td>
+                                            <td class="item-company py-0">
+                                                <!-- Link -->
+                                                <a class="text-reset" href="{{ isset($user->store->name) ? route('showStoreInfo', $user->store->id) : 'javascrip:void();' }}">{{ $user->store->name ?? '' }}</a>
+                                            </td>
+                                            <td class="item-registration-date py-0">
+                                            {{ $user->created_at->format('H:m:s, d/m/Y') ?? '' }}
+                                            </td>
+                                            <td class="d-flex justify-content-end py-0">
+                                                <a href="{{ route('users.show', $user) }}" class="btn btn-warning m-1">
+                                                    <i class="fe fe-shopping-cart" aria-hidden="true"></i>
+                                                </a>
+                                                @permission('update-employee')
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary m-1">
+                                                    <i class="fe fe-edit"></i>
+                                                </a>
+                                                @endpermission
+                                                @permission('delete-employee')
+                                                <form class="d-inline" action="{{ route('users.destroy', $user) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger m-1 delete-confirm">
+                                                    <i class="fe fe-trash"> </i></button>
+                                                    @method('DELETE')
+                                                </form>
+                                                @endpermission
+                                            </td>
+                                        </tr>
                                     @empty
                                     <tr>
                                         <td class="text-muted h4" colspan="12">

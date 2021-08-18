@@ -125,7 +125,7 @@
                     </label>
 
                     <!-- Input -->
-                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email') }}">
+                    <input type="email" class="form-control @error('email')is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

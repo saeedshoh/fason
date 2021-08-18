@@ -100,7 +100,7 @@
                             <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2">
                             <nav class="category-mix">
                                 <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
-                                    <span class="count-products" data-id="{{ $category->id }}"></span>
+                                    <span class="count-products" data-id="{{ $category->id }}">0 товаров</span>
                                 </a>
                             </nav>
                         </div>

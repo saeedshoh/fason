@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -156,7 +157,7 @@ class UserController extends Controller
         $request->validate([
             'profile_photo_path' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
             'name' => 'required',
-            'phone' => 'required|digits:9',
+            'phone' => 'required|digits:9|unique:users,phone',
             'email' =>  'required|email',
             'city_id' => 'required',
             'password' => 'required|confirmed|min:8'
@@ -237,7 +238,10 @@ class UserController extends Controller
             $request->validate([
                 'profile_photo_path' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,WebP,webp',
                 'name' => 'required',
-                'phone' => 'required|digits:9',
+                'phone' => [
+                    'required', 'digits:9',
+                    Rule::unique('users', 'phone')->ignore($user->id)
+                ],
                 'email' =>  'required|email',
                 'city_id' => 'required',
                 'password' => 'required|confirmed|min:8'
