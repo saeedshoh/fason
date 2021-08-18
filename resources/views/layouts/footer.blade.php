@@ -19,7 +19,7 @@
             <div class="modal-body text-center bg-white">
                 <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
                 <p class="text-muted mb-pre--text">
-                   Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
+                    Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары.
                 </p>
                 <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}"  onsubmit="return false">
                   <div class="input-group text-left  btn-group-fs">
@@ -65,7 +65,7 @@
     <div class="modal-body text-center bg-white" style="z-index: 99999;overflow-y: scroll;">
       <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
       <p class="text-muted mb-pre--text mb-0">
-         Зарегистрируйтесь на нашем сайте, чтобы купить или продать необходимые товары.
+             Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары.
       </p>
       <div class="container text-center pb-5">
         {{-- <img src="/storage/theme/logo_fason.svg" alt=""> --}}
