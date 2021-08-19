@@ -45,7 +45,7 @@
             <span class="text-muted">Фотография баннера <span class="badge badge-danger"> размером 8840х215</span></span>
           </div>
           <label for="cover" class="cursor-pointer w-100">
-            <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image object-contain" id="cover-poster-mobile" height="216">
+            <img src="/storage/theme/banner_store.svg" class="w-100 rounded store-image object-cover" id="cover-poster-mobile" height="216">
           </label>
           <div class="change-banner position-absolute d-none d-md-block">
             <label for="cover" class="btn btn-edit rounded-pill">

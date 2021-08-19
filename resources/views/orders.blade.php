@@ -40,30 +40,30 @@
 
                         <!--success order-->
                         @forelse ($orders as $order)
-
-                            <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
-                                <div class="text-right d-block d-lg-none mt-3">
-                                    <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
-                                </div>
+                        <div class="text-right d-block d-lg-none mt-3">
+                            <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
+                        </div>
+                            <div class="position-relative border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+                                <div class="position-absolute mt-4 border @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif" style="height: 60px;left:-2px;width:3px"></div>
                                 <div class="row mx-0 my-2 align-items-start position-relative">
-                                    <div class="col-12 col-lg-6 px-2 px-sm-3">
+                                    <div class="col-12 col-lg-6 px-2 px-sm-5">
                                         <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                         <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="90" height="90">
                                         <div class="d-flex flex-column align-self-center w-100">
 
-                                            <h5 class="h5 text-truncate order-title">{{ $order->no_scope_product->name }}</h5>
-                                            <div>
-                                                <div class="d-lg-none d-flex flex-column mb-2">
-                                                    <small class="text-secondary w-100 mr-2">
+                                            <h5 class="h5 text-truncate order-title font-weight-bold w-100 pb-3">{{ $order->no_scope_product->name }}</h5>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-lg-none d-flex flex-column">
+                                                    <div class="text-secondary w-100">
                                                         <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
 
                                                         {{ $order->created_at->format('d.m.Y') }}
-                                                    </small>
-                                                    <small class="text-secondary w-100 mr-2">
+                                                    </div>
+                                                    {{-- <small class="text-secondary w-100 mr-2">
                                                         <img width="12px"  src="/storage/wall-clock.svg"  class="mr-1" style="vertical-align: text-top;">
 
                                                         {{ $order->created_at->format('G:i:s') }}
-                                                    </small>
+                                                    </small> --}}
                                                     <!-- <small class="text-secondary w-100 mr-2">
                                                         <img width="12px" src="/storage/theme/icons/shopping-bag.svg" class="mr-1" style="vertical-align: text-top;">
 
@@ -82,7 +82,7 @@
                                                 <small class="text-secondary w-100">
                                                     {{ $attribute_value->attribute->name ?? '' }} - {{ $attribute_value->name ?? '' }}@if(!$loop->last), @endif</small>
                                                 @endforeach -->
-                                                <h6 class="h6 text-secondary d-block d-lg-none">
+                                                <h6 class="h6 text-secondary d-block d-lg-none m-0">
                                                     <span class="text-uppercase">Цена</span>: <span class=" @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif "> {{ $order->total+$order->margin }} Сомони</span>
                                                 </h6>
                                             </div>
@@ -111,6 +111,7 @@
                                     <a href="{{ route('ft-order.single', $order->id) }}" class="stretched-link"></a>
                                 </div>
                             </div>
+
                         @empty
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <p class="m-0">У вас нет покупок</p>

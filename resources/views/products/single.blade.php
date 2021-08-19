@@ -420,20 +420,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 d-none d-lg-block text-dark">
-                    <div class="title mb-3 title-capitalize font-weight-600">Цена:</div>
-                    <span class="text-secondary text-semi-bold price-start">{{ $product->price_after_margin }} </span>Сомони
-                </div>
-                <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-left text-lg-center">
+                <div class="col-12 col-lg-2 mt-1 mt-lg-0 text-left">
                     <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
-                        <div class="title mb-sm-1  mb-md-3 title-capitalize font-weight-600">Количество:</div>
+                        <div class="title mb-0 mb-lg-3 title-capitalize font-weight-600">Цена:</div>
+                        <div class="text-semi-bold font-weight-600 text-pinky"> <span class="total-price"> {{ $product->price_after_margin }}</span> Сомони </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-3 text-left text-lg-center">
+                    <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
+                        <div class="title mb-sm-1  mb-lg-3 title-capitalize font-weight-600">Количество:</div>
                         <span class="text-secondary text-semi-bold text-pinky font-weight-600">
                           <span class="quantity-product">1</span>
                           шт
                         </span>
                     </div>
                 </div>
-                <div class="col-12 col-lg-2 mt-1 mt-lg-0">
+                <div class="col-12 order-lg-1">
+                    @if (!Auth::guest())
+                    <div class="d-flex justify-content-between mt-lg-3">
+                      <span class="text-dark font-weight-600">Ваш город</span>
+                      <span class="text-pinky font-weight-600">{{ Auth::user()->city->name }}</span>
+                    </div>
+                     @endif
+                </div>
+                <div class="col-12 col-lg-2">
                     <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
                         <div class="title mb-3 title-capitalize font-weight-600">Сумма:</div>
                         <div class="text-semi-bold font-weight-600 text-pinky"><span class="total-price">{{ $product->price_after_margin }}</span> сомони</div>
@@ -447,12 +458,7 @@
                 <div class="text-dark mb-2 font-weight-600">Ваш адрес</div>
                 <input class="font-weight-bold checkout-address w-100 form-control" type="text" name="checkout_address" id="checkout_address" value="{{ Auth::user()->address ?? '' }}">
               </div>
-              @if (!Auth::guest())
-                <div class="d-flex justify-content-between mt-3">
-                  <span class="text-dark font-weight-600">Ваш город</span>
-                  <span>{{ Auth::user()->city->name }}</span>
-                </div>
-              @endif
+
             </div>
           </div>
           <div class="modal-footer border-0 info-product_footer">
