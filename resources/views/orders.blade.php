@@ -43,8 +43,8 @@
                         <div class="text-right d-block d-lg-none mt-3">
                             <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
                         </div>
-                            <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
-                                <div class="border-left border border-success position-absolute mt-4" style="height: 60px;"></div>
+                            <div class="position-relative border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+                                <div class="position-absolute mt-4 border @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif" style="height: 60px;left:-2px;width:3px"></div>
                                 <div class="row mx-0 my-2 align-items-start position-relative">
                                     <div class="col-12 col-lg-6 px-2 px-sm-5">
                                         <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
