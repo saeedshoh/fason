@@ -46,7 +46,7 @@
         $(".alert").alert();
       </script>
         <!--store logo start-->
-        <div class="col-12 d-none d-md-block col-lg-3 px-0 px-md-2">
+        <div class="col-12 d-none d-lg-block col-lg-3 px-0 px-md-2">
           <div class="text-center">
             <div class="position-relative d-inline-block">
             <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="w-100 rounded store-image" alt=""  height="216">
@@ -56,7 +56,7 @@
         <div class="col-12 col-lg-9 px-0 px-md-2">
           <div class="position-relative d-inline-block w-100">
             <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
-            <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image object-contain" alt=""  height="216">
+            <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image object-cover" alt=""  height="216">
 
             <div class="mobile-avatar position-absolute w-lg-100">
               <img src="/storage/{{ $store->avatar ?? '/theme/avatar_store.svg'}}" class="store-image d-block d-md-none rounded-circle bordered-white" width="90" height="90" alt="">
