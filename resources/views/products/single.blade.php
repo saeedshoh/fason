@@ -423,7 +423,7 @@
                 <div class="col-12 col-lg-2 mt-1 mt-lg-0 text-left">
                     <div class="d-flex flex-row flex-lg-column justify-content-between text-dark">
                         <div class="title mb-0 mb-lg-3 title-capitalize font-weight-600">Цена:</div>
-                        <div class="text-semi-bold font-weight-600 text-pinky"> <span class="total-price"> {{ $product->price_after_margin }}</span> Сомони </div>
+                        <div class="text-semi-bold font-weight-600 text-pinky"> {{ $product->price_after_margin }} Сомони </div>
                     </div>
                 </div>
 

@@ -171,18 +171,20 @@
                   <img class="img-fluid rounded" src="{{ Storage::url($product->image) }}" alt="">
                   <div class="container mt-3">
                     <span class="text-secondary">
-                      @if($product->product_status->id == 1)
+                      @if($product->product_status->id == 1 && $product->deleted_at == null)
                         В модерации
                       @elseif ($product->deleted_at != null)
                         Товар удалён
-                        <p class="mt-1"><img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До удаления
-                        @if($product->deleted_at->diffInDays(now()) === 1)
-                          {{ $product->deleted_at->diffInDays(now()) }} день
-                        @elseif($product->deleted_at->diffInDays(now()) === 2 || $product->deleted_at->diffInDays(now()) === 3 || $product->deleted_at->diffInDays(now()) === 4)
-                          {{ $product->deleted_at->diffInDays(now()) }} дня
-                        @else
-                          {{ $product->deleted_at->diffInDays(now()) }} дней
-                        @endif</p>
+                        @if($product->deleted_at->diffInDays(now()) > 0)
+                          <p class="mt-1"><img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До удаления
+                          @if($product->deleted_at->diffInDays(now()) === 1)
+                            {{ $product->deleted_at->diffInDays(now()) }} день
+                          @elseif($product->deleted_at->diffInDays(now()) === 2 || $product->deleted_at->diffInDays(now()) === 3 || $product->deleted_at->diffInDays(now()) === 4)
+                            {{ $product->deleted_at->diffInDays(now()) }} дня
+                          @else
+                            {{ $product->deleted_at->diffInDays(now()) }} дней
+                          @endif</p>
+                        @endif
                       @elseif ($product->product_status->id == 3)
                         Товар отклонён
                       @elseif ($product->product_status->id == 4)

@@ -70,7 +70,7 @@
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-danger rounded-11  px-3 border-0">
+                    <button type="submit" class="btn btn-danger rounded-11  px-3 border-0" onclick="this.disabled=true;this.form.submit();">
                         <i class="fas fa-sign-out-alt"></i> Выход
                     </button>
                 </form>
@@ -222,4 +222,19 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('script')
+    <script>
+        // $('#logout').submit(function() {
+        //     $(this).find("button[type='submit']").prop('disabled',true);
+        // });
+        // $('#logout').submit(function(e) {
+        //     e.preventDefault();
+
+        //     // $("#logout button").attr("disabled", true);
+
+        //     aler(123);
+        // });
+    </script>
 @endsection
