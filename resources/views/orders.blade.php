@@ -52,7 +52,7 @@
                                         <div class="d-flex flex-column align-self-center w-100">
 
                                             <h5 class="h5 text-truncate order-title font-weight-bold w-100 pb-3">{{ $order->no_scope_product->name }}</h5>
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                 <div class="d-lg-none d-flex flex-column">
                                                     <div class="text-secondary w-100">
                                                         <img width="12px" src="/storage/calendar.svg" class="mr-1" style="vertical-align: text-top;">
