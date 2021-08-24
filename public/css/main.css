@@ -11229,6 +11229,11 @@ body {
   overflow-y: scroll;
 }
 
+.fs_border {
+  border: 2px solid #fff;
+  box-shadow: none !important;
+}
+
 .public_card_custom {
   background-color: #04a004;
   color: white !important;
