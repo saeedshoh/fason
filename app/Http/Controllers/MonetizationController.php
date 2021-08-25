@@ -177,6 +177,11 @@ class MonetizationController extends Controller
      */
     public function update(MonetizationRequest $request, Monetization $monetization)
     {
+       $check =  $this->updateMonetization($request, $monetization);
+
+       if ($check >=  1) {
+        return redirect(url($request->previous))->with(['class' => 'warning', 'message' => 'Выбранный вами диапазон суммы уже существует']);
+    }
 
         $monetization->update($request->validated());
         Log::create([
@@ -260,4 +265,14 @@ class MonetizationController extends Controller
         })->count();
         return $check;
     }
+
+    public function updateMonetization(Request $request, Monetization $monetization)
+    {
+        $collection  = Monetization::whereNotIn('id', [$monetization->id])->get();
+        $min = $collection->whereBetween('min', [$request->min, $request->max]);
+        $max = $collection->whereBetween('max', [$request->min, $request->max]);
+
+        return $min->count() + $max->count();
+    }
+
 }
