@@ -1545,6 +1545,10 @@ input[type="number"]:hover::-webkit-outer-spin-button {
 
 .list-group-flush>.list-group-item {
     border: 0;
+    height: 60px;
+}
+.list-group-row{
+    height: 50px;
 }
 
 .count-products {
@@ -1559,7 +1563,6 @@ input[type="number"]:hover::-webkit-outer-spin-button {
     font-size: 16px;
     color: #121416;
 }
-
 #adressChange {
     z-index: 99999;
     .modal_body{

@@ -196,7 +196,7 @@
                     <ul class="shop-subject list-group list-group-flush h-100 px-2">
                         @forelse ($categories as $category)
                         @if ($category->is_active)
-                        <li class="list-group-item  bg-transparent py-2 border-bottom">
+                        <li class="list-group-item  bg-transparent py-1 border-bottom">
                             <nav class="category-mix">
                                 <a data-id={{ $category->id }} data-slug="{{ $category->slug }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none subcategory text-dark">{{ $category->name }}</a>
                                 <span class="count-products" data-id="{{ $category->id }}"></span>

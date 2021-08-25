@@ -96,11 +96,11 @@
                     @forelse ($categories as $category)
                     @if ($category->is_active)
                     <li class="list-group-item bg-transparent py-2">
-                        <div class="list-group-row d-flex align-items-center position-relative">
-                            <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2">
+                        <div class="list-group-row d-flex my-1 position-relative">
+                            <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2 mt-1">
                             <nav class="category-mix">
                                 <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
-                                    <span class="count-products" data-id="{{ $category->id }}">0 товаров</span>
+                                    <span class="count-products" data-id="{{ $category->id }}"></span>
                                 </a>
                             </nav>
                         </div>
