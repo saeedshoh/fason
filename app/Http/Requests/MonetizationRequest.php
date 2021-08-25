@@ -27,7 +27,7 @@ class MonetizationRequest extends FormRequest
         return [
             'store_id'  => 'sometimes|required|min:1',
             'min'       => 'required|min:0',
-            'max'       => 'required|min:1',
+            'max'       => 'required|gt:min',
             'margin'    => 'sometimes',
             'added_val'    => 'sometimes',
         ];
