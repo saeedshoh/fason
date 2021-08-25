@@ -140,7 +140,7 @@ trait ImageInvTrait {
         // create an image manager instance with favored driver
         $manager = new ImageManager(array('driver' => 'gd'));
 
-        $back = $manager->canvas(800, 800, '#ffffff');
+        $back = $manager->canvas(400, 400, '#ffffff');
         $back->insert($img, 'center');
         $back->save(public_path('/storage/' . $path));
 

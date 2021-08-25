@@ -3,6 +3,7 @@ require('sweetalert2')
 import { upload } from './upload.js'
 import Swal from 'sweetalert2'
 import Compressor from 'compressorjs';
+import { forEach } from 'lodash';
 
 let allAttrs = [];
 
@@ -309,7 +310,11 @@ $(document).ready(function() {
                     _this.text(`${data}  товара`)
                 } else if (data % 10 == 1) {
                     _this.text(`${data}  товар`)
-                } else {
+                }
+                else if (data <= 0) {
+                    _this.css('visibility','hidden')
+                }
+                else {
                     _this.text(`${data}  товаров`)
                 }
             }

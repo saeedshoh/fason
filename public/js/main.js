@@ -25492,9 +25492,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var compressorjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! compressorjs */ "./node_modules/compressorjs/dist/compressor.js");
 /* harmony import */ var compressorjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(compressorjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 __webpack_require__(/*! ./jquery.inputmask.bundle.js */ "./resources/js/jquery.inputmask.bundle.js");
 
 __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+
 
 
 
@@ -25797,6 +25800,8 @@ $(document).ready(function () {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u0430"));
         } else if (data % 10 == 1) {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440"));
+        } else if (data <= 0) {
+          _this.css('visibility', 'hidden');
         } else {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u043E\u0432"));
         }
