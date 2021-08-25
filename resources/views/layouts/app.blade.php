@@ -102,67 +102,70 @@
 <div class="modal fade mb-custom-login" id="adressChange" tabindex="-1" aria-labelledby="adressChange"
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-md">
-  <div class="modal-content">
-    <div class="modal-header border-0 d-none">
-    </div>
-    <div class="modal-body text-center">
-      <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
-      <p class="text-muted mb-pre--text mb-0">
-         Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары
-      </p>
-      <div class="container text-center">
-        <img src="img/logo fason.svg" alt="">
-        <form id="add_address" class="text-center" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" novalidate>
-          @csrf
-          <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
-            <svg width="80" height="80" viewBox="0 0 496 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M248 8C111 8 0 119 0 256C0 393 111 504 248 504C385 504 496 393 496 256C496 119 385 8 248 8ZM248 104C296.6 104 336 143.4 336 192C336 240.6 296.6 280 248 280C199.4 280 160 240.6 160 192C160 143.4 199.4 104 248 104ZM248 448C189.3 448 136.7 421.4 101.5 379.8C120.3 344.4 157.1 320 200 320C202.4 320 204.8 320.4 207.1 321.1C220.1 325.3 233.7 328 248 328C262.3 328 276 325.3 288.9 321.1C291.2 320.4 293.6 320 296 320C338.9 320 375.7 344.4 394.5 379.8C359.3 421.4 306.7 448 248 448Z" fill="#E5E5E5"/>
-            </svg>
-            <img src="" alt="" width="100" height="100" style="display: none" class="rounded-circle">
-            <div class="text-center mt-3">
-              <h6>Добавить фото</h6>
-            </div>
-          </label>
-          <div class="custom-file d-none">
-            <input type="file" accept="image/*"  class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
-          </div>
-          <div class="input-group text-left  btn-group-fs my-3">
-            <div class="input-group-prepend position-relative">
-              <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
-            </div>
-            <input type="text" class="form-control" placeholder="Имя.." name="name" required>
-          </div>
-          <div class="input-group text-left  btn-group-fs mb-3">
-            <div class="input-group-prepend position-relative">
-              <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
-            </div>
-            <input type="text" class="form-control" placeholder="Адрес дома..." name="address" required>
-          </div>
-          <h5 class="text-secondary">Город:</h5>
-          <div class="form-row justify-content-around">
-            @php
-            $cities = App\Models\City::get();
-            @endphp
-            @foreach($cities as $city)
-              <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
-                <input class="form-check-input" type="radio" id="city_{{ $city->id }}" name="city_id" value="{{ $city->id }}" required>
-                <label class="form-check-label" for="city_{{ $city->id }}">{{ $city->name }}</label>
-                <div class="invalid-feedback">Выберите ваш город</div>
+    <div class="modal-content">
+      <div class="modal-header border-0 d-none">
+      </div>
+      <div class="modal-body text-center bg-white" style="z-index: 99999;overflow-y: scroll;">
+        <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
+        <p class="text-muted mb-pre--text mb-0">
+               Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары.
+        </p>
+        <div class="container text-center pb-5">
+          {{-- <img src="/storage/theme/logo_fason.svg" alt=""> --}}
+          <form id="add_address" class="text-center needs-validation pb-3 pb-md-0" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
+            @csrf
+            <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
+              <img src="/storage/theme/no-photo.svg" alt="" width="100" height="100" class="rounded-circle object-cover" id="main-poster">
+              <div class="text-center mt-3">
+                <h6>Добавить фото</h6>
               </div>
-            @endforeach
+            </label>
+            <div class="custom-file d-none">
+              <input type="file" accept="image/*"  class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
+            </div>
+            <div class="input-group text-left  btn-group-fs my-3">
+              <div class="input-group-prepend position-relative">
+                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+              </div>
+              <input type="text" class="form-control" placeholder="Имя.." name="name" autocomplete="off" required>
+              <div class="invalid-feedback">
+                Введите ваше имя
+              </div>
+            </div>
+            <div class="input-group text-left  btn-group-fs mb-3">
+              <div class="input-group-prepend position-relative">
+                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+              </div>
+              <input type="text" class="form-control" placeholder="Адрес дома..." name="address" autocomplete="off" required>
+              <div class="invalid-feedback">
+                Введите ваш адрес
+              </div>
+            </div>
+            <h5 class="text-secondary">Город:</h5>
+            <div class="form-row justify-content-around">
+              @php
+              $cities = App\Models\City::get();
+              @endphp
+              @foreach($cities as $city)
+                <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
+                  <input class="form-check-input" type="radio" id="city_{{ $city->id }}" name="city_id" value="{{ $city->id }}" required>
+                  <label class="form-check-label" for="city_{{ $city->id }}">{{ $city->name }}</label>
+                  <div class="invalid-feedback">Выберите ваш город</div>
+                </div>
+              @endforeach
 
-          </div>
-          <p class="privacy-policy mb-pre--text mb-0">
-            <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
-              Политика конфиденциальности
-            </a>
-          </p>
-          <button type="submit" class="btn btn-danger rounded-11 btn-lg" id="btn-add_address">Сохранить</button>
-        </form>
+            </div>
+            <p class="privacy-policy mb-pre--text mb-0">
+              <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
+                Политика конфиденциальности
+              </a>
+            </p>
+            <button type="submit" class="btn btn-danger rounded-11 btn-lg" id="btn-add_address">Сохранить</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
     @endif
     <script src="{{ asset('js/app.js') }}"></script>
