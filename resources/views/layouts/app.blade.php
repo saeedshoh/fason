@@ -157,7 +157,7 @@ aria-hidden="true">
               Политика конфиденциальности
             </a>
           </p>
-          <button type="submit" class="btn btn-danger rounded-11 btn-lg">Сохранить</button>
+          <button type="submit" class="btn btn-danger rounded-11 btn-lg" id="btn-add_address">Сохранить</button>
         </form>
       </div>
     </div>
