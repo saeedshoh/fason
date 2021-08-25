@@ -82,6 +82,12 @@ class MonetizationController extends Controller
      */
     public function store(MonetizationRequest $request)
     {
+
+        $check = $this->checkRangeMonetization($request);
+        if ($check >=  1) {
+            return redirect(url($request->previous))->with(['class' => 'warning', 'message' => 'Выбранный вами диапазон суммы уже существует']);
+        }
+
         $monetization = Monetization::create($request->validated());
         if ($request->store_id) {
             $store = Store::find($request->store_id);
@@ -99,7 +105,7 @@ class MonetizationController extends Controller
             'table'  => 'Монетизация',
             'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
         ]);
-        return redirect(url($request->previous))->with(['class' => 'success', 'message' => ' Монетизация   «#'.$monetization->id.'»  успешно добавлена!']);
+        return redirect(url($request->previous))->with(['class' => 'success', 'message' => ' Монетизация   «#' . $monetization->id . '»  успешно добавлена!']);
     }
 
     /**
@@ -171,6 +177,7 @@ class MonetizationController extends Controller
      */
     public function update(MonetizationRequest $request, Monetization $monetization)
     {
+
         $monetization->update($request->validated());
         Log::create([
             'user_id' => Auth::user()->id,
@@ -179,11 +186,10 @@ class MonetizationController extends Controller
             'description' => 'Сумма от: ' . $request->min . ', Сумма до: ' . $request->max . ', Процентная ставка: ' . $request->margin
         ]);
 
-        if(Str::contains($request->previous, 'dashboard/monetizations')) {
-            return redirect()->route('monetizations.index')->with(['class' => 'primary', 'message' => 'Монетизация «#'.$monetization->id.'» успешно обновлена.']);
-        }
-        else {
-            return redirect(url($request->previous))->with(['class' => 'primary', 'message' => 'Монетизация «#'.$monetization->id.'» успешно обновлена.']);
+        if (Str::contains($request->previous, 'dashboard/monetizations')) {
+            return redirect()->route('monetizations.index')->with(['class' => 'primary', 'message' => 'Монетизация «#' . $monetization->id . '» успешно обновлена.']);
+        } else {
+            return redirect(url($request->previous))->with(['class' => 'primary', 'message' => 'Монетизация «#' . $monetization->id . '» успешно обновлена.']);
         }
     }
 
@@ -202,7 +208,7 @@ class MonetizationController extends Controller
             'description' => 'Сумма от: ' . $monetization->min . ', Сумма до: ' . $monetization->max . ', Процентная ставка: ' . $monetization->margin
         ]);
         $monetization->delete();
-        return redirect()->back()->with(['class' => 'danger', 'message' => 'Монетизация «#'.$monetization->id.'» успешно удалена.']);
+        return redirect()->back()->with(['class' => 'danger', 'message' => 'Монетизация «#' . $monetization->id . '» успешно удалена.']);
     }
 
     public function price(Request $request)
@@ -242,5 +248,16 @@ class MonetizationController extends Controller
         }
 
         return ceil($request->price + $common_monetization + $store_monetization + $category_monetization);
+    }
+
+    public function checkRangeMonetization(Request $request)
+    {
+        $min = $request->min;
+        $max = $request->max;
+        $check = Monetization::where(function ($query) use ($min, $max) {
+            $query->whereBetween('min', [$min, $max])
+                ->orWhereBetween('max', [$min, $max]);
+        })->count();
+        return $check;
     }
 }
