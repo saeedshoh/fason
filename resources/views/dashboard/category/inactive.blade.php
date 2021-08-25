@@ -137,7 +137,7 @@
                                             <td class="py-0">
                                                 <div class="avatar avatar-xs align-middle mr-2">
                                                     @if(!@isset($category->parent->parent->id))
-                                                    <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent ? $category->parent->icon : '' }}">
+                                                    <img class="avatar-img rounded-circle" src="/storage/{{ $category->parent->icon ? : 'camera.svg' }}">
                                                     @endif
                                                 </div>
                                                 <a class="item-parent text-reset" href="{{ route('categories.show', $category) }}">{{ $category->parent ? $category->parent->name : '' }}</a>
