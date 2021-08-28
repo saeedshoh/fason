@@ -25800,8 +25800,6 @@ $(document).ready(function () {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u0430"));
         } else if (data % 10 == 1) {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440"));
-        } else if (data <= 0) {
-          _this.css('visibility', 'hidden');
         } else {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u043E\u0432"));
         }
