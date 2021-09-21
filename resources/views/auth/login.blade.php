@@ -39,7 +39,7 @@
                     </a>
                 @endif  --}}
 
-                <x-jet-button class="ml-4">
+                <x-jet-button class="ml-4" onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
                     {{ __('Войти') }}
                 </x-jet-button>
             </div>

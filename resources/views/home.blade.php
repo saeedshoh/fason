@@ -70,7 +70,7 @@
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-danger rounded-11  px-3 border-0" onclick="this.disabled=true;this.form.submit();">
+                    <button type="submit" class="btn btn-danger rounded-11  px-3 border-0"  onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
                         <i class="fas fa-sign-out-alt"></i> Выход
                     </button>
                 </form>
