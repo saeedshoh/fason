@@ -168,7 +168,7 @@
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="dropdown-item border-0 px-0">
+                    <button type="submit" class="dropdown-item border-0 px-0"  onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
                         Выход
                     </button>
                 </form>

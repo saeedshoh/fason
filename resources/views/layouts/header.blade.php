@@ -67,7 +67,7 @@
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}" class="dropdown-item">
                 @csrf
-                <button type="submit" class="btn btn-link text-dark text-decoration-none border-0 px-0" onclick="this.disabled=true;this.form.submit();">
+                <button type="submit" class="btn btn-link text-dark text-decoration-none border-0 px-0"  onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
                   <i class="fas fa-sign-out-alt"></i> Выход
                 </button>
               </form>
