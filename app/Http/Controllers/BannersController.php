@@ -6,12 +6,14 @@ use App\Models\Log;
 use App\Models\Banners;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Traits\ImageInvTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BannersRequest;
 use Illuminate\Support\Facades\Storage;
 
 class BannersController extends Controller
 {
+    use ImageInvTrait;
 
     public function __construct()
     {
@@ -47,15 +49,12 @@ class BannersController extends Controller
     public function create()
     {
         $back = url()->previous();
-        if(Str::contains($back, 'banners')) {
-            if (Banners::where('type', 2)->count() == 2)
-            {
+        if (Str::contains($back, 'banners')) {
+            if (Banners::where('type', 2)->count() == 2) {
                 return redirect()->route('banners.index')->with(['class' => 'warning', 'message' => 'Вы не можете вставить новый баннер, потому что все позиции заняты.']);
             }
-        }
-        else {
-            if(Banners::where('type', 1)->count() == 7 )
-            {
+        } else {
+            if (Banners::where('type', 1)->count() == 7) {
                 return redirect()->route('banners.sliders')->with(['class' => 'warning', 'message' => 'Вы не можете вставить новый слайд, потому что все позиции заняты']);
             }
         }
@@ -73,10 +72,17 @@ class BannersController extends Controller
     public function store(BannersRequest $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+            'image' => 'required',
         ]);
 
-        $image = $request->file('image')->store('public/' . now()->year . '/' . sprintf("%02d", now()->month));
+        $base64_image = $request->image;
+        $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+        $image = $year_month . '/' . uniqid() . '.jpg';
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+            $data = substr($base64_image, strpos($base64_image, ',') + 1);
+            $data = base64_decode($data);
+            Storage::disk('public')->put($image, $data);
+        };
         Banners::create($request->validated() + ['image' => $image]);
         $type = $request->type == 1 ? 'Слайдер' : 'Баннер';
         Log::create([
@@ -87,7 +93,6 @@ class BannersController extends Controller
         ]);
         if ($request->type == 1) {
             return redirect()->route('banners.sliders')->with(['class' => 'success', 'message' => 'Слайдер успешно добавлен!']);
-
         } else {
             return redirect()->route('banners.index')->with(['class' => 'success', 'message' => 'Баннер успешно добавлен!']);
         }
@@ -117,21 +122,26 @@ class BannersController extends Controller
     public function update(BannersRequest $request, Banners $banner)
     {
         $page = '';
-        if(strrpos($request->previous,'?')){
-            $page = substr($request->previous, strrpos($request->previous,'?'));
+        if (strrpos($request->previous, '?')) {
+            $page = substr($request->previous, strrpos($request->previous, '?'));
         }
         $myImage = 'Не установлен';
         if ($request->image != null && $request->image != $banner->image) {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,WebP',
+                'image' => 'required',
             ]);
             if ($request->image != $banner->image) {
-                if (Storage::exists($banner->image))
-                {
+                if (Storage::exists($banner->image)) {
                     Storage::delete($banner->image);
                 }
-
-                $image = $request->file('image')->store('public/' . now()->year . '/' . sprintf("%02d", now()->month));
+                $base64_image = $request->image;
+                $year_month = now()->year . '/' . sprintf("%02d", now()->month);
+                $image = $year_month . '/' . uniqid() . '.jpg';
+                if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
+                    $data = substr($base64_image, strpos($base64_image, ',') + 1);
+                    $data = base64_decode($data);
+                    Storage::disk('public')->put($image, $data);
+                };
             }
             $banner->update([
                 'image' => $image,
@@ -149,7 +159,6 @@ class BannersController extends Controller
         ]);
         if ($request->type == 1) {
             return redirect()->route('banners.sliders')->with(['class' => 'primary', 'message' => 'Слайдер успешно обновлен!']);
-
         } else {
             return redirect()->route('banners.index')->with(['class' => 'primary', 'message' => 'Баннер успешно обновлен!']);
         }
@@ -174,10 +183,8 @@ class BannersController extends Controller
 
         if ($banner->type == 1) {
             return redirect()->route('banners.sliders')->with(['class' => 'danger', 'message' => 'Слайдер успешно удален!']);
-
         } else {
             return redirect()->route('banners.index')->with(['class' => 'danger', 'message' => 'Баннер успешно удален!']);
         }
     }
-
 }

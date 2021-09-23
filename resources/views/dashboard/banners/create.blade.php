@@ -115,7 +115,8 @@
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="image">Изображения</label> <span id="bannerSize" class=" badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else 1600x80 @endif</span>
                                         <div class="custom-file">
-                                            <input type="file" accept="image/*" class="custom-file-input my" id="image" name="image" required>
+                                            <input type="file" class="custom-file-input my" id="image" required onchange="encodeImageFileAsURL(this)">
+                                            <input type="hidden" name="image" value="" id="base64encode">
                                             <label class="custom-file-label your" for="image">Выберите файл</label>
                                             @error('image')
                                             <div class="invalid-feedback">
@@ -131,7 +132,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary mt-4" type="submit">Добавить</button>
+                                <button class="btn btn-primary mt-4" type="submit" onclick="start_preloader()">Добавить</button>
                                 <input type="hidden" name="previous" value="{{ url()->previous() }}">
 
                             </div>
@@ -146,6 +147,9 @@
 
 @section('script')
 <script>
+    function start_preloader(){
+        $('.success-preloader').removeClass('d-none');
+    }
     $('#position').change(function(){
         const position = $(this).val()
         const type = $('#type').val()
@@ -156,5 +160,22 @@
             $('#bannerSize').text('1140x136')
         }
     })
+
+    function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        $('#base64encode').val(reader.result)
+    }
+    reader.readAsDataURL(file);
+}
 </script>
+<style>
+    body {
+        position: relative;
+    }
+</style>
 @endsection
+<div class="success-preloader d-none">
+    <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+</div>

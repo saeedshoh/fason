@@ -6064,7 +6064,7 @@ function getAlpha(string) {
 // generators
 function hexString(rgba, a) {
    var a = (a !== undefined && rgba.length === 3) ? a : rgba[3];
-   return "#" + hexDouble(rgba[0])
+   return "#" + hexDouble(rgba[0]) 
               + hexDouble(rgba[1])
               + hexDouble(rgba[2])
               + (
@@ -89029,7 +89029,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
 "use strict";
 //
 // wizard.js
-//
+// 
 
 
 (function () {
@@ -90232,7 +90232,7 @@ $(document).on('click', '.add-product-btn', function () {
 
     var dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
     var image = $('#main-poster').attr('src');
-    var query_url = _check_page == 'true' ? (dashboard ? "/dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "/dashboard" : "") + '/product/store/test';
+    var query_url = _check_page == 'true' ? (dashboard ? "dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "dashboard" : "") + '/product/store/test';
     var gallery = $('.preview-element-image');
     var galleries = [];
     var itemsProcessed = 0;
@@ -90256,6 +90256,7 @@ $(document).on('click', '.add-product-btn', function () {
 
 function readURL(input) {
   if (input.files && input.files[0]) {
+    $('.success-preloader').removeClass('d-none');
     new compressorjs__WEBPACK_IMPORTED_MODULE_0___default.a(input.files[0], {
       quality: 0.8,
       maxWidth: 700,
@@ -90265,9 +90266,11 @@ function readURL(input) {
       height: 700,
       width: 700,
       success: function success(result) {
+        console.log(result);
         var reader = new FileReader();
 
         reader.onload = function (ev) {
+          $('.success-preloader').addClass('d-none');
           var src = ev.target.result;
           $('#main-poster').attr('src', src);
         };
