@@ -55,7 +55,7 @@
                                         <label for="type">Тип</label>
                                         <select class="custom-select @error('type') is-invalid @enderror" name="type" id="type">
                                             @if($banner->type == 1)
-                                            <option value="1" selected >Слайдер</option>
+                                            <option value="1" selected>Слайдер</option>
                                             @else
                                             <option value="2" selected>Баннер</option>
                                             @endif
@@ -115,7 +115,8 @@
                                     </div> --}}
                                     <label for="image">Изображения</label> <span id="bannerSize" class="badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else @if($banner->position == 1) 1600x80 @else 1140x136 @endif @endif</span>
                                     <label class="custom-file-label position-relative d-block" for="image">Выберите файл</label>
-                                    <input type="file" accept="image/*" name="image" id="image" class="custom-file-input " lang="ru" value="{{ $banner->image }}">
+                                    <input type="hidden" name="image"  id="base64encode"  value="{{ $banner->image }}">
+                                    <input type="file" accept="image/*" id="image" class="custom-file-input " lang="ru" onchange="encodeImageFileAsURL(this)" >
                                     @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -129,7 +130,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary mt-4 px-5" type="submit">Изменить</button>
+                                <button class="btn btn-primary mt-4 px-5" type="submit" onclick="start_preloader()">Изменить</button>
                                 <input type="hidden" name="previous" value="{{ url()->previous() }}">
                             </div>
                         </div>
@@ -147,10 +148,12 @@
 @endsection
 @section('script')
 <script>
+    function start_preloader(){
+        $('.success-preloader').removeClass('d-none');
+    }
     $('#position').change(function(){
         const position = $(this).val()
         const type = $('#type').val()
-        console.log(position)
         if(type == 2){
             if(position == 1)
                 $('#bannerSize').text('1600x80')
@@ -158,5 +161,22 @@
             $('#bannerSize').text('1140x136')
         }
     })
+
+    function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+        $('#base64encode').val(reader.result)
+    }
+    reader.readAsDataURL(file);
+}
 </script>
+<style>
+    body {
+        position: relative;
+    }
+</style>
 @endsection
+<div class="success-preloader d-none">
+    <img src="/storage/Spinner-1s-200px.svg" alt="" srcset="">
+</div>

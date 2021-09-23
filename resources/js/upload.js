@@ -323,6 +323,7 @@ $(document).on('click', '.add-product-btn', function() {
 
 function readURL(input) {
     if (input.files && input.files[0]) {
+        $('.success-preloader').removeClass('d-none')
         new Compressor(input.files[0], {
             quality: 0.8,
             maxWidth: 700,
@@ -332,13 +333,16 @@ function readURL(input) {
             height: 700,
             width: 700,
             success(result) {
-                const reader = new FileReader();
 
+                console.log(result)
+                const reader = new FileReader();
                 reader.onload = ev => {
+                    $('.success-preloader').addClass('d-none');
                     const src = ev.target.result;
                     $('#main-poster').attr('src', src);
                 };
                 reader.readAsDataURL(result);
+
             },
             error(err) {
                 console.log(err.message);

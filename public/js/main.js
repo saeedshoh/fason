@@ -25800,6 +25800,8 @@ $(document).ready(function () {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u0430"));
         } else if (data % 10 == 1) {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440"));
+        } else if (data <= 0) {
+          _this.css('visibility', 'hidden');
         } else {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u043E\u0432"));
         }
@@ -27081,6 +27083,7 @@ $(document).on('click', '.add-product-btn', function () {
 
 function readURL(input) {
   if (input.files && input.files[0]) {
+    $('.success-preloader').removeClass('d-none');
     new compressorjs__WEBPACK_IMPORTED_MODULE_0___default.a(input.files[0], {
       quality: 0.8,
       maxWidth: 700,
@@ -27090,9 +27093,11 @@ function readURL(input) {
       height: 700,
       width: 700,
       success: function success(result) {
+        console.log(result);
         var reader = new FileReader();
 
         reader.onload = function (ev) {
+          $('.success-preloader').addClass('d-none');
           var src = ev.target.result;
           $('#main-poster').attr('src', src);
         };
