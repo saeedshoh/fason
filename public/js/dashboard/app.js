@@ -6064,7 +6064,7 @@ function getAlpha(string) {
 // generators
 function hexString(rgba, a) {
    var a = (a !== undefined && rgba.length === 3) ? a : rgba[3];
-   return "#" + hexDouble(rgba[0]) 
+   return "#" + hexDouble(rgba[0])
               + hexDouble(rgba[1])
               + hexDouble(rgba[2])
               + (
@@ -89029,7 +89029,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
 "use strict";
 //
 // wizard.js
-// 
+//
 
 
 (function () {
@@ -90232,7 +90232,7 @@ $(document).on('click', '.add-product-btn', function () {
 
     var dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
     var image = $('#main-poster').attr('src');
-    var query_url = _check_page == 'true' ? (dashboard ? "dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "dashboard" : "") + '/product/store/test';
+    var query_url = _check_page == 'true' ? (dashboard ? "/dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "/dashboard" : "") + '/product/store/test';
     var gallery = $('.preview-element-image');
     var galleries = [];
     var itemsProcessed = 0;
