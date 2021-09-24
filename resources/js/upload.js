@@ -217,7 +217,7 @@ $(document).on('click', '.add-product-btn', function() {
         const dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
         const image = $('#main-poster').attr('src');
         const query_url =
-            check_page == 'true' ? (dashboard ? `dashboard` : ``) + `/products/edit/test/${product_id}` : (dashboard ? `dashboard` : ``) + '/product/store/test';
+            check_page == 'true' ? (dashboard ? `/dashboard` : ``) + `/products/edit/test/${product_id}` : (dashboard ? `/dashboard` : ``) + '/product/store/test';
         let gallery = $('.preview-element-image');
         let galleries = [];
         let itemsProcessed = 0;
