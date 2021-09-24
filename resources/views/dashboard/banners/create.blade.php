@@ -115,8 +115,7 @@
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="image">Изображения</label> <span id="bannerSize" class=" badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else 1600x80 @endif</span>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input my" id="image" required onchange="encodeImageFileAsURL(this)">
-                                            <input type="hidden" name="image" value="" id="base64encode">
+                                            <input type="file" class="custom-file-input my" id="image"  name="image" >
                                             <label class="custom-file-label your" for="image">Выберите файл</label>
                                             @error('image')
                                             <div class="invalid-feedback">
@@ -160,14 +159,6 @@
             $('#bannerSize').text('1140x136')
         }
     })
-
-    function encodeImageFileAsURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {
-        $('#base64encode').val(reader.result)
-    }
-    reader.readAsDataURL(file);
 }
 </script>
 <style>
