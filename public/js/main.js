@@ -27059,7 +27059,7 @@ $(document).on('click', '.add-product-btn', function () {
 
     var dashboard = window.location.pathname.indexOf('dashboard') == -1 ? false : true;
     var image = $('#main-poster').attr('src');
-    var query_url = _check_page == 'true' ? (dashboard ? "dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "dashboard" : "") + '/product/store/test';
+    var query_url = _check_page == 'true' ? (dashboard ? "/dashboard" : "") + "/products/edit/test/".concat(product_id) : (dashboard ? "/dashboard" : "") + '/product/store/test';
     var gallery = $('.preview-element-image');
     var galleries = [];
     var itemsProcessed = 0;
