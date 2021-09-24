@@ -339,6 +339,7 @@ function readURL(input) {
                 reader.onload = ev => {
                     $('.success-preloader').addClass('d-none');
                     const src = ev.target.result;
+                    $('.image-value').val(src);
                     $('#main-poster').attr('src', src);
                 };
                 reader.readAsDataURL(result);

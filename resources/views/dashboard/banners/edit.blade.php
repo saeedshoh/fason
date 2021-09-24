@@ -115,7 +115,8 @@
                                     </div> --}}
                                     <label for="image">Изображения</label> <span id="bannerSize" class="badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else @if($banner->position == 1) 1600x80 @else 1140x136 @endif @endif</span>
                                     <label class="custom-file-label position-relative d-block" for="image">Выберите файл</label>
-                                    <input type="file" accept="image/*" id="image" class="custom-file-input " lang="ru"  name="image" value="{{ $banner->image }}">
+                                    <input type="file" accept="image/*" id="image" class="custom-file-input " lang="ru">
+                                    <input type="hidden" name="image" class="image-value" value="{{ $banner->image }}">
                                     @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -150,6 +151,8 @@
     function start_preloader(){
         $('.success-preloader').removeClass('d-none');
     }
+</script>
+<script>
     $('#position').change(function(){
         const position = $(this).val()
         const type = $('#type').val()
