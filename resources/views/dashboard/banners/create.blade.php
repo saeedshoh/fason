@@ -115,7 +115,8 @@
                                     <div class="col-12 col-md-12 mb-3">
                                         <label for="image">Изображения</label> <span id="bannerSize" class=" badge badge-warning"> @if(Str::contains($back, 'sliders')) 653x379 @else 1600x80 @endif</span>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input my" id="image"  name="image" >
+                                            <input type="file" class="custom-file-input my" id="image">
+                                            <input type="hidden" name="image" class="image-value">
                                             <label class="custom-file-label your" for="image">Выберите файл</label>
                                             @error('image')
                                             <div class="invalid-feedback">
@@ -146,9 +147,11 @@
 
 @section('script')
 <script>
-    function start_preloader(){
+function start_preloader(){
         $('.success-preloader').removeClass('d-none');
     }
+</script>
+<script>
     $('#position').change(function(){
         const position = $(this).val()
         const type = $('#type').val()

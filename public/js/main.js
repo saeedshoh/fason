@@ -27099,6 +27099,7 @@ function readURL(input) {
         reader.onload = function (ev) {
           $('.success-preloader').addClass('d-none');
           var src = ev.target.result;
+          $('.image-value').val(src);
           $('#main-poster').attr('src', src);
         };
 
