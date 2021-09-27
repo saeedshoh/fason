@@ -439,7 +439,7 @@
                 <div class="col-12 order-lg-1">
                     @if (!Auth::guest())
                     <div class="d-flex justify-content-between mt-lg-3">
-                      <span class="text-dark font-weight-600">Ваш город</span>
+                      <span class="text-dark font-weight-600">Ваш город:</span>
                       <span class="text-pinky font-weight-600">{{ Auth::user()->city->name }}</span>
                     </div>
                      @endif

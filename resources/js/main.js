@@ -311,9 +311,9 @@ $(document).ready(function() {
                 } else if (data % 10 == 1) {
                     _this.text(`${data}  товар`)
                 }
-                else if (data <= 0) {
-                    _this.css('visibility','hidden')
-                }
+                // else if (data <= 0) {
+                //     _this.css('visibility','hidden')
+                // }
                 else {
                     _this.text(`${data}  товаров`)
                 }
