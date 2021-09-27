@@ -40,12 +40,13 @@
 
                         <!--success order-->
                         @forelse ($orders as $order)
-                        <div class="border rounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
-                            <div class="text-right d-block d-lg-none mt-3">
-                                <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
-                            </div>
+                        <div class="text-right d-block d-lg-none mt-3">
+                            <h6 class="pr-2 @if ($order->order_status_id == 3)text-success @elseif($order->order_status_id == 1)text-warning @elseif($order->order_status_id == 4)text-skyblue @elseif($order->order_status_id == 5)text-secondary @else()text-danger @endif ">{{ $order->order_status->name }}</h6>
+                        </div>
+                        <div class="border borderRounded my-3 @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+
                             <div class="row mx-0 my-2 align-items-start position-relative">
-                                <div class="col-12 col-lg-6 px-2 px-sm-3">
+                                <div class="col-12 col-lg-6 px-2 px-sm-3 border-left ss @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
                                     <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                     <img class="mr-3 rounded" src="{{ Storage::url($order->no_scope_product->image) }}"  width="90" height="90">
                                     <div class="d-flex flex-column align-self-center w-100">

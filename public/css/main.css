@@ -11996,6 +11996,14 @@ button:focus {
   transition: 0.5s;
 }
 
+.ss {
+  border-width: 3px !important;
+}
+
+.borderRounded {
+  border-radius: 0.75rem !important;
+}
+
 .markets .item:hover .market-name::after {
   opacity: 1;
 }
