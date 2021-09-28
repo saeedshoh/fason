@@ -101,11 +101,11 @@
                                 </div>
                                 <div class="col-2 d-none d-lg-block">
                                     <h6 class="h6">Цена</h6>
-                                    <h5 class="h4 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif ">{{ $order->total+$order->margin }} Сомони</h5>
+                                    <h5 class="font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif ">{{ $order->total+$order->margin }} Сомони</h5>
                                 </div>
                                 <div class="col-2 d-none d-lg-block">
                                     <h6 class="h6">Статус</h6>
-                                    <h5 class="h5 font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif ">{{ $order->order_status->name }}</h5>
+                                    <h5 class="font-weight-bold @if ($order->order_status_id == 1) text-warning @elseif($order->order_status_id == 2) text-danger @elseif($order->order_status_id == 4) text-skyblue @elseif($order->order_status_id == 5)text-secondary @else text-success @endif ">{{ $order->order_status->name }}</h5>
                                 </div>
                                 <a href="{{ route('ft-order.single', $order->id) }}" class="stretched-link"></a>
                             </div>
