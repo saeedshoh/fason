@@ -35,7 +35,7 @@ class ProductController extends Controller
         $this->middleware('permission:read-products', ['only' => ['index', 'show']]);
     }
 
-    public function decline($product)
+    public function decline(Request $request, $product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
         $product->update(['product_status_id' => 3]);
@@ -49,10 +49,10 @@ class ProductController extends Controller
         session()->flash('class', 'warning');
         session()->flash('message', 'Товар  «'.$product->name.'» откланен!');
 
-        return redirect()->route('products.index');
+        return redirect($request->previous);
     }
 
-    public function publish($product)
+    public function publish(Request $request, $product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
 
@@ -68,7 +68,7 @@ class ProductController extends Controller
         session()->flash('class', 'success');
         session()->flash('message', 'Товар  «'.$product->name.'» успешно опубликован!');
 
-        return redirect()->route('products.index');
+        return redirect($request->previous);
     }
 
     public function add_product()
@@ -455,7 +455,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($product)
+    public function destroy(Request $request,$product)
     {
         $product = Product::withoutGlobalScopes()->find($product);
         $category = Category::where('id', $product->category_id)->first()->name;
@@ -477,7 +477,7 @@ class ProductController extends Controller
         session()->flash('class', 'danger');
         session()->flash('message', 'Товар  «'.$product->name.'» удален!');
 
-        return redirect()->route('products.index');
+        return redirect($request->previous);
     }
 
     /**
