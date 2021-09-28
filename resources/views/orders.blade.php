@@ -127,7 +127,7 @@
                                 <div class="border borderRounded my-3 @if ($sale->order_status_id == 3)border-success @elseif($sale->order_status_id == 4)border-primary @elseif($sale->order_status_id == 5)border-secondary @elseif($sale->order_status_id == 1)border-warning @else()border-danger @endif">
 
                                     <div class="row mx-0 my-2 align-items-start position-relative">
-                                        <div class="col-12 col-lg-6 px-2 px-sm-3 border-left border_left @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+                                        <div class="col-12 col-lg-6 px-2 px-sm-3 border-left border_left  @if ($sale->order_status_id == 3)border-success @elseif($sale->order_status_id == 4)border-primary @elseif($sale->order_status_id == 5)border-secondary @elseif($sale->order_status_id == 1)border-warning @else()border-danger @endif">
                                             <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                             <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="90" height="90">
                                                 <div class="d-flex flex-column align-self-center w-100">
