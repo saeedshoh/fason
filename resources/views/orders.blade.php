@@ -121,12 +121,13 @@
                     @if ($is_store)
                         <div class="tab-pane fade @if($sales) @if(count($sales->where('order_status_id', 1)) > 0)show active @endif @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                             @forelse ($sales as $sale)
+                            <div class="text-right d-block d-lg-none mt-3">
+                                <h6 class="pr-2 @if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 5)text-secondary @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
+                            </div>
                                 <div class="border borderRounded my-3 @if ($sale->order_status_id == 3)border-success @elseif($sale->order_status_id == 4)border-primary @elseif($sale->order_status_id == 5)border-secondary @elseif($sale->order_status_id == 1)border-warning @else()border-danger @endif">
-                                    <div class="text-right d-block d-lg-none mt-3">
-                                        <h6 class="pr-2 @if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 5)text-secondary @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
-                                    </div>
+
                                     <div class="row mx-0 my-2 align-items-start position-relative">
-                                        <div class="col-12 col-lg-6 border_left @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
+                                        <div class="col-12 col-lg-6 px-2 px-sm-3 border-left border_left @if ($order->order_status_id == 3)border-success @elseif($order->order_status_id == 1)border-warning @elseif($order->order_status_id == 4)border-primary @elseif($order->order_status_id == 5)border-secondary @else()border-danger @endif">
                                             <div class="d-flex w-100 justify-content-start justify-lg-content-center status align-items-center">
                                             <img class="mr-3 rounded" src="{{ Storage::url($sale->no_scope_product->image) }}" width="90" height="90">
                                                 <div class="d-flex flex-column align-self-center w-100">
