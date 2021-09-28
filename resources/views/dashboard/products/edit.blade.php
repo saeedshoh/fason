@@ -272,16 +272,19 @@
                             <form class="d-inline" action="{{ route('products.destroy', $product) }}" method="POST">
                                 @csrf
                                     <button class="btn btn-danger delete-confirm" type="submit"><i class="fe fe-trash"> </i> Удалить</button>
+                                    <input type="hidden" name="previous" value="{{ url()->previous() }}">
                                 @method('DELETE')
                             </form>
                             <form class="d-inline" action="{{ route('products.decline', $product) }}" method="POST">
                                 @csrf
                                 <button class="btn btn-warning text-white" type="submit"><i class="fe fe-x-circle"> </i> Отклонить</button>
+                                <input type="hidden" name="previous" value="{{ url()->previous() }}">
                                 @method('POST')
                             </form>
                             <form class="d-inline" action="{{ route('products.publish', $product) }}" method="POST">
                                 @csrf
                                 <button class="btn btn-success" type="submit"><i class="fe fe-copy"> </i> Опубликовать</button>
+                                <input type="hidden" name="previous" value="{{ url()->previous() }}">
                                 @method('POST')
                             </form>
                         </div>
