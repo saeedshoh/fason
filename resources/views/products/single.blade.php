@@ -124,7 +124,7 @@
             @endauth
             @if(Auth::check())
                 @if (Auth::user()->store && $product->store_id == Auth::user()->store->id && $product->deleted_at == null)
-                <form action="{{ route('products.destroy', $product) }}" method="POST">
+                <form action="{{ route('ft_product.destroy', $product) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="button" class="rounded-11 btn btn-warning  ml-md-2 my-1 px-2 delete-product">
