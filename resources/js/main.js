@@ -923,7 +923,7 @@ $('#buyBtn').on('click', function(e) {
     } else {
         Toast.fire({
             toast: true,
-            position: 'top-end',
+            position: 'top',
             icon: 'error',
             title: 'Выберите все параметры товара!'
         })
@@ -963,7 +963,7 @@ $('#buyBtnMob').on('click', function(e) {
     } else {
         Toast.fire({
             toast: true,
-            position: 'top-end',
+            position: 'top',
             icon: 'error',
             title: 'Выберите все параметры товара!'
         })
