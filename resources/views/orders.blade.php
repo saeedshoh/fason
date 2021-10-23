@@ -13,7 +13,7 @@
             <div class="pb-5 pb-lg-0">
                 <ul class="nav nav-pills justify-content-between" id="myTab" role="tablist">
                     @if($sales)
-                        @if(count($sales->where('order_status_id', 1)) > 0)
+                        {{-- @if(count($sales->where('order_status_id', 1)) > 0) --}}
                             <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
                                 <a class="nav-link orders px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
                             </li>
@@ -22,7 +22,7 @@
                                     <a class="nav-link orders active px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
                                 </li>
                             @endif
-                        @endif
+                        {{-- @endif --}}
                     @else
                         <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
                             <a class="nav-link orders active px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
