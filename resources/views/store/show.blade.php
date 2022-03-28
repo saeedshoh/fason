@@ -202,7 +202,7 @@
                         @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
                           {{ $product->updated_at->diffInDays(now()) }} дня
                         @else
-                          {{ $product->updated_at->diffInDays(now()) }} дней
+                          {{ 15 - $product->updated_at->diffInDays(now()) }} дней
                         @endif
                       @endif
                     </span>
@@ -239,7 +239,7 @@
                         @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
                             {{ $product->updated_at->diffInDays(now()) }} дня
                         @else
-                            {{ $product->updated_at->diffInDays(now()) }} дней
+                            {{ 15 - $product->updated_at->diffInDays(now()) }} дней
                         @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>

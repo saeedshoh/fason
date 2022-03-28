@@ -37512,11 +37512,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\sass\dashboard\theme.scss */"./resources/sass/dashboard/theme.scss");
-__webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\sass\main.scss */"./resources/sass/main.scss");
-module.exports = __webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\sass\dashboard\main.scss */"./resources/sass/dashboard/main.scss");
+__webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\sass\dashboard\theme.scss */"./resources/sass/dashboard/theme.scss");
+__webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\sass\main.scss */"./resources/sass/main.scss");
+module.exports = __webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\sass\dashboard\main.scss */"./resources/sass/dashboard/main.scss");
 
 
 /***/ })

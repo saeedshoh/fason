@@ -27301,7 +27301,7 @@ $(document).on('click', '#profileUpdate', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! c:\OpenServer\domains\fason.loc\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\OpenServer\domains\fason.loc\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
