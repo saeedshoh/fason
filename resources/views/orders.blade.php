@@ -110,12 +110,14 @@
                                 <a href="{{ route('ft-order.single', $order->id) }}" class="stretched-link"></a>
                             </div>
                         </div>
-
                         @empty
                         <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
                             <p class="m-0">У вас нет покупок</p>
                         </div>
                         @endforelse
+                        <div class="d-flex justify-content-center">
+                            {{ $orders->links() }}
+                        </div>
 
                     </div>
                     @if ($is_store)
@@ -194,6 +196,9 @@
                                     <p class="m-0">У вас нет продаж</p>
                                 </div>
                             @endforelse
+                            <div class="d-flex justify-content-center">
+                                {{ $sales->links() }}
+                            </div>
                         </div>
                     @endif
                 </div>

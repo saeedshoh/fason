@@ -106,7 +106,6 @@
                     <div class="col">
 
                         <!-- Form -->
-                      <form>
                         <div class="input-group input-group-flush">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -115,48 +114,13 @@
                           </div>
                             <input class="list-search form-control" type="text" placeholder="Поиск" data-item="products/statuses/canceled" id="search" value="{{ request()->search }}">
                         </div>
-                        </form>
                   </div>
                 </div> <!-- / .row -->
               </div>
                 <div id="products_canceled">
                     <div class="table-responsive">
                         <table class="table table-sm table-hover table-nowrap card-table">
-                        <thead>
-                            <tr>
-                            <th>
-                                <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-order">№</a>
-                            </th>
-                            <th>
-                                <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-name">Название</a>
-                            </th>
-                            <th>
-                                <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-total">Цена</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-margin">Маржа</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-category">Категория</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-city">Город</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-date">Дата</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-quantity">Кол/Во</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-company">Магазин</a>
-                            </th>
-                            <th>
-                              <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-status">Статус</a>
-                            </th>
-                            <th></th>
-                            </tr>
-                        </thead>
+                            <x-product-table-head></x-product-table-head>
                         <tbody class="list">
                             @forelse ($products as $key => $product)
                             <tr class="table-light">
@@ -165,12 +129,6 @@
                             </td>
                             <td class="item-name py-0">
                               <span class="item-name text-reset">{{ $product->name }}</span>
-                            </td>
-                            <td class="item-total py-0">
-                              {{ $product->price }}
-                            </td>
-                            <td class="item-category py-0">
-                              <span class="item-name text-reset">{{ $product->price_after_margin}}</span>
                             </td>
                             <td class="item-category py-0">
                               <span class="item-name text-reset">{{ $product->category->name }}</span>
@@ -189,6 +147,12 @@
                             <td class="item-company py-0">
                               <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->no_scope_store->id) }}">{{ $product->no_scope_store->name }}</a>
                             </td>
+                            <td class="item-total py-0">
+                                {{ $product->price }}
+                              </td>
+                              <td class="item-category py-0">
+                                <span class="item-name text-reset">{{ $product->price_after_margin}}</span>
+                              </td>
                             <td class="item-status py-0">
                               <!-- Badge -->
                               <div class="badge badge-primary">

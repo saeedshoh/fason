@@ -27,12 +27,13 @@
 
             <!-- Navigation -->
             <ul class="navbar-nav">
-
-              <li class="nav-item">
-                <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
-                  <i class="fe fe-home"></i> Главная
-                </a>
-              </li>
+              @role('Administrator')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('dashboard.name') }}">
+                    <i class="fe fe-home"></i> Главная
+                    </a>
+                </li>
+              @endrole
 
               @permission('read-categories')
                 <li class="nav-item">

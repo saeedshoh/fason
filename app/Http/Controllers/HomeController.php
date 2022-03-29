@@ -34,6 +34,11 @@ class HomeController extends Controller
     }
     public function dashboard()
     {
+        if(!auth()->user()->hasRole('Administrator'))
+        {
+            return redirect()->route('products.index');
+        }
+
         $stores = Store::withoutGlobalScopes()->get();
         $total = [];
         foreach ($stores as $store) {
