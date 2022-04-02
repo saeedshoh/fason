@@ -43,7 +43,7 @@ class OrderController extends Controller
             ->orderByRaw('FIELD(order_status_id, "1", "4", "5", "3", "2")')
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(60)
+            ->paginate(50)
             ->withQueryString();
 
         $rdrs = Order::filter($filters)->get()->pluck('id');
@@ -79,7 +79,8 @@ class OrderController extends Controller
             ->filter($filters)
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(50
+            )
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 3)->filter($filters)->get()->pluck('id');
@@ -112,7 +113,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(50)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 4)->filter($filters)->get()->pluck('id');
@@ -145,7 +146,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(50)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 1)->filter($filters)->get()->pluck('id');
@@ -178,7 +179,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(50)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 2)->filter($filters)->get()->pluck('id');
@@ -211,7 +212,7 @@ class OrderController extends Controller
             ->filter($filters)
             ->orderBy('id', 'desc')
             ->with('user', 'store', 'product')
-            ->paginate(30)
+            ->paginate(50)
             ->withQueryString();
 
         $rdrs = Order::where('order_status_id', 5)->filter($filters)->get()->pluck('id');

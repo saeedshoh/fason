@@ -34,9 +34,14 @@ class HomeController extends Controller
     }
     public function dashboard()
     {
-        if(!auth()->user()->hasRole('Administrator'))
+        if(auth()->user()->hasRole('Manager'))
         {
             return redirect()->route('products.index');
+        }
+
+        if (auth()->user()->hasRole('Moderator')) {
+
+            return redirect()->route('orders.accepted');
         }
 
         $stores = Store::withoutGlobalScopes()->get();
