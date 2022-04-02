@@ -15,21 +15,21 @@
                     @if($sales)
                         {{-- @if(count($sales->where('order_status_id', 1)) > 0) --}}
                             <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
-                                <a class="nav-link orders px-1 active py-0 " id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
+                                <a class="nav-link orders px-1  py-0 " id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
                             </li>
                             @if ($is_store)
                                 <li class="nav-item w-50 text-center pl-1" role="presentation">
-                                    <a class="nav-link orders  px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
+                                    <a class="nav-link orders active px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
                                 </li>
                             @endif
                         {{-- @endif --}}
                     @else
                         <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
-                            <a class="nav-link orders active px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
+                            <a class="nav-link orders active px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
                         </li>
                         @if ($is_store)
                             <li class="nav-item w-50 text-center pl-1" role="presentation">
-                                <a class="nav-link orders px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
+                                <a class="nav-link orders px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
                             </li>
                         @endif
                     @endif
@@ -193,7 +193,7 @@
                                 </div>
                             @empty
                                 <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
-                                    <p class="m-0">У вас нет продаж</p>
+                                    <p class="m-0">У вас нет продаж </p>
                                 </div>
                             @endforelse
                             <div class="d-flex justify-content-center">

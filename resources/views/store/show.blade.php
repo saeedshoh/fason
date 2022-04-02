@@ -55,7 +55,7 @@
         </div>
         <div class="col-12 col-lg-9 px-0 px-md-2">
           <div class="position-relative d-inline-block w-100">
-            <h6 class="font-weight-bold mb-3 d-block d-md-none store-info">Информация о магазине</h6>
+            <h6 class="font-weight-bold mb-3 d-none d-md-block store-info">Информация о магазине</h6>
             <img src="/storage/{{ $store->cover ?? '/theme/banner_store.svg'}}" class="w-100 rounded store-image object-cover" alt=""  height="216">
 
             <div class="mobile-avatar position-absolute w-lg-100">
@@ -65,7 +65,7 @@
           </div>
         <!--store logo end-->
         <!--store-info start-->
-        <div class="col-12 mt-lg-4 px-md-2">
+        <div class="col-12 mt-lg-4 px-md-2 d-none d-md-block">
           <div class="d-none d-lg-block">
             <p>{{ $store->description ?? '' }}</p>
             <a href="{{ route('useful_links.privacy_policy') }}" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
@@ -110,6 +110,51 @@
             </div>
           </div>
         </div>
+        <!-- Info about store show mobile ---->
+        <div class="col-12 d-block d-md-none d-lg-none mt-5">
+            <!-- Card -->
+            <div class="card mb-3">
+              <div class="card-header bg-white">
+
+                <h4 class="card-header-title font-weight-bold">
+                  Информация о магазине
+                </h4>
+
+              </div>
+              <div class="card-body">
+                <!-- Card -->
+                <ul class="list-group list-group-flush">
+
+                  <li class=" d-flex align-items-center justify-content-between px-0 border-bottom border__lightBlue py-3">
+                    <div>Телефон</div>
+                    <div>
+                        <a href="tel:{{ $store->user->phone ?? '' }}" class="text-body">{{ $store->user->phone ?? '' }}</a>
+                    </div>
+                  </li>
+                  <li class=" d-flex align-items-center justify-content-between px-0 border-bottom border__lightBlue py-3">
+                    <div>Город</div>
+                    <div>
+                         {{ $store->city->name ?? ''}}
+                    </div>
+                  </li>
+                  <li class="d-flex align-items-center justify-content-between px-0 border-bottom border__lightBlue py-3">
+                    <div>Имя</div>
+                    <div> {{ $store->name ?? ''}} </div>
+                  </li>
+                  <li class="d-flex align-items-center justify-content-between px-0 py-3">
+                    <div>Адрес</div>
+                    <div> {{ $store->address ?? ''}}</div>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+            <div class="d-flex justify-content-center justify-content-md-end w-100 store-controls mt-3 mt-md-0 px-3">
+                <a class="btn btn-danger rounded-11 my-1" href="{{ route('ft-store.edit', $store->slug) }}">Изменить</a>
+            </div>
+        </div>
+        <!--End Info about store show mobile -->
+
       </div>
     </div>
     <!--customer-navs start-->
