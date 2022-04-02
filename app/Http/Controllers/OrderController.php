@@ -24,11 +24,11 @@ class OrderController extends Controller
         if ($is_store) {
             $sales = Order::whereHas('no_scope_product', function ($no_scope_product) {
                 $no_scope_product->where('store_id', auth()->user()->store->id);
-            })->latest()->paginate();
+            })->latest()->paginate(10);
         }
         $orders = Order::where('user_id', Auth::id())
             ->with('attribute_values')
-            ->latest('id')->paginate(2);
+            ->latest('id')->paginate(10);
         return view('orders', compact('orders', 'is_store', 'sales'));
     }
 
