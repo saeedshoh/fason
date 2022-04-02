@@ -442,7 +442,7 @@ class OrderController extends Controller
         return $invoices;
     }
 
-    public function sendSMS(int $phone, string $message, array $config)
+    public function sendSMS(string $phone, string $message, array $config)
     {
         $dlm = ";";
         $txn_id = uniqid(); //ID сообщения в вашей базе данных, оно должно быть уникальным для каждого сообщения
