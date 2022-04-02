@@ -65,7 +65,7 @@
           </div>
         <!--store logo end-->
         <!--store-info start-->
-        <div class="col-12 mt-lg-4 px-md-2">
+        <div class="col-12 mt-lg-4 px-md-2 ">
           <div class="d-none d-lg-block">
             <p>{{ $store->description ?? '' }}</p>
             <a href="{{ route('useful_links.privacy_policy') }}" class="copywright__gideline mt-3 text-success"> Политика и конфеденцальность </a>
@@ -110,6 +110,43 @@
             </div>
           </div>
         </div>
+        <div class="col-12 col-lg-6">
+
+            <div class="card">
+            <div class="card-header">
+
+        <h4 class="card-header-title font-weight-bold">
+          Информация о магазине
+        </h4>
+
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+            <small>Название</small> <small>qqwdqwd</small>
+          </li>
+          <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+            <small>Владелец</small> <small>Rahmatshoh</small>
+          </li>
+          <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+            <small>Телефон</small> <small>
+                <a href="tel:+992502020002" class="text-body">
+                {{ $store->user->phone ?? '' }}
+                </a>
+            </small>
+          </li>
+          <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+            <small>Город</small>
+            <small> {{ $store->city->name ?? ''}}</small>
+          </li>
+          <li class="list-group-item d-flex align-items-center justify-content-between px-0">
+            <small>Адрес</small> <small>wqdqwd</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+          </div>
+
       </div>
     </div>
     <!--customer-navs start-->

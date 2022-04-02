@@ -5246,6 +5246,7 @@ input[type=button].btn-block {
   color: #6c757d;
 }
 
+
 .pagination {
   display: flex;
   padding-left: 0;
@@ -5336,6 +5337,26 @@ input[type=button].btn-block {
   border-bottom-right-radius: 0.2rem;
 }
 
+/* Pagination */
+ul.pagination .page-item.active .page-link{
+    background-color: #ff0055;
+    border-color: #ff0055;
+}
+ul.pagination .page-link{
+    color: #6c757d;
+    padding: 0.6rem 1.3rem;
+}
+ul.pagination .page-item:first-child .page-link{
+    border-top-left-radius: 11px;
+    border-bottom-left-radius: 11px;
+}
+ul.pagination .page-item:last-child .page-link{
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+
+/* Pagiantion end */
 .badge {
   display: inline-block;
   padding: 0.25em 0.4em;

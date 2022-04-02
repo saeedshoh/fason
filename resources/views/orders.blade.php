@@ -193,7 +193,7 @@
                                 </div>
                             @empty
                                 <div class="row mx-0 border-top border-bottom my-2 py-3 align-items-center position-relative">
-                                    <p class="m-0">У вас нет продаж</p>
+                                    <p class="m-0">У вас нет продаж </p>
                                 </div>
                             @endforelse
                             <div class="d-flex justify-content-center">
