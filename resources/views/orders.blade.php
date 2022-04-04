@@ -13,30 +13,28 @@
             <div class="pb-5 pb-lg-0">
                 <ul class="nav nav-pills justify-content-between" id="myTab" role="tablist">
                     @if($sales)
-                        {{-- @if(count($sales->where('order_status_id', 1)) > 0) --}}
                             <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
-                                <a class="nav-link orders px-1  py-0 " id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
+                                <a class="nav-link orders px-1  py-0 {{ request()->has('orderPage') ? 'active' : '' }} " id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
                             </li>
                             @if ($is_store)
                                 <li class="nav-item w-50 text-center pl-1" role="presentation">
-                                    <a class="nav-link orders active px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
+                                    <a class="nav-link orders px-1 py-0   {{  request()->has('salePage') || count(request()->all()) == 0 ? 'active' : '' }} " id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
                                 </li>
                             @endif
-                        {{-- @endif --}}
                     @else
                         <li class="nav-item {{ $is_store ? 'w-50' : 'w-100' }} text-center pr-1" role="presentation">
-                            <a class="nav-link orders active px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">Покупка</a>
+                            <a class="nav-link orders {{ request()->has('orderPage') ? 'active' : '' }} px-1 py-0" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Покупка</a>
                         </li>
                         @if ($is_store)
                             <li class="nav-item w-50 text-center pl-1" role="presentation">
-                                <a class="nav-link orders px-1 py-0" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">Продажа</a>
+                                <a class="nav-link orders px-1 py-0 {{ request()->has('salePage') ? 'active' : '' }}" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Продажа</a>
                             </li>
                         @endif
                     @endif
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <!--buy tabs-->
-                    <div class="tab-pane fade @if($sales) @if(count($sales->where('order_status_id', 1)) == 0)show active @endif @else()show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+                    <div class="tab-pane fade @if($sales) @if(request()->has('orderPage')) show active @endif  @else show active @endif" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 
                         <!--success order-->
                         @forelse ($orders as $order)
@@ -120,8 +118,9 @@
                         </div>
 
                     </div>
+
                     @if ($is_store)
-                        <div class="tab-pane fade @if($sales) @if(count($sales->where('order_status_id', 1)) > 0)show active @endif @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+                        <div class="tab-pane fade @if($sales) @if(request()->has('salePage') || count(request()->all()) == 0) show active  @endif @endif" id="sell" role="tabpanel" aria-labelledby="sell-tab">
                             @forelse ($sales as $sale)
                             <div class="text-right d-block d-lg-none mt-3">
                                 <h6 class="pr-2 @if ($sale->order_status_id == 3)text-success @elseif($sale->order_status_id == 4)text-skyblue @elseif($sale->order_status_id == 5)text-secondary @elseif($sale->order_status_id == 1)text-warning @elseif($sale->order_status_id == 4) text-skyblue @else()text-danger @endif ">{{ $sale->order_status->name }}</h6>
