@@ -25503,87 +25503,121 @@ __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetale
 
 
 var allAttrs = [];
-$(document).on('click', '.add__attr-icon', function () {
-  var imgAdd = '/storage/theme/plus_add_attr.svg';
-  var img_Delete = '/storage/theme/delete_attr.svg';
+$(document).on("click", ".add__attr-icon", function () {
+  var imgAdd = "/storage/theme/plus_add_attr.svg";
+  var img_Delete = "/storage/theme/delete_attr.svg";
   var arr = [];
-  $(this).find($('.st-attribute_add option:selected').each(function (el) {
+  $(this).find($(".st-attribute_add option:selected").each(function (el) {
     arr.push($(this).text());
   }));
 
-  if ($(this).attr('src') === imgAdd) {
-    $(this).attr('src', img_Delete);
+  if ($(this).attr("src") === imgAdd) {
+    $(this).attr("src", img_Delete);
     arr = [];
-  } else if ($(this).attr('src') === img_Delete) {
-    $(this).attr('src', imgAdd);
+  } else if ($(this).attr("src") === img_Delete) {
+    $(this).attr("src", imgAdd);
     console.log(arr);
   }
 });
 
-if ($('#gallery').attr('form') == 'add_product') {
-  Object(_upload_js__WEBPACK_IMPORTED_MODULE_0__["upload"])('#gallery', {
+if ($("#gallery").attr("form") == "add_product") {
+  Object(_upload_js__WEBPACK_IMPORTED_MODULE_0__["upload"])("#gallery", {
     multi: true,
-    accept: ['image/*']
+    accept: ["image/*"]
   });
 }
 
 var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
   toast: true,
-  position: 'top-center',
+  position: "top-center",
   showConfirmButton: false,
   timer: 2000,
   didOpen: function didOpen(toast) {
-    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
-    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
+    toast.addEventListener("mouseenter", sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
+    toast.addEventListener("mouseleave", sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
   }
 });
-$('#listView').on('click', function () {
-  $('#catProducts').find('.card').addClass('active');
-  $('#catProducts .endless-pagination').removeClass('row-cols-2').addClass('row-cols-1');
-  $('#gridView').removeClass('d-none');
-  $(this).addClass('d-none');
-  $('#catProducts .discription').removeClass('d-none');
-  $('#catProducts .card').addClass('flex-row');
-  $('#catProducts .card img').addClass('w-50 h-100');
-  $('#catProducts .row').attr('data-style', '2');
-  $('.line-test::before').css('content', 'none');
-  $('#catProducts').removeClass('col-md-8').addClass('col-md-12');
+$("#listView").on("click", function () {
+  $("#catProducts").find(".card").addClass("active");
+  $("#catProducts .endless-pagination").removeClass("row-cols-2").addClass("row-cols-1");
+  $("#gridView").removeClass("d-none");
+  $(this).addClass("d-none");
+  $("#catProducts .discription").removeClass("d-none");
+  $("#catProducts .card").addClass("flex-row");
+  $("#catProducts .card img").addClass("w-50 h-100");
+  $("#catProducts .row").attr("data-style", "2");
+  $(".line-test::before").css("content", "none");
+  $("#catProducts").removeClass("col-md-8").addClass("col-md-12");
 });
-$('#gridView').on('click', function () {
-  $('#catProducts').find('.card').removeClass('active');
-  $('#catProducts .row').attr('data-style', '1');
-  $('.card').find('img').removeClass('w-50 h-100');
-  $('#catProducts .card').removeClass('flex-row');
-  $('#catProducts .row').removeClass('row-cols-1').addClass('row-cols-2');
-  $('#listView').removeClass('d-none');
-  $(this).addClass('d-none');
-  $('#catProducts .discription').addClass('d-none');
+$("#gridView").on("click", function () {
+  $("#catProducts").find(".card").removeClass("active");
+  $("#catProducts .row").attr("data-style", "1");
+  $(".card").find("img").removeClass("w-50 h-100");
+  $("#catProducts .card").removeClass("flex-row");
+  $("#catProducts .row").removeClass("row-cols-1").addClass("row-cols-2");
+  $("#listView").removeClass("d-none");
+  $(this).addClass("d-none");
+  $("#catProducts .discription").addClass("d-none");
 });
-$('.numeric').on('change keyup', function () {
-  var sanitized = $(this).val().replace(/[^0-9]/g, '');
+$(".numeric").on("change keyup", function () {
+  var sanitized = $(this).val().replace(/[^0-9]/g, "");
   $(this).val(sanitized);
 }); ///  products line
 
+var step_sale = 2;
+var step_order = 2;
 $(document).ready(function () {
-  var url = $(location).attr('href');
+  $(window).scroll(function () {
+    if ($(document).height() - $(this).height() == $(this).scrollTop()) {
+      if ($(".order-scroll")[0]) {
+        if ($(".show").data("type") == 1) {
+          $.get("orders?salePage=" + step_sale, function (data, status) {
+            step_sale++;
+            var products = $.parseHTML(data);
 
-  if (url.indexOf('category') !== -1) {
+            if ($(products).find(".show div.empty-order p").text() != "У вас нет продаж") {
+              $(".show").append($(products).find(".show").html());
+            }
+          });
+        }
+      }
+    }
+  });
+  $(window).scroll(function () {
+    if ($(document).height() - $(this).height() == $(this).scrollTop()) {
+      if ($(".order-scroll")[0]) {
+        if ($(".show").data("type") == 2) {
+          $.get("orders?orderPage=" + step_order, function (data, status) {
+            step_order++;
+            var products = $.parseHTML(data);
+
+            if ($(products).find(".show div.empty-order p").text() != "У вас нет покупок") {
+              $(".show").append($(products).find(".show").html());
+            }
+          });
+        }
+      }
+    }
+  });
+  var url = $(location).attr("href");
+
+  if (url.indexOf("category") !== -1) {
     var myFunction = function myFunction(x) {
       if (x.matches) {
         // If media query matches
         for (var i = 1; i <= 2; i++) {
           // выведет линию над первыми 2 элементами класса ".custom-lined"
-          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+          $(".custom-lined .col:nth-child(" + i + ") .card").addClass("position-relative line-test");
         }
       } else {
         for (var _i = 1; _i <= 3; _i++) {
           // выведет линию над первыми 3 элементами класса ".custom-lined"
-          $('.custom-lined .col:nth-child(' + _i + ') .card').addClass('position-relative line-test');
+          $(".custom-lined .col:nth-child(" + _i + ") .card").addClass("position-relative line-test");
         }
       }
     };
 
-    var x = window.matchMedia('(max-width: 767px)');
+    var x = window.matchMedia("(max-width: 767px)");
     myFunction(x); // Call listener function at run time
 
     x.addListener(myFunction); // Attach listener function on state changes
@@ -25593,17 +25627,17 @@ $(document).ready(function () {
         // If media query matches
         for (var i = 1; i <= 2; i++) {
           // выведет линию над первыми 2 элементами класса ".custom-lined"
-          $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+          $(".custom-lined .col:nth-child(" + i + ") .card").addClass("position-relative line-test");
         }
       } else {
         for (var _i2 = 1; _i2 <= 5; _i2++) {
           // выведет линию над первыми 5 элементами класса ".custom-lined"
-          $('.custom-lined .col:nth-child(' + _i2 + ') .card').addClass('position-relative line-test');
+          $(".custom-lined .col:nth-child(" + _i2 + ") .card").addClass("position-relative line-test");
         }
       }
     };
 
-    var x = window.matchMedia('(max-width: 767px)');
+    var x = window.matchMedia("(max-width: 767px)");
 
     _myFunction(x); // Call listener function at run time
 
@@ -25611,23 +25645,22 @@ $(document).ready(function () {
     x.addListener(_myFunction); // Attach listener function on state changes
   }
 
-  $('#listView').on('click', function () {
+  $("#listView").on("click", function () {
     for (var i = 2; i <= 2; i++) {
       // выведет линию над первыми 1 элементами класса ".custom-lined"
-      $('.custom-lined .col:nth-child(' + i + ') .card').removeClass('line-test');
+      $(".custom-lined .col:nth-child(" + i + ") .card").removeClass("line-test");
     }
   });
-  $('#gridView').on('click', function () {
+  $("#gridView").on("click", function () {
     for (var i = 1; i <= 2; i++) {
       // выведет линию над первыми 1 элементами класса ".custom-lined"
-      $('.custom-lined .col:nth-child(' + i + ') .card').addClass('position-relative line-test');
+      $(".custom-lined .col:nth-child(" + i + ") .card").addClass("position-relative line-test");
     }
   });
-  var prev_imgPlus = $('.preview-image');
+  var prev_imgPlus = $(".preview-image");
 
   if (prev_imgPlus.length == 8) {
-    $('.preview-image').children().last().remove();
-    ;
+    $(".preview-image").children().last().remove();
   }
 });
 
@@ -25645,63 +25678,63 @@ function throttle(f, delay) {
 
 $(document).ready(function () {
   var timeout;
-  $('#nameStoreCreate').on('keyup', function () {
-    $('#storeSubmit').attr('disabled', true);
-    $('.store-exist').addClass('d-none');
+  $("#nameStoreCreate").on("keyup", function () {
+    $("#storeSubmit").attr("disabled", true);
+    $(".store-exist").addClass("d-none");
     var store = $(this).val();
 
     if (store.length == 0) {
-      $('#storeSubmit').attr('disabled', false);
+      $("#storeSubmit").attr("disabled", false);
     }
 
     if (store.length >= 3) {
       clearTimeout(timeout);
       timeout = setTimeout(function () {
-        $.get('/store/exist/' + store, function (data) {
+        $.get("/store/exist/" + store, function (data) {
           if (data.exist) {
-            $('.store-exist').removeClass('d-none');
-            $('#storeSubmit').attr('disabled', true);
+            $(".store-exist").removeClass("d-none");
+            $("#storeSubmit").attr("disabled", true);
           } else {
-            $('.store-exist').addClass('d-none');
-            $('#storeSubmit').attr('disabled', false);
+            $(".store-exist").addClass("d-none");
+            $("#storeSubmit").attr("disabled", false);
           }
         });
       }, 100);
     }
   });
-  $('#nameEditStore').on('keyup', function () {
-    $('#storeEditSubmit').attr('disabled', true);
-    $('.store-exist').addClass('d-none');
+  $("#nameEditStore").on("keyup", function () {
+    $("#storeEditSubmit").attr("disabled", true);
+    $(".store-exist").addClass("d-none");
     var store = $(this).val();
 
     if (store.length == 0) {
-      $('#storeEditSubmit').attr('disabled', false);
+      $("#storeEditSubmit").attr("disabled", false);
     }
 
     if (store.length >= 3 && store != this.defaultValue) {
       clearTimeout(timeout);
       timeout = setTimeout(function () {
-        $.get('/store/exist/' + store, function (data) {
+        $.get("/store/exist/" + store, function (data) {
           if (data.exist) {
-            $('.store-exist').removeClass('d-none');
-            $('#storeEditSubmit').attr('disabled', true);
+            $(".store-exist").removeClass("d-none");
+            $("#storeEditSubmit").attr("disabled", true);
           } else {
-            $('.store-exist').addClass('d-none');
-            $('#storeEditSubmit').attr('disabled', false);
+            $(".store-exist").addClass("d-none");
+            $("#storeEditSubmit").attr("disabled", false);
           }
         });
       }, 100);
     }
   });
-  $('.sms--false').hide();
+  $(".sms--false").hide();
   $(window).scroll(fetchPosts);
-  var old_page = '';
+  var old_page = "";
 
   function fetchPosts() {
-    var page = $('.endless-pagination').data('next-page');
+    var page = $(".endless-pagination").data("next-page");
 
-    if (page !== null && page !== '' && !page.substring(0, 5).includes('null&')) {
-      $('#scroll-spinner').removeClass('d-none'); // clearTimeout($.data(this, 'scrollCheck'))
+    if (page !== null && page !== "" && !page.substring(0, 5).includes("null&")) {
+      $("#scroll-spinner").removeClass("d-none"); // clearTimeout($.data(this, 'scrollCheck'))
       // $.data(
       //     this,
       //     'scrollCheck',
@@ -25711,15 +25744,15 @@ $(document).ready(function () {
         var scroll_position_for_posts_load = $(window).height() + $(window).scrollTop();
 
         if (scroll_position_for_posts_load <= $(document).height()) {
-          var style = $('#catProducts .row').attr('data-style');
+          var style = $("#catProducts .row").attr("data-style");
 
           if (old_page != page) {
             $.get(page, {
               style: style
             }, function (data) {
-              $('.endless-pagination').append(data.posts);
-              $('.endless-pagination').data('next-page', data.next_page);
-              $('#scroll-spinner').addClass('d-none');
+              $(".endless-pagination").append(data.posts);
+              $(".endless-pagination").data("next-page", data.next_page);
+              $("#scroll-spinner").addClass("d-none");
             });
             old_page = page;
           }
@@ -25728,7 +25761,7 @@ $(document).ready(function () {
     }
   }
 
-  $('.markets').slick({
+  $(".markets").slick({
     dots: true,
     infinite: false,
     speed: 300,
@@ -25759,9 +25792,9 @@ $(document).ready(function () {
     // instead of a settings object
     ]
   });
-  $('#phone').inputmask({
-    mask: '999 99 9999',
-    placeholder: ' ',
+  $("#phone").inputmask({
+    mask: "999 99 9999",
+    placeholder: " ",
     showMaskOnHover: false,
     showMaskOnFocus: false,
     onBeforePaste: function onBeforePaste(pastedValue, opts) {
@@ -25770,9 +25803,9 @@ $(document).ready(function () {
       return processedValue;
     }
   });
-  $('#code').inputmask({
-    mask: '99999',
-    placeholder: '',
+  $("#code").inputmask({
+    mask: "99999",
+    placeholder: "",
     showMaskOnHover: false,
     showMaskOnFocus: false,
     onBeforePaste: function onBeforePaste(pastedValue, opts) {
@@ -25783,18 +25816,18 @@ $(document).ready(function () {
   }); // const xl = $('#hello').val()
   // console.log(JSON.parse(xl))
 
-  $('.count-products').each(function () {
-    var category = $(this).data('id');
+  $(".count-products").each(function () {
+    var category = $(this).data("id");
 
     var _this = $(this);
 
     $.ajax({
-      url: '/countProducts',
+      url: "/countProducts",
       data: {
         category: category
       },
-      method: 'GET',
-      dataType: 'json',
+      method: "GET",
+      dataType: "json",
       success: function success(data) {
         if ([2, 3, 4].includes(data % 10)) {
           _this.text("".concat(data, "  \u0442\u043E\u0432\u0430\u0440\u0430"));
@@ -25809,69 +25842,69 @@ $(document).ready(function () {
       }
     });
   });
-  var url = $(location).attr('href');
+  var url = $(location).attr("href");
 
-  if (url.indexOf('sort=') !== -1) {
-    var sort = url.split('sort=')[1].split('&')[0];
-    var city = url.split('city=')[1].split('&')[0];
+  if (url.indexOf("sort=") !== -1) {
+    var sort = url.split("sort=")[1].split("&")[0];
+    var city = url.split("city=")[1].split("&")[0];
 
-    if (url.indexOf('priceFrom')) {
-      var priceFrom = url.split('priceFrom=')[1].split('&')[0];
-      $('#priceFrom').val(priceFrom);
+    if (url.indexOf("priceFrom")) {
+      var priceFrom = url.split("priceFrom=")[1].split("&")[0];
+      $("#priceFrom").val(priceFrom);
     }
 
-    if (url.indexOf('priceTo')) {
-      var priceTo = url.split('priceTo=')[1].split('&')[0];
-      $('#priceTo').val(priceTo);
+    if (url.indexOf("priceTo")) {
+      var priceTo = url.split("priceTo=")[1].split("&")[0];
+      $("#priceTo").val(priceTo);
     }
 
-    $(".sort[data-sort=".concat(sort, "]")).attr('checked', true);
-    $(".city[data-city=".concat(city, "]")).attr('checked', true);
+    $(".sort[data-sort=".concat(sort, "]")).attr("checked", true);
+    $(".city[data-city=".concat(city, "]")).attr("checked", true);
   }
 
-  $('.att-show').on('click', function () {
-    $('.att-show').removeClass('active');
-    $(this).addClass('active');
+  $(".att-show").on("click", function () {
+    $(".att-show").removeClass("active");
+    $(this).addClass("active");
   });
-  var urlMobi = $(location).attr('href');
+  var urlMobi = $(location).attr("href");
 
-  if (url.indexOf('sort=') !== -1) {
-    var sortMobi = urlMobi.split('sort=')[1].split('&')[0];
-    var cityMobi = urlMobi.split('city=')[1].split('&')[0];
+  if (url.indexOf("sort=") !== -1) {
+    var sortMobi = urlMobi.split("sort=")[1].split("&")[0];
+    var cityMobi = urlMobi.split("city=")[1].split("&")[0];
 
-    if (urlMobi.indexOf('priceFromMobi')) {
-      var priceFromMobi = urlMobi.split('priceFromMobi=')[1].split('&')[0];
-      $('#priceFromMobi').val(priceFromMobi);
+    if (urlMobi.indexOf("priceFromMobi")) {
+      var priceFromMobi = urlMobi.split("priceFromMobi=")[1].split("&")[0];
+      $("#priceFromMobi").val(priceFromMobi);
     }
 
-    if (urlMobi.indexOf('priceToMobi')) {
-      var priceToMobi = urlMobi.split('priceToMobi=')[1].split('&')[0];
-      $('#priceToMobi').val(priceToMobi);
+    if (urlMobi.indexOf("priceToMobi")) {
+      var priceToMobi = urlMobi.split("priceToMobi=")[1].split("&")[0];
+      $("#priceToMobi").val(priceToMobi);
     }
 
-    $(".sort[data-sort=".concat(sortMobi, "]")).attr('checked', true);
-    $(".city[data-city=".concat(cityMobi, "]")).attr('checked', true);
+    $(".sort[data-sort=".concat(sortMobi, "]")).attr("checked", true);
+    $(".city[data-city=".concat(cityMobi, "]")).attr("checked", true);
   }
 
-  $('.att-show').on('click', function () {
-    $('.att-show').removeClass('active');
-    $(this).addClass('active');
+  $(".att-show").on("click", function () {
+    $(".att-show").removeClass("active");
+    $(this).addClass("active");
   }); ///Delete store
 
-  $('body').on('click', '.delete-store', function (event) {
+  $("body").on("click", ".delete-store", function (event) {
     var form = $(this).closest("form");
     event.preventDefault();
     sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-      title: '<h4>Вы действительно хотите выключить магазин?</h4>',
+      title: "<h4>Вы действительно хотите выключить магазин?</h4>",
       html: '<p style="font-size: 12px;">При выключении другие пользователи не смогут видеть ваши товары, пока вы не восстановите магазин</p>',
-      icon: 'warning',
+      icon: "warning",
       height: 200,
-      position: 'center',
+      position: "center",
       showCancelButton: true,
-      confirmButtonText: 'Да',
-      cancelButtonText: 'Нет',
+      confirmButtonText: "Да",
+      cancelButtonText: "Нет",
       customClass: {
-        confirmButton: 'bg-danger'
+        confirmButton: "bg-danger"
       }
     }).then(function (result) {
       if (result.isConfirmed) {
@@ -25879,19 +25912,19 @@ $(document).ready(function () {
       }
     });
   });
-  $('body').on('click', '.restore-store', function (event) {
+  $("body").on("click", ".restore-store", function (event) {
     var form = $(this).closest("form");
     event.preventDefault();
     sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-      title: '<h4>Вы действительно хотите восстановить магазин?</h4>',
-      icon: 'warning',
+      title: "<h4>Вы действительно хотите восстановить магазин?</h4>",
+      icon: "warning",
       height: 200,
-      position: 'center',
+      position: "center",
       showCancelButton: true,
-      confirmButtonText: 'Да',
-      cancelButtonText: 'Нет',
+      confirmButtonText: "Да",
+      cancelButtonText: "Нет",
       customClass: {
-        confirmButton: 'bg-success'
+        confirmButton: "bg-success"
       },
       buttons: true,
       dangerMode: true
@@ -25902,56 +25935,56 @@ $(document).ready(function () {
     });
   });
 });
-$('body').on('click', '#prevCategory', function () {
-  $('#subcategories').hide();
-  $('#categories').show();
+$("body").on("click", "#prevCategory", function () {
+  $("#subcategories").hide();
+  $("#categories").show();
 });
-$('body').on('click', '.subcategory', function () {
-  $('#attributes').empty();
-  var category = $(this).data('slug');
-  window.location.href = '/category/' + category;
+$("body").on("click", ".subcategory", function () {
+  $("#attributes").empty();
+  var category = $(this).data("slug");
+  window.location.href = "/category/" + category;
 });
-$(document).on('change', '#cat_parent', function () {
-  $('#attributes').empty();
+$(document).on("change", "#cat_parent", function () {
+  $("#attributes").empty();
   var this_ = $(this);
-  var id = $('#cat_parent option:selected').val();
+  var id = $("#cat_parent option:selected").val();
   $.ajax({
-    url: '/getSubcategories',
+    url: "/getSubcategories",
     data: {
       category: id
     },
-    method: 'GET',
-    dataType: 'json',
+    method: "GET",
+    dataType: "json",
     success: function success(data) {
-      $('#categories-row').empty();
-      $('#attributes').empty();
+      $("#categories-row").empty();
+      $("#attributes").empty();
 
-      if (data != '') {
-        $('#subCategories').empty();
-        this_.attr('name', 'parent_cat');
-        $('#categories-row').append("\n                    <div id=\"subCategories\">\n                        <div class=\"form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                            <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                            <div class=\"w-75 input_placeholder_style input-group  w-md-100\">\n                                <div class=\"input-group-prepend position-relative\">\n                                    <div class=\"input-group-text px-1  btn-custom-fs bg-white \"></div>\n                                </div>\n                                <select class=\"input_placeholder_style custom-select position-relative\" id=\"cat_child\" name=\"category_id\" required>\n                                </select>\n                                <small class=\"invalid-feedback\">\n                                    \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E\n                                </small>\n                            </div>\n                        </div>\n                    </div>\n                ");
-        $('#cat_child').empty().append("\n                    <option value=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                ");
-        $('#child_div').remove();
+      if (data != "") {
+        $("#subCategories").empty();
+        this_.attr("name", "parent_cat");
+        $("#categories-row").append("\n                    <div id=\"subCategories\">\n                        <div class=\"form-group d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                            <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                            <div class=\"w-75 input_placeholder_style input-group  w-md-100\">\n                                <div class=\"input-group-prepend position-relative\">\n                                    <div class=\"input-group-text px-1  btn-custom-fs bg-white \"></div>\n                                </div>\n                                <select class=\"input_placeholder_style custom-select position-relative\" id=\"cat_child\" name=\"category_id\" required>\n                                </select>\n                                <small class=\"invalid-feedback\">\n                                    \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E\n                                </small>\n                            </div>\n                        </div>\n                    </div>\n                ");
+        $("#cat_child").empty().append("\n                    <option value=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                ");
+        $("#child_div").remove();
         data.forEach(function (element) {
-          $('#cat_child').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+          $("#cat_child").append("\n                        <option value=\"".concat(element["id"], "\">").concat(element["name"], "</option>\n                    "));
         });
       } else {
-        this_.attr('name', 'category_id');
+        this_.attr("name", "category_id");
         $.ajax({
-          url: '/getAttributes',
+          url: "/getAttributes",
           data: {
             category_id: id
           },
           method: "GET",
-          dataType: 'json',
+          dataType: "json",
           success: function success(data) {
-            $('#attributes').empty();
+            $("#attributes").empty();
             console.log(data);
 
             if (data.length > 0) {
               if (data[0].at_id) {
                 data.forEach(function (element) {
-                  $('#attributes').append("\n                                    <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                                        <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                            <div class=\"d-flex justify-content-between align-items-center\">\n                                                <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element['at_name'], ":</label>\n                                                <label for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                            </div>\n                                            <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                                        </div>\n                                    "));
+                  $("#attributes").append("\n                                    <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                                        <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                            <div class=\"d-flex justify-content-between align-items-center\">\n                                                <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element["at_name"], ":</label>\n                                                <label for=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                            </div>\n                                            <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element["at_slug"], "][id]\" type=\"checkbox\" id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" value=\"").concat(element["at_id"], "\">\n                                        </div>\n                                    "));
                 });
               }
             }
@@ -25961,41 +25994,41 @@ $(document).on('change', '#cat_parent', function () {
     }
   });
 });
-$('body').on('change', '#cat_child_value', function () {
-  var id = $('#cat_child_value option:selected').val();
+$("body").on("change", "#cat_child_value", function () {
+  var id = $("#cat_child_value option:selected").val();
   $.ajax({
-    url: '/getSubcategories',
+    url: "/getSubcategories",
     data: {
       category: id
     },
     method: "GET",
-    dataType: 'json',
+    dataType: "json",
     success: function success(data) {
       if (data.length > 0) {
-        $('#attributes').empty();
-        $('#cat_child_value').attr('name', 'subcategory');
-        $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group col-12 col-md-12 mb-3\">\n                        <label class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"input_placeholder_style\">\n                        <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\">\n                            <option disabled selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                        </select>\n                        </div>\n                    </div>\n                ");
+        $("#attributes").empty();
+        $("#cat_child_value").attr("name", "subcategory");
+        $("#child_div").remove();
+        $("#subCategories").append("\n                    <div id=\"child_div\" class=\"form-group col-12 col-md-12 mb-3\">\n                        <label class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"input_placeholder_style\">\n                        <select class=\"input_placeholder_style form-control position-relative\" id=\"grandchildren\" name=\"category_id\">\n                            <option disabled selected>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                        </select>\n                        </div>\n                    </div>\n                ");
         data.forEach(function (element) {
-          $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+          $("#grandchildren").append("\n                        <option value=\"".concat(element["id"], "\">").concat(element["name"], "</option>\n                    "));
         });
       } else {
-        $('#cat_child').attr('name', 'category_id');
-        $('#child_div').remove();
+        $("#cat_child").attr("name", "category_id");
+        $("#child_div").remove();
         $.ajax({
-          url: '/getAttributes',
+          url: "/getAttributes",
           data: {
             category_id: id
           },
           method: "GET",
-          dataType: 'json',
+          dataType: "json",
           success: function success(data) {
-            $('#attributes').empty();
+            $("#attributes").empty();
 
             if (data.length > 0) {
               if (data[0].at_id) {
                 data.forEach(function (element) {
-                  $('#attributes').append("\n                                    <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                                        <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                            <div class=\"d-flex justify-content-between align-items-center\">\n                                                <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element['at_name'], ":</label>\n                                                <label for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                            </div>\n                                            <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                                        </div>\n                                    "));
+                  $("#attributes").append("\n                                    <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                                        <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                            <div class=\"d-flex justify-content-between align-items-center\">\n                                                <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element["at_name"], ":</label>\n                                                <label for=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                            </div>\n                                            <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element["at_slug"], "][id]\" type=\"checkbox\" id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" value=\"").concat(element["at_id"], "\">\n                                        </div>\n                                    "));
                 });
               }
             }
@@ -26005,22 +26038,22 @@ $('body').on('change', '#cat_child_value', function () {
     }
   });
 });
-$('body').on('change', '#grandchildren', function () {
-  var id = $('#grandchildren option:selected').val();
+$("body").on("change", "#grandchildren", function () {
+  var id = $("#grandchildren option:selected").val();
   $.ajax({
-    url: '/getAttributes',
+    url: "/getAttributes",
     data: {
       category_id: id
     },
     method: "GET",
-    dataType: 'json',
+    dataType: "json",
     success: function success(data) {
-      $('#attributes').empty();
+      $("#attributes").empty();
 
       if (data.length > 0) {
         if (data[0].at_id) {
           data.forEach(function (element) {
-            $('#attributes').append("\n                        <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                            <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                <div class=\"d-flex justify-content-between align-items-center\">\n                                    <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element['at_name'], ":</label>\n                                    <label for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                </div>\n                                <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                            </div>\n                        "));
+            $("#attributes").append("\n                        <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                            <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                <div class=\"d-flex justify-content-between align-items-center\">\n                                    <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element["at_name"], ":</label>\n                                    <label for=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                </div>\n                                <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element["at_slug"], "][id]\" type=\"checkbox\" id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" value=\"").concat(element["at_id"], "\">\n                            </div>\n                        "));
           });
         }
       }
@@ -26057,64 +26090,64 @@ $('body').on('change', '#grandchildren', function () {
 //     })
 // })
 
-$('#add_product input, #add_product textarea, #add_product select').on('change', function () {
+$("#add_product input, #add_product textarea, #add_product select").on("change", function () {
   if ($(this).val() == "") {
-    $(this).parent().find('div, input, textarea').addClass('border-danger');
-    $(this).parent().find('small').addClass('d-block');
+    $(this).parent().find("div, input, textarea").addClass("border-danger");
+    $(this).parent().find("small").addClass("d-block");
   } else {
-    $(this).parent().find('div, input, textarea').removeClass('border-danger');
-    $(this).parent().find('small').removeClass('d-block');
+    $(this).parent().find("div, input, textarea").removeClass("border-danger");
+    $(this).parent().find("small").removeClass("d-block");
   }
 });
-$(document).on('submit', '#add_product', function (event) {
-  $(this).addClass('was-validated'); //stop submitting the form to see the disabled button effect
+$(document).on("submit", "#add_product", function (event) {
+  $(this).addClass("was-validated"); //stop submitting the form to see the disabled button effect
 
-  if ($('.add-product').find('#image').val() == '') {
-    $('#main-poster').parent().find('small').removeClass('d-none');
-    $('#main-poster').addClass('border-danger');
+  if ($(".add-product").find("#image").val() == "") {
+    $("#main-poster").parent().find("small").removeClass("d-none");
+    $("#main-poster").addClass("border-danger");
     event.preventDefault();
     return false;
   }
 
-  if ($('.edit-product').find('#image').attr('value') == '') {
-    $('#main-poster').parent().find('small').removeClass('d-none');
-    $('#main-poster').addClass('border-danger');
+  if ($(".edit-product").find("#image").attr("value") == "") {
+    $("#main-poster").parent().find("small").removeClass("d-none");
+    $("#main-poster").addClass("border-danger");
     event.preventDefault();
     return false;
   }
 
-  if ($('#name').val() == '' && $('#description').val() == '' && $('#quantity').val() == '' && $('select[name="category_id"]').val() == '' && $('#price').val() == '') {
+  if ($("#name").val() == "" && $("#description").val() == "" && $("#quantity").val() == "" && $('select[name="category_id"]').val() == "" && $("#price").val() == "") {
     event.preventDefault();
     return false;
   }
 });
-$(document).on('change', '.st-attribute_add', function () {});
-$(document).on('click', '#btn-add_address', function () {
+$(document).on("change", ".st-attribute_add", function () {});
+$(document).on("click", "#btn-add_address", function () {
   var formData = new FormData();
-  formData.append('_token', $('meta[name=csrf-token]').attr('content'));
-  var phone = $('#phone').val();
-  var name = $(this).closest('form').find('input[name="name"]').val();
-  var address = $(this).closest('form').find('input[name="address"]').val();
-  var city_id = $(this).closest('form').find('input[name="city_id"]:checked').val();
-  var profile_photo_path = $('#main-poster').attr('src');
-  formData.append('phone', phone);
-  formData.append('name', name);
-  formData.append('address', address);
-  formData.append('city_id', city_id);
-  formData.append('profile_photo_path', profile_photo_path);
+  formData.append("_token", $("meta[name=csrf-token]").attr("content"));
+  var phone = $("#phone").val();
+  var name = $(this).closest("form").find('input[name="name"]').val();
+  var address = $(this).closest("form").find('input[name="address"]').val();
+  var city_id = $(this).closest("form").find('input[name="city_id"]:checked').val();
+  var profile_photo_path = $("#main-poster").attr("src");
+  formData.append("phone", phone);
+  formData.append("name", name);
+  formData.append("address", address);
+  formData.append("city_id", city_id);
+  formData.append("profile_photo_path", profile_photo_path);
 
-  if (phone != '' && address != '' && city_id != '') {
+  if (phone != "" && address != "" && city_id != "") {
     $.ajax({
-      url: '/users/contacts',
-      type: 'post',
+      url: "/users/contacts",
+      type: "post",
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
       },
       contentType: false,
       processData: false,
       data: formData,
       beforeSend: function beforeSend() {
-        $('.success-preloader').removeClass('d-none');
+        $(".success-preloader").removeClass("d-none");
       },
       success: function success(data) {
         location.reload(true);
@@ -26125,45 +26158,45 @@ $(document).on('click', '#btn-add_address', function () {
     });
   }
 });
-$(document).on('change', '.js-attribute', function () {
+$(document).on("change", ".js-attribute", function () {
   var _this = $(this);
 
   $.ajax({
-    url: '/getAttributesValue',
+    url: "/getAttributesValue",
     data: {
       attribute_id: _this.val()
     },
-    method: 'GET',
-    dataType: 'json',
+    method: "GET",
+    dataType: "json",
     success: function success(data) {
-      if (!_this.is(':checked')) {
-        _this.closest('div').find('select').remove();
+      if (!_this.is(":checked")) {
+        _this.closest("div").find("select").remove();
 
-        _this.closest('div').find('.Selects').remove();
+        _this.closest("div").find(".Selects").remove();
 
-        $('#color_attr').empty();
+        $("#color_attr").empty();
       } else {
-        _this.closest('div').append("\n                    <select class=\"input_placeholder_style form-control st-attribute_add mt-3 other-attr\" name=\"attribute[".concat(data[0]['slug'], "][value][]\" multiple id=\"st-attribute_select\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
+        _this.closest("div").append("\n                    <select class=\"input_placeholder_style form-control st-attribute_add mt-3 other-attr\" name=\"attribute[".concat(data[0]["slug"], "][value][]\" multiple id=\"st-attribute_select\">\n                        <option disabled>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</option>\n                    </select>\n                "));
 
         data.forEach(function (element) {
-          _this.closest('div').find('select').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+          _this.closest("div").find("select").append("\n                        <option value=\"".concat(element["id"], "\">").concat(element["name"], "</option>\n                    "));
         });
       }
     }
   });
 });
-$(document).on('change', "input[name='cvet'], input[name='checkSvet']", function () {
+$(document).on("change", "input[name='cvet'], input[name='checkSvet']", function () {
   var val = $(this).val();
-  var colors = $('#colors_input');
+  var colors = $("#colors_input");
 
   if (this.checked) {
     if (colors.val().length < 1) {
       colors.val(colors.val() + val);
     } else {
-      colors.val(colors.val() + ',' + val);
+      colors.val(colors.val() + "," + val);
     }
   } else {
-    var array = colors.val().split(',');
+    var array = colors.val().split(",");
     var index = array.indexOf(val);
 
     if (index > -1) {
@@ -26173,178 +26206,178 @@ $(document).on('change', "input[name='cvet'], input[name='checkSvet']", function
     colors.val(array);
   }
 });
-$('body').on('change', '#cat_child', function () {
-  var id = $('#cat_child option:selected').val();
+$("body").on("change", "#cat_child", function () {
+  var id = $("#cat_child option:selected").val();
   $.ajax({
-    url: '/getAttributes',
+    url: "/getAttributes",
     data: {
       category_id: id
     },
-    method: 'GET',
-    dataType: 'json',
+    method: "GET",
+    dataType: "json",
     success: function success(data) {
-      $('#attributes').empty();
+      $("#attributes").empty();
 
       if (data.length > 0) {
         if (data[0].at_id) {
           data.forEach(function (element) {
-            $('#attributes').append("\n                        <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                            <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                <div class=\"d-flex justify-content-between align-items-center\">\n                                    <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element['at_name'], ":</label>\n                                    <label for=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                </div>\n                                <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element['at_slug'], "][id]\" type=\"checkbox\" id=\"").concat(element['at_slug'], "Checkbox").concat(element['at_id'], "\" value=\"").concat(element['at_id'], "\">\n                            </div>\n                        "));
+            $("#attributes").append("\n                        <div id=\"st-attribute_val\" class=\"font-weight-semibold w-100 input_caption\"></div>\n                            <div class=\"form-check form-check w-75 p-0 attr__checkboxes mb-2\">\n                                <div class=\"d-flex justify-content-between align-items-center\">\n                                    <label class=\"form-check-label bg-secondary px-3 text-capitalize py-1 text-white cursor-pointer\">".concat(element["at_name"], ":</label>\n                                    <label for=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" class=\"m-0 cursor-pointer\"><img class=\"add__attr-icon\" oncontextmenu=\"return false;\" data-for-id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" src=\"/storage/theme/plus_add_attr.svg\" /></label>\n                                </div>\n                                <input class=\"form-check-input js-attribute d-none\" name=\"attribute[").concat(element["at_slug"], "][id]\" type=\"checkbox\" id=\"").concat(element["at_slug"], "Checkbox").concat(element["at_id"], "\" value=\"").concat(element["at_id"], "\">\n                            </div>\n                        "));
           });
         }
       }
     }
   });
   $.ajax({
-    url: '/getSubcategories',
+    url: "/getSubcategories",
     data: {
       category: id
     },
-    method: 'GET',
-    dataType: 'json',
+    method: "GET",
+    dataType: "json",
     success: function success(data) {
-      if (data.hasOwnProperty('0')) {
-        $('#cat_child').attr('name', 'subcategory');
-        $('#child_div').remove();
-        $('#subCategories').append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style input-group w-md-100\">\n                            <div class=\"input-group-prepend position-relative\">\n                                <div class=\"input-group-text px-1  btn-custom-fs bg-white \"></div>\n                            </div>\n                            <select class=\"input_placeholder_style custom-select position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                                <option value=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                            </select>\n                            <small class=\"invalid-feedback\">\n                                \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E\n                            </small>\n                        </div>\n                    </div>\n                ");
+      if (data.hasOwnProperty("0")) {
+        $("#cat_child").attr("name", "subcategory");
+        $("#child_div").remove();
+        $("#subCategories").append("\n                    <div id=\"child_div\" class=\"form-group  d-flex flex-column flex-md-row mb-4 justify-content-start justify-content-md-end align-items-start align-items-md-center\">\n                        <label for=\"cat_child\" class=\"input_caption mr-2 text-left text-md-right\">\u041F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438:</label>\n                        <div class=\"w-75 input_placeholder_style input-group w-md-100\">\n                            <div class=\"input-group-prepend position-relative\">\n                                <div class=\"input-group-text px-1  btn-custom-fs bg-white \"></div>\n                            </div>\n                            <select class=\"input_placeholder_style custom-select position-relative\" id=\"grandchildren\" name=\"category_id\" required>\n                                <option value=\"\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E</option>\n                            </select>\n                            <small class=\"invalid-feedback\">\n                                \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u0434-\u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E\n                            </small>\n                        </div>\n                    </div>\n                ");
         data.forEach(function (element) {
-          $('#grandchildren').append("\n                        <option value=\"".concat(element['id'], "\">").concat(element['name'], "</option>\n                    "));
+          $("#grandchildren").append("\n                        <option value=\"".concat(element["id"], "\">").concat(element["name"], "</option>\n                    "));
         });
       } else {
-        $('#cat_child').attr('name', 'category_id');
-        $('#child_div').remove();
+        $("#cat_child").attr("name", "category_id");
+        $("#child_div").remove();
       }
     }
   });
 });
-$('.select-color').on('click', function () {
-  $('.product-colors label').removeClass('color-active');
-  $(this).addClass('color-active');
+$(".select-color").on("click", function () {
+  $(".product-colors label").removeClass("color-active");
+  $(this).addClass("color-active");
 });
-$('.sizes .product-size').on('click', function () {
-  $('.product-size').removeClass('text-danger');
-  $(this).addClass('text-danger');
+$(".sizes .product-size").on("click", function () {
+  $(".product-size").removeClass("text-danger");
+  $(this).addClass("text-danger");
 }); // search
 
-$('.main-search').on('keyup keypress change', function () {
+$(".main-search").on("keyup keypress change", function () {
   var value = $(this).val();
 
   if (value.length > 0) {
-    $('.clean__input').removeClass('d-none');
+    $(".clean__input").removeClass("d-none");
   } else {
-    $('.clean__input').addClass('d-none');
+    $(".clean__input").addClass("d-none");
   }
 
-  if (value.length >= 3 && $('.main-search').is(":focus")) {
+  if (value.length >= 3 && $(".main-search").is(":focus")) {
     $.ajax({
-      url: '/livesearch',
-      type: 'get',
+      url: "/livesearch",
+      type: "get",
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
       },
       data: {
         value: value
       },
       success: function success(data) {
-        if ($('.main-search')[0].value != '' || $('.main-search')[0].value == null) {
-          $('.search-result').show();
-          $('.search-result').html(data);
+        if ($(".main-search")[0].value != "" || $(".main-search")[0].value == null) {
+          $(".search-result").show();
+          $(".search-result").html(data);
         }
       },
       error: function error(xhr, status, _error2) {}
     });
   } else {
-    $('.search-result').hide();
+    $(".search-result").hide();
   }
 });
-$('.clean__input').on('click', function () {
-  $('.main-search')[0].value = null;
-  $('.search-result').hide();
-  $(this).addClass('d-none');
+$(".clean__input").on("click", function () {
+  $(".main-search")[0].value = null;
+  $(".search-result").hide();
+  $(this).addClass("d-none");
 });
 /**
  * Search items
  */
 
-$('body').on('keyup', '#search', function () {
+$("body").on("keyup", "#search", function () {
   var search = $(this).val();
-  var item = $(this).attr('data-item');
-  $.get('/' + item, {
+  var item = $(this).attr("data-item");
+  $.get("/" + item, {
     search: search
   }, function (data) {
     if (data.posts.length > 0) {
-      $('#' + item).empty().html(data.posts);
-      $('#noneStore').empty();
-      $('.endless-pagination').data('next-page', data.next_page);
+      $("#" + item).empty().html(data.posts);
+      $("#noneStore").empty();
+      $(".endless-pagination").data("next-page", data.next_page);
     } else {
-      $('#' + item).empty();
-      $('#noneStore').html('По вашему запросу нечего не найдено');
+      $("#" + item).empty();
+      $("#noneStore").html("По вашему запросу нечего не найдено");
     }
   });
 });
-$('#buyBtn').on('click', function (e) {
+$("#buyBtn").on("click", function (e) {
   var count = 0;
-  var questions = $('.desktopAttrs');
-  $('.selectedAttrs').empty();
+  var questions = $(".desktopAttrs");
+  $(".selectedAttrs").empty();
   questions.each(function () {
-    if ($(this).find('input').filter('[type="radio"]').filter(':checked').length > 0) {
-      var attrValueName = $(this).find('input').filter('[type="radio"]').filter(':checked').closest('label').text();
-      var attrName = $(this).find('input').filter('[type="radio"]').filter(':checked').data('name');
-      $('.selectedAttrs').append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
+    if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+      var attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest("label").text();
+      var attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data("name");
+      $(".selectedAttrs").append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
       count++;
     }
   });
 
   if (count >= questions.length) {
-    $('#buyProduct').modal('show');
+    $("#buyProduct").modal("show");
   } else {
     Toast.fire({
       toast: true,
-      position: 'top',
-      icon: 'error',
-      title: 'Выберите все параметры товара!'
+      position: "top",
+      icon: "error",
+      title: "Выберите все параметры товара!"
     });
   }
 });
-$('#buyBtnMob').on('click', function (e) {
+$("#buyBtnMob").on("click", function (e) {
   var count = 0;
-  var questions = $('.mobAttrs');
-  $('.selectedAttrs').empty();
+  var questions = $(".mobAttrs");
+  $(".selectedAttrs").empty();
   questions.each(function () {
-    if ($(this).find('input').filter('[type="radio"]').filter(':checked').length > 0) {
-      var attrValueName = $(this).find('input').filter('[type="radio"]').filter(':checked').closest('label').text();
-      var attrName = $(this).find('input').filter('[type="radio"]').filter(':checked').data('name');
-      $('.selectedAttrs').append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
+    if ($(this).find("input").filter('[type="radio"]').filter(":checked").length > 0) {
+      var attrValueName = $(this).find("input").filter('[type="radio"]').filter(":checked").closest("label").text();
+      var attrName = $(this).find("input").filter('[type="radio"]').filter(":checked").data("name");
+      $(".selectedAttrs").append("\n                <h6 class=\"text\">".concat(attrName, " ").concat(attrValueName, "</h6>\n            "));
       count++;
     }
   });
 
   if (count >= questions.length) {
-    $('#buyProduct').modal('show');
+    $("#buyProduct").modal("show");
   } else {
     Toast.fire({
       toast: true,
-      position: 'top',
-      icon: 'error',
-      title: 'Выберите все параметры товара!'
+      position: "top",
+      icon: "error",
+      title: "Выберите все параметры товара!"
     });
   }
 }); // orders add
 
-$('.checkout-product').on('click', function () {
-  var total_price = $(this).closest('#buyProduct').find('.total-price').text();
-  var address = $('#checkout_address').val();
-  var quantity = $(this).closest('#buyProduct').find('.quantity-product').text();
-  var product_id = $(this).closest('#buyProduct').find('.checkout-id').attr('data-id');
-  var comment = $('#comment').val();
+$(".checkout-product").on("click", function () {
+  var total_price = $(this).closest("#buyProduct").find(".total-price").text();
+  var address = $("#checkout_address").val();
+  var quantity = $(this).closest("#buyProduct").find(".quantity-product").text();
+  var product_id = $(this).closest("#buyProduct").find(".checkout-id").attr("data-id");
+  var comment = $("#comment").val();
   var attributes = [];
-  $('input[type=radio]:checked').each(function () {
+  $("input[type=radio]:checked").each(function () {
     attributes.push($(this).val());
   });
   $.ajax({
-    url: '/orders/store',
-    type: 'POST',
+    url: "/orders/store",
+    type: "POST",
     headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
     },
     data: {
       total_price: total_price,
@@ -26363,25 +26396,25 @@ $('.checkout-product').on('click', function () {
   });
 }); // favorite add
 
-$('.favorite').on('click', function () {
-  if ($(this).hasClass('active')) {
+$(".favorite").on("click", function () {
+  if ($(this).hasClass("active")) {
     var status = 0;
   } else {
     var status = 1;
   }
 
   var this_ = $(this);
-  var product_id = $(this).attr('data-id');
+  var product_id = $(this).attr("data-id");
   $.ajax({
-    url: '/add_to_favorite',
+    url: "/add_to_favorite",
     data: {
       product_id: product_id,
       status: status
     },
-    method: 'GET',
-    dataType: 'json',
+    method: "GET",
+    dataType: "json",
     success: function success(data) {
-      this_.toggleClass('active');
+      this_.toggleClass("active");
     },
     error: function error(xhr, status, _error4) {
       console.log(status);
@@ -26389,28 +26422,28 @@ $('.favorite').on('click', function () {
   });
 }); // sms-confirm
 
-$('#btn-login').on('click', function () {
-  var phone = $('#phone').val();
-  var code = $('#code').val();
-  $('.wrong-code').hide();
+$("#btn-login").on("click", function () {
+  var phone = $("#phone").val();
+  var code = $("#code").val();
+  $(".wrong-code").hide();
   $.ajax({
-    url: '/sms-confirmed',
-    type: 'post',
+    url: "/sms-confirmed",
+    type: "post",
     headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
     },
     data: {
       phone: phone,
       code: code
     },
     success: function success(data) {
-      if (data == 'true') {
+      if (data == "true") {
         location.reload(true);
-      } else if (data == 'false') {
-        $('#enter_site').modal('hide');
-        $('#adressChange').modal('show');
-      } else if (data == 'wrong code') {
-        $('.wrong-code').show();
+      } else if (data == "false") {
+        $("#enter_site").modal("hide");
+        $("#adressChange").modal("show");
+      } else if (data == "wrong code") {
+        $(".wrong-code").show();
       }
     },
     error: function error(xhr, status, _error5) {
@@ -26418,7 +26451,7 @@ $('#btn-login').on('click', function () {
     }
   });
 });
-$('#sms-confirmed, #add_address').on('keyup keypress', function (e) {
+$("#sms-confirmed, #add_address").on("keyup keypress", function (e) {
   var keyCode = e.keyCode || e.which;
 
   if (keyCode === 13) {
@@ -26427,36 +26460,36 @@ $('#sms-confirmed, #add_address').on('keyup keypress', function (e) {
   }
 }); // sms-code
 
-$('#send-code, .send-code').on('click', function () {
-  $(this).attr('disabled', true);
-  var phone = $('#phone').val();
+$("#send-code, .send-code").on("click", function () {
+  $(this).attr("disabled", true);
+  var phone = $("#phone").val();
 
-  if (phone.replace(/\s/g, '').length == 9) {
-    $('#phone').closest('.btn-group-fs').find('.btn-custom-fs').attr('style', 'background-color: #e9ecef;');
-    $('#phone').attr('disabled', true);
-    $('.wrong-phone-number').hide();
+  if (phone.replace(/\s/g, "").length == 9) {
+    $("#phone").closest(".btn-group-fs").find(".btn-custom-fs").attr("style", "background-color: #e9ecef;");
+    $("#phone").attr("disabled", true);
+    $(".wrong-phone-number").hide();
     $.ajax({
-      url: '/sms-send',
-      type: 'post',
+      url: "/sms-send",
+      type: "post",
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
       },
       data: {
         phone: phone
       },
       success: function success(data) {
-        $('#btn-login').prop('disabled', false);
-        $('#send-code').hide();
-        $('.enter-code').show();
-        $('.sms--true').show();
-        $('.sms--false').hide();
+        $("#btn-login").prop("disabled", false);
+        $("#send-code").hide();
+        $(".enter-code").show();
+        $(".sms--true").show();
+        $(".sms--false").hide();
 
         if (data == 1) {
-          $('#adressChange').remove();
+          $("#adressChange").remove();
         }
 
         var fiveMinutes = 6 * 10,
-            display = document.querySelector('#count-down');
+            display = document.querySelector("#count-down");
         return startTimer(fiveMinutes, display);
       },
       error: function error(xhr, status, _error6) {
@@ -26464,8 +26497,8 @@ $('#send-code, .send-code').on('click', function () {
       }
     });
   } else {
-    $('.wrong-phone-number').show();
-    $(this).attr('disabled', false);
+    $(".wrong-phone-number").show();
+    $(this).attr("disabled", false);
   }
 });
 
@@ -26476,33 +26509,33 @@ function startTimer(duration, display) {
   var time = setInterval(function () {
     minutes = parseInt(timer / 60, 10);
     seconds = parseInt(timer % 60, 10);
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    display.textContent = minutes + ':' + seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    display.textContent = minutes + ":" + seconds;
 
     if (--timer < 0) {
       timer = duration;
-      $('.sms--true').hide();
-      $('.sms--false').show();
-      $('.change-number').show();
+      $(".sms--true").hide();
+      $(".sms--false").show();
+      $(".change-number").show();
       clearInterval(time);
-      $('#btn-login').prop('disabled', true);
+      $("#btn-login").prop("disabled", true);
     }
   }, 1000);
 }
 
-$('.change-number').on('click', function () {
+$(".change-number").on("click", function () {
   location.reload(true);
 });
-$('.favorite').on('click', function () {
-  if ($(this).hasClass('active')) {
-    $('.activeSaved').find('.text-sucsess').text("Вы убрали товар из избранного !");
+$(".favorite").on("click", function () {
+  if ($(this).hasClass("active")) {
+    $(".activeSaved").find(".text-sucsess").text("Вы убрали товар из избранного !");
   } else {
-    $('.activeSaved').find('.text-sucsess').text("Вы добавили товар в избранное !");
+    $(".activeSaved").find(".text-sucsess").text("Вы добавили товар в избранное !");
   }
 
   setTimeout(function () {
-    $('.activeSaved').modal('hide');
+    $(".activeSaved").modal("hide");
   }, 1000);
 }); // single preview
 
@@ -26525,7 +26558,7 @@ function avatar(input) {
 
             reader.onload = function (ev) {
               var src = ev.target.result;
-              $('#avatar-poster').attr('src', src);
+              $("#avatar-poster").attr("src", src);
             };
 
             reader.readAsDataURL(result);
@@ -26536,7 +26569,7 @@ function avatar(input) {
         });
       }
 
-      $('#avatar-poster-mobile').attr('src', e.target.result);
+      $("#avatar-poster-mobile").attr("src", e.target.result);
     };
 
     reader.readAsDataURL(input.files[0]);
@@ -26558,7 +26591,7 @@ function cover(input) {
 
         reader.onload = function (ev) {
           var src = ev.target.result;
-          $('#cover-poster-mobile').attr('src', src);
+          $("#cover-poster-mobile").attr("src", src);
         };
 
         reader.readAsDataURL(result);
@@ -26577,25 +26610,25 @@ function cover(input) {
 
 }
 
-$('#image').change(function () {
-  if ($(this).val() != '') {
-    $('.image-validate').addClass('d-none');
+$("#image").change(function () {
+  if ($(this).val() != "") {
+    $(".image-validate").addClass("d-none");
   } else {
-    $('#main-poster').addClass('border-danger');
-    $('.image-validate').removeClass('d-none');
+    $("#main-poster").addClass("border-danger");
+    $(".image-validate").removeClass("d-none");
   }
 });
-$('#avatar').change(function () {
+$("#avatar").change(function () {
   avatar(this);
 });
-$('#cover').change(function () {
+$("#cover").change(function () {
   cover(this);
 });
 /* iteration number */
 //gets the input by element Id, gets min, max, and step from the markup. Gets the subtract and add buttons either by optional classnames, or by the next or last element sibling.
 
 var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassName) {
-  'use strict';
+  "use strict";
 
   var spinnerInput = document.getElementById(elemId);
   var btnSubtract = document.querySelector(addClassName) || spinnerInput.previousElementSibling;
@@ -26603,21 +26636,20 @@ var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassNa
   var minLimit, maxLimit, step;
 
   function init() {
-    ;
-    minLimit = makeNumber(getAttribute(spinnerInput, 'min')) || 0, maxLimit = makeNumber(getAttribute(spinnerInput, 'max')) || false, step = makeNumber(getAttribute(spinnerInput, 'step') || '1');
-    btnSubtract.addEventListener('click', changeSpinner, false);
-    btnAdd.addEventListener('click', changeSpinner, false);
-    btnSubtract.addEventListener('keyup', keySpinner, false);
-    btnAdd.addEventListener('keyup', keySpinner, false);
+    minLimit = makeNumber(getAttribute(spinnerInput, "min")) || 0, maxLimit = makeNumber(getAttribute(spinnerInput, "max")) || false, step = makeNumber(getAttribute(spinnerInput, "step") || "1");
+    btnSubtract.addEventListener("click", changeSpinner, false);
+    btnAdd.addEventListener("click", changeSpinner, false);
+    btnSubtract.addEventListener("keyup", keySpinner, false);
+    btnAdd.addEventListener("keyup", keySpinner, false);
 
     if (supportsTouch()) {
-      btnSubtract.addEventListener('touchend', removeClickDelay, false);
-      btnAdd.addEventListener('touchend', removeClickDelay, false);
+      btnSubtract.addEventListener("touchend", removeClickDelay, false);
+      btnAdd.addEventListener("touchend", removeClickDelay, false);
     }
 
     if (supportsPointer()) {
-      btnSubtract.addEventListener('pointerup', removeClickDelay, false);
-      btnAdd.addEventListener('pointerup', removeClickDelay, false);
+      btnSubtract.addEventListener("pointerup", removeClickDelay, false);
+      btnAdd.addEventListener("pointerup", removeClickDelay, false);
     }
   }
 
@@ -26633,9 +26665,9 @@ var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassNa
   function update(direction) {
     var num = makeNumber(spinnerInput.value);
 
-    if (direction === 'add') {
+    if (direction === "add") {
       spinnerInput.value = num + step <= maxLimit ? num + step : spinnerInput.value;
-    } else if (direction === 'subtract') {
+    } else if (direction === "subtract") {
       spinnerInput.value = num - step >= minLimit ? num - step : spinnerInput.value;
     }
   }
@@ -26659,11 +26691,11 @@ var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassNa
 
 
   function supportsTouch() {
-    return 'ontouchstart' in window;
+    return "ontouchstart" in window;
   }
 
   function supportsPointer() {
-    return 'pointerdown' in window;
+    return "pointerdown" in window;
   }
   /* Keyboard support */
 
@@ -26673,14 +26705,14 @@ var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassNa
       case 40:
       case 37:
         // Down, Left
-        update('subtract');
+        update("subtract");
         btnSubtract.focus();
         break;
 
       case 38:
       case 39:
         // Top, Right
-        update('add');
+        update("add");
         btnAdd.focus();
         break;
     }
@@ -26688,50 +26720,50 @@ var NumberSpinner = function NumberSpinner(elemId, subtractClassName, addClassNa
 
   function changeSpinner(e) {
     e.preventDefault();
-    var increment = getAttribute(e.target, 'data-type');
+    var increment = getAttribute(e.target, "data-type");
     update(increment);
   }
 
   init();
 };
 
-NumberSpinner('spinner-input', 'js-spinner-horizontal-subtract', 'js-spinner-horizontal-add');
-var product_price = $('#price').text();
-$('.spinner__button').on('click', function () {
-  var count = $('#spinner-input').val();
+NumberSpinner("spinner-input", "js-spinner-horizontal-subtract", "js-spinner-horizontal-add");
+var product_price = $("#price").text();
+$(".spinner__button").on("click", function () {
+  var count = $("#spinner-input").val();
   var res = parseInt(product_price * count);
-  $('.total-price, .price').text(res);
-  $('.quantity-product').text(count);
+  $(".total-price, .price").text(res);
+  $(".quantity-product").text(count);
 });
-$('#spinner-input').on('change', function () {
+$("#spinner-input").on("change", function () {
   var count = $(this).val();
   var res = parseInt(product_price * count);
-  $('.total-price, .price').text(res);
-  $('.quantity-product').text(count);
+  $(".total-price, .price").text(res);
+  $(".quantity-product").text(count);
 });
-$('body').on('click', '.change-address', function () {
-  $('#checkout_address').prop('disabled', false);
-  $('#checkout_address').focus();
+$("body").on("click", ".change-address", function () {
+  $("#checkout_address").prop("disabled", false);
+  $("#checkout_address").focus();
 }); ///product picture on hover change
 
 $(document).ready(function () {
-  $('.add-product-secondary .pic-item').on('click', function () {
-    var imgSrc = $(this).attr('data-image-src');
-    $('.pic-main').attr('src', imgSrc);
-    $('.add-product-secondary .pic-item').removeClass('pic-item-active');
-    $(this).addClass('pic-item-active');
+  $(".add-product-secondary .pic-item").on("click", function () {
+    var imgSrc = $(this).attr("data-image-src");
+    $(".pic-main").attr("src", imgSrc);
+    $(".add-product-secondary .pic-item").removeClass("pic-item-active");
+    $(this).addClass("pic-item-active");
   });
-  $('body').on('click', '.delete-product', function (event) {
+  $("body").on("click", ".delete-product", function (event) {
     var form = $(this).closest("form");
     event.preventDefault();
     sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-      title: 'Вы действительно хотите удалить товар?',
-      icon: 'warning',
+      title: "Вы действительно хотите удалить товар?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Да',
-      cancelButtonText: 'Нет',
+      confirmButtonText: "Да",
+      cancelButtonText: "Нет",
       customClass: {
-        confirmButton: 'bg-danger'
+        confirmButton: "bg-danger"
       },
       buttons: true,
       dangerMode: true
@@ -26741,17 +26773,17 @@ $(document).ready(function () {
       }
     });
   });
-  $('body').on('click', '.restore-product', function (event) {
+  $("body").on("click", ".restore-product", function (event) {
     var form = $(this).closest("form");
     event.preventDefault();
     sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-      title: 'Вы действительно хотите восстановить товар?',
-      icon: 'warning',
+      title: "Вы действительно хотите восстановить товар?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Да',
-      cancelButtonText: 'Нет',
+      confirmButtonText: "Да",
+      cancelButtonText: "Нет",
       customClass: {
-        confirmButton: 'bg-success'
+        confirmButton: "bg-success"
       },
       buttons: true,
       dangerMode: true
