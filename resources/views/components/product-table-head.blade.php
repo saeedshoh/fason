@@ -26,7 +26,10 @@
       </th>
       <th>
           <a href="javascript:void(0);" class="text-muted list-sort" data-sort="item-margin">Маржа</a>
-        </th>
+      </th>
+      <th>
+        <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-status">Итого</a>
+      </th>
       <th>
         <a href="javascript:void(0);" class="list-sort text-muted" data-sort="item-status">Статус</a>
       </th>

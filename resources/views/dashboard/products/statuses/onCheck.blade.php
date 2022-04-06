@@ -37,7 +37,7 @@
                 <div class="col-auto">
 
                   <!-- Buttons -->
-                  <a href="{{ route('products.create')}}" class="btn btn-primary ml-2">
+                  <a href="{{ route('products.create')}}" class="ml-2 btn btn-primary">
                     Добавить
                   </a>
 
@@ -124,36 +124,39 @@
                     <tbody class="list">
                         @forelse ($products as $key => $product)
                             <tr class="table-warning">
-                            <td class="item-order p-0">
+                            <td class="p-0 item-order">
                                 #{{ $product->id }}
                             </td>
-                        <td class="item-name py-0">
+                        <td class="py-0 item-name">
                           <span class="item-name text-reset">{{ $product->name }}</span>
                         </td>
-                        <td class="item-category py-0">
+                        <td class="py-0 item-category">
                           <span class="item-name text-reset">{{ $product->category->name }}</span>
                         </td>
-                        <td class="item-city py-0">
+                        <td class="py-0 item-city">
                           <span class="item-name text-reset">г. {{ $product->store->city->name }}</span>
                         </td>
-                        <td class="item-date py-0">
+                        <td class="py-0 item-date">
                           <!-- Time -->
                           <time datetime="2018-07-30">{{ $product->created_at->format('d/m/Y') }}</time>
                         </td>
-                        <td class="item-quantity py-0">
+                        <td class="py-0 item-quantity">
                           <!-- Badge -->
                           {{ $product->quantity }}
                         </td>
-                        <td class="item-company py-0">
+                        <td class="py-0 item-company">
                           <a class="item-name text-reset" href="{{ route('showStoreInfo', $product->no_scope_store->id) }}">{{ $product->no_scope_store->name }}</a>
                         </td>
-                        <td class="item-total py-0">
+                        <td class="py-0 item-total">
                             {{ $product->price }}
                           </td>
-                          <td class="item-category py-0">
+                          <td class="py-0 item-category">
                             <span class="item-name text-reset">{{ $product->price_after_margin - $product->price }}</span>
                           </td>
-                        <td class="item-status py-0">
+                          <td class="py-0 item-total">
+                            {{ $product->price + ($product->price_after_margin - $product->price)}}
+                          </td>
+                        <td class="py-0 item-status">
                           <!-- Badge -->
                           <div class="badge badge-primary">
                               @if($product->store->is_active == 0)
@@ -169,11 +172,11 @@
                               @endif
                           </div>
                         </td>
-                        <td class="text-right py-0">
+                        <td class="py-0 text-right">
 
                             @permission('update-products')
                               @if($product->store)
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-primary m-1 pull-right">
+                                <a href="{{ route('products.edit', $product) }}" class="m-1 btn btn-primary pull-right">
                                     <i class="fe fe-edit"></i>
                                 </a>
                               @endif

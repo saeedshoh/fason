@@ -22,63 +22,63 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-8 col-lg-7 d-none d-flex px-0 justify-content-around">
+            <div class="px-0 col-md-8 col-lg-7 d-none d-flex justify-content-around">
                 @if ($is_store == null)
 
                 @auth
                 @if (Auth::user()->store)
-                <a href="{{ route('ft-store.show', Auth::user()->store->slug) }}" class="mr-2 btn btn-danger rounded-11 px-3">
+                <a href="{{ route('ft-store.show', Auth::user()->store->slug) }}" class="px-3 mr-2 btn btn-danger rounded-11">
                     <i class="fas fa-door-open"></i>Перейти в магазин
                 </a>
                 @else
-                <a href="{{ route('ft-store.create') }}" class="mr-2 btn btn-danger rounded-11 px-3">
+                <a href="{{ route('ft-store.create') }}" class="px-3 mr-2 btn btn-danger rounded-11">
                     <i class="fas fa-door-open"></i>Открыть магазин
                 </a>
                 @endif
                 @endauth
                 @guest
-                <button type="button" class="mr-2 btn btn-danger rounded-11  px-3 border-0" data-toggle="modal" data-target="#enter_site">
+                <button type="button" class="px-3 mr-2 border-0 btn btn-danger rounded-11" data-toggle="modal" data-target="#enter_site">
                     <i class="fas fa-door-open"></i>Открыть магазин
                 </button>
                 @endguest
                 @else
-                <a href="{{ route('ft-store.show', $is_store->slug) }}" class="mr-2 btn btn-danger rounded-11 px-3 btn">
+                <a href="{{ route('ft-store.show', $is_store->slug) }}" class="px-3 mr-2 btn btn-danger rounded-11">
                     <i class="fas fa-door-open"></i>Перейти в магазин
                 </a>
                 @endif
 
                 @auth
-                <a href="{{ route('ft-order.orders') }}" class="mr-2 btn btn-danger rounded-11 px-3 border-0"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
-                <a href="{{ route('favorite.index') }}" class="btn btn-danger rounded-11 px-3">
+                <a href="{{ route('ft-order.orders') }}" class="px-3 mr-2 border-0 btn btn-danger rounded-11"><img src="storage/theme/icons/orders.svg"> Мои заказы</a>
+                <a href="{{ route('favorite.index') }}" class="px-3 btn btn-danger rounded-11">
                     <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
                 </a>
                 @endauth
 
                 @guest
-                <button type="button" class="mr-2 btn btn-danger rounded-11 px-3 border-0" data-toggle="modal" data-target="#enter_site"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
-                <button type="button" class="btn btn-danger rounded-11 border-0 px-3" data-toggle="modal" data-target="#enter_site">
+                <button type="button" class="px-3 mr-2 border-0 btn btn-danger rounded-11" data-toggle="modal" data-target="#enter_site"><img src="storage/theme/icons/orders.svg"> Мои заказы</button>
+                <button type="button" class="px-3 border-0 btn btn-danger rounded-11" data-toggle="modal" data-target="#enter_site">
                     <img src="storage/theme/icons/saved.svg" alt=""> Сохраненные
                 </button>
                 @endguest
 
             </div>
             @auth
-            <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
+            <div class="px-0 col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end align-items-center">
                 <a href="{{ route('profile') }}" class="text-decoration-none text-secondary">
-                    <img class="rounded-circle object-cover" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
-                    <span class="text-small mr-2">{{ Auth::user()->phone }}</span>
+                    <img class="object-cover rounded-circle" src="/storage/{{ Auth::user()->profile_photo_path ?? '/theme/no-photo.svg' }}" alt="" width="32" height="32">
+                    <span class="mr-2 text-small">{{ Auth::user()->phone }}</span>
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-danger rounded-11  px-3 border-0"  onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
+                    <button type="submit" class="px-3 border-0 btn btn-danger rounded-11"  onClick="this.form.submit(); this.disabled=true; this.value='Sending…'; ">
                         <i class="fas fa-sign-out-alt"></i> Выход
                     </button>
                 </form>
             </div>
             @endauth
             @guest
-            <div class="col-12 col-lg-3 px-0 d-none d-lg-flex justify-content-center justify-content-lg-end">
-                <button type="button" class="btn-danger rounded-11  px-3 border-0 float-right" data-toggle="modal" data-target="#enter_site">
+            <div class="px-0 col-12 col-lg-3 d-none d-lg-flex justify-content-center justify-content-lg-end">
+                <button type="button" class="float-right px-3 border-0 btn-danger rounded-11" data-toggle="modal" data-target="#enter_site">
                     <i class="fas fa-sign-in-alt"></i> Вход
                 </button>
             </div>
@@ -89,15 +89,15 @@
     <div class="slider_and_sides mt-lg-4">
 
         <div id="categoriesRow" class="row">
-            <div id="categories" class="categories-site_products col-12 col-lg-4 px-0 order-1 order-lg-0">
-                <h6 class="text-muted mb-other-product text-decoration-none mb-2 mt-3 mt-md-3 font-weight-bold text-center d-lg-none d-xl-none">
+            <div id="categories" class="order-1 px-0 categories-site_products col-12 col-lg-4 order-lg-0">
+                <h6 class="mt-3 mb-2 text-center text-muted mb-other-product text-decoration-none mt-md-3 font-weight-bold d-lg-none d-xl-none">
                     Категории </h6>
-                <ul class="shop-subject list-group list-group-flush h-100 overflow-auto">
+                <ul class="overflow-auto shop-subject list-group list-group-flush h-100">
                     @forelse ($categories as $category)
                     @if ($category->is_active)
-                    <li class="list-group-item bg-transparent py-2">
-                        <div class="list-group-row d-flex my-1 position-relative">
-                            <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mr-2 mt-2">
+                    <li class="py-2 bg-transparent list-group-item">
+                        <div class="my-1 list-group-row d-flex position-relative">
+                            <img src="/storage/{{ $category->icon ?? 'camera.svg'}}" height="28" width="28" alt="" class="mt-2 mr-2">
                             <nav class="category-mix">
                                 <a data-id="{{ $category->id }}" href="{{ route('ft-category.category', $category->slug) }}" class="text-decoration-none category text-dark">{{ $category->name }}
                                     <span class="count-products" data-id="{{ $category->id }}"></span>
@@ -111,7 +111,7 @@
                     @endforelse
                 </ul>
             </div>
-            <div class="categories-site_products col-12 col-lg-8 order-0 order-lg-1 px-lg-0 bg-transparent">
+            <div class="bg-transparent categories-site_products col-12 col-lg-8 order-0 order-lg-1 px-lg-0">
                 <div id="main-slider" class="carousel slide h-100" data-ride="carousel">
                     <ol class="carousel-indicators">
                         @forelse ($sliders as $key => $slider )
@@ -142,16 +142,16 @@
         </div>
     </div>
     <!--Category list end-->
-    <div class="all-product px-0 pt-3 pt-md-0 pt-lg-0">
-        <h2 class="text-muted mb-other-product text-decoration-none mb-4 mt-3 mt-md-5 font-weight-bold text-xs-center">Новые товары </h2>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined mx-md-n4">
+    <div class="px-0 pt-3 all-product pt-md-0 pt-lg-0">
+        <h2 class="mt-3 mb-4 text-muted mb-other-product text-decoration-none mt-md-5 font-weight-bold text-xs-center">Новые товары </h2>
+        <div class="px-2 mt-3 row row-cols-2 row-cols-md-3 row-cols-lg-5 px-md-0 custom-lined mx-md-n4">
             @forelse ($newProducts as $product)
-            <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0 h-100 w-100">
-                    <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
-                    <div class="container d-flex flex-column justify-content-between flex-wrap">
-                        <h4 class="product-name shop-subject mt-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
-                        <div class="price-place d-flex justify-content-between align-items-center my-3 text-danger">
+            <div class="px-1 mb-4 col d-flex align-items-center justify-content-center px-md-2">
+                <div class="border-0 rounded shadow card h-100 w-100">
+                    <img class="rounded img-fluid" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
+                    <div class="container flex-wrap d-flex flex-column justify-content-between">
+                        <h4 class="mt-3 product-name shop-subject" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
+                        <div class="my-3 price-place d-flex justify-content-between align-items-center text-danger">
                             <span class="font-weight-bold">
                                 {{ $product->price_after_margin }} сомони
                             </span>
@@ -169,17 +169,17 @@
 
         <!-- Топ продаж -->
 
-        <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center">Топ продаж </h2>
+        <h2 class="mt-2 mb-4 my-md-4 text-muted mb-other-product font-weight-bold text-xs-center">Топ продаж </h2>
 
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 mt-3 px-2 px-md-0 custom-lined mx-md-n4">
+        <div class="px-2 mt-3 row row-cols-2 row-cols-md-3 row-cols-lg-5 px-md-0 custom-lined mx-md-n4">
 
             @forelse ($topProducts as $product)
-            <div class="col d-flex align-items-center justify-content-center mb-4 px-1 px-md-2">
-                <div class="card rounded shadow border-0 h-100 w-100">
-                    <img class="img-fluid rounded" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
-                    <div class="container d-flex flex-column justify-content-between flex-wrap">
-                        <h4 class="product-name shop-subject mt-3" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
-                        <div class="price-place d-flex justify-content-between align-items-center my-3  text-danger">
+            <div class="px-1 mb-4 col d-flex align-items-center justify-content-center px-md-2">
+                <div class="border-0 rounded shadow card h-100 w-100">
+                    <img class="rounded img-fluid" src="{{ Storage::url($product->image) ?? '/storage/app/public/theme/no-photo.jpg' }}" alt="">
+                    <div class="container flex-wrap d-flex flex-column justify-content-between">
+                        <h4 class="mt-3 product-name shop-subject" style="height: 2rem;">{{ Str::limit($product->name, 26) }}</h4>
+                        <div class="my-3 price-place d-flex justify-content-between align-items-center text-danger">
                             <span class="font-weight-bold">
                                 {{ $product->price_after_margin }} сомони
                             </span>
@@ -199,20 +199,20 @@
     <div class="partners_and_another">
         @if($middle_banner)
         <!--BANNER  -->
-        <div class="row under_banner d-none d-md-block mt-4">
+        <div class="mt-4 row under_banner d-none d-md-block">
             <a href="{{ $middle_banner ? $middle_banner->url : '' }}">
                 <img src="{{ Storage::url($middle_banner->image ?? '') }}" class="img-fluid rounded-11">
             </a>
         </div>
         <!--Banner end-->
         @endif
-        <h2 class="mb-4 mt-2 my-md-4 text-muted mb-other-product font-weight-bold text-center w-100">
+        <h2 class="mt-2 mb-4 text-center my-md-4 text-muted mb-other-product font-weight-bold w-100">
             <a class="text-decoration-none text-muted" href="{{ route('stores') }}">Магазины</a>
         </h2>
-        <div class="owl-carousel markets owl-theme" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+        <div class="owl-carousel markets owl-theme d-none" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}' id="loadOwlCarousel">
             @forelse ($stores as $store)
             <div class="item d-flex flex-column align-items-center position-relative">
-                <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="" class="rounded-circle object-cover" width="80" height="80">
+                <img src="/storage/{{ $store->avatar ?? 'theme/avatar_store.svg' }}" alt="" class="object-cover rounded-circle" width="80" height="80">
                 <h5 class="mb-0"><a class="market-name text-dark text-decoration-none position-relative" href="#">{{ $store->name }}</a></h5>
                 <a href="{{ route('ft-store.guest', ['slug' => $store->slug]) }}" class="stretched-link"></a>
             </div>
@@ -220,21 +220,17 @@
             <div class="text-center">Извените ничего не найдено</div>
             @endforelse
         </div>
+
     </div>
 </section>
 @endsection
 
 @section('script')
     <script>
-        // $('#logout').submit(function() {
-        //     $(this).find("button[type='submit']").prop('disabled',true);
-        // });
-        // $('#logout').submit(function(e) {
-        //     e.preventDefault();
-
-        //     // $("#logout button").attr("disabled", true);
-
-        //     aler(123);
-        // });
+        $(function() {
+            if ($( "#loadOwlCarousel" ).hasClass('d-none')) {
+                $( "#loadOwlCarousel" ).removeClass( 'd-none');
+            }
+        });
     </script>
 @endsection

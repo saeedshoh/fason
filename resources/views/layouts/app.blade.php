@@ -30,7 +30,7 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W352P4J3KX"></script>
-    <script>
+<script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -50,7 +50,7 @@
 <div class="modal fade mb-custom-login" id="enter_site" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
-            <div class="modal-header border-0">
+            <div class="border-0 modal-header">
                 <button type="button" class="close d-none d-lg-block h3" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,29 +61,29 @@
                   Назад
                 </span>
             </div>
-            <div class="modal-body text-center bg-white">
+            <div class="text-center bg-white modal-body">
                 <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
                 <p class="text-muted mb-pre--text">
                    Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары.
                 </p>
                 <form id="sms-confirmed" class="text-center" route="{{ route('sms-confirmed') }}"  onsubmit="return false">
-                  <div class="input-group text-left  btn-group-fs">
+                  <div class="text-left input-group btn-group-fs">
                     <div class="input-group-prepend position-relative">
                       <div class="input-group-text btn-link btn-custom-fs text-decoration-none">+992</div>
                     </div>
-                    <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="form-control shadow-none" id="phone" placeholder="Введите номер телефона" form="add_address" required>
+                    <input inputmode="numeric" pattern="[0-9]*" data-inputmask="'alias': 'phonebe'" name="phone" class="shadow-none form-control" id="phone" placeholder="Введите номер телефона" form="add_address" required>
                   </div>
-                  <button  type="button" class="btn btn-danger rounded-11 btn-lg my-4" id="send-code">Получить код</button>
-                  <div class="enter-code my-3" style="display: none">
-                    <div class="form-group text-center">
+                  <button  type="button" class="my-4 btn btn-danger rounded-11 btn-lg" id="send-code">Получить код</button>
+                  <div class="my-3 enter-code" style="display: none">
+                    <div class="text-center form-group">
                       <input type="number" name="code" id="code" class="form-control" id="code" placeholder="Введите код">
                     </div>
                       <h2 id="count-down" class="my-3">01:00</h2>
                       <div class="pre--info">
                         <p class="text-muted mb-pre--text sms--true">Вам будет выслан смс с кодом активации для подтверждения вашего номера телефона</p>
-                        <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code  text-decoration-none">Отправить код повторно</button></p>
+                        <p class="text-muted mb-pre--text sms--false" style="display: none">Если вы не получили СМС с кодом <br> <button type="button" class="btn btn-link send-code text-decoration-none">Отправить код повторно</button></p>
                       </div>
-                      <button type="button" class="btn btn-danger rounded-11 px-5 btn-lg" id="btn-login">Вход</button>
+                      <button type="button" class="px-5 btn btn-danger rounded-11 btn-lg" id="btn-login">Вход</button>
                   </div>
                 </form>
                 <p class="privacy-policy mb-pre--text">
@@ -94,7 +94,7 @@
 
 
             </div>
-            <div class="modal-footer border-0"></div>
+            <div class="border-0 modal-footer"></div>
         </div>
     </div>
 </div>
@@ -103,38 +103,38 @@
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered modal-md">
     <div class="modal-content">
-      <div class="modal-header border-0 d-none">
+      <div class="border-0 modal-header d-none">
       </div>
-      <div class="modal-body text-center bg-white" style="z-index: 99999;overflow-y: scroll;">
+      <div class="text-center bg-white modal-body" style="z-index: 99999;overflow-y: scroll;">
         <img src="/storage/theme/logo_fason.svg" alt="" class="my-3" width="160">
-        <p class="text-muted mb-pre--text mb-0">
+        <p class="mb-0 text-muted mb-pre--text">
                Зарегистрируйтесь на сайте, чтобы купить и продать необходимые товары.
         </p>
-        <div class="container text-center pb-5">
+        <div class="container pb-5 text-center">
           {{-- <img src="/storage/theme/logo_fason.svg" alt=""> --}}
-          <form id="add_address" class="text-center needs-validation pb-3 pb-md-0" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
+          <form id="add_address" class="pb-3 text-center needs-validation pb-md-0" action="{{ route('users.contacts') }}" method="POST" enctype="multipart/form-data" onsubmit="return false">
             @csrf
             <label for="profile_photo_path" class="cursor-pointer d-block user_avatar">
-              <img src="/storage/theme/no-photo.svg" alt="" width="100" height="100" class="rounded-circle object-cover" id="main-poster">
-              <div class="text-center mt-3">
+              <img src="/storage/theme/no-photo.svg" alt="" width="100" height="100" class="object-cover rounded-circle" id="main-poster">
+              <div class="mt-3 text-center">
                 <h6>Добавить фото</h6>
               </div>
             </label>
             <div class="custom-file d-none">
               <input type="file" accept="image/*"  class="custom-file-input" id="profile_photo_path" lang="es" name="profile_photo_path">
             </div>
-            <div class="input-group text-left  btn-group-fs my-3">
+            <div class="my-3 text-left input-group btn-group-fs">
               <div class="input-group-prepend position-relative">
-                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+                <div class="px-1 input-group-text btn-link btn-custom-fs text-decoration-none"></div>
               </div>
               <input type="text" class="form-control" placeholder="Имя.." name="name" autocomplete="off" required>
               <div class="invalid-feedback">
                 Введите ваше имя
               </div>
             </div>
-            <div class="input-group text-left  btn-group-fs mb-3">
+            <div class="mb-3 text-left input-group btn-group-fs">
               <div class="input-group-prepend position-relative">
-                <div class="input-group-text btn-link btn-custom-fs text-decoration-none px-1"></div>
+                <div class="px-1 input-group-text btn-link btn-custom-fs text-decoration-none"></div>
               </div>
               <input type="text" class="form-control" placeholder="Адрес дома..." name="address" autocomplete="off" required>
               <div class="invalid-feedback">
@@ -147,7 +147,7 @@ aria-hidden="true">
               $cities = App\Models\City::get();
               @endphp
               @foreach($cities as $city)
-                <div class="form-group form-check col-6 col-lg-3 px-4 px-lg-0">
+                <div class="px-4 form-group form-check col-6 col-lg-3 px-lg-0">
                   <input class="form-check-input" type="radio" id="city_{{ $city->id }}" name="city_id" value="{{ $city->id }}" required>
                   <label class="form-check-label" for="city_{{ $city->id }}">{{ $city->name }}</label>
                   <div class="invalid-feedback">Выберите ваш город</div>
@@ -155,7 +155,7 @@ aria-hidden="true">
               @endforeach
 
             </div>
-            <p class="privacy-policy mb-pre--text mb-0">
+            <p class="mb-0 privacy-policy mb-pre--text">
               <a href="{{ route('useful_links.privacy_policy') }}" class="privacy-policy">
                 Политика конфиденциальности
               </a>
