@@ -206,7 +206,7 @@
                             {{-- <div class="d-flex justify-content-center">
                                 {{ $sales->links() }}
                             </div> --}}
-                           <div class="text-center d-none loading_hide text-danger">
+                           <div class="text-center d-none loading_hide_sale text-danger">
                             <div class="spinner-border" role="status">
                               <span class="sr-only">Loading...</span>
                             </div>
