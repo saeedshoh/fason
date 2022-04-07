@@ -118,8 +118,10 @@
                         {{-- <div class="d-flex justify-content-center">
                             {{ $orders->links() }}
                         </div> --}}
-                        <div class="text-center d-none loading_hide">
-                             <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdomkomfort.net%2Fcatalog%2Fofisnie-dveri&psig=AOvVaw1HoYhLVb7tfEttAKiQu4uE&ust=1649397179693000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCLCcgsOhgfcCFQAAAAAdAAAAABAa" alt="loading">
+                        <div class="text-center d-none loading_hide text-danger">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
 
                     </div>
@@ -204,9 +206,11 @@
                             {{-- <div class="d-flex justify-content-center">
                                 {{ $sales->links() }}
                             </div> --}}
-                            <div class="text-center loading_hide d-none">
-                                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdomkomfort.net%2Fcatalog%2Fofisnie-dveri&psig=AOvVaw1HoYhLVb7tfEttAKiQu4uE&ust=1649397179693000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCLCcgsOhgfcCFQAAAAAdAAAAABAa" alt="loading">
-                           </div>
+                           <div class="text-center d-none loading_hide text-danger">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                         </div>
                     @endif
                 </div>
