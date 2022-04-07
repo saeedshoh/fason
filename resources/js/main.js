@@ -93,12 +93,12 @@ $(document).ready(function() {
         if ($(document).height() - $(this).height() == $(this).scrollTop()) {
             if ($(".order-scroll")[0]) {
                 if ($(".show").data("type") == 1 && step_sale != 0) {
-                    $(".loading_hide").removeClass("d-none");
+                    $(".loading_hide_sale:last").removeClass("d-none");
                     $.get("orders?salePage=" + step_sale, function(
                         data,
                         status
                     ) {
-                        $(".loading_hide").addClass("d-none");
+                        $(".loading_hide_sale:last").addClass("d-none");
                         step_sale++;
                         var products = $.parseHTML(data);
                         if (
@@ -123,12 +123,12 @@ $(document).ready(function() {
         if ($(document).height() - $(this).height() == $(this).scrollTop()) {
             if ($(".order-scroll")[0]) {
                 if ($(".show").data("type") == 2 && step_order != 0) {
-                    $(".loading_hide").removeClass("d-none");
+                    $(".loading_hide:last").removeClass("d-none");
                     $.get("orders?orderPage=" + step_order, function(
                         data,
                         status
                     ) {
-                        $(".loading_hide").addClass("d-none");
+                        $(".loading_hide:last").addClass("d-none");
                         step_order++;
                         var products = $.parseHTML(data);
                         if (
@@ -141,7 +141,7 @@ $(document).ready(function() {
                                     .find(".show")
                                     .html()
                             );
-                        }else {
+                        } else {
                             step_order = 0;
                         }
                     });
