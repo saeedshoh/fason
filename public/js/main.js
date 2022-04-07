@@ -25570,13 +25570,17 @@ $(document).ready(function () {
   $(window).scroll(function () {
     if ($(document).height() - $(this).height() == $(this).scrollTop()) {
       if ($(".order-scroll")[0]) {
-        if ($(".show").data("type") == 1) {
+        if ($(".show").data("type") == 1 && step_sale != 0) {
+          $(".loading_hide").removeClass("d-none");
           $.get("orders?salePage=" + step_sale, function (data, status) {
+            $(".loading_hide").addClass("d-none");
             step_sale++;
             var products = $.parseHTML(data);
 
             if ($(products).find(".show div.empty-order p").text() != "У вас нет продаж") {
               $(".show").append($(products).find(".show").html());
+            } else {
+              step_sale = 0;
             }
           });
         }
@@ -25586,13 +25590,17 @@ $(document).ready(function () {
   $(window).scroll(function () {
     if ($(document).height() - $(this).height() == $(this).scrollTop()) {
       if ($(".order-scroll")[0]) {
-        if ($(".show").data("type") == 2) {
+        if ($(".show").data("type") == 2 && step_order != 0) {
+          $(".loading_hide").removeClass("d-none");
           $.get("orders?orderPage=" + step_order, function (data, status) {
+            $(".loading_hide").addClass("d-none");
             step_order++;
             var products = $.parseHTML(data);
 
             if ($(products).find(".show div.empty-order p").text() != "У вас нет покупок") {
               $(".show").append($(products).find(".show").html());
+            } else {
+              step_order = 0;
             }
           });
         }
