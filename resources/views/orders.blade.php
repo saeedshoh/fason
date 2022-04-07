@@ -111,13 +111,16 @@
                             </div>
                         </div>
                         @empty
-                        <div class="empty-order py-3 mx-0 my-2 row border-top border-bottom align-items-center position-relative">
+                        <div class="py-3 mx-0 my-2 empty-order row border-top border-bottom align-items-center position-relative">
                             <p class="m-0">У вас нет покупок</p>
                         </div>
                         @endforelse
                         {{-- <div class="d-flex justify-content-center">
                             {{ $orders->links() }}
                         </div> --}}
+                        <div class="text-center d-none loading_hide">
+                             <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdomkomfort.net%2Fcatalog%2Fofisnie-dveri&psig=AOvVaw1HoYhLVb7tfEttAKiQu4uE&ust=1649397179693000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCLCcgsOhgfcCFQAAAAAdAAAAABAa" alt="loading">
+                        </div>
 
                     </div>
 
@@ -193,7 +196,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <div class="empty-order py-3 mx-0 my-2 row border-top border-bottom align-items-center position-relative">
+                                <div class="py-3 mx-0 my-2 empty-order row border-top border-bottom align-items-center position-relative">
                                     <p class="m-0">У вас нет продаж</p>
                                 </div>
                             @endforelse
@@ -201,6 +204,9 @@
                             {{-- <div class="d-flex justify-content-center">
                                 {{ $sales->links() }}
                             </div> --}}
+                            <div class="text-center loading_hide d-none">
+                                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdomkomfort.net%2Fcatalog%2Fofisnie-dveri&psig=AOvVaw1HoYhLVb7tfEttAKiQu4uE&ust=1649397179693000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCLCcgsOhgfcCFQAAAAAdAAAAABAa" alt="loading">
+                           </div>
                         </div>
                     @endif
                 </div>
