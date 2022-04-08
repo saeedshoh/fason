@@ -12137,7 +12137,7 @@ div#main-slider .carousel-inner > .carousel-item > img {
 }
 
 @media only screen and (max-width: 768px) {
-  .carousel-inner > .carousel-item > img {
+  div#main-slider .carousel-inner > .carousel-item > img {
     width: auto !important;
     height: 345px !important;
   }
