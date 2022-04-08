@@ -12138,7 +12138,7 @@ div#main-slider .carousel-inner > .carousel-item > img {
 
 @media only screen and (max-width: 768px) {
   div#main-slider .carousel-inner > .carousel-item > img {
-    width: auto !important;
+    width: 100% !important;
     height: 345px !important;
   }
 
@@ -12195,6 +12195,11 @@ div#main-slider .carousel-inner > .carousel-item > img {
 @media only screen and (max-width: 350px) {
   .mobile-nav--title {
     display: none;
+  }
+
+  div#main-slider .carousel-inner > .carousel-item > img {
+    width: 100% !important;
+    height: 250px !important;
   }
 
   .customer-tab {
