@@ -866,6 +866,11 @@ input[type="number"] {
     background: #f2f2f2;
 }
 
+div#main-slider .carousel-inner > .carousel-item > img {
+    width: 760px !important;
+    height: 505px !important;
+}
+
 @media only screen and (max-width: 991px) {
     .customer-tab {
         display: grid;
@@ -907,6 +912,10 @@ input[type="number"] {
 }
 
 @media only screen and (max-width: 768px) {
+    .carousel-inner > .carousel-item > img {
+        width: auto !important;
+        height: 345px !important;
+    }
     .w-md-100 {
         width: 100% !important;
     }
