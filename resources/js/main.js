@@ -88,7 +88,39 @@ $(".numeric").on("change keyup", function() {
 ///  products line
 var step_sale = 2;
 var step_order = 2;
+var step_favorite = 2;
 $(document).ready(function() {
+    $(window).scroll(function() {
+        if ($(document).height() - $(this).height() == $(this).scrollTop()) {
+            if ($("#favorite_scroll")[0]) {
+                if (step_favorite != 0) {
+                    $(".loading_hide_favorite:last").removeClass("d-none");
+                    $.get("favorite?page=" + step_favorite, function(
+                        data,
+                        status
+                    ) {
+                        $(".loading_hide_favorite:last").addClass("d-none");
+                        step_favorite++;
+                        var favorite_products = $.parseHTML(data);
+                        if (
+                            $(favorite_products)
+                                .find("div.empty-favorite")
+                                .text() != "Извените ничего не найдено"
+                        ) {
+                            $(".active-product").append(
+                                $(favorite_products)
+                                    .find(".active-product")
+                                    .html()
+                            );
+                        } else {
+                            step_favorite = 0;
+                        }
+                    });
+                }
+            }
+        }
+    });
+    // order start
     $(window).scroll(function() {
         if ($(document).height() - $(this).height() == $(this).scrollTop()) {
             if ($(".order-scroll")[0]) {
@@ -149,6 +181,7 @@ $(document).ready(function() {
             }
         }
     });
+
     const url = $(location).attr("href");
     if (url.indexOf("category") !== -1) {
         function myFunction(x) {
