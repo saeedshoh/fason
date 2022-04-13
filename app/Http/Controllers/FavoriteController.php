@@ -15,9 +15,15 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $back = url()->previous();
-        $favorites = Favorite::where('user_id', Auth::id())->where('status', 1)->get();
-        return view('favorite', compact('favorites', 'back'));
+        $is_favorite = $favoritePag = [];
+        $favorites = Favorite::where('user_id', Auth::id())
+        ->where('status', 1)
+        ->latest('id')->paginate(15);
+         return view('favorite', compact('favorites','favoritePag'));
+
+        // $back = url()->previous();
+        // $favorites = Favorite::where('user_id', Auth::id())->where('status', 1)->get();
+        // return view('favorite', compact('favorites', 'back'));
     }
 
     /**

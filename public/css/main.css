@@ -12082,11 +12082,6 @@ input[type=number] {
   background: #f2f2f2;
 }
 
-div#main-slider .carousel-inner > .carousel-item > img {
-  width: 760px !important;
-  height: 505px !important;
-}
-
 @media only screen and (max-width: 991px) {
   .customer-tab {
     display: grid;
@@ -12137,11 +12132,6 @@ div#main-slider .carousel-inner > .carousel-item > img {
 }
 
 @media only screen and (max-width: 768px) {
-  div#main-slider .carousel-inner > .carousel-item > img {
-    width: 100% !important;
-    height: 345px !important;
-  }
-
   .w-md-100 {
     width: 100% !important;
   }
@@ -12195,11 +12185,6 @@ div#main-slider .carousel-inner > .carousel-item > img {
 @media only screen and (max-width: 350px) {
   .mobile-nav--title {
     display: none;
-  }
-
-  div#main-slider .carousel-inner > .carousel-item > img {
-    width: 100% !important;
-    height: 250px !important;
   }
 
   .customer-tab {
