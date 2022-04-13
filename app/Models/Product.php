@@ -197,4 +197,9 @@ class Product extends Model
                 });
         });
     }
+
+    public function beforeHiding()
+    {
+        return 15 - $this->updated_at->diffInDays(now());
+    }
 }

@@ -242,12 +242,12 @@
                       @else
                         <div class="public_card_custom">Опубликовано</div>
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                        @if($product->updated_at->diffInDays(now()) === 1)
-                          {{ $product->updated_at->diffInDays(now()) }} день
-                        @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
-                          {{ $product->updated_at->diffInDays(now()) }} дня
+                        @if( $product->beforeHiding()  === 1)
+                          {{  $product->beforeHiding() }} день
+                        @elseif( $product->beforeHiding() === 2 ||  $product->beforeHiding() === 3 || $product->beforeHiding() === 4)
+                          {{ $product->beforeHiding() }} дня
                         @else
-                          {{ 15 - $product->updated_at->diffInDays(now()) }} дней
+                          {{ $product->beforeHiding() }} дней
                         @endif
                       @endif
                     </span>
@@ -279,12 +279,12 @@
                     <span class="text-secondary">
                         <div class="public_card_custom">Опубликовано</div>
                         <img height="15px" width="15px" src="/storage/theme/icons/clock.svg"> До скрытия
-                        @if($product->updated_at->diffInDays(now()) === 1)
-                            {{ $product->updated_at->diffInDays(now()) }} день
-                        @elseif($product->updated_at->diffInDays(now()) === 2 || $product->updated_at->diffInDays(now()) === 3 || $product->updated_at->diffInDays(now()) === 4)
-                            {{ $product->updated_at->diffInDays(now()) }} дня
+                        @if($product->beforeHiding() === 1)
+                            {{ $product->beforeHiding() }} день
+                        @elseif($product->beforeHiding() === 2 || $product->beforeHiding() === 3 || $product->beforeHiding() === 4)
+                            {{ $product->beforeHiding() }} дня
                         @else
-                            {{ 15 - $product->updated_at->diffInDays(now()) }} дней
+                            {{ 15 - $product->beforeHiding() }} дней
                         @endif
                     </span>
                     <h4 class="product-name shop-subject mt-2" >{{ Str::limit($product->name, 30) }}</h4>
